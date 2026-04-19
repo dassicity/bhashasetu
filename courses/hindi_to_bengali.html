@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="हिन्दी से बांग्ला सीखने का प्रथम-सिद्धांत पाठ्यक्रम — वर्णमाला की पद्धति पर।" />
+<title>বাংলা শিখি — हिन्दी से बांग्ला</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Devanagari', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .hi { font-family: 'Noto Serif Devanagari', serif; }
+  .bn { font-family: 'Noto Serif Bengali', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  /* ——— masthead ——— */
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .bn { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  /* ——— stage navigator ——— */
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  /* ——— stages ——— */
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  /* ——— mapping row (Hindi ↔ Bengali) ——— */
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .hi-g {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .bn-g {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 4px; }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .group-label .hi { font-family: 'Noto Serif Devanagari', serif; font-size: 14px; color: var(--ink-soft); letter-spacing: 0.05em; text-transform: none; }
+
+  /* ——— word comparison card ——— */
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .bn { font-family: 'Noto Serif Bengali', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 13px; color: var(--teal); grid-column: 1 / 3; font-style: italic; font-family: 'Noto Serif Devanagari', serif; }
+
+  /* ——— sentence ——— */
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .bn { font-family: 'Noto Serif Bengali', serif; font-size: 21px; line-height: 1.6; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; line-height: 1.6; }
+  .sentence .literal { font-size: 13px; color: var(--ink-faded); font-family: 'Noto Serif Devanagari', serif; font-style: italic; }
+
+  /* ——— conjugation ——— */
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Devanagari', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .bn { font-family: 'Noto Serif Bengali', serif; font-weight: 500; font-size: 18px; }
+  .conjug-row .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 15px; color: var(--ink-soft); }
+
+  /* ——— guni table ——— */
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+  table.guni td.hi-cell { font-family: 'Noto Serif Devanagari', serif; }
+  table.guni td.bn-cell { font-family: 'Noto Serif Bengali', serif; }
+
+  /* ——— literary quote ——— */
+  .vachana {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .vachana::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .vachana .bn { font-family: 'Noto Serif Bengali', serif; font-size: 19px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; }
+  .vachana .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .vachana .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ——— aside ——— */
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+    line-height: 1.7;
+  }
+  .aside strong { color: var(--sindoor); }
+  .aside .bn { font-family: 'Noto Serif Bengali', serif; font-size: 17px; }
+
+  /* ——— principles ——— */
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, devanagari);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 10px; line-height: 1.7; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  /* ——— video ——— */
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Devanagari', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  /* ——— progress ——— */
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .bn { font-size: 18px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; font-family: 'Noto Serif Bengali', serif; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .bn-g { font-size: 26px; }
+    .map-cell .hi-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .hi-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 400px) {
+    .map-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .conjug-row { grid-template-columns: 70px 1fr; }
+    .stage-tab { padding: 11px 7px 9px; font-size: 11px; }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">एक प्राइमर · বর্ণপরিচয়</div>
+    <h1 class="title">
+      <span class="bn">বাংলা শিখি</span>
+      हिन्दी से बांग्ला सीखें
+    </h1>
+    <p class="subtitle">विद्यासागर की बर्णपरिचय पद्धति पर — एक बार में एक ही अनजानी चीज़, रूप पहले अर्थ बाद में, सूची नहीं व्यवस्था — हिन्दी जो जानती है उसी की नींव पर बांग्ला।</p>
+    <div class="byline">दस चरण <span class="sep">·</span> मोबाइल-अनुकूल <span class="sep">·</span> बिल्कुल शून्य से</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">००</span>भूमिका</button>
+    <button class="stage-tab" data-stage="1"><span class="num">०१</span>स्वर</button>
+    <button class="stage-tab" data-stage="2"><span class="num">०२</span>व्यंजन</button>
+    <button class="stage-tab" data-stage="3"><span class="num">०३</span>संयोजन</button>
+    <button class="stage-tab" data-stage="4"><span class="num">०४</span>मूल शब्द</button>
+    <button class="stage-tab" data-stage="5"><span class="num">०५</span>वाक्य</button>
+    <button class="stage-tab" data-stage="6"><span class="num">०६</span>पाठ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">०७</span>शब्द-क्षेत्र</button>
+    <button class="stage-tab" data-stage="8"><span class="num">०८</span>प्रयोग</button>
+    <button class="stage-tab" data-stage="9"><span class="num">०९</span>साहित्य</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<!-- ════════ STAGE 0 ════════ -->
+<section class="stage active" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">चरण ०० · भूमिका</div>
+    <h2 class="stage-title">यह पाठ क्यों अलग है</h2>
+    <p class="stage-lede">आप हिन्दी जानते हैं। इसका मतलब बांग्ला सीखने के लिए आपको अंग्रेज़ी-भाषियों की तरह शून्य से शुरू नहीं करना पड़ेगा — ४१ में से ४३ ध्वनियाँ, व्याकरण का पूरा ढाँचा, और शब्दकोश का ४१% हिस्सा आप पहले से जानते हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>बचपन की <strong>वर्णमाला</strong> और <strong>बारहखड़ी</strong> याद है? क, का, कि, की, कु, कू — वह पहली किताब जिसने आपको पढ़ना सिखाया। बांग्ला की वर्णमाला भी ठीक उसी ढाँचे पर बनी है — क्योंकि दोनों एक ही ब्राह्मी लिपि की संतान हैं। यह कोर्स उसी पद्धति का उपयोग करता है: <strong>एक बार में एक ही नयी बात</strong>, और जो नहीं सिखाया गया है उसका उदाहरण नहीं दिया जाएगा।</p>
+
+    <p>वाक्य की संरचना देखिए — <em>"मैं भात खाता हूँ"</em> और <em>"আমি ভাত খাই"</em> (<span class="mono">āmi bhāt khāi</span>)। दोनों में कर्ता पहले, कर्म बीच में, क्रिया अंत में — SOV। यही कंकाल आपके मुँह की आदत है। बस नया चेहरा सीखना है।</p>
+
+    <h3><span class="num">¶</span>हिन्दी → बांग्ला: कहाँ मेल, कहाँ फ़र्क़</h3>
+
+    <ol class="principles">
+      <li><strong>ध्वनियाँ — ४३ में से ४१ एक हैं।</strong> क-ख-ग-घ-ङ, च-छ-ज-झ-ञ, ट-ठ-ड-ढ-ण — पूरा वर्ग क्रम हूबहू वही है। अल्पप्राण/महाप्राण, घोष/अघोष — आपका मुँह यह सब पहले से जानता है। नया सिर्फ़ दो ध्वनियाँ हैं: <span class="bn">ঐ</span> (oi) और <span class="bn">ঔ</span> (ou) के द्विस्वर, जो हिन्दी में ऐ/औ के रूप में थोड़े अलग उच्चारित होते हैं।</li>
+      <li><strong>लिपि — अलग चेहरा, एक नियम।</strong> देवनागरी और बांग्ला दोनों अबुगिदा हैं — हर व्यंजन में 'अ' अंतर्निहित है, स्वर-चिह्न से बदलता है। हिन्दी <em>क</em> की अंतर्निहित ध्वनि 'a' है; बांग्ला <span class="bn">ক</span> की 'o' है (कोलकाता वाला उच्चारण) — बस एक छोटा सुर-बदलाव।</li>
+      <li><strong>व्याकरण — लिंग का बोझ उतर जाता है।</strong> हिन्दी कहती है "लड़का जाता है, लड़की जाती है" — क्रिया लिंग बदलती है। बांग्ला में यह भेद <strong>नहीं है</strong> — <span class="bn">ছেলে যায়, মেয়ে যায়</span> (<span class="mono">chele jāy, meye jāy</span>) — एक ही क्रियारूप। आपके लिए यह जटिलता छूट जाती है!</li>
+      <li><strong>शब्दकोश — ४१% सीधे पहचान में।</strong> समय, दिन, नाम, पुस्तक, सूर्य, भूमि — ये तत्सम शब्द बांग्ला में लगभग वैसे ही हैं (<span class="bn">সময়, দিন, নাম, পুস্তক, সূর্য, ভূমি</span>)। १० बुनियादी तत्सम शब्द तुरंत एक पुल बना देते हैं।</li>
+      <li><strong>कारक — 'को, से, में' पीछे बैठते हैं।</strong> हिन्दी में "घर में, घर से, घर को" — परसर्ग शब्द के पीछे लगते हैं। बांग्ला भी बिल्कुल वही करती है: <span class="bn">বাড়িতে, বাড়ি থেকে, বাড়িকে</span> (<span class="mono">bāṛite, bāṛi theke, bāṛike</span>)। आपका दिमाग पहले से इसी क्रम में सोचता है।</li>
+      <li><strong>एकमात्र चुनौती: लिपि का चेहरा।</strong> देवनागरी के ऊपर सीधी 'शिरोरेखा' है, बांग्ला में भी है — लेकिन अक्षर की चाल घुमावदार है। ২ देख कर हिन्दी 'र' याद रखना, <span class="bn">র</span> देख कर 'र' पढ़ना — बस कुछ हफ़्तों की आँख की कसरत।</li>
+    </ol>
+
+    <div class="aside"><strong>पद्धति।</strong> हर चरण में बांग्ला अक्षर/शब्द/वाक्य के साथ हिन्दी समतुल्य रखा गया है। आप हिन्दी पहचानते हैं — बांग्ला सिर्फ़ नया चेहरा है, नयी अवधारणा नहीं।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ऊपर <strong>स्वर</strong> टैब पर दबाएँ, शुरुआत करें।</p>
+  </div>
+</section>
+
+<!-- ════════ STAGE 1 ════════ -->
+<section class="stage" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">चरण ०१ · ध्वनि</div>
+    <h2 class="stage-title">स्वर — <span class="bn">স্বরবর্ণ</span></h2>
+    <p class="stage-lede">हिन्दी में आप ११ स्वर पहचानते हैं। बांग्ला में भी ११ हैं। ध्वनियाँ लगभग एक जैसी — सिर्फ़ चेहरा नया। हर हिन्दी अक्षर के साथ उसका बांग्ला जुड़वा पहचान लें।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+bengali+vowels+swarabarna+pronunciation" title="বাংলা স্বরবর্ণ उच्चारण" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">बांग्ला स्वरवर्ण का उच्चारण <a href="https://www.youtube.com/results?search_query=learn+bengali+vowels+swarabarna+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>पढ़ने का नियम।</strong> हर कार्ड पर टैप करने से एक उदाहरण शब्द दिखेगा। हिन्दी अक्षर ऊपर, बांग्ला नीचे — आँख पहले हिन्दी पहचानेगी, फिर बांग्ला चेहरा स्मृति में बस जाएगा।</div>
+
+    <div class="group-label">ह्रस्व / दीर्घ जोड़ा — <span class="hi">'अ' परिवार</span></div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="অমল (omol) = अमल — साफ़। ध्यान दें: बांग्ला में अंतर्निहित स्वर 'o' की तरह गूँजता है।"><div class="hi-g">अ</div><div class="arrow">↓</div><div class="bn-g">অ</div><div class="label">a / o</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="আম (ām) = आम — फल"><div class="hi-g">आ</div><div class="arrow">↓</div><div class="bn-g">আ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'इ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ইতি (iti) = इति — समाप्त"><div class="hi-g">इ</div><div class="arrow">↓</div><div class="bn-g">ই</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ঈশ্বর (īśwor) = ईश्वर — वही संस्कृत शब्द"><div class="hi-g">ई</div><div class="arrow">↓</div><div class="bn-g">ঈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'उ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="উট (uṭ) = ऊँट"><div class="hi-g">उ</div><div class="arrow">↓</div><div class="bn-g">উ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ঊষা (ūṣā) = ऊषा — भोर"><div class="hi-g">ऊ</div><div class="arrow">↓</div><div class="bn-g">ঊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ऋ — संस्कृत ऋण</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ঋষি (ṛṣi) = ऋषि — एकदम वही संस्कृत शब्द!"><div class="hi-g">ऋ</div><div class="arrow">↓</div><div class="bn-g">ঋ</div><div class="label">ṛi</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>लिखाई में बोली का रहस्य।</strong> हिन्दी और बांग्ला दोनों ह्रस्व इ/दीर्घ ई लिखते हैं, पर बोलने में फ़र्क़ अब लगभग खो गया है। देवनागरी की तरह बांग्ला भी संस्कृत की स्मृति में यह भेद लिखती है — उच्चारण पर परेशान मत होइए, सिर्फ़ सही चिह्न लगाइए।</div>
+
+    <div class="group-label">'ए' और 'ओ' परिवार — <span class="hi">यहाँ दो नए मेहमान</span></div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="এক (ek) = एक"><div class="hi-g">ए</div><div class="arrow">↓</div><div class="bn-g">এ</div><div class="label">e</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ঐরাবত (oirābot) = ऐरावत — इंद्र का हाथी। हिन्दी 'ऐ' यहाँ 'oi' में बदल जाता है।" style="border-color: var(--sindoor);"><div class="hi-g" style="color: var(--sindoor);">ऐ</div><div class="arrow">↓</div><div class="bn-g" style="color: var(--sindoor);">ঐ</div><div class="label">oi ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ওষুধ (oṣudh) = औषध — दवा"><div class="hi-g">ओ</div><div class="arrow">↓</div><div class="bn-g">ও</div><div class="label">o</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ঔষধ (ouṣodh) = औषध। हिन्दी 'औ' यहाँ 'ou' में बदल जाता है।" style="border-color: var(--sindoor);"><div class="hi-g" style="color: var(--sindoor);">औ</div><div class="arrow">↓</div><div class="bn-g" style="color: var(--sindoor);">ঔ</div><div class="label">ou ⚡</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>ऐ/औ का फेरबदल।</strong> हिन्दी 'ऐ' (जैसे 'है' में) एक खुला स्वर है, पर बांग्ला <span class="bn">ঐ</span> असल में दो स्वर एक साथ — <em>o + i</em>। इसी तरह <span class="bn">ঔ</span> = <em>o + u</em>। कान को यह ज़्यादा 'ऑय' और 'ऑऊ' जैसा लगेगा। यही दो <strong>एकमात्र</strong> नयी ध्वनियाँ हैं इस पूरे कोर्स में।</div>
+
+    <div class="group-label">अनुस्वार और विसर्ग — हिन्दी जैसे ही</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="হংস (hongso) = हंस — राजहंस"><div class="hi-g">अं</div><div class="arrow">↓</div><div class="bn-g">অং</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="দুঃখ (duḥkho) = दुःख — वही शब्द"><div class="hi-g">अः</div><div class="arrow">↓</div><div class="bn-g">অঃ</div><div class="label">aḥ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="চাঁদ (cā̃d) = चाँद। बांग्ला में इसे 'चंद्रबिन्दु' कहते हैं — देवनागरी की तरह ही।"><div class="hi-g">ँ</div><div class="arrow">↓</div><div class="bn-g">ঁ</div><div class="label">̃</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">१.१</span>अभ्यास</h3>
+    <ul class="clean">
+      <li>हर जोड़ा ज़ोर से २० बार बोलें: अ-आ, इ-ई, उ-ऊ — लेकिन नज़र बांग्ला ग्लिफ़ पर रखें।</li>
+      <li>काग़ज़ पर हर बांग्ला स्वर ५ बार लिखें। हाथ आँख को सिखाता है।</li>
+      <li>जब तक हर बांग्ला स्वर १ सेकंड में पहचान न लें, चरण २ पर मत जाइए।</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════ STAGE 2 ════════ -->
+<section class="stage" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">चरण ०२ · ध्वनि (व्यंजन)</div>
+    <h2 class="stage-title">व्यंजन — <span class="bn">ব্যঞ্জনবর্ণ</span></h2>
+    <p class="stage-lede">बारहखड़ी का वर्ग क्रम आपके शरीर में है। क-ख-ग-घ-ङ, च-छ-ज-झ-ञ... ठीक उसी क्रम में बांग्ला व्यंजन सजे हैं। सिर्फ़ चेहरा नया।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+bengali+consonants+byanjanabarna+pronunciation" title="বাংলা ব্যঞ্জনবর্ণ उच्चारण" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">बांग्ला व्यंजनवर्ण का उच्चारण <a href="https://www.youtube.com/results?search_query=learn+bengali+consonants+byanjanabarna+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <h3><span class="num">२.१</span>कंठ्य वर्ग (क-वर्ग) — जीभ की जड़ तालु के पीछे</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="কমল (komol) = कमल"><div class="hi-g">क</div><div class="arrow">↓</div><div class="bn-g">ক</div><div class="label">ko</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="খবর (khobor) = ख़बर"><div class="hi-g">ख</div><div class="arrow">↓</div><div class="bn-g">খ</div><div class="label">kho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="গগন (gogon) = गगन — आकाश"><div class="hi-g">ग</div><div class="arrow">↓</div><div class="bn-g">গ</div><div class="label">go</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ঘর (ghor) = घर — एकदम वही शब्द!"><div class="hi-g">घ</div><div class="arrow">↓</div><div class="bn-g">ঘ</div><div class="label">gho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="हिन्दी ङ की तरह, अकेले दुर्लभ"><div class="hi-g">ङ</div><div class="arrow">↓</div><div class="bn-g">ঙ</div><div class="label">ṅo</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.२</span>तालव्य वर्ग (च-वर्ग)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="চন্দ্র (condro) = चन्द्र"><div class="hi-g">च</div><div class="arrow">↓</div><div class="bn-g">চ</div><div class="label">co</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ছাতা (chātā) = छाता"><div class="hi-g">छ</div><div class="arrow">↓</div><div class="bn-g">ছ</div><div class="label">cho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="জল (jol) = जल"><div class="hi-g">ज</div><div class="arrow">↓</div><div class="bn-g">জ</div><div class="label">jo</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ঝরনা (jhornā) = झरना"><div class="hi-g">झ</div><div class="arrow">↓</div><div class="bn-g">ঝ</div><div class="label">jho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="दुर्लभ, संयुक्ताक्षर में मिलता है"><div class="hi-g">ञ</div><div class="arrow">↓</div><div class="bn-g">ঞ</div><div class="label">ño</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.३</span>मूर्धन्य वर्ग (ट-वर्ग) — जीभ पीछे मोड़ कर</h3>
+    <p>हिन्दी में ट-ठ-ड-ढ-ण जैसे बजते हैं, बांग्ला में भी वैसे ही। ये ध्वनियाँ अंग्रेज़ी-भाषियों के लिए कठिन हैं — आपके लिए नहीं।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="টাকা (ṭākā) = टका / पैसा"><div class="hi-g">ट</div><div class="arrow">↓</div><div class="bn-g">ট</div><div class="label">ṭo</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ঠিক (ṭhik) = ठीक"><div class="hi-g">ठ</div><div class="arrow">↓</div><div class="bn-g">ঠ</div><div class="label">ṭho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ডাক (ḍāk) = डाक"><div class="hi-g">ड</div><div class="arrow">↓</div><div class="bn-g">ড</div><div class="label">ḍo</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ঢাকা (ḍhākā) = ढाका शहर"><div class="hi-g">ढ</div><div class="arrow">↓</div><div class="bn-g">ঢ</div><div class="label">ḍho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="বাণী (bāṇī) = वाणी"><div class="hi-g">ण</div><div class="arrow">↓</div><div class="bn-g">ণ</div><div class="label">ṇo</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.४</span>दन्त्य वर्ग (त-वर्ग) — जीभ की नोक दाँत के पीछे</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="তারা (tārā) = तारा"><div class="hi-g">त</div><div class="arrow">↓</div><div class="bn-g">ত</div><div class="label">to</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="থালা (thālā) = थाली"><div class="hi-g">थ</div><div class="arrow">↓</div><div class="bn-g">থ</div><div class="label">tho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="দিন (din) = दिन — वही शब्द!"><div class="hi-g">द</div><div class="arrow">↓</div><div class="bn-g">দ</div><div class="label">do</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ধন (dhon) = धन"><div class="hi-g">ध</div><div class="arrow">↓</div><div class="bn-g">ধ</div><div class="label">dho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="নাম (nām) = नाम — वही शब्द"><div class="hi-g">न</div><div class="arrow">↓</div><div class="bn-g">ন</div><div class="label">no</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.५</span>ओष्ठ्य वर्ग (प-वर्ग)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="পুস্তক (pustok) = पुस्तक"><div class="hi-g">प</div><div class="arrow">↓</div><div class="bn-g">প</div><div class="label">po</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ফল (phol) = फल"><div class="hi-g">फ</div><div class="arrow">↓</div><div class="bn-g">ফ</div><div class="label">pho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="বই (boi) = 'बै' — पुस्तक। ध्यान: बांग्ला ব अकेले 'b' है, पर संयुक्त में 'v/w'।"><div class="hi-g">ब</div><div class="arrow">↓</div><div class="bn-g">ব</div><div class="label">bo</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ভাষা (bhāṣā) = भाषा — वही शब्द!"><div class="hi-g">भ</div><div class="arrow">↓</div><div class="bn-g">ভ</div><div class="label">bho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="মা (mā) = माँ"><div class="hi-g">म</div><div class="arrow">↓</div><div class="bn-g">ম</div><div class="label">mo</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.६</span>अंतःस्थ, ऊष्म और विशेष</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="যাওয়া (jāoyā) = जाना। ध्यान: बांग्ला 'य' असल में 'j' की तरह बजता है!"><div class="hi-g">य</div><div class="arrow">↓</div><div class="bn-g">য</div><div class="label">jo ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="রাজা (rājā) = राजा"><div class="hi-g">र</div><div class="arrow">↓</div><div class="bn-g">র</div><div class="label">ro</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="লতা (lotā) = लता — बेल"><div class="hi-g">ल</div><div class="arrow">↓</div><div class="bn-g">ল</div><div class="label">lo</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="শান্তি (śānti) = शांति"><div class="hi-g">श</div><div class="arrow">↓</div><div class="bn-g">শ</div><div class="label">śo</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ষষ্ঠ (ṣoṣṭho) = षष्ठ — छठा"><div class="hi-g">ष</div><div class="arrow">↓</div><div class="bn-g">ষ</div><div class="label">ṣo</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="সময় (somoy) = समय"><div class="hi-g">स</div><div class="arrow">↓</div><div class="bn-g">স</div><div class="label">so</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="হাত (hāt) = हाथ"><div class="hi-g">ह</div><div class="arrow">↓</div><div class="bn-g">হ</div><div class="label">ho</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.७</span>बांग्ला के तीन विशेष अक्षर</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="পড়া (poṛā) = पढ़ना। बांग्ला ড़ = हिन्दी 'ड़'।" style="border-color: var(--ochre);"><div class="hi-g">ड़</div><div class="arrow">↓</div><div class="bn-g">ড়</div><div class="label">ṛo</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="গাঢ় (gāṛh) = गाढ़। बांग्ला ঢ় = हिन्दी 'ढ़'।" style="border-color: var(--ochre);"><div class="hi-g">ढ़</div><div class="arrow">↓</div><div class="bn-g">ঢ়</div><div class="label">ṛho</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="যায় (jāy) = जाए। यह 'अन्तःस्थ य' है, बांग्ला में सिर्फ़ संयुक्ताक्षर के दूसरे भाग में आता है।" style="border-color: var(--ochre);"><div class="hi-g">य (२)</div><div class="arrow">↓</div><div class="bn-g">য়</div><div class="label">y</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>बांग्ला का सबसे बड़ा उच्चारण-फंदा।</strong> बांग्ला में <span class="bn">ব</span> (ba) और <span class="bn">ৱ</span> (va) में अंतर नहीं है — <span class="bn">ব</span> ही दोनों काम करता है। इसलिए 'विद्यासागर' बांग्ला में <span class="bn">বিদ্যাসাগর</span> — वही अक्षर! और <span class="bn">য</span> अकेले 'ज' बोला जाता है, 'य' नहीं। 'यात्रा' = <span class="bn">যাত্রা</span> (<span class="mono">jātrā</span>)।</div>
+
+    <div class="aside"><strong>एक छोटा धोखा।</strong> हिन्दी में श, ष, स तीन अलग ध्वनियाँ लगती हैं (लिखने में)। बांग्ला में <span class="bn">শ, ষ, স</span> तीनों <em>लिखे</em> जाते हैं पर उच्चारण में लगभग एक ही 'श' है! यह आपके लिए आसान — बोलने में कोई नया श/ष भेद नहीं। लिखने में संस्कृत की परंपरा बची है, बोली में सरलता।</div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 3 ════════ -->
+<section class="stage" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">चरण ०३ · संयोजन</div>
+    <h2 class="stage-title">मात्राएँ और संयुक्ताक्षर — <span class="bn">কার-চিহ্ন ও যুক্তাক্ষর</span></h2>
+    <p class="stage-lede">बारहखड़ी याद है? का-कि-की-कु-कू-के-कै-को-कौ — वही ढाँचा बांग्ला में है। बस चिह्न की चाल बदली है।</p>
+  </div>
+  <div class="stage-body">
+    <p>आप पहले से जानते हैं: हिन्दी में क + ा = का, क + ि = कि। बांग्ला में ठीक वही होता है: <span class="bn">ক + া = কা, ক + ি = কি</span>। चिह्न का चेहरा अलग, पर नियम हूबहू वही।</p>
+
+    <h3><span class="num">३.१</span>'क' की बारहखड़ी — हिन्दी ↔ बांग्ला साथ-साथ</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>स्वर</th><th>हिन्दी</th><th>बांग्ला</th><th>उच्चारण</th></tr>
+        <tr><td>अ</td><td class="hi-cell g">क</td><td class="bn-cell g">ক</td><td class="mono">ko</td></tr>
+        <tr><td>आ</td><td class="hi-cell g">का</td><td class="bn-cell g">কা</td><td class="mono">kā</td></tr>
+        <tr><td>इ</td><td class="hi-cell g">कि</td><td class="bn-cell g">কি</td><td class="mono">ki</td></tr>
+        <tr><td>ई</td><td class="hi-cell g">की</td><td class="bn-cell g">কী</td><td class="mono">kī</td></tr>
+        <tr><td>उ</td><td class="hi-cell g">कु</td><td class="bn-cell g">কু</td><td class="mono">ku</td></tr>
+        <tr><td>ऊ</td><td class="hi-cell g">कू</td><td class="bn-cell g">কূ</td><td class="mono">kū</td></tr>
+        <tr><td>ए</td><td class="hi-cell g">के</td><td class="bn-cell g">কে</td><td class="mono">ke</td></tr>
+        <tr><td>ऐ</td><td class="hi-cell g">कै</td><td class="bn-cell g">কৈ</td><td class="mono">koi</td></tr>
+        <tr><td>ओ</td><td class="hi-cell g">को</td><td class="bn-cell g">কো</td><td class="mono">ko</td></tr>
+        <tr><td>औ</td><td class="hi-cell g">कौ</td><td class="bn-cell g">কৌ</td><td class="mono">kou</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>देखिए चिह्नों का नाच।</strong> बांग्ला <span class="bn">কি</span> में 'ि' की मात्रा अक्षर के <em>पहले</em> नहीं, साथ में दायीं ओर लगती है! देवनागरी कि (ि-क) और बांग्ला <span class="bn">কি</span> (क-ি) — <strong>चिह्न का स्थान उल्टा है।</strong> ই की मात्रा <span class="bn">ি</span> हमेशा अक्षर के बाद। यह अकेली आदत बदलनी है।</div>
+
+    <div class="aside"><strong>विद्यासागर की चाल।</strong> ये १० मात्राएँ ३४ व्यंजनों पर हूबहू उसी तरह बैठती हैं। १० × ३४ = ३४० अक्षर — १० चिह्नों की कीमत पर! आपने हिन्दी में यही किया है, अब सिर्फ़ नया चेहरा याद करना है।</div>
+
+    <h3><span class="num">३.२</span>हलन्त — <span class="bn">হসন্ত / ্</span></h3>
+    <p>हिन्दी हलन्त (्) जैसे व्यंजन की अंतर्निहित 'अ' को काट देता है, बांग्ला <span class="bn">্</span> (जिसे 'हसंत' कहते हैं) वही काम करता है। <span class="bn">ক</span> (ko) + <span class="bn">্</span> = <span class="bn">ক্</span> (k)। अवधारणा एक, नाम अलग।</p>
+
+    <h3><span class="num">३.३</span>संयुक्ताक्षर — <span class="bn">যুক্তাক্ষর</span></h3>
+    <p>बर्णपरिचय की मूल शिक्षा: क्ष = क + ष, ज्ञ = ज + ञ। बांग्ला में ठीक वैसे ही:</p>
+    <div class="sentence">
+      <div class="bn">ক্ + ক = ক্ক</div>
+      <div class="hi-gloss">क् + क = क्क → हिन्दी का 'पक्का' → बांग्ला में <span class="bn">পাক্কা</span>।</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">স্ + ত = স্ত → পুস্তক</div>
+      <div class="hi-gloss">स् + त = स्त → पुस्तक — वही शब्द, वही संयुक्ताक्षर!</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">ন্ + ন = ন্ন → অন্ন</div>
+      <div class="hi-gloss">न् + न = न्न → अन्न (भोजन)</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">ক্ + ষ = ক্ষ → অক্ষর</div>
+      <div class="hi-gloss">क् + ष = क्ष → अक्षर — हिन्दी में भी क्ष = क + ष!</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">জ্ + ঞ = জ্ঞ → জ্ঞান</div>
+      <div class="hi-gloss">ज् + ञ = ज्ञ → ज्ञान — वही जोड़, वही शब्द।</div>
+    </div>
+
+    <h3><span class="num">३.४</span>बांग्ला के विशेष 'राफला' और 'रेफ'</h3>
+    <p>हिन्दी में 'र्' ऊपर बैठता है (जैसे 'धर्म'), और 'र' नीचे जुड़ता है (जैसे 'प्रण' में न नीचे)। बांग्ला में वही दो आदतें हैं:</p>
+    <div class="sentence">
+      <div class="bn">ধর্ম (dhormo) = धर्म</div>
+      <div class="hi-gloss">देखिए ঙ के ऊपर का 'र्' — यह 'रेफ' है, वही ऊपर बैठना।</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">প্রেম (prem) = प्रेम</div>
+      <div class="hi-gloss">प के नीचे र जुड़ा है — इसे 'र-फला' कहते हैं, हिन्दी 'प्र' जैसा।</div>
+    </div>
+
+    <div class="aside"><strong>मूल बात।</strong> संयुक्ताक्षर कोई नयी धारणा नहीं — आप बारहखड़ी से ही परिचित हैं। यहाँ सिर्फ़ चेहरा अलग है। नियम हूबहू वही।</div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 4 ════════ -->
+<section class="stage" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">चरण ०४ · मूल शब्द</div>
+    <h2 class="stage-title">पचास शब्द — हिन्दी के साथ-साथ बांग्ला</h2>
+    <p class="stage-lede">हर शब्द के पास हिन्दी समतुल्य है। बहुत सारे तत्सम हैं — चेहरा अलग, शब्द वही।</p>
+  </div>
+  <div class="stage-body">
+    <h3><span class="num">४.१</span>सर्वनाम</h3>
+    <div class="words">
+      <div class="word"><span class="bn">আমি</span><span class="hi-eq">मैं</span><span class="trans">āmi</span></div>
+      <div class="word"><span class="bn">তুই</span><span class="hi-eq">तू</span><span class="trans">tui</span><span class="note">सबसे घनिष्ठ स्तर — बचपन के दोस्त/छोटे भाई-बहन के लिए</span></div>
+      <div class="word"><span class="bn">তুমি</span><span class="hi-eq">तुम</span><span class="trans">tumi</span><span class="note">परिचित स्तर — समान उम्र के दोस्त, पति/पत्नी</span></div>
+      <div class="word"><span class="bn">আপনি</span><span class="hi-eq">आप</span><span class="trans">āpni</span><span class="note">आदरसूचक — बड़े, अपरिचित, औपचारिक</span></div>
+      <div class="word"><span class="bn">সে</span><span class="hi-eq">वह (अनौपचारिक)</span><span class="trans">se</span><span class="note">⚡ हिन्दी 'वह' पर लिंग नहीं लगता क्रिया में — बांग्ला 'সে' पर भी नहीं!</span></div>
+      <div class="word"><span class="bn">তিনি</span><span class="hi-eq">वे (आदरसूचक)</span><span class="trans">tini</span><span class="note">आदर के साथ 'वह'</span></div>
+      <div class="word"><span class="bn">এটা</span><span class="hi-eq">यह</span><span class="trans">eṭā</span></div>
+      <div class="word"><span class="bn">ওটা</span><span class="hi-eq">वह / वो</span><span class="trans">oṭā</span></div>
+      <div class="word"><span class="bn">আমরা</span><span class="hi-eq">हम</span><span class="trans">āmrā</span></div>
+      <div class="word"><span class="bn">তারা</span><span class="hi-eq">वे</span><span class="trans">tārā</span></div>
+    </div>
+
+    <div class="aside"><strong>तीन 'तू' — हिन्दी से भी सूक्ष्म।</strong> हिन्दी में तू/तुम/आप — तीन स्तर। बांग्ला में भी तीन: <span class="bn">তুই/তুমি/আপনি</span>। लेकिन बांग्ला में अभी भी 'तुई' ज़िंदा है — घनिष्ठ भावना के लिए। हिन्दी-वाले जो 'तू' को गँवई समझते हैं, उन्हें बांग्ला में यह प्यार का शब्द मिलेगा।</div>
+
+    <h3><span class="num">४.२</span>नित्य संज्ञाएँ</h3>
+    <div class="words">
+      <div class="word"><span class="bn">বাড়ি / ঘর</span><span class="hi-eq">घर</span><span class="trans">bāṛi / ghor</span><span class="note">घर = इमारत। বাড়ি = अपना घर, निवास।</span></div>
+      <div class="word"><span class="bn">জল / পানি</span><span class="hi-eq">पानी</span><span class="trans">jol / pāni</span><span class="note">कोलकाता में 'জল', बांग्लादेश में 'পানি'। तत्सम।</span></div>
+      <div class="word"><span class="bn">ভাত</span><span class="hi-eq">भात / चावल</span><span class="trans">bhāt</span><span class="note">वही हिन्दी 'भात'। खाने का मुख्य अर्थ भी — 'ভাত খাওয়া' = खाना खाना।</span></div>
+      <div class="word"><span class="bn">নাম</span><span class="hi-eq">नाम</span><span class="trans">nām</span><span class="note">हूबहू वही तत्सम!</span></div>
+      <div class="word"><span class="bn">পুস্তক / বই</span><span class="hi-eq">पुस्तक / किताब</span><span class="trans">pustok / boi</span><span class="note">পুস্তক = औपचारिक, বই = रोज़मर्रा</span></div>
+      <div class="word"><span class="bn">স্কুল / পাঠশালা</span><span class="hi-eq">स्कूल / पाठशाला</span><span class="trans">skul / pāṭhśālā</span></div>
+      <div class="word"><span class="bn">টাকা</span><span class="hi-eq">पैसा / रुपया</span><span class="trans">ṭākā</span><span class="note">बांग्लादेश की मुद्रा भी यही नाम रखती है।</span></div>
+      <div class="word"><span class="bn">রাস্তা / পথ</span><span class="hi-eq">रास्ता</span><span class="trans">rāstā / poth</span><span class="note">रास्ता = फ़ारसी मूल, दोनों भाषाओं में आया।</span></div>
+      <div class="word"><span class="bn">সময়</span><span class="hi-eq">समय</span><span class="trans">somoy</span><span class="note">वही तत्सम — सिर्फ़ 'a' 'o' में बदला।</span></div>
+      <div class="word"><span class="bn">দিন</span><span class="hi-eq">दिन</span><span class="trans">din</span><span class="note">हूबहू वही!</span></div>
+      <div class="word"><span class="bn">দুধ</span><span class="hi-eq">दूध</span><span class="trans">dudh</span></div>
+      <div class="word"><span class="bn">সূর্য</span><span class="hi-eq">सूर्य</span><span class="trans">sūrjo</span><span class="note">तत्सम</span></div>
+      <div class="word"><span class="bn">বৃষ্টি</span><span class="hi-eq">वर्षा / बारिश</span><span class="trans">bṛṣṭi</span><span class="note">तत्सम 'वृष्टि'</span></div>
+      <div class="word"><span class="bn">ভূমি / পৃথিবী</span><span class="hi-eq">भूमि / पृथ्वी</span><span class="trans">bhūmi / pṛthibī</span></div>
+      <div class="word"><span class="bn">রাত</span><span class="hi-eq">रात</span><span class="trans">rāt</span><span class="note">'रात्रि' का तद्भव रूप — हिन्दी 'रात' बिल्कुल जैसा।</span></div>
+    </div>
+
+    <h3><span class="num">४.३</span>क्रियाएँ (धातुरूप)</h3>
+    <div class="words">
+      <div class="word"><span class="bn">থাকা / হওয়া</span><span class="hi-eq">रहना / होना</span><span class="trans">thākā / hoyā</span><span class="note">थাকা = रहना (स्थान), হওয়া = होना (अस्तित्व)</span></div>
+      <div class="word"><span class="bn">করা</span><span class="hi-eq">करना</span><span class="trans">korā</span><span class="note">हिन्दी 'करना' का तद्भव</span></div>
+      <div class="word"><span class="bn">যাওয়া</span><span class="hi-eq">जाना</span><span class="trans">jāoyā</span><span class="note">य = j — 'जाओया' पढ़िए</span></div>
+      <div class="word"><span class="bn">আসা</span><span class="hi-eq">आना</span><span class="trans">āsā</span></div>
+      <div class="word"><span class="bn">খাওয়া</span><span class="hi-eq">खाना</span><span class="trans">khāoyā</span></div>
+      <div class="word"><span class="bn">পান করা</span><span class="hi-eq">पीना</span><span class="trans">pān korā</span><span class="note">साहित्यिक बांग्ला में 'পান করা', रोज़मर्रा में 'খাওয়া' भी 'पीने' के लिए (जैसे चाय पीना = 'চা খাওয়া')</span></div>
+      <div class="word"><span class="bn">দেখা</span><span class="hi-eq">देखना</span><span class="trans">dekhā</span></div>
+      <div class="word"><span class="bn">শোনা</span><span class="hi-eq">सुनना</span><span class="trans">śonā</span></div>
+      <div class="word"><span class="bn">পড়া</span><span class="hi-eq">पढ़ना</span><span class="trans">poṛā</span><span class="note">ध्यान: ড় = ड़</span></div>
+      <div class="word"><span class="bn">লেখা</span><span class="hi-eq">लिखना</span><span class="trans">lekhā</span></div>
+    </div>
+
+    <h3><span class="num">४.४</span>कारक — हिन्दी की तरह परसर्ग पीछे बैठते हैं</h3>
+    <p>हिन्दी में "घर में, घर से, घर को" — कारक-चिह्न शब्द के पीछे। बांग्ला में ठीक वही तरीक़ा, सिर्फ़ कुछ चिह्न शब्द के साथ <em>जुड़</em> जाते हैं:</p>
+    <div class="words">
+      <div class="word"><span class="bn">-কে</span><span class="hi-eq">-को (कर्म)</span><span class="trans">-ke</span><span class="note">আমাকে (āmāke) = मुझे / मुझको</span></div>
+      <div class="word"><span class="bn">-তে / -এ</span><span class="hi-eq">-में / -पर</span><span class="trans">-te / -e</span><span class="note">বাড়িতে (bāṛite) = घर में</span></div>
+      <div class="word"><span class="bn">-থেকে</span><span class="hi-eq">-से (स्थान)</span><span class="trans">-theke</span><span class="note">বাড়ি থেকে (bāṛi theke) = घर से</span></div>
+      <div class="word"><span class="bn">-র / -এর</span><span class="hi-eq">-का / -की / -के</span><span class="trans">-r / -er</span><span class="note">আমার (āmār) = मेरा। बांग्ला में एक ही रूप — लिंग के अनुसार नहीं बदलता!</span></div>
+      <div class="word"><span class="bn">-দিয়ে</span><span class="hi-eq">-से (करण)</span><span class="trans">-diye</span><span class="note">কলম দিয়ে (kolom diye) = कलम से</span></div>
+    </div>
+
+    <div class="aside"><strong>स्वतंत्रता की एक साँस।</strong> हिन्दी में 'मेरा/मेरी/मेरे' बदलते हैं — लड़का या लड़की के साथ अलग। बांग्ला में सिर्फ़ <span class="bn">আমার</span> — एक ही रूप सब के लिए। <span class="bn">আমার ছেলে, আমার মেয়ে, আমার বই</span> — मेरा बेटा, मेरी बेटी, मेरी किताब। यह तीन-में-एक की छूट आपको बांग्ला देती है।</div>
+
+    <h3><span class="num">४.५</span>संख्याएँ १-१०</h3>
+    <div class="words">
+      <div class="word"><span class="bn">এক</span><span class="hi-eq">एक</span><span class="trans">ek</span></div>
+      <div class="word"><span class="bn">দুই</span><span class="hi-eq">दो</span><span class="trans">dui</span></div>
+      <div class="word"><span class="bn">তিন</span><span class="hi-eq">तीन</span><span class="trans">tin</span></div>
+      <div class="word"><span class="bn">চার</span><span class="hi-eq">चार</span><span class="trans">cār</span></div>
+      <div class="word"><span class="bn">পাঁচ</span><span class="hi-eq">पाँच</span><span class="trans">pā̃c</span></div>
+      <div class="word"><span class="bn">ছয়</span><span class="hi-eq">छह</span><span class="trans">choy</span></div>
+      <div class="word"><span class="bn">সাত</span><span class="hi-eq">सात</span><span class="trans">sāt</span></div>
+      <div class="word"><span class="bn">আট</span><span class="hi-eq">आठ</span><span class="trans">āṭ</span></div>
+      <div class="word"><span class="bn">নয়</span><span class="hi-eq">नौ</span><span class="trans">noy</span></div>
+      <div class="word"><span class="bn">দশ</span><span class="hi-eq">दस</span><span class="trans">doś</span></div>
+      <div class="word"><span class="bn">একশো</span><span class="hi-eq">सौ</span><span class="trans">ekśo</span><span class="note">= एक + शत। हिन्दी 'सौ' संस्कृत 'शत' से आया, बांग्ला ने 'শো' बनाया।</span></div>
+    </div>
+    <div class="aside"><strong>गणित में सीधा पुल।</strong> हिन्दी और बांग्ला की १-१० तक संख्याएँ लगभग <em>सीधी सगी बहनें</em> हैं। एक/एক, दो/দুই, तीन/তিন, चार/চার, पाँच/পাঁচ — बस उच्चारण थोड़ा नरम है। यह वह भाग है जिसे आप १० मिनट में जीत सकते हैं।</div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 5 ════════ -->
+<section class="stage" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">चरण ०५ · वाक्य</div>
+    <h2 class="stage-title">वाक्य बनाना — <span class="bn">বাক্য তৈরি</span></h2>
+    <p class="stage-lede">दोनों भाषाएँ SOV — कर्ता-कर्म-क्रिया। "मैं भात खाता हूँ" = <span class="bn">আমি ভাত খাই</span>। कंकाल आपका जाना-पहचाना — अब क्रियारूप सीखें।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">५.१</span>क्रियारूप — वर्तमान काल (<span class="bn">করা</span> = करना)</h3>
+    <div class="conjug">
+      <div class="conjug-row"><span class="pron">आमि</span><span class="bn">করি</span><span class="hi-eq">मैं करता/करती हूँ</span></div>
+      <div class="conjug-row"><span class="pron">तुइ</span><span class="bn">করিস</span><span class="hi-eq">तू करता/करती है</span></div>
+      <div class="conjug-row"><span class="pron">तुमि</span><span class="bn">করো</span><span class="hi-eq">तुम करते/करती हो</span></div>
+      <div class="conjug-row"><span class="pron">आपनि</span><span class="bn">করেন</span><span class="hi-eq">आप करते/करती हैं</span></div>
+      <div class="conjug-row"><span class="pron">से</span><span class="bn">করে</span><span class="hi-eq">वह करता/करती है</span></div>
+      <div class="conjug-row"><span class="pron">आमरा</span><span class="bn">করি</span><span class="hi-eq">हम करते/करती हैं</span></div>
+      <div class="conjug-row"><span class="pron">तारा</span><span class="bn">করে</span><span class="hi-eq">वे करते/करती हैं</span></div>
+    </div>
+
+    <div class="aside"><strong>⚡ सबसे बड़ी राहत:</strong> बांग्ला क्रिया लिंग के साथ नहीं बदलती! हिन्दी में "लड़का करता है / लड़की करती है" — दो रूप। बांग्ला में <span class="bn">ছেলে করে / মেয়ে করে</span> — एक ही क्रियारूप। <strong>पूरी एक आयाम की जटिलता ग़ायब</strong>। लेकिन ध्यान: बांग्ला व्यक्ति (मैं/तू/तुम/आप/वह) के अनुसार ज़रूर बदलती है — तू-तुम-आप तीनों के लिए अलग रूप।</div>
+
+    <h3><span class="num">५.२</span>होना / रहना — <span class="bn">আছে / নেই</span></h3>
+    <div class="sentence">
+      <div class="bn">বাড়িতে জল আছে।</div>
+      <div class="trans">bāṛite jol āche.</div>
+      <div class="hi-gloss">घर में पानी है।</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">জল নেই।</div>
+      <div class="trans">jol nei.</div>
+      <div class="hi-gloss">पानी नहीं है।</div>
+      <div class="literal">'নেই' = 'नहीं है' एक ही शब्द में। हिन्दी को दो चाहिए, बांग्ला को एक।</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">আমি ছাত্র।</div>
+      <div class="trans">āmi chātro.</div>
+      <div class="hi-gloss">मैं छात्र हूँ।</div>
+      <div class="literal">ध्यान: हिन्दी में 'हूँ' ज़रूरी, बांग्ला अक्सर पहचान-वाक्य में 'হই/আছি' छोड़ देती है। सिर्फ़ 'आमि छात्र' कहना पर्याप्त।</div>
+    </div>
+
+    <h3><span class="num">५.३</span>प्रश्नवाचक</h3>
+    <div class="words">
+      <div class="word"><span class="bn">কী</span><span class="hi-eq">क्या</span><span class="trans">kī</span></div>
+      <div class="word"><span class="bn">কে</span><span class="hi-eq">कौन</span><span class="trans">ke</span></div>
+      <div class="word"><span class="bn">কোথায়</span><span class="hi-eq">कहाँ</span><span class="trans">kothāy</span></div>
+      <div class="word"><span class="bn">কখন</span><span class="hi-eq">कब</span><span class="trans">kokhon</span></div>
+      <div class="word"><span class="bn">কেন</span><span class="hi-eq">क्यों</span><span class="trans">keno</span></div>
+      <div class="word"><span class="bn">কীভাবে</span><span class="hi-eq">कैसे</span><span class="trans">kībhābe</span></div>
+      <div class="word"><span class="bn">কত</span><span class="hi-eq">कितना / कितने</span><span class="trans">koto</span></div>
+    </div>
+
+    <div class="aside"><strong>प्रश्नों का एक जादू।</strong> हिन्दी और बांग्ला दोनों में सभी प्रश्नवाचक 'क' से शुरू होते हैं — क्या/कौन/कहाँ/कब/क्यों/कैसे। बांग्ला में भी <span class="bn">কী/কে/কোথায়/কখন/কেন/কীভাবে</span> — सब 'क' से! यह सामान्य भारतीय-आर्य विरासत है। मनन कीजिए: यह जो 'क' है, संस्कृत के <em>किम्</em> से आया है।</div>
+
+    <div class="sentence">
+      <div class="bn">তোমার নাম কী?</div>
+      <div class="trans">tomār nām kī?</div>
+      <div class="hi-gloss">तुम्हारा नाम क्या है?</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">আপনি কোথায় যাচ্ছেন?</div>
+      <div class="trans">āpni kothāy jācchen?</div>
+      <div class="hi-gloss">आप कहाँ जा रहे हैं?</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">তুমি কী করছ?</div>
+      <div class="trans">tumi kī korcho?</div>
+      <div class="hi-gloss">तुम क्या कर रहे हो?</div>
+    </div>
+
+    <h3><span class="num">५.४</span>नकार — 'नहीं' कहाँ बैठता है</h3>
+    <p>हिन्दी में 'नहीं' क्रिया के पहले: "मैं नहीं जाता"। बांग्ला में नकार-शब्द <span class="bn">না</span> क्रिया के <em>बाद</em> बैठता है:</p>
+    <div class="sentence">
+      <div class="bn">আমি যাই না।</div>
+      <div class="trans">āmi jāi nā.</div>
+      <div class="hi-gloss">मैं नहीं जाता। / मैं नहीं जाती।</div>
+      <div class="literal">शाब्दिक: 'मैं जाता नहीं' — बांग्ला क्रिया के बाद 'ना' लगाती है।</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">সে জানে না।</div>
+      <div class="trans">se jāne nā.</div>
+      <div class="hi-gloss">वह नहीं जानता।</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 6 ════════ -->
+<section class="stage" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">चरण ०६ · पाठ</div>
+    <h2 class="stage-title">पहले बांग्ला अनुच्छेद</h2>
+    <p class="stage-lede">हर शब्द आप पिछले चरण में सीख चुके हैं। अगर पढ़ न पाएँ, पिछले चरण पर लौटें — यह आपकी विफलता नहीं है।</p>
+  </div>
+  <div class="stage-body">
+    <h3><span class="num">६.१</span>परिचय</h3>
+    <div class="sentence">
+      <div class="bn">আমার নাম রাহুল। আমি দিল্লি থেকে এসেছি। আমার বাড়ি বড়। আমি পুস্তক পড়ি।</div>
+      <div class="trans">āmār nām Rāhul. āmi Dilli theke esechi. āmār bāṛi boṛo. āmi pustok poṛi.</div>
+      <div class="hi-gloss">मेरा नाम राहुल है। मैं दिल्ली से आया हूँ। मेरा घर बड़ा है। मैं किताबें पढ़ता हूँ।</div>
+    </div>
+
+    <h3><span class="num">६.२</span>एक दिन</h3>
+    <div class="sentence">
+      <div class="bn">আজ সোমবার। আমি সকালে উঠি। আমি জল খাই। তারপর স্কুলে যাই। সন্ধ্যায় বাড়ি ফিরি। রাতে ভাত খাই।</div>
+      <div class="trans">āj śombār. āmi śokāle uṭhi. āmi jol khāi. tārpor skule jāi. śondhyāy bāṛi phiri. rāte bhāt khāi.</div>
+      <div class="hi-gloss">आज सोमवार है। मैं सुबह उठता हूँ। मैं पानी पीता हूँ। फिर स्कूल जाता हूँ। शाम को घर लौटता हूँ। रात को भात खाता हूँ।</div>
+      <div class="literal">ध्यान: -তে / -এ कारक (= हिन्दी -में / -पर) स्कूल और बाड़ी के पीछे बैठा है, बिल्कुल हिन्दी की तरह। और 'जल खाना' = बांग्ला मुहावरा, हिन्दी 'पानी पीना' जैसा।</div>
+    </div>
+
+    <h3><span class="num">६.३</span>बातचीत</h3>
+    <div class="sentence">
+      <div class="bn">क: নমস্কার। আপনার নাম কী?<br/>ख: আমার নাম মীরা। আপনি?<br/>क: আমার নাম রবি। আপনি কোথা থেকে এসেছেন?<br/>ख: আমি কলকাতা থেকে এসেছি। আপনি?<br/>क: আমি বারাণসী থেকে। আপনি কী করেন?<br/>ख: আমি শিক্ষিকা। ভালো লাগল।</div>
+      <div class="hi-gloss">क: नमस्कार। आपका नाम क्या है?<br/>ख: मेरा नाम मीरा है। आप?<br/>क: मेरा नाम रवि है। आप कहाँ से आए हैं?<br/>ख: मैं कोलकाता से आई हूँ। आप?<br/>क: मैं वाराणसी से। आप क्या करती हैं?<br/>ख: मैं शिक्षिका हूँ। अच्छा लगा।</div>
+    </div>
+
+    <div class="aside"><strong>पढ़ने का नियम।</strong> हर अनुच्छेद हिन्दी अनुवाद देखने से पहले तीन बार ज़ोर से पढ़िए। लय पहले आए, अर्थ बाद में। विद्यासागर की भी यही शिक्षा थी — रूप पहले, अर्थ बाद में।</div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 7 ════════ -->
+<section class="stage" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">चरण ०७ · शब्द-क्षेत्र</div>
+    <h2 class="stage-title">बांग्ला दुनिया को कैसे काटती है</h2>
+    <p class="stage-lede">हिन्दी और बांग्ला दुनिया को बिल्कुल एक तरह नहीं काटतीं। फ़र्क़ ही भाषा का मन हैं।</p>
+  </div>
+  <div class="stage-body">
+    <h3><span class="num">७.१</span>परिवार — <span class="bn">আত্মীয়তা</span></h3>
+    <p>हिन्दी में 'चाचा' और 'ताऊ' अलग हैं — पिता के छोटे/बड़े भाई। बांग्ला भी यही भेद रखती है: <span class="bn">কাকা</span> (छोटा) / <span class="bn">জ্যাঠা</span> (बड़ा)। पर बांग्ला में बहन-भाई के शब्द बहुत सूक्ष्म हैं:</p>
+    <div class="words">
+      <div class="word"><span class="bn">বাবা</span><span class="hi-eq">पापा / पिता</span><span class="trans">bābā</span></div>
+      <div class="word"><span class="bn">মা</span><span class="hi-eq">माँ</span><span class="trans">mā</span><span class="note">हूबहू वही</span></div>
+      <div class="word"><span class="bn">দাদা</span><span class="hi-eq">बड़ा भाई</span><span class="trans">dādā</span><span class="note">⚠️ सावधान! हिन्दी 'दादा' = पिता के पिता। बांग्ला 'দাদা' = बड़ा भाई। यह सबसे बड़ा झूठा दोस्त!</span></div>
+      <div class="word"><span class="bn">ছোট ভাই</span><span class="hi-eq">छोटा भाई</span><span class="trans">choṭo bhāi</span></div>
+      <div class="word"><span class="bn">দিদি</span><span class="hi-eq">बड़ी बहन / दीदी</span><span class="trans">didi</span><span class="note">हिन्दी 'दीदी' = बहन — यहाँ मेल है!</span></div>
+      <div class="word"><span class="bn">ছোট বোন</span><span class="hi-eq">छोटी बहन</span><span class="trans">choṭo bon</span></div>
+      <div class="word"><span class="bn">ঠাকুরদা / দাদু</span><span class="hi-eq">दादा (पिता के पिता)</span><span class="trans">ṭhākurdā / dādu</span><span class="note">यहाँ 'दादा' हिन्दी वाले अर्थ में आया!</span></div>
+      <div class="word"><span class="bn">ঠাকুমা / দিদা</span><span class="hi-eq">दादी</span><span class="trans">ṭhākumā / didā</span></div>
+      <div class="word"><span class="bn">মামা</span><span class="hi-eq">मामा</span><span class="trans">māmā</span><span class="note">हूबहू एक!</span></div>
+      <div class="word"><span class="bn">কাকা / জ্যাঠা</span><span class="hi-eq">चाचा / ताऊ</span><span class="trans">kākā / jyāṭhā</span><span class="note">वही भेद जो हिन्दी करती है</span></div>
+      <div class="word"><span class="bn">পিসি</span><span class="hi-eq">बुआ (पिता की बहन)</span><span class="trans">pisi</span></div>
+      <div class="word"><span class="bn">মাসি</span><span class="hi-eq">मौसी (माँ की बहन)</span><span class="trans">māsi</span></div>
+    </div>
+
+    <div class="aside"><strong>सबसे बड़ा झूठा दोस्त — 'दादा'।</strong> हिन्दी वाला जब कोलकाता में किसी को <span class="bn">দাদা</span> कहता है, तो वह <em>पिता का पिता</em> नहीं, <em>बड़ा भाई</em> बुला रहा है! अगर पिता के पिता को संबोधित करना हो, तो <span class="bn">ঠাকুরদা</span> या <span class="bn">দাদু</span> कहें। यह एक गलती जो पहले दिन ही ठीक कर लें।</div>
+
+    <h3><span class="num">७.२</span>समय</h3>
+    <div class="words">
+      <div class="word"><span class="bn">আজ</span><span class="hi-eq">आज</span><span class="trans">āj</span></div>
+      <div class="word"><span class="bn">কাল</span><span class="hi-eq">कल (दोनों)</span><span class="trans">kāl</span><span class="note">⚡ हिन्दी की तरह ही — बीता कल और आने वाला कल दोनों 'কাল'! संदर्भ से समझना पड़ता है। 'গতকাল' = बीता कल, 'আগামীকাল' = आने वाला।</span></div>
+      <div class="word"><span class="bn">এখন</span><span class="hi-eq">अब / अभी</span><span class="trans">ekhon</span></div>
+      <div class="word"><span class="bn">সকাল</span><span class="hi-eq">सुबह</span><span class="trans">sokāl</span><span class="note">हिन्दी 'सकाल' से ही — बस 'स' का उच्चारण 'श' हो गया।</span></div>
+      <div class="word"><span class="bn">দুপুর</span><span class="hi-eq">दोपहर</span><span class="trans">dupur</span><span class="note">'दो पहर' का तद्भव — वही शब्द!</span></div>
+      <div class="word"><span class="bn">সন্ধ্যা</span><span class="hi-eq">संध्या / शाम</span><span class="trans">sondhyā</span><span class="note">तत्सम</span></div>
+      <div class="word"><span class="bn">রাত</span><span class="hi-eq">रात</span><span class="trans">rāt</span><span class="note">वही रात्रि</span></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी की गुप्त जीत।</strong> हिन्दी-बांग्ला दोनों 'कल' शब्द से बीता/आने वाला दोनों कल कहती हैं — यह दक्षिण एशिया की पारिवारिक ख़ासियत है जो तमिल/कन्नड जैसी भाषाओं में <em>नहीं</em> है (वे अलग शब्द रखती हैं)। यह एक सबूत है कि बांग्ला आपकी ज़्यादा रिश्तेदार है, दक्षिण भारतीय भाषाओं से।</div>
+
+    <h3><span class="num">७.३</span>शरीर</h3>
+    <div class="words">
+      <div class="word"><span class="bn">মাথা</span><span class="hi-eq">सिर / माथा</span><span class="trans">māthā</span><span class="note">हिन्दी 'माथा' से ही!</span></div>
+      <div class="word"><span class="bn">চোখ</span><span class="hi-eq">आँख</span><span class="trans">cokh</span><span class="note">अलग शब्द — संस्कृत 'चक्षु' से।</span></div>
+      <div class="word"><span class="bn">কান</span><span class="hi-eq">कान</span><span class="trans">kān</span></div>
+      <div class="word"><span class="bn">নাক</span><span class="hi-eq">नाक</span><span class="trans">nāk</span></div>
+      <div class="word"><span class="bn">মুখ</span><span class="hi-eq">मुँह / चेहरा</span><span class="trans">mukh</span><span class="note">हिन्दी 'मुँह' ही — दोनों अर्थ यहाँ भी</span></div>
+      <div class="word"><span class="bn">হাত</span><span class="hi-eq">हाथ</span><span class="trans">hāt</span></div>
+      <div class="word"><span class="bn">পা</span><span class="hi-eq">पैर / पाँव</span><span class="trans">pā</span><span class="note">'पाँव' का मूल — बांग्ला में सिर्फ़ 'पा'</span></div>
+      <div class="word"><span class="bn">পেট</span><span class="hi-eq">पेट</span><span class="trans">peṭ</span></div>
+    </div>
+
+    <h3><span class="num">७.४</span>खाने की शब्दावली — बंगाली रसोई</h3>
+    <div class="words">
+      <div class="word"><span class="bn">ভাত</span><span class="hi-eq">पका चावल / भात</span><span class="trans">bhāt</span></div>
+      <div class="word"><span class="bn">ডাল</span><span class="hi-eq">दाल</span><span class="trans">ḍāl</span></div>
+      <div class="word"><span class="bn">মাছ</span><span class="hi-eq">मछली</span><span class="trans">māch</span><span class="note">बांग्ला 'मछ' — मच्छी का सगा!</span></div>
+      <div class="word"><span class="bn">মাংস</span><span class="hi-eq">मांस</span><span class="trans">māṃs</span></div>
+      <div class="word"><span class="bn">সবজি</span><span class="hi-eq">सब्ज़ी</span><span class="trans">sobji</span><span class="note">फ़ारसी मूल, दोनों भाषाओं में आई</span></div>
+      <div class="word"><span class="bn">মিষ্টি</span><span class="hi-eq">मिठाई / मीठा</span><span class="trans">miṣṭi</span><span class="note">'मिष्ट' — संस्कृत से। बंगाली मिष्टि-प्रेम मशहूर है।</span></div>
+      <div class="word"><span class="bn">চা</span><span class="hi-eq">चाय</span><span class="trans">cā</span><span class="note">हिन्दी 'चाय' का छोटा भाई</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 8 ════════ -->
+<section class="stage" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">चरण ०८ · प्रयोग</div>
+    <h2 class="stage-title">इंसान की तरह बांग्ला बोलना</h2>
+    <p class="stage-lede">व्याकरण-सिद्ध वाक्य काफ़ी नहीं। भाषा में आदब है, मिज़ाज है, छोटे-छोटे शब्द हैं जो असली बातचीत को चिकना करते हैं।</p>
+  </div>
+  <div class="stage-body">
+    <h3><span class="num">८.१</span>तू-तुम-आप → <span class="bn">তুই-তুমি-আপনি</span></h3>
+    <p>हिन्दी में तीन स्तर (तू/तुम/आप), बांग्ला में भी ठीक तीन — हूबहू मेल! <span class="bn">তুই</span> = तू (बचपन का दोस्त, छोटा भाई), <span class="bn">তুমি</span> = तुम (बराबर का), <span class="bn">আপনি</span> = आप (बड़े, अपरिचित)। संदेह हो तो हमेशा <span class="bn">আপনি</span> से शुरू करें, जैसे हिन्दी में 'आप' सुरक्षित होता है।</p>
+
+    <h3><span class="num">८.२</span>परिजन-संबोधन — बाज़ार में, सड़क पर</h3>
+    <p>हिन्दी में हम दुकानदार को 'भाई साब' कहते हैं, बड़ी उम्र की महिला को 'मौसी जी' या 'आंटी'। बांग्ला में ठीक यही रिवाज़ है, बस शब्द अलग:</p>
+    <ul class="clean">
+      <li>उम्र में बड़े पुरुष (अजनबी): <span class="bn">দাদা</span> (= भाई साब)</li>
+      <li>उम्र में बड़ी महिला (अजनबी): <span class="bn">দিদি</span> (= बहन जी)</li>
+      <li>बुज़ुर्ग पुरुष: <span class="bn">দাদু</span> या <span class="bn">কাকু</span> (= बाबा / चाचा)</li>
+      <li>बुज़ुर्ग महिला: <span class="bn">দিদা</span> या <span class="bn">মাসি</span> (= दादी / मौसी)</li>
+    </ul>
+
+    <div class="aside"><strong>बंगाल का आदब।</strong> कोलकाता में कोई रिक्शा वाला हो या किताब की दुकान का मालिक, सब <span class="bn">দাদা</span> हैं। सब्ज़ी बेचने वाली <span class="bn">মাসি</span>। यह सामाजिक ऊष्मा हिन्दी में 'भाई' / 'आंटी' से मिलती-जुलती है, पर बांग्ला में हर अजनबी रिश्तेदार बन जाता है — एक गहरा भाव।</div>
+
+    <h3><span class="num">८.३</span>दैनंदिन वाक्यांश</h3>
+    <div class="words">
+      <div class="word"><span class="bn">নমস্কার</span><span class="hi-eq">नमस्कार</span><span class="trans">nomoskār</span><span class="note">हूबहू वही तत्सम</span></div>
+      <div class="word"><span class="bn">ধন্যবাদ</span><span class="hi-eq">धन्यवाद</span><span class="trans">dhonnobād</span><span class="note">एकदम वही शब्द!</span></div>
+      <div class="word"><span class="bn">দুঃখিত</span><span class="hi-eq">माफ़ करें / दुःखित</span><span class="trans">duḥkhito</span><span class="note">'दुःखित' = दुःख अनुभव किया, 'माफ़ करें' का भाव</span></div>
+      <div class="word"><span class="bn">মাফ করবেন</span><span class="hi-eq">माफ़ करें</span><span class="trans">māph korben</span><span class="note">अरबी 'माफ़' दोनों में आया</span></div>
+      <div class="word"><span class="bn">কেমন আছেন?</span><span class="hi-eq">कैसे हैं आप?</span><span class="trans">kemon āchen?</span></div>
+      <div class="word"><span class="bn">ভালো আছি</span><span class="hi-eq">अच्छा / ठीक हूँ</span><span class="trans">bhālo āchi</span><span class="note">भालो = 'भला' का तद्भव — "मैं भला हूँ"</span></div>
+      <div class="word"><span class="bn">দরকার / লাগবে</span><span class="hi-eq">चाहिए / ज़रूरत है</span><span class="trans">dorkār / lāgbe</span></div>
+      <div class="word"><span class="bn">লাগবে না</span><span class="hi-eq">नहीं चाहिए</span><span class="trans">lāgbe nā</span></div>
+      <div class="word"><span class="bn">জানি না</span><span class="hi-eq">नहीं जानता</span><span class="trans">jāni nā</span></div>
+      <div class="word"><span class="bn">আচ্ছা</span><span class="hi-eq">अच्छा / ठीक है</span><span class="trans">ācchā</span><span class="note">एकदम हिन्दी का 'अच्छा'!</span></div>
+    </div>
+
+    <h3><span class="num">८.४</span>"भात खाया?" — एक भारतीय सार्वभौमिक</h3>
+    <div class="sentence">
+      <div class="bn">ভাত খেয়েছ? / খেয়েছেন?</div>
+      <div class="trans">bhāt kheyecho? / kheyechen?</div>
+      <div class="hi-gloss">खाना खाया? / आपने खाया?</div>
+      <div class="literal">यह सिर्फ़ खाने का सवाल नहीं — यह 'कैसे हो?' का भाव है। बंगाली घरों में प्रवेश करते ही पूछा जाता है। हिन्दी में जैसे माँ 'रोटी खा ली?' पूछ कर परवाह जताती है — यहाँ भी वही गर्माहट है। उत्तर: <span class="bn">খেয়েছি</span> (<span class="mono">kheyechi</span>) — 'खा लिया', सच में खाया हो या न।</div>
+    </div>
+
+    <h3><span class="num">८.५</span>একটু — एक जादुई शब्द</h3>
+    <p><span class="bn">একটু</span> (<em>ekṭu</em>) = "ज़रा / थोड़ा"। हिन्दी में हम 'ज़रा' से अनुरोध को नरम करते हैं: "ज़रा सुनिए", "ज़रा रुकिए"। बांग्ला में <span class="bn">একটু</span> ठीक वही काम करती है:</p>
+    <div class="sentence">
+      <div class="bn">একটু শোনো।</div>
+      <div class="trans">ekṭu śono.</div>
+      <div class="hi-gloss">ज़रा सुनो।</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">একটু দাঁড়ান।</div>
+      <div class="trans">ekṭu dā̃ṛān.</div>
+      <div class="hi-gloss">ज़रा रुकिए।</div>
+    </div>
+
+    <div class="aside"><strong>एक भाषा, अनगिनत 'ज़रा'।</strong> हिन्दी 'ज़रा', बांग्ला <span class="bn">একটু</span>, कन्नड <em>svalpa</em>, तमिल <em>konjam</em>, मराठी <em>thoḍā</em> — सब एक ही सामाजिक काम करते हैं: अनुरोध को मीठा करना। यह सांस्कृतिक परंपरा उत्तर-दक्षिण सब को जोड़ती है।</div>
+
+    <h3><span class="num">८.६</span>अंत में 'তো' और 'না' — स्वर का खेल</h3>
+    <p>बांग्ला में वाक्य के अंत में <span class="bn">তো</span> और <span class="bn">না</span> लगना ठीक हिन्दी जैसा है:</p>
+    <div class="sentence">
+      <div class="bn">তুমি তো জানো!</div>
+      <div class="trans">tumi to jāno!</div>
+      <div class="hi-gloss">तुम तो जानते हो!</div>
+      <div class="literal">'तो' हिन्दी से बिल्कुल वैसे ही — पुष्टि और आत्मीयता का भाव।</div>
+    </div>
+    <div class="sentence">
+      <div class="bn">আসবে না?</div>
+      <div class="trans">āsbe nā?</div>
+      <div class="hi-gloss">आओगे ना?</div>
+      <div class="literal">प्रश्न के अंत में 'ना' लगाना — हिन्दी-बांग्ला साझा आदत।</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 9 ════════ -->
+<section class="stage" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">चरण ०९ · साहित्य</div>
+    <h2 class="stage-title">साहित्य और सांस्कृतिक स्तर</h2>
+    <p class="stage-lede">एक भाषा आख़िरकार सिर्फ़ व्यवस्था नहीं — एक पूरी दुनिया है। उस दुनिया में घुसने का दरवाज़ा है उसका साहित्य।</p>
+  </div>
+  <div class="stage-body">
+    <p>बांग्ला साहित्य की परंपरा एक हज़ार साल पुरानी है — चर्यापद (१०वीं शताब्दी) से लेकर आज की नोबेल-तुल्य रचनाओं तक अटूट। हिन्दी-वाले के लिए तुलसीदास, प्रेमचंद, निर्मल वर्मा जैसी जानी-पहचानी पगडंडियाँ हैं — बांग्ला में उसी गहराई की एक समांतर दुनिया मिलेगी।</p>
+
+    <h3><span class="num">९.१</span>विद्यासागर — इस कोर्स के शिल्पी</h3>
+    <p>ईश्वरचंद्र विद्यासागर (<span class="bn">ঈশ্বরচন্দ্র বিদ্যাসাগর</span>, १८२०-१८९१) ने <em>बर्णपरिचय</em> लिखी — बच्चों को बांग्ला पढ़ाने की वह किताब जिसने उनकी <em>बारहखड़ी</em> को व्यवस्थित रूप दिया। यह पूरा कोर्स उन्हीं की शिक्षण-पद्धति पर बना है: <strong>एक बार में एक नयी चीज़, रूप पहले अर्थ बाद में।</strong> विद्यासागर समाज-सुधारक भी थे — विधवा विवाह का समर्थन किया, ठीक जैसे हिन्दी में राजा राममोहन राय और दयानंद सरस्वती ने। <em>आप जब भी बांग्ला की बारहखड़ी पढ़ते हैं, विद्यासागर की विरासत स्पर्श करते हैं।</em></p>
+
+    <h3><span class="num">९.२</span>रबीन्द्रनाथ टैगोर — बांग्ला के तुलसीदास और निराला एक साथ</h3>
+    <p>रबीन्द्रनाथ ठाकुर (<span class="bn">রবীন্দ্রনাথ ঠাকুর</span>, १८६१-१९४१) — एकमात्र कवि जिन्होंने दो देशों के राष्ट्रगान लिखे (भारत का <em>जन गण मन</em>, बांग्लादेश का <em>आमार सोनार बांग्ला</em>), और जिन्हें १९१३ का साहित्य का नोबेल मिला। <strong>हिन्दी वाले के लिए तुलना:</strong> जैसे तुलसीदास ने अवधी को संस्कृत की छाया से निकाल कर राम-कथा आम जनता तक पहुँचाई, टैगोर ने बांग्ला को संस्कृत के बोझ से मुक्त कर विश्व-साहित्य में बैठा दिया। और जैसे निराला ने छायावाद में भक्ति, दर्शन, राष्ट्र — सब साधा, टैगोर ने कविता, उपन्यास, नाटक, निबंध, गीत, चित्रकला — सब में शिखर छुआ।</p>
+
+    <div class="vachana">
+      <div class="bn">যেখানে চিত্ত ভয়শূন্য, উচ্চ যেখানে শির,<br/>জ্ঞান যেখানে মুক্ত, যেখানে গৃহের প্রাচীর<br/>আপন প্রাঙ্গণতলে দিবসশর্বরী<br/>বসুধারে রাখে নাই খণ্ড ক্ষুদ্র করি।</div>
+      <div class="hi-gloss">जहाँ चित्त भय-मुक्त है, जहाँ सिर ऊँचा है,<br/>जहाँ ज्ञान स्वतंत्र है, जहाँ घर की दीवारें<br/>अपने आँगन में दिन-रात<br/>धरती को टुकड़ों में नहीं बाँटतीं।</div>
+      <div class="attrib">— रबीन्द्रनाथ ठाकुर · <span class="bn">রবীন্দ্রনাথ ঠাকুর</span> · 'गीतांजलि' से</div>
+    </div>
+
+    <h3><span class="num">९.३</span>जीवनानंद दास — बांग्ला के निराला</h3>
+    <p>जीवनानंद दास (<span class="bn">জীবনানন্দ দাশ</span>, १८९९-१९५४) — टैगोर के बाद बांग्ला का सबसे बड़ा गीतिकवि। इंद्रिय-गहन, बंगाल के प्राकृतिक दृश्य को कविता के केंद्र में लाए — धान के खेत, बरसात, नदियाँ, चिड़ियाँ। <strong>हिन्दी पुल:</strong> जैसे सूर्यकांत त्रिपाठी 'निराला' ने छायावाद में प्रकृति और आत्मसंघर्ष को मिलाया, जीवनानंद ने बांग्ला में वही किया — अकेलेपन को सौंदर्य का रंग दिया।</p>
+
+    <h3><span class="num">९.४</span>लालन फकीर — कबीर की बांग्ला गूँज</h3>
+    <p>लालन (<span class="bn">লালন ফকির</span>, १७७४-१८९०) बाउल साधक थे — जाति, धर्म, प्रतिष्ठान — सब अस्वीकार कर सहज वाणी में लिखा जो किसानों-मज़दूरों को भी समझ आए। <strong>हिन्दी तुलना:</strong> ठीक कबीर की तरह। लालन के गीत बंगाल की मिट्टी में वैसे ही घुले हैं जैसे कबीर के दोहे उत्तर भारत की लोक-स्मृति में।</p>
+
+    <div class="aside"><strong>एक झटका।</strong> लालन ने कहा था — "जात कभी देखी नहीं, जो देखेगा वो आँखें खोल ले।" कबीर कहते हैं — "जाति न पूछो साधु की..." दो भाषाएँ, दो भूगोल, एक ही बग़ावत। भारत का भक्ति-विद्रोह भाषा की सीमा नहीं मानता।</div>
+
+    <h3><span class="num">९.५</span>महाश्वेता देवी — बांग्ला की महाश्वेता</h3>
+    <p>महाश्वेता देवी (<span class="bn">মহাশ্বেতা দেবী</span>, १९२६-२०१६) — आदिवासी और वंचित समुदायों पर लिखने वाली कार्यकर्ता-लेखिका। उनका <em>जंगल के दावेदार</em>, <em>हज़ार चुराशिर माँ</em> आदिवासी संघर्ष के दस्तावेज़ हैं। <strong>हिन्दी तुलना:</strong> फणीश्वरनाथ रेणु की आंचलिक यथार्थ-दृष्टि + प्रेमचंद की सामाजिक प्रतिबद्धता — दोनों का संगम। या आज की अरुंधती रॉय की हिन्दी-पड़ोसी।</p>
+
+    <h3><span class="num">९.६</span>आधुनिक दिकपाल</h3>
+    <ul class="clean">
+      <li><strong>शरतचंद्र चट्टोपाध्याय</strong> (<span class="bn">শরৎচন্দ্র</span>, १८७६-१९३८) — <em>देवदास</em>, <em>परिणीता</em> — हिन्दी सिनेमा से परिचित नाम। प्रेमचंद के समकालीन, समान सामाजिक सरोकार।</li>
+      <li><strong>बंकिमचंद्र चट्टोपाध्याय</strong> (<span class="bn">বঙ্কিমচন্দ্র</span>, १८३८-१८९४) — 'वंदे मातरम' के रचयिता, बांग्ला उपन्यास के जनक। जैसे हिन्दी में भारतेंदु हरिश्चंद्र आधुनिकता की नींव रखते हैं।</li>
+      <li><strong>बिभूतिभूषण बंद्योपाध्याय</strong> (<span class="bn">বিভূতিভূষণ</span>, १८९४-१९५०) — <em>पथेर पांचाली</em>। ग्रामीण बंगाल का अदृश्य सौंदर्य — हिन्दी में रेणु के <em>मैला आँचल</em> की आत्मा।</li>
+      <li><strong>सत्यजित राय</strong> (<span class="bn">সত্যজিৎ রায়</span>, १९२१-१९९२) — फ़िल्मकार, लेखक, 'फेलुदा' जासूस कथा के रचयिता। बांग्ला सिनेमा को विश्व-दर्शक दिए।</li>
+      <li><strong>महादेवी / महाश्वेता का पुल:</strong> जैसे हिन्दी में महादेवी वर्मा छायावाद की अकेली स्त्री-स्वर हैं, बांग्ला में अशापूर्णा देवी और महाश्वेता देवी — दोनों ने स्त्री-अनुभव को केंद्र में रखा।</li>
+    </ul>
+
+    <h3><span class="num">९.७</span>अब कहाँ जाएँ</h3>
+    <ul class="clean">
+      <li>रबीन्द्रनाथ की <em>गीतांजलि</em> — हिन्दी में भी अनुवाद उपलब्ध है, पर पहले मूल बांग्ला पढ़िए, फिर अनुवाद।</li>
+      <li>सत्यजित राय की फ़िल्में — <em>पथेर पांचाली</em>, <em>चारुलता</em> — subtitles के साथ। आपकी बांग्ला शब्दावली ग़ज़ब तेज़ी से बढ़ेगी।</li>
+      <li>कोई बांग्ला अख़बार (<em>आनंदबाज़ार पत्रिका</em>) ऑनलाइन पढ़ें। रोज़ एक शीर्षक पढ़िए। जो दस चरणों में सीखा है, वह compound interest देना शुरू करेगा।</li>
+      <li>मनना दे, हेमंत कुमार के रबीन्द्र-संगीत सुनें — संगीत कान को शब्द सिखाता है।</li>
+    </ul>
+
+    <div class="aside">
+      <strong>अंतिम बात।</strong> आपके हाथ में अब पूरा यंत्र है। अक्षर, उन्हें जोड़ने के नियम, शब्द जो व्याकरण दिखाते हैं, वाक्य का कंकाल, प्रयोग का तेल, और साहित्य का दरवाज़ा। विद्यासागर का वादा सच है: धीरे शुरुआत, फिर compound interest। पढ़ते रहिए। <span class="bn">শুভ হোক</span> — <em>śubho hok</em> — शुभ हो।
+    </div>
+  </div>
+</section>
+
+<!-- progress -->
+<div class="progress">
+  <button id="prevBtn" disabled>← पहले</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">आगे →</button>
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="bn">বাংলা শিখি</span>
+    विद्यासागर की पद्धति पर एक प्राइमर · यत्न से तैयार · २०२६<br/>
+    एक बार में एक अनजानी चीज़ · रूप पहले अर्थ बाद में · सूची नहीं व्यवस्था<br/>
+    <span style="display:inline-block;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sindoor);">made by Nil <span class="sep">·</span> using Claude</span>
+  </div>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.stage-tab');
+  const sections = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const scrollWrap = document.getElementById('stageScroll');
+  const total = sections.length;
+  let current = 0;
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function show(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+    sections.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.toggle('done', i < current);
+      d.classList.toggle('current', i === current);
+    });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    nextBtn.textContent = current === total - 1 ? 'समाप्त' : 'आगे →';
+
+    const activeTab = tabs[current];
+    if (activeTab && scrollWrap) {
+      const tabLeft = activeTab.offsetLeft;
+      const tabWidth = activeTab.offsetWidth;
+      const wrapWidth = scrollWrap.clientWidth;
+      scrollWrap.scrollTo({ left: tabLeft - wrapWidth / 2 + tabWidth / 2, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+  });
+
+  document.querySelectorAll('.map-cell').forEach(card => {
+    const hint = card.querySelector('.hint');
+    const hintText = card.dataset.hint;
+    if (hintText && hint) hint.textContent = hintText;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+      }
+    });
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

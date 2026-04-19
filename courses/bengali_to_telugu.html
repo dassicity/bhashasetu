@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="বাংলা থেকে তেলুগু শেখার প্রথম-নীতি পাঠ্যক্রম — বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে।" />
+<title>తెలుగు నేర్చుకుందాం — বাংলা থেকে তেলুগু</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Bengali', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .te { font-family: 'Noto Serif Telugu', serif; }
+  .bn { font-family: 'Noto Serif Bengali', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  /* ——— masthead ——— */
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .te { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  /* ——— stage navigator ——— */
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  /* ——— stages ——— */
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  /* ——— mapping row ——— */
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .bn-g {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .te-g {
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 4px; }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  /* ——— word card ——— */
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .te { font-family: 'Noto Serif Telugu', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .bn-eq { font-family: 'Noto Serif Bengali', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+
+  /* ——— sentence ——— */
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .te { font-family: 'Noto Serif Telugu', serif; font-size: 21px; line-height: 1.6; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  /* ——— conjugation ——— */
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Telugu', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .te { font-family: 'Noto Serif Telugu', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .bn-eq { font-family: 'Noto Serif Bengali', serif; font-size: 15px; color: var(--ink-soft); }
+
+  /* ——— guni table ——— */
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+
+  /* ——— literary block ——— */
+  .vachana {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .vachana::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .vachana .te { font-size: 18px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; }
+  .vachana .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .vachana .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ——— aside ——— */
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  /* ——— principles ——— */
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, bengali);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  /* ——— video ——— */
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Bengali', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  /* ——— progress ——— */
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .te { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .te-g { font-size: 26px; }
+    .map-cell .bn-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 60px 1fr; gap: 6px; }
+    .conjug-row .bn-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 380px) {
+    .wrap { padding: 0 14px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .map-cell .te-g { font-size: 24px; }
+    .stage-tab { padding: 10px 7px 8px; font-size: 11px; }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">একটি প্রাইমার · ప్రాథమిక పుస్తకం</div>
+    <h1 class="title">
+      <span class="te">తెలుగు నేర్చుకుందాం</span>
+      বাংলা থেকে তেলুগু শিখুন
+    </h1>
+    <p class="subtitle">বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে — একসাথে একটাই অজানা জিনিস, রূপ আগে অর্থ পরে, তালিকা নয় ব্যবস্থা — বাংলা যা জানে তার উপর দাঁড়িয়ে তেলুগু।</p>
+    <div class="byline">দশ ধাপ <span class="sep">·</span> মোবাইল-বান্ধব <span class="sep">·</span> সম্পূর্ণ শূন্য থেকে</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">০০</span>ভূমিকা</button>
+    <button class="stage-tab" data-stage="1"><span class="num">০১</span>স্বরবর্ণ</button>
+    <button class="stage-tab" data-stage="2"><span class="num">০২</span>ব্যঞ্জনবর্ণ</button>
+    <button class="stage-tab" data-stage="3"><span class="num">০৩</span>সংযোজনা</button>
+    <button class="stage-tab" data-stage="4"><span class="num">০৪</span>মূল শব্দ</button>
+    <button class="stage-tab" data-stage="5"><span class="num">০৫</span>বাক্য</button>
+    <button class="stage-tab" data-stage="6"><span class="num">০৬</span>পাঠ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">০৭</span>শব্দক্ষেত্র</button>
+    <button class="stage-tab" data-stage="8"><span class="num">০৮</span>ব্যবহার</button>
+    <button class="stage-tab" data-stage="9"><span class="num">০৯</span>সাহিত্য</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<!-- ════════ STAGE 0 ════════ -->
+<section class="stage active" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · ভূমিকা</div>
+    <h2 class="stage-title">এই পাঠ কেন আলাদা</h2>
+    <p class="stage-lede">তুমি বাংলা জানো। তার মানে তেলুগু শেখার জন্য তোমাকে ইংরেজি-ভাষীদের মতো শূন্য থেকে শুরু করতে হবে না — তুমি ৪৭-এর মধ্যে ৪১টি ধ্বনি, ব্যাকরণের গোটা কঙ্কাল, আর শব্দভাণ্ডারের প্রায় এক-তৃতীয়াংশ ইতিমধ্যেই চেনো।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>বিদ্যাসাগরের <em>বর্ণপরিচয়</em> তোমার শৈশবের বই। সেই বইয়ের মূল নীতি ছিল: <strong>একসাথে একটিই অজানা জিনিস</strong>, আর যা শেখানো হয়নি তা দিয়ে কোনো উদাহরণ দেওয়া হবে না। এই কোর্সটি ঠিক সেই পদ্ধতিতে তৈরি — কিন্তু একটি বিশাল সুবিধা সহ: তোমার বাংলা আর তেলুগু একই পরিবারের না হলেও, একই সভ্যতার। বাংলা ইন্দো-আর্য বংশের, তেলুগু দ্রাবিড় বংশের — কিন্তু দুটোই ব্রাহ্মী লিপি থেকে এসেছে, দুটোই অবুগিদা, দুটোরই বাক্যগঠন SOV, আর সংস্কৃত তৎসম-ঋণ দুজনকেই পুষ্ট করেছে।</p>
+
+    <p>একটা ছোট্ট উদাহরণ দেখো — <em>"আমি বই পড়ি"</em> বাক্যটি বাংলায় কর্তা-কর্ম-ক্রিয়া ক্রমে চলে। তেলুগুতেও হুবহু একই: <span class="te">నేను పుస్తకం చదువుతాను</span> (<span class="mono">nēnu pustakaṃ caduvutānu</span>) = "আমি পুস্তক পড়ি"। শব্দগুলো তুমি প্রায় চিনতে পারছ — <span class="te">పుస్తకం</span> = পুস্তক। কঙ্কাল এক, মাংসটা বদলায় মাত্র।</p>
+
+    <p>৪৭টি মূল ধ্বনির মধ্যে ৪১টি — মানে প্রায় ৮৭% — বাংলা-তেলুগুতে একদম এক। বাকি ৬টি নতুন (ళ, দীর্ঘ এ/ও, ঐ, ঔ, ভি-সদৃশ ʋ)। তোমার মুখ আগে থেকেই জানে কী করতে হবে — শুধু চোখকে শেখাতে হবে নতুন চেহারা চিনতে।</p>
+
+    <h3><span class="num">¶</span>বাংলা → তেলুগু: কোথায় মিল, কোথায় ফারাক</h3>
+
+    <ol class="principles">
+      <li><strong>ধ্বনি — প্রায় পুরোটাই এক।</strong> বর্গীয় ব্যঞ্জন (ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ-ঞ, ট-ঠ-ড-ঢ-ণ, ত-থ-দ-ধ-ন, প-ফ-ব-ভ-ম) হুবহু মিলে যায় — <span class="te">క ఖ గ ఘ ఙ</span>, <span class="te">చ ఛ జ ఝ ఞ</span>... একই ক্রম, একই উচ্চারণ। অল্পপ্রাণ/মহাপ্রাণ, ঘোষ/অঘোষ — সব তোমার মুখ চেনে।</li>
+      <li><strong>লিপি — আলাদা চেহারা, এক নিয়ম।</strong> বাংলা আর তেলুগু দুটোই অবুগিদা — প্রতিটি ব্যঞ্জনে একটি অন্তর্নিহিত 'অ' আছে, স্বরচিহ্ন দিয়ে বদলায়। তুমি <em>কা-কি-কু</em> শিখেছ; এখন <span class="te">కా కి కు</span> শিখতে হবে। ধারণা এক, চেহারা নতুন।</li>
+      <li><strong>ব্যাকরণ — SOV হুবহু এক।</strong> "আমি ভাত খাই" = <span class="te">నేను అన్నం తింటాను</span>। কর্তা আগে, কর্ম মাঝে, ক্রিয়া শেষে। বিভক্তি বাংলার মতোই পেছনে বসে — "ঘরে" = <span class="te">ఇంట్లో</span>, "ঘর থেকে" = <span class="te">ఇంటి నుండి</span>। তুমি আগে থেকেই এইভাবে ভাবো।</li>
+      <li><strong>শব্দভাণ্ডার — সংস্কৃত সেতু ৩২%।</strong> <span class="te">పుస్తకం</span>/পুস্তক, <span class="te">సమయం</span>/সময়, <span class="te">రాత్రి</span>/রাত্রি, <span class="te">భూమి</span>/ভূমি, <span class="te">సూర్యుడు</span>/সূর্য — তৎসম শব্দগুলো দুই ভাষায় প্রায় এক। তাৎক্ষণিকভাবে ১০০+ শব্দ চেনা হয়ে যাবে।</li>
+      <li><strong>⚡ সত্যিকারের নতুন: ব্যাকরণগত লিঙ্গ।</strong> বাংলায় "সে" সবার জন্য এক — পুরুষ, স্ত্রী, বস্তু সব "সে করে"। তেলুগুতে তিন আলাদা রূপ: <span class="te">అతడు చేస్తాడు</span> (সে-পুরুষ করে), <span class="te">ఆమె చేస్తుంది</span> (সে-স্ত্রী করে), <span class="te">అది చేస్తుంది</span> (ওটা করে)। ক্রিয়াপদও লিঙ্গভেদ করে — এটা সত্যিকারের নতুন অভ্যাস।</li>
+      <li><strong>একমাত্র নতুন ব্যঞ্জনধ্বনি: <span class="te">ళ</span></strong> (মূর্ধন্য ল)। বাংলা এটি হারিয়েছে সহস্রাব্দ আগে; তেলুগু, কন্নড, তামিল, মালায়ালম রেখে দিয়েছে। জিভ পেছনে গুটিয়ে "ল" বলো — তিন হাজার বছরের পুরনো এই ধ্বনিটি তোমার কান প্রথমবার শুনবে।</li>
+    </ol>
+
+    <div class="aside"><strong>পদ্ধতি।</strong> প্রতিটি ধাপে তেলুগু অক্ষর/শব্দ/বাক্যের পাশে বাংলা সমতুল্য রাখা হয়েছে। তুমি বাংলা চিনলে, তেলুগু শুধু নতুন চেহারা — নতুন ধারণা নয়। কার্ডে ট্যাপ করলে উদাহরণ খুলে যাবে।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ওপরে <strong>স্বরবর্ণ</strong> ট্যাবে চাপো, শুরু করো।</p>
+  </div>
+</section>
+
+<!-- ════════ STAGE 1 ════════ -->
+<section class="stage" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ধ্বনি</div>
+    <h2 class="stage-title">স্বরবর্ণ — <span class="te">అచ్చులు</span></h2>
+    <p class="stage-lede">বাংলায় তুমি ১১টি স্বরবর্ণ চেনো। তেলুগুতে ১৩টি — বাড়তি দুটি হলো দীর্ঘ 'এ' আর দীর্ঘ 'ও'। প্রায় সব ধ্বনি তোমার মুখে আছে, শুধু চেহারা নতুন।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+vowels+achulu+pronunciation" title="তেলুগু স্বরবর্ণ উচ্চারণ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">তেলুগু স্বরবর্ণের (అచ్చులు) উচ্চারণ <a href="https://www.youtube.com/results?search_query=learn+telugu+vowels+achulu+pronunciation" target="_blank" rel="noopener">আরও খুঁজুন ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>পড়ার নিয়ম।</strong> প্রতিটি কার্ডে ট্যাপ করলে একটি উদাহরণ শব্দ দেখাবে। বাংলা অক্ষরটি ওপরে, তেলুগু নিচে — চোখ বাংলা চিনবে, তারপর তেলুগু রূপটি স্মৃতিতে ঢুকবে।</div>
+
+    <div class="group-label">হ্রস্ব / দীর্ঘ জোড়া — 'অ' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="అమ్మ (amma) = মা"><div class="bn-g">অ</div><div class="arrow">↓</div><div class="te-g">అ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఆకు (āku) = পাতা"><div class="bn-g">আ</div><div class="arrow">↓</div><div class="te-g">ఆ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ই' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ఇల్లు (illu) = ঘর"><div class="bn-g">ই</div><div class="arrow">↓</div><div class="te-g">ఇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఈగ (īga) = মাছি"><div class="bn-g">ঈ</div><div class="arrow">↓</div><div class="te-g">ఈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'উ' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ఉప్పు (uppu) = নুন"><div class="bn-g">উ</div><div class="arrow">↓</div><div class="te-g">ఉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఊరు (ūru) = গ্রাম / শহর"><div class="bn-g">ঊ</div><div class="arrow">↓</div><div class="te-g">ఊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ঋ — সংস্কৃত ঋণ</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ఋషి (ṛṣi) = ঋষি — একই সংস্কৃত শব্দ!"><div class="bn-g">ঋ</div><div class="arrow">↓</div><div class="te-g">ఋ</div><div class="label">ṛ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'এ' পরিবার — এখানে তেলুগু বাংলাকে ছাড়িয়ে যায়</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ఎరుపు (erupu) = লাল। হ্রস্ব এ — বাংলায় চিহ্ন নেই, কিন্তু উচ্চারণে আছে।"><div class="bn-g">এ</div><div class="arrow">↓</div><div class="te-g">ఎ</div><div class="label">e (হ্রস্ব)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఏడు (ēḍu) = সাত। দীর্ঘ এ — টেনে বলো।"><div class="bn-g">এ (দীর্ঘ)</div><div class="arrow">↓</div><div class="te-g">ఏ</div><div class="label">ē (দীর্ঘ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఐదు (aidu) = পাঁচ"><div class="bn-g">ঐ</div><div class="arrow">↓</div><div class="te-g">ఐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ও' পরিবার — এখানেও দুই স্তর</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ఒకటి (okaṭi) = এক"><div class="bn-g">ও</div><div class="arrow">↓</div><div class="te-g">ఒ</div><div class="label">o (হ্রস্ব)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఓడ (ōḍa) = নৌকা। দীর্ঘ ও।"><div class="bn-g">ও (দীর্ঘ)</div><div class="arrow">↓</div><div class="te-g">ఓ</div><div class="label">ō (দীর্ঘ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఔషధం (auṣadhaṃ) = ঔষধ — একই শব্দ!"><div class="bn-g">ঔ</div><div class="arrow">↓</div><div class="te-g">ఔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>বাংলার সাথে তফাৎ।</strong> তেলুগু এ/ও-র হ্রস্ব ও দীর্ঘ দুটো আলাদাভাবে লেখে — <span class="te">ఎ</span> (হ্রস্ব এ) আর <span class="te">ఏ</span> (দীর্ঘ এ)। বাংলায় এই পার্থক্য লিপিতে নেই, কিন্তু উচ্চারণে আছে — "বেলা"-র 'এ' দীর্ঘ, "এক"-এর 'এ' হ্রস্ব। তেলুগু সেটা খোলাখুলি লেখে দেয়। কন্নড-মালায়ালমের সাথেও এই মিল — দ্রাবিড় লিপির একটা সাধারণ বৈশিষ্ট্য।</div>
+
+    <div class="group-label">অনুস্বার ও বিসর্গ — বাংলার মতোই</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="హంస (haṃsa) = হংস — রাজহাঁস"><div class="bn-g">অং</div><div class="arrow">↓</div><div class="te-g">అం</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="దుఃఖం (duḥkhaṃ) = দুঃখ — হুবহু এক!"><div class="bn-g">অঃ</div><div class="arrow">↓</div><div class="te-g">అః</div><div class="label">aḥ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>লক্ষ্য করো।</strong> তেলুগু শব্দ বেশিরভাগ ক্ষেত্রে অনুস্বার (<span class="te">ం</span>) দিয়ে শেষ হয় যেখানে বাংলায় শুধু ব্যঞ্জন থাকে — <span class="te">పుస్తకం</span> = পুস্তক্, <span class="te">సమయం</span> = সময়। এই চূড়ান্ত 'ং' তেলুগু শব্দের অন্যতম পরিচিত স্বাক্ষর।</div>
+
+    <h3><span class="num">১.১</span>অভ্যাস</h3>
+    <ul class="clean">
+      <li>প্রতিটি জোড়া জোরে জোরে ২০ বার বলো: অ-আ, ই-ঈ, উ-ঊ — কিন্তু তেলুগু অক্ষরের দিকে তাকিয়ে।</li>
+      <li>হ্রস্ব ও দীর্ঘ এ/ও-র জোড়া (<span class="te">ఎ/ఏ</span>, <span class="te">ఒ/ఓ</span>) পাঁচ গুণ বেশি বার অনুশীলন করো — এটাই নতুন অভ্যাস।</li>
+      <li>কাগজে প্রতিটি তেলুগু স্বর ৫ বার আঁকো। হাত চোখকে শেখায়।</li>
+      <li>যতক্ষণ না প্রতিটি তেলুগু স্বর ১ সেকেন্ডে চিনতে পারো, ধাপ ২-এ যেও না।</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════ STAGE 2 ════════ -->
+<section class="stage" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ধ্বনি (চলতি)</div>
+    <h2 class="stage-title">ব্যঞ্জনবর্ণ — <span class="te">హల్లులు</span></h2>
+    <p class="stage-lede">বর্ণপরিচয়ের বর্গীয় ক্রম তোমার শরীরে আছে। ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ-ঞ... ঠিক একই ক্রমে তেলুগু ব্যঞ্জন সাজানো। শুধু চেহারা নতুন — আর শেষে একটি বাড়তি ধ্বনি।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+consonants+hallulu+pronunciation" title="তেলুগু ব্যঞ্জনবর্ণ উচ্চারণ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">তেলুগু ব্যঞ্জনবর্ণের (హల్లులు) উচ্চারণ <a href="https://www.youtube.com/results?search_query=learn+telugu+consonants+hallulu+pronunciation" target="_blank" rel="noopener">আরও ↗</a></div>
+    </div>
+
+    <h3><span class="num">২.১</span>কণ্ঠ্য বর্গ (কবর্গ) — জিভের গোড়া তালুর পেছনে</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="కమలం (kamalaṃ) = কমল"><div class="bn-g">ক</div><div class="arrow">↓</div><div class="te-g">క</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఖగం (khagaṃ) = খগ — পাখি"><div class="bn-g">খ</div><div class="arrow">↓</div><div class="te-g">ఖ</div><div class="label">kha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="గగనం (gaganaṃ) = গগন — আকাশ"><div class="bn-g">গ</div><div class="arrow">↓</div><div class="te-g">గ</div><div class="label">ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఘటం (ghaṭaṃ) = ঘট — কলসি"><div class="bn-g">ঘ</div><div class="arrow">↓</div><div class="te-g">ఘ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="বাংলা ঙ-র মতো, বিরল"><div class="bn-g">ঙ</div><div class="arrow">↓</div><div class="te-g">ఙ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.২</span>তালব্য বর্গ (চবর্গ)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="చంద్రుడు (candruḍu) = চন্দ্র"><div class="bn-g">চ</div><div class="arrow">↓</div><div class="te-g">చ</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఛత్రం (chatraṃ) = ছাতা"><div class="bn-g">ছ</div><div class="arrow">↓</div><div class="te-g">ఛ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="జలం (jalaṃ) = জল"><div class="bn-g">জ</div><div class="arrow">↓</div><div class="te-g">జ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఝరి (jhari) = ঝরনা"><div class="bn-g">ঝ</div><div class="arrow">↓</div><div class="te-g">ఝ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="বিরল, যুক্তাক্ষরে পাওয়া যায়"><div class="bn-g">ঞ</div><div class="arrow">↓</div><div class="te-g">ఞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৩</span>মূর্ধন্য বর্গ (টবর্গ) — জিভ পেছনে গোল করে</h3>
+    <p>বাংলায় ট-ঠ-ড-ঢ-ণ যেমন, তেলুগুতে ঠিক তেমনই। এই ধ্বনিগুলো ইংরেজি-ভাষীদের জন্য কঠিন — তোমার জন্য নয়।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="టమోటా (ṭamōṭā) = টমেটো"><div class="bn-g">ট</div><div class="arrow">↓</div><div class="te-g">ట</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ক্রিয়ায় বিরল"><div class="bn-g">ঠ</div><div class="arrow">↓</div><div class="te-g">ఠ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="డబ్బు (ḍabbu) = টাকা"><div class="bn-g">ড</div><div class="arrow">↓</div><div class="te-g">డ</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="বিরল"><div class="bn-g">ঢ</div><div class="arrow">↓</div><div class="te-g">ఢ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ప్రాణం (prāṇaṃ) = প্রাণ"><div class="bn-g">ণ</div><div class="arrow">↓</div><div class="te-g">ణ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৪</span>দন্ত্য বর্গ (তবর্গ) — জিভের ডগা দাঁতের পেছনে</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="తార (tāra) = তারা"><div class="bn-g">ত</div><div class="arrow">↓</div><div class="te-g">త</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="థ-ধ্বনি"><div class="bn-g">থ</div><div class="arrow">↓</div><div class="te-g">థ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="దినం (dinaṃ) = দিন — একই শব্দ!"><div class="bn-g">দ</div><div class="arrow">↓</div><div class="te-g">ద</div><div class="label">da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ధనం (dhanaṃ) = ধন"><div class="bn-g">ধ</div><div class="arrow">↓</div><div class="te-g">ధ</div><div class="label">dha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="నేను (nēnu) = আমি"><div class="bn-g">ন</div><div class="arrow">↓</div><div class="te-g">న</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৫</span>ওষ্ঠ্য বর্গ (পবর্গ)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="పుస్తకం (pustakaṃ) = পুস্তক"><div class="bn-g">প</div><div class="arrow">↓</div><div class="te-g">ప</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఫలం (phalaṃ) = ফল"><div class="bn-g">ফ</div><div class="arrow">↓</div><div class="te-g">ఫ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="బంగారం (baṅgāraṃ) = স্বর্ণ"><div class="bn-g">ব</div><div class="arrow">↓</div><div class="te-g">బ</div><div class="label">ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="భాష (bhāṣa) = ভাষা — চেনো তো?"><div class="bn-g">ভ</div><div class="arrow">↓</div><div class="te-g">భ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="మనిషి (maniṣi) = মানুষ"><div class="bn-g">ম</div><div class="arrow">↓</div><div class="te-g">మ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৬</span>অন্তঃস্থ, ঊষ্ম ও বিশেষ</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="యాత్ర (yātra) = যাত্রা"><div class="bn-g">য</div><div class="arrow">↓</div><div class="te-g">య</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="రాజు (rāju) = রাজা"><div class="bn-g">র</div><div class="arrow">↓</div><div class="te-g">ర</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="లత (lata) = লতা"><div class="bn-g">ল</div><div class="arrow">↓</div><div class="te-g">ల</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="వనం (vanaṃ) = বন। উচ্চারণ ইংরেজি v-র কাছাকাছি।"><div class="bn-g">ব/ৱ</div><div class="arrow">↓</div><div class="te-g">వ</div><div class="label">va</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="శాల (śāla) = শালা, স্কুল"><div class="bn-g">শ</div><div class="arrow">↓</div><div class="te-g">శ</div><div class="label">śa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="షష్ఠి (ṣaṣṭhi) = ষষ্ঠী"><div class="bn-g">ষ</div><div class="arrow">↓</div><div class="te-g">ష</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="సమయం (samayaṃ) = সময়"><div class="bn-g">স</div><div class="arrow">↓</div><div class="te-g">స</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="హంస (haṃsa) = হংস"><div class="bn-g">হ</div><div class="arrow">↓</div><div class="te-g">హ</div><div class="label">ha</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৭</span>⚡ একমাত্র নতুন ধ্বনি: <span class="te">ళ</span></h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="పాళి (pāḷi) = পালি (ভাষা)। జళ (jaḷa) = জল। মূর্ধন্য ল — জিভ গোল করে পেছনে।" style="grid-column: span 2; border-color: var(--sindoor);">
+        <div class="bn-g" style="color: var(--sindoor);">??? (নেই!)</div>
+        <div class="arrow">↓</div>
+        <div class="te-g" style="color: var(--sindoor);">ళ</div>
+        <div class="label">ḷa — মূর্ধন্য ল</div>
+        <div class="hint" style="opacity:1; max-height: 60px;">বাংলায় নেই! দ্রাবিড় উপহার। জিভ পেছনে গুটিয়ে বলো — কন্নড/তামিল/মালায়ালমেও আছে।</div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>⚡ ভি-ধ্বনি আলাদা।</strong> তেলুগুর <span class="te">వ</span> বাংলার 'ব'-এর মতো নয়, বরং ইংরেজি 'v'-এর মতো ঠোঁট আলগা করে বলা হয় — দাঁত কামড়ে নয়, বরং নিচের ঠোঁট একটু ছুঁয়ে। <span class="te">వాన</span> (<em>vāna</em> = বৃষ্টি)-তে সেই ধ্বনি শুনবে। বাংলার 'ব'-ই এই কাজ চালিয়ে নেয়, তবে কান খোলা রেখো।</div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 3 ════════ -->
+<section class="stage" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · সংযোজনা</div>
+    <h2 class="stage-title">কার-চিহ্ন ও যুক্তাক্ষর — <span class="te">గుణింతాలు, ఒత్తులు</span></h2>
+    <p class="stage-lede">বর্ণপরিচয়ের দ্বিতীয় খণ্ডে বিদ্যাসাগর যুক্তাক্ষর ভাঙিয়ে দেখিয়েছিলেন — ক্ষ = ক + ষ। তেলুগুতে ঠিক একই নিয়ম, শুধু চেহারা অন্যরকম।</p>
+  </div>
+  <div class="stage-body">
+    <p>তুমি ইতিমধ্যে জানো: বাংলায় ক + া = কা, ক + ি = কি। তেলুগুতে ঠিক একই জিনিস ঘটে: <span class="te">క + ా = కా</span>, <span class="te">క + ి = కి</span>। চিহ্নের চেহারা আলাদা, কিন্তু নিয়ম হুবহু এক। একটি গুরুত্বপূর্ণ পার্থক্য: তেলুগুর দীর্ঘ এ/ও-র আলাদা কার-চিহ্ন আছে, বাংলায় সেগুলো নেই।</p>
+
+    <h3><span class="num">৩.১</span><span class="te">క</span>-র গুণিন্তম (কার-চিহ্ন) — বাংলা ↔ তেলুগু পাশাপাশি</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>স্বর</th><th>বাংলা</th><th>তেলুগু</th><th>উচ্চারণ</th></tr>
+        <tr><td>অ</td><td class="bn g">ক</td><td><span class="te g">క</span></td><td class="mono">ka</td></tr>
+        <tr><td>আ</td><td class="bn g">কা</td><td><span class="te g">కా</span></td><td class="mono">kā</td></tr>
+        <tr><td>ই</td><td class="bn g">কি</td><td><span class="te g">కి</span></td><td class="mono">ki</td></tr>
+        <tr><td>ঈ</td><td class="bn g">কী</td><td><span class="te g">కీ</span></td><td class="mono">kī</td></tr>
+        <tr><td>উ</td><td class="bn g">কু</td><td><span class="te g">కు</span></td><td class="mono">ku</td></tr>
+        <tr><td>ঊ</td><td class="bn g">কূ</td><td><span class="te g">కూ</span></td><td class="mono">kū</td></tr>
+        <tr><td>এ (হ্রস্ব)</td><td class="bn g">কে</td><td><span class="te g">కె</span></td><td class="mono">ke</td></tr>
+        <tr><td>এ (দীর্ঘ)</td><td class="bn g">—</td><td><span class="te g">కే</span></td><td class="mono">kē</td></tr>
+        <tr><td>ঐ</td><td class="bn g">কৈ</td><td><span class="te g">కై</span></td><td class="mono">kai</td></tr>
+        <tr><td>ও (হ্রস্ব)</td><td class="bn g">কো</td><td><span class="te g">కొ</span></td><td class="mono">ko</td></tr>
+        <tr><td>ও (দীর্ঘ)</td><td class="bn g">—</td><td><span class="te g">కో</span></td><td class="mono">kō</td></tr>
+        <tr><td>ঔ</td><td class="bn g">কৌ</td><td><span class="te g">కౌ</span></td><td class="mono">kau</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>বিদ্যাসাগরের চাল।</strong> এই গোটা বারোটি চিহ্ন ৩৬টি তেলুগু ব্যঞ্জনে হুবহু একইভাবে বসে। ১২ × ৩৬ = ৪৩২টি অক্ষর — মাত্র ১২টি চিহ্নের দামে! তুমি বাংলায় এই কাজ আগেই করেছ, এখন শুধু চেহারা মুখস্থ করো।</div>
+
+    <h3><span class="num">৩.২</span>হসন্ত (বিরাম) — <span class="te">్</span> (হల్లు)</h3>
+    <p>বাংলায় হসন্ত (্) যেমন ব্যঞ্জনের অন্তর্নিহিত স্বর মেরে দেয়, তেলুগুতে <span class="te">్</span> ঠিক তাই করে। <span class="te">క</span> (ka) + <span class="te">్</span> = <span class="te">క్</span> (k)। চিহ্নটি একই জায়গায় (ব্যঞ্জনের নিচে/পাশে) বসে, শুধু চেহারা আলাদা।</p>
+
+    <h3><span class="num">৩.৩</span>যুক্তাক্ষর — <span class="te">ఒత్తులు</span> (ওত্তুলু)</h3>
+    <p>বর্ণপরিচয়ের মূল শিক্ষা: ক্ষ = ক + ষ, জ্ঞ = জ + ঞ। তেলুগুতে দ্বিতীয় ব্যঞ্জনটি প্রথমের নিচে ছোট রূপে বসে — একে বলে <em>ওত্তু</em>:</p>
+    <div class="sentence">
+      <div class="te">క్ + క = క్క</div>
+      <div class="bn-gloss">ক্ + ক = ক্ক → বাংলায় "অক্কুট", তেলুগুতে <span class="te">క్క</span>। দ্বিতীয় 'ক' নিচে ছোট হয়ে বসল।</div>
+    </div>
+    <div class="sentence">
+      <div class="te">స్ + త = స్త → పుస్తకం</div>
+      <div class="bn-gloss">স্ + ত = স্ত → পুস্তক — একই শব্দ, একই যুক্তাক্ষর! বাংলায় ত নিচে, তেলুগুতেও ত নিচে।</div>
+    </div>
+    <div class="sentence">
+      <div class="te">న్ + న = న్న → నన్న</div>
+      <div class="bn-gloss">ন্ + ন = ন্ন → মনে করো বাংলার "অন্ন"।</div>
+    </div>
+    <div class="sentence">
+      <div class="te">క్ + ష = క్ష → అక్షరం</div>
+      <div class="bn-gloss">ক্ + ষ = ক্ষ → অক্ষর — বাংলায়ও ক্ষ = ক + ষ! নিয়ম এক।</div>
+    </div>
+    <div class="sentence">
+      <div class="te">జ్ + ఞ = జ్ఞ → జ్ఞానం</div>
+      <div class="bn-gloss">জ্ + ঞ = জ্ঞ → জ্ঞান। বাংলায় "জ্ঞ" দেখতে অন্যরকম হলেও ভাঙন একই।</div>
+    </div>
+
+    <div class="aside"><strong>মূল কথা।</strong> যুক্তাক্ষর কোনো নতুন ধারণা নয় — তুমি বর্ণপরিচয় থেকেই চেনো। এখানে শুধু চেহারা আলাদা: দ্বিতীয় ব্যঞ্জন বাংলায় পাশে/নিচে যোগ হয়, তেলুগুতে প্রায় সবসময় নিচে ছোট হয়ে বসে। নিয়ম হুবহু এক।</div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 4 ════════ -->
+<section class="stage" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · মূল শব্দ</div>
+    <h2 class="stage-title">পঞ্চাশটি শব্দ — বাংলার পাশে তেলুগু</h2>
+    <p class="stage-lede">প্রতিটি শব্দের পাশে বাংলা সমতুল্য আছে। অনেকগুলো তৎসম — চেহারা আলাদা, শব্দ একই।</p>
+  </div>
+  <div class="stage-body">
+    <h3><span class="num">৪.১</span>সর্বনাম</h3>
+    <div class="words">
+      <div class="word"><span class="te">నేను</span><span class="bn-eq">আমি</span><span class="trans">nēnu</span></div>
+      <div class="word"><span class="te">నువ్వు</span><span class="bn-eq">তুমি / তুই</span><span class="trans">nuvvu</span><span class="note">অনানুষ্ঠানিক</span></div>
+      <div class="word"><span class="te">మీరు</span><span class="bn-eq">আপনি / তোমরা</span><span class="trans">mīru</span><span class="note">সম্মান/বহুবচন — "আপনি"র সমতুল্য</span></div>
+      <div class="word"><span class="te">అతడు</span><span class="bn-eq">সে (পুরুষ)</span><span class="trans">ataḍu</span><span class="note">⚡ বাংলায় "সে" লিঙ্গহীন — তেলুগু আলাদা করে!</span></div>
+      <div class="word"><span class="te">ఆమె</span><span class="bn-eq">সে (স্ত্রী)</span><span class="trans">āme</span></div>
+      <div class="word"><span class="te">అది</span><span class="bn-eq">ওটা / সেটা</span><span class="trans">adi</span></div>
+      <div class="word"><span class="te">ఇది</span><span class="bn-eq">এটা</span><span class="trans">idi</span></div>
+      <div class="word"><span class="te">మేము</span><span class="bn-eq">আমরা</span><span class="trans">mēmu</span></div>
+      <div class="word"><span class="te">వారు</span><span class="bn-eq">তারা / তিনি (সম্মান)</span><span class="trans">vāru</span></div>
+    </div>
+
+    <h3><span class="num">৪.২</span>নিত্য বিশেষ্য</h3>
+    <div class="words">
+      <div class="word"><span class="te">ఇల్లు</span><span class="bn-eq">ঘর / বাড়ি</span><span class="trans">illu</span></div>
+      <div class="word"><span class="te">నీరు</span><span class="bn-eq">জল / পানি</span><span class="trans">nīru</span></div>
+      <div class="word"><span class="te">అన్నం</span><span class="bn-eq">ভাত / আহার</span><span class="trans">annaṃ</span><span class="note">সংস্কৃত "অন্ন" — একদম পরিচিত শব্দ!</span></div>
+      <div class="word"><span class="te">పేరు</span><span class="bn-eq">নাম</span><span class="trans">pēru</span></div>
+      <div class="word"><span class="te">పుస్తకం</span><span class="bn-eq">পুস্তক / বই</span><span class="trans">pustakaṃ</span><span class="note">একই তৎসম শব্দ!</span></div>
+      <div class="word"><span class="te">పాఠశాల</span><span class="bn-eq">পাঠশালা / স্কুল</span><span class="trans">pāṭhaśāla</span><span class="note">সংস্কৃত "পাঠশালা" হুবহু!</span></div>
+      <div class="word"><span class="te">డబ్బు</span><span class="bn-eq">টাকা / অর্থ</span><span class="trans">ḍabbu</span></div>
+      <div class="word"><span class="te">దారి</span><span class="bn-eq">পথ / রাস্তা</span><span class="trans">dāri</span></div>
+      <div class="word"><span class="te">సమయం</span><span class="bn-eq">সময়</span><span class="trans">samayaṃ</span><span class="note">হুবহু একই!</span></div>
+      <div class="word"><span class="te">దినం / రోజు</span><span class="bn-eq">দিন</span><span class="trans">dinaṃ / rōju</span><span class="note">"দিনং" তৎসম; "রোজু" দ্রাবিড়</span></div>
+      <div class="word"><span class="te">రాత్రి</span><span class="bn-eq">রাত্রি</span><span class="trans">rātri</span><span class="note">তৎসম — বাংলার "রাত্রি" হুবহু</span></div>
+      <div class="word"><span class="te">పాలు</span><span class="bn-eq">দুধ</span><span class="trans">pālu</span><span class="note">দ্রাবিড় মূল — তামিল-কন্নডেও "পাল্"</span></div>
+      <div class="word"><span class="te">సూర్యుడు</span><span class="bn-eq">সূর্য</span><span class="trans">sūryuḍu</span><span class="note">সূর্য + ডু (পুরুষবাচক প্রত্যয়)</span></div>
+      <div class="word"><span class="te">భూమి</span><span class="bn-eq">ভূমি / পৃথিবী</span><span class="trans">bhūmi</span><span class="note">হুবহু তৎসম!</span></div>
+      <div class="word"><span class="te">పువ్వు</span><span class="bn-eq">ফুল</span><span class="trans">puvvu</span><span class="note">দ্রাবিড় মূল</span></div>
+    </div>
+
+    <h3><span class="num">৪.৩</span>ক্রিয়াপদ (ধাতুরূপ)</h3>
+    <div class="words">
+      <div class="word"><span class="te">ఉండు</span><span class="bn-eq">থাকা / হওয়া</span><span class="trans">uṇḍu</span></div>
+      <div class="word"><span class="te">చేయు</span><span class="bn-eq">করা</span><span class="trans">cēyu</span></div>
+      <div class="word"><span class="te">పోవు</span><span class="bn-eq">যাওয়া</span><span class="trans">pōvu</span></div>
+      <div class="word"><span class="te">రా</span><span class="bn-eq">আসা / এসো</span><span class="trans">rā</span></div>
+      <div class="word"><span class="te">తిను</span><span class="bn-eq">খাওয়া</span><span class="trans">tinu</span></div>
+      <div class="word"><span class="te">తాగు</span><span class="bn-eq">পান করা</span><span class="trans">tāgu</span></div>
+      <div class="word"><span class="te">చూడు</span><span class="bn-eq">দেখা</span><span class="trans">cūḍu</span></div>
+      <div class="word"><span class="te">వినడం</span><span class="bn-eq">শোনা</span><span class="trans">vinaḍaṃ</span></div>
+      <div class="word"><span class="te">చదువు</span><span class="bn-eq">পড়া</span><span class="trans">caduvu</span></div>
+      <div class="word"><span class="te">వ్రాయు</span><span class="bn-eq">লেখা</span><span class="trans">vrāyu</span></div>
+      <div class="word"><span class="te">చెప్పు</span><span class="bn-eq">বলা</span><span class="trans">ceppu</span></div>
+      <div class="word"><span class="te">ఇవ్వు</span><span class="bn-eq">দেওয়া</span><span class="trans">ivvu</span></div>
+      <div class="word"><span class="te">నడచు</span><span class="bn-eq">হাঁটা</span><span class="trans">naḍacu</span></div>
+      <div class="word"><span class="te">నిలుచు</span><span class="bn-eq">দাঁড়ানো</span><span class="trans">nilucu</span></div>
+      <div class="word"><span class="te">తెలుసు</span><span class="bn-eq">জানা</span><span class="trans">telusu</span><span class="note">"তেলুসু" = জানি। ভাষার নাম <em>তেলুগু</em>-র সাথে সম্পর্কিত — "যা বোঝা যায়"।</span></div>
+      <div class="word"><span class="te">కావాలి</span><span class="bn-eq">চাই / দরকার</span><span class="trans">kāvāli</span></div>
+    </div>
+
+    <h3><span class="num">৪.৪</span>বিভক্তি — বাংলার মতোই পেছনে বসে</h3>
+    <p>বাংলায় "বাড়িতে", "বাড়ি থেকে", "বাড়ির" — বিভক্তি পেছনে। তেলুগুতেও ঠিক তাই:</p>
+    <div class="words">
+      <div class="word"><span class="te">-కి / -కు</span><span class="bn-eq">-কে / -তে (গন্তব্য)</span><span class="trans">-ki / -ku</span><span class="note">ఇంటికి (iṇṭiki) = বাড়িকে, বাড়ির দিকে</span></div>
+      <div class="word"><span class="te">-లో</span><span class="bn-eq">-তে / -এ (অধিকরণ)</span><span class="trans">-lō</span><span class="note">ఇంట్లో (iṇṭlō) = বাড়িতে</span></div>
+      <div class="word"><span class="te">-నుండి</span><span class="bn-eq">-থেকে</span><span class="trans">-nuṇḍi</span><span class="note">ఇంటినుండి (iṇṭinuṇḍi) = বাড়ি থেকে</span></div>
+      <div class="word"><span class="te">-ని / -ను</span><span class="bn-eq">-কে (কর্ম)</span><span class="trans">-ni / -nu</span><span class="note">పుస్తకాన్ని (pustakānni) = বইকে</span></div>
+      <div class="word"><span class="te">-యొక్క</span><span class="bn-eq">-র / -এর</span><span class="trans">-yokka</span><span class="note">నాయొక్క (nāyokka) = আমার</span></div>
+    </div>
+
+    <div class="aside"><strong>গভীর মিল।</strong> বাংলা আর তেলুগু দুজনেই অনুবিভক্তি (postposition) ভাষা — বিভক্তি শব্দের পেছনে যোগ হয়। ইংরেজি-স্প্যানিশ-হিন্দির মতো আগে নয়। এই একটি জিনিস শিখে ফেলার কারণে তুমি ইংরেজি-ভাষীদের চেয়ে অনেক এগিয়ে।</div>
+
+    <h3><span class="num">৪.৫</span>সংখ্যা ১-১০</h3>
+    <div class="words">
+      <div class="word"><span class="te">ఒకటి</span><span class="bn-eq">এক</span><span class="trans">okaṭi</span></div>
+      <div class="word"><span class="te">రెండు</span><span class="bn-eq">দুই</span><span class="trans">reṇḍu</span></div>
+      <div class="word"><span class="te">మూడు</span><span class="bn-eq">তিন</span><span class="trans">mūḍu</span></div>
+      <div class="word"><span class="te">నాలుగు</span><span class="bn-eq">চার</span><span class="trans">nālugu</span></div>
+      <div class="word"><span class="te">ఐదు</span><span class="bn-eq">পাঁচ</span><span class="trans">aidu</span></div>
+      <div class="word"><span class="te">ఆరు</span><span class="bn-eq">ছয়</span><span class="trans">āru</span></div>
+      <div class="word"><span class="te">ఏడు</span><span class="bn-eq">সাত</span><span class="trans">ēḍu</span></div>
+      <div class="word"><span class="te">ఎనిమిది</span><span class="bn-eq">আট</span><span class="trans">enimidi</span></div>
+      <div class="word"><span class="te">తొమ్మిది</span><span class="bn-eq">নয়</span><span class="trans">tommidi</span></div>
+      <div class="word"><span class="te">పది</span><span class="bn-eq">দশ</span><span class="trans">padi</span></div>
+    </div>
+    <div class="aside"><strong>লক্ষ্য করো:</strong> সংখ্যাগুলো তৎসম নয় — এগুলো দ্রাবিড় মূলের। বাংলার "এক, দুই, তিন" এর সাথে কোনো মিল নেই। কিন্তু কন্নড (ondu, eraḍu, mūru) আর তামিলের (ondru, iraṇḍu, mūṇru) সাথে একদম মেলে। এগুলো মুখস্থ করতেই হবে।</div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 5 ════════ -->
+<section class="stage" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · বাক্য</div>
+    <h2 class="stage-title">বাক্য তৈরি — <span class="te">వాక్య నిర్మాణం</span></h2>
+    <p class="stage-lede">দুটো ভাষাই SOV — কর্তা-কর্ম-ক্রিয়া। "আমি ভাত খাই" = <span class="te">నేను అన్నం తింటాను</span>। কঙ্কাল তোমার পরিচিত — এখন ক্রিয়ারূপ শেখো।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৫.১</span>ক্রিয়ারূপ — বর্তমান কাল (<span class="te">చేయు</span> = করা)</h3>
+    <div class="conjug">
+      <div class="conjug-row"><span class="pron">నేను</span><span class="te">చేస్తాను</span><span class="bn-eq">আমি করি / করছি</span></div>
+      <div class="conjug-row"><span class="pron">నువ్వు</span><span class="te">చేస్తావు</span><span class="bn-eq">তুমি করো / করছ</span></div>
+      <div class="conjug-row"><span class="pron">అతడు</span><span class="te">చేస్తాడు</span><span class="bn-eq">সে (পুং) করে / করছে</span></div>
+      <div class="conjug-row"><span class="pron">ఆమె</span><span class="te">చేస్తుంది</span><span class="bn-eq">সে (স্ত্রী) করে / করছে</span></div>
+      <div class="conjug-row"><span class="pron">అది</span><span class="te">చేస్తుంది</span><span class="bn-eq">ওটা করে</span></div>
+      <div class="conjug-row"><span class="pron">మేము</span><span class="te">చేస్తాము</span><span class="bn-eq">আমরা করি</span></div>
+      <div class="conjug-row"><span class="pron">మీరు</span><span class="te">చేస్తారు</span><span class="bn-eq">আপনি করেন / তোমরা করো</span></div>
+      <div class="conjug-row"><span class="pron">వారు</span><span class="te">చేస్తారు</span><span class="bn-eq">তারা করে / তিনি করেন</span></div>
+    </div>
+
+    <div class="aside"><strong>⚡ বাংলার সাথে বড় তফাৎ।</strong> তেলুগু ক্রিয়াপদে তৃতীয় পুরুষে লিঙ্গভেদ হয় — পুরুষ (<span class="te">-డు</span>: <span class="te">చేస్తాడు</span>), আর স্ত্রী + নপুংসক (<span class="te">-ది</span>: <span class="te">చేస్తుంది</span>) একই রূপ নেয়! বাংলা "সে করে" সবার জন্য একই। এটি সত্যিকারের নতুন অভ্যাস — বাক্য বানানোর সময় মনে করো: পুরুষ না অন্য সব?</div>
+
+    <h3><span class="num">৫.২</span>থাকা / নেই — <span class="te">ఉంది / లేదు</span></h3>
+    <div class="sentence">
+      <div class="te">ఇంట్లో నీరు ఉంది.</div>
+      <div class="trans">iṇṭlō nīru undi.</div>
+      <div class="bn-gloss">বাড়িতে জল আছে।</div>
+    </div>
+    <div class="sentence">
+      <div class="te">నీరు లేదు.</div>
+      <div class="trans">nīru lēdu.</div>
+      <div class="bn-gloss">জল নেই।</div>
+      <div class="literal">লেদু = নেই / নয় — একটি শব্দে অস্তিত্ব-অস্বীকার</div>
+    </div>
+
+    <div class="aside"><strong>চমৎকার সমান্তরাল।</strong> বাংলায় "আছে" আর "নেই" — দুই আলাদা শব্দ, না-বাচকের জন্য বিশেষ রূপ। তেলুগুতেও হুবহু তাই: <span class="te">ఉంది</span> (আছে) ↔ <span class="te">లేదు</span> (নেই)। ইংরেজি "is / is not" এর মতো ক্রিয়ায় "না" জুড়ে দেয় না — আলাদা শব্দ। এই গঠন তুমি আগে থেকেই চেনো।</div>
+
+    <h3><span class="num">৫.৩</span>প্রশ্নবাচক</h3>
+    <div class="words">
+      <div class="word"><span class="te">ఏమిటి</span><span class="bn-eq">কী?</span><span class="trans">ēmiṭi</span></div>
+      <div class="word"><span class="te">ఎవరు</span><span class="bn-eq">কে?</span><span class="trans">evaru</span></div>
+      <div class="word"><span class="te">ఎక్కడ</span><span class="bn-eq">কোথায়?</span><span class="trans">ekkaḍa</span></div>
+      <div class="word"><span class="te">ఎప్పుడు</span><span class="bn-eq">কখন?</span><span class="trans">eppuḍu</span></div>
+      <div class="word"><span class="te">ఎందుకు</span><span class="bn-eq">কেন?</span><span class="trans">enduku</span></div>
+      <div class="word"><span class="te">ఎలా</span><span class="bn-eq">কেমন করে? / কীভাবে?</span><span class="trans">elā</span></div>
+      <div class="word"><span class="te">ఎంత</span><span class="bn-eq">কত?</span><span class="trans">enta</span></div>
+    </div>
+
+    <div class="aside"><strong>মিল লক্ষ্য করো:</strong> তেলুগুর প্রশ্নবাচকগুলো সব <em>এ</em>-দিয়ে শুরু — <span class="te">ఏమిటి, ఎవరు, ఎక్కడ, ఎప్పుడు</span>। বাংলায়ও প্রায় সব <em>ক</em>-দিয়ে — কী, কে, কোথায়, কখন। প্রতিটি ভাষার নিজস্ব "প্রশ্ন-শব্দের সুর" থাকে। একবার চিনলে কান নিজেই আলাদা করবে।</div>
+
+    <div class="sentence">
+      <div class="te">నీ పేరు ఏమిటి?</div>
+      <div class="trans">nī pēru ēmiṭi?</div>
+      <div class="bn-gloss">তোমার নাম কী?</div>
+    </div>
+    <div class="sentence">
+      <div class="te">మీరు ఎక్కడికి పోతున్నారు?</div>
+      <div class="trans">mīru ekkaḍiki pōtunnāru?</div>
+      <div class="bn-gloss">আপনি কোথায় যাচ্ছেন?</div>
+    </div>
+    <div class="sentence">
+      <div class="te">అది ఏమిటి?</div>
+      <div class="trans">adi ēmiṭi?</div>
+      <div class="bn-gloss">ওটা কী?</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 6 ════════ -->
+<section class="stage" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · পাঠ</div>
+    <h2 class="stage-title">প্রথম তেলুগু অনুচ্ছেদ</h2>
+    <p class="stage-lede">প্রতিটি শব্দ তুমি আগের ধাপে শিখেছ। যদি পড়তে না পারো, তাহলে আগের ধাপে ফিরে যাও — এটা তোমার ব্যর্থতা নয়, পদ্ধতির অংশ।</p>
+  </div>
+  <div class="stage-body">
+    <h3><span class="num">৬.১</span>পরিচয়</h3>
+    <div class="sentence">
+      <div class="te">నా పేరు రవి. నేను హైదరాబాద్‌లో ఉన్నాను. నా ఇల్లు పెద్దది. నేను పుస్తకం చదువుతాను.</div>
+      <div class="trans">nā pēru Ravi. nēnu Haidarābādlō unnānu. nā illu peddadi. nēnu pustakaṃ caduvutānu.</div>
+      <div class="bn-gloss">আমার নাম রবি। আমি হায়দরাবাদে আছি। আমার বাড়ি বড়। আমি পুস্তক পড়ি।</div>
+    </div>
+
+    <h3><span class="num">৬.২</span>একটি দিন</h3>
+    <div class="sentence">
+      <div class="te">ఈరోజు సోమవారం. నేను ఉదయం లేస్తాను. నేను నీరు తాగుతాను. తర్వాత పాఠశాలకు పోతాను. సాయంత్రం ఇంటికి వస్తాను. రాత్రి అన్నం తింటాను.</div>
+      <div class="trans">īrōju sōmavāraṃ. nēnu udayaṃ lēstānu. nēnu nīru tāgutānu. tarvāta pāṭhaśālaku pōtānu. sāyaṃtraṃ iṇṭiki vastānu. rātri annaṃ tiṇṭānu.</div>
+      <div class="bn-gloss">আজ সোমবার। আমি সকালে উঠি। আমি জল খাই। তারপর পাঠশালায় যাই। সন্ধ্যায় বাড়ি ফিরি। রাতে ভাত খাই।</div>
+      <div class="literal">লক্ষ্য করো: -కు (= -কে/-তে) বিভক্তি పాఠశాల আর ఇల్లు-র পেছনে বসেছে, ঠিক বাংলার মতো।</div>
+    </div>
+
+    <h3><span class="num">৬.৩</span>কথোপকথন</h3>
+    <div class="sentence">
+      <div class="te">ఎ: నమస్కారం. మీ పేరు ఏమిటి?<br/>బి: నా పేరు సీత. మీరు?<br/>ఎ: నా పేరు రాజు. మీరు ఎక్కడి నుండి వచ్చారు?<br/>బి: నేను విజయవాడ నుండి వచ్చాను. మీరు?<br/>ఎ: నేను హైదరాబాద్ నుండి. భోజనం అయిందా?<br/>బి: అయింది, ధన్యవాదాలు.</div>
+      <div class="bn-gloss">ক: নমস্কার। আপনার নাম কী?<br/>খ: আমার নাম সীতা। আপনি?<br/>ক: আমার নাম রাজু। আপনি কোথা থেকে এসেছেন?<br/>খ: আমি বিজয়ওয়াড়া থেকে এসেছি। আপনি?<br/>ক: আমি হায়দরাবাদ থেকে। খাওয়া হয়েছে?<br/>খ: হয়েছে, ধন্যবাদ।</div>
+    </div>
+
+    <div class="aside"><strong>পড়ার নিয়ম।</strong> প্রতিটি অনুচ্ছেদ বাংলা তরজমা দেখার আগে তিনবার জোরে পড়ো। ছন্দ আসুক আগে, অর্থ আসবে পরে। তেলুগুকে "ইতালিয়ান অফ দি ইস্ট" বলা হয় — প্রতিটি শব্দ স্বরান্ত, কথাবার্তায় গান-গান একটা রেশ থাকে।</div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 7 ════════ -->
+<section class="stage" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · শব্দক্ষেত্র</div>
+    <h2 class="stage-title">তেলুগু কীভাবে পৃথিবী কাটে</h2>
+    <p class="stage-lede">বাংলা আর তেলুগু পৃথিবীকে একইভাবে কাটে না। পার্থক্যগুলোই ভাষার মন।</p>
+  </div>
+  <div class="stage-body">
+    <h3><span class="num">৭.১</span>আত্মীয়তা — দ্রাবিড় সূক্ষ্মতা</h3>
+    <p>বাংলায় "কাকা" মানে বাবার ভাই — ছোট-বড় ভেদ নেই। তেলুগুতে বাবার ছোট ভাই (<span class="te">చిన్నాన్న</span>) আর বাবার বড় ভাই (<span class="te">పెద్ద నాన్న</span>) আলাদা। মামা আর শ্বশুর একই শব্দ (<span class="te">మామ</span>) — দক্ষিণ ভারতীয় সমাজে মামার মেয়েকে বিয়ে করার রীতি থেকেই এই শব্দ-সমাবেশ।</p>
+    <div class="words">
+      <div class="word"><span class="te">నాన్న</span><span class="bn-eq">বাবা</span><span class="trans">nānna</span></div>
+      <div class="word"><span class="te">అమ్మ</span><span class="bn-eq">মা</span><span class="trans">amma</span><span class="note">বাংলায় "মা" বলি, কিন্তু "অম্মা" ধ্বনিটা চেনা — দক্ষিণ এশিয়ার সার্বজনীন।</span></div>
+      <div class="word"><span class="te">అన్న</span><span class="bn-eq">দাদা / বড় ভাই</span><span class="trans">anna</span></div>
+      <div class="word"><span class="te">తమ్ముడు</span><span class="bn-eq">ছোট ভাই</span><span class="trans">tammuḍu</span><span class="note">বাংলায় "ছোট ভাই"-র আলাদা এক-শব্দ নেই!</span></div>
+      <div class="word"><span class="te">అక్క</span><span class="bn-eq">দিদি / বড় বোন</span><span class="trans">akka</span></div>
+      <div class="word"><span class="te">చెల్లెలు</span><span class="bn-eq">ছোট বোন</span><span class="trans">cellelu</span></div>
+      <div class="word"><span class="te">తాత</span><span class="bn-eq">ঠাকুরদা / দাদু</span><span class="trans">tāta</span></div>
+      <div class="word"><span class="te">నానమ్మ / అమ్మమ్మ</span><span class="bn-eq">ঠাকুমা / দিদিমা</span><span class="trans">nānamma / ammamma</span><span class="note">পৈতৃক-মাতৃক আলাদা শব্দ!</span></div>
+      <div class="word"><span class="te">మామ</span><span class="bn-eq">মামা / শ্বশুর</span><span class="trans">māma</span><span class="note">⚡ একই শব্দে দুটো সম্পর্ক!</span></div>
+      <div class="word"><span class="te">అత్త</span><span class="bn-eq">পিসি / শাশুড়ি</span><span class="trans">atta</span></div>
+      <div class="word"><span class="te">చిన్నాన్న</span><span class="bn-eq">ছোট কাকা</span><span class="trans">cinnānna</span></div>
+      <div class="word"><span class="te">పెద్ద నాన్న</span><span class="bn-eq">বড় কাকা / জ্যাঠা</span><span class="trans">pedda nānna</span></div>
+    </div>
+
+    <div class="aside"><strong>লক্ষণীয়।</strong> তেলুগু "ঠাকুরমা / দিদিমা"-র জন্য আলাদা শব্দ — <span class="te">నానమ్మ</span> (বাবার মা) আর <span class="te">అమ్మమ్మ</span> (মায়ের মা)। বাংলায় "ঠাকুমা" আর "দিদিমা" — পার্থক্যটা আছে, কিন্তু গঠন ভিন্ন। তেলুগুতে "নান্না+অম্মা" = বাবার মা, "অম্মা+অম্মা" = মায়ের মা — একদম যৌক্তিক।</div>
+
+    <h3><span class="num">৭.২</span>সময়</h3>
+    <div class="words">
+      <div class="word"><span class="te">ఈరోజు</span><span class="bn-eq">আজ</span><span class="trans">īrōju</span><span class="note">এই + রোজু = "এই দিন"</span></div>
+      <div class="word"><span class="te">రేపు</span><span class="bn-eq">কাল (আগামী)</span><span class="trans">rēpu</span></div>
+      <div class="word"><span class="te">నిన్న</span><span class="bn-eq">কাল (গত)</span><span class="trans">ninna</span><span class="note">বাংলায় "কাল" দুইদিকে কাজ করে — তেলুগু আলাদা শব্দ রাখে!</span></div>
+      <div class="word"><span class="te">ఇప్పుడు</span><span class="bn-eq">এখন</span><span class="trans">ippuḍu</span></div>
+      <div class="word"><span class="te">ఉదయం</span><span class="bn-eq">সকাল / উদয়</span><span class="trans">udayaṃ</span><span class="note">সংস্কৃত "উদয়" — সূর্য ওঠা!</span></div>
+      <div class="word"><span class="te">సాయంత్రం</span><span class="bn-eq">সন্ধ্যা / সায়ংকাল</span><span class="trans">sāyaṃtraṃ</span><span class="note">সংস্কৃত "সায়ংকাল" থেকে</span></div>
+      <div class="word"><span class="te">రాత్రి</span><span class="bn-eq">রাত্রি</span><span class="trans">rātri</span><span class="note">তৎসম!</span></div>
+    </div>
+
+    <div class="aside"><strong>দ্বিমুখী "কাল"।</strong> বাংলার মজার সমস্যা — "কাল আসব" মানে আগামীকাল, "কাল এসেছিলাম" মানে গতকাল। সম্পূর্ণ সময় বাক্যের কালভেদ থেকে আসে। তেলুগু এই ধোঁয়াশা রাখেনি: <span class="te">రేపు</span> (আগামী) আর <span class="te">నిన్న</span> (গত) — দুই আলাদা শব্দ। দ্রাবিড় ভাষাগুলো এই ভেদ স্পষ্ট রাখে — কন্নডেও (ನಾಳೆ/ನಿನ್ನೆ) তাই।</div>
+
+    <h3><span class="num">৭.৩</span>শরীর</h3>
+    <div class="words">
+      <div class="word"><span class="te">తల</span><span class="bn-eq">মাথা</span><span class="trans">tala</span></div>
+      <div class="word"><span class="te">కన్ను</span><span class="bn-eq">চোখ</span><span class="trans">kannu</span></div>
+      <div class="word"><span class="te">చెవి</span><span class="bn-eq">কান</span><span class="trans">cevi</span></div>
+      <div class="word"><span class="te">ముక్కు</span><span class="bn-eq">নাক</span><span class="trans">mukku</span></div>
+      <div class="word"><span class="te">నోరు</span><span class="bn-eq">মুখ</span><span class="trans">nōru</span></div>
+      <div class="word"><span class="te">చేయి</span><span class="bn-eq">হাত</span><span class="trans">cēyi</span></div>
+      <div class="word"><span class="te">కాలు</span><span class="bn-eq">পা</span><span class="trans">kālu</span></div>
+      <div class="word"><span class="te">కడుపు</span><span class="bn-eq">পেট</span><span class="trans">kaḍupu</span></div>
+    </div>
+
+    <div class="aside"><strong>শরীরের শব্দে দ্রাবিড় ছাপ।</strong> শরীরের অঙ্গগুলো প্রায় সবই দ্রাবিড় মূলের — <span class="te">తల, కన్ను, చెవి, చేయి, కాలు</span>। বাংলার "মাথা, চোখ, কান, হাত, পা" ইন্দো-আর্য উৎস থেকে। এই জন্যই শরীরের শব্দগুলো এত অপরিচিত লাগে — সংস্কৃত সেতু এখানে কাজ করে না। তবে এগুলোই দ্রাবিড় শব্দভাণ্ডারের মেরুদণ্ড, কন্নড-তামিলেও একই।</div>
+  </div>
+</section>
+
+<!-- ════════ STAGE 8 ════════ -->
+<section class="stage" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · ব্যবহার</div>
+    <h2 class="stage-title">মানুষের মতো তেলুগু বলা</h2>
+    <p class="stage-lede">ব্যাকরণ-সিদ্ধ বাক্য যথেষ্ট নয়। ভাষায় আদব আছে, মেজাজ আছে, ছোট ছোট শব্দ আছে যা আসল কথোপকথনকে মসৃণ করে।</p>
+  </div>
+  <div class="stage-body">
+    <h3><span class="num">৮.১</span>তুই-তুমি-আপনি → <span class="te">నువ్వు-మీరు</span></h3>
+    <p>বাংলায় তিন স্তর (তুই/তুমি/আপনি), তেলুগুতে দুই (<span class="te">నువ్వు/మీరు</span>)। তুমি-আপনি-র মাঝের স্তরটি তেলুগুতে নেই। সন্দেহ হলে সবসময় <span class="te">మీరు</span> ব্যবহার করো — বাংলায় যেমন "আপনি" নিরাপদ।</p>
+
+    <h3><span class="num">৮.২</span>আত্মীয়তার সম্বোধন — চেনা অভ্যাস</h3>
+    <p>বাংলায় আমরা দোকানদারকে "দাদা" বলি, বয়স্কা মহিলাকে "মাসি" বলি। তেলুগুতে ঠিক একই প্রথা:</p>
+    <ul class="clean">
+      <li>বয়সে বড় পুরুষ: <span class="te">అన్నా</span> (<em>annā</em>, = দাদা)</li>
+      <li>বয়সে বড় মহিলা: <span class="te">అక్కా</span> (<em>akkā</em>, = দিদি)</li>
+      <li>বৃদ্ধ পুরুষ: <span class="te">తాతా</span> (<em>tātā</em>, = দাদু / ঠাকুরদা)</li>
+      <li>বৃদ্ধা: <span class="te">అమ్మమ్మ</span> বা <span class="te">నానమ్మ</span> (= দিদিমা / ঠাকুমা)</li>
+      <li>ছোট বাচ্চা: <span class="te">బాబూ</span> (ছেলে), <span class="te">అమ్మా</span> (মেয়ে)</li>
+    </ul>
+
+    <h3><span class="num">৮.৩</span>দৈনন্দিন বাক্যাংশ</h3>
+    <div class="words">
+      <div class="word"><span class="te">నమస్కారం</span><span class="bn-eq">নমস্কার</span><span class="trans">namaskāraṃ</span></div>
+      <div class="word"><span class="te">ధన్యవాదాలు</span><span class="bn-eq">ধন্যবাদ</span><span class="trans">dhanyavādālu</span><span class="note">বহুবচন রূপ — তেলুগু ধন্যবাদকে বহুবচনে বলে!</span></div>
+      <div class="word"><span class="te">క్షమించండి</span><span class="bn-eq">মাফ করবেন / দুঃখিত</span><span class="trans">kṣamiñcaṇḍi</span><span class="note">ক্ষমা → ক্ষমিঞ্চণ্ডি</span></div>
+      <div class="word"><span class="te">పరవాలేదు</span><span class="bn-eq">কিছু হয়নি / পরোয়া নেই</span><span class="trans">paravālēdu</span><span class="note">পরোয়া + লেদু (নেই) = "পরোয়া নেই"!</span></div>
+      <div class="word"><span class="te">ఎలా ఉన్నారు?</span><span class="bn-eq">কেমন আছেন?</span><span class="trans">elā unnāru?</span></div>
+      <div class="word"><span class="te">బాగున్నాను</span><span class="bn-eq">ভালো আছি</span><span class="trans">bāgunnānu</span></div>
+      <div class="word"><span class="te">కావాలి</span><span class="bn-eq">চাই / দরকার</span><span class="trans">kāvāli</span></div>
+      <div class="word"><span class="te">వద్దు</span><span class="bn-eq">চাই না / লাগবে না</span><span class="trans">vaddu</span></div>
+      <div class="word"><span class="te">తెలియదు</span><span class="bn-eq">জানি না</span><span class="trans">teliyadu</span><span class="note">"তেলুসু" (জানি) → "তেলিয়াদু" (জানি না)</span></div>
+    </div>
+
+    <div class="aside"><strong>সুন্দর মিল।</strong> বাংলা "পরোয়া নেই" আর তেলুগু <span class="te">పరవాలేదు</span> হুবহু একই কাঠামো — "পরোয়া" সংস্কৃত-ফারসি ঋণ, "লেদু" দ্রাবিড় "নেই"। দুই ভাষাতেই একই বাক্যে দুই উৎস মিশে যায়। দক্ষিণ এশীয় ভাষাগুলো এইভাবেই নিজেকে গড়ে তোলে।</div>
+
+    <h3><span class="num">৮.৪</span>"ভাত খেয়েছ?" — একটি ভারতীয় সার্বজনীন</h3>
+    <div class="sentence">
+      <div class="te">భోజనం అయిందా?</div>
+      <div class="trans">bhōjanaṃ ayindā?</div>
+      <div class="bn-gloss">খাওয়া হয়েছে? / ভোজন হয়েছে?</div>
+      <div class="literal">বাংলায় "খেয়েছিস?" যেমন আসলে "কেমন আছিস?"-এর বিকল্প, তেলুগুতে "భోజనం అయిందా?" ঠিক একই কাজ করে। উত্তর: అయింది (ayindi, "হয়েছে") — সত্যি খেয়ে থাক বা না থাক।</div>
+    </div>
+
+    <div class="aside"><strong>তৎসম সেতু।</strong> <span class="te">భోజనం</span> সংস্কৃত "ভোজন" — বাংলাতেও "ভোজন সারলে?" একই অর্থে বলা যায়। সরাসরি দৈনন্দিন ভাষায় "ভোজন" কম ব্যবহৃত বাংলায়, তেলুগুতে স্বাভাবিক। একই শব্দ, ভিন্ন রেজিস্টার।</div>
+
+    <h3><span class="num">৮.৫</span><span class="te">కొంచెం</span> — একটি মায়াবী শব্দ</h3>
+    <p><span class="te">కొంచెం</span> (<em>koñceṃ</em>) = "একটু"। বাংলায় আমরা "একটু" দিয়ে যেকোনো অনুরোধকে নরম করি: "একটু শোনো", "একটু দাঁড়াও"। তেলুগুতে <span class="te">కొంచెం</span> ঠিক একই কাজ করে। <em>Koñceṃ adjust cēyandi</em> ("একটু adjust করুন") — হায়দরাবাদের অর্ধেক যোগাযোগ চালায় এই শব্দটি, ঠিক যেমন ব্যাঙ্গালোরে <em>svalpa</em>।</p>
+
+    <h3><span class="num">৮.৬</span>শেষে <span class="te">-ండి</span> — সম্মানের সোনার নিয়ম</h3>
+    <p>তেলুগু আদেশমূলক ক্রিয়ার শেষে <span class="te">-ండి</span> যোগ করলেই শ্রোতার প্রতি সম্মান প্রকাশ পায়। <span class="te">రా</span> (এসো, তুমি) → <span class="te">రండి</span> (আসুন, আপনি)। <span class="te">చెప్పు</span> (বলো) → <span class="te">చెప్పండి</span> (বলুন)। বাংলার "-ন" (যান, আসুন)-এর হুবহু সমান্তরাল। একটা প্রত্যয়ে গোটা সম্মান-ব্যবস্থা।</p>
+  </div>
+</section>
+
+<!-- ════════ STAGE 9 ════════ -->
+<section class="stage" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · সাহিত্য</div>
+    <h2 class="stage-title">সাহিত্য ও সাংস্কৃতিক স্তর</h2>
+    <p class="stage-lede">একটি ভাষা শেষপর্যন্ত শুধু ব্যবস্থা নয় — একটি জগৎ। এই জগতে ঢোকার দরজা হলো তার সাহিত্য।</p>
+  </div>
+  <div class="stage-body">
+    <p>তেলুগু সাহিত্যের ধারা হাজার বছরের পুরনো — একাদশ শতকের <em>নান্নয়</em>-র <em>মহাভারতম্</em> থেকে আজকের জ্ঞানপীঠ পুরস্কারপ্রাপ্তরা পর্যন্ত অবিচ্ছিন্ন। বাঙালি হিসেবে তুমি যদি বিদ্যাসাগর, বঙ্কিম, রবীন্দ্রনাথ, জীবনানন্দের উত্তরাধিকার চেনো — তেলুগুতে সমান গভীরতার একটি পৃথক ঐতিহ্য আছে। একে বলা হয় "ইতালিয়ান অফ দি ইস্ট" — প্রতিটি শব্দ স্বরান্ত, কবিতায় ছন্দ সহজে বসে।</p>
+
+    <h3><span class="num">৯.১</span>বেমন — কবিরের সমান্তরাল</h3>
+    <p>সপ্তদশ শতকে <strong>বেমন</strong> (<span class="te">వేమన</span>) জাত-পাত, মন্দির-আচার, ধর্মের ভণ্ডামি — সব প্রত্যাখ্যান করে সরল তেলুগুতে চারপদী রচনা করলেন যা চাষী-কুমোরও বুঝতে পারে। বাংলায় লালন ফকির, বা হিন্দিতে কবির — সেই একই কাজ। প্রতিটি পদ শেষ হয় একই ধ্রুবপদে: "বিশ্বদাভিরাম, বিনুর বেমনা!"</p>
+
+    <div class="vachana">
+      <div class="te">అల్పుడెపుడు పల్కు నాడంబరముగాను<br/>సజ్జనుండు పల్కు చల్లగాను<br/>కంచు మ్రోగునట్లు కనకంబు మ్రోగునా<br/>విశ్వదాభిరామ వినుర వేమ.</div>
+      <div class="bn-gloss">হীন মানুষ সর্বদা কথা বলে আড়ম্বর করে,<br/>সজ্জন কথা বলে শান্তভাবে —<br/>কাঁসা যেভাবে ঠনঠন বাজে, সোনা কি সেভাবে বাজে?<br/>বিশ্বের প্রিয়, শোনো হে বেমনা।</div>
+      <div class="attrib">— বেমন · వేమన · সপ্তদশ শতক</div>
+    </div>
+
+    <div class="aside"><strong>লালন-বেমন সেতু।</strong> লালন ফকিরের "সব লোকে কয় লালন কী জাত সংসারে" — ঠিক যেমন বেমনের জাত-প্রশ্ন, সুরও প্রায় একই। তিন-চার শতাব্দী আগে, দুটো আলাদা ভাষায়, দুজন প্রান্তিক কবি একই রকম প্রশ্ন করেছিলেন প্রতিষ্ঠানকে।</div>
+
+    <h3><span class="num">৯.২</span>আধুনিক দিকপালরা ও বাংলার সমান্তরাল</h3>
+    <ul class="clean">
+      <li><strong>গুরজাড়া আপ্পারাও</strong> (<span class="te">గురజాడ అప్పారావు</span>, ১৮৬২–১৯১৫) — <em>কন্যাশুল্কম্</em> নাটক; বাল্যবিবাহ-কন্যাপণের বিরুদ্ধে। রবীন্দ্রনাথের সমসাময়িক, বিদ্যাসাগরের সামাজিক লড়াইয়ের তেলুগু প্রতিধ্বনি। "দেশ্যম্ মন্ডি এদি প্রজলু মন্ডিদি" ("দেশ মানে মাটি নয়, মানুষ") — তাঁর বিখ্যাত পঙ্ক্তি, ঠাকুরের "আমার সোনার বাংলা"-র রাজনৈতিক যমজ।</li>
+      <li><strong>বিশ্বনাথ সত্যনারায়ণ</strong> (<span class="te">విశ్వనాథ సత్యనారాయణ</span>, ১৮৯৫–১৯৭৬) — <em>বেয়ি পদগলু</em>; প্রথম তেলুগু জ্ঞানপীঠ। ইতিহাস-পুরাণ-সমাজ সব মিশে মহাকাব্য — বাংলায় তারাশঙ্করের <em>গণদেবতা</em>-র তুলনীয়।</li>
+      <li><strong>শ্রী শ্রী</strong> (<span class="te">శ్రీ శ్రీ</span>, ১৯১০–১৯৮৩) — <em>মহাপ্রস্থানম্</em>; বিপ্লবী কবি, গোটা প্রজন্মের কণ্ঠস্বর। বাংলায় <strong>সুকান্ত ভট্টাচার্য</strong>-র হুবহু সমান্তরাল — ক্ষুধা, শ্রেণী, বিপ্লবের আগুন একই বয়সে একই ভাষায়।</li>
+      <li><strong>চলম্</strong> (<span class="te">చలం</span>, ১৮৯৪–১৯৭৯) — নারী-মুক্তি, যৌনতা, আধ্যাত্মিকতা সব একসাথে। বাংলায় কমলকুমার মজুমদারের সাহস, মহাশ্বেতা দেবীর সামাজিক চোখ — দুটোর মিশ্রণ।</li>
+      <li><strong>সি. নারায়ণ রেড্ডি</strong> (<span class="te">సి. నారాయణ రెడ్డి</span>, ১৯৩১–২০১৭) — দ্বিতীয় তেলুগু জ্ঞানপীঠ, গীতিকার-কবি। জীবনানন্দের মতো ভাষার সংগীত শোনেন, নজরুলের মতো জনপ্রিয়তার বলয়ে কাজ করেন।</li>
+      <li><strong>রেবতী দেবী</strong> (<span class="te">రేవతీ దేవి</span>) ও <strong>ওল্গা</strong> (<span class="te">ఓల్గా</span>) — সমকালীন নারীবাদী কণ্ঠ। মহাশ্বেতা দেবী, সেলিনা হোসেনের কথা মনে করাবে।</li>
+    </ul>
+
+    <div class="aside"><strong>ছন্দের সেতু।</strong> তেলুগু কবিতার <em>পদ্যম্</em> ছন্দে সংস্কৃত বৃত্ত অটুট — উৎপলমালা, চম্পকমালা, শার্দূলবিক্রীড়িত। বাংলা পুঁথি-সাহিত্যে এই সংস্কৃত ছন্দগুলো একসময় প্রবল ছিল, রবীন্দ্রনাথ আবার সংস্কৃতের সরস ব্যবহার ফিরিয়ে আনেন। তেলুগু সেই ঐতিহ্য অটুট রেখেছে।</div>
+
+    <h3><span class="num">৯.৩</span>এবার কোথায়</h3>
+    <ul class="clean">
+      <li><strong>A.K. রামানুজনের</strong> <em>Poems of Love and War</em> ও <em>When God is a Customer</em> পড়ো — সংগম কবিতা থেকে ক্ষেত্রয়্য পর্যন্ত দক্ষিণের স্বাদ মেলে।</li>
+      <li><strong>ভেলচেরু নারায়ণ রাও</strong>-র তেলুগু কবিতার অনুবাদগুলো খোঁজো — কেমব্রিজ বিশ্ববিদ্যালয়ের প্রকাশনা।</li>
+      <li><strong>শ্যাম বেনেগাল</strong> ও <strong>বাপু</strong>-র সিনেমা দেখো — তেলুগু সাহিত্যকে পর্দায় দেখার সেরা সুযোগ। সত্যজিৎ রায়ের ধারায় গল্প বলার শৈলী।</li>
+      <li>একটি তেলুগু সংবাদপত্র (<em>Eenadu</em> বা <em>Sakshi</em>) অনলাইনে subscribe করো। দিনে একটি শিরোনাম পড়ো। দশটি ধাপে যা শিখেছ সব compound interest দিতে শুরু করবে।</li>
+      <li>দক্ষিণ ভারতীয় শাস্ত্রীয় সংগীতের <em>কীর্তন</em> শোনো — ত্যাগরাজ, অন্নমাচার্যের রচনা তেলুগুতে। সংগীতের সাথে ভাষা দ্রুত প্রবেশ করে।</li>
+    </ul>
+
+    <div class="aside">
+      <strong>শেষ কথা।</strong> তোমার হাতে এখন পুরো যন্ত্রটা আছে। অক্ষর, তাদের মেলানোর নিয়ম, শব্দ যা ব্যাকরণ দেখায়, বাক্যের কঙ্কাল, ব্যবহারের তেল, আর সাহিত্যের দরজা। বিদ্যাসাগরের প্রতিশ্রুতি সত্য: ধীরে শুরু, পরে compound interest। পড়তে থাকো। <span class="te">శుభం</span> — <em>śubhaṃ</em> — শুভ হোক।
+    </div>
+  </div>
+</section>
+
+<!-- progress -->
+<div class="progress">
+  <button id="prevBtn" disabled>← আগে</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">পরে →</button>
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="te">తెలుగు నేర్చుకుందాం</span>
+    বিদ্যাসাগরের পদ্ধতিতে একটি প্রাইমার · যত্নে তৈরি · ২০২৬<br/>
+    একসাথে একটিই অজানা · রূপ আগে অর্থ পরে · তালিকা নয় ব্যবস্থা<br/>
+    <span style="display:inline-block;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sindoor);">made by Nil <span class="sep">·</span> using Claude</span>
+  </div>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.stage-tab');
+  const sections = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const scrollWrap = document.getElementById('stageScroll');
+  const total = sections.length;
+  let current = 0;
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function show(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+    sections.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.toggle('done', i < current);
+      d.classList.toggle('current', i === current);
+    });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    nextBtn.textContent = current === total - 1 ? 'শেষ' : 'পরে →';
+
+    const activeTab = tabs[current];
+    if (activeTab && scrollWrap) {
+      const tabLeft = activeTab.offsetLeft;
+      const tabWidth = activeTab.offsetWidth;
+      const wrapWidth = scrollWrap.clientWidth;
+      scrollWrap.scrollTo({ left: tabLeft - wrapWidth / 2 + tabWidth / 2, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+  });
+
+  document.querySelectorAll('.map-cell').forEach(card => {
+    const hint = card.querySelector('.hint');
+    const hintText = card.dataset.hint;
+    if (hintText && hint && !hint.textContent.trim()) hint.textContent = hintText;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+      }
+    });
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

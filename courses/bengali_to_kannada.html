@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="বাংলা থেকে কন্নড শেখার প্রথম-নীতি পাঠ্যক্রম — বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে।" />
+<title>ಕನ್ನಡ ಕಲಿಯೋಣ — বাংলা থেকে কন্নড</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Bengali', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .kan { font-family: 'Noto Serif Kannada', serif; }
+  .bn { font-family: 'Noto Serif Bengali', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+  header.masthead { padding: 48px 0 28px; text-align: center; border-bottom: 1px solid var(--rule); position: relative; }
+  header.masthead::after { content: ""; display: block; width: 60px; height: 2px; background: var(--sindoor); margin: 18px auto -1px; }
+  .pretitle { font-family: 'Fraunces', serif; font-size: 11px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sindoor); margin-bottom: 14px; }
+  h1.title { font-family: 'Noto Serif Bengali', serif; font-weight: 700; font-size: clamp(30px, 7vw, 50px); line-height: 1.15; margin: 0 0 6px; color: var(--ink); }
+  h1.title .kan { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle { font-family: 'Noto Serif Bengali', serif; font-size: clamp(15px, 3.5vw, 18px); color: var(--ink-faded); font-weight: 400; margin: 14px auto 0; max-width: 560px; line-height: 1.7; }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit { margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sindoor); }
+  nav.stages { position: sticky; top: 0; z-index: 10; background: rgba(244, 236, 218, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+  .stages-scroll { display: flex; gap: 0; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; padding: 0 16px; max-width: 780px; margin: 0 auto; }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab { flex: 0 0 auto; padding: 14px 12px 12px; border: 0; background: transparent; font-family: 'Noto Serif Bengali', serif; font-size: 13px; font-weight: 500; color: var(--ink-faded); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.2s, border-color 0.2s; min-height: 44px; }
+  .stage-tab .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--sindoor); display: block; margin-bottom: 2px; letter-spacing: 0.1em; }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .stage-head { margin-bottom: 26px; }
+  .stage-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sindoor); margin-bottom: 6px; }
+  h2.stage-title { font-family: 'Noto Serif Bengali', serif; font-weight: 700; font-size: clamp(26px, 6vw, 38px); line-height: 1.2; margin: 0 0 8px; }
+  .stage-lede { font-family: 'Noto Serif Bengali', serif; font-weight: 400; font-size: clamp(16px, 3.5vw, 19px); color: var(--ink-soft); line-height: 1.65; margin: 10px 0 0; padding-left: 14px; border-left: 2px solid var(--ochre); }
+  h3 { font-family: 'Noto Serif Bengali', serif; font-weight: 600; font-size: 21px; margin: 36px 0 12px; color: var(--ink); }
+  h3 .num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--sindoor); margin-right: 10px; font-weight: 400; }
+  p { margin: 0 0 14px; }
+  .map-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; margin: 14px 0 24px; }
+  .map-cell { background: var(--paper-warm); border: 1px solid var(--rule); border-radius: 4px; padding: 10px 6px 8px; text-align: center; cursor: pointer; transition: all 0.18s; min-height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; user-select: none; position: relative; }
+  .map-cell:hover, .map-cell:focus-visible { background: var(--paper-deep); border-color: var(--ochre); transform: translateY(-1px); box-shadow: var(--shadow); outline: none; }
+  .map-cell .bn-g { font-family: 'Noto Serif Bengali', serif; font-size: 24px; font-weight: 500; color: var(--ink-faded); line-height: 1; }
+  .map-cell .arrow { font-size: 10px; color: var(--ochre); margin: 4px 0; }
+  .map-cell .kan-g { font-family: 'Noto Serif Kannada', serif; font-size: 30px; font-weight: 500; color: var(--ink); line-height: 1; }
+  .map-cell .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--sindoor); margin-top: 4px; letter-spacing: 0.04em; }
+  .map-cell .hint { font-family: 'Noto Serif Bengali', serif; font-size: 11px; color: var(--ink-faded); margin-top: 2px; opacity: 0; max-height: 0; overflow: hidden; transition: all 0.25s; }
+  .map-cell.expanded { border-color: var(--sindoor); background: var(--paper-deep); grid-column: span 2; }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 4px; }
+  .map-cell.new::after { content: "⚡"; position: absolute; top: 4px; right: 6px; font-size: 11px; color: var(--sindoor); }
+  .group-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-faded); margin: 24px 0 8px; padding-bottom: 6px; border-bottom: 1px dashed var(--rule); }
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; padding: 14px 12px; background: var(--paper-warm); border: 1px solid var(--rule); border-radius: 4px; border-left: 3px solid var(--ochre); align-items: baseline; }
+  .word .kan { font-family: 'Noto Serif Kannada', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .bn-eq { font-family: 'Noto Serif Bengali', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+  .word .tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 6px; border-radius: 2px; background: rgba(184, 128, 45, 0.15); color: var(--ochre); letter-spacing: 0.05em; margin-left: 6px; }
+  .sentence { margin: 16px 0; padding: 16px 18px; background: var(--paper-warm); border: 1px solid var(--rule); border-left: 3px solid var(--teal); border-radius: 2px; }
+  .sentence .kan { font-family: 'Noto Serif Kannada', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row { display: grid; grid-template-columns: 90px 1fr 1fr; gap: 8px; padding: 8px 0; border-bottom: 1px dotted var(--rule); font-size: 15px; align-items: baseline; }
+  .conjug-row .pron { font-family: 'Noto Serif Bengali', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .kan { font-family: 'Noto Serif Kannada', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .bn-eq { font-family: 'Noto Serif Bengali', serif; font-size: 15px; color: var(--ink-soft); }
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+  .vachana { margin: 24px 0; padding: 20px 22px; background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep)); border-radius: 4px; border: 1px solid var(--rule); }
+  .vachana::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .vachana .kan { font-size: 18px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; font-family: 'Noto Serif Kannada', serif; }
+  .vachana .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .vachana .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+  .aside { margin: 18px 0; padding: 14px 16px; background: rgba(184, 128, 45, 0.08); border-left: 2px solid var(--ochre); font-size: 15px; color: var(--ink-soft); border-radius: 0 2px 2px 0; }
+  .aside strong { color: var(--sindoor); }
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li { counter-increment: p; padding: 16px 0 16px 50px; border-top: 1px solid var(--rule); position: relative; }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before { content: counter(p, bengali); position: absolute; left: 0; top: 18px; font-family: 'Noto Serif Bengali', serif; font-size: 18px; font-weight: 600; color: var(--sindoor); }
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Bengali', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+  .passage { margin: 22px 0; padding: 18px 20px; background: var(--paper-warm); border: 1px solid var(--rule); border-radius: 4px; }
+  .passage h4 { font-family: 'Noto Serif Bengali', serif; font-weight: 600; font-size: 17px; margin: 0 0 12px; color: var(--sindoor); }
+  .passage .line { margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px dashed var(--rule); }
+  .passage .line:last-child { border-bottom: 0; }
+  .passage .line .kan { font-family: 'Noto Serif Kannada', serif; font-size: 18px; line-height: 1.6; font-weight: 500; display: block; margin-bottom: 4px; }
+  .passage .line .trans { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--sindoor); display: block; margin-bottom: 2px; }
+  .passage .line .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 15px; color: var(--ink-soft); display: block; }
+  .progress { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule); }
+  .progress button { padding: 10px 16px; font-family: 'Noto Serif Bengali', serif; font-size: 14px; font-weight: 500; background: var(--paper-warm); color: var(--ink); border: 1px solid var(--rule-strong); border-radius: 3px; cursor: pointer; transition: all 0.15s; min-height: 44px; }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+  footer.colophon { margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink); text-align: center; font-size: 13px; color: var(--ink-faded); }
+  footer .kan { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .kan-g { font-size: 26px; }
+    .map-cell .bn-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .bn-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+  @media (max-width: 400px) {
+    .wrap { padding: 0 14px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible { outline: 2px solid var(--sindoor); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">একটি প্রাইমার · ಪ್ರಾಥಮಿಕ ಪುಸ್ತಕ</div>
+    <h1 class="title">
+      <span class="kan">ಕನ್ನಡ ಕಲಿಯೋಣ</span>
+      বাংলা থেকে কন্নড শিখুন
+    </h1>
+    <p class="subtitle">বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে — একসাথে একটাই অজানা জিনিস, রূপ আগে অর্থ পরে, তালিকা নয় ব্যবস্থা — বাংলা যা জানে তার ওপর দাঁড়িয়ে কন্নড।</p>
+    <div class="byline">দশটি ধাপ <span class="sep">·</span> মোবাইল-বান্ধব <span class="sep">·</span> সম্পূর্ণ শূন্য থেকে</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">০০</span>ভূমিকা</button>
+    <button class="stage-tab" data-stage="1"><span class="num">০১</span>স্বরবর্ণ</button>
+    <button class="stage-tab" data-stage="2"><span class="num">০২</span>ব্যঞ্জনবর্ণ</button>
+    <button class="stage-tab" data-stage="3"><span class="num">০৩</span>সংযোজনা</button>
+    <button class="stage-tab" data-stage="4"><span class="num">০৪</span>মূল শব্দ</button>
+    <button class="stage-tab" data-stage="5"><span class="num">০৫</span>বাক্য</button>
+    <button class="stage-tab" data-stage="6"><span class="num">০৬</span>পাঠ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">০৭</span>শব্দক্ষেত্র</button>
+    <button class="stage-tab" data-stage="8"><span class="num">০৮</span>ব্যবহার</button>
+    <button class="stage-tab" data-stage="9"><span class="num">০৯</span>সাহিত্য</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" id="stage-00" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · ভূমিকা</div>
+    <h2 class="stage-title">এই পাঠ কেন আলাদা</h2>
+    <p class="stage-lede">তুমি বাংলা জানো। তার মানে কন্নড শেখার জন্য তোমাকে ইংরেজি-ভাষীদের মতো শূন্য থেকে শুরু করতে হবে না — ৪৭টি ধ্বনির মধ্যে ৪০টি তোমার মুখ ইতিমধ্যেই জানে, ব্যাকরণের কঙ্কাল চেনা, আর সংস্কৃত-বাহিত শব্দভাণ্ডারের একটি সেতু তৈরিই আছে।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>বিদ্যাসাগরের <strong>বর্ণপরিচয়</strong> — তোমার শৈশবের প্রথম বই। সেই বইয়ের প্রধান নীতি ছিল: একসাথে একটিই অজানা জিনিস, আর যা এখনও শেখানো হয়নি তা দিয়ে কোনো উদাহরণ দেওয়া হবে না। এই পাঠ্যক্রমটি সেই একই অনুশাসন মেনে চলে, কিন্তু একটি অতিরিক্ত সুবিধা নিয়ে: বাংলা আর কন্নড পরিবারে ভিন্ন — একটি ইন্দো-আর্য, অন্যটি দ্রাবিড় — কিন্তু সভ্যতায় এক। দুটোই ব্রাহ্মী লিপির কন্যা, দুটোই অবুগিদা, দুটোই SOV-ক্রমে বাক্য সাজায়, আর দুটোই সংস্কৃত থেকে হাজার হাজার শব্দ গ্রহণ করেছে।</p>
+
+    <p>একটি সহজ বাক্য দিয়ে দেখা যাক। বাংলায়: <strong>আমি ভাত খাই</strong> — কর্তা (আমি) → কর্ম (ভাত) → ক্রিয়া (খাই)। কন্নডে ঠিক একই ক্রম: <span class="kan">ನಾನು ಅನ್ನ ತಿನ್ನುತ್ತೇನೆ</span> (<span class="mono">nānu anna tinnuttēne</span>) — আমি (<span class="kan">ನಾನು</span>) → ভাত/অন্ন (<span class="kan">ಅನ್ನ</span>) → খাই (<span class="kan">ತಿನ್ನುತ್ತೇನೆ</span>)। হিন্দি-বাংলা-কন্নড — তিনটেই একইভাবে সাজাচ্ছে। ইংরেজি-ভাষী এটা শিখতে হোঁচট খায়; তুমি খাবে না।</p>
+
+    <p>৪৭টি ধ্বনির মধ্যে ৪০টি শেয়ার করা — প্রায় ৮৫%। বর্গীয় ব্যঞ্জনের পাঁচ সারি হুবহু একই। অল্পপ্রাণ-মহাপ্রাণ, ঘোষ-অঘোষ — সব পরিচিত। নতুন যা তা হলো মূর্ধন্য-পার্শ্বিক <span class="kan">ಳ</span>, কন্নডের দীর্ঘ এ/ও (<span class="kan">ಏ, ಓ</span>), সংস্কৃত-বাহিত <span class="kan">ಋ</span>, আর দুটো দ্বিস্বর <span class="kan">ಐ, ಔ</span>। এগুলোই শুধু নতুন।</p>
+
+    <h3><span class="num">¶</span>ছয়টি নীতি: বাংলা → কন্নড</h3>
+
+    <ol class="principles">
+      <li><strong>ধ্বনি — প্রায় পুরোটাই চেনা।</strong> ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ-ঞ, ট-ঠ-ড-ঢ-ণ, ত-থ-দ-ধ-ন, প-ফ-ব-ভ-ম — পাঁচ বর্গের পঁচিশ ব্যঞ্জন কন্নডে <span class="kan">ಕ-ಖ-ಗ-ಘ-ಙ, ಚ-ಛ-ಜ-ಝ-ಞ</span>... ঠিক একই ক্রমে, একই ধ্বনিতে। তোমার মুখ সব জানে; শুধু চোখকে নতুন চেহারা শেখাতে হবে।</li>
+      <li><strong>লিপি — রূপ আলাদা, নিয়ম এক।</strong> বাংলা আর কন্নড — দুটোই অবুগিদা। প্রতিটি ব্যঞ্জনে অন্তর্নিহিত 'অ' বসে থাকে, স্বরচিহ্ন দিয়ে বদলে যায়: কা/কি/কু/কে — <span class="kan">ಕಾ/ಕಿ/ಕು/ಕೆ</span>। হসন্ত (্)-এর কাজ কন্নডের বিরাম (<span class="kan">್</span>)-ও করে। নিয়ম শূন্য থেকে শিখতে হবে না।</li>
+      <li><strong>ব্যাকরণ — কঙ্কাল এক, একটি নতুন পাঁজর।</strong> বাংলা-কন্নড দুটোই SOV, দুটোই পরসর্গ-ভিত্তিক (-তে, -র, -থেকে ↔ <span class="kan">-ಗೆ, -ಅ, -ಇಂದ</span>)। কিন্তু কন্নড ক্রিয়াপদে লিঙ্গভেদ করে তৃতীয় পুরুষে — <span class="kan">ಮಾಡುತ್ತಾನೆ</span> (সে-পুরুষ করে), <span class="kan">ಮಾಡುತ್ತಾಳೆ</span> (সে-স্ত্রী করে), <span class="kan">ಮಾಡುತ್ತದೆ</span> (ওটা করে)। বাংলা কখনোই এই ভেদ করেনি — এটাই একমাত্র গভীর নতুন ধারণা।</li>
+      <li><strong>শব্দভাণ্ডার — সংস্কৃত সেতু পাকা।</strong> পুস্তক/<span class="kan">ಪುಸ್ತಕ</span>, সময়/<span class="kan">ಸಮಯ</span>, দিন/<span class="kan">ದಿನ</span>, সূর্য/<span class="kan">ಸೂರ್ಯ</span>, ভূমি/<span class="kan">ಭೂಮಿ</span>, মনুষ্য/<span class="kan">ಮನುಷ್ಯ</span> — তৎসম শব্দগুলো প্রায় অভিন্ন। শ-চারেক শব্দ তৎক্ষণাৎ চেনা। ২২% মূল শব্দ সাঁতরে পেরিয়ে যাবে, সাঁতার শিখতে হবে না।</li>
+      <li><strong>সম্মান-সূচক — গঠন পরিচিত।</strong> বাংলায় তুই/তুমি/আপনি — তিন স্তর। কন্নডে দুই: <span class="kan">ನೀನು</span> (তুই/তুমি) আর <span class="kan">ನೀವು</span> (আপনি/আপনারা)। স্তর কম, কিন্তু ধারণাটা একই। অপরিচিত বয়োজ্যেষ্ঠ পুরুষ — <span class="kan">ಅಣ್ಣ</span> (দাদা), নারী — <span class="kan">ಅಕ್ಕ</span> (দিদি)। বাংলার সম্বোধন-সংস্কৃতি কন্নডেও ফোঁটে।</li>
+      <li><strong>একটি সত্যিকারের নতুন ধ্বনি: <span class="kan">ಳ</span> (ḷa)।</strong> মূর্ধন্য-পার্শ্বিক ল — জিভের ডগা তালুতে ছুঁইয়ে উচ্চারিত। বাংলা এই ধ্বনি হাজার বছর আগে হারিয়েছে; তামিল-মালয়ালম-কন্নড রেখে দিয়েছে। <span class="kan">ಊಟ ಆಯ್ತಾ?</span>-র <span class="kan">ಳ</span> নয়, কিন্তু <span class="kan">ನಾಳೆ</span> (আগামীকাল)-এর <span class="kan">ಳ</span> — ওই শব্দেই তোমার কান প্রথমবার এটি ধরবে।</li>
+    </ol>
+
+    <div class="aside"><strong>পদ্ধতি।</strong> প্রতিটি কন্নড অক্ষর, শব্দ, বা বাক্যের পাশে বাংলা সমতুল্য রাখা হয়েছে — অনুবাদ নয়, সেতু। তুমি বাংলা চিনলে, কন্নড কেবল একটি নতুন চেহারা — নতুন ধারণা নয়। ইংরেজি কোথাও আসবে না; আসার দরকারও নেই।</div>
+
+    <div class="aside"><strong>দ্রাবিড় বনাম ইন্দো-আর্য — যা জানা জরুরি।</strong> বাংলা সংস্কৃত থেকে জন্মেছে, কন্নড দ্রাবিড় গোষ্ঠীর। তার মানে অনেক সাধারণ শব্দ — জল, আগুন, ঘর, চোখ, মা — একেবারে আলাদা শিকড় থেকে। কিন্তু ধর্ম, শিক্ষা, রাজকীয় ভাষার স্তরে দুই ভাষাই সংস্কৃত থেকে ঋণ নিয়েছে। ফলে একই ধারণার জন্য কন্নডে প্রায়ই দুটি শব্দ থাকে — একটি দ্রাবিড় (<span class="kan">ಮನೆ</span>, ঘর), একটি তৎসম (<span class="kan">ಗೃಹ</span>, গৃহ)।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">উপরে <strong>স্বরবর্ণ</strong> ট্যাবে চাপো — শুরু করো।</p>
+  </div>
+</section>
+<section class="stage" id="stage-01" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ধ্বনি</div>
+    <h2 class="stage-title">স্বরবর্ণ — <span class="kan">ಸ್ವರಗಳು</span></h2>
+    <p class="stage-lede">বাংলায় ১১টি স্বর, কন্নডে ১৩টি। অতিরিক্ত দুটি হলো দীর্ঘ এ (<span class="kan">ಏ</span>) ও দীর্ঘ ও (<span class="kan">ಓ</span>) — যে পার্থক্য বাংলা উচ্চারণে আছে কিন্তু লিপিতে নেই। কন্নড সেটি লিখে দেখায়।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+kannada+vowels+swaragalu+pronunciation" title="কন্নড স্বরবর্ণ উচ্চারণ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">কন্নড স্বরবর্ণের উচ্চারণ শোনো <a href="https://www.youtube.com/results?search_query=learn+kannada+vowels+swaragalu+pronunciation" target="_blank" rel="noopener">আরও খুঁজুন ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>পড়ার নিয়ম।</strong> প্রতিটি কার্ডে ট্যাপ করলে একটি উদাহরণ শব্দ দেখাবে। বাংলা অক্ষরটি উপরে, কন্নড নিচে — চোখ আগে বাংলা চেনে, তারপর কন্নড রূপ স্মৃতিতে বসে।</div>
+
+    <div class="group-label">'অ' পরিবার — হ্রস্ব ও দীর্ঘ জোড়া</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಅಮ್ಮ (amma) = অম্মা — মা"><div class="bn-g">অ</div><div class="arrow">↓</div><div class="kan-g">ಅ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಆನೆ (āne) = আনে — হাতি"><div class="bn-g">আ</div><div class="arrow">↓</div><div class="kan-g">ಆ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ই' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಇರು (iru) = থাকা"><div class="bn-g">ই</div><div class="arrow">↓</div><div class="kan-g">ಇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಈಗ (īga) = এখন"><div class="bn-g">ঈ</div><div class="arrow">↓</div><div class="kan-g">ಈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'উ' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಉಪ್ಪು (uppu) = নুন"><div class="bn-g">উ</div><div class="arrow">↓</div><div class="kan-g">ಉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಊಟ (ūṭa) = ভাত, খাবার"><div class="bn-g">ঊ</div><div class="arrow">↓</div><div class="kan-g">ಊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ঋ — সংস্কৃত ঋণ</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಋಷಿ (ṛṣi) = ঋষি — একই সংস্কৃত শব্দ"><div class="bn-g">ঋ</div><div class="arrow">↓</div><div class="kan-g">ಋ</div><div class="label">ṛ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'এ' পরিবার — এখানে কন্নড একটু বেশি দেয়</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಎಲೆ (ele) = পাতা"><div class="bn-g">এ</div><div class="arrow">↓</div><div class="kan-g">ಎ</div><div class="label">e (হ্রস্ব)</div><div class="hint"></div></div>
+      <div class="map-cell new" tabindex="0" data-hint="ಏಳು (ēḷu) = সাত, ওঠো — বাংলায় আলাদা অক্ষর নেই"><div class="bn-g">এ (দীর্ঘ)</div><div class="arrow">↓</div><div class="kan-g">ಏ</div><div class="label">ē</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಐದು (aidu) = পাঁচ"><div class="bn-g">ঐ</div><div class="arrow">↓</div><div class="kan-g">ಐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ও' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಒಂದು (ondu) = এক"><div class="bn-g">ও</div><div class="arrow">↓</div><div class="kan-g">ಒ</div><div class="label">o (হ্রস্ব)</div><div class="hint"></div></div>
+      <div class="map-cell new" tabindex="0" data-hint="ಓಡು (ōḍu) = দৌড়াও — দীর্ঘ ও"><div class="bn-g">ও (দীর্ঘ)</div><div class="arrow">↓</div><div class="kan-g">ಓ</div><div class="label">ō</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಔಷಧ (auṣadha) = ঔষধ — অভিন্ন শব্দ"><div class="bn-g">ঔ</div><div class="arrow">↓</div><div class="kan-g">ಔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>বাংলার সাথে মূল তফাৎ।</strong> বাংলায় 'বেলা' আর 'বেচারা'-র 'এ' উচ্চারণে আলাদা — একটি দীর্ঘ, অন্যটি হ্রস্ব — কিন্তু লিপিতে একই 'এ'। কন্নড সেই পার্থক্যকে অক্ষরেই ধরে রাখে: <span class="kan">ಎ</span> হ্রস্ব এ, <span class="kan">ಏ</span> দীর্ঘ এ। একই গল্প 'ও'-র ক্ষেত্রেও: <span class="kan">ಒ</span> (হ্রস্ব), <span class="kan">ಓ</span> (দীর্ঘ)। তোমার কান এই পার্থক্য আগে থেকেই জানে; শুধু চোখকে দুটো অক্ষর আলাদা করতে শেখাও।</div>
+
+    <div class="group-label">অনুস্বার ও বিসর্গ — বাংলার মতোই</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಹಂಸ (haṃsa) = হংস — রাজহাঁস"><div class="bn-g">অং</div><div class="arrow">↓</div><div class="kan-g">ಅಂ</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ದುಃಖ (duḥkha) = দুঃখ — একই শব্দ"><div class="bn-g">অঃ</div><div class="arrow">↓</div><div class="kan-g">ಅಃ</div><div class="label">aḥ</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">১.১</span>অভ্যাস</h3>
+    <ul class="clean">
+      <li>প্রতিটি জোড়া জোরে জোরে বিশবার বলো: অ-আ, ই-ঈ, উ-ঊ — কিন্তু কন্নড গ্লিফের দিকে তাকিয়ে। চোখ-কানের সংযোগ তৈরি হবে।</li>
+      <li>নতুন দীর্ঘ স্বর — <span class="kan">ಏ</span> আর <span class="kan">ಓ</span> — আলাদা করে গোটা দশেক বার আবৃত্তি করো। "এ, এ-এ, ও, ও-ও" এভাবে দৈর্ঘ্য অনুভব করো।</li>
+      <li>কাগজে প্রতিটি কন্নড স্বর পাঁচবার লেখো। হাত চোখকে শেখায়।</li>
+      <li>যতক্ষণ না প্রতিটি কন্নড স্বর এক সেকেন্ডে চিনতে পারো, ধাপ ২-এ যেও না।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-02" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ধ্বনি (চলতি)</div>
+    <h2 class="stage-title">ব্যঞ্জনবর্ণ — <span class="kan">ವ್ಯಂಜನಗಳು</span></h2>
+    <p class="stage-lede">বর্ণপরিচয়ের বর্গীয় ক্রম তোমার শরীরে আছে। ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ-ঞ — ঠিক একই ক্রমে কন্নড ব্যঞ্জন সাজানো। শুধু চেহারা নতুন। একটি নতুন ধ্বনি, <span class="kan">ಳ</span>, শেষে পরিচয় করাবো।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+kannada+consonants+vyanjanagalu+pronunciation" title="কন্নড ব্যঞ্জনবর্ণ উচ্চারণ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">কন্নড ব্যঞ্জনবর্ণের উচ্চারণ শোনো <a href="https://www.youtube.com/results?search_query=learn+kannada+consonants+vyanjanagalu+pronunciation" target="_blank" rel="noopener">আরও খুঁজুন ↗</a></div>
+    </div>
+
+    <div class="group-label">কণ্ঠ্যবর্গ (ক-বর্গ)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಕಮಲ (kamala) = কমল — একই তৎসম শব্দ"><div class="bn-g">ক</div><div class="arrow">↓</div><div class="kan-g">ಕ</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಖಗ (khaga) = খগ — পাখি"><div class="bn-g">খ</div><div class="arrow">↓</div><div class="kan-g">ಖ</div><div class="label">kha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಗಗನ (gagana) = গগন — আকাশ"><div class="bn-g">গ</div><div class="arrow">↓</div><div class="kan-g">ಗ</div><div class="label">ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಘಟ (ghaṭa) = ঘট — কলস"><div class="bn-g">ঘ</div><div class="arrow">↓</div><div class="kan-g">ಘ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಅಙ್ಗ (aṅga) = অঙ্গ — দেহ"><div class="bn-g">ঙ</div><div class="arrow">↓</div><div class="kan-g">ಙ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">তালব্যবর্গ (চ-বর্গ)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಚಂದ್ರ (candra) = চন্দ্র"><div class="bn-g">চ</div><div class="arrow">↓</div><div class="kan-g">ಚ</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಛತ್ರ (chatra) = ছত্র"><div class="bn-g">ছ</div><div class="arrow">↓</div><div class="kan-g">ಛ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಜಲ (jala) = জল"><div class="bn-g">জ</div><div class="arrow">↓</div><div class="kan-g">ಜ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಝರ (jhara) = ঝর, ঝরনা"><div class="bn-g">ঝ</div><div class="arrow">↓</div><div class="kan-g">ಝ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಜ್ಞಾನ (jñāna) = জ্ঞান"><div class="bn-g">ঞ</div><div class="arrow">↓</div><div class="kan-g">ಞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">মূর্ধন্যবর্গ (ট-বর্গ)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಟಪಾಲು (ṭapālu) = ডাক"><div class="bn-g">ট</div><div class="arrow">↓</div><div class="kan-g">ಟ</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಠಕ್ಕ (ṭhakka) = ধাক্কা"><div class="bn-g">ঠ</div><div class="arrow">↓</div><div class="kan-g">ಠ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಡಬ್ಬ (ḍabba) = কৌটো"><div class="bn-g">ড</div><div class="arrow">↓</div><div class="kan-g">ಡ</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಢಾಳ (ḍhāḷa) = ঢাল"><div class="bn-g">ঢ</div><div class="arrow">↓</div><div class="kan-g">ಢ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಣ (ṇa) — তৎসম শব্দে, যেমন ಗಣ = গণ"><div class="bn-g">ণ</div><div class="arrow">↓</div><div class="kan-g">ಣ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">দন্ত্যবর্গ (ত-বর্গ)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ತಾಯಿ (tāyi) = মা"><div class="bn-g">ত</div><div class="arrow">↓</div><div class="kan-g">ತ</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಥಳ (thaḷa) = স্থান"><div class="bn-g">থ</div><div class="arrow">↓</div><div class="kan-g">ಥ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ದಿನ (dina) = দিন"><div class="bn-g">দ</div><div class="arrow">↓</div><div class="kan-g">ದ</div><div class="label">da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಧನ (dhana) = ধন"><div class="bn-g">ধ</div><div class="arrow">↓</div><div class="kan-g">ಧ</div><div class="label">dha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ನಾನು (nānu) = আমি"><div class="bn-g">ন</div><div class="arrow">↓</div><div class="kan-g">ನ</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ওষ্ঠ্যবর্গ (প-বর্গ)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಪುಸ್ತಕ (pustaka) = পুস্তক"><div class="bn-g">প</div><div class="arrow">↓</div><div class="kan-g">ಪ</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಫಲ (phala) = ফল"><div class="bn-g">ফ</div><div class="arrow">↓</div><div class="kan-g">ಫ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಬಾ (bā) = এসো"><div class="bn-g">ব</div><div class="arrow">↓</div><div class="kan-g">ಬ</div><div class="label">ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಭೂಮಿ (bhūmi) = ভূমি"><div class="bn-g">ভ</div><div class="arrow">↓</div><div class="kan-g">ಭ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಮನೆ (mane) = ঘর"><div class="bn-g">ম</div><div class="arrow">↓</div><div class="kan-g">ಮ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>পাঁচ বর্গ, একই কাহিনি।</strong> বাংলা বর্ণপরিচয়ের ক্রম — ক-চ-ট-ত-প, অঘোষ অল্পপ্রাণ আগে, তারপর অঘোষ মহাপ্রাণ, ঘোষ অল্পপ্রাণ, ঘোষ মহাপ্রাণ, অনুনাসিক — কন্নডে হুবহু একই। কারণ দুটো লিপিই একই সংস্কৃত-শিখানো ধ্বনিবিজ্ঞানের ছাত্র।</div>
+
+    <div class="group-label">অন্তঃস্থ ও উষ্মবর্ণ</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಯಾರು (yāru) = কে"><div class="bn-g">য</div><div class="arrow">↓</div><div class="kan-g">ಯ</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ರಾತ್ರಿ (rātri) = রাত্রি"><div class="bn-g">র</div><div class="arrow">↓</div><div class="kan-g">ರ</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಲಾಲು (lālu) = লাল"><div class="bn-g">ল</div><div class="arrow">↓</div><div class="kan-g">ಲ</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell new" tabindex="0" data-hint="ವಾರ (vāra) = বার — ঠোঁট আলতো ছোঁয়ায় 'ভ' ও 'ও'-র মাঝামাঝি"><div class="bn-g">ব/ৱ</div><div class="arrow">↓</div><div class="kan-g">ವ</div><div class="label">va</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಶಾಲೆ (śāle) = শালা — বিদ্যালয়"><div class="bn-g">শ</div><div class="arrow">↓</div><div class="kan-g">ಶ</div><div class="label">śa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಷಟ್ (ṣaṭ) = ষট্ — ছয়"><div class="bn-g">ষ</div><div class="arrow">↓</div><div class="kan-g">ಷ</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಸಮಯ (samaya) = সময়"><div class="bn-g">স</div><div class="arrow">↓</div><div class="kan-g">ಸ</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಹಣ (haṇa) = টাকা"><div class="bn-g">হ</div><div class="arrow">↓</div><div class="kan-g">ಹ</div><div class="label">ha</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">⚡ একমাত্র নতুন ধ্বনি — মূর্ধন্য-পার্শ্বিক</div>
+    <div class="map-grid">
+      <div class="map-cell new" tabindex="0" data-hint="ನಾಳೆ (nāḷe) = আগামীকাল — জিভের ডগা তালুতে ছুঁইয়ে বলো"><div class="bn-g">—</div><div class="arrow">↓</div><div class="kan-g">ಳ</div><div class="label">ḷa</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong><span class="kan">ಳ</span> — তিন হাজার বছরের দ্রাবিড় উত্তরাধিকার।</strong> এটি কোনো 'ল' নয়, বরং একটি মূর্ধন্য-পার্শ্বিক ধ্বনি — জিভের ডগা তালুর উঁচু জায়গায় ঠেকিয়ে বাতাস পাশ দিয়ে ছাড়া। তামিল-মালয়ালম-কন্নড এটি ধরে রেখেছে; বাংলা, হিন্দি, সংস্কৃত এটি 'ল' বা 'ড়' হিসাবে মিশিয়ে ফেলেছে। <span class="kan">ನಾಳೆ, ಹಾಲು, ಬೆಳಿಗ್ಗೆ</span> — এই শব্দগুলোর প্রতিটিতে <span class="kan">ಳ</span> আছে। শুনলে 'ল' মনে হবে; কিন্তু জিভের অবস্থান আলাদা।</div>
+
+    <h3><span class="num">২.১</span>অভ্যাস</h3>
+    <ul class="clean">
+      <li>পাঁচ বর্গ পরপর জোরে বলো, একটি বাংলা একটি কন্নড — ক <span class="kan">ಕ</span>, খ <span class="kan">ಖ</span>, গ <span class="kan">ಗ</span>... চোখ-কান-মুখ একসাথে কাজ করুক।</li>
+      <li><span class="kan">ಳ</span> আলাদা করে বিশবার বলো। তারপর 'লা' আর '<span class="kan">ಳ</span>' পাশাপাশি — পার্থক্য অনুভব করো।</li>
+      <li>পাঁচটি তৎসম শব্দ নিজে থেকে দুই লিপিতে লেখো: কমল, জল, দিন, ফল, ভূমি।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-03" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · গঠন</div>
+    <h2 class="stage-title">সংযোজনা — কার, হসন্ত, যুক্তাক্ষর</h2>
+    <p class="stage-lede">বাংলায় কার-চিহ্ন শিখে তুমি ৩৪ ব্যঞ্জন × ১১ স্বর = প্রায় চারশো অক্ষর পেয়েছিলে। কন্নডে ঠিক সেই গণিত খাটে — শুধু চিহ্নগুলোর চেহারা নতুন।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="aside"><strong>বিদ্যাসাগরের চাল — কন্নডেও খাটে।</strong> বারোটি কার-চিহ্ন শিখলে ৩৪ ব্যঞ্জন × ১২ = ৪০৮ অক্ষর পাওয়া যায়। কন্নডেও সেই একই গণিত: হাতে গোনা কয়েকটি স্বর-চিহ্ন, তারপর প্রতিটি ব্যঞ্জনে বসিয়ে হাজার শব্দ পড়তে পারবে।</p></div>
+
+    <h3><span class="num">৩.১</span>কার-চিহ্নের তুলনা</h3>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead>
+          <tr><th>স্বর</th><th>বাংলা (ক-তে)</th><th>কন্নড (ಕ-তে)</th><th>উচ্চারণ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>অ</td><td><span class="g">ক</span></td><td><span class="g kan">ಕ</span></td><td class="mono">ka</td></tr>
+          <tr><td>আ</td><td><span class="g">কা</span></td><td><span class="g kan">ಕಾ</span></td><td class="mono">kā</td></tr>
+          <tr><td>ই</td><td><span class="g">কি</span></td><td><span class="g kan">ಕಿ</span></td><td class="mono">ki</td></tr>
+          <tr><td>ঈ</td><td><span class="g">কী</span></td><td><span class="g kan">ಕೀ</span></td><td class="mono">kī</td></tr>
+          <tr><td>উ</td><td><span class="g">কু</span></td><td><span class="g kan">ಕು</span></td><td class="mono">ku</td></tr>
+          <tr><td>ঊ</td><td><span class="g">কূ</span></td><td><span class="g kan">ಕೂ</span></td><td class="mono">kū</td></tr>
+          <tr><td>ঋ</td><td><span class="g">কৃ</span></td><td><span class="g kan">ಕೃ</span></td><td class="mono">kṛ</td></tr>
+          <tr><td>এ</td><td><span class="g">কে</span></td><td><span class="g kan">ಕೆ</span></td><td class="mono">ke</td></tr>
+          <tr><td>এ (দীর্ঘ)</td><td><span class="sub">—</span></td><td><span class="g kan">ಕೇ</span></td><td class="mono">kē</td></tr>
+          <tr><td>ঐ</td><td><span class="g">কৈ</span></td><td><span class="g kan">ಕೈ</span></td><td class="mono">kai</td></tr>
+          <tr><td>ও</td><td><span class="g">কো</span></td><td><span class="g kan">ಕೊ</span></td><td class="mono">ko</td></tr>
+          <tr><td>ও (দীর্ঘ)</td><td><span class="sub">—</span></td><td><span class="g kan">ಕೋ</span></td><td class="mono">kō</td></tr>
+          <tr><td>ঔ</td><td><span class="g">কৌ</span></td><td><span class="g kan">ಕೌ</span></td><td class="mono">kau</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>লক্ষ করো।</strong> কন্নডের বেশিরভাগ কার-চিহ্ন অক্ষরের উপরে বা ডানে বসে — অনেকটা দেবনাগরীর মতো। বাংলা-বিপরীতে এ-কার, ও-কার আগে-পরে ভাগ হয় না; কন্নডে সব একদিকেই। কি/কী (<span class="kan">ಕಿ/ಕೀ</span>) জোড়াটি বিশেষ — দেখতে প্রায় একই, শুধু একটি 'লেজ' বড়।</div>
+
+    <h3><span class="num">৩.২</span>হসন্ত ও যুক্তাক্ষর</h3>
+
+    <p>বাংলায় ব্যঞ্জনকে স্বর থেকে ছিনিয়ে নিতে হসন্ত (্) লাগাই। কন্নডে সেই কাজ করে <strong>বিরাম</strong> (<span class="kan">್</span>)। দুটো কাজ একই — কেবল চিহ্ন আলাদা।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>বাংলা</th><th>কন্নড</th><th>অর্থ</th></tr></thead>
+        <tbody>
+          <tr><td><span class="g">ক্</span> (ক+হসন্ত)</td><td><span class="g kan">ಕ್</span> (ಕ + <span class="kan">್</span>)</td><td>স্বরহীন ক</td></tr>
+          <tr><td><span class="g">ক্ক</span> (ক্+ক)</td><td><span class="g kan">ಕ್ಕ</span></td><td>যুক্ত কক</td></tr>
+          <tr><td><span class="g">স্ত</span></td><td><span class="g kan">ಸ್ತ</span></td><td>যুক্ত সত</td></tr>
+          <tr><td><span class="g">ন্ত</span></td><td><span class="g kan">ನ್ತ</span></td><td>যুক্ত নত</td></tr>
+          <tr><td><span class="g">দ্য</span></td><td><span class="g kan">ದ್ಯ</span></td><td>যুক্ত দ্য</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>যুক্তাক্ষর ভাঙার নিয়মও এক: প্রথম ব্যঞ্জনে হসন্ত/বিরাম বসে, দ্বিতীয় ব্যঞ্জন জুড়ে যায়। বাংলা 'স্তব্ধ' = স্ + ত + ব্ + ধ। কন্নড <span class="kan">ಪುಸ್ತಕ</span> = ಪ + ು + ಸ + ್ + ತ + ಕ।</p>
+
+    <div class="aside"><strong>দুই লিপিরই আনুভূমিক চিন্তাধারা।</strong> বাংলায় যুক্তাক্ষর প্রায়ই দুই অক্ষরকে উপরে-নিচে বা পাশে ফিউজ করে — ক্ষ, জ্ঞ, ন্ত। কন্নডে দ্বিতীয় ব্যঞ্জনটি প্রথমটির নিচে ছোট হয়ে বসে — যেমন <span class="kan">ಸ್ತ</span>-তে <span class="kan">ತ</span> নিচে। একই ধারণা — শুধু সজ্জা ভিন্ন।</div>
+
+    <h3><span class="num">৩.৩</span>সমান্তরাল যুক্তাক্ষর পড়া</h3>
+
+    <div class="sentence">
+      <div class="kan">ಪುಸ್ತಕ</div>
+      <div class="trans">pustaka</div>
+      <div class="bn-gloss">পুস্তক — বাংলা 'পুস্তক'-এর সরাসরি যমজ। ভাঙলে: ಪ + ು + ಸ + ್ + ತ + ಕ।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಕ್ಷಮಿಸಿ</div>
+      <div class="trans">kṣamisi</div>
+      <div class="bn-gloss">ক্ষমা করো — বাংলা 'ক্ষ' (ক্+ষ) কন্নডেও <span class="kan">ಕ್ಷ</span> (ಕ + ಷ)।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಜ್ಞಾನ</div>
+      <div class="trans">jñāna</div>
+      <div class="bn-gloss">জ্ঞান — বাংলা 'জ্ঞ' (জ্+ঞ) কন্নডেও <span class="kan">ಜ್ಞ</span> (ಜ + ಞ)।</div>
+    </div>
+
+    <h3><span class="num">৩.৪</span>অভ্যাস</h3>
+    <ul class="clean">
+      <li>'ক' ধরে রেখে সব ১৩টি কার লিখে ফেলো — <span class="kan">ಕ, ಕಾ, ಕಿ, ಕೀ, ಕು, ಕೂ, ಕೃ, ಕೆ, ಕೇ, ಕೈ, ಕೊ, ಕೋ, ಕೌ</span>।</li>
+      <li>পাঁচটি যুক্তাক্ষর কাগজে লেখো আর ভাঙো: <span class="kan">ಸ್ತ, ನ್ತ, ಕ್ಕ, ತ್ತ, ದ್ಯ</span>।</li>
+      <li>কন্নড সাইনবোর্ড বা পোস্টারের ছবি দেখো — এখনই তুমি তিন-চারটে অক্ষর চিনতে পারবে।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-04" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · শব্দভাণ্ডার</div>
+    <h2 class="stage-title">মূল শব্দ — পঞ্চাশ শব্দের প্রথম ভাণ্ডার</h2>
+    <p class="stage-lede">প্রতিটি শব্দে তার বাংলা সমতুল্য, উচ্চারণ, আর উৎস-ট্যাগ আছে। <span class="mono">[তৎসম]</span> মানে সংস্কৃত থেকে দুই ভাষাতেই, <span class="mono">[দ্রাবিড়]</span> মানে কন্নডের নিজস্ব শিকড়।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৪.১</span>সর্বনাম</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ನಾನು</div><div class="bn-eq">আমি</div><div class="trans">nānu</div><div class="note">বাংলা 'আমি' ↔ কন্নড <span class="kan">ನಾನು</span> — শব্দ আলাদা কিন্তু কাজ এক।</div></div>
+      <div class="word"><div class="kan">ನೀನು</div><div class="bn-eq">তুই / তুমি</div><div class="trans">nīnu</div><div class="note">অন্তরঙ্গ সম্বোধন — বাংলা 'তুই/তুমি'-র মতো।</div></div>
+      <div class="word"><div class="kan">ನೀವು</div><div class="bn-eq">আপনি / আপনারা</div><div class="trans">nīvu</div><div class="note">সম্মানসূচক — বাংলা 'আপনি' ↔ <span class="kan">ನೀವು</span>।</div></div>
+      <div class="word"><div class="kan">ಅವನು</div><div class="bn-eq">সে (পুরুষ)</div><div class="trans">avanu</div><div class="note">লিঙ্গ-নির্দিষ্ট — বাংলায় এই তফাৎ নেই।</div></div>
+      <div class="word"><div class="kan">ಅವಳು</div><div class="bn-eq">সে (স্ত্রী)</div><div class="trans">avaḷu</div><div class="note">বাংলা 'সে' লিঙ্গহীন; কন্নড তিন ভাগ করে।</div></div>
+      <div class="word"><div class="kan">ಅದು</div><div class="bn-eq">ওটা / ঐ</div><div class="trans">adu</div><div class="note">বস্তু বা দূরের কিছুর জন্য।</div></div>
+      <div class="word"><div class="kan">ಇದು</div><div class="bn-eq">এটা / এই</div><div class="trans">idu</div><div class="note">কাছের কিছু।</div></div>
+      <div class="word"><div class="kan">ನಾವು</div><div class="bn-eq">আমরা</div><div class="trans">nāvu</div><div class="note">বাংলা 'আমরা' ↔ <span class="kan">ನಾವು</span>।</div></div>
+      <div class="word"><div class="kan">ಅವರು</div><div class="bn-eq">তারা / তিনি (সম্মানে)</div><div class="trans">avaru</div><div class="note">বহুবচন ও সম্মান — দুটোই বোঝায়, বাংলা 'তাঁরা'-র মতো।</div></div>
+    </div>
+
+    <div class="aside"><strong>লিঙ্গ-বিষ্ফোরণ।</strong> বাংলায় 'সে' একজনের নাম — ছেলে, মেয়ে, বস্তু সবার জন্য। কন্নড তিন ভাগ করে: <span class="kan">ಅವನು</span> (সে-পুরুষ), <span class="kan">ಅವಳು</span> (সে-স্ত্রী), <span class="kan">ಅದು</span> (ওটা-বস্তু)। আর এই ভেদ ক্রিয়াপদেও ছড়িয়ে পড়ে — পরের ধাপে দেখবে।</div>
+
+    <h3><span class="num">৪.২</span>মৌলিক বিশেষ্য</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಮನೆ</div><div class="bn-eq">ঘর</div><div class="trans">mane</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="kan">ನೀರು</div><div class="bn-eq">জল</div><div class="trans">nīru</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="kan">ಊಟ</div><div class="bn-eq">ভাত, আহার</div><div class="trans">ūṭa</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div><div class="note">'খাওয়া' সম্পন্ন ভাত-খাবার বোঝায়, শুধু চাল নয়।</div></div>
+      <div class="word"><div class="kan">ಹೆಸರು</div><div class="bn-eq">নাম</div><div class="trans">hesaru</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="kan">ಪುಸ್ತಕ</div><div class="bn-eq">পুস্তক, বই</div><div class="trans">pustaka</div><div class="meaning"><span class="tag">তৎসম</span></div></div>
+      <div class="word"><div class="kan">ಶಾಲೆ</div><div class="bn-eq">শালা, বিদ্যালয়</div><div class="trans">śāle</div><div class="meaning"><span class="tag">তৎসম</span></div></div>
+      <div class="word"><div class="kan">ಹಣ</div><div class="bn-eq">টাকা</div><div class="trans">haṇa</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="kan">ದಾರಿ</div><div class="bn-eq">পথ, রাস্তা</div><div class="trans">dāri</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="kan">ಸಮಯ</div><div class="bn-eq">সময়</div><div class="trans">samaya</div><div class="meaning"><span class="tag">তৎসম</span></div></div>
+      <div class="word"><div class="kan">ದಿನ</div><div class="bn-eq">দিন</div><div class="trans">dina</div><div class="meaning"><span class="tag">তৎসম</span></div></div>
+      <div class="word"><div class="kan">ಹಾಲು</div><div class="bn-eq">দুধ</div><div class="trans">hālu</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="kan">ಅನ್ನ</div><div class="bn-eq">অন্ন, ভাত</div><div class="trans">anna</div><div class="meaning"><span class="tag">তৎসম</span></div></div>
+      <div class="word"><div class="kan">ಹಣ್ಣು</div><div class="bn-eq">ফল</div><div class="trans">haṇṇu</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="kan">ಮರ</div><div class="bn-eq">গাছ</div><div class="trans">mara</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="kan">ಸೂರ್ಯ</div><div class="bn-eq">সূর্য</div><div class="trans">sūrya</div><div class="meaning"><span class="tag">তৎসম</span></div></div>
+      <div class="word"><div class="kan">ಮಳೆ</div><div class="bn-eq">বৃষ্টি</div><div class="trans">maḷe</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div><div class="note">'ළ' মূর্ধন্য-পার্শ্বিক — জিভ তালুতে।</div></div>
+      <div class="word"><div class="kan">ಭೂಮಿ</div><div class="bn-eq">ভূমি</div><div class="trans">bhūmi</div><div class="meaning"><span class="tag">তৎসম</span></div></div>
+      <div class="word"><div class="kan">ಹೂವು</div><div class="bn-eq">ফুল</div><div class="trans">hūvu</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="kan">ಮಗು</div><div class="bn-eq">শিশু</div><div class="trans">magu</div><div class="meaning"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="kan">ಮನುಷ್ಯ</div><div class="bn-eq">মনুষ্য, মানুষ</div><div class="trans">manuṣya</div><div class="meaning"><span class="tag">তৎসম</span></div></div>
+    </div>
+
+    <div class="aside"><strong>সংস্কৃত সেতু।</strong> পুস্তক/<span class="kan">ಪುಸ್ತಕ</span>, সময়/<span class="kan">ಸಮಯ</span>, দিন/<span class="kan">ದಿನ</span>, সূর্য/<span class="kan">ಸೂರ್ಯ</span>, ভূমি/<span class="kan">ಭೂಮಿ</span>, মনুষ্য/<span class="kan">ಮನುಷ್ಯ</span>, অন্ন/<span class="kan">ಅನ್ನ</span>, শালা/<span class="kan">ಶಾಲೆ</span> — একই সংস্কৃত শব্দ, শুধু চেহারা আলাদা। এগুলি শেখার কিছু নেই — শুধু লিপি চেনার।</div>
+
+    <h3><span class="num">৪.৩</span>প্রধান ক্রিয়া (মূল রূপ)</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಇರು</div><div class="bn-eq">থাকা, হওয়া</div><div class="trans">iru</div><div class="note">অস্তিত্ব বোঝায় — 'আমি বাড়িতে আছি'।</div></div>
+      <div class="word"><div class="kan">ಮಾಡು</div><div class="bn-eq">করা</div><div class="trans">māḍu</div></div>
+      <div class="word"><div class="kan">ಹೋಗು</div><div class="bn-eq">যাওয়া</div><div class="trans">hōgu</div></div>
+      <div class="word"><div class="kan">ಬಾ</div><div class="bn-eq">এসো, আসা</div><div class="trans">bā</div><div class="note">আজ্ঞা-রূপ; মূল রূপ <span class="kan">ಬರು</span>।</div></div>
+      <div class="word"><div class="kan">ತಿನ್ನು</div><div class="bn-eq">খাওয়া</div><div class="trans">tinnu</div></div>
+      <div class="word"><div class="kan">ಕುಡಿ</div><div class="bn-eq">পান করা</div><div class="trans">kuḍi</div></div>
+      <div class="word"><div class="kan">ನೋಡು</div><div class="bn-eq">দেখা</div><div class="trans">nōḍu</div></div>
+      <div class="word"><div class="kan">ಕೇಳು</div><div class="bn-eq">শোনা, জিজ্ঞাসা</div><div class="trans">kēḷu</div><div class="note">একই শব্দে দুই অর্থ — 'শোনা' ও 'প্রশ্ন করা'।</div></div>
+      <div class="word"><div class="kan">ಓದು</div><div class="bn-eq">পড়া</div><div class="trans">ōdu</div></div>
+      <div class="word"><div class="kan">ಬರೆ</div><div class="bn-eq">লেখা</div><div class="trans">bare</div></div>
+      <div class="word"><div class="kan">ಹೇಳು</div><div class="bn-eq">বলা</div><div class="trans">hēḷu</div></div>
+      <div class="word"><div class="kan">ನಡೆ</div><div class="bn-eq">হাঁটা</div><div class="trans">naḍe</div></div>
+      <div class="word"><div class="kan">ಓಡು</div><div class="bn-eq">দৌড়ানো</div><div class="trans">ōḍu</div></div>
+      <div class="word"><div class="kan">ಕೊಡು</div><div class="bn-eq">দেওয়া</div><div class="trans">koḍu</div></div>
+      <div class="word"><div class="kan">ತೆಗೆದುಕೊ</div><div class="bn-eq">নেওয়া</div><div class="trans">tegedukoḷḷu</div></div>
+      <div class="word"><div class="kan">ಗೊತ್ತು</div><div class="bn-eq">জানা (তথ্য)</div><div class="trans">gottu</div><div class="note">'আমি জানি' = <span class="kan">ನನಗೆ ಗೊತ್ತು</span> — আক্ষরিক 'আমাকে জানা আছে'।</div></div>
+      <div class="word"><div class="kan">ಬೇಕು</div><div class="bn-eq">দরকার, চাই</div><div class="trans">bēku</div></div>
+      <div class="word"><div class="kan">ಮಲಗು</div><div class="bn-eq">শোয়া, ঘুমানো</div><div class="trans">malagu</div></div>
+      <div class="word"><div class="kan">ಕುಳಿತುಕೊ</div><div class="bn-eq">বসা</div><div class="trans">kuḷitukoḷḷu</div></div>
+      <div class="word"><div class="kan">ನಿಲ್ಲು</div><div class="bn-eq">দাঁড়ানো, থামা</div><div class="trans">nillu</div></div>
+    </div>
+
+    <h3><span class="num">৪.৪</span>সংখ্যা</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಒಂದು</div><div class="bn-eq">এক (১)</div><div class="trans">ondu</div></div>
+      <div class="word"><div class="kan">ಎರಡು</div><div class="bn-eq">দুই (২)</div><div class="trans">eraḍu</div></div>
+      <div class="word"><div class="kan">ಮೂರು</div><div class="bn-eq">তিন (৩)</div><div class="trans">mūru</div></div>
+      <div class="word"><div class="kan">ನಾಲ್ಕು</div><div class="bn-eq">চার (৪)</div><div class="trans">nālku</div></div>
+      <div class="word"><div class="kan">ಐದು</div><div class="bn-eq">পাঁচ (৫)</div><div class="trans">aidu</div></div>
+      <div class="word"><div class="kan">ಆರು</div><div class="bn-eq">ছয় (৬)</div><div class="trans">āru</div></div>
+      <div class="word"><div class="kan">ಏಳು</div><div class="bn-eq">সাত (৭)</div><div class="trans">ēḷu</div></div>
+      <div class="word"><div class="kan">ಎಂಟು</div><div class="bn-eq">আট (৮)</div><div class="trans">eṇṭu</div></div>
+      <div class="word"><div class="kan">ಒಂಬತ್ತು</div><div class="bn-eq">নয় (৯)</div><div class="trans">ombattu</div></div>
+      <div class="word"><div class="kan">ಹತ್ತು</div><div class="bn-eq">দশ (১০)</div><div class="trans">hattu</div></div>
+      <div class="word"><div class="kan">ಇಪ್ಪತ್ತು</div><div class="bn-eq">বিশ (২০)</div><div class="trans">ippattu</div></div>
+      <div class="word"><div class="kan">ಐವತ್ತು</div><div class="bn-eq">পঞ্চাশ (৫০)</div><div class="trans">aivattu</div></div>
+      <div class="word"><div class="kan">ನೂರು</div><div class="bn-eq">একশো (১০০)</div><div class="trans">nūru</div></div>
+    </div>
+
+    <div class="aside"><strong>সংখ্যাগুলো দ্রাবিড়ই।</strong> বাংলা 'এক-দুই-তিন' সংস্কৃত থেকে; কন্নডের <span class="kan">ಒಂದು-ಎರಡು-ಮೂರು</span> দ্রাবিড় শিকড় থেকে। এখানে সেতু নেই — নতুন শব্দ হিসেবে শেখো। তবে পাঁচ থেকে দশ, দশ-এর গুণিতকগুলোতে একটি প্যাটার্ন আছে: দশ × ২ = <span class="kan">ಇಪ್ಪತ್ತು</span>, দশ × ৫ = <span class="kan">ಐವತ್ತು</span> — <span class="kan">ಹತ್ತು</span> শব্দটাই বদলে যায়।</div>
+  </div>
+</section>
+<section class="stage" id="stage-05" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · বাক্য</div>
+    <h2 class="stage-title">বাক্য গঠন — ক্রিয়ায় লিঙ্গ ঢোকে</h2>
+    <p class="stage-lede">SOV-ক্রম আর পরসর্গ — দুটোই পরিচিত। তুমি শুধু একটা নতুন জিনিস শিখবে: কন্নড ক্রিয়াপদ কর্তার লিঙ্গ ও বচন মেনে বদলায় — বাংলা বদলায় না।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৫.১</span>প্রথম বাক্য</h3>
+
+    <div class="sentence">
+      <div class="kan">ನಾನು ಅನ್ನ ತಿನ್ನುತ್ತೇನೆ.</div>
+      <div class="trans">nānu anna tinnuttēne.</div>
+      <div class="bn-gloss">আমি ভাত খাই।</div>
+      <div class="literal">[আমি] [অন্ন] [খাই] — বাংলার সাথে হুবহু এক ক্রম।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಅವನು ಪುಸ್ತಕ ಓದುತ್ತಾನೆ.</div>
+      <div class="trans">avanu pustaka ōduttāne.</div>
+      <div class="bn-gloss">সে (পুরুষ) পুস্তক পড়ে।</div>
+      <div class="literal">ক্রিয়া <span class="kan">ಓದುತ್ತಾನೆ</span>-র -<span class="kan">ಆನೆ</span> অংশ বলছে 'সে-পুরুষ'।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಅವಳು ಪುಸ್ತಕ ಓದುತ್ತಾಳೆ.</div>
+      <div class="trans">avaḷu pustaka ōduttāḷe.</div>
+      <div class="bn-gloss">সে (স্ত্রী) পুস্তক পড়ে।</div>
+      <div class="literal">শুধু ক্রিয়ার শেষ বদলেছে — -<span class="kan">ಆಳೆ</span> মানে 'সে-স্ত্রী'।</div>
+    </div>
+
+    <h3><span class="num">৫.২</span>ক্রিয়াপদের সংযোজনা — বর্তমান কাল, <span class="kan">ಮಾಡು</span> (করা)</h3>
+
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">আমি</div><div class="kan">ಮಾಡುತ್ತೇನೆ</div><div class="bn-eq">করি</div></div>
+      <div class="conjug-row"><div class="pron">তুই/তুমি</div><div class="kan">ಮಾಡುತ್ತೀಯ</div><div class="bn-eq">করিস/করো</div></div>
+      <div class="conjug-row"><div class="pron">আপনি</div><div class="kan">ಮಾಡುತ್ತೀರಿ</div><div class="bn-eq">করেন</div></div>
+      <div class="conjug-row"><div class="pron">সে (পুরুষ)</div><div class="kan">ಮಾಡುತ್ತಾನೆ</div><div class="bn-eq">করে (ছেলে)</div></div>
+      <div class="conjug-row"><div class="pron">সে (স্ত্রী)</div><div class="kan">ಮಾಡುತ್ತಾಳೆ</div><div class="bn-eq">করে (মেয়ে)</div></div>
+      <div class="conjug-row"><div class="pron">ওটা</div><div class="kan">ಮಾಡುತ್ತದೆ</div><div class="bn-eq">করে (বস্তু)</div></div>
+      <div class="conjug-row"><div class="pron">আমরা</div><div class="kan">ಮಾಡುತ್ತೇವೆ</div><div class="bn-eq">করি</div></div>
+      <div class="conjug-row"><div class="pron">তাঁরা</div><div class="kan">ಮಾಡುತ್ತಾರೆ</div><div class="bn-eq">করেন</div></div>
+    </div>
+
+    <div class="aside"><strong>ক্রিয়ায় লিঙ্গভেদ।</strong> বাংলায় 'সে করে' — ছেলে হোক, মেয়ে হোক, বস্তু হোক, একই রূপ। কন্নডে ক্রিয়াপদ বলে দেয় কর্তা কে: <span class="kan">ಮಾಡುತ್ತಾನೆ</span> (সে-পুরুষ), <span class="kan">ಮಾಡುತ್ತಾಳೆ</span> (সে-স্ত্রী), <span class="kan">ಮಾಡುತ್ತದೆ</span> (বস্তু)। এটাই এই ভাষা-জোড়ার একমাত্র সত্যিকার নতুন ব্যাকরণ।</div>
+
+    <h3><span class="num">৫.৩</span>কারক-চিহ্ন তুলনা</h3>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>কারক</th><th>বাংলা</th><th>কন্নড</th><th>উদাহরণ</th></tr></thead>
+        <tbody>
+          <tr><td>কর্তা</td><td>—</td><td>—</td><td><span class="kan">ನಾನು</span> / আমি</td></tr>
+          <tr><td>কর্ম</td><td>-কে</td><td>-<span class="kan">ಅನ್ನು</span></td><td><span class="kan">ಅವನನ್ನು</span> / তাকে</td></tr>
+          <tr><td>সম্প্রদান</td><td>-কে</td><td>-<span class="kan">ಗೆ</span></td><td><span class="kan">ಅವನಿಗೆ</span> / তাকে (দিতে)</td></tr>
+          <tr><td>অধিকরণ</td><td>-তে/-এ</td><td>-<span class="kan">ಅಲ್ಲಿ</span></td><td><span class="kan">ಮನೆಯಲ್ಲಿ</span> / ঘরে</td></tr>
+          <tr><td>অপাদান</td><td>-থেকে</td><td>-<span class="kan">ಇಂದ</span></td><td><span class="kan">ಮನೆಯಿಂದ</span> / ঘর থেকে</td></tr>
+          <tr><td>সম্বন্ধ</td><td>-র/-এর</td><td>-<span class="kan">ಅ</span></td><td><span class="kan">ಅವನ</span> / তার</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>পরসর্গের সরলতা।</strong> অনেক ভাষা বিশেষ্যের আগে আলাদা শব্দ বসায় স্থান বা দিক বোঝাতে। বাংলা-কন্নড দুটোই বিশেষ্যের শেষে যোগ করে: ঘরে / <span class="kan">ಮನೆಯಲ್ಲಿ</span>, ঘর থেকে / <span class="kan">ಮನೆಯಿಂದ</span>, ঘরের / <span class="kan">ಮನೆಯ</span>। চিন্তার ধরণ এক।</div>
+
+    <h3><span class="num">৫.৪</span>প্রশ্নবাচক শব্দ</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಏನು</div><div class="bn-eq">কী</div><div class="trans">ēnu</div></div>
+      <div class="word"><div class="kan">ಯಾರು</div><div class="bn-eq">কে</div><div class="trans">yāru</div></div>
+      <div class="word"><div class="kan">ಎಲ್ಲಿ</div><div class="bn-eq">কোথায়</div><div class="trans">elli</div></div>
+      <div class="word"><div class="kan">ಯಾವಾಗ</div><div class="bn-eq">কখন</div><div class="trans">yāvāga</div></div>
+      <div class="word"><div class="kan">ಏಕೆ</div><div class="bn-eq">কেন</div><div class="trans">ēke</div></div>
+      <div class="word"><div class="kan">ಹೇಗೆ</div><div class="bn-eq">কীভাবে</div><div class="trans">hēge</div></div>
+      <div class="word"><div class="kan">ಎಷ್ಟು</div><div class="bn-eq">কত</div><div class="trans">eṣṭu</div></div>
+    </div>
+
+    <h3><span class="num">৫.৫</span>প্রশ্ন ও নঞর্থ</h3>
+
+    <div class="sentence">
+      <div class="kan">ನಿನ್ನ ಹೆಸರು ಏನು?</div>
+      <div class="trans">ninna hesaru ēnu?</div>
+      <div class="bn-gloss">তোমার নাম কী?</div>
+      <div class="literal">[তোমার] [নাম] [কী] — বাংলার সাথে শব্দে-শব্দে মিল।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ನೀವು ಎಲ್ಲಿಂದ ಬಂದಿದ್ದೀರಿ?</div>
+      <div class="trans">nīvu ellinda bandiddīri?</div>
+      <div class="bn-gloss">আপনি কোথা থেকে এসেছেন?</div>
+      <div class="literal">[আপনি] [কোথা থেকে] [এসেছেন]।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ನನಗೆ ಗೊತ್ತಿಲ್ಲ.</div>
+      <div class="trans">nanage gottilla.</div>
+      <div class="bn-gloss">আমি জানি না।</div>
+      <div class="literal"><span class="kan">ಇಲ್ಲ</span> (illa) নঞর্থসূচক — 'নেই/না'।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಅವನು ಇಲ್ಲಿ ಇಲ್ಲ.</div>
+      <div class="trans">avanu illi illa.</div>
+      <div class="bn-gloss">সে এখানে নেই।</div>
+      <div class="literal"><span class="kan">ಇಲ್ಲಿ</span> = এখানে, <span class="kan">ಇಲ್ಲ</span> = নেই — প্রায় একই দেখতে, কানে মিলিয়ো না।</div>
+    </div>
+
+    <div class="aside"><strong>'হ্যাঁ' ও 'না'।</strong> <span class="kan">ಹೌದು</span> (haudu) = হ্যাঁ, <span class="kan">ಇಲ್ಲ</span> (illa) = না। বাংলায় 'না' একসাথে অস্তিত্ব ও অস্বীকার দুটোই বোঝায় — 'সে নেই', 'না, আমি যাব না'। কন্নড একই কাজ <span class="kan">ಇಲ್ಲ</span> দিয়ে করে: <span class="kan">ಅವನು ಇಲ್ಲ</span> (সে নেই), <span class="kan">ನನಗೆ ಗೊತ್ತಿಲ್ಲ</span> (আমি জানি না)।</div>
+  </div>
+</section>
+<section class="stage" id="stage-06" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · পাঠ</div>
+    <h2 class="stage-title">তিনটি পাঠ — পড়া অভ্যাস</h2>
+    <p class="stage-lede">এখন অক্ষর-শব্দ-বাক্য তিনটেই তোমার চেনা। ছোট পাঠ পড়ো — প্রতিটি লাইনে কন্নড, উচ্চারণ, আর বাংলা অনুবাদ। ইংরেজি কোথাও নেই।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="passage">
+      <h4>পাঠ ১ — আত্ম-পরিচয়</h4>
+      <div class="line">
+        <span class="kan">ನನ್ನ ಹೆಸರು ಅರ್ಜುನ್.</span>
+        <span class="trans">nanna hesaru arjun.</span>
+        <span class="bn-gloss">আমার নাম অর্জুন।</span>
+      </div>
+      <div class="line">
+        <span class="kan">ನಾನು ಬೆಂಗಳೂರಿನಲ್ಲಿ ಇರುತ್ತೇನೆ.</span>
+        <span class="trans">nānu beṅgaḷūrinalli iruttēne.</span>
+        <span class="bn-gloss">আমি বেঙ্গালুরুতে থাকি।</span>
+      </div>
+      <div class="line">
+        <span class="kan">ನಾನು ವಿದ್ಯಾರ್ಥಿ.</span>
+        <span class="trans">nānu vidyārthi.</span>
+        <span class="bn-gloss">আমি বিদ্যার্থী (ছাত্র)।</span>
+      </div>
+      <div class="line">
+        <span class="kan">ನನಗೆ ಕನ್ನಡ ಮತ್ತು ಬಾಂಗ್ಲಾ ಗೊತ್ತು.</span>
+        <span class="trans">nanage kannaḍa mattu bāṅglā gottu.</span>
+        <span class="bn-gloss">আমি কন্নড এবং বাংলা জানি।</span>
+      </div>
+      <div class="line">
+        <span class="kan">ನನಗೆ ಪುಸ್ತಕ ಓದಲು ಇಷ್ಟ.</span>
+        <span class="trans">nanage pustaka ōdalu iṣṭa.</span>
+        <span class="bn-gloss">আমার পুস্তক পড়তে ভালো লাগে।</span>
+      </div>
+    </div>
+
+    <div class="passage">
+      <h4>পাঠ ২ — একটি দিনের রুটিন</h4>
+      <div class="line">
+        <span class="kan">ನಾನು ಬೆಳಿಗ್ಗೆ ಆರು ಗಂಟೆಗೆ ಏಳುತ್ತೇನೆ.</span>
+        <span class="trans">nānu beḷigge āru gaṇṭege ēḷuttēne.</span>
+        <span class="bn-gloss">আমি সকালে ছয়টায় উঠি।</span>
+      </div>
+      <div class="line">
+        <span class="kan">ನಂತರ ನಾನು ಹಾಲು ಕುಡಿಯುತ್ತೇನೆ.</span>
+        <span class="trans">nantara nānu hālu kuḍiyuttēne.</span>
+        <span class="bn-gloss">তারপর আমি দুধ পান করি।</span>
+      </div>
+      <div class="line">
+        <span class="kan">ಬೆಳಿಗ್ಗೆ ಎಂಟು ಗಂಟೆಗೆ ಶಾಲೆಗೆ ಹೋಗುತ್ತೇನೆ.</span>
+        <span class="trans">beḷigge eṇṭu gaṇṭege śālege hōguttēne.</span>
+        <span class="bn-gloss">সকাল আটটায় শালায় (স্কুলে) যাই।</span>
+      </div>
+      <div class="line">
+        <span class="kan">ಮಧ್ಯಾಹ್ನ ಊಟ ಮಾಡುತ್ತೇನೆ.</span>
+        <span class="trans">madhyāhna ūṭa māḍuttēne.</span>
+        <span class="bn-gloss">মধ্যাহ্নে আহার করি।</span>
+      </div>
+      <div class="line">
+        <span class="kan">ಸಂಜೆ ಸ್ನೇಹಿತರ ಜೊತೆ ಆಡುತ್ತೇನೆ.</span>
+        <span class="trans">sañje snēhitara jote āḍuttēne.</span>
+        <span class="bn-gloss">সন্ধ্যায় বন্ধুদের সাথে খেলি।</span>
+      </div>
+      <div class="line">
+        <span class="kan">ರಾತ್ರಿ ಹತ್ತು ಗಂಟೆಗೆ ಮಲಗುತ್ತೇನೆ.</span>
+        <span class="trans">rātri hattu gaṇṭege malaguttēne.</span>
+        <span class="bn-gloss">রাত্রি দশটায় ঘুমাই।</span>
+      </div>
+    </div>
+
+    <div class="passage">
+      <h4>পাঠ ৩ — দুই জনের কথোপকথন</h4>
+      <div class="line">
+        <span class="kan">— ನಮಸ್ಕಾರ! ಹೇಗಿದ್ದೀರಿ?</span>
+        <span class="trans">— namaskāra! hēgiddīri?</span>
+        <span class="bn-gloss">— নমস্কার! কেমন আছেন?</span>
+      </div>
+      <div class="line">
+        <span class="kan">— ನಮಸ್ಕಾರ! ನಾನು ಚೆನ್ನಾಗಿದ್ದೇನೆ, ಧನ್ಯವಾದಗಳು. ನೀವು?</span>
+        <span class="trans">— namaskāra! nānu chennāgiddēne, dhanyavādagaḷu. nīvu?</span>
+        <span class="bn-gloss">— নমস্কার! আমি ভালো আছি, ধন্যবাদ। আপনি?</span>
+      </div>
+      <div class="line">
+        <span class="kan">— ನಾನೂ ಚೆನ್ನಾಗಿದ್ದೇನೆ. ಊಟ ಆಯ್ತಾ?</span>
+        <span class="trans">— nānū chennāgiddēne. ūṭa āytā?</span>
+        <span class="bn-gloss">— আমিও ভালো আছি। ভাত খেয়েছেন?</span>
+      </div>
+      <div class="line">
+        <span class="kan">— ಆಯ್ತು. ನೀವು ಎಲ್ಲಿಂದ ಬಂದಿದ್ದೀರಿ?</span>
+        <span class="trans">— āytu. nīvu ellinda bandiddīri?</span>
+        <span class="bn-gloss">— হ্যাঁ, খেয়েছি। আপনি কোথা থেকে এসেছেন?</span>
+      </div>
+      <div class="line">
+        <span class="kan">— ನಾನು ಕೋಲ್ಕತ್ತಾದಿಂದ ಬಂದಿದ್ದೇನೆ.</span>
+        <span class="trans">— nānu kōlkattādinda bandiddēne.</span>
+        <span class="bn-gloss">— আমি কলকাতা থেকে এসেছি।</span>
+      </div>
+      <div class="line">
+        <span class="kan">— ಓಹ್! ಬಾಂಗ್ಲಾ ಮಾತನಾಡುತ್ತೀರಾ?</span>
+        <span class="trans">— ōh! bāṅglā mātanāḍuttīrā?</span>
+        <span class="bn-gloss">— ওহ! বাংলা বলেন?</span>
+      </div>
+      <div class="line">
+        <span class="kan">— ಹೌದು. ಈಗ ಕನ್ನಡ ಕಲಿಯುತ್ತಿದ್ದೇನೆ.</span>
+        <span class="trans">— haudu. īga kannaḍa kaliyuttiddēne.</span>
+        <span class="bn-gloss">— হ্যাঁ। এখন কন্নড শিখছি।</span>
+      </div>
+      <div class="line">
+        <span class="kan">— ಬಹಳ ಒಳ್ಳೆಯದು! ಶುಭಾಶಯಗಳು.</span>
+        <span class="trans">— bahaḷa oḷḷeyadu! śubhāśayagaḷu.</span>
+        <span class="bn-gloss">— খুব ভালো! শুভেচ্ছা।</span>
+      </div>
+    </div>
+
+    <div class="aside"><strong>পড়ার কৌশল।</strong> প্রথমে শুধু কন্নড লাইন পড়ো — উচ্চারণ দেখো না। যদি আটকে যাও, উচ্চারণে নামো। সবশেষে বাংলা অনুবাদ। এই ক্রম মেনে চললে চোখ কন্নডকে সরাসরি অর্থের সাথে যুক্ত করতে শিখবে, উচ্চারণ-সেতু ছাড়াই।</div>
+  </div>
+</section>
+<section class="stage" id="stage-07" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · অর্থক্ষেত্র</div>
+    <h2 class="stage-title">শব্দক্ষেত্র — আত্মীয়, সময়, দেহ, গতি</h2>
+    <p class="stage-lede">প্রতিটি ভাষা পৃথিবীকে একটু ভিন্নভাবে কাটে। কোথায় বাংলা-কন্নড একইভাবে কাটে, কোথায় আলাদা — সেটাই এই ধাপে।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৭.১</span>আত্মীয়তা</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಅಪ್ಪ</div><div class="bn-eq">বাবা</div><div class="trans">appa</div></div>
+      <div class="word"><div class="kan">ಅಮ್ಮ</div><div class="bn-eq">মা</div><div class="trans">amma</div></div>
+      <div class="word"><div class="kan">ಅಣ್ಣ</div><div class="bn-eq">দাদা (বড় ভাই)</div><div class="trans">aṇṇa</div></div>
+      <div class="word"><div class="kan">ತಮ್ಮ</div><div class="bn-eq">ছোট ভাই</div><div class="trans">tamma</div></div>
+      <div class="word"><div class="kan">ಅಕ್ಕ</div><div class="bn-eq">দিদি (বড় বোন)</div><div class="trans">akka</div></div>
+      <div class="word"><div class="kan">ತಂಗಿ</div><div class="bn-eq">ছোট বোন</div><div class="trans">taṅgi</div></div>
+      <div class="word"><div class="kan">ಅಜ್ಜ</div><div class="bn-eq">দাদু, ঠাকুরদা</div><div class="trans">ajja</div></div>
+      <div class="word"><div class="kan">ಅಜ್ಜಿ</div><div class="bn-eq">দিদিমা, ঠাকুরমা</div><div class="trans">ajji</div></div>
+      <div class="word"><div class="kan">ಮಾವ</div><div class="bn-eq">মামা, শ্বশুর</div><div class="trans">māva</div></div>
+      <div class="word"><div class="kan">ಅತ್ತೆ</div><div class="bn-eq">পিসি, শাশুড়ি</div><div class="trans">atte</div></div>
+      <div class="word"><div class="kan">ಚಿಕ್ಕಪ್ಪ</div><div class="bn-eq">কাকা (ছোট)</div><div class="trans">cikkappa</div></div>
+      <div class="word"><div class="kan">ದೊಡ್ಡಪ್ಪ</div><div class="bn-eq">জ্যাঠা (বড় কাকা)</div><div class="trans">doḍḍappa</div></div>
+    </div>
+
+    <div class="aside"><strong>ভাই-বোনের বয়স-বিভাজন।</strong> বাংলায় 'দাদা' বড়, 'ভাই' ছোট, 'দিদি' বড়, 'বোন' ছোট — বয়সই ঠিক করে সম্বোধন। কন্নডেও হুবহু একই: <span class="kan">ಅಣ್ಣ</span> (বড় ভাই), <span class="kan">ತಮ್ಮ</span> (ছোট ভাই), <span class="kan">ಅಕ್ಕ</span> (বড় বোন), <span class="kan">ತಂಗಿ</span> (ছোট বোন)। পশ্চিমি ভাষাগুলি এই বয়স-তথ্য একটি মাত্র সাধারণ শব্দে হারিয়ে ফেলে; বাংলা-কন্নড ধরে রাখে।</div>
+
+    <div class="aside"><strong>অপরিচিতকে আত্মীয়।</strong> বাংলায় বয়সে বড় অপরিচিত পুরুষকে 'দাদা', নারীকে 'দিদি' বলি। কন্নডে হুবহু একই অভ্যাস: <span class="kan">ಅಣ್ಣ</span>, <span class="kan">ಅಕ್ಕ</span> — বয়স্ককে <span class="kan">ಅಜ್ಜ</span>/<span class="kan">ಅಜ್ಜಿ</span>। আত্মীয়তাকে সমাজের বাইরেও ছড়িয়ে দেওয়ার একই প্রবণতা।</div>
+
+    <h3><span class="num">৭.২</span>সময়</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಇಂದು</div><div class="bn-eq">আজ</div><div class="trans">indu</div></div>
+      <div class="word"><div class="kan">ನಾಳೆ</div><div class="bn-eq">আগামীকাল</div><div class="trans">nāḷe</div></div>
+      <div class="word"><div class="kan">ನಿನ್ನೆ</div><div class="bn-eq">গতকাল</div><div class="trans">ninne</div></div>
+      <div class="word"><div class="kan">ಈಗ</div><div class="bn-eq">এখন</div><div class="trans">īga</div></div>
+      <div class="word"><div class="kan">ಬೆಳಿಗ್ಗೆ</div><div class="bn-eq">সকাল</div><div class="trans">beḷigge</div></div>
+      <div class="word"><div class="kan">ಸಂಜೆ</div><div class="bn-eq">সন্ধ্যা</div><div class="trans">sañje</div></div>
+      <div class="word"><div class="kan">ರಾತ್ರಿ</div><div class="bn-eq">রাত্রি</div><div class="trans">rātri</div></div>
+      <div class="word"><div class="kan">ಮೊದಲು</div><div class="bn-eq">আগে</div><div class="trans">modalu</div></div>
+      <div class="word"><div class="kan">ನಂತರ</div><div class="bn-eq">পরে</div><div class="trans">nantara</div></div>
+    </div>
+
+    <div class="aside"><strong>'কাল' শব্দের দ্বিমুখিতা।</strong> বাংলায় 'কাল' এক শব্দে দুই দিক বোঝায় — 'কাল আসব' (আগামীকাল) এবং 'কাল এসেছিলাম' (গতকাল)। সংলাপের ক্রিয়াকাল থেকে বুঝতে হয়। কন্নড এই সমস্যা থেকে বাঁচায়: <span class="kan">ನಾಳೆ</span> (আগামীকাল) আর <span class="kan">ನಿನ್ನೆ</span> (গতকাল) — আলাদা দুই শব্দ। এই পার্থক্য বাংলা-মুখ ধীরে ধীরে সয়ে যাবে।</div>
+
+    <h3><span class="num">৭.৩</span>দেহ</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ತಲೆ</div><div class="bn-eq">মাথা</div><div class="trans">tale</div></div>
+      <div class="word"><div class="kan">ಕಣ್ಣು</div><div class="bn-eq">চোখ</div><div class="trans">kaṇṇu</div></div>
+      <div class="word"><div class="kan">ಕಿವಿ</div><div class="bn-eq">কান</div><div class="trans">kivi</div></div>
+      <div class="word"><div class="kan">ಮೂಗು</div><div class="bn-eq">নাক</div><div class="trans">mūgu</div></div>
+      <div class="word"><div class="kan">ಬಾಯಿ</div><div class="bn-eq">মুখ</div><div class="trans">bāyi</div></div>
+      <div class="word"><div class="kan">ಕೈ</div><div class="bn-eq">হাত</div><div class="trans">kai</div></div>
+      <div class="word"><div class="kan">ಕಾಲು</div><div class="bn-eq">পা</div><div class="trans">kālu</div></div>
+      <div class="word"><div class="kan">ಹೊಟ್ಟೆ</div><div class="bn-eq">পেট</div><div class="trans">hoṭṭe</div></div>
+    </div>
+
+    <div class="aside"><strong>দেহ = দ্রাবিড়।</strong> দেহ-সংক্রান্ত সাধারণ শব্দগুলো — চোখ, কান, নাক, হাত, পা — কন্নডে প্রায় সবই দ্রাবিড় শিকড় থেকে। এখানে সংস্কৃত সেতু নেই। কিন্তু লক্ষ করো: <span class="kan">ಕಣ್ಣು</span> (চোখ), <span class="kan">ಕಿವಿ</span> (কান), <span class="kan">ಬಾಯಿ</span> (মুখ) — তামিল, তেলুগু, মালয়ালম সবগুলোতেই প্রায় একই। পাঁচ দক্ষিণী ভাষা একই পরিবার।</div>
+
+    <h3><span class="num">৭.৪</span>বাংলা-কন্নড কোথায় আলাদা কাটে</h3>
+    <ul class="clean">
+      <li><strong>'খাওয়া' বনাম 'পান করা'।</strong> বাংলায় 'খাওয়া' দিয়ে কঠিন আর তরল দুটোই চলে — ভাত খাওয়া, জল খাওয়া। কন্নড দুটো আলাদা করে: <span class="kan">ತಿನ್ನು</span> (কঠিন খাওয়া) আর <span class="kan">ಕುಡಿ</span> (তরল পান করা)। 'জল খাওয়া' বললে কন্নড-কান ভুল শুনবে।</li>
+      <li><strong>'শুনি' বনাম 'জিজ্ঞাসা করি'।</strong> বাংলায় দুটো আলাদা ক্রিয়া। কন্নডে এক ক্রিয়া — <span class="kan">ಕೇಳು</span> — দুটোই বোঝায়। বাক্যের সংগঠনে অর্থ ঠিক হয়।</li>
+      <li><strong>'জানি' ক্রিয়ার গঠন।</strong> বাংলায় 'আমি জানি' সরল কর্তৃবাচ্য। কন্নডে আক্ষরিক — 'আমাকে জানা আছে' (<span class="kan">ನನಗೆ ಗೊತ್ತು</span>, nanage gottu)। জ্ঞানটা যেন কর্তার কাছে এসে পৌঁছেছে।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-08" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · ব্যবহার</div>
+    <h2 class="stage-title">ব্যবহার — সম্মান, অভিবাদন, সংস্কৃতি</h2>
+    <p class="stage-lede">একটা ভাষা শুধু শব্দ নয়। কখন 'তুই', কখন 'আপনি', কখন জিজ্ঞাসা কেবল স্নেহ — এই সূক্ষ্মতাতেই ভাষা বেঁচে থাকে।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৮.১</span>সম্মান-স্তর</h3>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>স্তর</th><th>বাংলা</th><th>কন্নড</th><th>ব্যবহার</th></tr></thead>
+        <tbody>
+          <tr><td>অন্তরঙ্গ</td><td>তুই</td><td><span class="kan">ನೀನು</span></td><td>ঘনিষ্ঠ, ছোট</td></tr>
+          <tr><td>সাধারণ</td><td>তুমি</td><td><span class="kan">ನೀನು</span></td><td>সমবয়সী, বন্ধু</td></tr>
+          <tr><td>সম্মানসূচক</td><td>আপনি</td><td><span class="kan">ನೀವು</span></td><td>বয়স্ক, অপরিচিত</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>বাংলার তিন স্তর — তুই/তুমি/আপনি — কন্নডে দুই স্তরে নেমে আসে: <span class="kan">ನೀನು</span> (তুই+তুমি একসাথে) আর <span class="kan">ನೀವು</span> (আপনি)। সম্মানের ধারণা একই, শুধু মধ্যস্তর কন্নডে নিচের স্তরের সাথে মিশে গেছে।</p>
+
+    <h3><span class="num">৮.২</span>দৈনন্দিন বাক্যাংশ</h3>
+
+    <div class="words">
+      <div class="word"><div class="kan">ನಮಸ್ಕಾರ</div><div class="bn-eq">নমস্কার</div><div class="trans">namaskāra</div><div class="note">অভিন্ন শব্দ — সংস্কৃত সেতু।</div></div>
+      <div class="word"><div class="kan">ಧನ್ಯವಾದಗಳು</div><div class="bn-eq">ধন্যবাদ</div><div class="trans">dhanyavādagaḷu</div><div class="note">বাংলা 'ধন্যবাদ' + বহুবচন -<span class="kan">ಗಳು</span>।</div></div>
+      <div class="word"><div class="kan">ಕ್ಷಮಿಸಿ</div><div class="bn-eq">ক্ষমা করবেন, মাফ করবেন</div><div class="trans">kṣamisi</div></div>
+      <div class="word"><div class="kan">ಪರವಾಗಿಲ್ಲ</div><div class="bn-eq">ঠিক আছে, সমস্যা নেই</div><div class="trans">paravāgilla</div></div>
+      <div class="word"><div class="kan">ಹೇಗಿದ್ದೀರಿ?</div><div class="bn-eq">কেমন আছেন?</div><div class="trans">hēgiddīri?</div></div>
+      <div class="word"><div class="kan">ಚೆನ್ನಾಗಿದ್ದೇನೆ</div><div class="bn-eq">ভালো আছি</div><div class="trans">chennāgiddēne</div></div>
+      <div class="word"><div class="kan">ಸ್ವಲ್ಪ</div><div class="bn-eq">একটু, অল্প</div><div class="trans">svalpa</div><div class="note">কথায় নম্রতা আনতে ব্যবহার — 'অনুগ্রহ করে একটু...'।</div></div>
+      <div class="word"><div class="kan">ಬೇಕು</div><div class="bn-eq">চাই, দরকার</div><div class="trans">bēku</div></div>
+      <div class="word"><div class="kan">ಬೇಡ</div><div class="bn-eq">চাই না, বাদ দাও</div><div class="trans">bēḍa</div></div>
+      <div class="word"><div class="kan">ಗೊತ್ತಿಲ್ಲ</div><div class="bn-eq">জানি না</div><div class="trans">gottilla</div></div>
+      <div class="word"><div class="kan">ಹೌದು</div><div class="bn-eq">হ্যাঁ</div><div class="trans">haudu</div></div>
+      <div class="word"><div class="kan">ಇಲ್ಲ</div><div class="bn-eq">না, নেই</div><div class="trans">illa</div></div>
+    </div>
+
+    <h3><span class="num">৮.৩</span>'ভাত খেয়েছেন?' — দুই ভাষার এক স্নেহ</h3>
+
+    <div class="sentence">
+      <div class="kan">ಊಟ ಆಯ್ತಾ?</div>
+      <div class="trans">ūṭa āytā?</div>
+      <div class="bn-gloss">ভাত খেয়েছেন?</div>
+      <div class="literal">উত্তর: <span class="kan">ಆಯ್ತು</span> (āytu) = হ্যাঁ, হয়ে গেছে।</div>
+    </div>
+
+    <div class="aside"><strong>এটা কোনো প্রশ্ন নয় — এটা জড়িয়ে ধরা।</strong> বাংলায় 'ভাত খেয়েছ?' — প্রকৃত প্রশ্ন নয়, স্নেহের 'কেমন আছ'। কন্নডেও হুবহু তাই: <span class="kan">ಊಟ ಆಯ್ತಾ?</span> একজন অপরিচিতকেও এটা জিজ্ঞেস করা যায় — উত্তর <span class="kan">ಆಯ್ತು</span> ('হয়েছে'), তুমি সত্যিই খেয়েছ কিনা সেটা কেউ যাচাই করতে আসবে না। এই এক প্রশ্ন বাংলা ও কন্নড — দুই বাঙালি-কন্নডিগার মধ্যে অদৃশ্য সুতো বেঁধে দেয়।</div>
+
+    <h3><span class="num">৮.৪</span>নম্রতার মন্ত্র — <span class="kan">ಸ್ವಲ್ಪ</span></h3>
+
+    <div class="sentence">
+      <div class="kan">ಸ್ವಲ್ಪ ನೀರು ಕೊಡಿ.</div>
+      <div class="trans">svalpa nīru koḍi.</div>
+      <div class="bn-gloss">একটু জল দিন।</div>
+      <div class="literal">'একটু' শব্দটা আদেশকে অনুরোধে বদলে দেয়।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ.</div>
+      <div class="trans">svalpa kaḍime māḍi.</div>
+      <div class="bn-gloss">একটু কম করুন।</div>
+    </div>
+
+    <div class="aside"><strong><span class="kan">ಸ್ವಲ್ಪ</span> — বেঙ্গালুরুর অর্ধেক।</strong> রাস্তায়, অটোতে, অফিসে, রান্নাঘরে — <span class="kan">ಸ್ವಲ್ಪ</span> ছাড়া একটি বাক্য শেষ হয় না। 'একটু সরো', 'একটু থামো', 'একটু মানিয়ে নাও'। বাংলার 'একটু'-ও একই কাজ করে — সরাসরি আদেশকে অনুরোধে রূপান্তর। অনুবাদ খুঁজো না; আচরণ কপি করো।</div>
+
+    <h3><span class="num">৮.৫</span>সম্বোধন-সংস্কৃতি</h3>
+
+    <ul class="clean">
+      <li>অপরিচিত বয়োজ্যেষ্ঠ পুরুষ: <span class="kan">ಅಣ್ಣ</span> (aṇṇa) — বাংলা 'দাদা'।</li>
+      <li>অপরিচিত বয়োজ্যেষ্ঠ নারী: <span class="kan">ಅಕ್ಕ</span> (akka) — বাংলা 'দিদি'।</li>
+      <li>বয়স্ক পুরুষ: <span class="kan">ಅಜ್ಜ</span> (ajja) — 'দাদু'।</li>
+      <li>বয়স্ক নারী: <span class="kan">ಅಜ್ಜಿ</span> (ajji) — 'ঠাকুরমা, দিদিমা'।</li>
+      <li>দোকানদার-অটোচালককেও <span class="kan">ಅಣ್ಣ</span> বলে ডাকা স্বাভাবিক। বাংলায় যেমন সবাই 'দাদা'।</li>
+    </ul>
+
+    <div class="aside"><strong>আত্মীয়তার ভাষা।</strong> 'অপরিচিতকে রক্ত-সম্পর্কের নামে ডাকা' — এই আচরণ দক্ষিণ এশিয়ার সব ভাষাতেই আছে, ইউরোপীয় ভাষায় প্রায় নেই। একটি অটোচালককে <span class="kan">ಅಣ್ಣ</span> বলা, একটি পান-দোকানদারকে 'দাদা' বলা — পুরো সভ্যতার একই ভাব। ভাষা পাল্টাচ্ছে, ভাব এক।</div>
+  </div>
+</section>
+<section class="stage" id="stage-09" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · সাহিত্য</div>
+    <h2 class="stage-title">সাহিত্য — দুই ঐতিহ্যের সেতু</h2>
+    <p class="stage-lede">কন্নড সাহিত্য চৌদ্দশো বছরের পুরনো — পৃথিবীর প্রাচীনতম জীবন্ত সাহিত্যগুলির একটি। বাংলা পাঠকের জন্য এখানে কন্নড লেখকদের মিলিয়ে দেখি সেইসব বাংলা লেখকের সাথে যাঁদের তুমি ইতিমধ্যে চেনো।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৯.১</span>একটি বচন — বসবণ্ণ, দ্বাদশ শতাব্দী</h3>
+
+    <div class="vachana">
+      <div class="kan">
+        ಕಳಬೇಡ, ಕೊಲಬೇಡ, ಹುಸಿಯ ನುಡಿಯಲು ಬೇಡ<br/>
+        ಮುನಿಯಬೇಡ, ಅನ್ಯರಿಗೆ ಅಸಹ್ಯ ಪಡಬೇಡ<br/>
+        ತನ್ನ ಬಣ್ಣಿಸಬೇಡ, ಇದಿರ ಹಳಿಯಲು ಬೇಡ<br/>
+        ಇದೇ ಅಂತರಂಗಶುದ್ಧಿ, ಇದೇ ಬಹಿರಂಗಶುದ್ಧಿ<br/>
+        ಇದೇ ನಮ್ಮ ಕೂಡಲಸಂಗಮದೇವರನೊಲಿಸುವ ಪರಿ.
+      </div>
+      <div class="bn-gloss">
+        চুরি কোরো না, হত্যা কোরো না, মিথ্যা কোরো না বোলো।<br/>
+        রাগ কোরো না, পরকে ঘৃণা কোরো না।<br/>
+        নিজেকে প্রশংসা কোরো না, অপরকে দোষ দিয়ো না।<br/>
+        এই-ই আন্তর শুদ্ধি, এই-ই বাহ্য শুদ্ধি —<br/>
+        এই-ই আমাদের কূডলসঙ্গম-দেবকে তুষ্ট করার পথ।
+      </div>
+      <div class="attrib">— বসবণ্ণ · ಬಸವಣ್ಣ</div>
+    </div>
+
+    <div class="aside"><strong>বচন কী।</strong> ১২শ শতাব্দীতে কন্নড শরণ আন্দোলনের কবিরা যে ছোট গদ্য-পদ্য লিখতেন — মুখের ভাষায়, সংস্কৃত পরিহার করে — তাকে 'বচন' বলা হয়। লালন ফকির যেমন শাস্ত্রের বাইরে গিয়ে সাধারণ মানুষের কথায় দেবতাকে খুঁজেছেন, বসবণ্ণ ও তাঁর সঙ্গীরা ঠিক তাই করেছেন — পাঁচ শতাব্দী আগে।</div>
+
+    <h3><span class="num">৯.২</span>সাতটি সেতু — কন্নড ↔ বাংলা</h3>
+
+    <ul class="clean">
+      <li><strong>বসবণ্ণ ↔ লালন ফকির।</strong> দুজনেই প্রাতিষ্ঠানিক ধর্মের বিপক্ষে — মন্দির-মসজিদ নয়, অন্তরই দেবালয়। দুজনেই সংস্কৃত বা আরবি বাদ দিয়ে নিজের অঞ্চলের মুখের ভাষায় কবিতা লিখেছেন। বর্ণ ও শ্রেণির বিরুদ্ধে দুজনের কণ্ঠ।</li>
+      <li><strong>অক্ক মহাদেবী ↔ চন্দ্রাবতী।</strong> দুই নারী কবি — পিতৃতান্ত্রিক কাঠামোর ভেতর থেকে ভক্তির কণ্ঠে বিদ্রোহ। অক্ক মহাদেবী বিবাহ ও রাজসভা ত্যাগ করে চেন্নমল্লিকার্জুনের প্রেমে বিশ্বচারিণী হয়েছেন; চন্দ্রাবতী মৈমনসিংহ গীতিকায় 'মলুয়া' রচনা করে পুরুষ-কবিদের বৃত্ত ভেঙেছেন।</li>
+      <li><strong>কুবেম্পু ↔ রবীন্দ্রনাথ।</strong> দুজনেই জাতীয় কবি (<em>রাষ্ট্রকবি</em>) — কুবেম্পু কন্নডের, রবীন্দ্রনাথ বাংলার। দুজনেই ভাষাগত গর্বের প্রতীক, দুজনেই নিজের ভাষার সাহিত্যিক স্তরকে নতুন রূপ দিয়েছেন। 'শ্রী রামায়ণ দর্শনম' কুবেম্পুর মহাকাব্য, যেমন রবীন্দ্রনাথের 'গীতাঞ্জলি'।</li>
+      <li><strong>ডি.আর. বেন্দ্রে ↔ জীবনানন্দ দাশ।</strong> দুই গীতিকবি যাঁদের ভাষা নিজেই সংগীত। বেন্দ্রের কবিতায় কন্নড শব্দের ধ্বনি এমনভাবে বাজে যে অনুবাদ অসম্ভব; জীবনানন্দের 'বনলতা সেন'-ও তাই — অর্থের চেয়ে সুরের মহিমা।</li>
+      <li><strong>শিবরাম কারান্ত ↔ বিভূতিভূষণ বন্দ্যোপাধ্যায়।</strong> উপকূলীয় কর্ণাটকের গ্রাম আর বাংলার গ্রামীণ ভূদৃশ্য — দুজনেরই উপন্যাস সেই মাটির গন্ধ বহন করে। 'পথের পাঁচালী'র অপু যেমন, কারান্তের 'মরালি মণ্ণিগে'র নায়কও তেমন — মাটির কাছাকাছি, সাধারণের গল্প।</li>
+      <li><strong>অনন্তমূর্তি ↔ মহাশ্বেতা দেবী।</strong> জাত-ক্ষমতা-কাঠামোর মুখোমুখি দাঁড়ানো দুই লেখক। 'সংস্কার' উপন্যাসে অনন্তমূর্তি আচার্যের নৈতিক সংকট দেখান — আধুনিক ভারতে ব্রাহ্মণ্য কীভাবে ভেঙে পড়ে। মহাশ্বেতা আদিবাসী ও অচ্ছুৎ সমাজের কণ্ঠে কলম ধরেছেন — নির্মমভাবে।</li>
+      <li><strong>গিরীশ কার্নাড ↔ বাদল সরকার।</strong> পরীক্ষামূলক নাট্যকার — পৌরাণিক উপকরণকে আধুনিক মঞ্চে আনা। 'হয়বদন', 'যযাতি', 'তুঘলক' — কার্নাডের নাটক। সরকারের 'এবং ইন্দ্রজিৎ', 'বাল্লভপুরের রূপকথা' — একই পরীক্ষা, ভিন্ন মঞ্চে।</li>
+    </ul>
+
+    <div class="aside"><strong>সংস্কৃত ঋণ, আলাদা ফসল।</strong> কুবেম্পু আর রবীন্দ্রনাথ — দুজনেই সংস্কৃত-পরিবেষ্টিত সাহিত্য-ভাষা থেকে একটি আধুনিক মাতৃভাষা সাহিত্য তৈরি করেছেন। বসবণ্ণ আর লালন — দুজনেই সেই সংস্কৃত-প্রভুত্ব অস্বীকার করে জনভাষার পথ বেছেছেন। একই সংকট, একই সমাধান — এক ভাষাগোষ্ঠী থেকে আরেকটায়।</div>
+
+    <h3><span class="num">৯.৩</span>পরবর্তী পদক্ষেপ</h3>
+    <ul class="clean">
+      <li>কুবেম্পুর একটি কবিতা — 'ನಾಡಗೀತೆ' (nāḍagīte, রাজ্য-সংগীত)। কর্ণাটকের সরকারি গান। বাংলা-ভাষীর কানে এটি ঘনিষ্ঠ — সুর, ছন্দ, ভূমি-ভক্তি সব পরিচিত।</li>
+      <li>অনন্তমূর্তির 'সংস্কার' বাংলায় অনূদিত আছে। মূল কন্নড আর অনুবাদ পাশাপাশি রেখে পড়ো — দুই ভাষার ছন্দ বোঝা যায়।</li>
+      <li>বেঙ্গালুরুর 'কন্নড কালি' আর 'কন্নড গোত্তিল্ল' ইউটিউব চ্যানেলে প্রাথমিক উচ্চারণ অভ্যাস।</li>
+      <li>প্রতিদিন একটি নতুন কন্নড শব্দ, একটি বচন বা একটি ছোট সংবাদ-শিরোনাম পড়ার অভ্যাস তৈরি করো। তিন মাসে তুমি কন্নড পত্রিকা চোখ বুলিয়ে যাবে।</li>
+    </ul>
+
+    <p style="margin-top: 40px; text-align: center; color: var(--ink-faded); font-style: italic;">বিদ্যাসাগরের বর্ণপরিচয় শেষ হত এক পরিবারের গল্পে। এই পাঠও তাই — দুই ভাষা, একই সভ্যতার দুই সন্তান।<br/><span class="kan">ಶುಭಮಸ್ತು · ಧನ್ಯವಾದಗಳು</span> · ধন্যবাদ।</p>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn">← আগে</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">পরে →</button>
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="kan">ಧನ್ಯವಾದಗಳು · ধন্যবাদ</span>
+    বিদ্যাসাগরের পদ্ধতিতে একটি প্রাইমার · যত্নে তৈরি · ২০২৬<br/>
+    একসাথে একটিই অজানা · রূপ আগে অর্থ পরে · তালিকা নয় ব্যবস্থা<br/>
+    <span style="display:inline-block;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sindoor);">made by Nil <span class="sep">·</span> using Claude</span>
+  </div>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.stage-tab');
+  const sections = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const scrollWrap = document.getElementById('stageScroll');
+  const total = sections.length;
+  let current = 0;
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function show(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+    sections.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.toggle('done', i < current);
+      d.classList.toggle('current', i === current);
+    });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    nextBtn.textContent = current === total - 1 ? 'শেষ' : 'পরে →';
+
+    const activeTab = tabs[current];
+    if (activeTab && scrollWrap) {
+      const tabLeft = activeTab.offsetLeft;
+      const tabWidth = activeTab.offsetWidth;
+      const wrapWidth = scrollWrap.clientWidth;
+      scrollWrap.scrollTo({ left: tabLeft - wrapWidth / 2 + tabWidth / 2, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+  });
+
+  document.querySelectorAll('.map-cell').forEach(card => {
+    const hint = card.querySelector('.hint');
+    const hintText = card.dataset.hint;
+    if (hintText && hint) hint.textContent = hintText;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+      }
+    });
+  });
+
+  show(0);
+})();
+</script>
+</body>
+</html>

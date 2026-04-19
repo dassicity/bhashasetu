@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="বাংলা থেকে পাঞ্জাবি শেখার প্রথম-নীতি পাঠ্যক্রম — বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে।" />
+<title>ਪੰਜਾਬੀ ਸਿੱਖੀਏ — বাংলা থেকে পাঞ্জাবি</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Gurmukhi:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Bengali', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .pa { font-family: 'Noto Serif Gurmukhi', serif; }
+  .bn { font-family: 'Noto Serif Bengali', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .pa { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .bn-g {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .pa-g {
+    font-family: 'Noto Serif Gurmukhi', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 4px; }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .pa { font-family: 'Noto Serif Gurmukhi', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .bn-eq { font-family: 'Noto Serif Bengali', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .pa { font-family: 'Noto Serif Gurmukhi', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Bengali', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .pa { font-family: 'Noto Serif Gurmukhi', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .bn-eq { font-family: 'Noto Serif Bengali', serif; font-size: 15px; color: var(--ink-soft); }
+
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+
+  .vachana {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .vachana::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .vachana .pa { font-size: 18px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; }
+  .vachana .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .vachana .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, bengali);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Bengali', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .pa { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .pa-g { font-size: 26px; }
+    .map-cell .bn-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .bn-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 400px) {
+    .wrap { padding: 0 14px; }
+    body { font-size: 16px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">একটি প্রাইমার · ਇੱਕ ਮੁੱਢਲੀ ਪੋਥੀ</div>
+    <h1 class="title">
+      <span class="pa">ਪੰਜਾਬੀ ਸਿੱਖੀਏ</span>
+      বাংলা থেকে পাঞ্জাবি শিখুন
+    </h1>
+    <p class="subtitle">বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে — একসাথে একটাই অজানা জিনিস, রূপ আগে অর্থ পরে, তালিকা নয় ব্যবস্থা — বাংলা যা জানে তার ওপর দাঁড়িয়ে গুরুমুখী।</p>
+    <div class="byline">দশটি ধাপ <span class="sep">·</span> মোবাইল-বান্ধব <span class="sep">·</span> সম্পূর্ণ শূন্য থেকে</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">০০</span>ভূমিকা</button>
+    <button class="stage-tab" data-stage="1"><span class="num">০১</span>স্বরবর্ণ</button>
+    <button class="stage-tab" data-stage="2"><span class="num">০২</span>ব্যঞ্জনবর্ণ</button>
+    <button class="stage-tab" data-stage="3"><span class="num">০৩</span>সংযোজনা</button>
+    <button class="stage-tab" data-stage="4"><span class="num">০৪</span>মূল শব্দ</button>
+    <button class="stage-tab" data-stage="5"><span class="num">০৫</span>বাক্য</button>
+    <button class="stage-tab" data-stage="6"><span class="num">০৬</span>পাঠ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">০৭</span>শব্দক্ষেত্র</button>
+    <button class="stage-tab" data-stage="8"><span class="num">০৮</span>ব্যবহার</button>
+    <button class="stage-tab" data-stage="9"><span class="num">০৯</span>সাহিত্য</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" data-stage="0" id="stage-00">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · ভূমিকা</div>
+    <h2 class="stage-title">এই পাঠ কেন আলাদা</h2>
+    <p class="stage-lede">তুমি বাংলা জানো। তার মানে পাঞ্জাবি শেখার জন্য তোমাকে ইংরেজি-ভাষীদের মতো শূন্য থেকে শুরু করতে হবে না — ৪২-এর মধ্যে ৩৯টি ধ্বনি (প্রায় ৯৩%), ব্যাকরণের পুরো কঙ্কাল, আর শব্দভাণ্ডারের ৬০%-এর বেশি তোমার ইতিমধ্যে চেনা।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>বিদ্যাসাগরের <strong>বর্ণপরিচয়</strong> তোমার শৈশবের বই। সেই বইয়ের মূল নীতি ছিল — <strong>একসাথে একটিই অজানা জিনিস</strong>, আর যা শেখানো হয়নি তা দিয়ে কোনো উদাহরণ দেওয়া হবে না। এই কোর্সটি সেই একই পদ্ধতি ব্যবহার করে, কিন্তু একটি বিশাল সুবিধা সহ: বাংলা আর পাঞ্জাবি দুটোই ইন্দো-আর্য পরিবারের বোন-ভাষা। সংস্কৃত-প্রাকৃত থেকে দুটোর জন্ম, অবুগিদা লিপি দুটোরই — শুধু অক্ষরের চেহারা আর কিছু ছোট অভ্যাসের তফাৎ।</p>
+
+    <p>একটি সহজ বাক্য দেখো — বাংলা: <em>আমি দুধ খাই</em>। পাঞ্জাবি: <span class="pa">ਮੈਂ ਦੁੱਧ ਪੀਂਦਾ ਹਾਂ</span> <span class="mono">(maĩ duddh pīndā hā̃)</span>। ক্রম হুবহু এক — <strong>কর্তা → কর্ম → ক্রিয়া</strong>। শব্দও চেনা — "দুধ" দুই ভাষাতেই "দুধ"। শুধু ক্রিয়ার সাজ আলাদা, আর একটা নতুন ধারণা: পাঞ্জাবিতে ক্রিয়াপদ কর্তার লিঙ্গ মেনে বদলায় (ছেলে বললে <span class="pa">ਪੀਂਦਾ</span>, মেয়ে বললে <span class="pa">ਪੀਂਦੀ</span>) — বাংলায় যা একেবারেই নেই।</p>
+
+    <h3><span class="num">¶</span>বাংলা → পাঞ্জাবি: কোথায় মিল, কোথায় ফারাক</h3>
+
+    <ol class="principles">
+      <li><strong>ধ্বনি — প্রায় পুরোটাই এক।</strong> বর্গীয় ব্যঞ্জন (ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ-ঞ, ট-ঠ-ড-ঢ-ণ...) হুবহু মিলে যায়। অল্পপ্রাণ/মহাপ্রাণ, ঘোষ/অঘোষ — সব তোমার মুখ আগে থেকেই জানে। নতুন শুধু তিনটি: <span class="pa">ਵ</span> (ʋ — ব আর ওয়া-র মাঝামাঝি), আর দুই স্বরধ্বনি ਐ (অই) ও ਔ (অউ) যেগুলো সংস্কৃত ঐ/ঔ হলেও পাঞ্জাবিতে আলাদা উচ্চারণ।</li>
+      <li><strong>লিপি — আলাদা পরিবার, এক নিয়ম।</strong> বাংলা পূর্ব-ব্রাহ্মী পরিবারের, গুরুমুখী উত্তর-ব্রাহ্মী পরিবারের। কিন্তু দুটোই অবুগিদা — প্রতিটি ব্যঞ্জনে একটি অন্তর্নিহিত 'অ' আছে, স্বরচিহ্ন দিয়ে বদলায়। ক + া = কা → <span class="pa">ਕ + ਾ = ਕਾ</span>। নিয়ম এক, মাত্র শরীর নতুন।</li>
+      <li><strong>ব্যাকরণ — কঙ্কাল এক, মাংসে তফাৎ।</strong> দুটোই SOV — "আমি ভাত খাই" = <span class="pa">ਮੈਂ ਚੌਲ ਖਾਂਦਾ ਹਾਂ</span>। বাংলার মতোই পাঞ্জাবিও পোস্টপজিশন ব্যবহার করে (ঘরে → <span class="pa">ਘਰ ਵਿੱਚ</span>, ঘর থেকে → <span class="pa">ਘਰ ਤੋਂ</span>) — preposition নয়। তোমার মাথা এভাবেই ভাবতে অভ্যস্ত।</li>
+      <li><strong>শব্দভাণ্ডার — সংস্কৃত-প্রাকৃত সেতু।</strong> <em>দিন, নাম, সূর্য, পুস্তক, সময়, ধন্যবাদ</em> — তৎসম শব্দ দুটোতেই প্রায় অবিকল। তৎভব শব্দও কাছাকাছি: ঘর-<span class="pa">ਘਰ</span>, দুধ-<span class="pa">ਦੁੱਧ</span>, হাত-<span class="pa">ਹੱਥ</span>। এছাড়া ফার্সি-আরবি ঋণশব্দও দু-তরফেই আছে (কিতাব, জরুরি, দফতর) — পশ্চিমা ইসলামি শাসনের সাধারণ উত্তরাধিকার।</li>
+      <li><strong>সম্মান — স্তর কমে এসেছে।</strong> বাংলায় তিন স্তর (তুই / তুমি / আপনি)। পাঞ্জাবিতে দুই স্তর: <span class="pa">ਤੂੰ</span> (tū̃ — তুই/তুমি) আর <span class="pa">ਤੁਸੀਂ</span> (tusī̃ — আপনি)। তোমার মাঝের "তুমি" পাঞ্জাবিতে পরিস্থিতি অনুযায়ী উপরে বা নিচে চলে যায়।</li>
+      <li><strong>⚡ সত্যিকারের নতুন ধারণা: লিঙ্গ।</strong> বাংলায় ক্রিয়াপদে কোনো লিঙ্গ নেই — "সে খায়" দিয়ে ছেলে-মেয়ে দুই বোঝানো যায়। পাঞ্জাবিতে প্রতিটি ক্রিয়ার বর্তমান রূপ কর্তার লিঙ্গ মেনে বদলায়: <span class="pa">ਕਰਦਾ ਹੈ</span> (পুরুষ) / <span class="pa">ਕਰਦੀ ਹੈ</span> (নারী)। এটাই এই কোর্সের একমাত্র সত্যিকারের নতুন মানসিক অভ্যাস। হিন্দি/উর্দু জানলে ইতিমধ্যে চেনা।</li>
+    </ol>
+
+    <div class="aside"><strong>পদ্ধতি।</strong> প্রতিটি ধাপে পাঞ্জাবি অক্ষর/শব্দ/বাক্যের পাশে বাংলা সমতুল্য রাখা হয়েছে। তুমি বাংলা চিনলে, পাঞ্জাবি শুধু নতুন চেহারা — নতুন ধারণা নয়। ব্যতিক্রম: লিঙ্গ। সেটি একবারে নয়, ধাপে ধাপে আসবে।</div>
+
+    <div class="aside"><strong>গুরুমুখী নামের উৎস।</strong> "গুরুমুখী" মানে <em>গুরুর মুখ থেকে নেমে আসা</em> — দ্বিতীয় শিখ গুরু, গুরু অঙ্গদ দেব, পঞ্চদশ শতকে এই লিপিটি সংস্কার করে গুরু নানকের বাণী লেখার জন্য প্রমিত করেন। ঠিক যেমন বাংলা লিপি চৈতন্য-পরবর্তী কালে শ্রীচৈতন্যের পদাবলী ছাপানোর সাথে সাথে স্থিতিশীল রূপ পেয়েছিল।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ওপরে <strong>স্বরবর্ণ</strong> ট্যাবে চাপো, শুরু করো।</p>
+  </div>
+</section>
+<section class="stage" data-stage="1" id="stage-01">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ধ্বনি</div>
+    <h2 class="stage-title">স্বরবর্ণ — <span class="pa">ਸਵਰ</span></h2>
+    <p class="stage-lede">বাংলায় তুমি ১১টি স্বরবর্ণ চেনো। পাঞ্জাবিতে ১০টি স্বর — কিন্তু লিপির কৌশলটা একদম নতুন: গুরুমুখী স্বর <em>নিজে দাঁড়াতে পারে না</em>, তাকে তিনটি "বাহক" অক্ষরের উপর বসতে হয়।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+punjabi+gurmukhi+vowels+pronunciation" title="Punjabi Gurmukhi vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">গুরুমুখী স্বরবর্ণের উচ্চারণ <a href="https://www.youtube.com/results?search_query=learn+punjabi+gurmukhi+vowels+pronunciation" target="_blank" rel="noopener">আরও খুঁজুন ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>⚡ বড় অভিনবত্ব: তিনটি স্বর-বাহক।</strong> বাংলায় প্রতিটি স্বর (অ আ ই ঈ...) স্বাধীন অক্ষর। গুরুমুখীতে তা নয় — স্বরচিহ্নগুলোকে বসাতে হয় তিনটি "বাহক" অক্ষরের একটির উপরে: <span class="pa">ੳ</span> (উড়া), <span class="pa">ਅ</span> (ঐড়া), <span class="pa">ੲ</span> (ইড়ি)। নিয়ম সহজ — কোন বাহক বসবে সেটা স্বরের চরিত্র ঠিক করে দেয়: <strong>উ-শ্রেণির স্বর</strong> (ਉ ਊ ਓ ਔ) বসে <span class="pa">ੳ</span>-র উপর, <strong>অ/আ/অই</strong> বসে <span class="pa">ਅ</span>-র উপর, <strong>ই-শ্রেণি আর এ/ঐ</strong> বসে <span class="pa">ੲ</span>-র উপর।</div>
+
+    <div class="aside"><strong>পড়ার নিয়ম।</strong> প্রতিটি কার্ডে ট্যাপ করলে একটি উদাহরণ শব্দ দেখাবে। বাংলা অক্ষরটি ওপরে, গুরুমুখী নিচে — চোখ বাংলা চিনবে, তারপর গুরুমুখী রূপটি স্মৃতিতে ঢুকবে।</div>
+
+    <div class="group-label">ਅ-বাহক পরিবার — 'অ' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਅੱਜ (ajj) = আজ — আজকের দিন"><div class="bn-g">অ</div><div class="arrow">↓</div><div class="pa-g">ਅ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਆਮ (ām) = আম — সাধারণ/আমের গাছ"><div class="bn-g">আ</div><div class="arrow">↓</div><div class="pa-g">ਆ</div><div class="label">ā</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਐਨਕ (ainak) = চশমা। বাংলা ঐ-র সমান্তরাল, কিন্তু উচ্চারণ 'অই' (a+i)"><div class="bn-g">ঐ</div><div class="arrow">↓</div><div class="pa-g">ਐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ੲ-বাহক পরিবার — 'ই' ও 'এ' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਇੱਕ (ikk) = এক — সংখ্যা ১"><div class="bn-g">ই</div><div class="arrow">↓</div><div class="pa-g">ਇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਈਸ਼ਵਰ (īśvar) = ঈশ্বর — হুবহু এক সংস্কৃত শব্দ!"><div class="bn-g">ঈ</div><div class="arrow">↓</div><div class="pa-g">ਈ</div><div class="label">ī</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਏਕਤਾ (ēktā) = একতা"><div class="bn-g">এ</div><div class="arrow">↓</div><div class="pa-g">ਏ</div><div class="label">ē</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ੳ-বাহক পরিবার — 'উ' ও 'ও' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਉੱਪਰ (uppar) = উপর"><div class="bn-g">উ</div><div class="arrow">↓</div><div class="pa-g">ਉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਊਠ (ūṭh) = উট — মরুপ্রাণী"><div class="bn-g">ঊ</div><div class="arrow">↓</div><div class="pa-g">ਊ</div><div class="label">ū</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਓਹ (oh) = ও / সে"><div class="bn-g">ও</div><div class="arrow">↓</div><div class="pa-g">ਓ</div><div class="label">ō</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਔਰਤ (aurat) = নারী। 'অউ' দ্বিস্বর — ফার্সি থেকে ঋণ।"><div class="bn-g">ঔ</div><div class="arrow">↓</div><div class="pa-g">ਔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>বাংলায় ঋ আছে, পাঞ্জাবিতে নেই।</strong> বাংলায় ঋষি, ঋণ, কৃষ্ণ — ঋ একটি স্বাধীন স্বর। পাঞ্জাবিতে সংস্কৃত ঋ-কে <em>রি</em> হিসেবে লেখা হয়: ঋষি → <span class="pa">ਰਿਸ਼ੀ</span>, কৃষ্ণ → <span class="pa">ਕ੍ਰਿਸ਼ਨ</span>। অর্থাৎ ঋ একটি সংযুক্ত র-ই হয়ে গেছে — সংস্কৃত-মূলের চিহ্ন মাত্র, আর স্বাধীন অক্ষর নয়।</div>
+
+    <div class="aside"><strong>⚡ বাংলা ঐ/ঔ বনাম পাঞ্জাবি ਐ/ਔ।</strong> বাংলায় ঐ = <em>অ+ই</em>, ঔ = <em>অ+উ</em> — মসৃণ দ্বিস্বর। পাঞ্জাবিতে ਐ বেশিরভাগ সময় <em>অ্যা</em>-র মতো একক স্বর ("ਐਸਾ" = এমন, উচ্চারণ প্রায় <em>অ্যাসা</em>), আর ਔ <em>অ</em>-র পাশে ফার্সি "ঔ"-র মতো লম্বা স্বর। কানে একটু অন্য সুর শোনাবে।</div>
+
+    <div class="group-label">নাসিক্য ও চিহ্ন</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਟਿੱਪੀ — বিন্দু, ছোট নাসিক্য (চন্দ্রবিন্দু/অনুস্বার-তুল্য)"><div class="bn-g">ং / ঁ</div><div class="arrow">↓</div><div class="pa-g">ਂ</div><div class="label">ṁ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਬਿੰਦੀ — বড় নাসিক্য, দীর্ঘ স্বরের পর আসে"><div class="bn-g">ঁ (দীর্ঘ)</div><div class="arrow">↓</div><div class="pa-g">ਁ</div><div class="label">m̐</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਅੱਧਕ (addhak) = দ্বিত্ব চিহ্ন। ਦੁੱਧ = দুদ্ধ / দুধ। বাংলায় যুক্তাক্ষরের কাজ।"><div class="bn-g">্‌ (দ্বিত্ব)</div><div class="arrow">↓</div><div class="pa-g">ੱ</div><div class="label">-CC-</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>বিদ্যাসাগর যা বলবেন।</strong> বাংলায় চন্দ্রবিন্দু আর অনুস্বার — দুটো আলাদা চিহ্ন, দুটো আলাদা নাসিক্য। গুরুমুখীও ঠিক তাই করেছে: ਟਿੱਪੀ (ਂ) ছোট/হ্রস্ব স্বরের পরে, ਬਿੰਦੀ (ਁ) দীর্ঘ স্বরের পরে। নিয়মটা তোমার কানের কাছে পরিচিত, শুধু নামটা আলাদা।</div>
+
+    <h3><span class="num">১.১</span>অভ্যাস</h3>
+    <ul class="clean">
+      <li>প্রতিটি জোড়া জোরে জোরে ২০ বার বলো: অ-আ, ই-ঈ, উ-ঊ — কিন্তু গুরুমুখী গ্লিফের দিকে তাকিয়ে।</li>
+      <li>কাগজে প্রতিটি গুরুমুখী স্বর ৫ বার আঁকো। মনে রাখো — তিনটি বাহক (<span class="pa">ੳ ਅ ੲ</span>) আগে, তারপর তাদের উপর চিহ্ন।</li>
+      <li>যতক্ষণ না প্রতিটি গুরুমুখী স্বর ১ সেকেন্ডে চিনতে পারো, ধাপ ২-তে যেও না।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" data-stage="2" id="stage-02">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ধ্বনি (চলতি)</div>
+    <h2 class="stage-title">ব্যঞ্জনবর্ণ — <span class="pa">ਵਿਅੰਜਨ</span></h2>
+    <p class="stage-lede">বর্ণপরিচয়ের বর্গীয় ক্রম তোমার শরীরে আছে। ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ-ঞ... ঠিক একই ক্রমে গুরুমুখী ব্যঞ্জন সাজানো। শুধু চেহারা নতুন, আর পাঁচটি "ফার্সি-অক্ষর" শেষে জুড়ে দেওয়া।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+punjabi+gurmukhi+consonants+pronunciation" title="Punjabi Gurmukhi consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">গুরুমুখী ব্যঞ্জনবর্ণের উচ্চারণ <a href="https://www.youtube.com/results?search_query=learn+punjabi+gurmukhi+consonants+pronunciation" target="_blank" rel="noopener">আরও ↗</a></div>
+    </div>
+
+    <h3><span class="num">২.১</span>কণ্ঠ্য বর্গ (কবর্গ) — জিভের গোড়া তালুর পেছনে</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਕਮਲ (kamal) = কমল — পদ্ম"><div class="bn-g">ক</div><div class="arrow">↓</div><div class="pa-g">ਕ</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਖੇਤ (khēt) = খেত — চাষের মাঠ"><div class="bn-g">খ</div><div class="arrow">↓</div><div class="pa-g">ਖ</div><div class="label">kha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਗਗਨ (gagan) = গগন — আকাশ"><div class="bn-g">গ</div><div class="arrow">↓</div><div class="pa-g">ਗ</div><div class="label">ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਘਰ (ghar) = ঘর — একই শব্দ"><div class="bn-g">ঘ</div><div class="arrow">↓</div><div class="pa-g">ਘ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="বাংলা ঙ-র মতো বিরল, যুক্তাক্ষরে দেখা দেয়"><div class="bn-g">ঙ</div><div class="arrow">↓</div><div class="pa-g">ਙ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.২</span>তালব্য বর্গ (চবর্গ)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਚੰਦ (cand) = চন্দ্র — চাঁদ"><div class="bn-g">চ</div><div class="arrow">↓</div><div class="pa-g">ਚ</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਛੱਤ (chatt) = ছাদ"><div class="bn-g">ছ</div><div class="arrow">↓</div><div class="pa-g">ਛ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਜਲ (jal) = জল — হুবহু এক"><div class="bn-g">জ</div><div class="arrow">↓</div><div class="pa-g">ਜ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਝੂਠ (jhūṭh) = মিথ্যা"><div class="bn-g">ঝ</div><div class="arrow">↓</div><div class="pa-g">ਝ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="বিরল, যুক্তাক্ষরে দেখা দেয়"><div class="bn-g">ঞ</div><div class="arrow">↓</div><div class="pa-g">ਞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৩</span>মূর্ধন্য বর্গ (টবর্গ) — জিভ পেছনে গোল করে</h3>
+    <p>বাংলায় ট-ঠ-ড-ঢ-ণ যেমন, পাঞ্জাবিতেও ঠিক তেমনই। এই ধ্বনিগুলো ইংরেজি-ভাষীদের জন্য কঠিন — তোমার জন্য নয়।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਟੋਪੀ (ṭōpī) = টুপি — একই শব্দ"><div class="bn-g">ট</div><div class="arrow">↓</div><div class="pa-g">ਟ</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਠੰਡ (ṭhaṇḍ) = ঠান্ডা"><div class="bn-g">ঠ</div><div class="arrow">↓</div><div class="pa-g">ਠ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਡੱਬਾ (ḍabbā) = ডাবা — বাক্স"><div class="bn-g">ড</div><div class="arrow">↓</div><div class="pa-g">ਡ</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਢੋਲ (ḍhōl) = ঢোল — একই বাদ্য"><div class="bn-g">ঢ</div><div class="arrow">↓</div><div class="pa-g">ਢ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਹਿਰਨ (hiraṇ) = হরিণ"><div class="bn-g">ণ</div><div class="arrow">↓</div><div class="pa-g">ਣ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৪</span>দন্ত্য বর্গ (তবর্গ) — জিভের ডগা দাঁতের পেছনে</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਤਾਰਾ (tārā) = তারা — একই শব্দ"><div class="bn-g">ত</div><div class="arrow">↓</div><div class="pa-g">ਤ</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਥਾਲੀ (thālī) = থালা"><div class="bn-g">থ</div><div class="arrow">↓</div><div class="pa-g">ਥ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਦਿਨ (din) = দিন — হুবহু এক"><div class="bn-g">দ</div><div class="arrow">↓</div><div class="pa-g">ਦ</div><div class="label">da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਧਨ (dhan) = ধন"><div class="bn-g">ধ</div><div class="arrow">↓</div><div class="pa-g">ਧ</div><div class="label">dha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਨਾਮ (nām) = নাম"><div class="bn-g">ন</div><div class="arrow">↓</div><div class="pa-g">ਨ</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৫</span>ওষ্ঠ্য বর্গ (পবর্গ)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਪੁਸਤਕ (pustak) = পুস্তক"><div class="bn-g">প</div><div class="arrow">↓</div><div class="pa-g">ਪ</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਫਲ (phal) = ফল"><div class="bn-g">ফ</div><div class="arrow">↓</div><div class="pa-g">ਫ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਬਾਪ (bāp) = বাবা"><div class="bn-g">ব</div><div class="arrow">↓</div><div class="pa-g">ਬ</div><div class="label">ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਭਾਸ਼ਾ (bhāśā) = ভাষা — হুবহু এক!"><div class="bn-g">ভ</div><div class="arrow">↓</div><div class="pa-g">ਭ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਮਾਂ (mā̃) = মা"><div class="bn-g">ম</div><div class="arrow">↓</div><div class="pa-g">ਮ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৬</span>অন্তঃস্থ ও ঊষ্মবর্ণ</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਯਾਰ (yār) = বন্ধু/দোস্ত"><div class="bn-g">য</div><div class="arrow">↓</div><div class="pa-g">ਯ</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਰਾਜਾ (rājā) = রাজা"><div class="bn-g">র</div><div class="arrow">↓</div><div class="pa-g">ਰ</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਲਾਲ (lāl) = লাল"><div class="bn-g">ল</div><div class="arrow">↓</div><div class="pa-g">ਲ</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ʋ — বাংলায় ব/ওয়া-র মাঝামাঝি। ਵਰ (ʋar) = বর। দাঁত ঠোঁটে স্পর্শ নয়, শুধু কাছে।" style="border-color: var(--sindoor);"><div class="bn-g" style="color: var(--sindoor);">ব / ওয়া ⚡</div><div class="arrow">↓</div><div class="pa-g" style="color: var(--sindoor);">ਵ</div><div class="label">ʋa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਸ਼ਹਿਰ (śahir) = শহর"><div class="bn-g">শ</div><div class="arrow">↓</div><div class="pa-g">ਸ਼</div><div class="label">śa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="পাঞ্জাবিতে ষ একটি ঋণ-অক্ষর, ਸ਼-এর ভিন্নরূপ। ষড়যন্ত্র → ਸ਼ੜਯੰਤਰ"><div class="bn-g">ষ</div><div class="arrow">↓</div><div class="pa-g">ਸ਼਼</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਸੂਰਜ (sūraj) = সূর্য"><div class="bn-g">স</div><div class="arrow">↓</div><div class="pa-g">ਸ</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਹੱਥ (hatth) = হাত"><div class="bn-g">হ</div><div class="arrow">↓</div><div class="pa-g">ਹ</div><div class="label">ha</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>⚡ ਵ — বাংলার ব/ওয়ার বাঁক।</strong> বাংলায় "ব" ঠোঁটে চাপ দিয়ে, "ওয়া" ঠোঁট বাঁকিয়ে। পাঞ্জাবি <span class="pa">ਵ</span> এদের মাঝামাঝি — দাঁত ঠোঁটকে ছুঁয়েও ছোঁয় না। তাই <em>ਵਰ</em> কখনো "বর", কখনো "ওয়র" — দুই বাঙালি কানের কাছে দুই রকম শোনাতে পারে। ইংরেজি v নয়, হিন্দি व-এর মতো।</div>
+
+    <h3><span class="num">২.৭</span>⚡ পাঁচটি ফার্সি/আরবি অক্ষর — <span class="pa">ਪੈਰ ਬਿੰਦੀ</span></h3>
+    <p>গুরুমুখীর মূল ৩৫ অক্ষর সংস্কৃত থেকে এসেছে। কিন্তু শিখ ধর্মগ্রন্থের বাইরে — পাঞ্জাবের হাজার বছরের ফার্সি-আরবি প্রতিবেশ — পাঁচটি নতুন ধ্বনি এনেছে, যা পুরনো অক্ষরের পায়ে একটি "বিন্দি" (বিন্দু) বসিয়ে লেখা হয়। বাংলায় তুমি এই ধ্বনিগুলো সাধারণত "জ" দিয়ে লেখো (জমি, জরুরি), কিন্তু শুদ্ধভাবে "য়্‌" বা "ক্‌খ"-র মতো আলাদা উচ্চারণ আছে।</p>
+    <div class="words">
+      <div class="word"><span class="pa">ਸ਼</span><span class="bn-eq">শ</span><span class="trans">śa (ਸ + ਼)</span><span class="note">বাংলায় আলাদা অক্ষর (শ), পাঞ্জাবিতে স-এর পায়ে বিন্দি</span></div>
+      <div class="word"><span class="pa">ਖ਼</span><span class="bn-eq">খ় (আরবি ক্‌খ)</span><span class="trans">k͟ha</span><span class="note">"খান", "খুশ" — আরবি/ফার্সি গভীর খ</span></div>
+      <div class="word"><span class="pa">ਗ਼</span><span class="bn-eq">গ় (আরবি ঘ)</span><span class="trans">ġa</span><span class="note">"গজল", "গালিব" — গলার গভীরে গ</span></div>
+      <div class="word"><span class="pa">ਜ਼</span><span class="bn-eq">জ় / য়</span><span class="trans">za</span><span class="note">"জমি", "জরুরি" — বাংলায় "জ" দিয়ে লিখি, কিন্তু উচ্চারণ /z/</span></div>
+      <div class="word"><span class="pa">ਫ਼</span><span class="bn-eq">ফ় (ইংরেজি f)</span><span class="trans">fa</span><span class="note">"ফৌজ", "ফোন" — ঠোঁটে দাঁত</span></div>
+    </div>
+
+    <div class="aside"><strong>পরিচিত কৌশল।</strong> বাংলায়ও আমরা ঋণ-ধ্বনিকে বিন্দু দিয়ে চিহ্নিত করি — ড় (ড-নিচে বিন্দু), ঢ় (ঢ-নিচে বিন্দু), য় (য-উপরে বিন্দু)। পাঞ্জাবি একই কৌশল ব্যবহার করে, শুধু বিন্দুটা পায়ের নিচে বসায়। <em>এটাকে "পৈর বিন্দি" বলে।</em></div>
+
+    <div class="aside"><strong>ট/ড়-র পাঞ্জাবি যমজ: <span class="pa">ੜ</span></strong>। বাংলায় আমরা ড়/ঢ় ব্যবহার করি "পড়া", "বাড়ি"-র মতো শব্দে — মূর্ধন্য ট্যাপ ধ্বনি। পাঞ্জাবিতে এর জন্য আলাদা অক্ষর আছে: <span class="pa">ੜ</span> (ṛa)। উদাহরণ: <span class="pa">ਲੜਕਾ</span> (laṛkā) = ছেলে — বাংলা "লড়কা"-র সমতুল্য। অর্থাৎ বাংলার ড়/ঢ়-র দিকে পাঞ্জাবি দুটো অক্ষর রেখেছে — <span class="pa">ੜ</span> আর মাঝে মাঝে <span class="pa">ੜ੍ਹ</span>।</div>
+
+  </div>
+</section>
+<section class="stage" data-stage="3" id="stage-03">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · সংযোজনা</div>
+    <h2 class="stage-title">কার-চিহ্ন ও যুক্তাক্ষর — <span class="pa">ਲਗਾਂ ਮਾਤਰਾਂ</span></h2>
+    <p class="stage-lede">বর্ণপরিচয়ের দ্বিতীয় খণ্ডে বিদ্যাসাগর যুক্তাক্ষর ভাঙিয়ে দেখিয়েছিলেন — ক্ষ = ক + ষ। গুরুমুখীতেও ঠিক একই নিয়ম, শুধু যুক্তাক্ষর লেখার পদ্ধতি একটু আলাদা।</p>
+  </div>
+  <div class="stage-body">
+    <p>তুমি ইতিমধ্যে জানো: বাংলায় ক + া = কা, ক + ি = কি। গুরুমুখীতে ঠিক একই জিনিস ঘটে: <span class="pa">ਕ + ਾ = ਕਾ</span>, <span class="pa">ਕ + ਿ = ਕਿ</span>। চিহ্নের চেহারা আলাদা, কিন্তু নিয়ম হুবহু এক।</p>
+
+    <h3><span class="num">৩.১</span>ਕ-র কার-চিহ্ন — বাংলা ↔ গুরুমুখী পাশাপাশি</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>স্বর</th><th>বাংলা</th><th>গুরুমুখী</th><th>উচ্চারণ</th><th>চিহ্নের নাম</th></tr>
+        <tr><td>অ</td><td class="bn g">ক</td><td><span class="pa g">ਕ</span></td><td class="mono">ka</td><td>মুক্তা</td></tr>
+        <tr><td>আ</td><td class="bn g">কা</td><td><span class="pa g">ਕਾ</span></td><td class="mono">kā</td><td>কান্না</td></tr>
+        <tr><td>ই</td><td class="bn g">কি</td><td><span class="pa g">ਕਿ</span></td><td class="mono">ki</td><td>সিহারী</td></tr>
+        <tr><td>ঈ</td><td class="bn g">কী</td><td><span class="pa g">ਕੀ</span></td><td class="mono">kī</td><td>বিহারী</td></tr>
+        <tr><td>উ</td><td class="bn g">কু</td><td><span class="pa g">ਕੁ</span></td><td class="mono">ku</td><td>আউঁকড়</td></tr>
+        <tr><td>ঊ</td><td class="bn g">কূ</td><td><span class="pa g">ਕੂ</span></td><td class="mono">kū</td><td>দুলাইঁকড়</td></tr>
+        <tr><td>এ</td><td class="bn g">কে</td><td><span class="pa g">ਕੇ</span></td><td class="mono">kē</td><td>লাঁবাঁ</td></tr>
+        <tr><td>ঐ</td><td class="bn g">কৈ</td><td><span class="pa g">ਕੈ</span></td><td class="mono">kai</td><td>দুলাবাঁ</td></tr>
+        <tr><td>ও</td><td class="bn g">কো</td><td><span class="pa g">ਕੋ</span></td><td class="mono">kō</td><td>হোড়া</td></tr>
+        <tr><td>ঔ</td><td class="bn g">কৌ</td><td><span class="pa g">ਕੌ</span></td><td class="mono">kau</td><td>কনৌড়া</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>বিদ্যাসাগরের চাল।</strong> এই ১০টি চিহ্ন ৩৫টি ব্যঞ্জনে হুবহু একইভাবে বসে। ১০ × ৩৫ = ৩৫০ অক্ষর — ১০টি চিহ্নের দামে! তুমি বাংলায় এটা আগেই করেছ, এখন শুধু নতুন চেহারা মুখস্থ করো। বাংলা "ই"-কার আগে-পরে বসে অক্ষরভেদে — গুরুমুখী সিহারী সবসময় অক্ষরের আগে বসে। ছোট অভ্যাসের ফারাক।</div>
+
+    <h3><span class="num">৩.২</span>হসন্ত — <span class="pa">ਹਲੰਤ / ੍</span></h3>
+    <p>বাংলায় হসন্ত (্) যেমন ব্যঞ্জনের অন্তর্নিহিত 'অ' মেরে দেয়, গুরুমুখীতে ੍ ঠিক তাই করে। <span class="pa">ਕ (ka) + ੍ = ਕ੍ (k)</span>। তবে একটা পরিচিত পার্থক্য — বাংলায় আমরা "ক্" শব্দের শেষে রোজ হসন্ত ব্যবহার করি (করলাম → কর্লাম → কর্ল্‌); পাঞ্জাবিতে হসন্ত খুব বিরল, প্রায়ই শব্দের শেষে অন্তর্নিহিত 'অ' এমনিতেই উচ্চারিত হয় না। অর্থাৎ <span class="pa">ਘਰ</span> সোজাসুজি <em>ঘর্</em>, হসন্ত লাগাতে হয় না।</p>
+
+    <h3><span class="num">৩.৩</span>যুক্তাক্ষর — পায়ের অক্ষর (<span class="pa">ਪੈਰੀਂ ਅੱਖਰ</span>)</h3>
+    <p>বাংলায় যুক্তাক্ষর দুই ব্যঞ্জনকে পাশাপাশি গড়ে তোলে — ক্ষ, ন্ন, স্ত। গুরুমুখীতে তিনটি বিশেষ ব্যঞ্জন (ਹ, ਰ, ਵ) যুক্তাক্ষরে নিচে পায়ের কাছে ছোট হয়ে বসে, বাকিগুলোর জন্য দেখা যায় সরাসরি অক্ষরজোড় বা হসন্ত-সহ লেখা।</p>
+
+    <div class="sentence">
+      <div class="pa">ਪ + ੍ਰ = ਪ੍ਰ → ਪ੍ਰਸ਼ਨ</div>
+      <div class="trans">pra → praśna</div>
+      <div class="bn-gloss">প্ + র = প্র → প্রশ্ন — একই তৎসম শব্দ, একই যুক্তাক্ষর!</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਸ + ੍ਵ = ਸ੍ਵ → ਸ੍ਵਰ</div>
+      <div class="trans">sva → svar</div>
+      <div class="bn-gloss">স্ + ব = স্ব → স্বর — বাংলা "স্বর" আর পাঞ্জাবি ਸ੍ਵਰ হুবহু এক।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਦ + ੍ਹ = ਦ੍ਹ → ਬ੍ਰਹਮ</div>
+      <div class="trans">brahm</div>
+      <div class="bn-gloss">ব্ + র + হ = ব্রহ্ম — ঠিক বাংলার মতোই।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਕ੍ਰਿਸ਼ਨ</div>
+      <div class="trans">kriśan</div>
+      <div class="bn-gloss">কৃষ্ণ — বাংলায় ঋ-কার, পাঞ্জাবিতে সরাসরি "ক্রি" লেখা।</div>
+    </div>
+
+    <div class="aside"><strong>⚡ বড় পার্থক্য: পাঞ্জাবি যুক্তাক্ষর কম ভালোবাসে।</strong> বাংলা "পুস্তক" = পু + স্ + ত + ক (একটি স্ত যুক্তাক্ষর)। পাঞ্জাবিতে <span class="pa">ਪੁਸਤਕ</span> — সাধারণত অক্ষর পাশাপাশি বসে, মাঝখানের "স্ত" অদৃশ্য 'অ' সহ পড়া হয়। অর্থাৎ পাঞ্জাবি যুক্তাক্ষর ভেঙে লেখে যেখানে বাংলা জোড়ে। এই জন্যই গুরুমুখী টাইপ করা একটু সোজা।</div>
+
+    <h3><span class="num">৩.৪</span>দ্বিত্ব চিহ্ন — <span class="pa">ਅੱਧਕ ( ੱ )</span></h3>
+    <p>বাংলায় দ্বিগুণ ব্যঞ্জন লিখতে হলে যুক্তাক্ষর চাই — অন্ন, দুপ্পুর, পাক্কা। পাঞ্জাবিতে একটি ছোট চিহ্ন <span class="pa">ੱ</span> (আদ্ধক) পরের অক্ষরকে দ্বিগুণ করে দেয়:</p>
+    <div class="sentence">
+      <div class="pa">ਦੁੱਧ</div>
+      <div class="trans">duddh</div>
+      <div class="bn-gloss">দুদ্ধ / দুধ — দ-র পর আদ্ধক, তার পরের ধ দ্বিগুণ হয়ে "দ্ধ" হলো। বাংলায় "দুদ্ধ" যুক্তাক্ষরে, পাঞ্জাবিতে এই ছোট চিহ্নে।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਪੱਕਾ</div>
+      <div class="trans">pakkā</div>
+      <div class="bn-gloss">পাক্কা — পাকা, দৃঢ়। বাংলায় তুমি "ক্ক" যুক্তাক্ষর লেখো, পাঞ্জাবিতে আদ্ধক।</div>
+    </div>
+
+    <div class="aside"><strong>মূল কথা।</strong> যুক্তাক্ষর কোনো নতুন ধারণা নয় — তুমি বর্ণপরিচয় থেকেই চেনো। এখানে শুধু চেহারা আলাদা, আর পাঞ্জাবি দুটো কৌশল যোগ করে দিয়েছে: পায়ের অক্ষর (ਰ-ਵ-ਹ) আর আদ্ধক ( ੱ )। নিয়মের কঙ্কাল এক।</div>
+  </div>
+</section>
+<section class="stage" data-stage="4" id="stage-04">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · মূল শব্দ</div>
+    <h2 class="stage-title">পঞ্চাশটি শব্দ — বাংলার পাশে পাঞ্জাবি</h2>
+    <p class="stage-lede">প্রতিটি শব্দের পাশে বাংলা সমতুল্য আছে। অনেকগুলো তৎসম বা তৎভব — চেহারা আলাদা, শব্দ একই। শতাংশে বলতে গেলে প্রায় ৬১% শব্দ তোমার ইতিমধ্যে চেনা।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৪.১</span>সর্বনাম</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਮੈਂ</span><span class="bn-eq">আমি</span><span class="trans">maĩ</span></div>
+      <div class="word"><span class="pa">ਤੂੰ</span><span class="bn-eq">তুই / তুমি (ঘনিষ্ঠ)</span><span class="trans">tū̃</span><span class="note">অনানুষ্ঠানিক — "তুই" বা অত্যন্ত ঘনিষ্ঠ "তুমি"</span></div>
+      <div class="word"><span class="pa">ਤੁਸੀਂ</span><span class="bn-eq">আপনি / তোমরা</span><span class="trans">tusī̃</span><span class="note">সম্মান/বহুবচন — বাংলা "আপনি"র সমতুল্য</span></div>
+      <div class="word"><span class="pa">ਉਹ</span><span class="bn-eq">সে / ও / তিনি</span><span class="trans">uh</span><span class="note">দূরের "সে" — লিঙ্গনিরপেক্ষ সর্বনাম; কিন্তু ক্রিয়া দেখে লিঙ্গ ধরা যায়!</span></div>
+      <div class="word"><span class="pa">ਇਹ</span><span class="bn-eq">এ / এই</span><span class="trans">ih</span><span class="note">কাছের "এ" — "এইটা/এই লোকটা"</span></div>
+      <div class="word"><span class="pa">ਅਸੀਂ</span><span class="bn-eq">আমরা</span><span class="trans">asī̃</span></div>
+      <div class="word"><span class="pa">ਉਹ (ਸਾਰੇ)</span><span class="bn-eq">তারা / ওঁরা</span><span class="trans">uh (sārē)</span><span class="note">বহুবচন ক্রিয়া দিয়ে বোঝা যায়</span></div>
+    </div>
+
+    <h3><span class="num">৪.২</span>নিত্য বিশেষ্য</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਘਰ</span><span class="bn-eq">ঘর / বাড়ি</span><span class="trans">ghar</span><span class="note">তৎভব — হুবহু একই শব্দ</span></div>
+      <div class="word"><span class="pa">ਪਾਣੀ</span><span class="bn-eq">জল / পানি</span><span class="trans">pāṇī</span><span class="note">বাংলার "পানি" (মুসলিম বাংলায় বহুল) সঙ্গে মিল; তৎভব</span></div>
+      <div class="word"><span class="pa">ਦੁੱਧ</span><span class="bn-eq">দুধ</span><span class="trans">duddh</span><span class="note">তৎভব — প্রায় একই</span></div>
+      <div class="word"><span class="pa">ਰੋਟੀ</span><span class="bn-eq">রুটি</span><span class="trans">roṭī</span><span class="note">একই শব্দ — "খাবার"ও বোঝায়</span></div>
+      <div class="word"><span class="pa">ਨਾਮ</span><span class="bn-eq">নাম</span><span class="trans">nām</span><span class="note">তৎসম — হুবহু এক</span></div>
+      <div class="word"><span class="pa">ਪੁਸਤਕ / ਕਿਤਾਬ</span><span class="bn-eq">পুস্তক / কিতাব</span><span class="trans">pustak / kitāb</span><span class="note">সংস্কৃত পুস্তক বা আরবি কিতাব — দুটোই বাংলা জানে</span></div>
+      <div class="word"><span class="pa">ਸਕੂਲ / ਪਾਠਸ਼ਾਲਾ</span><span class="bn-eq">স্কুল / পাঠশালা</span><span class="trans">skūl / pāṭhśālā</span></div>
+      <div class="word"><span class="pa">ਪੈਸਾ</span><span class="bn-eq">পয়সা / টাকা</span><span class="trans">paisā</span><span class="note">হুবহু "পয়সা"</span></div>
+      <div class="word"><span class="pa">ਰਾਹ / ਰਸਤਾ</span><span class="bn-eq">রাস্তা / পথ</span><span class="trans">rāh / rastā</span><span class="note">ফার্সি "রাহ" — বাংলা "রাহী" (পথিক)-এ টিকে আছে</span></div>
+      <div class="word"><span class="pa">ਸਮਾਂ</span><span class="bn-eq">সময়</span><span class="trans">samā̃</span><span class="note">সংস্কৃত "সময়"-এর অপভ্রংশ</span></div>
+      <div class="word"><span class="pa">ਦਿਨ</span><span class="bn-eq">দিন</span><span class="trans">din</span><span class="note">তৎসম — হুবহু একই</span></div>
+      <div class="word"><span class="pa">ਰਾਤ</span><span class="bn-eq">রাত</span><span class="trans">rāt</span><span class="note">তৎভব — প্রায় এক</span></div>
+      <div class="word"><span class="pa">ਸੂਰਜ</span><span class="bn-eq">সূর্য</span><span class="trans">sūraj</span><span class="note">তৎসম — একই শব্দ</span></div>
+      <div class="word"><span class="pa">ਚੰਦ</span><span class="bn-eq">চাঁদ / চন্দ্র</span><span class="trans">cand</span></div>
+    </div>
+
+    <h3><span class="num">৪.৩</span>আত্মীয়তা (<span class="pa">ਰਿਸ਼ਤੇਦਾਰੀ</span>)</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਮਾਂ / ਮਾਤਾ</span><span class="bn-eq">মা / মাতা</span><span class="trans">mā̃ / mātā</span><span class="note">দুই ভাষায় প্রায় একই</span></div>
+      <div class="word"><span class="pa">ਪਿਤਾ / ਬਾਪੂ</span><span class="bn-eq">বাবা / পিতা</span><span class="trans">pitā / bāpū</span><span class="note">"বাপু" = "বাবা"-র সোজা সমতুল্য, গান্ধীজির ডাকনামেও</span></div>
+      <div class="word"><span class="pa">ਭਰਾ</span><span class="bn-eq">ভাই</span><span class="trans">bharā</span><span class="note">সংস্কৃত "ভ্রাতা" থেকে — বাংলার "ভাই" আর এক মূল</span></div>
+      <div class="word"><span class="pa">ਭੈਣ</span><span class="bn-eq">বোন</span><span class="trans">bhaiṇ</span><span class="note">সংস্কৃত "ভগিনী" থেকে</span></div>
+      <div class="word"><span class="pa">ਪੁੱਤਰ / ਮੁੰਡਾ</span><span class="bn-eq">ছেলে / পুত্র</span><span class="trans">puttar / muṇḍā</span></div>
+      <div class="word"><span class="pa">ਧੀ / ਕੁੜੀ</span><span class="bn-eq">মেয়ে / কন্যা</span><span class="trans">dhī / kuṛī</span><span class="note">"ধী" — সংস্কৃত "দুহিতা" থেকে</span></div>
+    </div>
+
+    <h3><span class="num">৪.৪</span>শরীর</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਸਿਰ</span><span class="bn-eq">মাথা / শির</span><span class="trans">sir</span><span class="note">বাংলায় "শিরদাঁড়া", "শিরোনাম" — একই মূল</span></div>
+      <div class="word"><span class="pa">ਹੱਥ</span><span class="bn-eq">হাত</span><span class="trans">hatth</span><span class="note">তৎভব — প্রায় এক</span></div>
+      <div class="word"><span class="pa">ਪੈਰ</span><span class="bn-eq">পা</span><span class="trans">pair</span><span class="note">সংস্কৃত "পাদ/পৈর"</span></div>
+      <div class="word"><span class="pa">ਅੱਖ</span><span class="bn-eq">চোখ / আঁখি</span><span class="trans">akkh</span><span class="note">বাংলায় "আঁখি" (কাব্যিক) সঙ্গে মিল</span></div>
+      <div class="word"><span class="pa">ਮੂੰਹ</span><span class="bn-eq">মুখ</span><span class="trans">mū̃h</span></div>
+      <div class="word"><span class="pa">ਮਨ / ਦਿਲ</span><span class="bn-eq">মন / দিল</span><span class="trans">man / dil</span></div>
+    </div>
+
+    <h3><span class="num">৪.৫</span>ক্রিয়াপদ (ধাতুরূপ — ਕਿਰਿਆ)</h3>
+    <p style="font-size:14px;color:var(--ink-faded);">পাঞ্জাবি ক্রিয়াধাতুর অভিধানিক রূপ <strong>-ਣਾ</strong> (-ṇā) দিয়ে শেষ হয় — বাংলার "-আ" শেষে, যেমন "করা", "যাওয়া"।</p>
+    <div class="words">
+      <div class="word"><span class="pa">ਕਰਨਾ</span><span class="bn-eq">করা</span><span class="trans">karnā</span><span class="note">অভিধানিক রূপ; বাংলা "করা"-র সঙ্গে মিল</span></div>
+      <div class="word"><span class="pa">ਜਾਣਾ</span><span class="bn-eq">যাওয়া</span><span class="trans">jāṇā</span></div>
+      <div class="word"><span class="pa">ਆਉਣਾ</span><span class="bn-eq">আসা</span><span class="trans">āuṇā</span></div>
+      <div class="word"><span class="pa">ਖਾਣਾ</span><span class="bn-eq">খাওয়া</span><span class="trans">khāṇā</span><span class="note">বাংলা "খাওয়া" সঙ্গে অবিকল</span></div>
+      <div class="word"><span class="pa">ਪੀਣਾ</span><span class="bn-eq">পান করা / খাওয়া (তরল)</span><span class="trans">pīṇā</span><span class="note">সংস্কৃত "পী" ধাতু</span></div>
+      <div class="word"><span class="pa">ਦੇਖਣਾ</span><span class="bn-eq">দেখা</span><span class="trans">dēkhṇā</span><span class="note">প্রায় হুবহু</span></div>
+      <div class="word"><span class="pa">ਸੁਣਨਾ</span><span class="bn-eq">শোনা</span><span class="trans">suṇnā</span><span class="note">সংস্কৃত "শ্রু" থেকে</span></div>
+      <div class="word"><span class="pa">ਬੋਲਣਾ</span><span class="bn-eq">বলা</span><span class="trans">bolṇā</span></div>
+      <div class="word"><span class="pa">ਲਿਖਣਾ</span><span class="bn-eq">লেখা</span><span class="trans">likhṇā</span></div>
+      <div class="word"><span class="pa">ਪੜ੍ਹਨਾ</span><span class="bn-eq">পড়া</span><span class="trans">paṛhnā</span><span class="note">বাংলা "পড়া" — ড়ে মিল!</span></div>
+      <div class="word"><span class="pa">ਹੋਣਾ</span><span class="bn-eq">হওয়া</span><span class="trans">hoṇā</span><span class="note">"হ" ধাতু — বাংলা-পাঞ্জাবি দুটোতেই</span></div>
+    </div>
+
+    <h3><span class="num">৪.৬</span>বিভক্তি — বাংলার মতোই পোস্টপজিশন</h3>
+    <p>বাংলায় "বাড়িতে", "বাড়ি থেকে", "বাড়ির" — বিভক্তি পেছনে বসে। পাঞ্জাবিতেও ঠিক তাই, কিন্তু এগুলো বেশিরভাগ বিচ্ছিন্ন শব্দ হিসেবে লেখা হয়:</p>
+    <div class="words">
+      <div class="word"><span class="pa">ਨੂੰ</span><span class="bn-eq">-কে (কর্ম / সম্প্রদান)</span><span class="trans">-nū̃</span><span class="note"><span class="pa">ਘਰ ਨੂੰ</span> (ghar nū̃) = ঘরকে / ঘরে (গন্তব্য)</span></div>
+      <div class="word"><span class="pa">ਵਿੱਚ</span><span class="bn-eq">-এ / -তে (ভেতরে)</span><span class="trans">-vic</span><span class="note"><span class="pa">ਘਰ ਵਿੱਚ</span> (ghar vic) = বাড়িতে</span></div>
+      <div class="word"><span class="pa">ਤੋਂ</span><span class="bn-eq">-থেকে</span><span class="trans">-tõ</span><span class="note"><span class="pa">ਘਰ ਤੋਂ</span> (ghar tõ) = বাড়ি থেকে</span></div>
+      <div class="word"><span class="pa">ਦਾ / ਦੀ / ਦੇ</span><span class="bn-eq">-র / -এর (সম্বন্ধ)</span><span class="trans">-dā/dī/dē</span><span class="note">⚡ কর্তার লিঙ্গ অনুসারে বদলায়! ਪੁੱਤਰ ਦਾ (ছেলের), ਧੀ ਦੀ (মেয়ের)</span></div>
+      <div class="word"><span class="pa">ਨਾਲ</span><span class="bn-eq">-দিয়ে / -সাথে</span><span class="trans">-nāl</span><span class="note">সঙ্গে/সাথে; হিন্দি "সে"-র সমতুল্য</span></div>
+    </div>
+
+    <div class="aside"><strong>⚡ একটি লুকনো লিঙ্গ-বোমা।</strong> বাংলায় "আমার" বললে কর্তা যে-ই হোক, সর্বনাম এক। পাঞ্জাবিতে সম্বন্ধ-বিভক্তি <span class="pa">ਦਾ/ਦੀ/ਦੇ</span> — <em>কী</em>-র সম্বন্ধ তা অনুসারে বদলায়: <span class="pa">ਪੁੱਤਰ ਦਾ ਘਰ</span> (ছেলের ঘর — ঘর পুংলিঙ্গ), <span class="pa">ਧੀ ਦੀ ਕਿਤਾਬ</span> (মেয়ের বই — বই স্ত্রীলিঙ্গ)। অর্থাৎ "দা/দী" বইয়ের সঙ্গে মিলছে, মেয়ের সঙ্গে নয়। বাংলার জন্য নতুন চিন্তা।</div>
+
+    <h3><span class="num">৪.৭</span>সংখ্যা ১-১০</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਇੱਕ</span><span class="bn-eq">এক</span><span class="trans">ikk</span></div>
+      <div class="word"><span class="pa">ਦੋ</span><span class="bn-eq">দুই</span><span class="trans">do</span></div>
+      <div class="word"><span class="pa">ਤਿੰਨ</span><span class="bn-eq">তিন</span><span class="trans">tinn</span></div>
+      <div class="word"><span class="pa">ਚਾਰ</span><span class="bn-eq">চার</span><span class="trans">cār</span></div>
+      <div class="word"><span class="pa">ਪੰਜ</span><span class="bn-eq">পাঁচ</span><span class="trans">panj</span><span class="note">"পাঞ্জাব" = "পাঁচ নদীর দেশ" — এই "পাঞ্জ" থেকেই</span></div>
+      <div class="word"><span class="pa">ਛੇ</span><span class="bn-eq">ছয়</span><span class="trans">che</span></div>
+      <div class="word"><span class="pa">ਸੱਤ</span><span class="bn-eq">সাত</span><span class="trans">satt</span></div>
+      <div class="word"><span class="pa">ਅੱਠ</span><span class="bn-eq">আট</span><span class="trans">aṭṭh</span></div>
+      <div class="word"><span class="pa">ਨੌਂ</span><span class="bn-eq">নয়</span><span class="trans">nauṁ</span></div>
+      <div class="word"><span class="pa">ਦਸ</span><span class="bn-eq">দশ</span><span class="trans">das</span></div>
+    </div>
+
+    <div class="aside"><strong>পাঞ্জ।</strong> "পাঞ্জাব" নামটি ফার্সি <em>পাঞ্জ-আব</em> (পাঁচ জল/নদী) থেকে। পাঞ্জাবি সংখ্যা <span class="pa">ਪੰਜ</span> আর বাংলা "পাঁচ" — দুটো ভাইবোন, সংস্কৃত "পঞ্চ" থেকে। নামটার মধ্যেই দুই ভাষার সেতু লুকিয়ে।</div>
+
+    <h3><span class="num">৪.৮</span>সময় ও দিক</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਅੱਜ</span><span class="bn-eq">আজ</span><span class="trans">ajj</span><span class="note">তৎভব — হুবহু</span></div>
+      <div class="word"><span class="pa">ਕੱਲ੍ਹ</span><span class="bn-eq">কাল (আগামী বা গত)</span><span class="trans">kall</span><span class="note">বাংলার "কাল"-র মতো পাঞ্জাবিতেও একই শব্দ দুদিকে — প্রসঙ্গ বলে দেয়</span></div>
+      <div class="word"><span class="pa">ਹੁਣ</span><span class="bn-eq">এখন</span><span class="trans">huṇ</span></div>
+      <div class="word"><span class="pa">ਬਾਅਦ ਵਿੱਚ</span><span class="bn-eq">পরে</span><span class="trans">bād vic</span></div>
+      <div class="word"><span class="pa">ਪਹਿਲਾਂ</span><span class="bn-eq">আগে / পহেলা</span><span class="trans">pahilā̃</span><span class="note">বাংলা "পহেলা বৈশাখ" — সম্পর্ক দৃশ্যমান</span></div>
+    </div>
+
+    <div class="aside"><strong>"কাল" দুই দিকে — বাংলা আর পাঞ্জাবি মিলে যায়।</strong> বাংলায় "কাল আসব" (আগামী কাল) আর "কাল এসেছিলাম" (গত কাল) — একই শব্দ, প্রসঙ্গে অর্থ বদলায়। পাঞ্জাবি <span class="pa">ਕੱਲ੍ਹ</span> হুবহু সেই একই কাজ করে। অধিকাংশ ভারতীয় ভাষার নয়, কিন্তু এই দুই ভাষা একই সংস্কৃত "কাল্য" থেকে এই অ্যাম্বিগুইটি উত্তরাধিকার সূত্রে পেয়েছে।</div>
+
+    <h3><span class="num">৪.৯</span>প্রশ্নবাচক শব্দ</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਕੀ</span><span class="bn-eq">কী</span><span class="trans">kī</span><span class="note">হুবহু এক!</span></div>
+      <div class="word"><span class="pa">ਕੌਣ</span><span class="bn-eq">কে</span><span class="trans">kauṇ</span></div>
+      <div class="word"><span class="pa">ਕਿੱਥੇ</span><span class="bn-eq">কোথায়</span><span class="trans">kitthe</span></div>
+      <div class="word"><span class="pa">ਕਦੋਂ</span><span class="bn-eq">কখন</span><span class="trans">kadõ</span></div>
+      <div class="word"><span class="pa">ਕਿਉਂ</span><span class="bn-eq">কেন</span><span class="trans">kiũ</span></div>
+      <div class="word"><span class="pa">ਕਿਵੇਂ</span><span class="bn-eq">কীভাবে / কেমন</span><span class="trans">kivẽ</span></div>
+    </div>
+  </div>
+</section>
+<section class="stage" data-stage="5" id="stage-05">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · বাক্য</div>
+    <h2 class="stage-title">বাক্যগঠন ও ক্রিয়ার সাজ</h2>
+    <p class="stage-lede">SOV ক্রম, পোস্টপজিশন, ক্রিয়ার সাহায্যে লিঙ্গ — বাংলার কঙ্কাল প্রায় হুবহু রেখে, পাঞ্জাবি একটি মাত্র নতুন পেশী যোগ করেছে: লিঙ্গ।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৫.১</span>ক্রম — সোজা বাক্য</h3>
+    <div class="sentence">
+      <div class="pa">ਮੈਂ ਰੋਟੀ ਖਾਂਦਾ ਹਾਂ।</div>
+      <div class="trans">maĩ roṭī khā̃dā hā̃.</div>
+      <div class="bn-gloss">আমি রুটি খাই। (বক্তা পুরুষ)</div>
+      <div class="literal">[আমি] [রুটি] [খাই-পুং] [আছি]</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਮੈਂ ਰੋਟੀ ਖਾਂਦੀ ਹਾਂ।</div>
+      <div class="trans">maĩ roṭī khā̃dī hā̃.</div>
+      <div class="bn-gloss">আমি রুটি খাই। (বক্তা নারী)</div>
+      <div class="literal">[আমি] [রুটি] [খাই-স্ত্রী] [আছি] — ⚡ লিঙ্গভেদে ਖਾਂਦਾ ↔ ਖਾਂਦੀ</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਉਹ ਕਿਤਾਬ ਪੜ੍ਹਦਾ ਹੈ।</div>
+      <div class="trans">uh kitāb paṛhdā hai.</div>
+      <div class="bn-gloss">সে বই পড়ে। (পুরুষ কর্তা)</div>
+    </div>
+
+    <div class="aside"><strong>⚡ ক্রিয়ায় দুই অংশ।</strong> বাংলা "খাই" একটিই শব্দ। পাঞ্জাবি এর জায়গায় <em>দুই</em> শব্দ বসায়: একটি "মূল-কৃদন্ত" (লিঙ্গ-সংখ্যা বহন করে) + একটি "হওয়া" ক্রিয়া (কাল/পুরুষ বহন করে)। <span class="pa">ਖਾਂਦਾ ਹਾਂ</span> = [খাওয়া-পুং-এক] + [আমি-আছি]। ধারণাটা তোমার অচেনা নয় — বাংলায় "খাচ্ছি" = "খাইতে" + "আছি"-র পুরনো রূপ।</div>
+
+    <h3><span class="num">৫.২</span><span class="pa">ਕਰਨਾ</span> (করা) — বর্তমান কাল</h3>
+    <div class="conjug">
+      <div class="conjug-row"><span class="pron">আমি (ম)</span><span class="pa">ਕਰਦਾ ਹਾਂ</span><span class="bn-eq">করি (ছেলে)</span></div>
+      <div class="conjug-row"><span class="pron">আমি (স্ত্রী)</span><span class="pa">ਕਰਦੀ ਹਾਂ</span><span class="bn-eq">করি (মেয়ে)</span></div>
+      <div class="conjug-row"><span class="pron">তুই (ম)</span><span class="pa">ਕਰਦਾ ਹੈਂ</span><span class="bn-eq">করিস</span></div>
+      <div class="conjug-row"><span class="pron">তুই (স্ত্রী)</span><span class="pa">ਕਰਦੀ ਹੈਂ</span><span class="bn-eq">করিস</span></div>
+      <div class="conjug-row"><span class="pron">সে (ম)</span><span class="pa">ਕਰਦਾ ਹੈ</span><span class="bn-eq">করে (পুরুষ)</span></div>
+      <div class="conjug-row"><span class="pron">সে (স্ত্রী)</span><span class="pa">ਕਰਦੀ ਹੈ</span><span class="bn-eq">করে (নারী)</span></div>
+      <div class="conjug-row"><span class="pron">আমরা (ম)</span><span class="pa">ਕਰਦੇ ਹਾਂ</span><span class="bn-eq">করি (বহু)</span></div>
+      <div class="conjug-row"><span class="pron">আমরা (স্ত্রী)</span><span class="pa">ਕਰਦੀਆਂ ਹਾਂ</span><span class="bn-eq">করি (সকল নারী)</span></div>
+      <div class="conjug-row"><span class="pron">আপনি</span><span class="pa">ਕਰਦੇ ਹੋ</span><span class="bn-eq">করেন</span></div>
+      <div class="conjug-row"><span class="pron">তারা (ম)</span><span class="pa">ਕਰਦੇ ਹਨ</span><span class="bn-eq">করে (বহু পুং)</span></div>
+      <div class="conjug-row"><span class="pron">তারা (স্ত্রী)</span><span class="pa">ਕਰਦੀਆਂ ਹਨ</span><span class="bn-eq">করে (বহু স্ত্রী)</span></div>
+    </div>
+
+    <div class="aside"><strong>পরিচিত কঙ্কাল।</strong> বাংলায় কর্তার পুরুষ/বহুবচন ক্রিয়ায় দেখা যায় (করি/করিস/করো/করে/করেন)। পাঞ্জাবিতেও তাই — শুধু একটি অতিরিক্ত অক্ষ যোগ হয়: লিঙ্গ। ছক দুই মাত্রার: পুরুষ বনাম স্ত্রী, একবচন বনাম বহুবচন। চারটি সম্ভাবনা: <span class="pa">-ਦਾ / -ਦੀ / -ਦੇ / -ਦੀਆਂ</span>।</div>
+
+    <h3><span class="num">৫.৩</span>অতীত কাল</h3>
+    <div class="sentence">
+      <div class="pa">ਮੈਂ ਰੋਟੀ ਖਾਧੀ।</div>
+      <div class="trans">maĩ roṭī khādhī.</div>
+      <div class="bn-gloss">আমি রুটি খেয়েছি/খেলাম।</div>
+      <div class="literal">⚡ বিশেষ পাঞ্জাবি চাল: অতীতে সকর্মক ক্রিয়া <em>কর্ম</em>-র লিঙ্গে মেলে! রুটি স্ত্রীলিঙ্গ → ਖਾਧੀ (স্ত্রী রূপ)। হিন্দি/উর্দুও একই নিয়ম, বাংলায় নেই।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਮੈਂ ਪੁਸਤਕ ਪੜ੍ਹਿਆ।</div>
+      <div class="trans">maĩ pustak paṛhiā.</div>
+      <div class="bn-gloss">আমি পুস্তক পড়েছি।</div>
+      <div class="literal">পুস্তক পুংলিঙ্গ → ਪੜ੍ਹਿਆ (পুং রূপ)। কর্তা বদলায়নি, কর্ম বদলালে ক্রিয়াও বদলালো।</div>
+    </div>
+
+    <h3><span class="num">৫.৪</span>প্রশ্ন ও নেতিবাচক</h3>
+    <div class="sentence">
+      <div class="pa">ਤੁਸੀਂ ਕੀ ਖਾਂਦੇ ਹੋ?</div>
+      <div class="trans">tusī̃ kī khā̃dē ho?</div>
+      <div class="bn-gloss">আপনি কী খান?</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਮੈਂ ਨਹੀਂ ਜਾਂਦਾ।</div>
+      <div class="trans">maĩ nahī̃ jā̃dā.</div>
+      <div class="bn-gloss">আমি যাই না।</div>
+      <div class="literal">[আমি] [না] [যাই-পুং] — ਨਹੀਂ = "না", যেমন বাংলায় "না"। একই অবস্থানে বসে, ক্রিয়ার আগে।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਕੀ ਤੁਸੀਂ ਪੰਜਾਬੀ ਜਾਣਦੇ ਹੋ?</div>
+      <div class="trans">kī tusī̃ panjābī jāṇdē ho?</div>
+      <div class="bn-gloss">আপনি কি পাঞ্জাবি জানেন?</div>
+      <div class="literal">হ্যাঁ/না প্রশ্নের সামনে ਕੀ — বাংলায় "কি" যেমন বাক্যের শুরু/শেষে বসে, পাঞ্জাবিতে শুধু সামনে।</div>
+    </div>
+
+    <h3><span class="num">৫.৫</span>আদেশ / অনুরোধ</h3>
+    <div class="sentence">
+      <div class="pa">ਆਉ!</div>
+      <div class="trans">āo!</div>
+      <div class="bn-gloss">এসো! (তুমি)</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਕਿਰਪਾ ਕਰਕੇ ਬੈਠੋ।</div>
+      <div class="trans">kirpā karkē baiṭho.</div>
+      <div class="bn-gloss">দয়া করে বসুন।</div>
+      <div class="literal">ਕਿਰਪਾ ਕਰਕੇ = "কৃপা করে" — হুবহু সংস্কৃত। ভদ্রতার ঢাল।</div>
+    </div>
+
+    <h3><span class="num">৫.৬</span>"আছে" / "নেই" — বাংলার সাথে চমৎকার মিল</h3>
+    <div class="sentence">
+      <div class="pa">ਮੇਰੇ ਕੋਲ ਇੱਕ ਕਿਤਾਬ ਹੈ।</div>
+      <div class="trans">mere kol ikk kitāb hai.</div>
+      <div class="bn-gloss">আমার কাছে একটি বই আছে।</div>
+      <div class="literal">ਕੋਲ = "কাছে"। বাংলায় "আমার কাছে" — পাঞ্জাবিতে <span class="pa">ਮੇਰੇ ਕੋਲ</span>। ভাব হুবহু এক।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਮੈਨੂੰ ਭੁੱਖ ਲੱਗੀ ਹੈ।</div>
+      <div class="trans">mainū̃ bhukkh laggī hai.</div>
+      <div class="bn-gloss">আমার খিদে লেগেছে।</div>
+      <div class="literal">"আমাকে ক্ষুধা লেগেছে" — বাংলায় "আমার খিদে লেগেছে"-র সরাসরি যমজ। দুই ভাষাতেই experiencer ডেটিভে বসে।</div>
+    </div>
+
+    <div class="aside"><strong>experiencer ডেটিভ — দুই ভাষার যমজ গঠন।</strong> বাংলায় "আমার ঠান্ডা লাগছে", "আমার রাগ হয়েছে" — এখানে "আমি" সরাসরি কর্তা নয়, অনুভূতিটাই কর্তা। পাঞ্জাবি হুবহু একই: <span class="pa">ਮੈਨੂੰ ਠੰਡ ਲੱਗਦੀ ਹੈ</span>, <span class="pa">ਮੈਨੂੰ ਗੁੱਸਾ ਆਇਆ</span>। অর্থাৎ এই গঠনে বাংলা আর পাঞ্জাবি দুই বোন একই ছাঁচে গড়া।</div>
+
+    <h3><span class="num">৫.৭</span>ভবিষ্যৎ কাল</h3>
+    <div class="sentence">
+      <div class="pa">ਮੈਂ ਕੱਲ੍ਹ ਜਾਵਾਂਗਾ।</div>
+      <div class="trans">maĩ kallh jāvā̃gā.</div>
+      <div class="bn-gloss">আমি কাল যাব। (পুরুষ)</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਮੈਂ ਕੱਲ੍ਹ ਜਾਵਾਂਗੀ।</div>
+      <div class="trans">maĩ kallh jāvā̃gī.</div>
+      <div class="bn-gloss">আমি কাল যাব। (নারী)</div>
+    </div>
+  </div>
+</section>
+<section class="stage" data-stage="6" id="stage-06">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · পাঠ</div>
+    <h2 class="stage-title">তিনটি পাঠ — সহজ থেকে একটু কঠিন</h2>
+    <p class="stage-lede">প্রতিটি পাঠে পাঞ্জাবি, তার উচ্চারণ আর বাংলা অনুবাদ পাশাপাশি। জোরে পড়ো, পাঞ্জাবি দেখো, বাংলা বোঝো।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৬.১</span>পাঠ এক — আত্মপরিচয়</h3>
+    <div class="vachana">
+      <div class="pa">ਸਤ ਸ੍ਰੀ ਅਕਾਲ। ਮੇਰਾ ਨਾਮ ਰਵੀ ਹੈ। ਮੈਂ ਅੰਮ੍ਰਿਤਸਰ ਦਾ ਰਹਿਣ ਵਾਲਾ ਹਾਂ। ਮੈਂ ਇੱਕ ਅਧਿਆਪਕ ਹਾਂ ਅਤੇ ਮੈਨੂੰ ਪੰਜਾਬੀ ਗਾਣੇ ਸੁਣਨਾ ਬਹੁਤ ਪਸੰਦ ਹੈ। ਮੇਰੇ ਪਰਿਵਾਰ ਵਿੱਚ ਚਾਰ ਲੋਕ ਹਨ।</div>
+      <div class="bn-gloss"><strong>উচ্চারণ:</strong> sat srī akāl. mērā nām ravī hai. maĩ amritsar dā rahiṇ vālā hā̃. maĩ ikk adhiāpak hā̃ atē mainū̃ panjābī gāṇē suṇnā bahut pasand hai. mērē parivār vic cār lok han.<br/><br/><strong>বাংলা:</strong> নমস্কার। আমার নাম রবি। আমি অমৃতসরের বাসিন্দা। আমি একজন শিক্ষক এবং আমার পাঞ্জাবি গান শুনতে খুব পছন্দ। আমাদের পরিবারে চারজন লোক আছে।</div>
+      <div class="attrib">প্রথম পাঠ · সহজ বর্তমান কাল</div>
+    </div>
+
+    <div class="aside"><strong>শব্দ খুঁটি:</strong> <span class="pa">ਰਹਿਣ ਵਾਲਾ</span> (rahiṇ vālā) = "থাকা-ওয়ালা" = বাসিন্দা। বাংলায় "চাওয়ালা", "রিকশাওয়ালা"-র মতোই — "-ওয়ালা" প্রত্যয় দুই ভাষার সাধারণ সম্পদ। <span class="pa">ਪਸੰਦ</span> ফার্সি ঋণ — বাংলায়ও "পছন্দ" রূপে আছে।</div>
+
+    <h3><span class="num">৬.২</span>পাঠ দুই — দিনলিপি</h3>
+    <div class="vachana">
+      <div class="pa">ਹਰ ਰੋਜ਼ ਮੈਂ ਸਵੇਰੇ ਛੇ ਵਜੇ ਉੱਠਦਾ ਹਾਂ। ਫਿਰ ਮੈਂ ਚਾਹ ਪੀਂਦਾ ਹਾਂ ਅਤੇ ਅਖਬਾਰ ਪੜ੍ਹਦਾ ਹਾਂ। ਅੱਠ ਵਜੇ ਮੈਂ ਸਕੂਲ ਜਾਂਦਾ ਹਾਂ। ਦੁਪਹਿਰ ਨੂੰ ਮੈਂ ਘਰ ਆਉਂਦਾ ਹਾਂ ਅਤੇ ਰੋਟੀ ਖਾਂਦਾ ਹਾਂ। ਸ਼ਾਮ ਨੂੰ ਮੈਂ ਆਪਣੇ ਦੋਸਤਾਂ ਨਾਲ ਖੇਡਦਾ ਹਾਂ। ਰਾਤ ਨੂੰ ਮੈਂ ਕਿਤਾਬ ਪੜ੍ਹਦਾ ਹਾਂ ਅਤੇ ਸੌਂ ਜਾਂਦਾ ਹਾਂ।</div>
+      <div class="bn-gloss"><strong>উচ্চারণ:</strong> har roz maĩ savērē che vajē uṭṭhdā hā̃. phir maĩ cāh pīndā hā̃ atē akhbār paṛhdā hā̃. aṭṭh vajē maĩ skūl jāndā hā̃. dupahir nū̃ maĩ ghar āundā hā̃ atē roṭī khāndā hā̃. śām nū̃ maĩ āpaṇē dostā̃ nāl khēldā hā̃. rāt nū̃ maĩ kitāb paṛhdā hā̃ atē sauṁ jāndā hā̃.<br/><br/><strong>বাংলা:</strong> প্রতিদিন আমি সকাল ছ-টায় উঠি। তারপর আমি চা পান করি ও খবরের কাগজ পড়ি। আটটায় আমি স্কুলে যাই। দুপুরে আমি বাড়ি আসি ও খাবার খাই। সন্ধ্যায় আমি আমার বন্ধুদের সঙ্গে খেলি। রাতে আমি বই পড়ি ও ঘুমিয়ে পড়ি।</div>
+      <div class="attrib">দ্বিতীয় পাঠ · প্রাত্যহিক ছক</div>
+    </div>
+
+    <div class="aside"><strong>দেখো:</strong> প্রতিটি ক্রিয়া <span class="pa">-ਦਾ ਹਾਂ</span> দিয়ে শেষ হচ্ছে (পুং বক্তা বর্তমান কাল)। ਸਵੇਰੇ = "সকালে", ਸ਼ਾਮ ਨੂੰ = "সন্ধ্যায়" (ਨੂੰ = -এ), ਰਾਤ ਨੂੰ = "রাতে"। অবস্থানসূচক পোস্টপজিশন বাংলার মতোই পেছনে।</div>
+
+    <h3><span class="num">৬.৩</span>পাঠ তিন — দুজনের কথোপকথন</h3>
+    <div class="vachana">
+      <div class="pa">
+        <strong>ਅਮਰ:</strong> ਸਤ ਸ੍ਰੀ ਅਕਾਲ, ਸਿਮਰਨ। ਕੀ ਹਾਲ ਹੈ?<br/>
+        <strong>ਸਿਮਰਨ:</strong> ਸਤ ਸ੍ਰੀ ਅਕਾਲ। ਮੈਂ ਠੀਕ ਹਾਂ। ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ?<br/>
+        <strong>ਅਮਰ:</strong> ਬਸ, ਠੀਕ। ਤੁਸੀਂ ਅੱਜ ਕਿੱਥੇ ਜਾ ਰਹੇ ਹੋ?<br/>
+        <strong>ਸਿਮਰਨ:</strong> ਮੈਂ ਬਾਜ਼ਾਰ ਜਾ ਰਹੀ ਹਾਂ। ਮੈਨੂੰ ਇੱਕ ਕਿਤਾਬ ਚਾਹੀਦੀ ਹੈ।<br/>
+        <strong>ਅਮਰ:</strong> ਕੀ ਮੈਂ ਵੀ ਤੁਹਾਡੇ ਨਾਲ ਆ ਸਕਦਾ ਹਾਂ?<br/>
+        <strong>ਸਿਮਰਨ:</strong> ਹਾਂ ਜੀ, ਜ਼ਰੂਰ ਆਓ। ਰੋਟੀ ਖਾਧੀ?<br/>
+        <strong>ਅਮਰ:</strong> ਹਾਲੇ ਨਹੀਂ। ਬਾਜ਼ਾਰੋਂ ਆ ਕੇ ਮਿਲ ਕੇ ਖਾਵਾਂਗੇ।
+      </div>
+      <div class="bn-gloss"><strong>বাংলা:</strong><br/>
+        <strong>অমর:</strong> নমস্কার, সিমরন। কেমন আছ?<br/>
+        <strong>সিমরন:</strong> নমস্কার। আমি ভালো আছি। আপনি কেমন আছেন?<br/>
+        <strong>অমর:</strong> বেশ, ভালো। আপনি আজ কোথায় যাচ্ছেন?<br/>
+        <strong>সিমরন:</strong> আমি বাজারে যাচ্ছি। আমার একটি বই দরকার।<br/>
+        <strong>অমর:</strong> আমিও কি আপনার সঙ্গে আসতে পারি?<br/>
+        <strong>সিমরন:</strong> হ্যাঁ জি, অবশ্যই আসুন। ভাত খেয়েছেন?<br/>
+        <strong>অমর:</strong> এখনও না। বাজার থেকে এসে একসঙ্গে খাব।
+      </div>
+      <div class="attrib">তৃতীয় পাঠ · চলিত কথোপকথন</div>
+    </div>
+
+    <div class="aside"><strong>সিমরন নারী, তাই "যাচ্ছি" = <span class="pa">ਜਾ ਰਹੀ ਹਾਂ</span> (স্ত্রী রূপ)। অমর পুরুষ, তাই "আসতে পারি" = <span class="pa">ਆ ਸਕਦਾ ਹਾਂ</span> (পুং রূপ)।</strong> গোটা কথোপকথনে চোখ রাখো — প্রতিটি ক্রিয়ার শেষ অক্ষর বক্তার লিঙ্গ ফাঁস করছে। বাংলায় এটা অদৃশ্য, পাঞ্জাবিতে প্রতিটি বাক্যে পরিষ্কার।</div>
+
+    <div class="aside"><strong>"রুটি খেয়েছ?" — উপমহাদেশের সবচেয়ে পুরনো অভিবাদন।</strong> বাংলায় "ভাত খেয়েছ?", পাঞ্জাবিতে <span class="pa">ਰੋਟੀ ਖਾਧੀ?</span> — হিন্দিতে <em>খানা খা লিয়া?</em> দুই বন্ধুর দেখা হলে এটি প্রথম প্রশ্ন, এবং এতে সত্যিই উত্তর প্রত্যাশা নয় — এটা "কেমন আছ?"-এর দেশি সংস্করণ। বাংলা-পাঞ্জাবি দুটোতেই এটি জীবিত।</div>
+  </div>
+</section>
+<section class="stage" data-stage="7" id="stage-07">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · শব্দক্ষেত্র</div>
+    <h2 class="stage-title">জগৎকে কে কীভাবে কাটে</h2>
+    <p class="stage-lede">প্রতিটি ভাষা জগতকে একটু আলাদা খণ্ডে ভাগ করে। আত্মীয়তা, সময়, শরীর, চলাচল — এই ক্ষেত্রগুলোতে বাংলা আর পাঞ্জাবি কোথায় এক, কোথায় আলাদা।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৭.১</span>আত্মীয়তা — পাঞ্জাবি বেশি ভাগ করে</h3>
+    <p>বাংলায় "কাকা/জেঠা/মামা/পিসেমশাই/মেসোমশাই" — আমরা আত্মীয়তাকে খুব সূক্ষ্মভাবে ভেঙে দেখি। পাঞ্জাবিও প্রায় একই সূক্ষ্মতা রাখে:</p>
+    <div class="words">
+      <div class="word"><span class="pa">ਤਾਇਆ / ਤਾਈ</span><span class="bn-eq">জেঠা / জেঠিমা</span><span class="trans">tāiā / tāī</span><span class="note">বাবার বড় ভাই ও তাঁর স্ত্রী</span></div>
+      <div class="word"><span class="pa">ਚਾਚਾ / ਚਾਚੀ</span><span class="bn-eq">কাকা / কাকিমা</span><span class="trans">cācā / cācī</span><span class="note">বাবার ছোট ভাই ও তাঁর স্ত্রী</span></div>
+      <div class="word"><span class="pa">ਮਾਮਾ / ਮਾਮੀ</span><span class="bn-eq">মামা / মামী</span><span class="trans">māmā / māmī</span><span class="note">হুবহু একই!</span></div>
+      <div class="word"><span class="pa">ਫੁੱਫੜ / ਭੂਆ</span><span class="bn-eq">পিসেমশাই / পিসি</span><span class="trans">phupphaṛ / bhūā</span><span class="note">বাবার বোন ও তাঁর স্বামী</span></div>
+      <div class="word"><span class="pa">ਮਾਸੀ / ਮਾਸੜ</span><span class="bn-eq">মাসি / মেসোমশাই</span><span class="trans">māsī / māsaṛ</span><span class="note">প্রায় হুবহু — মাসি একই শব্দ!</span></div>
+      <div class="word"><span class="pa">ਦਾਦਾ / ਦਾਦੀ</span><span class="bn-eq">ঠাকুরদা / ঠাকুরমা</span><span class="trans">dādā / dādī</span><span class="note">⚡ বাংলায় "দাদা" = বড় ভাই, পাঞ্জাবিতে = পিতামহ! সাবধান।</span></div>
+      <div class="word"><span class="pa">ਨਾਨਾ / ਨਾਨੀ</span><span class="bn-eq">দাদু / দিদিমা (মায়ের বাবা-মা)</span><span class="trans">nānā / nānī</span><span class="note">উর্দু-বাংলা-পাঞ্জাবি ত্রয়ীর সাধারণ শব্দ</span></div>
+    </div>
+
+    <div class="aside"><strong>⚡ সবচেয়ে বিপজ্জনক ফলস-ফ্রেন্ড: "দাদা"।</strong> বাংলায় "দাদা" মানে <em>বড় ভাই</em>, কিন্তু পাঞ্জাবিতে <span class="pa">ਦਾਦਾ</span> মানে <em>পিতামহ</em> (ঠাকুরদা)। এই একটি শব্দ ভুল জায়গায় ব্যবহার করলে পুরো সম্পর্কের ছবি উল্টে যাবে। পাঞ্জাবিতে বড় ভাই = <span class="pa">ਵੀਰ / ਭਰਾ</span> (vīr / bharā), বোন = <span class="pa">ਭੈਣ</span>।</div>
+
+    <h3><span class="num">৭.২</span>সময়ের চাকা</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਸਵੇਰ</span><span class="bn-eq">সকাল / প্রভাত</span><span class="trans">savēr</span></div>
+      <div class="word"><span class="pa">ਦੁਪਹਿਰ</span><span class="bn-eq">দুপুর</span><span class="trans">dupahir</span><span class="note">"দু-পহর" = দুই প্রহর — বাংলার "দুপুর"-ও একই!</span></div>
+      <div class="word"><span class="pa">ਸ਼ਾਮ</span><span class="bn-eq">সন্ধ্যা</span><span class="trans">śām</span><span class="note">বাংলায় কম চলে, কিন্তু "শ্যামকাল" আছে</span></div>
+      <div class="word"><span class="pa">ਰਾਤ</span><span class="bn-eq">রাত</span><span class="trans">rāt</span></div>
+      <div class="word"><span class="pa">ਹਫ਼ਤਾ</span><span class="bn-eq">সপ্তাহ / হপ্তা</span><span class="trans">haftā</span><span class="note">ফার্সি ঋণ — বাংলায়ও "হপ্তা" চলে</span></div>
+      <div class="word"><span class="pa">ਮਹੀਨਾ</span><span class="bn-eq">মাস</span><span class="trans">mahīnā</span></div>
+      <div class="word"><span class="pa">ਸਾਲ</span><span class="bn-eq">বছর / সাল</span><span class="trans">sāl</span><span class="note">বাংলায়ও "সাল" চলে (তারিখে)</span></div>
+    </div>
+
+    <h3><span class="num">৭.৩</span>দিনের নামগুলো — প্রায় হুবহু</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਸੋਮਵਾਰ</span><span class="bn-eq">সোমবার</span><span class="trans">somvār</span></div>
+      <div class="word"><span class="pa">ਮੰਗਲਵਾਰ</span><span class="bn-eq">মঙ্গলবার</span><span class="trans">mangalvār</span></div>
+      <div class="word"><span class="pa">ਬੁੱਧਵਾਰ</span><span class="bn-eq">বুধবার</span><span class="trans">buddhvār</span></div>
+      <div class="word"><span class="pa">ਵੀਰਵਾਰ</span><span class="bn-eq">বৃহস্পতিবার</span><span class="trans">vīrvār</span><span class="note">⚡ পাঞ্জাবিতে "বীরবার" — বৃহস্পতিকে "বীর" বলা হয়</span></div>
+      <div class="word"><span class="pa">ਸ਼ੁੱਕਰਵਾਰ</span><span class="bn-eq">শুক্রবার</span><span class="trans">śukkravār</span></div>
+      <div class="word"><span class="pa">ਸ਼ਨੀਵਾਰ</span><span class="bn-eq">শনিবার</span><span class="trans">śanīvār</span></div>
+      <div class="word"><span class="pa">ਐਤਵਾਰ</span><span class="bn-eq">রবিবার</span><span class="trans">aitvār</span><span class="note">⚡ "আদিত্যবার" থেকে এসেছে, বাংলায় সেই মূল নেই</span></div>
+    </div>
+
+    <h3><span class="num">৭.৪</span>চলাচল — "আসা/যাওয়া"-র চাকা</h3>
+    <p>বাংলায় আমরা "আসা, যাওয়া, উঠা, নামা, ঢোকা, বেরোনো" দিয়ে দিক বোঝাই। পাঞ্জাবি প্রায় একই ক্রিয়াপদ ব্যবহার করে:</p>
+    <div class="words">
+      <div class="word"><span class="pa">ਆਉਣਾ</span><span class="bn-eq">আসা</span><span class="trans">āuṇā</span></div>
+      <div class="word"><span class="pa">ਜਾਣਾ</span><span class="bn-eq">যাওয়া</span><span class="trans">jāṇā</span></div>
+      <div class="word"><span class="pa">ਚੜ੍ਹਨਾ</span><span class="bn-eq">চড়া / উঠা</span><span class="trans">caṛhnā</span><span class="note">বাংলার "চড়া" — একই ধাতু</span></div>
+      <div class="word"><span class="pa">ਉਤਰਨਾ</span><span class="bn-eq">নামা</span><span class="trans">utarnā</span><span class="note">বাংলার "অবতরণ" — একই সংস্কৃত মূল</span></div>
+      <div class="word"><span class="pa">ਵੜਨਾ</span><span class="bn-eq">ঢোকা / ঢুকা</span><span class="trans">vaṛnā</span></div>
+      <div class="word"><span class="pa">ਨਿਕਲਣਾ</span><span class="bn-eq">বেরোনো / নিকলে</span><span class="trans">nikalṇā</span><span class="note">বাংলায়ও "নিকলে"-ধরণের চলিত রূপ আছে</span></div>
+    </div>
+
+    <h3><span class="num">৭.৫</span>খাদ্য — পাঞ্জাবি সংস্কৃতির হৃদয়</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਦਾਲ</span><span class="bn-eq">ডাল</span><span class="trans">dāl</span></div>
+      <div class="word"><span class="pa">ਚੌਲ</span><span class="bn-eq">চাল / ভাত</span><span class="trans">caul</span></div>
+      <div class="word"><span class="pa">ਸਬਜ਼ੀ</span><span class="bn-eq">সবজি / তরকারি</span><span class="trans">sabzī</span><span class="note">ফার্সি — বাংলায়ও "সবজি" চলে</span></div>
+      <div class="word"><span class="pa">ਲੱਸੀ</span><span class="bn-eq">লস্যি / মাঠা</span><span class="trans">lassī</span><span class="note">পাঞ্জাবের বিশেষ উপহার</span></div>
+      <div class="word"><span class="pa">ਮੱਖਣ</span><span class="bn-eq">মাখন</span><span class="trans">makkhaṇ</span><span class="note">প্রায় হুবহু!</span></div>
+      <div class="word"><span class="pa">ਘਿਓ</span><span class="bn-eq">ঘি</span><span class="trans">ghiō</span></div>
+      <div class="word"><span class="pa">ਪਰਾਂਠਾ</span><span class="bn-eq">পরোটা</span><span class="trans">parāṇṭhā</span></div>
+    </div>
+
+    <div class="aside"><strong>সংস্কৃত সেতু, ফার্সি সেতু।</strong> দুই ভাষারই শব্দভাণ্ডারে তিনটি স্তর: সংস্কৃত-তৎসম (পুস্তক, দিন, সূর্য), প্রাকৃত-তৎভব (ঘর, হাত, দুধ), আর পারসিক-আরবি ঋণ (পসন্দ, কিতাব, জরুরি, সবজি)। এই ত্রিস্তরীয় উত্তরাধিকার — সংস্কৃত-প্রাকৃত + মুঘল শাসন — বাংলা আর পাঞ্জাবির সাধারণ ইতিহাস। পশ্চিম থেকে পূর্ব — দুই প্রান্তে একই ঢেউ।</div>
+  </div>
+</section>
+<section class="stage" data-stage="8" id="stage-08">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · ব্যবহার</div>
+    <h2 class="stage-title">ভদ্রতা, সম্বোধন, নিত্য বাক্য</h2>
+    <p class="stage-lede">ব্যাকরণ ঠিক হলেও ভদ্রতা জানা না থাকলে কথা খটকা লাগে। পাঞ্জাবির সম্বোধন-সংস্কৃতি — "জী" আর "ਵੀਰ"-এর জগৎ।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৮.১</span>অভিবাদন — দিনের শুরু</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</span><span class="bn-eq">নমস্কার / আদাব</span><span class="trans">sat srī akāl</span><span class="note">"সত্য-সুন্দর-অবিনাশী" — শিখ অভিবাদন, মানে "ঈশ্বর কালাতীত সত্য"। সব সময়ের জন্য।</span></div>
+      <div class="word"><span class="pa">ਨਮਸਤੇ / ਨਮਸਕਾਰ</span><span class="bn-eq">নমস্তে / নমস্কার</span><span class="trans">namaste / namaskār</span><span class="note">হিন্দু প্রসঙ্গে</span></div>
+      <div class="word"><span class="pa">ਅੱਸਲਾਮੁ ਅਲੈਕੁਮ</span><span class="bn-eq">আসসালামু আলাইকুম</span><span class="trans">assalāmu alaikum</span><span class="note">মুসলিম প্রসঙ্গে — বাংলায়ও চেনা</span></div>
+      <div class="word"><span class="pa">ਧੰਨਵਾਦ</span><span class="bn-eq">ধন্যবাদ</span><span class="trans">dhannvād</span><span class="note">হুবহু একই শব্দ!</span></div>
+      <div class="word"><span class="pa">ਮਿਹਰਬਾਨੀ</span><span class="bn-eq">মেহেরবানি / দয়া</span><span class="trans">miharbānī</span><span class="note">ফার্সি — বাংলায়ও চলিত</span></div>
+      <div class="word"><span class="pa">ਮਾਫ਼ ਕਰੋ</span><span class="bn-eq">মাফ করুন</span><span class="trans">māf karō</span></div>
+      <div class="word"><span class="pa">ਕਿਰਪਾ ਕਰਕੇ</span><span class="bn-eq">কৃপা করে / দয়া করে</span><span class="trans">kirpā karkē</span><span class="note">সংস্কৃত "কৃপা" থেকে, দুই ভাষাতেই</span></div>
+    </div>
+
+    <h3><span class="num">৮.২</span>"জী" — ভদ্রতার সর্বত্রগামী ঢাল</h3>
+    <p>পাঞ্জাবিতে "জী" (<span class="pa">ਜੀ</span>) যেকোনো নাম/সম্বোধনের পরে বসিয়ে একটি স্বয়ংক্রিয় সম্মান তৈরি হয়। বাংলায়ও "জী/জি" কিছুটা ব্যবহৃত হয় (দাদাজি, মামীজি), কিন্তু পাঞ্জাবিতে এটি দৈনন্দিন সর্বত্র।</p>
+    <div class="sentence">
+      <div class="pa">ਹਾਂ ਜੀ।</div>
+      <div class="trans">hā̃ jī.</div>
+      <div class="bn-gloss">জি হ্যাঁ।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਸੁਣੋ ਜੀ, ਇੱਕ ਗੱਲ ਹੈ।</div>
+      <div class="trans">suṇō jī, ikk gall hai.</div>
+      <div class="bn-gloss">শুনুন জি, একটি কথা আছে।</div>
+    </div>
+
+    <h3><span class="num">৮.৩</span>অপরিচিতকে সম্বোধন — পাঞ্জাবি কৌশল</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਵੀਰ ਜੀ / ਭਾ ਜੀ</span><span class="bn-eq">দাদা / ভাই</span><span class="trans">vīr jī / bhā jī</span><span class="note">অপরিচিত বয়স্ক/সমবয়সী পুরুষকে — বাংলায় যেমন "দাদা"</span></div>
+      <div class="word"><span class="pa">ਭੈਣ ਜੀ</span><span class="bn-eq">দিদি / বোন</span><span class="trans">bhaiṇ jī</span><span class="note">অপরিচিত নারীকে</span></div>
+      <div class="word"><span class="pa">ਅੰਕਲ ਜੀ</span><span class="bn-eq">কাকু / আঙ্কেল</span><span class="trans">ankal jī</span></div>
+      <div class="word"><span class="pa">ਆਂਟੀ ਜੀ</span><span class="bn-eq">মাসিমা / আন্টি</span><span class="trans">āṇṭī jī</span></div>
+    </div>
+
+    <div class="aside"><strong>ভাইবোনে পরিণত করো।</strong> বাংলা আর পাঞ্জাবি দুই সংস্কৃতিতেই অপরিচিতকে আত্মীয়ে পরিণত করার অভ্যাস — "দাদা", "ভাই", "দিদি"। রিকশাচালককে "দাদা" বলার বাংলা অভ্যাস পাঞ্জাবে "ਵੀਰ ਜੀ" হয়ে টিকে আছে। এক মহাদেশের দুই প্রান্তের মিল।</div>
+
+    <h3><span class="num">৮.৪</span>নরম করার শব্দ (<span class="pa">ਜ਼ਰਾ</span>) — বাক্যকে ভদ্র করো</h3>
+    <div class="sentence">
+      <div class="pa">ਜ਼ਰਾ ਪਾਣੀ ਦੇਵੋਗੇ?</div>
+      <div class="trans">zarā pāṇī dēvōgē?</div>
+      <div class="bn-gloss">একটু জল দেবেন?</div>
+      <div class="literal">ਜ਼ਰਾ = "একটু"/"জরা" — বাংলার "একটু"-র ভদ্রতাসূচক সমতুল্য। আদেশকে অনুরোধে বদলে দেয়।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਜ਼ਰਾ ਸੁਣਨਾ, ਕਿੱਥੇ ਜਾ ਰਹੇ ਹੋ?</div>
+      <div class="trans">zarā suṇnā, kitthe jā rahē hō?</div>
+      <div class="bn-gloss">একটু শুনবেন, কোথায় যাচ্ছেন?</div>
+    </div>
+
+    <h3><span class="num">৮.৫</span>খাদ্য-অভিবাদন — "রুটি খেয়েছ?"</h3>
+    <div class="sentence">
+      <div class="pa">ਰੋਟੀ ਖਾਧੀ?</div>
+      <div class="trans">roṭī khādhī?</div>
+      <div class="bn-gloss">ভাত খেয়েছ?</div>
+      <div class="literal">বাংলা "ভাত খেয়েছ?"-র সরাসরি পাঞ্জাবি সংস্করণ। রুটি/ভাত শুধু প্রতীক — আসলে জিজ্ঞাসা "কেমন আছো, সব ঠিক তো?"</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਚਾਹ ਪੀਓ।</div>
+      <div class="trans">cāh pīō.</div>
+      <div class="bn-gloss">চা খান / পান করুন।</div>
+      <div class="literal">অতিথিকে প্রথম বাক্য। বাংলার "চা খাবেন?"-র সমান গুরুত্বের।</div>
+    </div>
+
+    <h3><span class="num">৮.৬</span>বিদায়</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਫਿਰ ਮਿਲਾਂਗੇ</span><span class="bn-eq">আবার দেখা হবে</span><span class="trans">phir milā̃gē</span></div>
+      <div class="word"><span class="pa">ਰੱਬ ਰਾਖਾ</span><span class="bn-eq">ঈশ্বর রক্ষা করুন / খোদা হাফেজ</span><span class="trans">rabb rākhā</span><span class="note">"রব রক্ষক" — মুসলিম "খোদা হাফেজ"-এর শিখ সমতুল্য</span></div>
+      <div class="word"><span class="pa">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</span><span class="bn-eq">নমস্কার (বিদায়েও)</span><span class="trans">sat srī akāl</span><span class="note">হ্যালো-বাই দুটোই</span></div>
+    </div>
+
+    <div class="aside"><strong>দুই সংস্কৃতির ভদ্রতা-পরিমাপ।</strong> বাংলা সম্মান-স্তর তিন: তুই/তুমি/আপনি। পাঞ্জাবি দুই: <span class="pa">ਤੂੰ / ਤੁਸੀਂ</span>। তাই বাংলার "তুমি" ব্যবহারে কেউ কেউ পাঞ্জাবিতে <span class="pa">ਤੁਸੀਂ</span> (ভদ্র) ব্যবহার করে, কেউ <span class="pa">ਤੂੰ</span> (ঘনিষ্ঠ) — সম্পর্কের উষ্ণতা অনুসারে। সন্দেহ হলে সবসময় <span class="pa">ਤੁਸੀਂ</span> — বাংলায় সন্দেহ হলে যেমন "আপনি"। ভদ্রতা বেশি হলে কোনো ক্ষতি নেই।</div>
+  </div>
+</section>
+<section class="stage" data-stage="9" id="stage-09">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · সাহিত্য</div>
+    <h2 class="stage-title">সাহিত্য ও সাংস্কৃতিক স্তর</h2>
+    <p class="stage-lede">একটি ভাষা শেষপর্যন্ত শুধু ব্যবস্থা নয় — একটি জগৎ। পাঞ্জাবির জগৎ সুফি, শিখ গুরু, ভক্তি, দেশভাগের বেদনা, আর মাটির সংগীত দিয়ে গড়া। বাঙালি পাঠকের কাছে এই জগৎ অচেনা নয় — লালন, রবীন্দ্রনাথ, নজরুল, জীবনানন্দ, মহাশ্বেতা এদের কাছাকাছি।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>পাঞ্জাবি সাহিত্য বাংলা সাহিত্যের মতোই বহু-ধর্মীয়, বহু-স্বরে গড়া — হিন্দু-শিখ-মুসলিম তিন ধারার সংগম। লিখিত সাহিত্যের শুরু ষোড়শ শতকের শেষে, গুরু নানকের বাণী দিয়ে — <em>গুরু গ্রন্থ সাহিব</em>-এ যা সংকলিত। তারপর সুফি কবিরা, ব্রিটিশ-যুগের আধুনিক কথাশিল্পীরা, দেশভাগের কলম, এবং উনিশ শতকের শেষ থেকে আধুনিকতার ঢেউ।</p>
+
+    <h3><span class="num">৯.১</span>গুরু নানক — লালন ফকিরের পশ্চিমী সমান্তরাল</h3>
+    <p>পঞ্চদশ শতকের শেষে <strong>গুরু নানক</strong> (<span class="pa">ਗੁਰੂ ਨਾਨਕ</span>, ১৪৬৯–১৫৩৯) জাতপাত, মূর্তিপূজা, মোল্লাতন্ত্র — সব প্রত্যাখ্যান করে সহজ পাঞ্জাবিতে ঈশ্বরের কথা বললেন। "না হিন্দু, না মুসলমান" — এই ঘোষণা বাংলার <strong>লালন ফকিরের</strong> ("সব লোকে কয় লালন কী জাত সংসারে") পূর্ব-সংস্করণ। দুজনই প্রাতিষ্ঠানিক ধর্মকে নিজের গানে বিদ্ধ করেছিলেন, দুজনই নিম্নবর্ণের মুখের ভাষাকে আধ্যাত্মিক ভাষায় পরিণত করেছিলেন।</p>
+
+    <div class="vachana">
+      <div class="pa">ਇੱਕ ਓਂਕਾਰ ਸਤਿ ਨਾਮੁ<br/>ਕਰਤਾ ਪੁਰਖੁ ਨਿਰਭਉ ਨਿਰਵੈਰੁ<br/>ਅਕਾਲ ਮੂਰਤਿ ਅਜੂਨੀ ਸੈਭੰ<br/>ਗੁਰ ਪ੍ਰਸਾਦਿ॥</div>
+      <div class="bn-gloss">এক ওঁকার, সত্য তাঁর নাম,<br/>সৃষ্টিকর্তা, নির্ভয়, নির্বৈর,<br/>কালাতীত, জন্মরহিত, স্বয়ম্ভূ —<br/>গুরুর কৃপায় চেনা যায়।</div>
+      <div class="attrib">— গুরু নানক · মূল মন্ত্র · ষোড়শ শতক</div>
+    </div>
+
+    <h3><span class="num">৯.২</span>বুলে শাহ — পাঞ্জাবের লালন-সমতুল্য সুফি</h3>
+    <p><strong>বুলে শাহ</strong> (<span class="pa">ਬੁੱਲ੍ਹੇ ਸ਼ਾਹ</span>, ১৬৮০–১৭৫৭) ছিলেন সেই সুফি কবি যিনি জাতি-ধর্মের খোঁপা ভেঙে পাঞ্জাবি মুখের ভাষায় "কাফি" লিখেছিলেন। তাঁর "<em>বুল্‌হা কি জানা ম্যায় কৌন</em>" ("আমি জানি না আমি কে") লালনের "<em>খাঁচার ভিতর অচিন পাখি</em>"-র প্রশ্নই অন্য সুরে। দুজনই পরিচয়কে অস্বীকার করে আত্মা-অনুসন্ধানের পথে। তাঁর কাফি আজও পাঞ্জাবি গায়করা গান (আবিদা পারভীন, রব্বি শেরগিল) — ঠিক যেমন লালনগীতি বাংলা লোকসংগীতের প্রাণ।</p>
+
+    <h3><span class="num">৯.৩</span>ওয়ারিস শাহ — "হীর" আর বাংলার "বিদ্যাসুন্দর"</h3>
+    <p><strong>ওয়ারিস শাহ</strong> (<span class="pa">ਵਾਰਸ ਸ਼ਾਹ</span>, ১৭২২–১৭৯৮) তাঁর মহাকাব্য <em>হীর</em>-এ হীর-রাঞ্ঝার প্রেমকাহিনি দিয়ে পাঞ্জাবি সমাজের পুরো মানচিত্র আঁকলেন — গ্রাম, পঞ্চায়েত, মোল্লা, জমিদার, বিয়ের রেশম। ভারতীয় কাব্য-পরম্পরায় এটি <em>রামায়ণ</em>-এর সমান্তরাল কথা। বাংলায় ভারতচন্দ্রের <em>বিদ্যাসুন্দর</em> বা চণ্ডীমঙ্গল কাব্য যেমন সমাজের ঝলক রাখে, <em>হীর</em> তেমন — শুধু আরো গভীর সুফি-প্রেমের টানে।</p>
+
+    <h3><span class="num">৯.৪</span>অমৃতা প্রীতম — দেশভাগের কলম, মহাশ্বেতা দেবীর বোন</h3>
+    <p><strong>অমৃতা প্রীতম</strong> (<span class="pa">ਅੰਮ੍ਰਿਤਾ ਪ੍ਰੀਤਮ</span>, ১৯১৯–২০০৫) পাঞ্জাবির প্রথম বড় মহিলা কবি ও ঔপন্যাসিক। তাঁর <em>পিঞ্জর</em> (খাঁচা) উপন্যাস দেশভাগে অপহৃত নারীদের বেদনা বর্ণনা করে — পাঞ্জাবি সাহিত্যের অন্যতম বেদনামূলক দলিল। বাংলায় <strong>মহাশ্বেতা দেবীর</strong> আদিবাসী-শোষিত মেয়েদের কথা যেমন সাহিত্যকে সমাজতাত্ত্বিক বিবেক দিয়েছে, অমৃতা প্রীতম দেশভাগের স্মৃতিকে সেই একই রকম নৈতিক জোরে লিপিবদ্ধ করেছেন। তাঁর কবিতা "<em>আজ আঁখাঁ ওয়ারিস শাহ নূঁ</em>" ("আজ আমি ওয়ারিস শাহকে ডাকছি") দেশভাগের সবচেয়ে মর্মস্পর্শী কবিতাগুলোর একটি।</p>
+
+    <h3><span class="num">৯.৫</span>শিব কুমার বটালবি — পাঞ্জাবির জীবনানন্দ</h3>
+    <p><strong>শিব কুমার বটালবি</strong> (<span class="pa">ਸ਼ਿਵ ਕੁਮਾਰ ਬਟਾਲਵੀ</span>, ১৯৩৬–১৯৭৩) মাত্র ৩৭ বছরের জীবনে পাঞ্জাবি কবিতাকে এমন এক বিষাদ-সুর দিয়েছিলেন যা পাঞ্জাবের সাহিত্যে আগে ছিল না। তাঁর কাব্যনাটক <em>লূণাঁ</em> ("লবণ", পূরন ভগতের সতমা মা) তাঁকে কণিষ্ঠতম সাহিত্য অকাদেমি পুরস্কার এনে দেয়। তিনি অল্পবয়সেই পান করে মারা যান। বাংলায় <strong>জীবনানন্দ দাশের</strong> মতো ভাষার ভেতরের বিষণ্ণ-সংগীত — "রূপসী বাংলা" যেমন পাখির ডাক, বটালবির কবিতাও তেমন একধরনের আজীবন বিরহ।</p>
+
+    <h3><span class="num">৯.৬</span>গুরদিয়াল সিংহ — বিভূতিভূষণের মাটির কাছাকাছি</h3>
+    <p><strong>গুরদিয়াল সিংহ</strong> (<span class="pa">ਗੁਰਦਿਆਲ ਸਿੰਘ</span>, ১৯৩৩–২০১৬), জ্ঞানপীঠ-প্রাপ্ত ঔপন্যাসিক, <em>মাড়হী দা দীবা</em>-য় (প্রদীপ-জ্বলা কবর) পাঞ্জাবি গ্রামজীবনকে মাটির গন্ধের সঙ্গে লিখেছেন। বাংলায় <strong>বিভূতিভূষণের</strong> আরণ্যকের মতো — ছোট মানুষের বড় জীবন। দুজনই নগর-কেন্দ্রিক সাহিত্যের বাইরে মাটি থেকে উঠে আসা কণ্ঠ।</p>
+
+    <h3><span class="num">৯.৭</span>কাজী নজরুল — একটি পাঞ্জাবি-বাঙালি সেতু</h3>
+    <p>আলাদা করে উল্লেখের দাবি রাখেন <strong>কাজী নজরুল ইসলাম</strong>। তাঁর "বিদ্রোহী" কবিতায় ফার্সি-আরবি-সংস্কৃত যে রকম সহাবস্থান, পাঞ্জাবি কবিতাতেও সেই একই ত্রিস্তরীয় মিশ্রণ — বুলে শাহ, বাবা ফরিদ, গুরু নানক তিনজন মিলে একই ভাষায় লিখেছেন। নজরুল পাঞ্জাবি ভাষায় লেখেননি, কিন্তু পাঞ্জাবি সাহিত্যের মিশ্র আত্মাকে বাংলায় অনুবাদ করে বসেছিলেন।</p>
+
+    <div class="aside"><strong>দুই প্রান্ত, একই ঢেউ।</strong> বাংলা আর পাঞ্জাবি — দুটোই বিভক্ত ভাষা। বাংলা ১৯৪৭-এ পূর্ব-পশ্চিমে ভাঙল, পাঞ্জাবিও ঠিক তখনই। দুই ভাষার সাহিত্যই দেশভাগের অবিচ্ছিন্ন রক্তের দাগ বহন করে — অমৃতা প্রীতম আর জসীমউদ্দীন, সাদাত হাসান মান্টো আর মানিক বন্দ্যোপাধ্যায়। দুই ভাষাতেই "হারানো গ্রাম" এক বিশাল সাহিত্য-বিষয়।</div>
+
+    <h3><span class="num">৯.৮</span>এবার কোথায়</h3>
+    <ul class="clean">
+      <li><strong>অমৃতা প্রীতমের <em>পিঞ্জর</em></strong> — বাংলা অনুবাদ বের হয়েছে, পড়ো। চলচ্চিত্রও আছে।</li>
+      <li><strong>রব্বি শেরগিলের গান</strong> — <em>বুল্‌হা কি জানা</em> শুনে দেখো। গানের কথা বুলে শাহের কাফি।</li>
+      <li><strong>শিব কুমার বটালবির <em>লূণাঁ</em></strong> পাঞ্জাবি মূল পড়ার চেষ্টা করো — উচ্চারণ সহজ, কবিতা গভীর।</li>
+      <li><strong>গুরু গ্রন্থ সাহিবের</strong> কিছু পদ পাঞ্জাবি আর গুরুমুখীতে শোনো/পড়ো। ভাষার আদি ছন্দ ধরা পড়বে।</li>
+      <li>প্রতিদিন একটি পাঞ্জাবি সংবাদপত্রের শিরোনাম পড়ো (ਅਜੀਤ, ਜਗਬਾਣੀ)। দশটি ধাপে যা শিখেছ সব compound interest দিতে শুরু করবে।</li>
+    </ul>
+
+    <div class="aside">
+      <strong>শেষ কথা।</strong> তোমার হাতে এখন পুরো যন্ত্রটা আছে। অক্ষর, তাদের মেলানোর নিয়ম, শব্দ যা ব্যাকরণ দেখায়, বাক্যের কঙ্কাল, ব্যবহারের তেল, আর সাহিত্যের দরজা। বিদ্যাসাগরের প্রতিশ্রুতি সত্য: ধীরে শুরু, পরে compound interest। পড়তে থাকো। <span class="pa">ਵਾਹਿਗੁਰੂ ਜੀ ਕਾ ਖਾਲਸਾ, ਵਾਹਿਗੁਰੂ ਜੀ ਕੀ ਫਤਹਿ</span> — বা সহজ ভাষায়, <span class="pa">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</span> — শুভ হোক।
+    </div>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn" disabled>← আগে</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">পরে →</button>
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="pa">ਪੰਜਾਬੀ ਸਿੱਖੀਏ</span>
+    বিদ্যাসাগরের পদ্ধতিতে একটি প্রাইমার · যত্নে তৈরি · ২০২৬<br/>
+    একসাথে একটিই অজানা · রূপ আগে অর্থ পরে · তালিকা নয় ব্যবস্থা<br/>
+    <span style="display:inline-block;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sindoor);">made by Nil <span class="sep">·</span> using Claude</span>
+  </div>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.stage-tab');
+  const sections = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const scrollWrap = document.getElementById('stageScroll');
+  const total = sections.length;
+  let current = 0;
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function show(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+    sections.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.toggle('done', i < current);
+      d.classList.toggle('current', i === current);
+    });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    nextBtn.textContent = current === total - 1 ? 'শেষ' : 'পরে →';
+
+    const activeTab = tabs[current];
+    if (activeTab && scrollWrap) {
+      const tabLeft = activeTab.offsetLeft;
+      const tabWidth = activeTab.offsetWidth;
+      const wrapWidth = scrollWrap.clientWidth;
+      scrollWrap.scrollTo({ left: tabLeft - wrapWidth / 2 + tabWidth / 2, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+  });
+
+  document.querySelectorAll('.map-cell').forEach(card => {
+    const hint = card.querySelector('.hint');
+    const hintText = card.dataset.hint;
+    if (hintText && hint && !hint.textContent) hint.textContent = hintText;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+      }
+    });
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>BHASHASETU — ভাষাসেতু · भाषासेतु</title>
+<meta name="description" content="Learn a sister Indian language from a language you already know. Eight languages, 56 bridges."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Gurmukhi:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --rule:rgba(28,22,17,0.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{background:var(--paper)}
+body{
+  font-family:'Fraunces',serif;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse 1200px 600px at 20% 0%, rgba(184,128,45,0.08), transparent 60%),
+    radial-gradient(ellipse 1000px 500px at 80% 100%, rgba(168,48,36,0.07), transparent 60%),
+    var(--paper);
+  min-height:100vh;
+  position:relative;
+  line-height:1.5;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.wrap{position:relative; z-index:1; max-width:960px; margin:0 auto; padding:48px 24px 80px}
+header{text-align:center; margin-bottom:40px}
+.brand{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:clamp(36px, 6vw, 64px);
+  letter-spacing:0.02em;
+  line-height:1.05;
+  margin:0 0 10px;
+  color:var(--ink);
+}
+.brand em{font-style:italic; color:var(--sindoor)}
+.native{
+  font-size:clamp(18px, 2.6vw, 26px);
+  color:var(--ink-faded);
+  margin:0 0 22px;
+  font-family:'Fraunces',serif;
+  font-style:italic;
+}
+.native .bn{font-family:'Noto Serif Bengali',serif; font-style:normal; margin:0 6px}
+.native .hi{font-family:'Noto Serif Devanagari',serif; font-style:normal; margin:0 6px}
+.native .ta{font-family:'Noto Serif Tamil',serif; font-style:normal; margin:0 6px}
+.native .kn{font-family:'Noto Serif Kannada',serif; font-style:normal; margin:0 6px}
+.native .te{font-family:'Noto Serif Telugu',serif; font-style:normal; margin:0 6px}
+.native .ml{font-family:'Noto Serif Malayalam',serif; font-style:normal; margin:0 6px}
+.native .pa{font-family:'Noto Serif Gurmukhi',serif; font-style:normal; margin:0 6px}
+.native .ur{font-family:'Noto Nastaliq Urdu',serif; font-style:normal; margin:0 6px; direction:rtl; unicode-bidi:isolate}
+.tagline{
+  font-size:clamp(15px, 1.9vw, 19px);
+  color:var(--ink-soft);
+  max-width:580px;
+  margin:0 auto;
+}
+.step{
+  background:var(--paper-warm);
+  border:1px solid var(--rule);
+  border-radius:10px;
+  padding:26px 24px;
+  margin:28px 0;
+  box-shadow:0 1px 0 rgba(255,255,255,0.6) inset, 0 2px 8px rgba(28,22,17,0.04);
+}
+.step-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--sindoor);
+  margin-bottom:8px;
+}
+.step h2{
+  font-family:'Fraunces',serif;
+  font-weight:500;
+  font-size:clamp(20px, 2.6vw, 26px);
+  margin:0 0 18px;
+  color:var(--ink);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
+  gap:12px;
+}
+.lang{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  padding:14px 16px;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:8px;
+  cursor:pointer;
+  transition:transform 0.08s ease, border-color 0.15s, background 0.15s;
+  font:inherit;
+  color:inherit;
+  text-align:left;
+  font-family:'Fraunces',serif;
+}
+.lang:hover{border-color:var(--ochre); background:var(--paper-deep)}
+.lang:active{transform:translateY(1px)}
+.lang.selected{
+  border-color:var(--sindoor);
+  background:#FBF4E3;
+  box-shadow:0 0 0 2px rgba(168,48,36,0.15);
+}
+.lang.disabled{
+  opacity:0.38;
+  cursor:not-allowed;
+  pointer-events:none;
+}
+.lang-native{
+  font-size:22px;
+  line-height:1.1;
+  margin-bottom:4px;
+  color:var(--ink);
+}
+.lang-native.bn{font-family:'Noto Serif Bengali',serif}
+.lang-native.hi{font-family:'Noto Serif Devanagari',serif}
+.lang-native.ta{font-family:'Noto Serif Tamil',serif}
+.lang-native.kn{font-family:'Noto Serif Kannada',serif}
+.lang-native.te{font-family:'Noto Serif Telugu',serif}
+.lang-native.ml{font-family:'Noto Serif Malayalam',serif}
+.lang-native.pa{font-family:'Noto Serif Gurmukhi',serif}
+.lang-native.ur{font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate}
+.lang-en{
+  font-size:13px;
+  color:var(--ink-faded);
+  font-family:'JetBrains Mono',monospace;
+  letter-spacing:0.02em;
+}
+.soon{
+  font-size:10px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--ochre);
+  margin-top:4px;
+  font-family:'JetBrains Mono',monospace;
+}
+#step-target{display:none}
+#step-target.active{display:block}
+.back{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:none;
+  border:none;
+  font:inherit;
+  color:var(--sindoor);
+  cursor:pointer;
+  padding:0;
+  margin-bottom:14px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+}
+.back:hover{text-decoration:underline}
+.selected-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:5px 12px;
+  background:var(--paper-deep);
+  border:1px solid var(--rule);
+  border-radius:100px;
+  font-size:13px;
+  color:var(--ink-soft);
+  margin-left:10px;
+  font-family:'JetBrains Mono',monospace;
+}
+.about{
+  margin-top:40px;
+  padding:24px;
+  border-top:1px solid var(--rule);
+  color:var(--ink-soft);
+  font-size:15px;
+  line-height:1.65;
+}
+.about p{margin:0 0 12px}
+.about p:last-child{margin-bottom:0}
+footer{
+  margin-top:60px;
+  padding-top:24px;
+  border-top:1px solid var(--rule);
+  text-align:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--sindoor);
+}
+@media (max-width:480px){
+  .wrap{padding:28px 16px 60px}
+  .step{padding:20px 16px}
+  .grid{grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:10px}
+  .lang{padding:12px 14px}
+  .lang-native{font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1 class="brand">BHASHASETU <em>— a bridge between languages</em></h1>
+  <p class="native">
+    <span class="bn">ভাষাসেতু</span>·<span class="hi">भाषासेतु</span>·<span class="ta">மொழிப்பாலம்</span>·<span class="kn">ಭಾಷಾಸೇತು</span>·<span class="te">భాషాసేతు</span>·<span class="ml">ഭാഷാസേതു</span>·<span class="pa">ਭਾਸ਼ਾ ਪੁਲ</span>·<span class="ur">زبان کا پل</span>
+  </p>
+  <p class="tagline">Learn a sister Indian language from one you already know. Eight languages, fifty-six bridges. No English in the learning path — just the two scripts, side by side.</p>
+</header>
+
+<section id="step-source" class="step">
+  <div class="step-label">Step 01</div>
+  <h2>Which language do you already know?</h2>
+  <div id="source-grid" class="grid"></div>
+</section>
+
+<section id="step-target" class="step">
+  <div class="step-label">Step 02</div>
+  <h2>What would you like to learn?<span id="source-pill" class="selected-pill"></span></h2>
+  <button class="back" id="back-btn" type="button">← change</button>
+  <div id="target-grid" class="grid"></div>
+</section>
+
+<div class="about">
+  <p>Each course is a single self-contained page — ten stages from vowels to literature, with the source language as the only metalanguage. No English tab labels, no Roman-only transliteration crutches. Just the letters, the words, and the bridges between two families of thought.</p>
+  <p>The courses follow a hand-crafted Bengali→Kannada reference: vowel families, consonant grids with “you already know this” notes, aside boxes with pair-specific insights, and literary bridges from writers you know to writers you don’t yet.</p>
+</div>
+
+<footer>made by Nil · using Claude</footer>
+
+</div>
+
+<script>
+const LANGS = [
+  {code:'bengali',   native:'বাংলা',    en:'Bengali',   cls:'bn'},
+  {code:'hindi',     native:'हिन्दी',    en:'Hindi',     cls:'hi'},
+  {code:'tamil',     native:'தமிழ்',    en:'Tamil',     cls:'ta'},
+  {code:'telugu',    native:'తెలుగు',    en:'Telugu',    cls:'te'},
+  {code:'kannada',   native:'ಕನ್ನಡ',    en:'Kannada',   cls:'kn'},
+  {code:'malayalam', native:'മലയാളം',   en:'Malayalam', cls:'ml'},
+  {code:'punjabi',   native:'ਪੰਜਾਬੀ',    en:'Punjabi',   cls:'pa'},
+  {code:'urdu',      native:'اُردُو',    en:'Urdu',      cls:'ur'},
+];
+
+const AVAILABLE = new Set([
+  'bengali_to_hindi',
+  'bengali_to_kannada',
+  'bengali_to_malayalam',
+  'bengali_to_punjabi',
+  'bengali_to_tamil',
+  'bengali_to_telugu',
+  'bengali_to_urdu',
+  'hindi_to_bengali',
+]);
+
+const sourceGrid = document.getElementById('source-grid');
+const targetGrid = document.getElementById('target-grid');
+const stepTarget = document.getElementById('step-target');
+const stepSource = document.getElementById('step-source');
+const sourcePill = document.getElementById('source-pill');
+const backBtn = document.getElementById('back-btn');
+
+let selectedSource = null;
+
+function makeCard(lang, opts={}){
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'lang';
+  if(opts.disabled) btn.classList.add('disabled');
+  btn.innerHTML = `
+    <span class="lang-native ${lang.cls}">${lang.native}</span>
+    <span class="lang-en">${lang.en}</span>
+    ${opts.soon ? '<span class="soon">coming soon</span>' : ''}
+  `;
+  return btn;
+}
+
+function renderSources(){
+  sourceGrid.innerHTML = '';
+  LANGS.forEach(src => {
+    const hasAny = LANGS.some(t => t.code !== src.code && AVAILABLE.has(`${src.code}_to_${t.code}`));
+    const card = makeCard(src, { soon: !hasAny, disabled: false });
+    card.addEventListener('click', () => pickSource(src));
+    sourceGrid.appendChild(card);
+  });
+}
+
+function pickSource(src){
+  selectedSource = src;
+  sourcePill.innerHTML = `<span class="lang-native ${src.cls}" style="font-size:15px">${src.native}</span> <span style="color:var(--ink-faded)">${src.en}</span>`;
+  stepSource.style.display = 'none';
+  stepTarget.classList.add('active');
+  renderTargets();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function renderTargets(){
+  targetGrid.innerHTML = '';
+  LANGS.filter(t => t.code !== selectedSource.code).forEach(t => {
+    const pair = `${selectedSource.code}_to_${t.code}`;
+    const available = AVAILABLE.has(pair);
+    const card = makeCard(t, { soon: !available, disabled: !available });
+    if(available){
+      card.addEventListener('click', () => {
+        window.location.href = `courses/${pair}.html`;
+      });
+    }
+    targetGrid.appendChild(card);
+  });
+}
+
+backBtn.addEventListener('click', () => {
+  stepTarget.classList.remove('active');
+  stepSource.style.display = '';
+  selectedSource = null;
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+renderSources();
+</script>
+</body>
+</html>

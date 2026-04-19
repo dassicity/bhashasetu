@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="বাংলা থেকে উর্দু শেখার প্রথম-নীতি পাঠ্যক্রম — বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে।" />
+<title>اردو سیکھیں — বাংলা থেকে উর্দু</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Bengali', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .ur { font-family: 'Noto Nastaliq Urdu', 'Noto Naskh Arabic', serif; direction: rtl; unicode-bidi: isolate; line-height: 2.2; }
+  .bn { font-family: 'Noto Serif Bengali', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  /* masthead */
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .ur { font-weight: 500; display: block; font-size: 0.7em; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.8; }
+  .subtitle {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  /* nav */
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  /* stages */
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  /* map grid */
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .bn-g {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .ur-g {
+    font-family: 'Noto Nastaliq Urdu', 'Noto Naskh Arabic', serif;
+    direction: rtl;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 6px; }
+  .map-cell.flag::after {
+    content: "⚡";
+    position: absolute;
+    top: 4px; right: 6px;
+    font-size: 11px;
+    color: var(--sindoor);
+  }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  /* word card */
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .ur { font-size: 24px; font-weight: 500; line-height: 1.6; text-align: right; }
+  .word .bn-eq { font-family: 'Noto Serif Bengali', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+  .word .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 6px;
+    background: rgba(31, 77, 74, 0.12);
+    color: var(--teal);
+    border-radius: 2px;
+    margin-right: 6px;
+    letter-spacing: 0.05em;
+  }
+  .word .tag.ps { background: rgba(168, 48, 36, 0.12); color: var(--sindoor); }
+  .word .tag.ts { background: rgba(184, 128, 45, 0.15); color: var(--ochre); }
+
+  /* sentence */
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .ur { font-size: 24px; line-height: 2; margin-bottom: 8px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  /* conjugation */
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Bengali', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .ur { font-size: 20px; font-weight: 500; text-align: right; }
+  .conjug-row .bn-eq { font-family: 'Noto Serif Bengali', serif; font-size: 15px; color: var(--ink-soft); }
+
+  /* composition table */
+  .comp-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.comp { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.comp th, table.comp td { border: 1px solid var(--rule); padding: 10px 8px; text-align: center; font-size: 15px; }
+  table.comp th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.comp .bn-g { font-family: 'Noto Serif Bengali', serif; font-size: 20px; color: var(--ink-faded); }
+  table.comp .ur-g { font-family: 'Noto Nastaliq Urdu', 'Noto Naskh Arabic', serif; direction: rtl; font-size: 24px; line-height: 1.8; color: var(--ink); }
+  table.comp .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+
+  /* sher (couplet) box */
+  .sher {
+    margin: 24px 0;
+    padding: 22px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .sher::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .sher .ur { font-size: 22px; line-height: 2.4; font-weight: 500; margin-bottom: 14px; text-align: right; }
+  .sher .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 8px; }
+  .sher .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .sher .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* aside */
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  /* principles */
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, bengali);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  /* reading passage */
+  .passage {
+    margin: 22px 0;
+    padding: 20px 22px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .passage-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--sindoor);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .passage .ur { font-size: 22px; line-height: 2.4; margin-bottom: 14px; text-align: right; }
+  .passage .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 10px; line-height: 1.7; }
+  .passage .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; color: var(--ink-soft); line-height: 1.75; }
+
+  /* literature card */
+  .lit-card {
+    margin: 18px 0;
+    padding: 18px 20px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--sindoor);
+    border-radius: 2px;
+  }
+  .lit-card .name-ur { font-family: 'Noto Nastaliq Urdu', 'Noto Naskh Arabic', serif; direction: rtl; font-size: 22px; font-weight: 500; line-height: 1.8; }
+  .lit-card .name-bn { font-family: 'Noto Serif Bengali', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-top: 4px; }
+  .lit-card .years { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ochre); letter-spacing: 0.08em; margin-bottom: 8px; }
+  .lit-card .desc { font-size: 15px; color: var(--ink-soft); margin-bottom: 8px; }
+  .lit-card .bridge {
+    font-size: 14px;
+    color: var(--teal);
+    padding: 8px 12px;
+    background: rgba(31, 77, 74, 0.08);
+    border-radius: 2px;
+    font-style: italic;
+  }
+  .lit-card .bridge strong { color: var(--sindoor); font-style: normal; }
+
+  /* video */
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Bengali', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  /* progress */
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .ur { font-size: 20px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; line-height: 2; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 100px; padding: 8px 4px 6px; }
+    .map-cell .ur-g { font-size: 26px; }
+    .map-cell .bn-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .bn-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 400px) {
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+    .wrap { padding: 0 14px; }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">একটি প্রাইমার · ابتدائی کتاب</div>
+    <h1 class="title">
+      <span class="ur">اردو سیکھیں</span>
+      বাংলা থেকে উর্দু শিখুন
+    </h1>
+    <p class="subtitle">বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে — একসাথে একটাই অজানা জিনিস, রূপ আগে অর্থ পরে, তালিকা নয় ব্যবস্থা — বাংলা যা জানে তার ওপর দাঁড়িয়ে উর্দু।</p>
+    <div class="byline">দশটি ধাপ <span class="sep">·</span> মোবাইল-বান্ধব <span class="sep">·</span> সম্পূর্ণ শূন্য থেকে</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">০০</span>ভূমিকা</button>
+    <button class="stage-tab" data-stage="1"><span class="num">০১</span>স্বরবর্ণ</button>
+    <button class="stage-tab" data-stage="2"><span class="num">০২</span>ব্যঞ্জনবর্ণ</button>
+    <button class="stage-tab" data-stage="3"><span class="num">০৩</span>সংযোজনা</button>
+    <button class="stage-tab" data-stage="4"><span class="num">০৪</span>মূল শব্দ</button>
+    <button class="stage-tab" data-stage="5"><span class="num">০৫</span>বাক্য</button>
+    <button class="stage-tab" data-stage="6"><span class="num">০৬</span>পাঠ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">০৭</span>শব্দক্ষেত্র</button>
+    <button class="stage-tab" data-stage="8"><span class="num">০৮</span>ব্যবহার</button>
+    <button class="stage-tab" data-stage="9"><span class="num">০৯</span>সাহিত্য</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<!-- STAGE 0 -->
+<section class="stage active" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · ভূমিকা</div>
+    <h2 class="stage-title">এই পাঠ কেন আলাদা</h2>
+    <p class="stage-lede">তুমি বাংলা জানো। তার মানে উর্দু শেখার জন্য তোমাকে ইংরেজি-ভাষীদের মতো শূন্য থেকে শুরু করতে হবে না — তুমি ৮০%-এর বেশি ধ্বনি, ব্যাকরণের প্রায় গোটা কঙ্কাল, আর শব্দভাণ্ডারের এক বিরাট অংশ ইতিমধ্যেই চেনো। নতুন মূলত একটাই — লিপি।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>বিদ্যাসাগরের <strong>বর্ণপরিচয়</strong> তোমার শৈশবের বই। সেই বইয়ের মূল নীতি ছিল: <em>একসাথে একটিই অজানা জিনিস</em>, আর যা শেখানো হয়নি তা দিয়ে কোনো উদাহরণ দেওয়া হবে না। এই পাঠ্যক্রমটি সেই একই পদ্ধতি ব্যবহার করে, কিন্তু একটি বিশাল সুবিধা সহ: বাংলা আর উর্দু একই ইন্দো-আর্য পরিবারের, একই সংস্কৃত–প্রাকৃত শিকড় থেকে গজানো, একই উপমহাদেশে পাশাপাশি বেড়ে ওঠা দুই বোন।</p>
+
+    <p>লক্ষ্য করো: বাংলায় তুমি বলো <strong>"আমি বই পড়ি"</strong> — উর্দুতে <span class="ur">میں کتاب پڑھتا ہوں</span> (<em>ম্যায়ঁ কিতাব পড়্‌হ্‌তা হুঁ</em>) — <em>আমি / বই / পড়ি</em>। শব্দের ক্রম এক পয়সাও বদলায়নি। "কিতাব" শব্দটি তুমি বাংলাতেও বলো। ক্রিয়া বাক্যের শেষে — বাংলার মতোই। এই একটি বাক্যই বলে দেয়, উর্দু তোমার কাছে বিদেশি ভাষা নয়, শুধু বিদেশি লিপি।</p>
+
+    <p>ধ্বনিগত মিলও অসাধারণ: উর্দুর ৪৬টি মূল ধ্বনির মধ্যে ৩৮টি তোমার মুখ আগে থেকেই জানে — ক-খ-গ-ঘ, চ-ছ-জ, ট-ঠ-ড-ঢ, প-ফ-ব-ভ সব হুবহু আছে। নতুন মাত্র আটটি ধ্বনি: <span class="ur">ق</span> (কাফ), <span class="ur">خ</span> (খে), <span class="ur">غ</span> (গেইন), <span class="ur">ز</span> (জে), <span class="ur">ف</span> (ফে), ও আরও কয়েকটি — সবই ফার্সি-আরবি ঋণ। আর তুমি জানলে অবাক হবে, এই আটটির কয়েকটি তুমি <em>ইতিমধ্যেই</em> বলো — "খবর", "গরিব", "জমি", "ফকির" — উর্দুর সেই ধ্বনিগুলোই।</p>
+
+    <h3><span class="num">¶</span>বাংলা → উর্দু: কোথায় মিল, কোথায় ফারাক</h3>
+
+    <ol class="principles">
+      <li><strong>ধ্বনি — প্রায় পুরোটাই এক।</strong> বর্গীয় ব্যঞ্জন — ক-খ-গ-ঘ, ট-ঠ-ড-ঢ, ত-থ-দ-ধ, প-ফ-ব-ভ — সব উর্দুতে আছে। <span class="ur">ک خ گ</span> ... তুমি এই ধ্বনিগুলো প্রথম দিন থেকেই বলতে পারবে, শুধু লিপির রূপ নতুন। মহাপ্রাণ/অল্পপ্রাণ, ঘোষ/অঘোষ — তোমার গলা এই ভেদ জানে।</li>
+      <li><strong>লিপি — এখানেই আসল ধাক্কা।</strong> বাংলা বাঁদিক থেকে ডানদিক, উর্দু ডান থেকে বাঁ। বাংলা অবুগিদা (স্বর ব্যঞ্জনে বসে), উর্দু অ্যাবজাদ (স্বর প্রায়ই লেখাই হয় না)। "কিতাব" শব্দে বাংলা তিনটে স্বর লেখে (কি-তা-ব), উর্দু মাত্র একটা — <span class="ur">کتاب</span> (ক্‌-ত্‌-আ-ব্‌)। পাঠক স্বর অনুমান করে।</li>
+      <li><strong>ব্যাকরণের কঙ্কাল — একদম এক।</strong> দুটোই SOV (আমি ভাত খাই = <span class="ur">میں چاول کھاتا ہوں</span>)। দুটোই পরসর্গ (postposition) ভাষা — বাংলা "-কে, -তে, -থেকে", উর্দু "-کو, -میں, -سے" — ধারণা এক, শুধু চেহারা আলাদা।</li>
+      <li><strong>শব্দভাণ্ডার — প্রায় ৭২% ওভারল্যাপ।</strong> তৎসম (সংস্কৃতজাত), তদ্ভব, এবং ফার্সি-আরবি ঋণ — তিনটেই দুই ভাষায় একই। <span class="ur">کتاب</span> = কিতাব (বই), <span class="ur">وقت</span> = ওয়াক্‌ত (সময়), <span class="ur">خبر</span> = খবর, <span class="ur">دل</span> = দিল — বাংলা কবিতায় এই শব্দগুলো জীবনানন্দ-নজরুলের লেখায় রোজ দেখো।</li>
+      <li><strong>নতুন ধারণা — লিঙ্গ।</strong> বাংলায় ক্রিয়ায় লিঙ্গভেদ নেই — "আমি যাই" পুরুষ-স্ত্রী দুজনেই বলে। উর্দু বলবে পুরুষে <span class="ur">میں جاتا ہوں</span> (ম্যায়ঁ জাতা হুঁ), নারীতে <span class="ur">میں جاتی ہوں</span> (ম্যায়ঁ জাতি হুঁ)। এই একটা জায়গায় তোমাকে সতর্ক থাকতে হবে।</li>
+      <li><strong>সম্মান-স্তর — তিন ধাপ, ঠিক বাংলার মতো।</strong> তুই/তুমি/আপনি ↔ <span class="ur">تو / تم / آپ</span> (তূ/তুম/আপ)। তুই = অন্তরঙ্গ/অসম্মান, তুম = সমবয়সী/বন্ধু, আপ = সম্মান। বাংলাভাষী মুহূর্তে বুঝে ফেলবে কখন কোনটা।</li>
+    </ol>
+
+    <div class="aside"><strong>পদ্ধতি।</strong> প্রতিটি ধাপে উর্দু অক্ষর/শব্দ/বাক্যের পাশে বাংলা সমতুল্য রাখা হয়েছে। তুমি বাংলা চিনলে, উর্দু শুধু নতুন লিখন — নতুন ধারণা নয়। উর্দু লেখা সবসময় ডানদিক থেকে বাঁদিকে — মনে রাখো, আরবি সংখ্যা "৫৪৭" যেমন বাংলায়ও ডান-থেকে-বাঁ ভাবে পড়া হয় (পাঁচশো সাতচল্লিশ, অর্থাৎ একক আগে পড়া হয় ভাষায়), উর্দু অক্ষরও সেরকম।</div>
+
+    <div class="aside"><strong>নজরুলের সেতু।</strong> কাজী নজরুল ইসলাম বাংলা কবিতায় যত ফার্সি-আরবি শব্দ এনেছেন — "খেয়াপারের তরণী", "শাত-ইল-আরব", "গুলিস্তান" — তার প্রতিটি আসলে উর্দুর শব্দভাণ্ডার। নজরুল পড়ে বড় হওয়া বাঙালি উর্দুর অর্ধেক অভিধান বিনা শ্রমে জানে।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ওপরে <strong>স্বরবর্ণ</strong> ট্যাবে চাপো, শুরু করো।</p>
+  </div>
+</section>
+
+<!-- STAGE 1 -->
+<section class="stage" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ধ্বনি</div>
+    <h2 class="stage-title">স্বরবর্ণ — <span class="ur">حروفِ علت</span></h2>
+    <p class="stage-lede">উর্দু লিপি আসলে আরবি-ফার্সি বর্ণমালা। এখানে স্বর আলাদা অক্ষর নয় — ব্যঞ্জনের সাথে ছোট চিহ্ন (হারকাত) হিসেবে বসে, অথবা "বাহক" অক্ষর <span class="ur">ا</span> (আলিফ), <span class="ur">و</span> (ওয়াও), <span class="ur">ی</span> (ইয়ে)-র সাহায্যে লেখা হয়। বাংলার ১১টি স্বর এখানে মাত্র ১০টি চিহ্ন/যুগ্মে ধরা পড়ে।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+urdu+alphabets+vowels+pronunciation" title="উর্দু স্বরবর্ণ উচ্চারণ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">উর্দু স্বরের উচ্চারণ <a href="https://www.youtube.com/results?search_query=learn+urdu+alphabets+vowels+pronunciation" target="_blank" rel="noopener">আরও খুঁজুন ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>পড়ার নিয়ম।</strong> প্রতিটি কার্ডে ট্যাপ করলে একটি উদাহরণ শব্দ দেখাবে। বাংলা অক্ষরটি ওপরে, উর্দু নিচে (ডান থেকে বাঁ পড়ো) — চোখ বাংলা চিনবে, তারপর উর্দু রূপটি স্মৃতিতে বসবে। উর্দুতে "হারকাত" (ছোট স্বরচিহ্ন) প্রায়ই লেখাই হয় না — পাঠক প্রসঙ্গ থেকে বুঝে নেয়। এই কারণে উর্দু পড়তে <em>ভাষা জানা</em> দরকার; শুধু লিপি জানলে হয় না।</div>
+
+    <div class="group-label">হ্রস্ব / দীর্ঘ জোড়া — 'অ' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="اَب (ab) = এখন। হারকাত ‘জবর’ (ফাতহা) = অ-ধ্বনি।"><div class="bn-g">অ</div><div class="arrow">↓</div><div class="ur-g">اَ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="آم (ām) = আম — বাংলার ‘আম’-ই!"><div class="bn-g">আ</div><div class="arrow">↓</div><div class="ur-g">آ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ই' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="اِس (is) = এই। ‘জের’ (কসরা) হারকাতে হ্রস্ব ই।"><div class="bn-g">ই</div><div class="arrow">↓</div><div class="ur-g">اِ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ایمان (īmān) = ঈমান — বিশ্বাস।"><div class="bn-g">ঈ</div><div class="arrow">↓</div><div class="ur-g">ای</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'উ' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="اُس (us) = ওই/সে। ‘পেশ’ (দম্মা) হারকাতে হ্রস্ব উ।"><div class="bn-g">উ</div><div class="arrow">↓</div><div class="ur-g">اُ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="اون (ūn) = উন (পশম)। و-কে ‘ওয়াও’ বলে।"><div class="bn-g">ঊ</div><div class="arrow">↓</div><div class="ur-g">او</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'এ' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ایک (ek) = এক — সংখ্যা এক।"><div class="bn-g">এ</div><div class="arrow">↓</div><div class="ur-g">ے</div><div class="label">e</div><div class="hint"></div></div>
+      <div class="map-cell flag" tabindex="0" data-hint="ہَے (hai) = ‘আছে’। বাংলায় এই ‘অই’-ধ্বনি ‘ঐ’ দিয়ে লেখা যায় কিন্তু উর্দুর এই স্বরের টান আলাদা।"><div class="bn-g">(অই)</div><div class="arrow">↓</div><div class="ur-g">اَے</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ও' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="وہ (voh) = সে/ওই। ‘ওয়াও’ و দিয়ে ও-ধ্বনি।"><div class="bn-g">ও</div><div class="arrow">↓</div><div class="ur-g">او</div><div class="label">o</div><div class="hint"></div></div>
+      <div class="map-cell flag" tabindex="0" data-hint="اَور (aur) = আর/এবং। বাংলায় ‘ঔ’-র কাছাকাছি।"><div class="bn-g">(অউ)</div><div class="arrow">↓</div><div class="ur-g">اَو</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>বাংলার সাথে বড় তফাৎ।</strong> বাংলা স্বর একটি <em>পূর্ণ অক্ষর</em> — অ, আ, ই, ঈ... প্রতিটির নিজস্ব ঘর। উর্দুতে শুধু দুটি "আ" (<span class="ur">آ</span> = আ, <span class="ur">ا</span> = প্রাথমিক বাহক) পূর্ণ অক্ষর হিসেবে লেখা হয়; বাকি সব স্বর হয় ছোট হারকাত, নয় <span class="ur">و</span>/<span class="ur">ی</span>-র সাথে জোড়া। তার মানে উর্দু লিপি অনেক "কম বর্ণ"-এ কাজ চালায়।</div>
+
+    <div class="group-label">দুটি বিশেষ চিহ্ন</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="نہیں (nahī̃) = না। نْ নাকি-স্বর তৈরি করে।"><div class="bn-g">ং / ঁ</div><div class="arrow">↓</div><div class="ur-g">ں</div><div class="label">nūn ghunna</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="اَیسا (aisā) = এমন। ‘জজম’ স্বরশূন্যতা বোঝায়, বাংলার হসন্তের মতো।"><div class="bn-g">্</div><div class="arrow">↓</div><div class="ur-g">ْ</div><div class="label">jazm (sukūn)</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>নূন-ঘুন্না (<span class="ur">ں</span>)।</strong> এই অদ্ভুত অক্ষরটি বাংলার চন্দ্রবিন্দু (ঁ) আর অনুস্বারের (ং) মাঝামাঝি — নাক দিয়ে সামান্য বাতাস বের করে স্বর গাওয়া। <span class="ur">ہاں</span> (হাঁ) = হ্যাঁ, <span class="ur">میں</span> (ম্যায়ঁ) = আমি — ঠিক বাংলার "হাঁ", "ম্যাঁয়"-এর মতো। এই একটা ধ্বনি বাঙালির কাছে সবচেয়ে সহজ।</div>
+
+    <h3><span class="num">১.১</span>অভ্যাস</h3>
+    <ul class="clean">
+      <li>প্রতিটি জোড়া জোরে জোরে ২০ বার বলো: অ-আ, ই-ঈ, উ-ঊ — কিন্তু উর্দুর চেহারার দিকে তাকিয়ে।</li>
+      <li>কাগজে প্রতিটি উর্দু স্বর-চিহ্ন ৫ বার আঁকো। ডানদিক থেকে শুরু করো — হাত অভ্যাস করুক নতুন দিক।</li>
+      <li>যতক্ষণ না <span class="ur">ا</span>, <span class="ur">آ</span>, <span class="ur">و</span>, <span class="ur">ی</span>, <span class="ur">ے</span>, <span class="ur">ں</span> — এই ছয়টা এক সেকেন্ডে চিনতে পারো, ধাপ ২-তে যেও না।</li>
+    </ul>
+  </div>
+</section>
+
+<!-- STAGE 2 -->
+<section class="stage" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ধ্বনি (চলতি)</div>
+    <h2 class="stage-title">ব্যঞ্জনবর্ণ — <span class="ur">حروفِ تہجّی</span></h2>
+    <p class="stage-lede">বর্ণপরিচয়ের বর্গীয় ক্রম তোমার শরীরে আছে। ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ-ঞ, ট-ঠ-ড-ঢ-ণ... উর্দু লিপি আরবি-ফার্সি থেকে এসেছে, তাই ক্রম ভিন্ন, কিন্তু <em>ধ্বনি প্রায় সবটাই তোমার চেনা</em>। আমরা উর্দুকে বাংলার বর্গক্রমেই সাজিয়ে দেখাব।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+urdu+huroof+pronunciation" title="উর্দু ব্যঞ্জনবর্ণ উচ্চারণ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">উর্দু ব্যঞ্জনের উচ্চারণ <a href="https://www.youtube.com/results?search_query=learn+urdu+huroof+pronunciation" target="_blank" rel="noopener">আরও খুঁজুন ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>এক ধ্বনি, একাধিক অক্ষর।</strong> উর্দুতে যেহেতু আরবি-ফার্সি ঋণ অক্ষর-সহ এসেছে, একই ধ্বনির জন্য কখনো দুই-তিনটে অক্ষর থাকতে পারে। যেমন "জ"-ধ্বনির জন্য <span class="ur">ز</span> (আরবি জে), <span class="ur">ذ</span> (জাল), <span class="ur">ض</span> (জোয়াদ), <span class="ur">ظ</span> (জোয়ে) — চারটে, সবগুলো বাংলায় "জ"। কোনটা লিখবে তা শব্দের আরবি-ফার্সি মূলের উপর নির্ভর করে — অনেকটা বাংলার "স-শ-ষ" বা "জ-য"-র মতো।</div>
+
+    <div class="group-label">ক-বর্গ (কণ্ঠ্য)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="کام (kām) = কাম/কাজ।"><div class="bn-g">ক</div><div class="arrow">↓</div><div class="ur-g">ک</div><div class="label">k</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="کھانا (khānā) = খাওয়া।"><div class="bn-g">খ</div><div class="arrow">↓</div><div class="ur-g">کھ</div><div class="label">kh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="گھر (ghar) = ঘর।"><div class="bn-g">গ</div><div class="arrow">↓</div><div class="ur-g">گ</div><div class="label">g</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="گھنٹہ (ghanṭā) = ঘণ্টা।"><div class="bn-g">ঘ</div><div class="arrow">↓</div><div class="ur-g">گھ</div><div class="label">gh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="رنگ (rang) = রং। শব্দের শেষে ঙ।"><div class="bn-g">ঙ</div><div class="arrow">↓</div><div class="ur-g">نگ</div><div class="label">ṅ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">চ-বর্গ (তালব্য)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="چائے (cāy) = চা।"><div class="bn-g">চ</div><div class="arrow">↓</div><div class="ur-g">چ</div><div class="label">c</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="چھوٹا (choṭā) = ছোট।"><div class="bn-g">ছ</div><div class="arrow">↓</div><div class="ur-g">چھ</div><div class="label">ch</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="جانا (jānā) = যাওয়া।"><div class="bn-g">জ</div><div class="arrow">↓</div><div class="ur-g">ج</div><div class="label">j</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="جھوٹ (jhūṭ) = ঝুট/মিথ্যা।"><div class="bn-g">ঝ</div><div class="arrow">↓</div><div class="ur-g">جھ</div><div class="label">jh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="উর্দুতে আলাদা ‘ঞ’ নেই — ن (নুন) দিয়ে কাজ চলে।"><div class="bn-g">ঞ</div><div class="arrow">↓</div><div class="ur-g">ن</div><div class="label">ñ→n</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ট-বর্গ (মূর্ধন্য) — বাংলার গর্ব, উর্দুরও</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ٹوپی (ṭopī) = টুপি।"><div class="bn-g">ট</div><div class="arrow">↓</div><div class="ur-g">ٹ</div><div class="label">ṭ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ٹھیک (ṭhīk) = ঠিক।"><div class="bn-g">ঠ</div><div class="arrow">↓</div><div class="ur-g">ٹھ</div><div class="label">ṭh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ڈاک (ḍāk) = ডাক।"><div class="bn-g">ড</div><div class="arrow">↓</div><div class="ur-g">ڈ</div><div class="label">ḍ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ڈھول (ḍhol) = ঢোল।"><div class="bn-g">ঢ</div><div class="arrow">↓</div><div class="ur-g">ڈھ</div><div class="label">ḍh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="উর্দুর ن একই অক্ষরে ন ও ণ-এর কাজ করে।"><div class="bn-g">ণ</div><div class="arrow">↓</div><div class="ur-g">ن</div><div class="label">ṇ→n</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>আশ্চর্য।</strong> ট-ঠ-ড-ঢ — এই মূর্ধন্য ধ্বনিগুলো ভারতবর্ষীয় ভাষার নিজস্ব গহনা, আরবি-ফার্সিতে নেই। কিন্তু উর্দু যখন এখানে জন্মাল, সে এই ধ্বনিগুলোকে <em>ছাড়তে পারল না</em> — বরং আরবি অক্ষরের উপর ছোট "ট" বসিয়ে নতুন অক্ষর বানাল: <span class="ur">ٹ ڈ</span>। বাংলা আর উর্দু এই জায়গায় হাত ধরাধরি করে ফার্সির বিপরীতে দাঁড়ায়।</div>
+
+    <div class="group-label">ত-বর্গ (দন্ত্য)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="تم (tum) = তুমি।"><div class="bn-g">ত</div><div class="arrow">↓</div><div class="ur-g">ت</div><div class="label">t</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="تھا (thā) = ছিল।"><div class="bn-g">থ</div><div class="arrow">↓</div><div class="ur-g">تھ</div><div class="label">th</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="دل (dil) = দিল/হৃদয়।"><div class="bn-g">দ</div><div class="arrow">↓</div><div class="ur-g">د</div><div class="label">d</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="دھوپ (dhūp) = ধূপ/রোদ।"><div class="bn-g">ধ</div><div class="arrow">↓</div><div class="ur-g">دھ</div><div class="label">dh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="نام (nām) = নাম।"><div class="bn-g">ন</div><div class="arrow">↓</div><div class="ur-g">ن</div><div class="label">n</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">প-বর্গ (ওষ্ঠ্য)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="پانی (pānī) = পানি/জল।"><div class="bn-g">প</div><div class="arrow">↓</div><div class="ur-g">پ</div><div class="label">p</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="پھل (phal) = ফল (মহাপ্রাণ প)।"><div class="bn-g">ফ (প্‌হ্‌)</div><div class="arrow">↓</div><div class="ur-g">پھ</div><div class="label">ph</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="بھائی (bhāī) = ভাই। প্রথম অক্ষর ب (বে)।"><div class="bn-g">ব</div><div class="arrow">↓</div><div class="ur-g">ب</div><div class="label">b</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="بھائی (bhāī) = ভাই।"><div class="bn-g">ভ</div><div class="arrow">↓</div><div class="ur-g">بھ</div><div class="label">bh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ماں (mā̃) = মা।"><div class="bn-g">ম</div><div class="arrow">↓</div><div class="ur-g">م</div><div class="label">m</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">অন্তঃস্থ ও উষ্ম</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="یار (yār) = বন্ধু।"><div class="bn-g">য়</div><div class="arrow">↓</div><div class="ur-g">ی</div><div class="label">y</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="راستہ (rāstā) = রাস্তা।"><div class="bn-g">র</div><div class="arrow">↓</div><div class="ur-g">ر</div><div class="label">r</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="لال (lāl) = লাল।"><div class="bn-g">ল</div><div class="arrow">↓</div><div class="ur-g">ل</div><div class="label">l</div><div class="hint"></div></div>
+      <div class="map-cell flag" tabindex="0" data-hint="ورق (varaq) = ওরক/পাতা। ‘ওয়া’ — বাংলায় অর্ধ-বর্ণ।"><div class="bn-g">ৱ (ওয়া)</div><div class="arrow">↓</div><div class="ur-g">و</div><div class="label">v/w</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="শহর (śahar) = শহর। উর্দুতে ش।"><div class="bn-g">শ</div><div class="arrow">↓</div><div class="ur-g">ش</div><div class="label">ś</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="سلام (salām) = সালাম।"><div class="bn-g">স</div><div class="arrow">↓</div><div class="ur-g">س</div><div class="label">s</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ہاتھ (hāth) = হাত।"><div class="bn-g">হ</div><div class="arrow">↓</div><div class="ur-g">ہ</div><div class="label">h</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ফার্সি-আরবি থেকে আসা আটটি নতুন / আধা-নতুন ধ্বনি</div>
+    <div class="map-grid">
+      <div class="map-cell flag" tabindex="0" data-hint="قلم (qalam) = কলম। উর্দুর সবচেয়ে ‘বিদেশি’ ধ্বনি — জিভের একেবারে পেছনে ক।"><div class="bn-g">ক (গভীর)</div><div class="arrow">↓</div><div class="ur-g">ق</div><div class="label">q</div><div class="hint"></div></div>
+      <div class="map-cell flag" tabindex="0" data-hint="خبر (khabar) = খবর। ‘খ’ কিন্তু গলার গভীর থেকে — বাঙালি ‘খবর’ বললেই এই ধ্বনি হয়!"><div class="bn-g">খ (গভীর)</div><div class="arrow">↓</div><div class="ur-g">خ</div><div class="label">x (kh)</div><div class="hint"></div></div>
+      <div class="map-cell flag" tabindex="0" data-hint="غریب (ġarīb) = গরিব। ‘গ’ কিন্তু গলার গভীর থেকে — ‘গরিব’ বাংলাতেই ব্যবহার।"><div class="bn-g">গ (গভীর)</div><div class="arrow">↓</div><div class="ur-g">غ</div><div class="label">ġ</div><div class="hint"></div></div>
+      <div class="map-cell flag" tabindex="0" data-hint="زمین (zamīn) = জমিন/মাটি। ‘জ’ কিন্তু ঘর্ষণে — বাংলা ‘জমি’ আসলে এই ধ্বনি।"><div class="bn-g">জ (ঘর্ষ)</div><div class="arrow">↓</div><div class="ur-g">ز</div><div class="label">z</div><div class="hint"></div></div>
+      <div class="map-cell flag" tabindex="0" data-hint="فقیر (faqīr) = ফকির। ‘ফ’ কিন্তু ঠোঁট-দাঁতের — ইংরেজি ‘f’-এর মতো।"><div class="bn-g">ফ (ঘর্ষ)</div><div class="arrow">↓</div><div class="ur-g">ف</div><div class="label">f</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ذات (zāt) = জাত। ‘জ’-এর আরেক অক্ষর।"><div class="bn-g">জ</div><div class="arrow">↓</div><div class="ur-g">ذ</div><div class="label">z</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="صبر (sabr) = সবর/ধৈর্য। ‘স’-এর আরবি অক্ষর।"><div class="bn-g">স</div><div class="arrow">↓</div><div class="ur-g">ص</div><div class="label">s</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="طالب (tālib) = ছাত্র। ‘ত’-এর আরবি অক্ষর।"><div class="bn-g">ত</div><div class="arrow">↓</div><div class="ur-g">ط</div><div class="label">t</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>বাঙালির গোপন সুবিধা।</strong> উর্দুর "নতুন" আট ধ্বনির মধ্যে পাঁচটা — <span class="ur">خ غ ز ف ق</span> — তুমি রোজ বলো কিন্তু জানো না। "<em>খবর, গরিব, জমি, ফকির, কলম</em>" — বাংলায় এই শব্দগুলোর ভেতরে সেই ধ্বনি লুকিয়ে আছে। ধ্বনিটা বাঙালি বিদ্যালয়ে ভুলে গেছে, মুখে রেখে দিয়েছে। কেবল একটু সচেতন হলেই ধ্বনিটা বেরিয়ে আসবে।</div>
+
+    <div class="aside"><strong>এক চেহারা, চার ভঙ্গি।</strong> উর্দু অক্ষর তার অবস্থানে চেহারা বদলায় — শব্দের শুরুতে, মাঝে, শেষে, এবং একা — চারটে রূপ। যেমন <span class="ur">ک</span>: একা <span class="ur">ک</span>, শুরুতে <span class="ur">کـ</span>, মাঝে <span class="ur">ـکـ</span>, শেষে <span class="ur">ـک</span>। ভয় পেয়ো না — অক্ষরটি একই, শুধু "সে হাঁটছে না দাঁড়িয়ে" তা দেখাচ্ছে। বাংলার ক-ক্ষ-ক্র (ক-র যুক্ত) যেমন চেহারা বদলায়, তেমনি।</div>
+
+    <h3><span class="num">২.১</span>অভ্যাস</h3>
+    <ul class="clean">
+      <li>বাংলা বর্গক্রমে প্রতিটি উর্দু ব্যঞ্জন জোরে বলো: ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ — তাকিয়ে থাকো উর্দু চেহারায়।</li>
+      <li>⚡ চিহ্নিত আট ধ্বনির প্রত্যেকটির সাথে একটি <em>চেনা বাংলা শব্দ</em> জোড়ো: কলম, খবর, গরিব, জমি, ফকির, সবর। উচ্চারণ করো, খেয়াল করো ধ্বনিটা কোথা থেকে আসছে।</li>
+      <li>কাগজে প্রতিটি অক্ষরের চার রূপ আঁকো — ভয় কেটে যাবে।</li>
+    </ul>
+  </div>
+</section>
+
+<!-- STAGE 3 -->
+<section class="stage" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · সংযোজনা</div>
+    <h2 class="stage-title">অক্ষর কীভাবে বসে — হারকাত, যোগ, যুক্তাক্ষর</h2>
+    <p class="stage-lede">বাংলায় ব্যঞ্জনে অন্তর্নিহিত 'অ' থাকে, স্বরচিহ্ন বসালে পাল্টায়, হসন্ত দিলে ভেঙে পড়ে। উর্দুতে নিয়ম উল্টো — <em>কোনো অন্তর্নিহিত স্বর নেই</em>। প্রতিটি স্বর বসাতে হয় (বা অনুমান করতে হয়)। যুক্তাক্ষরের ধারণাও আলাদা।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৩.১</span>স্বরচিহ্ন — বাংলার কার ↔ উর্দুর হারকাত</h3>
+
+    <div class="comp-wrap">
+      <table class="comp">
+        <thead>
+          <tr><th>স্বর</th><th>বাংলা কার (ক-এর সাথে)</th><th>উর্দু হারকাত (ک-এর সাথে)</th><th>নাম</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>অ (অন্তর্নিহিত)</td><td class="bn-g">ক<span class="sub">k + a</span></td><td class="ur-g">کَ<span class="sub">ka</span></td><td>জবর / ফাতহা</td></tr>
+          <tr><td>আ</td><td class="bn-g">কা<span class="sub">ka + ā</span></td><td class="ur-g">کا<span class="sub">kā</span></td><td>আলিফ-মাদ্দ</td></tr>
+          <tr><td>ই</td><td class="bn-g">কি<span class="sub">k + i</span></td><td class="ur-g">کِ<span class="sub">ki</span></td><td>জের / কসরা</td></tr>
+          <tr><td>ঈ</td><td class="bn-g">কী<span class="sub">k + ī</span></td><td class="ur-g">کی<span class="sub">kī</span></td><td>ইয়ে-মাজহুল</td></tr>
+          <tr><td>উ</td><td class="bn-g">কু<span class="sub">k + u</span></td><td class="ur-g">کُ<span class="sub">ku</span></td><td>পেশ / দম্মা</td></tr>
+          <tr><td>ঊ</td><td class="bn-g">কূ<span class="sub">k + ū</span></td><td class="ur-g">کو<span class="sub">kū</span></td><td>ওয়াও-মাজহুল</td></tr>
+          <tr><td>এ</td><td class="bn-g">কে<span class="sub">k + e</span></td><td class="ur-g">کے<span class="sub">ke</span></td><td>বড়ি-ইয়ে</td></tr>
+          <tr><td>ও</td><td class="bn-g">কো<span class="sub">k + o</span></td><td class="ur-g">کو<span class="sub">ko</span></td><td>ওয়াও</td></tr>
+          <tr><td>স্বরশূন্য</td><td class="bn-g">ক্<span class="sub">hasanta</span></td><td class="ur-g">کْ<span class="sub">jazm</span></td><td>জজম / সুকূন</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>সবচেয়ে বড় ধাক্কা।</strong> বাংলায় ব্যঞ্জন লিখলে 'অ' আপনা থেকে আসে — "কম" মানে ক+অ+ম। উর্দুতে নিয়ম উল্টো: ব্যঞ্জনে <em>কিছুই থাকে না</em>, হারকাত না দিলে শুধু ব্যঞ্জনধ্বনি। "কম" লিখতে হয় <span class="ur">کَم</span> — ک-এর উপরে "জবর" চিহ্ন না বসালে সেটা শুধু "ক্ম্‌"। <strong>কিন্তু বাস্তবে</strong> সংবাদপত্র, বই, সাইনবোর্ড — সবাই হারকাত ছেড়ে দেয়। পাঠক প্রসঙ্গ থেকে স্বর বুঝে নেয়। এই কারণে উর্দু পড়া শেখার আগে উর্দু <em>ভাষা</em> কিছুটা জানা জরুরি।</div>
+
+    <h3><span class="num">৩.২</span>যুক্তাক্ষর — দুই লিপির দুই দর্শন</h3>
+
+    <p>বাংলা যুক্তাক্ষর গড়ে: দুই ব্যঞ্জনের মাঝে স্বর নেই বোঝাতে, হসন্ত দিয়ে জুড়ে দেওয়া — ক্ত, স্ত, ক্ষ, জ্ঞ। উর্দু সরাসরি পাশাপাশি লেখে, জুড়ে যায় প্রতিবেশী অক্ষরের সাথে (যেটা উর্দুতে স্বাভাবিক নিয়ম)। নিচের তুলনায় দেখো কীভাবে একই ধ্বনিগুচ্ছ দু'ভাবে ধরা পড়ে।</p>
+
+    <div class="comp-wrap">
+      <table class="comp">
+        <thead>
+          <tr><th>ধ্বনিগুচ্ছ</th><th>বাংলা</th><th>উর্দু</th><th>উদাহরণ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>k + t</td><td class="bn-g">ক্ত<span class="sub">ক + হসন্ত + ত</span></td><td class="ur-g">کت<span class="sub">ک + ت</span></td><td>مکتب (মক্‌তাব) = মকতব</td></tr>
+          <tr><td>s + t</td><td class="bn-g">স্ত<span class="sub">স + হসন্ত + ত</span></td><td class="ur-g">ست<span class="sub">س + ت</span></td><td>دوست (দোস্‌ত) = দোস্ত</td></tr>
+          <tr><td>k + r</td><td class="bn-g">ক্র<span class="sub">ক + হসন্ত + র</span></td><td class="ur-g">کر<span class="sub">ک + ر</span></td><td>کرم (করম) = করম</td></tr>
+          <tr><td>k + sh</td><td class="bn-g">ক্ষ<span class="sub">ক + হসন্ত + ষ</span></td><td class="ur-g">کش<span class="sub">ک + ش</span></td><td>رکشا (রিক্‌শা) = রিকশা</td></tr>
+          <tr><td>sh + t</td><td class="bn-g">ষ্ট<span class="sub">ষ + হসন্ত + ট</span></td><td class="ur-g">شٹ<span class="sub">ش + ٹ</span></td><td>گشت (গাশ্‌ত) = গাশ্ত</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>বাংলার হসন্ত, উর্দুর অনুপস্থিতি।</strong> বাংলা যুক্তাক্ষর তৈরি করতে হসন্ত (্) দিয়ে দুই ব্যঞ্জনকে একটা "ব্লক" বানায়। উর্দু একই কাজ করে অক্ষরের প্রাকৃতিক জোড়ায়ন দিয়ে — <span class="ur">ک</span> আর <span class="ur">ت</span> পাশাপাশি বসলেই <span class="ur">کت</span>, আলাদা কোনো যোগ-চিহ্ন লাগে না। উর্দুর দৃষ্টিকোণে বাংলার "যুক্তাক্ষর" এক ধরনের বাড়তি জিনিস; বাংলার দৃষ্টিকোণে উর্দুর লেখা যেন সব ব্যঞ্জন সারাক্ষণ "হসন্ত-যুক্ত"।</div>
+
+    <h3><span class="num">৩.৩</span>যুক্ত ই, আলিফ-মাদ্দ, শাদ্দ</h3>
+
+    <ul class="clean">
+      <li><strong>আলিফ-মাদ্দ (<span class="ur">آ</span>):</strong> শুরুর 'আ'-স্বরের জন্য আলিফের উপর একটা "মাদ্দ" চিহ্ন বসে — <span class="ur">آم</span> (আম), <span class="ur">آگ</span> (আগ/আগুন)। এটি বাংলা আ-কারের মতোই পূর্ণ স্বর।</li>
+      <li><strong>শাদ্দ (<span class="ur">ّ</span>):</strong> অক্ষরের ওপরে <em>w</em>-সদৃশ চিহ্ন — অক্ষরটি দ্বিগুণ হবে বলে। বাংলায় যেমন "পড়ত্ত" বা "রব্বে" — দুইবার ধ্বনি। যেমন <span class="ur">اَمّی</span> (আম্মী) = আম্মা, <span class="ur">کتّا</span> (কুত্তা) = কুকুর।</li>
+      <li><strong>চোতি-ইয়ে আর বড়ি-ইয়ে (<span class="ur">ی</span>, <span class="ur">ے</span>):</strong> ছোট ইয়ে (<span class="ur">ی</span>) শব্দের শুরু/মাঝে বসে ই/ঈ-ধ্বনি দেয়; বড়ি-ইয়ে (<span class="ur">ے</span>) শুধু শব্দের শেষে বসে এ-ধ্বনি দেয় — <span class="ur">ہے</span> (হায়/আছে)।</li>
+    </ul>
+
+    <div class="aside"><strong>বিদ্যাসাগর-বনাম-মীর-আম্মান।</strong> বর্ণপরিচয় বাংলা শিখিয়েছে "অ + কার = আ-কার"। মীর আম্মান (<em>বাগ-ও-বাহার</em>-এর লেখক) উর্দু শিখিয়েছেন "অক্ষর + হারকাত = স্বর"। দুই পদ্ধতি দুই দিক থেকে হাঁটে, কিন্তু মূল ধারণা এক: <em>ব্যঞ্জন-কাঠামোর ওপর স্বর সাজাও</em>। শুধু বাংলা সবসময় স্বরটা দেখায়, উর্দু প্রায়ই লুকিয়ে রাখে।</div>
+
+  </div>
+</section>
+
+<!-- STAGE 4 -->
+<section class="stage" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · শব্দ</div>
+    <h2 class="stage-title">মূল শব্দ — <span class="ur">بنیادی الفاظ</span></h2>
+    <p class="stage-lede">প্রায় ৭২% শব্দ বাংলা-উর্দুতে সাধারণ — কেউ সংস্কৃতজাত (তৎসম), কেউ তদ্ভব, কেউ ফার্সি-আরবি ঋণ। এই তালিকায় প্রতিটি শব্দের সাথে তার <em>বাংলা সমতুল্য</em> রাখা হয়েছে, যেন চেহারা মিলিয়ে নিতে পারো।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৪.১</span>সর্বনাম</h3>
+    <div class="words">
+      <div class="word"><div class="ur">میں</div><div class="bn-eq">আমি</div><div class="trans">maĩ</div><div class="note"><span class="tag ts">সরাসরি</span>বাংলায় 'ম্যায়ঁ' বললে নজরুলীয় রং আসে; এটাই স্বাভাবিক উর্দু।</div></div>
+      <div class="word"><div class="ur">تم</div><div class="bn-eq">তুমি</div><div class="trans">tum</div><div class="note"><span class="tag ts">সরাসরি</span>বাংলার 'তুমি' থেকে এক পা দূরেই 'তুম'।</div></div>
+      <div class="word"><div class="ur">آپ</div><div class="bn-eq">আপনি</div><div class="trans">āp</div><div class="note"><span class="tag ts">সরাসরি</span>সম্মান-স্তর। ক্রিয়া বহুবচনে (آپ جاتے ہیں)।</div></div>
+      <div class="word"><div class="ur">تو</div><div class="bn-eq">তুই</div><div class="trans">tū</div><div class="note"><span class="tag ts">সরাসরি</span>অন্তরঙ্গ / ঈশ্বরকে সম্বোধন / অসম্মান — বাংলার 'তুই'।</div></div>
+      <div class="word"><div class="ur">وہ</div><div class="bn-eq">সে / ওই</div><div class="trans">voh / wo</div><div class="note">একই শব্দে দূরের 'সে' আর 'ওই' বোঝায়।</div></div>
+      <div class="word"><div class="ur">یہ</div><div class="bn-eq">এ / এই</div><div class="trans">yeh</div><div class="note">কাছের 'এ' / 'এই'। বাংলার 'এই' → 'ইয়ে'।</div></div>
+      <div class="word"><div class="ur">ہم</div><div class="bn-eq">আমরা</div><div class="trans">ham</div><div class="note">বাংলা 'হম' নেই, কিন্তু হিন্দি-উর্দুতে 'আমরা' মানে এই।</div></div>
+    </div>
+
+    <h3><span class="num">৪.২</span>দৈনন্দিন বিশেষ্য</h3>
+    <div class="words">
+      <div class="word"><div class="ur">کتاب</div><div class="bn-eq">বই / কিতাব</div><div class="trans">kitāb</div><div class="note"><span class="tag ps">ফার্সি-আরবি</span>বাংলা 'কিতাব' শব্দ আজও চালু।</div></div>
+      <div class="word"><div class="ur">وقت</div><div class="bn-eq">সময় / ওয়াক্‌ত</div><div class="trans">vaqt</div><div class="note"><span class="tag ps">ফার্সি-আরবি</span>বাংলা 'ওয়াক্‌ত নেই' — চেনা প্রয়োগ।</div></div>
+      <div class="word"><div class="ur">دن</div><div class="bn-eq">দিন</div><div class="trans">din</div><div class="note"><span class="tag ts">তৎসম</span>হুবহু এক।</div></div>
+      <div class="word"><div class="ur">رات</div><div class="bn-eq">রাত</div><div class="trans">rāt</div><div class="note"><span class="tag">তদ্ভব</span>বাংলা 'রাত'-ই।</div></div>
+      <div class="word"><div class="ur">گھر</div><div class="bn-eq">ঘর</div><div class="trans">ghar</div><div class="note"><span class="tag">তদ্ভব</span>হুবহু এক।</div></div>
+      <div class="word"><div class="ur">پانی</div><div class="bn-eq">পানি / জল</div><div class="trans">pānī</div><div class="note"><span class="tag">তদ্ভব</span>পূর্ববঙ্গে 'পানি' এখনো চালু, মূল বাংলা 'পানীয়' থেকে।</div></div>
+      <div class="word"><div class="ur">دودھ</div><div class="bn-eq">দুধ</div><div class="trans">dūdh</div><div class="note"><span class="tag">তদ্ভব</span>প্রায় হুবহু।</div></div>
+      <div class="word"><div class="ur">چائے</div><div class="bn-eq">চা</div><div class="trans">cāy</div><div class="note">বাংলার 'চা', উর্দুর 'চায়' — মূল চীনা শব্দ।</div></div>
+      <div class="word"><div class="ur">روٹی</div><div class="bn-eq">রুটি</div><div class="trans">roṭī</div><div class="note"><span class="tag">তদ্ভব</span>হুবহু এক।</div></div>
+      <div class="word"><div class="ur">چاول</div><div class="bn-eq">চাল</div><div class="trans">cāval</div><div class="note"><span class="tag">তদ্ভব</span>বাংলায় 'চাল', উর্দুতে 'চাওল'।</div></div>
+      <div class="word"><div class="ur">شہر</div><div class="bn-eq">শহর</div><div class="trans">śahar</div><div class="note"><span class="tag ps">ফার্সি</span>হুবহু চেনা শব্দ।</div></div>
+      <div class="word"><div class="ur">دوست</div><div class="bn-eq">বন্ধু / দোস্ত</div><div class="trans">dost</div><div class="note"><span class="tag ps">ফার্সি</span>বাংলার 'দোস্ত' একই।</div></div>
+      <div class="word"><div class="ur">دل</div><div class="bn-eq">হৃদয় / দিল</div><div class="trans">dil</div><div class="note"><span class="tag ps">ফার্সি</span>'দিলদরিয়া', 'দিলখোলা' — চেনা।</div></div>
+      <div class="word"><div class="ur">خبر</div><div class="bn-eq">খবর</div><div class="trans">khabar</div><div class="note"><span class="tag ps">আরবি</span>হুবহু এক।</div></div>
+      <div class="word"><div class="ur">نام</div><div class="bn-eq">নাম</div><div class="trans">nām</div><div class="note"><span class="tag ts">তৎসম</span>হুবহু।</div></div>
+    </div>
+
+    <h3><span class="num">৪.৩</span>মৌলিক ক্রিয়া (অসমাপিকা রূপ)</h3>
+    <div class="words">
+      <div class="word"><div class="ur">کرنا</div><div class="bn-eq">করা</div><div class="trans">karnā</div><div class="note">'-না' প্রত্যয় = বাংলার '-আ'। মূল 'কর্‌'।</div></div>
+      <div class="word"><div class="ur">جانا</div><div class="bn-eq">যাওয়া</div><div class="trans">jānā</div><div class="note">'জা' = 'যা'। জ আর য একই ধ্বনি এখানে।</div></div>
+      <div class="word"><div class="ur">آنا</div><div class="bn-eq">আসা</div><div class="trans">ānā</div><div class="note">মূল 'আ' — বাংলার 'আয়', 'আসি' দেখো।</div></div>
+      <div class="word"><div class="ur">کھانا</div><div class="bn-eq">খাওয়া</div><div class="trans">khānā</div><div class="note">দ্বৈত অর্থ — 'খাওয়া' (ক্রিয়া) + 'খাবার' (বিশেষ্য)।</div></div>
+      <div class="word"><div class="ur">دیکھنا</div><div class="bn-eq">দেখা</div><div class="trans">dekhnā</div><div class="note">'দেখ্‌' — বাংলার সাথে হুবহু এক।</div></div>
+      <div class="word"><div class="ur">بولنا</div><div class="bn-eq">বলা</div><div class="trans">bolnā</div><div class="note">'বোল্‌' = বাংলার 'বোল', 'বলা'।</div></div>
+      <div class="word"><div class="ur">سننا</div><div class="bn-eq">শোনা</div><div class="trans">sunnā</div><div class="note">'শুন্‌' — বাংলায় 'শুনি, শুনছি' ইত্যাদি।</div></div>
+      <div class="word"><div class="ur">لکھنا</div><div class="bn-eq">লেখা</div><div class="trans">likhnā</div><div class="note">'লিখ্‌' — একই ধাতু।</div></div>
+      <div class="word"><div class="ur">پڑھنا</div><div class="bn-eq">পড়া</div><div class="trans">paṛhnā</div><div class="note">মূর্ধন্য ড়। বাংলার 'পড়া'।</div></div>
+      <div class="word"><div class="ur">ہونا</div><div class="bn-eq">হওয়া</div><div class="trans">honā</div><div class="note">'হ' ধাতু — সহায়ক ক্রিয়া হিসেবে সবসময় ব্যবহৃত।</div></div>
+    </div>
+
+    <h3><span class="num">৪.৪</span>সংখ্যা (এক–দশ)</h3>
+    <div class="words">
+      <div class="word"><div class="ur">ایک</div><div class="bn-eq">এক</div><div class="trans">ek</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">دو</div><div class="bn-eq">দুই</div><div class="trans">do</div><div class="note">'দো'-ই বাংলার 'দুই'।</div></div>
+      <div class="word"><div class="ur">تین</div><div class="bn-eq">তিন</div><div class="trans">tīn</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">چار</div><div class="bn-eq">চার</div><div class="trans">cār</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">پانچ</div><div class="bn-eq">পাঁচ</div><div class="trans">pāñc</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">چھ</div><div class="bn-eq">ছয় / ছ'</div><div class="trans">chai</div><div class="note">বাংলার 'ছ়য়'।</div></div>
+      <div class="word"><div class="ur">سات</div><div class="bn-eq">সাত</div><div class="trans">sāt</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">آٹھ</div><div class="bn-eq">আট</div><div class="trans">āṭh</div><div class="note">বাংলার 'আট' — মূর্ধন্য ট।</div></div>
+      <div class="word"><div class="ur">نو</div><div class="bn-eq">নয়</div><div class="trans">nau</div><div class="note">'নৌ'-র কাছাকাছি।</div></div>
+      <div class="word"><div class="ur">دس</div><div class="bn-eq">দশ</div><div class="trans">das</div><div class="note">হুবহু।</div></div>
+    </div>
+
+    <h3><span class="num">৪.৫</span>আত্মীয়তা</h3>
+    <div class="words">
+      <div class="word"><div class="ur">امّی / اماں</div><div class="bn-eq">আম্মা / মা</div><div class="trans">ammī / ammā̃</div><div class="note">বাংলাদেশী মুসলমান পরিবারে 'আম্মা' এখনো চালু — উর্দুর সরাসরি।</div></div>
+      <div class="word"><div class="ur">ابّا / والد</div><div class="bn-eq">আব্বা / বাবা</div><div class="trans">abbā / vālid</div><div class="note">'আব্বা' হুবহু বাংলায়।</div></div>
+      <div class="word"><div class="ur">بھائی</div><div class="bn-eq">ভাই</div><div class="trans">bhāī</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">بہن</div><div class="bn-eq">বোন</div><div class="trans">bahan</div><div class="note">'বোহোন' → বাংলায় 'বহিন'/'বোন'।</div></div>
+      <div class="word"><div class="ur">ماما</div><div class="bn-eq">মামা</div><div class="trans">māmā</div><div class="note">হুবহু — মায়ের ভাই।</div></div>
+      <div class="word"><div class="ur">چچا</div><div class="bn-eq">চাচা / কাকা</div><div class="trans">cacā</div><div class="note">পিতার ছোট ভাই — বাংলায় 'চাচা'।</div></div>
+      <div class="word"><div class="ur">بیٹا / بیٹی</div><div class="bn-eq">ছেলে / মেয়ে</div><div class="trans">beṭā / beṭī</div><div class="note">'বেটা' শব্দ বাংলাতেও চালু (আদর করে)।</div></div>
+    </div>
+
+    <h3><span class="num">৪.৬</span>সময়</h3>
+    <div class="words">
+      <div class="word"><div class="ur">آج</div><div class="bn-eq">আজ</div><div class="trans">āj</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">کل</div><div class="bn-eq">কাল (গতকাল / আগামীকাল)</div><div class="trans">kal</div><div class="note"><span class="tag">সতর্ক</span>বাংলার মতোই উর্দুর 'কাল' দুদিকেই কাজ করে! প্রসঙ্গ থেকে বুঝতে হয় — কোথায় 'گزرا کل' (গত কাল) আর কোথায় 'آنے والا کل' (আসার কাল)।</div></div>
+      <div class="word"><div class="ur">ابھی</div><div class="bn-eq">এখনই / এক্ষুনি</div><div class="trans">abhī</div><div class="note">'অভি' — কথ্য বাংলায় 'অভিই' বলা যায়।</div></div>
+      <div class="word"><div class="ur">اب</div><div class="bn-eq">এখন</div><div class="trans">ab</div><div class="note">'অব' — বাংলার 'এবার' এর সংক্ষিপ্ত।</div></div>
+      <div class="word"><div class="ur">پھر</div><div class="bn-eq">আবার / তারপর</div><div class="trans">phir</div><div class="note">'ফির' — বাংলার 'ফের' হুবহু।</div></div>
+      <div class="word"><div class="ur">صبح</div><div class="bn-eq">সকাল / সোবহ</div><div class="trans">subh</div><div class="note"><span class="tag ps">আরবি</span>বাংলায় 'সুবহে-সাদিক' শব্দে আজও।</div></div>
+      <div class="word"><div class="ur">شام</div><div class="bn-eq">সন্ধ্যা</div><div class="trans">śām</div><div class="note">'শ্যাম' নয়, এখানে 'সন্ধ্যা'।</div></div>
+    </div>
+
+    <div class="aside"><strong>'কাল' — দুই ভাষার জোড়া ধাঁধা।</strong> বাংলা বলে 'কাল আসব' — কোন কাল? আগামী। 'কাল এসেছিলাম' — গত। উর্দুও হুবহু একই! <span class="ur">کل آؤں گا</span> (কাল আসব), <span class="ur">کل آیا تھا</span> (কাল এসেছিলাম)। কন্নড/তামিলে দুটো আলাদা শব্দ; বাংলা-উর্দুতে একই। একই পূর্ব-পুরুষ, একই অস্পষ্টতা।</div>
+
+    <h3><span class="num">৪.৭</span>প্রাথমিক অভিব্যক্তি</h3>
+    <div class="words">
+      <div class="word"><div class="ur">السلام علیکم</div><div class="bn-eq">নমস্কার / আস্‌সালামু আলাইকুম</div><div class="trans">assalāmu alaikum</div><div class="note"><span class="tag ps">আরবি</span>অর্থ: 'তোমার উপর শান্তি বর্ষিত হোক'। বাংলাদেশে হুবহু চালু।</div></div>
+      <div class="word"><div class="ur">شکریہ</div><div class="bn-eq">ধন্যবাদ / শুক্রিয়া</div><div class="trans">shukriyā</div><div class="note"><span class="tag ps">ফার্সি</span>বাংলায় 'শুকরিয়া' সরাসরি ব্যবহার।</div></div>
+      <div class="word"><div class="ur">معاف کیجئے</div><div class="bn-eq">দয়া করে মাফ করবেন</div><div class="trans">muāf kījie</div><div class="note">'মাফ' বাংলায় আরবি থেকে আসা, হুবহু।</div></div>
+      <div class="word"><div class="ur">کیا حال ہے؟</div><div class="bn-eq">কেমন আছ?</div><div class="trans">kyā hāl hai?</div><div class="note">সরাসরি: 'কী হাল আছে?' — বাংলায় 'হালচাল' শব্দ আছে।</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STAGE 5 -->
+<section class="stage" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · গঠন</div>
+    <h2 class="stage-title">বাক্য — <span class="ur">جملہ</span></h2>
+    <p class="stage-lede">বাংলার বাক্য-কঙ্কাল উর্দুতে প্রায় হুবহু বসে। কর্তা-কর্ম-ক্রিয়া (SOV), পরসর্গ (postposition), প্রশ্নচিহ্ন শেষে — সব এক। একটি জায়গায় উর্দু নতুন দিক শেখাবে: <strong>লিঙ্গ</strong>। ক্রিয়াপদ এখানে কর্তার লিঙ্গ জানায়, বাংলা যা জানায় না।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৫.১</span>মৌলিক গঠন — SOV বাংলার মতোই</h3>
+
+    <div class="sentence">
+      <div class="ur">میں کتاب پڑھتا ہوں۔</div>
+      <div class="trans">maĩ kitāb paṛhtā hū̃.</div>
+      <div class="bn-gloss">আমি বই পড়ি।</div>
+      <div class="literal">আমি / বই / পড়ি-হই (পুরুষবাচী)</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ur">وہ گھر جاتا ہے۔</div>
+      <div class="trans">voh ghar jātā hai.</div>
+      <div class="bn-gloss">সে ঘরে যায়।</div>
+      <div class="literal">সে / ঘর / যায়-আছে</div>
+    </div>
+
+    <div class="aside"><strong>সহায়ক ‘হ’ ক্রিয়া।</strong> উর্দু প্রায় সব বর্তমান-কালের বাক্যে দুইটি ক্রিয়া লাগায়: মূল ক্রিয়া (پڑھتا = পড়ি) + সহায়ক 'হওয়া' (ہوں/ہے = হই/আছে)। বাংলা এই সহায়কটা ফেলে দেয়: 'আমি পড়ি' — কিন্তু পুরাতন বাংলায় 'পড়িতেছি' বলো — সেখানে 'তেছি' আসলে 'আছি'। একই চিন্তা, দুই ভাষায় দুই রকম ঘনত্ব।</div>
+
+    <h3><span class="num">৫.২</span>ক্রিয়া-রূপ (বর্তমান অভ্যাসগত) — 'করা' কীভাবে চলে</h3>
+
+    <p>উর্দুতে বর্তমান অভ্যাসগত ক্রিয়া = ধাতু + "-তা/-তি/-তে" (লিঙ্গ ও বচন অনুযায়ী) + "হই/হও/আছে" (পুরুষ অনুযায়ী)। পাশে বাংলা 'করা'-র রূপ।</p>
+
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">আমি (পুরুষ)</div><div class="ur">میں کرتا ہوں</div><div class="bn-eq">আমি করি</div></div>
+      <div class="conjug-row"><div class="pron">আমি (নারী)</div><div class="ur">میں کرتی ہوں</div><div class="bn-eq">আমি করি</div></div>
+      <div class="conjug-row"><div class="pron">তুই</div><div class="ur">تو کرتا/کرتی ہے</div><div class="bn-eq">তুই করিস</div></div>
+      <div class="conjug-row"><div class="pron">তুমি</div><div class="ur">تم کرتے/کرتی ہو</div><div class="bn-eq">তুমি করো</div></div>
+      <div class="conjug-row"><div class="pron">আপনি</div><div class="ur">آپ کرتے/کرتی ہیں</div><div class="bn-eq">আপনি করেন</div></div>
+      <div class="conjug-row"><div class="pron">সে (পুরুষ)</div><div class="ur">وہ کرتا ہے</div><div class="bn-eq">সে করে</div></div>
+      <div class="conjug-row"><div class="pron">সে (নারী)</div><div class="ur">وہ کرتی ہے</div><div class="bn-eq">সে করে</div></div>
+      <div class="conjug-row"><div class="pron">আমরা</div><div class="ur">ہم کرتے/کرتی ہیں</div><div class="bn-eq">আমরা করি</div></div>
+      <div class="conjug-row"><div class="pron">তারা</div><div class="ur">وہ کرتے/کرتی ہیں</div><div class="bn-eq">তারা করে</div></div>
+    </div>
+
+    <div class="aside"><strong>লিঙ্গ — উর্দুর আসল চ্যালেঞ্জ।</strong> বাংলার 'আমি করি'-র পুরুষ-নারী ভেদ নেই। উর্দু বলবে পুরুষে 'কর্‌তা হুঁ' আর নারীতে 'কর্‌তি হুঁ' — '-আ/-ই' বিভক্তি শুধু ক্রিয়ায় নয়, অধিকাংশ বিশেষণেও। <span class="ur">اچھا لڑکا</span> (ভাল ছেলে), <span class="ur">اچھی لڑکی</span> (ভাল মেয়ে)। বাংলার 'ভাল'-এর কোনো লিঙ্গ নেই; উর্দুর 'আচ্ছা'-এর আছে।</div>
+
+    <h3><span class="num">৫.৩</span>পরসর্গ (case markers) — পাশাপাশি</h3>
+
+    <div class="comp-wrap">
+      <table class="comp">
+        <thead>
+          <tr><th>সম্বন্ধ</th><th>বাংলা</th><th>উর্দু</th><th>উদাহরণ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>কর্তা</td><td>— (শূন্য)</td><td>— (শূন্য) / نے</td><td class="ur-g">راما نے کتاب دیکھی<span class="sub">রাম বই দেখেছে</span></td></tr>
+          <tr><td>কর্ম (কাকে)</td><td>-কে</td><td class="ur-g">کو</td><td class="ur-g">مجھ کو / مجھے<span class="sub">আমাকে</span></td></tr>
+          <tr><td>থেকে (উৎস)</td><td>-থেকে</td><td class="ur-g">سے</td><td class="ur-g">گھر سے<span class="sub">ঘর থেকে</span></td></tr>
+          <tr><td>মধ্যে (অবস্থান)</td><td>-তে / -এ</td><td class="ur-g">میں</td><td class="ur-g">گھر میں<span class="sub">ঘরে</span></td></tr>
+          <tr><td>সম্বন্ধ (-এর)</td><td>-র / -এর</td><td class="ur-g">کا/کی/کے</td><td class="ur-g">باپ کا گھر<span class="sub">বাবার ঘর (পুরুষ)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>'কা/কী/কে' — আবার লিঙ্গ।</strong> উর্দুর সম্বন্ধ-পরসর্গ কর্তার বিশেষ্যের লিঙ্গ অনুযায়ী বদলায়: <span class="ur">باپ کا بیٹا</span> (বাবার ছেলে, পুরুষ), <span class="ur">باپ کی بیٹی</span> (বাবার মেয়ে, নারী), <span class="ur">باپ کے بیٹے</span> (বাবার ছেলেরা, বহুবচন)। বাংলা এক অক্ষরে সারে: '-র'। এই ছোট্ট পার্থক্য মনে রাখলে উর্দু বাক্য গুছিয়ে লেখা যায়।</div>
+
+    <h3><span class="num">৫.৪</span>নেতিবাচক ও প্রশ্নবোধক</h3>
+
+    <div class="sentence">
+      <div class="ur">میں نہیں جاتا۔</div>
+      <div class="trans">maĩ nahī̃ jātā.</div>
+      <div class="bn-gloss">আমি যাই না।</div>
+      <div class="literal">'নাহীঁ' = 'না' + নাসিক্যসুর।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ur">کیا تم آؤ گے؟</div>
+      <div class="trans">kyā tum āoge?</div>
+      <div class="bn-gloss">তুমি কি আসবে?</div>
+      <div class="literal">'ক্যা' প্রশ্ন-চিহ্নিত — বাংলার মত বাক্যের শুরুতে বসেছে, কিন্তু উর্দুতে সাধারণত শুরুতেই।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ur">تمہارا نام کیا ہے؟</div>
+      <div class="trans">tumhārā nām kyā hai?</div>
+      <div class="bn-gloss">তোমার নাম কী?</div>
+      <div class="literal">'কী' = ক্যা — হুবহু প্রশ্নশব্দ।</div>
+    </div>
+
+    <h3><span class="num">৫.৫</span>প্রশ্নশব্দ</h3>
+    <div class="words">
+      <div class="word"><div class="ur">کیا</div><div class="bn-eq">কী</div><div class="trans">kyā</div><div class="note">বাংলার 'কী'-ই।</div></div>
+      <div class="word"><div class="ur">کون</div><div class="bn-eq">কে</div><div class="trans">kaun</div><div class="note">বাংলার 'কোন' কিন্তু উর্দুতে প্রাণবাচী 'কে'।</div></div>
+      <div class="word"><div class="ur">کہاں</div><div class="bn-eq">কোথায়</div><div class="trans">kahā̃</div><div class="note">'কাহাঁ' — একেবারেই চেনা।</div></div>
+      <div class="word"><div class="ur">کب</div><div class="bn-eq">কখন</div><div class="trans">kab</div><div class="note">'কব্‌'।</div></div>
+      <div class="word"><div class="ur">کیوں</div><div class="bn-eq">কেন</div><div class="trans">kyõ</div><div class="note">'কিয়োঁ' — বাংলার 'কেন' থেকে এক পা।</div></div>
+      <div class="word"><div class="ur">کیسے</div><div class="bn-eq">কীভাবে</div><div class="trans">kaise</div><div class="note">'কয়সে' — বাংলায় 'কীসে'।</div></div>
+    </div>
+
+    <div class="aside"><strong>ক-এর পরিবার।</strong> বাংলায় প্রশ্নশব্দগুলো বেশিরভাগ 'ক'-এ শুরু: কী, কে, কোথায়, কখন, কেন, কীভাবে। উর্দুতেও ঠিক তাই — <span class="ur">کیا کون کہاں کب کیوں کیسے</span>। এই মিল আকস্মিক নয় — দুই ভাষা সংস্কৃতের 'ক-' মূল থেকে উত্তরাধিকার পেয়েছে।</div>
+
+  </div>
+</section>
+
+<!-- STAGE 6 -->
+<section class="stage" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · পাঠ</div>
+    <h2 class="stage-title">পড়ার অনুশীলন — তিনটি ছোট পাঠ</h2>
+    <p class="stage-lede">এখন পর্যন্ত যা শিখেছ — অক্ষর, শব্দ, বাক্যের কঙ্কাল — সব এক জায়গায় এনে পরীক্ষা। প্রতিটি পাঠে তিনটি স্তর: উর্দু মূল, উচ্চারণ, বাংলা অর্থ। উর্দু লাইনটা ধীরে পড়ো, ডান থেকে বাঁয়ে — চোখকে নতুন দিকে হাঁটতে শেখাও।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="passage">
+      <div class="passage-title">পাঠ ১ · আত্ম-পরিচয়</div>
+      <div class="ur">میرا نام رامیش ہے۔ میں کلکتہ میں رہتا ہوں۔ میں اردو سیکھتا ہوں کیونکہ یہ میری مادری زبان بنگالی سے بہت قریب ہے۔ مجھے کتابیں پڑھنا بہت پسند ہے۔ میرے دوست بھی اردو جانتے ہیں۔</div>
+      <div class="trans">merā nām Ramesh hai. maĩ Kalkattā mẽ rahtā hū̃. maĩ urdū sīkhtā hū̃ kyõki yeh merī mādrī zabān Bangālī se bahut qarīb hai. mujhe kitābẽ paṛhnā bahut pasand hai. mere dost bhī urdū jānte haĩ.</div>
+      <div class="bn-gloss">আমার নাম রমেশ। আমি কলকাতায় থাকি। আমি উর্দু শিখছি কারণ এটি আমার মাতৃভাষা বাংলার খুব কাছাকাছি। আমার বই পড়তে খুব ভাল লাগে। আমার বন্ধুরাও উর্দু জানে।</div>
+    </div>
+
+    <div class="passage">
+      <div class="passage-title">পাঠ ২ · একদিনের রুটিন</div>
+      <div class="ur">میں صبح چھ بجے اٹھتا ہوں۔ پہلے چائے پیتا ہوں، پھر اخبار پڑھتا ہوں۔ آٹھ بجے ناشتہ کرتا ہوں — روٹی اور انڈہ۔ نو بجے دفتر جاتا ہوں۔ شام کو واپس آکر کتاب پڑھتا ہوں۔ رات کو دس بجے سوتا ہوں۔</div>
+      <div class="trans">maĩ subh che baje uṭhtā hū̃. pahle cāy pītā hū̃, phir akhbār paṛhtā hū̃. āṭh baje nāśtā kartā hū̃ — roṭī aur anḍā. nau baje daftar jātā hū̃. śām ko vāpas ākar kitāb paṛhtā hū̃. rāt ko das baje sotā hū̃.</div>
+      <div class="bn-gloss">আমি সকাল ছ'টায় উঠি। প্রথমে চা খাই, তারপর খবরের কাগজ পড়ি। আটটায় নাশতা করি — রুটি আর ডিম। ন'টায় দপ্তরে/অফিসে যাই। সন্ধ্যায় ফিরে এসে বই পড়ি। রাত দশটায় ঘুমাই।</div>
+    </div>
+
+    <div class="passage">
+      <div class="passage-title">পাঠ ৩ · দুজনের কথোপকথন</div>
+      <div class="ur">رحیم: السلام علیکم، کیا حال ہے؟
+سوہاگ: وعلیکم السلام۔ میں ٹھیک ہوں، شکریہ۔ آپ؟
+رحیم: میں بھی ٹھیک ہوں۔ آپ کل کہاں تھے؟
+سوہاگ: میں کل کلکتہ گیا تھا، ایک کتاب خریدنے۔
+رحیم: اچھا! کون سی کتاب؟
+سوہاگ: غالب کا دیوان۔ مجھے شاعری بہت پسند ہے۔
+رحیم: مجھے بھی۔ کبھی ساتھ پڑھیں گے۔</div>
+      <div class="trans">Rahīm: assalāmu alaikum, kyā hāl hai?
+Sohāg: vaalaikum assalām. maĩ ṭhīk hū̃, śukriyā. āp?
+Rahīm: maĩ bhī ṭhīk hū̃. āp kal kahā̃ the?
+Sohāg: maĩ kal Kalkattā gayā thā, ek kitāb kharīdne.
+Rahīm: acchā! kaun sī kitāb?
+Sohāg: Ġālib kā dīvān. mujhe śāyarī bahut pasand hai.
+Rahīm: mujhe bhī. kabhī sāth paṛhẽge.</div>
+      <div class="bn-gloss">রহিম: আসসালামু আলাইকুম, কেমন আছেন?
+সোহাগ: ওয়ালাইকুম আসসালাম। আমি ভাল আছি, ধন্যবাদ। আপনি?
+রহিম: আমিও ভাল আছি। আপনি কাল কোথায় ছিলেন?
+সোহাগ: আমি কাল কলকাতা গিয়েছিলাম, একটা বই কিনতে।
+রহিম: আচ্ছা! কোন বই?
+সোহাগ: গালিবের দিওয়ান। আমার শায়েরি খুব ভাল লাগে।
+রহিম: আমারও। কোনদিন একসাথে পড়ব।</div>
+    </div>
+
+    <div class="aside"><strong>ছোট টীকা।</strong> পাঠ ৩-এ লক্ষ করো: "কলকাতা গিয়েছিলাম" = <span class="ur">کلکتہ گیا تھا</span> — পরসর্গ শূন্য, বাংলার মতোই। শহরের নামের পরে 'তে' বা 'ে' দিতে হয় না (বাংলায় 'কলকাতা গিয়েছিলাম'-ই বলি, 'কলকাতাতে' সরাসরি গেলেও অনুপস্থিত)। দুই ভাষায় এই ছোট ফাঁকটা একইভাবে ধরে রাখা।</div>
+
+    <div class="aside"><strong>'গিয়া থা' = গিয়েছিলাম।</strong> উর্দুর past-perfect গঠন: ক্রিয়া + 'থা/থী' (লিঙ্গ অনুযায়ী)। 'থা' = ছিলাম/ছিল। বাংলার 'গিয়েছিলাম' = 'গিয়েছি' + 'ছিলাম' — ঠিক একই দ্বি-স্তর গঠন! উর্দু আলাদা করে দেখায়, বাংলা এক শব্দে চেপে দেয়। গঠন এক, চেহারা ভিন্ন।</div>
+
+  </div>
+</section>
+
+<!-- STAGE 7 -->
+<section class="stage" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · শব্দক্ষেত্র</div>
+    <h2 class="stage-title">শব্দ কীভাবে পৃথিবী কাটে — আত্মীয়, সময়, শরীর</h2>
+    <p class="stage-lede">প্রতি ভাষা পৃথিবীকে শব্দ দিয়ে নিজের মতো টুকরো করে। বাংলা-উর্দু অনেক জায়গায় এক ছাঁচে কাটে — দুই ভাষা একই মাটির। কিন্তু কয়েক জায়গায় খুব সূক্ষ্ম তফাৎ — সেটাই পরখ করার জায়গা।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৭.১</span>আত্মীয়তা — দুই ভাষা, একই ছাঁচ (প্রায়)</h3>
+
+    <p>বাংলা আত্মীয়-শব্দের বিশেষত্ব হল মাতৃ-পক্ষ আর পিতৃ-পক্ষকে আলাদা করা: মামা ≠ কাকা, মাসি ≠ পিসি। উর্দুতেও ঠিক একই ভাগ:</p>
+
+    <div class="words">
+      <div class="word"><div class="ur">ماما / ماموں</div><div class="bn-eq">মামা (মায়ের ভাই)</div><div class="trans">māmā / māmū̃</div><div class="note">হুবহু বাংলার 'মামা'।</div></div>
+      <div class="word"><div class="ur">چچا</div><div class="bn-eq">চাচা / কাকা (বাবার ছোট ভাই)</div><div class="trans">cacā</div><div class="note">বাংলাদেশে 'চাচা' চালু, পশ্চিমবঙ্গে 'কাকা'।</div></div>
+      <div class="word"><div class="ur">تایا</div><div class="bn-eq">জ্যেঠা (বাবার বড় ভাই)</div><div class="trans">tāyā</div><div class="note">বাংলা 'জ্যাঠা', উর্দু 'তায়া' — দুটোই 'বড়'-কে আলাদা করে।</div></div>
+      <div class="word"><div class="ur">خالہ</div><div class="bn-eq">মাসি (মায়ের বোন)</div><div class="trans">xālā</div><div class="note">বাংলাদেশে 'খালা' সরাসরি ব্যবহৃত।</div></div>
+      <div class="word"><div class="ur">پھوپھی</div><div class="bn-eq">পিসি (বাবার বোন)</div><div class="trans">phūphī</div><div class="note">বাংলার 'ফুফু' (মুসলিম সমাজে) একই শব্দ।</div></div>
+      <div class="word"><div class="ur">نانا / نانی</div><div class="bn-eq">নানা / নানি (মায়ের বাবা-মা)</div><div class="trans">nānā / nānī</div><div class="note">বাংলায় 'নানা-নানি' বিশেষত মুসলমান পরিবারে।</div></div>
+      <div class="word"><div class="ur">دادا / دادی</div><div class="bn-eq">দাদা / ঠাকুরদা-ঠাকুরমা</div><div class="trans">dādā / dādī</div><div class="note"><span class="tag">সতর্ক</span>উর্দুতে 'দাদা' = পিতার পিতা (পিতামহ)। বাংলায় 'দাদা' = বড় ভাই! এটি এক চমৎকার <em>মিথ্যা বন্ধু</em>।</div></div>
+    </div>
+
+    <div class="aside"><strong>মিথ্যা বন্ধু — 'দাদা'।</strong> বাংলায় 'দাদা' মানে <em>বড় ভাই</em>। উর্দু-হিন্দিতে 'দাদা' মানে <em>পিতামহ</em>। একই শব্দ, এক প্রজন্মের পার্থক্য! বাঙালি যদি উর্দুভাষীকে ‘দাদা’ বলে, সে ভাববে তুমি তাকে বৃদ্ধ বলছ। সাবধান!</div>
+
+    <h3><span class="num">৭.২</span>সময় — একই অস্পষ্টতা</h3>
+
+    <p>উর্দু-বাংলা উভয়ের সময় কাটা প্রায় এক: দিনকে ভাগ করা সকাল-দুপুর-বিকেল-সন্ধ্যা-রাত। পার্থক্য সূক্ষ্ম:</p>
+
+    <div class="words">
+      <div class="word"><div class="ur">صبح</div><div class="bn-eq">সকাল</div><div class="trans">subh</div><div class="note">বাংলার 'সুবহ্‌' (আরবি থেকে) আজও ব্যবহৃত।</div></div>
+      <div class="word"><div class="ur">دوپہر</div><div class="bn-eq">দুপুর</div><div class="trans">dopahar</div><div class="note">'দো-পহর' = দুই প্রহর — বাংলার 'দ্বি-প্রহর' = 'দুপুর'। একই যুক্তি।</div></div>
+      <div class="word"><div class="ur">سہ پہر / شام</div><div class="bn-eq">বিকেল / সন্ধ্যা</div><div class="trans">sehpahar / śām</div><div class="note">'সেহ-পহর' = তিন প্রহর (= বিকেল); 'শাম' = সন্ধ্যা।</div></div>
+      <div class="word"><div class="ur">رات</div><div class="bn-eq">রাত</div><div class="trans">rāt</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">پرسوں</div><div class="bn-eq">পরশু</div><div class="trans">parsõ</div><div class="note">বাংলার 'পরশু'-র মতোই দুই দিকে কাজ করে: গত-পরশু বা আগামী-পরশু!</div></div>
+    </div>
+
+    <div class="aside"><strong>'পরশু' — দুই দিকেই।</strong> বাংলার 'পরশু' যেমন আগু-পিছু দু'দিকে কাজ করে (কাল + পরশু = দু'দিন আগে বা দু'দিন পরে), উর্দুর <span class="ur">پرسوں</span> হুবহু তেমনই। উর্দু 'নরসোঁ' (<span class="ur">نرسوں</span>) আছে আরও দূরের জন্য — তিন দিন আগে/পরে। বাংলায় এটার বহুল ব্যবহার কমে গেছে, কিন্তু পুরনো সাহিত্যে 'তরশু' পাওয়া যায়।</div>
+
+    <h3><span class="num">৭.৩</span>শরীর</h3>
+
+    <div class="words">
+      <div class="word"><div class="ur">سر</div><div class="bn-eq">মাথা / শির</div><div class="trans">sar</div><div class="note"><span class="tag ps">ফার্সি</span>বাংলায় 'শির' বা 'শির-ঃ-ছেদ'-এ একই।</div></div>
+      <div class="word"><div class="ur">آنکھ</div><div class="bn-eq">চোখ</div><div class="trans">ā̃kh</div><div class="note">বাংলার 'আঁখি' সরাসরি — 'আঁখ'।</div></div>
+      <div class="word"><div class="ur">کان</div><div class="bn-eq">কান</div><div class="trans">kān</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">ناک</div><div class="bn-eq">নাক</div><div class="trans">nāk</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">منہ</div><div class="bn-eq">মুখ</div><div class="trans">mũh</div><div class="note">'মুঁহ' — বাংলার 'মুখ' থেকে এক ধাপ।</div></div>
+      <div class="word"><div class="ur">ہاتھ</div><div class="bn-eq">হাত</div><div class="trans">hāth</div><div class="note">হুবহু।</div></div>
+      <div class="word"><div class="ur">پاؤں / پیر</div><div class="bn-eq">পা</div><div class="trans">pāũ / pair</div><div class="note">বাংলার 'পায়ের পাতা'-র 'পা'।</div></div>
+      <div class="word"><div class="ur">دل</div><div class="bn-eq">বুক / হৃদয় / মন</div><div class="trans">dil</div><div class="note">শায়েরিতে 'দিল' = মন। বাংলায় কবিতায় 'দিল' চালু।</div></div>
+    </div>
+
+    <h3><span class="num">৭.৪</span>গতি — যাওয়া-আসার শেড</h3>
+
+    <p>বাংলা যাওয়া-আসা-উঠা-নামা — সব আছে। উর্দুও তেমনি, কিন্তু দুটি যৌগিক ক্রিয়া বাংলার চেয়ে বেশি ব্যবহার করে:</p>
+
+    <div class="words">
+      <div class="word"><div class="ur">چلا جانا</div><div class="bn-eq">চলে যাওয়া</div><div class="trans">calā jānā</div><div class="note">হুবহু — 'চলে + যাওয়া'।</div></div>
+      <div class="word"><div class="ur">آ جانا</div><div class="bn-eq">এসে পড়া / চলে আসা</div><div class="trans">ā jānā</div><div class="note">বাংলার 'এসে পড়া' / 'এসে যাওয়া'।</div></div>
+      <div class="word"><div class="ur">اٹھ جانا</div><div class="bn-eq">উঠে যাওয়া</div><div class="trans">uṭh jānā</div><div class="note">হুবহু 'উঠে+যাওয়া'।</div></div>
+      <div class="word"><div class="ur">لے آنا</div><div class="bn-eq">নিয়ে আসা</div><div class="trans">le ānā</div><div class="note">হুবহু 'নিয়ে+আসা'।</div></div>
+    </div>
+
+    <div class="aside"><strong>যৌগিক ক্রিয়া — বাংলা-উর্দুর গোপন চুক্তি।</strong> দু'টি ক্রিয়াকে পাশাপাশি বসিয়ে ভাব তৈরি করা — 'নিয়ে আসা', 'চলে যাওয়া', 'খেয়ে ফেলা' — বাংলার একটি প্রিয় অভ্যাস। উর্দু ঠিক একইভাবে: <span class="ur">لے آنا، چلا جانا، کھا لینا</span>। দুই ভাষার ক্রিয়া-দর্শন এক: একটি কাজে বহু দিক — ঢুকে যাওয়া, করে ফেলা, পড়ে নেওয়া। হিন্দির সঙ্গে মিল আরও বেশি, কিন্তু উর্দু-বাংলায় একটি সূক্ষ্ম আত্মীয়তা আছে।</div>
+
+  </div>
+</section>
+
+<!-- STAGE 8 -->
+<section class="stage" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · ব্যবহার</div>
+    <h2 class="stage-title">সম্মান, সৌজন্য, সংস্কৃতি</h2>
+    <p class="stage-lede">একটা ভাষা শুধু শব্দ নয় — সৌজন্য, সম্মান, সম্পর্কের ভাষাও সাথে আসে। বাংলা আর উর্দু এক উপমহাদেশের দুই ভাষা, কাজেই ব্যবহার-নিয়মের অর্ধেকের বেশি মিলে যায়। তবু কিছু সূক্ষ্ম বিশেষত্ব আছে।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৮.১</span>সম্মানস্তর — তিন ধাপ, ঠিক বাংলার মতো</h3>
+
+    <div class="comp-wrap">
+      <table class="comp">
+        <thead>
+          <tr><th>স্তর</th><th>বাংলা</th><th>উর্দু</th><th>কখন ব্যবহার</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>অন্তরঙ্গ / ছোটদের</td><td>তুই</td><td class="ur-g">تُو<span class="sub">tū</span></td><td>খুব ঘনিষ্ঠ বন্ধু, ছোট ভাই/বোন, ঈশ্বর</td></tr>
+          <tr><td>সমবয়সী / সাধারণ</td><td>তুমি</td><td class="ur-g">تم<span class="sub">tum</span></td><td>বন্ধু, সহকর্মী, ছাত্র</td></tr>
+          <tr><td>সম্মান / আনুষ্ঠানিক</td><td>আপনি</td><td class="ur-g">آپ<span class="sub">āp</span></td><td>বয়োজ্যেষ্ঠ, অপরিচিত, গুরু</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>আপ-এর বিশেষ ব্যাকরণ।</strong> উর্দুর 'আপ' বহুবচন হিসেবেই চলে, এমনকি একজনকে বোঝালেও। তাই ক্রিয়া থাকবে বহুবচনে: <span class="ur">آپ جاتے ہیں</span> (আপনি যান) — আক্ষরিক অর্থে 'আপনারা যান'। বাংলার 'আপনি যান'-এ ক্রিয়ায় একই '-েন' সম্মান-রূপ। নিয়ম দুই ভাষায় প্রায় একই।</div>
+
+    <h3><span class="num">৮.২</span>দৈনন্দিন সৌজন্য</h3>
+
+    <div class="words">
+      <div class="word"><div class="ur">السلام علیکم</div><div class="bn-eq">নমস্কার / আস্‌সালামু আলাইকুম</div><div class="trans">assalāmu alaikum</div><div class="note">মুসলমান সম্প্রদায়ের স্বাভাবিক অভিবাদন; জবাব — <span class="ur">وعلیکم السلام</span> (ওয়ালাইকুম আসসালাম)।</div></div>
+      <div class="word"><div class="ur">آداب</div><div class="bn-eq">আদাব</div><div class="trans">ādāb</div><div class="note">ধর্ম-নিরপেক্ষ অভিবাদন, লক্ষ্ণৌ-দিল্লির আদব-কায়দা। বাংলাতেও 'আদাব' চালু।</div></div>
+      <div class="word"><div class="ur">شکریہ</div><div class="bn-eq">ধন্যবাদ</div><div class="trans">śukriyā</div><div class="note">বাংলা 'শুকরিয়া' সরাসরি।</div></div>
+      <div class="word"><div class="ur">مہربانی</div><div class="bn-eq">দয়া / মেহেরবানি</div><div class="trans">meharbānī</div><div class="note">বাংলায় 'মেহেরবান' শব্দ আছে — কৃপাময়।</div></div>
+      <div class="word"><div class="ur">معاف کیجیے</div><div class="bn-eq">মাফ করবেন / ক্ষমা</div><div class="trans">muāf kījie</div><div class="note">'মাফ' বাংলায় চালু।</div></div>
+      <div class="word"><div class="ur">خدا حافظ</div><div class="bn-eq">খোদা হাফেজ / বিদায়</div><div class="trans">xudā hāfiz</div><div class="note">'খোদা তোমাকে রক্ষা করুন' — বাংলা মুসলমান সমাজে আজও।</div></div>
+    </div>
+
+    <h3><span class="num">৮.৩</span>'খেয়েছ?' — এক ভাষিক আচার</h3>
+
+    <p>বাঙালি 'ভাত খেয়েছ?' দিয়ে খোঁজখবর নেয়। উর্দু <span class="ur">کھانا کھایا؟</span> (খানা খায়া?) — হুবহু একই। এই প্রশ্নটি দুই ভাষায় শুধু খাবার নয়, একটি অভিবাদন। দোকানদার-কাস্টমার, আত্মীয়, পাড়ার লোক — সবাই দেখা হলে জিজ্ঞেস করে।</p>
+
+    <div class="sentence">
+      <div class="ur">کھانا کھایا؟</div>
+      <div class="trans">khānā khāyā?</div>
+      <div class="bn-gloss">খেয়েছ? / ভাত খেয়েছ?</div>
+      <div class="literal">উত্তরে: 'জি হাঁ, খা লিয়া' / 'না, অভি নহীঁ'।</div>
+    </div>
+
+    <div class="aside"><strong>ভাষিক আত্মীয়তা।</strong> 'খেয়েছ?' দিয়ে কুশল জানতে চাওয়া দক্ষিণ এশিয়ার সাধারণ রীতি। বাংলা-উর্দু-পাঞ্জাবি-তামিল সবাই এটা করে। ইউরোপীয় ভাষায় এটা 'অদ্ভুত' মনে হতে পারে — কেন কেউ তোমার খাদ্যাভ্যাস নিয়ে চিন্তিত? কারণ আমাদের উপমহাদেশের ইতিহাসে খাদ্য-নিরাপত্তা এত ভঙ্গুর ছিল যে 'পেটে ভাত আছে' মানে 'তুমি ঠিক আছ'।</div>
+
+    <h3><span class="num">৮.৪</span>নরম-কারী শব্দ — softener</h3>
+
+    <p>উর্দু-শায়েরির সৌন্দর্যের অর্ধেক আসে নরম শব্দ থেকে। বাংলাও সেই কাজ করে তবে ভিন্ন শব্দে:</p>
+
+    <div class="words">
+      <div class="word"><div class="ur">ذرا</div><div class="bn-eq">একটু / একবার</div><div class="trans">zarā</div><div class="note">অনুরোধকে নরম করে: 'ذرا پانی دینا' = 'একটু পানি দাও'।</div></div>
+      <div class="word"><div class="ur">بس</div><div class="bn-eq">ব্যস্‌ / যথেষ্ট</div><div class="trans">bas</div><div class="note">বাংলায় 'ব্যস্‌, যথেষ্ট হয়েছে' সরাসরি।</div></div>
+      <div class="word"><div class="ur">ویسے</div><div class="bn-eq">এমনিতে / যাই হোক</div><div class="trans">vaise</div><div class="note">কথার মাঝে বিষয় বদল করতে।</div></div>
+      <div class="word"><div class="ur">یار</div><div class="bn-eq">দোস্ত / বন্ধু (সম্বোধন)</div><div class="trans">yār</div><div class="note">নজরুলের 'য়ার' থেকে আজও।</div></div>
+      <div class="word"><div class="ur">جناب</div><div class="bn-eq">জনাব / মহাশয়</div><div class="trans">janāb</div><div class="note">আনুষ্ঠানিক সম্বোধন, বাংলায় চিঠিতে।</div></div>
+    </div>
+
+    <h3><span class="num">৮.৫</span>অপরিচিতকে সম্বোধন</h3>
+
+    <div class="words">
+      <div class="word"><div class="ur">بھائی صاحب</div><div class="bn-eq">ভাই সাহেব</div><div class="trans">bhāī sāhab</div><div class="note">অপরিচিত পুরুষকে — বাংলায় 'দাদা' বা 'ভাই' বলার স্থানে।</div></div>
+      <div class="word"><div class="ur">آپا / باجی</div><div class="bn-eq">আপা / বাজি (আপা = বড় বোন)</div><div class="trans">āpā / bājī</div><div class="note">অপরিচিত নারীকে সম্মান জানিয়ে — বাংলাদেশে 'আপা' হুবহু চালু।</div></div>
+      <div class="word"><div class="ur">بیٹا</div><div class="bn-eq">বাবা / বাছা</div><div class="trans">beṭā</div><div class="note">বয়োজ্যেষ্ঠ কর্তৃক ছোটকে স্নেহ-সম্বোধন — বাংলার 'বাবা, এদিকে এসো'।</div></div>
+    </div>
+
+    <div class="aside"><strong>আপা — সীমান্ত-পারের বোন।</strong> 'আপা' শব্দটা পূর্ববঙ্গে (বাংলাদেশে) আজও দাপটের সাথে ব্যবহৃত হয় — বড় বোন, সম্মানিত নারী, রাজনৈতিক নেত্রী সবাই 'আপা'। উর্দু এটাই দেয়, এবং শব্দটার শিকড় মূল তুর্কি 'আপা' (বড় বোন) থেকে। বাংলা-উর্দুর সাথে উজবেক, তুর্কি, আজারবাইজানি — সবাই এই শব্দে জুড়ে আছে।</div>
+
+  </div>
+</section>
+
+<!-- STAGE 9 -->
+<section class="stage" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · সাহিত্য</div>
+    <h2 class="stage-title">উর্দু সাহিত্যের সেতু — বাংলার চোখে</h2>
+    <p class="stage-lede">উর্দু সাহিত্য প্রায় ৭০০ বছরের পুরনো। গজল, নজম, দাস্তান, আফসানা — প্রতিটি ঘরানার একজন করে মহাকবি/মহালেখক আছেন। বাংলার পাঠক যাঁদের চেনেন — রবীন্দ্রনাথ, নজরুল, সুকান্ত, মহাশ্বেতা — তাঁদের সাথে উর্দু সাহিত্যিকদের যে সেতু আছে, সেটাই এই অধ্যায়ের বিষয়।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="lit-card">
+      <div class="name-ur">مرزا غالب</div>
+      <div class="name-bn">মির্জা গালিব (১৭৯৭–১৮৬৯)</div>
+      <div class="years">গজল · দিল্লি · ১৭৯৭–১৮৬৯</div>
+      <div class="desc">উর্দু গজলের শ্রেষ্ঠ কবি। দার্শনিক, বিদ্রূপাত্মক, হৃদয়বিদারক। ফার্সি-উর্দু দুটি ভাষাতেই লিখেছেন। দিল্লির শেষ মোগল দরবারের সাক্ষী।</div>
+      <div class="bridge"><strong>বাংলার সেতু:</strong> যেমন <em>রবীন্দ্রনাথ ঠাকুর</em> — ভাষার সুর-অর্থ দুটোর উপরই পূর্ণ দখল, এবং সেই ভাষাকে চিরকালের জন্য বদলে দিয়েছেন। রবীন্দ্রনাথ পড়লে বাংলা যেমন শোনা যায়, গালিব পড়লে উর্দু।</div>
+    </div>
+
+    <div class="sher">
+      <div class="ur">ہزاروں خواہشیں ایسی کہ ہر خواہش پہ دم نکلے
+بہت نکلے میرے ارمان لیکن پھر بھی کم نکلے</div>
+      <div class="trans">hazārõ xvāhiśẽ aisī ke har xvāhiś pe dam nikle<br />bahut nikle mere armān lekin phir bhī kam nikle</div>
+      <div class="bn-gloss">হাজারো এমন ইচ্ছা যে প্রতিটিতে প্রাণ বেরিয়ে যায়,<br />অনেক পূর্ণ হল আমার বাসনা, তবু কম বলে মনে হল।</div>
+      <div class="attrib">মির্জা গালিব</div>
+    </div>
+
+    <div class="lit-card">
+      <div class="name-ur">فیض احمد فیض</div>
+      <div class="name-bn">ফৈজ আহমদ ফৈজ (১৯১১–১৯৮৪)</div>
+      <div class="years">বিপ্লবী কবিতা · লাহোর · ১৯১১–১৯৮৪</div>
+      <div class="desc">প্রেম আর বিপ্লব মিশিয়ে দেওয়া কবি। কারাবন্দি অবস্থায় লেখা 'জিন্দান-নামা'। নোবেলের চূড়ান্ত তালিকায় ছিলেন।</div>
+      <div class="bridge"><strong>বাংলার সেতু:</strong> যেমন <em>সুকান্ত ভট্টাচার্য</em> — বিপ্লব ও প্রেমকে এক কলমে ধরা। সুকান্তের 'সিঁড়ি' পড়লে ফৈজের 'হাম দেখেঙ্গে' মনে পড়ে; একই আগুন, ভিন্ন মাটিতে।</div>
+    </div>
+
+    <div class="sher">
+      <div class="ur">ہم دیکھیں گے
+لازم ہے کہ ہم بھی دیکھیں گے
+وہ دن کہ جس کا وعدہ ہے</div>
+      <div class="trans">ham dekhẽge / lāzim hai ke ham bhī dekhẽge / voh din ke jis kā vaadā hai</div>
+      <div class="bn-gloss">আমরা দেখব / নিশ্চয় আমরাও দেখব / সেই দিন যার অঙ্গীকার আছে</div>
+      <div class="attrib">ফৈজ আহমদ ফৈজ</div>
+    </div>
+
+    <div class="lit-card">
+      <div class="name-ur">علّامہ اقبال</div>
+      <div class="name-bn">আল্লামা ইকবাল (১৮৭৭–১৯৩৮)</div>
+      <div class="years">দার্শনিক কবিতা · শিয়ালকোট · ১৮৭৭–১৯৩৮</div>
+      <div class="desc">দর্শন-কবি। 'তরানা-ই-হিন্দি' (সারে জাহাঁ সে আচ্ছা হিন্দোস্তাঁ হামারা) তাঁরই লেখা। ফার্সি-উর্দু দুই ভাষায় বিশাল কাব্য-ভাণ্ডার।</div>
+      <div class="bridge"><strong>বাংলার সেতু:</strong> যেমন <em>কাজী নজরুল ইসলাম</em> — ধর্ম, দর্শন, বিপ্লব এক সূত্রে গাঁথা। নজরুলই একমাত্র বাংলা কবি যিনি ইকবালের কবিতা সরাসরি বাংলায় অনুবাদ করেছিলেন। দুজনেই বিশ্বাস করতেন, কবিতা জাতিকে জাগাতে পারে।</div>
+    </div>
+
+    <div class="lit-card">
+      <div class="name-ur">سعادت حسن منٹو</div>
+      <div class="name-bn">সাদত হাসান মান্টো (১৯১২–১৯৫৫)</div>
+      <div class="years">ছোটগল্প · লাহোর · ১৯১২–১৯৫৫</div>
+      <div class="desc">উপমহাদেশের সেরা ছোটগল্পকার। দেশভাগ, যৌনতা, ক্ষমতা — কোনো বিষয় এড়াননি। 'টোবা টেক সিং', 'ঠাণ্ডা গোশ্ত' — শিউরে ওঠার মতো গদ্য। অশ্লীলতার অভিযোগে ছয়বার মামলা।</div>
+      <div class="bridge"><strong>বাংলার সেতু:</strong> যেমন <em>মহাশ্বেতা দেবী</em> — ক্ষমতা আর প্রান্তজনকে নির্ভয়ে লেখা। মান্টোর 'টোবা টেক সিং' যেমন দেশভাগের পাগলামি দেখায়, মহাশ্বেতার 'দ্রৌপদী' তেমনি রাষ্ট্রীয় হিংসা। দু'জনেই বলেন সত্য, কাউকে সান্ত্বনা দিতে নয়।</div>
+    </div>
+
+    <div class="lit-card">
+      <div class="name-ur">میر تقی میر</div>
+      <div class="name-bn">মীর তকী মীর (১৭২৩–১৮১০)</div>
+      <div class="years">গজল · দিল্লি/লক্ষ্ণৌ · ১৭২৩–১৮১০</div>
+      <div class="desc">উর্দু শায়েরির 'খুদা-এ-সুখন' (শব্দের ঈশ্বর)। গালিবের পূর্বসূরি। দিল্লির বিপর্যয়, লক্ষ্ণৌর আশ্রয়, ভগ্ন জীবন — সব কবিতায়।</div>
+      <div class="bridge"><strong>বাংলার সেতু:</strong> যেমন <em>চণ্ডীদাস</em> বা <em>বিদ্যাপতি</em> — ভাষার শিশুকাল যাঁদের হাতে পূর্ণতা পেয়েছে। মীরের পরে উর্দু আর শিশু ছিল না; চণ্ডীদাসের পরে বাংলা পদাবলিও নয়।</div>
+    </div>
+
+    <div class="lit-card">
+      <div class="name-ur">ابنِ صفی</div>
+      <div class="name-bn">ইবনে সফী (১৯২৮–১৯৮০)</div>
+      <div class="years">গোয়েন্দা উপন্যাস · এলাহাবাদ/করাচি · ১৯২৮–১৯৮০</div>
+      <div class="desc">উর্দু গোয়েন্দা-উপন্যাসের জনক। 'জাসুসী দুনিয়া' আর 'ইমরান সিরিজ' — দুটোর শ'য়ের কাছাকাছি বই। শরলক হোমসের উর্দু-প্রতিরূপ।</div>
+      <div class="bridge"><strong>বাংলার সেতু:</strong> যেমন <em>সত্যজিৎ রায়ের ফেলুদা</em> বা <em>শরদিন্দুর ব্যোমকেশ</em> — গোয়েন্দা উপন্যাসকে সাহিত্য-মর্যাদা দেওয়া। ইবনে সফী ছিলেন ভারত-পাকিস্তানের সবচেয়ে পঠিত লেখক এক সময়।</div>
+    </div>
+
+    <div class="lit-card">
+      <div class="name-ur">اسماعیل میرٹھی</div>
+      <div class="name-bn">ইসমাইল মিরাঠী (১৮৪৪–১৯১৭)</div>
+      <div class="years">শিশু-কবিতা · মিরাট · ১৮৪৪–১৯১৭</div>
+      <div class="desc">উর্দু শিশু-কবিতার পথিকৃৎ। 'রেল কা সফর', 'এক মাকড়া' — স্কুলপাঠ্যে প্রজন্ম-প্রজন্ম। সরল ভাষা, গভীর শিক্ষা।</div>
+      <div class="bridge"><strong>বাংলার সেতু:</strong> যেমন <em>সুকুমার রায়</em> — শিশুকে শিশু হিসেবেই সম্মান করে লেখা। ইসমাইলের 'এক মাকড়া' সুকুমারের 'কাঠবুড়ো'-র দূর আত্মীয়।</div>
+    </div>
+
+    <div class="aside"><strong>নজরুল — দুই ভাষার সেতু।</strong> কাজী নজরুল ইসলাম বাংলা আর উর্দু — দু'ভাষাতেই কবিতা লিখেছেন। তাঁর 'খেয়াপারের তরণী' পড়লে উর্দু গজলের সুর পাওয়া যায়; তাঁর উর্দু ভাষণ শুনলে বাংলা প্রাণ পাওয়া যায়। বাঙালি যদি উর্দু শিখে গালিব-ফৈজ পড়তে পারে, সে তার নিজের নজরুলকে নতুন করে পায়।</div>
+
+    <div class="aside"><strong>শেষ কথা।</strong> উর্দু তোমার পরদেশি ভাষা নয়। যে মাটিতে রবীন্দ্রনাথ হেঁটেছেন, সেই মাটিতে গালিব হেঁটেছেন; যে ভাষায় নজরুল গান বেঁধেছেন, সেই ভাষার এক পা ফৈজে, আর এক পা বাংলায়। এই পাঠ্যক্রম শেষ করে তুমি শুধু উর্দু শেখোনি — তুমি তোমার নিজের সভ্যতার অন্য দিকটা ছুঁয়ে এসেছ।</div>
+
+    <p style="margin-top: 40px; text-align: center; font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-faded); font-size: 17px;">
+      <span class="ur" style="display:block; font-size: 26px; color: var(--sindoor); margin-bottom: 16px;">خدا حافظ</span>
+      বাংলা আর উর্দু — এক সভ্যতার দুই বোন। একজন চিনলে অন্যজনকেও চিনে ফেলেছ প্রায় পুরোটাই।
+    </p>
+
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn" disabled>← পূর্ববর্তী</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">পরবর্তী →</button>
+</div>
+
+</div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="ur">بسم اللہ</span>
+    বাংলা ও উর্দু — দুই ভাষা, এক সভ্যতা।<br />
+    made by Nil · using Claude
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const tabs = document.querySelectorAll('.stage-tab');
+    const stages = document.querySelectorAll('section.stage');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsEl = document.getElementById('dots');
+    const total = stages.length;
+    let current = 0;
+
+    // build dots
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot';
+      dotsEl.appendChild(d);
+    }
+    const dots = dotsEl.querySelectorAll('.dot');
+
+    function go(n) {
+      current = Math.max(0, Math.min(total - 1, n));
+      tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+      stages.forEach((s, i) => s.classList.toggle('active', i === current));
+      dots.forEach((d, i) => {
+        d.classList.toggle('current', i === current);
+        d.classList.toggle('done', i < current);
+      });
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === total - 1;
+      // scroll active tab into view
+      const activeTab = tabs[current];
+      if (activeTab && activeTab.scrollIntoView) {
+        activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    tabs.forEach((t, i) => t.addEventListener('click', () => go(i)));
+    prevBtn.addEventListener('click', () => go(current - 1));
+    nextBtn.addEventListener('click', () => go(current + 1));
+
+    // map-cell tap to reveal
+    document.querySelectorAll('.map-cell').forEach(cell => {
+      const toggle = () => {
+        const wasExpanded = cell.classList.contains('expanded');
+        document.querySelectorAll('.map-cell.expanded').forEach(c => {
+          c.classList.remove('expanded');
+          const h = c.querySelector('.hint');
+          if (h) h.textContent = '';
+        });
+        if (!wasExpanded) {
+          cell.classList.add('expanded');
+          const hintTxt = cell.getAttribute('data-hint') || '';
+          const h = cell.querySelector('.hint');
+          if (h) h.textContent = hintTxt;
+        }
+      };
+      cell.addEventListener('click', toggle);
+      cell.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+    });
+
+    // init
+    go(0);
+  })();
+</script>
+
+</body>
+</html>

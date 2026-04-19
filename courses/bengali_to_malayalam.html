@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="বাংলা থেকে মালায়ালম শেখার প্রথম-নীতি পাঠ্যক্রম — বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে।" />
+<title>മലയാളം പഠിക്കാം — বাংলা থেকে মালায়ালম</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Bengali', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .mal { font-family: 'Noto Serif Malayalam', serif; }
+  .bn { font-family: 'Noto Serif Bengali', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .mal { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .bn-g {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .mal-g {
+    font-family: 'Noto Serif Malayalam', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 4px; }
+  .map-cell .new-flag {
+    position: absolute;
+    top: 4px; right: 6px;
+    font-size: 11px;
+    color: var(--sindoor);
+  }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .mal { font-family: 'Noto Serif Malayalam', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .bn-eq { font-family: 'Noto Serif Bengali', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+  .word .tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ochre); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 6px; }
+
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .mal { font-family: 'Noto Serif Malayalam', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Bengali', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .mal { font-family: 'Noto Serif Malayalam', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .bn-eq { font-family: 'Noto Serif Bengali', serif; font-size: 15px; color: var(--ink-soft); }
+
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+  table.guni .mal { font-family: 'Noto Serif Malayalam', serif; }
+  table.guni .bn { font-family: 'Noto Serif Bengali', serif; }
+
+  .passage {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .passage::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .passage .mal { font-size: 18px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; font-family: 'Noto Serif Malayalam', serif; }
+  .passage .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 10px; line-height: 1.6; }
+  .passage .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .passage .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .dialog { margin: 24px 0; padding: 20px 22px; background: var(--paper-warm); border: 1px solid var(--rule); border-radius: 4px; }
+  .dialog .line { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px dashed var(--rule); }
+  .dialog .line:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+  .dialog .who { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--sindoor); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .dialog .mal { font-family: 'Noto Serif Malayalam', serif; font-size: 18px; font-weight: 500; margin-bottom: 2px; }
+  .dialog .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faded); margin-bottom: 2px; }
+  .dialog .bn-gloss { font-family: 'Noto Serif Bengali', serif; font-size: 15px; color: var(--ink-soft); }
+
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+  .aside .mal { font-family: 'Noto Serif Malayalam', serif; }
+
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, bengali);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+  .principles .mal { font-family: 'Noto Serif Malayalam', serif; }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+  ul.clean .mal { font-family: 'Noto Serif Malayalam', serif; }
+
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Bengali', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  .bridge { display: grid; gap: 14px; margin: 18px 0; }
+  .bridge-item {
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--sindoor);
+    border-radius: 3px;
+  }
+  .bridge-item .mal-name { font-family: 'Noto Serif Malayalam', serif; font-size: 20px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .bridge-item .bn-name { font-family: 'Noto Serif Bengali', serif; font-size: 16px; color: var(--ink-soft); margin-top: 2px; }
+  .bridge-item .era { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--sindoor); letter-spacing: 0.1em; margin-top: 4px; }
+  .bridge-item .desc { margin-top: 10px; font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
+  .bridge-item .bridge-to { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--rule); font-size: 14px; color: var(--teal); }
+  .bridge-item .bridge-to strong { color: var(--sindoor); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .mal { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; font-family: 'Noto Serif Malayalam', serif; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .mal-g { font-size: 26px; }
+    .map-cell .bn-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .bn-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 380px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 14px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">একটি প্রাইমার · പ്രാഥമിക പാഠപുസ്തകം</div>
+    <h1 class="title">
+      <span class="mal">മലയാളം പഠിക്കാം</span>
+      বাংলা থেকে মালায়ালম শিখুন
+    </h1>
+    <p class="subtitle">বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে — একসাথে একটাই অজানা জিনিস, রূপ আগে অর্থ পরে, তালিকা নয় ব্যবস্থা — বাংলা যা জানে তার ওপর দাঁড়িয়ে মালায়ালম।</p>
+    <div class="byline">দশটি ধাপ <span class="sep">·</span> মোবাইল-বান্ধব <span class="sep">·</span> সম্পূর্ণ শূন্য থেকে</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">০০</span>ভূমিকা</button>
+    <button class="stage-tab" data-stage="1"><span class="num">০১</span>স্বরবর্ণ</button>
+    <button class="stage-tab" data-stage="2"><span class="num">০২</span>ব্যঞ্জনবর্ণ</button>
+    <button class="stage-tab" data-stage="3"><span class="num">০৩</span>সংযোজনা</button>
+    <button class="stage-tab" data-stage="4"><span class="num">০৪</span>মূল শব্দ</button>
+    <button class="stage-tab" data-stage="5"><span class="num">০৫</span>বাক্য</button>
+    <button class="stage-tab" data-stage="6"><span class="num">০৬</span>পাঠ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">০৭</span>শব্দক্ষেত্র</button>
+    <button class="stage-tab" data-stage="8"><span class="num">০৮</span>ব্যবহার</button>
+    <button class="stage-tab" data-stage="9"><span class="num">০৯</span>সাহিত্য</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" id="stage-00" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · ভূমিকা</div>
+    <h2 class="stage-title">এই পাঠ কেন আলাদা</h2>
+    <p class="stage-lede">তুমি বাংলা জানো। তার মানে মালায়ালম শেখার জন্য তোমাকে ইংরেজি-ভাষীদের মতো শূন্য থেকে শুরু করতে হবে না — তুমি ৪৮টির মধ্যে ৪১টি ধ্বনি, ব্যাকরণের কঙ্কাল, আর তৎসম শব্দভাণ্ডারের এক-তৃতীয়াংশ ইতিমধ্যেই চেনো।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>বিদ্যাসাগরের <strong>বর্ণপরিচয়</strong> তোমার শৈশবের বই। সেই বইয়ের মূল নীতি ছিল: <strong>একসাথে একটিই অজানা জিনিস</strong>, আর যা শেখানো হয়নি তা দিয়ে কোনো উদাহরণ দেওয়া হবে না। এই পাঠক্রম সেই একই পদ্ধতি ব্যবহার করে, কিন্তু একটি বিশেষ সুবিধা সহ: বাংলা আর মালায়ালম একই পরিবারের না হলেও — একটি ইন্দো-আর্য, অন্যটি দ্রাবিড় — একই সভ্যতার মধ্যে বেড়ে উঠেছে। দুটোই ব্রাহ্মী লিপির সন্তান, দুটোরই ধ্বনিতত্ত্ব সংস্কৃত-অনুপ্রাণিত, দুটোই SOV (কর্তা-কর্ম-ক্রিয়া)।</p>
+
+    <p>একটি বাক্য দেখো: <span class="bn">"আমি জল খাই"</span> — বাংলায় কর্তা, কর্ম, ক্রিয়া এই ক্রমে। মালায়ালমে: <span class="mal">"ഞാൻ വെള്ളം കുടിക്കുന്നു"</span> (ঞান্ বেল্লম্ কুডিক্কুন্নু) — হুবহু একই ক্রম। কর্তা (ঞান্ = আমি), কর্ম (বেল্লম্ = জল), ক্রিয়া (কুডিক্কুন্নু = পান করি)। ইংরেজি-ভাষী এখানে মাথা উল্টে শিখবে; তুমি শুধু নতুন শব্দ বসাবে।</p>
+
+    <p>মালায়ালমে আবার সংস্কৃতের ভাণ্ডার বিশাল — তৎসম শব্দ প্রায় বাংলার মতোই বসে। <span class="bn">সময়</span> = <span class="mal">സമയം</span> (সময়ম্), <span class="bn">দিন</span> = <span class="mal">ദിനം</span> (দিনম্), <span class="bn">ভূমি</span> = <span class="mal">ഭൂമി</span> (ভূমি), <span class="bn">নমস্কার</span> = <span class="mal">നമസ്കാരം</span> (নমস্কারম্)। তৎসম এখানে সেতু।</p>
+
+    <h3><span class="num">¶</span>বাংলা → মালায়ালম: কোথায় মিল, কোথায় ফারাক</h3>
+
+    <ol class="principles">
+      <li><strong>ধ্বনি — ৪৮-এর মধ্যে ৪১টি পরিচিত।</strong> বর্গীয় ব্যঞ্জনের পুরো ছক (ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ-ঞ, ট-ঠ-ড-ঢ-ণ...) মালায়ালমে হুবহু আছে — ക-ഖ-ഗ-ഘ-ങ। অল্পপ্রাণ/মহাপ্রাণ, ঘোষ/অঘোষ, মূর্ধন্য/দন্ত্য — এই সবক'টি ভেদ তোমার মুখ আগে থেকেই জানে।</li>
+      <li><strong>লিপি — আলাদা রূপ, এক নিয়ম।</strong> দুটোই <em>অবুগিদা</em> — প্রতিটি ব্যঞ্জনে একটি অন্তর্নিহিত 'অ' আছে, স্বরচিহ্ন দিয়ে বদলায়। বাংলার ্ (হসন্ত) = মালায়ালমের ് (চন্দ্রক্কল)। একই কাজ, আলাদা চেহারা। নিয়মটা তুমি ছোটবেলায় শিখেছ।</li>
+      <li><strong>ব্যাকরণ — কঙ্কাল এক, মাংসে তফাৎ।</strong> দুটোই SOV, দুটোই পরসর্গ-নির্ভর (<span class="bn">ঘরে</span> = <span class="mal">വീട്ടിൽ</span> বীট্টিল্ — দুই ভাষাই বিশেষ্যের পরে চিহ্ন বসায়, ইংরেজির মতো আগে নয়)। কিন্তু মালায়ালম ক্রিয়াপদ মিলন-প্রধান (agglutinative) — একটিমাত্র শব্দে তিন-চারটি অংশ জোড়া লাগে।</li>
+      <li><strong>শব্দভাণ্ডার — সংস্কৃত সেতু, ৩৩% সরাসরি মিল।</strong> পুস্তক/<span class="mal">പുസ്തകം</span>, সময়/<span class="mal">സമയം</span>, ভাষা/<span class="mal">ഭാഷ</span>, আকাশ/<span class="mal">ആകാശം</span> — তৎসম শব্দগুলোর শেষে মালায়ালম একটি 'ম্' যোগ করে (নপুংসক চিহ্ন)। তুমি বাংলা মূলটি চিনলে, অর্থ নিজে থেকেই আসে।</li>
+      <li><strong>চিল্লু — মালায়ালমের এক অদ্ভুত অলঙ্কার।</strong> বাংলায় হসন্ত-বসানো ব্যঞ্জন শব্দের শেষে লিখতে হয় (রং, কান্‌)। মালায়ালমে এই "স্বরহীন ব্যঞ্জন" এতই সাধারণ যে তাদের জন্য আলাদা রূপ আছে — ൻ (ন্), ർ (র্), ൾ (ল্), ൽ (ল্), ൺ (ণ্), ൿ (ক্)। এগুলিই চিল্লু। <span class="mal">അവൻ</span> (আবন্ = সে-পুরুষ)।</li>
+      <li><strong>একমাত্র সত্যিকারের নতুন ধ্বনি: <span class="mal">ഴ</span> (ḻa)।</strong> এটি একটি মূর্ধন্য তালব্য-বাঁকানো ধ্বনি — বাংলা, হিন্দি, কন্নড — কেউই রাখেনি। শুধু মালায়ালম আর তামিলে টিকে আছে। <span class="mal">മഴ</span> (মড়া = বৃষ্টি), <span class="mal">കോഴി</span> (কোড়ি = মুরগি)। এই ധ്বনিটি তিন হাজার বছরের পুরনো দ্রাবিড় উত্তরাধিকার। এর সাথে সাথে <span class="mal">ള</span> (ḷ — মূর্ধন্য ল) — বাংলা হারিয়েছে, মালায়ালম রেখেছে।</li>
+    </ol>
+
+    <div class="aside"><strong>পদ্ধতি।</strong> প্রতিটি ধাপে মালায়ালম অক্ষর/শব্দ/বাক্যের পাশে বাংলা সমতুল্য রাখা হয়েছে। তুমি বাংলা চিনলে, মালায়ালম শুধু নতুন চেহারা — নতুন ধারণা নয়। প্রতিটি কার্ডে আঙুল ছোঁয়াও, ছোট সূত্র উঁকি দেবে।</div>
+
+    <div class="aside"><strong>একটি সাবধানতা।</strong> বাংলা-ভাষীর কাছে মালায়ালম লিপি প্রথম দেখায় গোলাকার, জটিল, অচেনা লাগে। ভয় পেয়ো না — ব্রাহ্মীর দুই কন্যা, উত্তরে কৌণিক হয়ে হলো বাংলা, দক্ষিণে গোল হয়ে হলো মালায়ালম। তাল-পাতায় লিখতে গেলে সোজা রেখা পাতা ছিঁড়ে দেয়, তাই দক্ষিণে সব অক্ষর গোল। এক ইতিহাস, দুই হাতের লেখা।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ওপরে <strong>স্বরবর্ণ</strong> ট্যাবে চাপো, শুরু করো।</p>
+  </div>
+</section>
+<section class="stage" id="stage-01" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ধ্বনি</div>
+    <h2 class="stage-title">স্বরবর্ণ — <span class="mal">സ്വരങ്ങൾ</span></h2>
+    <p class="stage-lede">বাংলায় তুমি ১১টি স্বর চেনো। মালায়ালমে ১৩টি। ধ্বনি প্রায় এক — কিন্তু মালায়ালম হ্রস্ব/দীর্ঘ-র পার্থক্য লিপিতেই দেখিয়ে দেয়, যেখানে বাংলা তা গোপন রাখে। পরিবারে পরিবারে চিনে নাও।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+malayalam+vowels+swarangal+pronunciation" title="মালায়ালম স্বরবর্ণ উচ্চারণ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">মালায়ালম স্বরবর্ণের উচ্চারণ <a href="https://www.youtube.com/results?search_query=learn+malayalam+vowels+swarangal+pronunciation" target="_blank" rel="noopener">আরও খুঁজুন ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>পড়ার নিয়ম।</strong> প্রতিটি কার্ডে ট্যাপ করলে একটি উদাহরণ শব্দ দেখাবে। বাংলা অক্ষরটি ওপরে, মালায়ালম নিচে — চোখ বাংলা চিনবে, তারপর মালায়ালম রূপটি স্মৃতিতে ঢুকে যাবে।</div>
+
+    <div class="group-label">হ্রস্ব / দীর্ঘ জোড়া — 'অ' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="അമ്മ (amma) = মা"><div class="bn-g">অ</div><div class="arrow">↓</div><div class="mal-g">അ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ആന (āna) = হাতি"><div class="bn-g">আ</div><div class="arrow">↓</div><div class="mal-g">ആ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ই' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഇല (ila) = পাতা"><div class="bn-g">ই</div><div class="arrow">↓</div><div class="mal-g">ഇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഈച്ച (īcca) = মাছি"><div class="bn-g">ঈ</div><div class="arrow">↓</div><div class="mal-g">ഈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'উ' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഉപ്പ് (uppŭ) = নুন"><div class="bn-g">উ</div><div class="arrow">↓</div><div class="mal-g">ഉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഊണ് (ūṇŭ) = দুপুরের ভাত"><div class="bn-g">ঊ</div><div class="arrow">↓</div><div class="mal-g">ഊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ঋ — সংস্কৃত ঋণ</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഋഷി (ṛṣi) = ঋষি — সংস্কৃত অবিকল!"><div class="bn-g">ঋ</div><div class="arrow">↓</div><div class="mal-g">ഋ</div><div class="label">ṛ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'এ' পরিবার — এখানে মালায়ালম বাংলার চেয়ে বেশি পরিষ্কার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="എലി (eli) = ইঁদুর"><div class="bn-g">এ</div><div class="arrow">↓</div><div class="mal-g">എ</div><div class="label">e (হ্রস্ব)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഏഴ് (ēḻ) = সাত"><div class="bn-g">এ (দীর্ঘ)</div><div class="arrow">↓</div><div class="mal-g">ഏ</div><div class="label">ē (দীর্ঘ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഐക്യം (aikyaṃ) = ঐক্য"><div class="bn-g">ঐ</div><div class="arrow">↓</div><div class="mal-g">ഐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ও' পরিবার</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഒന്ന് (onn) = এক"><div class="bn-g">ও</div><div class="arrow">↓</div><div class="mal-g">ഒ</div><div class="label">o (হ্রস্ব)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഓട് (ōḍ) = দৌড়াও"><div class="bn-g">ও (দীর্ঘ)</div><div class="arrow">↓</div><div class="mal-g">ഓ</div><div class="label">ō (দীর্ঘ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഔഷധം (auṣadhaṃ) = ঔষধ — একই শব্দ!"><div class="bn-g">ঔ</div><div class="arrow">↓</div><div class="mal-g">ഔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>বাংলার সাথে তফাৎ।</strong> মালায়ালমে হ্রস্ব-এ (<span class="mal">എ</span>) আর দীর্ঘ-এ (<span class="mal">ഏ</span>) আলাদা অক্ষর — "বেলা" আর "বেদ"-এর মধ্যে যে সূক্ষ্ম পার্থক্য বাংলা উচ্চারণে আছে অথচ লিপিতে নেই, মালায়ালম সেটাকে লিখে দেয়। একইভাবে হ্রস্ব-ও আর দীর্ঘ-ও। তোমাকে নতুন ধ্বনি শিখতে হবে না — শুধু পুরনো ধ্বনিকে নতুন চেহারায় চিনতে হবে।</div>
+
+    <div class="group-label">অনুস্বার ও বিসর্গ — বাংলার মতোই</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഹംസം (haṃsaṃ) = হংস — রাজহাঁস"><div class="bn-g">অং</div><div class="arrow">↓</div><div class="mal-g">അം</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ദുഃഖം (duḥkhaṃ) = দুঃখ — অবিকল"><div class="bn-g">অঃ</div><div class="arrow">↓</div><div class="mal-g">അഃ</div><div class="label">aḥ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>তৎসমে 'ম্' লক্ষ্য করো।</strong> বাংলায় "হংস" শেষ হয় 'স'-এ। মালায়ালমে <span class="mal">ഹംസം</span> — 'হংসম্'। তৎসম নপুংসক বিশেষ্যের শেষে মালায়ালম একটি -ম্ জোড়ে। সময় → সময়ম্, পুস্তক → পুস্তকম্, জল (জলম্) → জলম্। বাংলা এটা ফেলে দিয়েছে, মালায়ালম রেখেছে — সংস্কৃতের বেশি কাছাকাছি।</div>
+
+    <h3><span class="num">১.১</span>অভ্যাস</h3>
+    <ul class="clean">
+      <li>প্রতিটি জোড়া জোরে জোরে ২০ বার বলো: অ-আ, ই-ঈ, উ-ঊ — কিন্তু মালায়ালম গ্লিফের দিকে তাকিয়ে।</li>
+      <li>কাগজে প্রতিটি মালায়ালম স্বর ৫ বার আঁকো। হাত চোখকে শেখায়। বিশেষ করে <span class="mal">എ</span>/<span class="mal">ഏ</span> আর <span class="mal">ഒ</span>/<span class="mal">ഓ</span> — কাঁধের ছোট্ট বাঁকটুকুই দীর্ঘ করে দেয়।</li>
+      <li>যতক্ষণ না প্রতিটি মালায়ালম স্বর ১ সেকেন্ডে চিনতে পারো, ধাপ ২-তে যেও না।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-02" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ধ্বনি (চলতি)</div>
+    <h2 class="stage-title">ব্যঞ্জনবর্ণ — <span class="mal">വ്യഞ്ജനങ്ങൾ</span></h2>
+    <p class="stage-lede">বর্ণপরিচয়ের বর্গীয় ক্রম তোমার শরীরে আছে। ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ-ঞ... ঠিক একই ক্রমে মালায়ালম ব্যঞ্জন সাজানো। শুধু চেহারা নতুন, ক্রম চেনা।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+malayalam+consonants+vyanjanangal+pronunciation" title="মালায়ালম ব্যঞ্জনবর্ণ উচ্চারণ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">মালায়ালম ব্যঞ্জনবর্ণের উচ্চারণ <a href="https://www.youtube.com/results?search_query=learn+malayalam+consonants+vyanjanangal+pronunciation" target="_blank" rel="noopener">আরও ↗</a></div>
+    </div>
+
+    <h3><span class="num">২.১</span>কণ্ঠ্য বর্গ (কবর্গ) — জিভের গোড়া তালুর পেছনে</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="കമലം (kamalaṃ) = কমল"><div class="bn-g">ক</div><div class="arrow">↓</div><div class="mal-g">ക</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഖഡ്ഗം (khaḍgaṃ) = খড়্গ"><div class="bn-g">খ</div><div class="arrow">↓</div><div class="mal-g">ഖ</div><div class="label">kha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഗഗനം (gaganaṃ) = গগন — আকাশ"><div class="bn-g">গ</div><div class="arrow">↓</div><div class="mal-g">ഗ</div><div class="label">ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഘടം (ghaṭaṃ) = ঘট — কলসি"><div class="bn-g">ঘ</div><div class="arrow">↓</div><div class="mal-g">ഘ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="বাংলা ঙ-র মতো, অনুনাসিক"><div class="bn-g">ঙ</div><div class="arrow">↓</div><div class="mal-g">ങ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.২</span>তালব্য বর্গ (চবর্গ)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ചന്ദ്രൻ (candraṉ) = চন্দ্র"><div class="bn-g">চ</div><div class="arrow">↓</div><div class="mal-g">ച</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഛത്രം (chatraṃ) = ছাতা/ছত্র"><div class="bn-g">ছ</div><div class="arrow">↓</div><div class="mal-g">ഛ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ജലം (jalaṃ) = জল"><div class="bn-g">জ</div><div class="arrow">↓</div><div class="mal-g">ജ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഝരി (jhari) = ঝরনা"><div class="bn-g">ঝ</div><div class="arrow">↓</div><div class="mal-g">ഝ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ജ്ഞാനം (jñānaṃ) = জ্ঞান"><div class="bn-g">ঞ</div><div class="arrow">↓</div><div class="mal-g">ഞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৩</span>মূর্ধন্য বর্গ (টবর্গ) — জিভ পেছনে বেঁকিয়ে</h3>
+    <p>বাংলায় ট-ঠ-ড-ঢ-ণ যেমন, মালায়ালমে ঠিক তেমনই। এই ধ্বনিগুলো ইংরেজি-ভাষীদের জন্য কঠিন — তোমার জন্য নয়। দ্রাবিড় ভাষা মূর্ধন্যকে ভালোবাসে; তুমিও।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ടോപ്പി (ṭōppi) = টুপি"><div class="bn-g">ট</div><div class="arrow">↓</div><div class="mal-g">ട</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ঠ — বিরল, মূলত তৎসমে"><div class="bn-g">ঠ</div><div class="arrow">↓</div><div class="mal-g">ഠ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഡംബം (ḍambaṃ) = দম্ভ"><div class="bn-g">ড</div><div class="arrow">↓</div><div class="mal-g">ഡ</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ঢ — বিরল"><div class="bn-g">ঢ</div><div class="arrow">↓</div><div class="mal-g">ഢ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഗണപതി (gaṇapati) = গণপতি"><div class="bn-g">ণ</div><div class="arrow">↓</div><div class="mal-g">ണ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৪</span>দন্ত্য বর্গ (তবর্গ) — জিভের ডগা দাঁতের পেছনে</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="താര (tāra) = তারা"><div class="bn-g">ত</div><div class="arrow">↓</div><div class="mal-g">ത</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഥ — মূলত তৎসমে"><div class="bn-g">থ</div><div class="arrow">↓</div><div class="mal-g">ഥ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ദിനം (dinaṃ) = দিন — অবিকল!"><div class="bn-g">দ</div><div class="arrow">↓</div><div class="mal-g">ദ</div><div class="label">da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ധനം (dhanaṃ) = ধন"><div class="bn-g">ধ</div><div class="arrow">↓</div><div class="mal-g">ധ</div><div class="label">dha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="നാമം (nāmaṃ) = নাম"><div class="bn-g">ন</div><div class="arrow">↓</div><div class="mal-g">ന</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৫</span>ওষ্ঠ্য বর্গ (পবর্গ)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="പുസ്തകം (pustakaṃ) = পুস্তক"><div class="bn-g">প</div><div class="arrow">↓</div><div class="mal-g">പ</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഫലം (phalaṃ) = ফল"><div class="bn-g">ফ</div><div class="arrow">↓</div><div class="mal-g">ഫ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ബാ (bā) = এসো"><div class="bn-g">ব</div><div class="arrow">↓</div><div class="mal-g">ബ</div><div class="label">ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഭാഷ (bhāṣa) = ভাষা — চেনা?"><div class="bn-g">ভ</div><div class="arrow">↓</div><div class="mal-g">ഭ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="മരം (maraṃ) = গাছ"><div class="bn-g">ম</div><div class="arrow">↓</div><div class="mal-g">മ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৬</span>অন্তঃস্থ ও ঊষ্ম — য র ল ব শ ষ স হ</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="യമുന (yamuna) = যমুনা"><div class="bn-g">য</div><div class="arrow">↓</div><div class="mal-g">യ</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="രാമൻ (rāmaṉ) = রাম"><div class="bn-g">র</div><div class="arrow">↓</div><div class="mal-g">ര</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ലത (lata) = লতা"><div class="bn-g">ল</div><div class="arrow">↓</div><div class="mal-g">ല</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="വരിക (varika) = আসা — লক্ষ্য করো, 'ব' নয় 'ভ্'-র মতো নরম 'ভ্ব্'"><div class="bn-g">ব</div><div class="arrow">↓</div><div class="mal-g">വ</div><div class="label">va/ʋa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ശിവൻ (śivaṉ) = শিব"><div class="bn-g">শ</div><div class="arrow">↓</div><div class="mal-g">ശ</div><div class="label">śa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഷഡ്ജം (ṣaḍjaṃ) = ষড়্‌জ"><div class="bn-g">ষ</div><div class="arrow">↓</div><div class="mal-g">ഷ</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="സമയം (samayaṃ) = সময়"><div class="bn-g">স</div><div class="arrow">↓</div><div class="mal-g">സ</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഹരി (hari) = হরি"><div class="bn-g">হ</div><div class="arrow">↓</div><div class="mal-g">ഹ</div><div class="label">ha</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">২.৭</span>দ্রাবিড় উত্তরাধিকার — বাংলায় নেই, মালায়ালম রেখেছে</h3>
+    <p>এই তিনটি অক্ষর মালায়ালমের নিজস্ব সম্পদ — সংস্কৃত থেকে আসেনি, দ্রাবিড় মাটি থেকে উঠেছে। বাংলা এদের হারিয়েছে; কিছু শব্দে আভাস রেখে।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഴ = মূর্ধন্য-তালব্য, জিভ পেছনে গুটিয়ে 'র্‌ঝ' / മഴ (maḻa) = বৃষ্টি"><div class="bn-g">—</div><div class="arrow">↓</div><div class="mal-g">ഴ</div><div class="label">ḻa ⚡</div><div class="hint"></div><span class="new-flag">⚡</span></div>
+      <div class="map-cell" tabindex="0" data-hint="ള = মূর্ধন্য ল / വെള്ളം (veḷḷaṃ) = জল"><div class="bn-g">—</div><div class="arrow">↓</div><div class="mal-g">ള</div><div class="label">ḷa ⚡</div><div class="hint"></div><span class="new-flag">⚡</span></div>
+      <div class="map-cell" tabindex="0" data-hint="റ = শক্ত, কাঁপানো র / കാറ്റ് (kāṟṟŭ) = হাওয়া"><div class="bn-g">—</div><div class="arrow">↓</div><div class="mal-g">റ</div><div class="label">ṟa ⚡</div><div class="hint"></div><span class="new-flag">⚡</span></div>
+    </div>
+
+    <div class="aside"><strong><span class="mal">ഴ</span>-র রহস্য।</strong> এই একটি ধ্বনি পৃথিবীতে মাত্র দুটি ভাষা টিকিয়ে রেখেছে — তামিল আর মালায়ালম। সংস্কৃতেও ছিল না, বাংলাও হারিয়েছে। উচ্চারণ করতে হলে জিভের ডগা পেছনে মুড়িয়ে, কিন্তু তালুর ছোঁয়া দিয়ো না — হাওয়া বেরোবে 'র্‌ঝ'-র মতো। <span class="mal">മഴ</span> (মড়া = বৃষ্টি), <span class="mal">മലയാളം</span> (মলয়াড়ম্ = মালায়ালম)। ভাষার নামেই এই ধ্বনি!</div>
+
+    <div class="aside"><strong>তিন রকমের ল।</strong> বাংলায় একটাই 'ল'। মালায়ালমে তিন — <span class="mal">ല</span> (সাধারণ ল), <span class="mal">ള</span> (মূর্ধন্য ল, জিভ পেছনে), <span class="mal">ഴ</span> (তালব্য-বাঁকানো)। এই তিনটি আলাদা শব্দ: <span class="mal">പാലം</span> (পালম্ = সেতু), <span class="mal">പാളം</span> (পাড়ম্ = রেললাইন), <span class="mal">പഴം</span> (পড়ম্ = ফল)। কান তৈরি কর।</div>
+
+    <div class="aside"><strong>চিল্লু অক্ষরগুলি।</strong> মালায়ালমে অনেক শব্দ ব্যঞ্জনে শেষ হয় — স্বরহীন। এর জন্য বিশেষ রূপ: <span class="mal">ൻ</span> (ন্), <span class="mal">ർ</span> (র্), <span class="mal">ൾ</span> (ল্/ळ্), <span class="mal">ൽ</span> (ল্), <span class="mal">ൺ</span> (ণ্)। <span class="mal">അവൻ</span> (আবন্ = সে-পুরুষ), <span class="mal">അവൾ</span> (আবল্ = সে-স্ত্রী)। বাংলা এদের শুধু হসন্ত দিয়ে বানায়; মালায়ালমের জন্য এরা আলাদা চিহ্ন — কারণ এরা প্রতিদিনের কাজে লাগে।</div>
+
+    <h3><span class="num">২.৮</span>অভ্যাস</h3>
+    <ul class="clean">
+      <li>প্রতিটি বর্গ উচ্চারণ করে কাগজে লেখ। জিভের অবস্থান অনুভব কর।</li>
+      <li><span class="mal">ഴ</span>/<span class="mal">ള</span>/<span class="mal">ല</span> — এই তিনটি দিয়ে ১০টি করে শব্দ বানাও, অথবা উচ্চারণ কর।</li>
+      <li>চিল্লু চিহ্নগুলো (<span class="mal">ൻ ർ ൾ ൽ ൺ</span>) মুখস্ত কর — পরের ধাপে এদের বারবার লাগবে।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-03" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · সংযোজনা</div>
+    <h2 class="stage-title">স্বরচিহ্ন, চন্দ্রক্কল, যুক্তাক্ষর</h2>
+    <p class="stage-lede">বাংলায় 'ক'-এর পাশে া-ি-ী-ু-ূ বসিয়ে তুমি কা-কি-কী-কু-কূ বানাও। মালায়ালমেও হুবহু একই নিয়ম, শুধু চিহ্নের চেহারা আলাদা। ব্যবস্থাটা তুমি জানো।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৩.১</span>স্বরচিহ্ন — ক-এর সাথে মেলানো</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead>
+          <tr><th>স্বর</th><th>বাংলা চিহ্ন</th><th>ক-এ বাংলা</th><th>মালায়ালম চিহ্ন</th><th>ক-এ মালায়ালম</th><th>উচ্চারণ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="bn g">অ</td><td class="sub">অন্তর্নিহিত</td><td class="bn g">ক</td><td class="sub">অন্তর্নিহিত</td><td class="mal g">ക</td><td>ka</td></tr>
+          <tr><td class="bn g">আ</td><td class="bn g">া</td><td class="bn g">কা</td><td class="mal g">ാ</td><td class="mal g">കാ</td><td>kā</td></tr>
+          <tr><td class="bn g">ই</td><td class="bn g">ি</td><td class="bn g">কি</td><td class="mal g">ി</td><td class="mal g">കി</td><td>ki</td></tr>
+          <tr><td class="bn g">ঈ</td><td class="bn g">ী</td><td class="bn g">কী</td><td class="mal g">ീ</td><td class="mal g">കീ</td><td>kī</td></tr>
+          <tr><td class="bn g">উ</td><td class="bn g">ু</td><td class="bn g">কু</td><td class="mal g">ു</td><td class="mal g">കു</td><td>ku</td></tr>
+          <tr><td class="bn g">ঊ</td><td class="bn g">ূ</td><td class="bn g">কূ</td><td class="mal g">ൂ</td><td class="mal g">കൂ</td><td>kū</td></tr>
+          <tr><td class="bn g">এ</td><td class="bn g">ে</td><td class="bn g">কে</td><td class="mal g">െ</td><td class="mal g">കെ</td><td>ke</td></tr>
+          <tr><td class="bn g">এ (দীর্ঘ)</td><td>—</td><td>—</td><td class="mal g">േ</td><td class="mal g">കേ</td><td>kē</td></tr>
+          <tr><td class="bn g">ঐ</td><td class="bn g">ৈ</td><td class="bn g">কৈ</td><td class="mal g">ൈ</td><td class="mal g">കൈ</td><td>kai</td></tr>
+          <tr><td class="bn g">ও</td><td class="bn g">ো</td><td class="bn g">কো</td><td class="mal g">ൊ</td><td class="mal g">കൊ</td><td>ko</td></tr>
+          <tr><td class="bn g">ও (দীর্ঘ)</td><td>—</td><td>—</td><td class="mal g">ോ</td><td class="mal g">കോ</td><td>kō</td></tr>
+          <tr><td class="bn g">ঔ</td><td class="bn g">ৌ</td><td class="bn g">কৌ</td><td class="mal g">ൌ</td><td class="mal g">കൌ</td><td>kau</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>বিদ্যাসাগরের চাল।</strong> এই ১১-১২টি স্বরচিহ্ন মালায়ালমের প্রায় ৩৬টি ব্যঞ্জনে হুবহু একইভাবে বসে। ১২ × ৩৬ ≈ ৪৩০টি রূপ — মাত্র ১২টি চিহ্ন মুখস্থ করলেই আসে। একবার একটি ব্যঞ্জনে বসাতে শিখলে বাকিগুলোতে সেই নিয়ম হুবহু প্রযোজ্য।</div>
+
+    <h3><span class="num">৩.২</span>হসন্ত → চন্দ্রক্কল</h3>
+    <p>বাংলায় ব্যঞ্জনে অন্তর্নিহিত 'অ' বাদ দিতে হসন্ত (্) বসাও — যেমন রামে্‌ (বিরল), বা যুক্তাক্ষরে। মালায়ালমে এই কাজটি করে <strong>চন্দ্রক্কল</strong> ് — দেখো, আকৃতিই চাঁদের কাস্তের মতো।</p>
+    <div class="words">
+      <div class="word">
+        <div class="mal">ക്</div>
+        <div class="bn-eq">ক্‌ (স্বরহীন)</div>
+        <div class="trans">k (স্বরহীন)</div>
+        <div class="note">ব্যঞ্জন + চন্দ্রক্কল = শুধু ব্যঞ্জন, স্বর নেই</div>
+      </div>
+      <div class="word">
+        <div class="mal">സ്നേഹം</div>
+        <div class="bn-eq">স্নেহ</div>
+        <div class="trans">snēhaṃ</div>
+        <div class="note">স্‌ + নেহম্ — বাংলা "স্নেহ"-র সাথে মিলাও: স্ + ন = স্ন, দুই ভাষায় একই কাজ</div>
+      </div>
+    </div>
+
+    <h3><span class="num">৩.৩</span>যুক্তাক্ষর — একই নীতি, নতুন চেহারা</h3>
+    <p>বাংলায় তুমি জানো: ক্‌ + ত = ক্ত, স্‌ + ত = স্ত, জ্‌ + ঞ = জ্ঞ। মালায়ালমেও হুবহু একই নীতি — দুটি বা তিনটি ব্যঞ্জন একসাথে। চেহারা নতুন, কিন্তু যুক্তির নিয়মটা তুমি জানো।</p>
+
+    <div class="words">
+      <div class="word">
+        <div class="mal">ക്ത</div>
+        <div class="bn-eq">ক্ত</div>
+        <div class="trans">kta</div>
+        <div class="note">ক্‌ + ত — উদাহরণ: <span class="mal">ഭക്തൻ</span> (ভক্তন্ = ভক্ত)</div>
+      </div>
+      <div class="word">
+        <div class="mal">സ്ത</div>
+        <div class="bn-eq">স্ত</div>
+        <div class="trans">sta</div>
+        <div class="note">স্‌ + ত — উদাহরণ: <span class="mal">പുസ്തകം</span> (পুস্তকম্ = পুস্তক)</div>
+      </div>
+      <div class="word">
+        <div class="mal">ജ്ഞ</div>
+        <div class="bn-eq">জ্ঞ</div>
+        <div class="trans">jña</div>
+        <div class="note">জ্‌ + ঞ — উদাহরণ: <span class="mal">ജ്ഞാനം</span> (জ্ঞানম্ = জ্ঞান)</div>
+      </div>
+      <div class="word">
+        <div class="mal">ന്ത</div>
+        <div class="bn-eq">ন্ত</div>
+        <div class="trans">nta</div>
+        <div class="note">ন্‌ + ত — উদাহরণ: <span class="mal">സന്തോഷം</span> (সন্তোষম্ = সন্তোষ)</div>
+      </div>
+      <div class="word">
+        <div class="mal">ക്ക</div>
+        <div class="bn-eq">ক্ক</div>
+        <div class="trans">kka</div>
+        <div class="note">দ্বিত্ব — মালায়ালমে বহু ক্রিয়ায় পাবে: <span class="mal">ഇരിക്കുക</span> (ইরিক্কুকা)</div>
+      </div>
+      <div class="word">
+        <div class="mal">ള്ള</div>
+        <div class="bn-eq">ল্ল (মূর্ধন্য)</div>
+        <div class="trans">ḷḷa</div>
+        <div class="note">মূর্ধন্য ল-র দ্বিত্ব — <span class="mal">വെള്ളം</span> (বেল্লম্ = জল)</div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>মালায়ালমে যুক্তাক্ষরের বিশেষত্ব।</strong> বাংলায় যুক্তাক্ষর প্রায়ই একটি নতুন আকৃতি গড়ে (ক্ষ, জ্ঞ, হ্ম)। মালায়ালম বেশির ভাগ ক্ষেত্রে দুটি অক্ষরকে উল্লম্বভাবে জোড়ে বা চন্দ্রক্কল দিয়ে আলাদা করে রাখে। <span class="mal">ക്ക</span> দেখতে <span class="mal">ക</span> + <span class="mal">ക</span>-র পরিচিত আকৃতি — স্তূপাকার। শেখা সহজ।</div>
+
+    <h3><span class="num">৩.৪</span>চিল্লু — শব্দের শেষে স্বরহীন ব্যঞ্জন</h3>
+    <p>মালায়ালমে শব্দ অনেকসময় ব্যঞ্জনে শেষ হয় (যেমন তামিল, ইংরেজি)। এর জন্য চিল্লু রূপ। বাংলায় শেষের হসন্ত লিখলে (রং, কাজ্‌) তা প্রায়-অদৃশ্য — মালায়ালমে চিল্লু দৃশ্যমান আলাদা অক্ষর।</p>
+    <div class="words">
+      <div class="word">
+        <div class="mal">ൻ</div>
+        <div class="bn-eq">ন্ (শেষে)</div>
+        <div class="trans">-ṉ</div>
+        <div class="note">উদাহরণ: <span class="mal">അവൻ</span> (আবন্ = সে-পুরুষ)</div>
+      </div>
+      <div class="word">
+        <div class="mal">ർ</div>
+        <div class="bn-eq">র্ (শেষে)</div>
+        <div class="trans">-r</div>
+        <div class="note">উদাহরণ: <span class="mal">അവർ</span> (আবর্‌ = তাঁরা/তাঁরা সম্মানীয়)</div>
+      </div>
+      <div class="word">
+        <div class="mal">ൾ</div>
+        <div class="bn-eq">ল্/ळ্ (শেষে)</div>
+        <div class="trans">-ḷ</div>
+        <div class="note">উদাহরণ: <span class="mal">അവൾ</span> (আবল্ = সে-স্ত্রী)</div>
+      </div>
+      <div class="word">
+        <div class="mal">ൽ</div>
+        <div class="bn-eq">ল্ (শেষে)</div>
+        <div class="trans">-l</div>
+        <div class="note">উদাহরণ: <span class="mal">കാൽ</span> (কাল্‌ = পা)</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-04" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · শব্দভাণ্ডার</div>
+    <h2 class="stage-title">মূল শব্দ — প্রথম ৫০</h2>
+    <p class="stage-lede">তৎসম (সংস্কৃতজাত) শব্দগুলো প্রায়ই অবিকল — শুধু শেষে -ম্ জুড়ে যায়। দ্রাবিড় মূল থেকে আসা শব্দগুলো সম্পূর্ণ নতুন, কিন্তু নিয়ম-মেনে গঠিত। নিচে দুই রকমই।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="aside"><strong>তৎসম সূত্র।</strong> নপুংসক-বাচক সংস্কৃত বিশেষ্য বাংলায় -অ-তে শেষ হয় (সময়, পুস্তক, ভবন)। মালায়ালম সেই -অ-কে -ম্ রূপে রাখে (সময়ম্, পুস্তকম্, ভবনম্)। অতএব: বাংলা শব্দের শেষে একটি 'ম্' যোগ কর, অধিকাংশ তৎসম শব্দই মালায়ালম হয়ে যাবে।</div>
+
+    <h3><span class="num">৪.১</span>সর্বনাম</h3>
+    <div class="words">
+      <div class="word"><div class="mal">ഞാൻ</div><div class="bn-eq">আমি</div><div class="trans">ñān</div><div class="note"><span class="tag">দ্রাবিড়</span>শেষে চিল্লু ൻ দেখো — স্বরহীন ন্</div></div>
+      <div class="word"><div class="mal">നീ</div><div class="bn-eq">তুই / তুমি</div><div class="trans">nī</div><div class="note"><span class="tag">দ্রাবিড়</span>ঘনিষ্ঠ সম্বোধন</div></div>
+      <div class="word"><div class="mal">നിങ്ങൾ</div><div class="bn-eq">আপনি / তোমরা</div><div class="trans">niṅṅaḷ</div><div class="note"><span class="tag">দ্রাবিড়</span>সম্মানসূচক বা বহুবচন</div></div>
+      <div class="word"><div class="mal">അവൻ</div><div class="bn-eq">সে (পুরুষ)</div><div class="trans">avaṉ</div><div class="note"><span class="tag">দ্রাবিড়</span>বাংলার 'সে' লিঙ্গ বলে না — মালায়ালম বলে</div></div>
+      <div class="word"><div class="mal">അവൾ</div><div class="bn-eq">সে (স্ত্রী)</div><div class="trans">avaḷ</div><div class="note"><span class="tag">দ্রাবিড়</span>শেষে চিল্লু ൾ</div></div>
+      <div class="word"><div class="mal">അവർ</div><div class="bn-eq">তিনি / তাঁরা</div><div class="trans">avar</div><div class="note"><span class="tag">দ্রাবিড়</span>সম্মানার্থে একবচনেও ব্যবহৃত</div></div>
+      <div class="word"><div class="mal">അത്</div><div class="bn-eq">সেটি / তা</div><div class="trans">at</div><div class="note"><span class="tag">দ্রাবিড়</span>নির্জীব / দূরবর্তী</div></div>
+      <div class="word"><div class="mal">ഇത്</div><div class="bn-eq">এটি / এ</div><div class="trans">it</div><div class="note"><span class="tag">দ্রাবিড়</span>নিকট — অ-/ই- উপসর্গ দ্রাবিড়ের প্রাচীন দ্বৈত</div></div>
+      <div class="word"><div class="mal">നാം / നമ്മൾ</div><div class="bn-eq">আমরা (তোমাকে সহ)</div><div class="trans">nām / nammaḷ</div><div class="note"><span class="tag">অন্তর্ভুক্ত</span>শ্রোতাকেও ধরে</div></div>
+      <div class="word"><div class="mal">ഞങ്ങൾ</div><div class="bn-eq">আমরা (তুমি ছাড়া)</div><div class="trans">ñaṅṅaḷ</div><div class="note"><span class="tag">বাদ</span>শ্রোতাকে বাদ দেয় — বাংলায় এই পার্থক্য নেই!</div></div>
+    </div>
+
+    <div class="aside"><strong>"আমরা" দু'রকম — বাংলায় এই গোপন ভেদ নেই।</strong> মালায়ালম জিজ্ঞেস করে: "আমরা" মানে তুমিও কি আছ, না কি তুমি বাদ? <span class="mal">നാം</span> (নাম্ = আমরা + তুমি), <span class="mal">ഞങ്ങൾ</span> (ঞঙ্ঙল্ = আমরা − তুমি)। বাংলায় "আমরা যাচ্ছি" শুনলে বোঝা যায় না তোমাকে ডাকছে কি না। মালায়ালম সেটি একটি শব্দেই জানিয়ে দেয় — দ্রাবিড় ভাষার পুরনো ন্যায্যতা।</div>
+
+    <h3><span class="num">৪.২</span>মূল বিশেষ্য — দৈনন্দিন</h3>
+    <div class="words">
+      <div class="word"><div class="mal">വെള്ളം</div><div class="bn-eq">জল</div><div class="trans">veḷḷaṃ</div><div class="note"><span class="tag">দ্রাবিড়</span>দ্বিত্ব ള্ള + তৎসম ধাঁচে -ম্</div></div>
+      <div class="word"><div class="mal">സമയം</div><div class="bn-eq">সময়</div><div class="trans">samayaṃ</div><div class="note"><span class="tag">তৎসম</span>বাংলা "সময়" + ম্ = অবিকল</div></div>
+      <div class="word"><div class="mal">ദിനം</div><div class="bn-eq">দিন</div><div class="trans">dinaṃ</div><div class="note"><span class="tag">তৎসম</span>অবিকল, শুধু -ম্</div></div>
+      <div class="word"><div class="mal">പാൽ</div><div class="bn-eq">দুধ</div><div class="trans">pāl</div><div class="note"><span class="tag">দ্রাবিড়</span>চিল্লু ൽ — তামিল-এ পাল্‌ও একই</div></div>
+      <div class="word"><div class="mal">മരം</div><div class="bn-eq">গাছ</div><div class="trans">maraṃ</div><div class="note"><span class="tag">দ্রাবিড়</span>সম্পূর্ণ নতুন শব্দ</div></div>
+      <div class="word"><div class="mal">മഴ</div><div class="bn-eq">বৃষ্টি</div><div class="trans">maḻa</div><div class="note"><span class="tag">দ্রাবিড়</span>নতুন ধ্বনি ഴ-কে লক্ষ্য করো</div></div>
+      <div class="word"><div class="mal">പൂവ്</div><div class="bn-eq">ফুল</div><div class="trans">pūv</div><div class="note"><span class="tag">দ্রাবিড়</span>শেষে চন্দ্রক্কল — স্বরহীন ব্‌</div></div>
+      <div class="word"><div class="mal">ഭൂമി</div><div class="bn-eq">ভূমি / পৃথিবী</div><div class="trans">bhūmi</div><div class="note"><span class="tag">তৎসম</span>অবিকল</div></div>
+      <div class="word"><div class="mal">സൂര്യൻ</div><div class="bn-eq">সূর্য</div><div class="trans">sūryaṉ</div><div class="note"><span class="tag">তৎসম</span>পুংলিঙ্গ-চিহ্ন -ൻ জোড়া</div></div>
+      <div class="word"><div class="mal">പേര്</div><div class="bn-eq">নাম</div><div class="trans">pēr</div><div class="note"><span class="tag">দ্রাবিড়</span>"পেয়ার" নয়, "পের্" — দীর্ঘ-এ</div></div>
+      <div class="word"><div class="mal">രാത്രി</div><div class="bn-eq">রাত / রাত্রি</div><div class="trans">rātri</div><div class="note"><span class="tag">তৎসম</span>অবিকল</div></div>
+      <div class="word"><div class="mal">പുസ്തകം</div><div class="bn-eq">পুস্তক / বই</div><div class="trans">pustakaṃ</div><div class="note"><span class="tag">তৎসম</span>যুক্তাক্ষর স্ত + -ম্</div></div>
+      <div class="word"><div class="mal">വീട്</div><div class="bn-eq">বাড়ি / ঘর</div><div class="trans">vīḍ</div><div class="note"><span class="tag">দ্রাবিড়</span>তামিল বীড়ু-র জ্ঞাতি</div></div>
+    </div>
+
+    <h3><span class="num">৪.৩</span>ক্রিয়া — মূল রূপ -ക (-কা)-তে শেষ হয়</h3>
+    <p>মালায়ালমের ক্রিয়া-র মূল (infinitive) বেশিরভাগই -ക-তে শেষ হয় — যেমন বাংলার -আ / -ওয়া (খাওয়া, দেখা)। নিচে প্রতিটি শব্দে তৎসম বা দ্রাবিড় উৎস চিনে নাও।</p>
+    <div class="words">
+      <div class="word"><div class="mal">ഇരിക്കുക</div><div class="bn-eq">থাকা / বসে থাকা</div><div class="trans">irikkuka</div><div class="note"><span class="tag">দ্রাবিড়</span>"হওয়া"-র কাছাকাছি; স্থিতি বোঝায়</div></div>
+      <div class="word"><div class="mal">പോവുക / പോകുക</div><div class="bn-eq">যাওয়া</div><div class="trans">pōvuka / pōkuka</div><div class="note"><span class="tag">দ্রাবিড়</span>বাংলা "পা-" ধাতু নয়; সম্পূর্ণ দ্রাবিড়</div></div>
+      <div class="word"><div class="mal">വരിക</div><div class="bn-eq">আসা</div><div class="trans">varika</div><div class="note"><span class="tag">দ্রাবিড়</span>তামিল "বা-"-র জ্ঞাতি</div></div>
+      <div class="word"><div class="mal">തിന്നുക</div><div class="bn-eq">খাওয়া</div><div class="trans">tinnuka</div><div class="note"><span class="tag">দ্রাবিড়</span>দ্বিত্ব ന്ന — মূর্ধন্য দ্রাবিড় ধাঁচ</div></div>
+      <div class="word"><div class="mal">കുടിക്കുക</div><div class="bn-eq">পান করা</div><div class="trans">kuḍikkuka</div><div class="note"><span class="tag">দ্রাবিড়</span>জল/চা/দুধ সব এই ক্রিয়ায়</div></div>
+      <div class="word"><div class="mal">നോക്കുക</div><div class="bn-eq">দেখা</div><div class="trans">nōkkuka</div><div class="note"><span class="tag">দ্রাবিড়</span>"নজর করা"-র প্রায় কাছাকাছি</div></div>
+      <div class="word"><div class="mal">കേൾക്കുക</div><div class="bn-eq">শোনা</div><div class="trans">kēḷkkuka</div><div class="note"><span class="tag">দ্রাবিড়</span>মূর্ধন্য ള লক্ষ্য কর</div></div>
+      <div class="word"><div class="mal">നടക്കുക</div><div class="bn-eq">হাঁটা</div><div class="trans">naḍakkuka</div><div class="note"><span class="tag">দ্রাবিড়</span>চলা/হাঁটা/ঘটা — তিনটিরই অর্থে</div></div>
+      <div class="word"><div class="mal">ഓടുക</div><div class="bn-eq">দৌড়ানো</div><div class="trans">ōḍuka</div><div class="note"><span class="tag">দ্রাবিড়</span>দীর্ঘ-ও দেখো</div></div>
+      <div class="word"><div class="mal">കൊടുക്കുക</div><div class="bn-eq">দেওয়া</div><div class="trans">koḍukkuka</div><div class="note"><span class="tag">দ্রাবিড়</span>দান / তুলে দেওয়া উভয়ই</div></div>
+      <div class="word"><div class="mal">വേണം</div><div class="bn-eq">চাই / লাগবে</div><div class="trans">vēṇaṃ</div><div class="note"><span class="tag">দ্রাবিড়</span>"আমার জল চাই" = എനിക്ക് വെള്ളം വേണം</div></div>
+      <div class="word"><div class="mal">നിൽക്കുക</div><div class="bn-eq">দাঁড়ানো</div><div class="trans">nilkkuka</div><div class="note"><span class="tag">দ্রাবিড়</span>চিল্লু ൽ-এর সাথে ক্ক</div></div>
+    </div>
+
+    <h3><span class="num">৪.৪</span>আত্মীয়তা</h3>
+    <div class="words">
+      <div class="word"><div class="mal">അച്ഛൻ</div><div class="bn-eq">বাবা</div><div class="trans">acchaṉ</div><div class="note"><span class="tag">দ্রাবিড়</span>দ্বিত্ব ച্ছ + চিল্লু ൻ</div></div>
+      <div class="word"><div class="mal">അമ്മ</div><div class="bn-eq">মা</div><div class="trans">amma</div><div class="note"><span class="tag">দ্রাবিড়</span>বাংলা "অম্মা" — পূর্ব ভারতেও আছে!</div></div>
+      <div class="word"><div class="mal">മാമൻ</div><div class="bn-eq">মামা</div><div class="trans">māmaṉ</div><div class="note"><span class="tag">সাধারণ</span>প্রায় অবিকল — দুই পরিবারে একই সম্বোধন</div></div>
+      <div class="word"><div class="mal">ചേട്ടൻ</div><div class="bn-eq">বড় ভাই / দাদা</div><div class="trans">cēṭṭaṉ</div><div class="note"><span class="tag">দ্রাবিড়</span>অচেনা বয়স্ক পুরুষকেও 'চেট্টা' বলা যায়</div></div>
+      <div class="word"><div class="mal">ചേച്ചി</div><div class="bn-eq">বড় বোন / দিদি</div><div class="trans">cēcci</div><div class="note"><span class="tag">দ্রাবিড়</span>অচেনা বয়স্ক স্ত্রীলোককে 'চেচ্চি'</div></div>
+    </div>
+
+    <h3><span class="num">৪.৫</span>শরীর</h3>
+    <div class="words">
+      <div class="word"><div class="mal">തല</div><div class="bn-eq">মাথা</div><div class="trans">tala</div><div class="note"><span class="tag">দ্রাবিড়</span>ছোট, মনে রাখা সহজ</div></div>
+      <div class="word"><div class="mal">കണ്ണ്</div><div class="bn-eq">চোখ</div><div class="trans">kaṇṇ</div><div class="note"><span class="tag">দ্রাবিড়</span>দ্বিত্ব মূর্ধন্য ণ্ণ</div></div>
+      <div class="word"><div class="mal">കൈ</div><div class="bn-eq">হাত</div><div class="trans">kai</div><div class="note"><span class="tag">দ্রাবিড়</span>এক অক্ষরেই — ঐ-সমান</div></div>
+      <div class="word"><div class="mal">കാൽ</div><div class="bn-eq">পা</div><div class="trans">kāl</div><div class="note"><span class="tag">দ্রাবিড়</span>চিল্লু ൽ</div></div>
+      <div class="word"><div class="mal">മൂക്ക്</div><div class="bn-eq">নাক</div><div class="trans">mūkk</div><div class="note"><span class="tag">দ্রাবিড়</span>দ্বিত্ব ക্ক</div></div>
+    </div>
+
+    <h3><span class="num">৪.৬</span>সময়</h3>
+    <div class="words">
+      <div class="word"><div class="mal">ഇന്ന്</div><div class="bn-eq">আজ</div><div class="trans">inn</div><div class="note"><span class="tag">দ্রাবিড়</span>দ্বিত্ব ন্ন, চন্দ্রক্কল</div></div>
+      <div class="word"><div class="mal">നാളെ</div><div class="bn-eq">আগামীকাল</div><div class="trans">nāḷe</div><div class="note"><span class="tag">দ্রাবিড়</span>মূর্ধন্য ള লক্ষ্য কর</div></div>
+      <div class="word"><div class="mal">ഇന്നലെ</div><div class="bn-eq">গতকাল</div><div class="trans">innale</div><div class="note"><span class="tag">দ্রাবিড়</span>বাংলার "কাল"-এর বিপরীতে আলাদা শব্দ!</div></div>
+      <div class="word"><div class="mal">ഇപ്പോൾ</div><div class="bn-eq">এখন</div><div class="trans">ippōḷ</div><div class="note"><span class="tag">দ্রাবিড়</span>দ্বিত্ব প্প + চিল্লু ൾ</div></div>
+    </div>
+
+    <div class="aside"><strong>বাংলার "কাল" দ্বিমুখী — মালায়ালম স্পষ্ট।</strong> বাংলায় "কাল যাব" আর "কাল এসেছিল" — একই শব্দ দু'দিক চাপে, প্রসঙ্গে বুঝতে হয়। মালায়ালম গতকাল <span class="mal">ഇന്നലെ</span> (ইন্নলে) আর আগামীকাল <span class="mal">നാളെ</span> (নাড়ে) — সম্পূর্ণ আলাদা শব্দ। ভুল হওয়ার সম্ভাবনা নেই।</div>
+
+    <h3><span class="num">৪.৭</span>সংখ্যা ১-১০</h3>
+    <div class="words">
+      <div class="word"><div class="mal">ഒന്ന്</div><div class="bn-eq">এক</div><div class="trans">onn</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="mal">രണ്ട്</div><div class="bn-eq">দুই</div><div class="trans">raṇṭ</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="mal">മൂന്ന്</div><div class="bn-eq">তিন</div><div class="trans">mūnn</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="mal">നാല്</div><div class="bn-eq">চার</div><div class="trans">nāl</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="mal">അഞ്ച്</div><div class="bn-eq">পাঁচ</div><div class="trans">añc</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="mal">ആറ്</div><div class="bn-eq">ছয়</div><div class="trans">āṟ</div><div class="note"><span class="tag">দ্রাবিড়</span>শক্ত র റ-কে লক্ষ্য কর</div></div>
+      <div class="word"><div class="mal">ഏഴ്</div><div class="bn-eq">সাত</div><div class="trans">ēḻ</div><div class="note"><span class="tag">দ্রাবিড়</span>ഴ লক্ষ্য — সাত মানে "এড়্‌"</div></div>
+      <div class="word"><div class="mal">എട്ട്</div><div class="bn-eq">আট</div><div class="trans">eṭṭ</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="mal">ഒമ്പത്</div><div class="bn-eq">নয়</div><div class="trans">ompat</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="mal">പത്ത്</div><div class="bn-eq">দশ</div><div class="trans">patt</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+    </div>
+
+    <h3><span class="num">৪.৮</span>অভিবাদন ও প্রাথমিক বাক্যাংশ</h3>
+    <div class="words">
+      <div class="word"><div class="mal">നമസ്കാരം</div><div class="bn-eq">নমস্কার</div><div class="trans">namaskāraṃ</div><div class="note"><span class="tag">তৎসম</span>অবিকল — দুই ভাষার সংস্কৃত উত্তরাধিকার</div></div>
+      <div class="word"><div class="mal">നന്ദി</div><div class="bn-eq">ধন্যবাদ</div><div class="trans">nandi</div><div class="note"><span class="tag">তৎসম</span>"আনন্দ"-র সাথে জ্ঞাতি, কৃতজ্ঞতা</div></div>
+      <div class="word"><div class="mal">ക്ഷമിക്കുക</div><div class="bn-eq">ক্ষমা করা</div><div class="trans">kṣamikkuka</div><div class="note"><span class="tag">তৎসম</span>মূল "ক্ষমা" + ক্রিয়াপদ</div></div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-05" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · বাক্যগঠন</div>
+    <h2 class="stage-title">বাক্য গঠন — <span class="mal">വാക്യം</span></h2>
+    <p class="stage-lede">ক্রম এক: কর্তা-কর্ম-ক্রিয়া (SOV)। পরসর্গ বিশেষ্যের পরে বসে — ঠিক বাংলার মতো। কিন্তু মালায়ালম ক্রিয়াপদে কাল আর রূপ একই শব্দে মিশে যায়।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৫.১</span>সরল বাক্য — অবিকল ক্রম</h3>
+
+    <div class="sentence">
+      <div class="mal">ഞാൻ വെള്ളം കുടിക്കുന്നു.</div>
+      <div class="trans">ñān veḷḷaṃ kuḍikkunnu.</div>
+      <div class="bn-gloss">আমি জল পান করছি।</div>
+      <div class="literal">[আমি] [জল] [পান-করছি] — সোজা বাংলার SOV</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">അവൻ പുസ്തകം വായിക്കുന്നു.</div>
+      <div class="trans">avaṉ pustakaṃ vāyikkunnu.</div>
+      <div class="bn-gloss">সে (পুরুষ) বই পড়ছে।</div>
+      <div class="literal">[সে-পুং] [পুস্তক] [পড়ছে]</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">അവൾ സ്കൂളിൽ പോകുന്നു.</div>
+      <div class="trans">avaḷ skūḷil pōkunnu.</div>
+      <div class="bn-gloss">সে (স্ত্রী) স্কুলে যাচ্ছে।</div>
+      <div class="literal">[সে-স্ত্রী] [স্কুল-এ] [যাচ্ছে] — -ിൽ চিহ্ন = বাংলার -এ/-তে (অধিকরণ)</div>
+    </div>
+
+    <h3><span class="num">৫.২</span>ক্রিয়ার কাল (ചെയ്യുക 'করা' ধাতু থেকে)</h3>
+    <p>মালায়ালমে ক্রিয়ার ভালো খবর: তৃতীয় পুরুষে লিঙ্গভেদ করে না, বরং সব পুরুষেই একই রূপ। বাংলার চেয়েও সরল!</p>
+
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">আমি (১ব)</div><div class="mal">ചെയ്യുന്നു</div><div class="bn-eq">করি (ceyyunnu)</div></div>
+      <div class="conjug-row"><div class="pron">তুই (২ঘ)</div><div class="mal">ചെയ്യുന്നു</div><div class="bn-eq">করিস</div></div>
+      <div class="conjug-row"><div class="pron">তুমি (২প)</div><div class="mal">ചെയ്യുന്നു</div><div class="bn-eq">করো</div></div>
+      <div class="conjug-row"><div class="pron">সে (৩)</div><div class="mal">ചെയ്യുന്നു</div><div class="bn-eq">করে</div></div>
+      <div class="conjug-row"><div class="pron">আমরা</div><div class="mal">ചെയ്യുന്നു</div><div class="bn-eq">করি</div></div>
+      <div class="conjug-row"><div class="pron">আপনি</div><div class="mal">ചെയ്യുന്നു</div><div class="bn-eq">করেন</div></div>
+      <div class="conjug-row"><div class="pron">তাঁরা</div><div class="mal">ചെയ്യുന്നു</div><div class="bn-eq">করেন/করে</div></div>
+    </div>
+
+    <div class="aside"><strong>মালায়ালমের ক্রিয়াপদ — এক রূপ, সব পুরুষে।</strong> বাংলায় আমি 'করি', তুমি 'করো', সে 'করে', তিনি 'করেন' — কর্তা অনুযায়ী ক্রিয়াপদ বদলায়। মালায়ালমে ক্রিয়াপদ বদলায় শুধু <em>কালে</em> (সময়ে), কর্তার পুরুষে নয়। তাই <span class="mal">ഞാൻ ചെയ്യുന്നു</span>, <span class="mal">അവൻ ചെയ്യുന്നു</span>, <span class="mal">നിങ്ങൾ ചെയ്യുന്നു</span> — সবেতেই একই শব্দ। বাংলার চেয়ে সরল।</div>
+
+    <h3><span class="num">৫.৩</span>তিন কালের ছবি</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead>
+          <tr><th>কাল</th><th>মালায়ালম</th><th>উচ্চারণ</th><th>বাংলা</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="bn">বর্তমান</td><td class="mal g">ചെയ്യുന്നു</td><td>ceyyunnu</td><td class="bn">করছি/করছে</td></tr>
+          <tr><td class="bn">অতীত</td><td class="mal g">ചെയ്തു</td><td>ceytu</td><td class="bn">করলাম/করল</td></tr>
+          <tr><td class="bn">ভবিষ্যৎ</td><td class="mal g">ചെയ്യും</td><td>ceyyuṃ</td><td class="bn">করব/করবে</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3><span class="num">৫.৪</span>অগ্নিসংযোগী (agglutinative) বিন্যাস</h3>
+    <p>মালায়ালম দ্রাবিড় — এক শব্দে অনেক কিছু গেঁথে দেয়। বাংলায় একটি বাক্যে যা কয়েক শব্দ লাগে, মালায়ালমে তা এক শব্দেই বলা যায়।</p>
+
+    <div class="sentence">
+      <div class="mal">വീട്ടിൽനിന്ന്</div>
+      <div class="trans">vīṭṭil-ninn</div>
+      <div class="bn-gloss">বাড়ি থেকে</div>
+      <div class="literal">[বীট্‌] (বাড়ি) + [-ইল্‌] (-তে) + [নিন্ন্‌] (থেকে) — তিন অংশ এক শব্দে</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">ചെയ്തുകൊണ്ടിരിക്കുന്നു</div>
+      <div class="trans">ceytu-koṇṭ-irikkunnu</div>
+      <div class="bn-gloss">করতে থাকছি (এখন)</div>
+      <div class="literal">[চেয়্‌তু] (করে) + [কোণ্ড্‌] (নিয়ে) + [ইরিক্কুন্নু] (আছি) = চলমান ক্রিয়া</div>
+    </div>
+
+    <h3><span class="num">৫.৫</span>পরসর্গ — বিশেষ্যের পরে চিহ্ন</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead>
+          <tr><th>কারক</th><th>বাংলা চিহ্ন</th><th>মালায়ালম চিহ্ন</th><th>উদাহরণ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="bn">কর্তা</td><td>—</td><td>—</td><td class="mal g">കുട്ടി (ছেলে)</td></tr>
+          <tr><td class="bn">কর্ম</td><td class="bn">-কে</td><td>-e / -യെ</td><td class="mal g">കുട്ടിയെ</td></tr>
+          <tr><td class="bn">সম্প্রদান/উদ্দেশ্য</td><td class="bn">-কে/-র জন্য</td><td>-kk(u) / -ക്ക്</td><td class="mal g">കുട്ടിക്ക്</td></tr>
+          <tr><td class="bn">অধিকরণ</td><td class="bn">-এ/-তে</td><td>-il / -ിൽ</td><td class="mal g">വീട്ടിൽ (বাড়িতে)</td></tr>
+          <tr><td class="bn">অপাদান</td><td class="bn">-থেকে</td><td>-il ninn</td><td class="mal g">വീട്ടിൽനിന്ന് (বাড়ি থেকে)</td></tr>
+          <tr><td class="bn">সম্বন্ধ</td><td class="bn">-র/-এর</td><td>-nte/-ude</td><td class="mal g">കുട്ടിയുടെ (ছেলেটার)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3><span class="num">৫.৬</span>নেতিবাচক ও প্রশ্ন</h3>
+
+    <div class="sentence">
+      <div class="mal">ഞാൻ പോകുന്നില്ല.</div>
+      <div class="trans">ñān pōkunn-illa.</div>
+      <div class="bn-gloss">আমি যাচ্ছি না।</div>
+      <div class="literal">ക্রিয়া + ইল্ল = না। বাংলার "না" ক্রিয়ার পরে; মালায়ালমে চেপে যুক্ত হয়।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">നിങ്ങൾ എവിടെ പോകുന്നു?</div>
+      <div class="trans">niṅṅaḷ eviḍe pōkunnu?</div>
+      <div class="bn-gloss">আপনি কোথায় যাচ্ছেন?</div>
+      <div class="literal">এবিডে = কোথায়; প্রশ্নবোধক শব্দ বাক্যের ভিতরে থাকে, যেমন বাংলায়।</div>
+    </div>
+
+    <h3><span class="num">৫.৭</span>প্রশ্নবোধক শব্দ</h3>
+    <div class="words">
+      <div class="word"><div class="mal">എന്ത്</div><div class="bn-eq">কী</div><div class="trans">ent</div><div class="note">শুরু অ- ধ্বনি দিয়ে — দ্রাবিড়ের প্রশ্ন-উপসর্গ</div></div>
+      <div class="word"><div class="mal">ആര്</div><div class="bn-eq">কে</div><div class="trans">ār</div><div class="note">মানুষের জন্য</div></div>
+      <div class="word"><div class="mal">എവിടെ</div><div class="bn-eq">কোথায়</div><div class="trans">eviḍe</div><div class="note">স্থান</div></div>
+      <div class="word"><div class="mal">എപ്പോൾ</div><div class="bn-eq">কখন</div><div class="trans">eppōḷ</div><div class="note">সময়</div></div>
+      <div class="word"><div class="mal">എന്തുകൊണ്ട്</div><div class="bn-eq">কেন</div><div class="trans">entu-koṇṭ</div><div class="note">"কী নিয়ে" — আক্ষরিক</div></div>
+      <div class="word"><div class="mal">എങ്ങനെ</div><div class="bn-eq">কীভাবে</div><div class="trans">eṅṅane</div><div class="note">পদ্ধতি</div></div>
+    </div>
+
+    <div class="aside"><strong>প্রশ্নের 'এ-' উপসর্গ।</strong> মালায়ালমের সমস্ত প্রশ্নবোধক শব্দ 'এ-' / 'অ-' দিয়ে শুরু: <span class="mal">എന്ത്</span>, <span class="mal">എവിടെ</span>, <span class="mal">എപ്പോൾ</span>, <span class="mal">എങ്ങനെ</span>, <span class="mal">ആര്</span>। বাংলায় "ক-" উপসর্গ (কী, কোথায়, কখন, কেন, কে)। দুই ভাষায় দু'রকম, কিন্তু ভিতরের যুক্তি এক — একটিমাত্র উপসর্গ পুরো প্রশ্নের পরিবার চালায়।</div>
+
+    <h3><span class="num">৫.৮</span>আরও উদাহরণ বাক্য</h3>
+
+    <div class="sentence">
+      <div class="mal">എനിക്ക് വെള്ളം വേണം.</div>
+      <div class="trans">enikku veḷḷaṃ vēṇaṃ.</div>
+      <div class="bn-gloss">আমার জল চাই।</div>
+      <div class="literal">[আমার-কে] [জল] [চাই] — "আমি" নয়, "আমার-কে" (সম্প্রদান)। ইচ্ছা/প্রয়োজনে অভিন্ন।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">ഇന്ന് മഴ പെയ്യുന്നു.</div>
+      <div class="trans">inn maḻa peyyunnu.</div>
+      <div class="bn-gloss">আজ বৃষ্টি পড়ছে।</div>
+      <div class="literal">ഴ-ধ্বনিটি উচ্চারণ কর — মালায়ালমের স্বাক্ষর।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">നിങ്ങളുടെ പേര് എന്താണ്?</div>
+      <div class="trans">niṅṅaḷuḍe pēr entāṇ?</div>
+      <div class="bn-gloss">আপনার নাম কী?</div>
+      <div class="literal">[আপনার] [নাম] [কী-আছে] — "ആണ്" = "আছে/হয়" সংযোজক</div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-06" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · পাঠ</div>
+    <h2 class="stage-title">পড়ার অভ্যাস — তিনটি পাঠ</h2>
+    <p class="stage-lede">এবার সত্যিকারের পাঠ। প্রতিটি পাঠে তিন স্তর — মালায়ালম মূল, রোমান-অক্ষরে উচ্চারণ, এবং বাংলা অনুবাদ। জোরে জোরে পড়। ধ্বনির ছন্দ চিনে নাও।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৬.১</span>পাঠ এক — আত্মপরিচয়</h3>
+    <div class="passage">
+      <div class="mal">എന്റെ പേര് രാധ. ഞാൻ കൊൽക്കത്തയിൽ നിന്നു വരുന്നു. ഞാൻ ഒരു വിദ്യാർത്ഥി ആണ്. എനിക്ക് മലയാളം പഠിക്കാൻ വളരെ ഇഷ്ടം. എന്റെ വീട്ടിൽ അച്ഛനും അമ്മയും ഉണ്ട്.</div>
+      <div class="trans">eṉṟe pēr rādha. ñān kolkattayil ninnu varunnu. ñān oru vidyārthi āṇ. enikku malayāḷaṃ paṭhikkān vaḷare iṣṭaṃ. eṉṟe vīṭṭil acchanuṃ ammayuṃ uṇṭ.</div>
+      <div class="bn-gloss">আমার নাম রাধা। আমি কলকাতা থেকে আসছি। আমি একজন ছাত্রী। মালায়ালম শেখা আমার খুব পছন্দের। আমার বাড়িতে বাবা আর মা আছেন।</div>
+      <div class="attrib">· প্রাথমিক পাঠ ·</div>
+    </div>
+
+    <div class="aside"><strong>ചേർക്കൽ — '-ഉം / -um' = "এবং"।</strong> শেষ বাক্যে <span class="mal">അച്ഛനും അമ്മയും</span> লক্ষ্য কর — দুটি বিশেষ্যের শেষেই -ഉം। বাংলার "আর/এবং" এক শব্দ। মালায়ালম উভয় শব্দের পিছনেই -um জোড়ে, যেন দু'পাশে সেতু বাঁধে। তামিল-কন্নড-তেও একই রীতি।</div>
+
+    <h3><span class="num">৬.২</span>পাঠ দুই — একটি দিনের কথা</h3>
+    <div class="passage">
+      <div class="mal">രാവിലെ ഞാൻ ആറു മണിക്ക് ഉണരുന്നു. പല്ലു തേച്ചു, മുഖം കഴുകുന്നു. പിന്നെ ഒരു ഗ്ലാസ് പാൽ കുടിക്കുന്നു. എട്ടു മണിക്ക് സ്കൂളിൽ പോകുന്നു. വൈകുന്നേരം വീട്ടിൽ വന്നു, അമ്മയുടെ കൂടെ ചോറു തിന്നുന്നു. രാത്രിയിൽ ഞാൻ പുസ്തകം വായിക്കുന്നു.</div>
+      <div class="trans">rāvile ñān āṟu maṇikku uṇarunnu. pallu tēccu, mukhaṃ kaḻukunnu. pinne oru glās pāl kuḍikkunnu. eṭṭu maṇikku skūḷil pōkunnu. vaikunnēraṃ vīṭṭil vannu, ammayuḍe kūṭe cōṟu tinnunnu. rātriyil ñān pustakaṃ vāyikkunnu.</div>
+      <div class="bn-gloss">ভোরে আমি ছ'টায় জেগে উঠি। দাঁত মেজে, মুখ ধুই। তারপর এক গ্লাস দুধ পান করি। আট'টায় স্কুলে যাই। সন্ধ্যায় বাড়ি ফিরে, মায়ের সাথে ভাত খাই। রাতে আমি বই পড়ি।</div>
+      <div class="attrib">· মধ্যম পাঠ ·</div>
+    </div>
+
+    <div class="aside"><strong>"মণিক্কু" — সময়ের পরসর্গ।</strong> <span class="mal">ആറു മണിക്ക്</span> = "ছ' ঘণ্টার কাছে" → "ছ'টায়"। -ക്ക് (কারক: সম্প্রদান/উদ্দেশ্য) এখানে সময়েও লাগে। বাংলায় "ছ'টায়" — একটি বিভক্তি; মালায়ালমে ക്ക് একই কাজ করে।</div>
+
+    <h3><span class="num">৬.৩</span>পাঠ তিন — দু'জনের কথোপকথন</h3>
+
+    <div class="dialog">
+      <div class="line">
+        <div class="who">রাজু</div>
+        <div class="mal">നമസ്കാരം, നിങ്ങളുടെ പേര് എന്താണ്?</div>
+        <div class="trans">namaskāraṃ, niṅṅaḷuḍe pēr entāṇ?</div>
+        <div class="bn-gloss">নমস্কার, আপনার নাম কী?</div>
+      </div>
+      <div class="line">
+        <div class="who">মীরা</div>
+        <div class="mal">എന്റെ പേര് മീര. നിങ്ങളുടെ പേര്?</div>
+        <div class="trans">eṉṟe pēr mīra. niṅṅaḷuḍe pēr?</div>
+        <div class="bn-gloss">আমার নাম মীরা। আপনার নাম?</div>
+      </div>
+      <div class="line">
+        <div class="who">রাজু</div>
+        <div class="mal">ഞാൻ രാജു. നിങ്ങൾ എവിടെ നിന്നാണ്?</div>
+        <div class="trans">ñān rāju. niṅṅaḷ eviḍe ninnāṇ?</div>
+        <div class="bn-gloss">আমি রাজু। আপনি কোথা থেকে?</div>
+      </div>
+      <div class="line">
+        <div class="who">মীরা</div>
+        <div class="mal">ഞാൻ തൃശ്ശൂരിൽ നിന്നാണ്. നിങ്ങൾ?</div>
+        <div class="trans">ñān tr̥śśūril ninnāṇ. niṅṅaḷ?</div>
+        <div class="bn-gloss">আমি ত্রিশূর থেকে। আপনি?</div>
+      </div>
+      <div class="line">
+        <div class="who">রাজু</div>
+        <div class="mal">ഞാൻ കൊൽക്കത്തയിൽ നിന്ന് വന്നതാണ്. ചോറുണ്ടോ?</div>
+        <div class="trans">ñān kolkattayil ninnu vannatāṇ. cōṟuṇṭō?</div>
+        <div class="bn-gloss">আমি কলকাতা থেকে এসেছি। ভাত খেয়েছেন?</div>
+      </div>
+      <div class="line">
+        <div class="who">মীরা</div>
+        <div class="mal">ഉവ്വ്, ഉണ്ടായിരുന്നു. നന്ദി!</div>
+        <div class="trans">uvvŭ, uṇṭāyirunnu. nandi!</div>
+        <div class="bn-gloss">হ্যাঁ, খেয়েছি। ধন্যবাদ!</div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>"চোড়ুণ্ডো?" — ভাত-অভিবাদন।</strong> <span class="mal">ചോറുണ്ടോ?</span> আক্ষরিক: "ভাত আছে কি?"। কেরালায় প্রাচীন অভিবাদন — "কেমন আছ?"-এর বদলে "খেয়েছ তো?"। বাংলায় গ্রামের দিকে একই প্রথা — "ভাত খেয়েছিস?" = মঙ্গল-কামনা। খিদেকে সামাজিক চিন্তা বানায় দুই সংস্কৃতিই।</div>
+  </div>
+</section>
+<section class="stage" id="stage-07" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · শব্দক্ষেত্র</div>
+    <h2 class="stage-title">জগৎ কীভাবে কাটা — দুই ভাষার তুলনা</h2>
+    <p class="stage-lede">অভিধানে শব্দ সমান সমান নয়। মালায়ালম আত্মীয়তাকে কাটে ভিন্নভাবে, সময়কে বাঁধে অন্য দড়ি দিয়ে, "হাঁটা"-র ভিতরেও লুকিয়ে থাকে অনেক বাঁক।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৭.১</span>আত্মীয়তা — মালায়ালম মাতৃতান্ত্রিক স্মৃতি রাখে</h3>
+    <p>কেরালার ইতিহাসে নায়র সমাজ মাতৃতান্ত্রিক ছিল — সম্পত্তি মায়ের দিক থেকে আসত। এই স্মৃতি ভাষায় রয়ে গেছে। মায়ের ভাই (<span class="mal">അമ്മാവൻ</span>, মামা) আর বাবার ভাই (<span class="mal">അച്ഛൻ-ചിറ്റപ്പൻ</span>) একই "কাকা" নয় — আলাদা শব্দ, আলাদা সম্মান।</p>
+    <div class="words">
+      <div class="word"><div class="mal">അമ്മാവൻ / മാമൻ</div><div class="bn-eq">মামা</div><div class="trans">ammāvaṉ / māmaṉ</div><div class="note">মা-র ভাই — বাংলার মামা-ই, প্রায় অবিকল</div></div>
+      <div class="word"><div class="mal">ചിറ്റപ്പൻ</div><div class="bn-eq">কাকা (বাবার ছোট ভাই)</div><div class="trans">ciṟṟappaṉ</div><div class="note">"চিট্‌টা" (ছোট) + "অপ্পন্‌" (বাবা)</div></div>
+      <div class="word"><div class="mal">വല്യച്ഛൻ</div><div class="bn-eq">জ্যাঠা (বাবার বড় ভাই)</div><div class="trans">valyacchaṉ</div><div class="note">"বল্য" (বড়) + "অচ্ছন্‌" (বাবা)</div></div>
+      <div class="word"><div class="mal">ചേട്ടൻ / ചേച്ചി</div><div class="bn-eq">দাদা / দিদি</div><div class="trans">cēṭṭaṉ / cēcci</div><div class="note">বাংলার মতোই বড় ভাই/বোন — অচেনাকেও বলা যায়</div></div>
+      <div class="word"><div class="mal">അനിയൻ / അനിയത്തി</div><div class="bn-eq">ছোট ভাই / ছোট বোন</div><div class="trans">aniyaṉ / aniyatti</div><div class="note">লিঙ্গভেদ স্পষ্ট</div></div>
+    </div>
+
+    <h3><span class="num">৭.২</span>সময় — "কাল" শব্দ থেকে মুক্তি</h3>
+    <div class="words">
+      <div class="word"><div class="mal">ഇന്നലെ</div><div class="bn-eq">গতকাল</div><div class="trans">innale</div><div class="note">আলাদা শব্দ</div></div>
+      <div class="word"><div class="mal">ഇന്ന്</div><div class="bn-eq">আজ</div><div class="trans">inn</div><div class="note"></div></div>
+      <div class="word"><div class="mal">നാളെ</div><div class="bn-eq">আগামীকাল</div><div class="trans">nāḷe</div><div class="note">আলাদা শব্দ — "কাল" দ্বিমুখিতার সমস্যা নেই</div></div>
+      <div class="word"><div class="mal">മറ്റന്നാൾ</div><div class="bn-eq">পরশু</div><div class="trans">maṟṟannāḷ</div><div class="note">"অন্য দিন" — বাংলায়ও "পরশু" দু'দিকেই কাজ করে</div></div>
+      <div class="word"><div class="mal">മിനിഞ്ഞാന്ന്</div><div class="bn-eq">গত পরশু</div><div class="trans">miniññānn</div><div class="note">এও আলাদা — মালায়ালম সময়ে সূক্ষ্ম</div></div>
+    </div>
+
+    <h3><span class="num">৭.৩</span>শরীর — ব্যবহারিক শব্দাবলী</h3>
+    <div class="words">
+      <div class="word"><div class="mal">മുഖം</div><div class="bn-eq">মুখ</div><div class="trans">mukhaṃ</div><div class="note"><span class="tag">তৎসম</span>অবিকল</div></div>
+      <div class="word"><div class="mal">വായ</div><div class="bn-eq">মুখের গহ্বর</div><div class="trans">vāya</div><div class="note"><span class="tag">দ্রাবিড়</span>"মুখ" এর দুই অর্থ মালায়ালম ভাগ করে</div></div>
+      <div class="word"><div class="mal">ചെവി</div><div class="bn-eq">কান</div><div class="trans">cevi</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="mal">മുടി</div><div class="bn-eq">চুল</div><div class="trans">muḍi</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="mal">വയർ</div><div class="bn-eq">পেট</div><div class="trans">vayar</div><div class="note"><span class="tag">দ্রাবিড়</span>চিল্লু ർ</div></div>
+      <div class="word"><div class="mal">ഹൃദയം</div><div class="bn-eq">হৃদয়</div><div class="trans">hr̥dayaṃ</div><div class="note"><span class="tag">তৎসম</span>অবিকল</div></div>
+    </div>
+
+    <div class="aside"><strong>"মুখ" — দুই অর্থ, দুই শব্দ।</strong> বাংলায় "মুখ" একই সাথে মুখমণ্ডল আর খাওয়ার গহ্বর। মালায়ালম দুটো আলাদা করে: <span class="mal">മുഖം</span> (মুখম্ = মুখমণ্ডল) আর <span class="mal">വായ</span> (বায়া = মুখের গহ্বর)। "মুখ খোল" আর "মুখ ধো" — দুই মুখ আলাদা, ভাষা দেখিয়ে দেয়।</div>
+
+    <h3><span class="num">৭.৪</span>যাওয়া, আসা, হাঁটা — গতি-র বিভিন্ন ছায়া</h3>
+    <div class="words">
+      <div class="word"><div class="mal">പോകുക</div><div class="bn-eq">যাওয়া (সাধারণ)</div><div class="trans">pōkuka</div><div class="note">বিন্দুতে যাওয়া</div></div>
+      <div class="word"><div class="mal">വരിക</div><div class="bn-eq">আসা</div><div class="trans">varika</div><div class="note"></div></div>
+      <div class="word"><div class="mal">നടക്കുക</div><div class="bn-eq">হাঁটা / চলা / ঘটা</div><div class="trans">naḍakkuka</div><div class="note">শারীরিক হাঁটা + ঘটনা ঘটা — উভয়ই এই ক্রিয়ায়!</div></div>
+      <div class="word"><div class="mal">ഓടുക</div><div class="bn-eq">দৌড়ানো / পলানো</div><div class="trans">ōḍuka</div><div class="note"></div></div>
+      <div class="word"><div class="mal">കയറുക</div><div class="bn-eq">ওঠা / আরোহণ করা</div><div class="trans">kayaṟuka</div><div class="note">সিঁড়ি/গাড়ি/পাহাড় — সব উপরের দিকে</div></div>
+      <div class="word"><div class="mal">ഇറങ്ങുക</div><div class="bn-eq">নামা</div><div class="trans">iṟaṅṅuka</div><div class="note">বিপরীত — নিচে</div></div>
+    </div>
+
+    <div class="aside"><strong>"নডক্কুকা" — হাঁটা আর ঘটা।</strong> <span class="mal">നടക്കുക</span> একসাথে মানে "হাঁটা" এবং "ঘটা/হওয়া"। <span class="mal">കാര്യം നടന്നു</span> = "ব্যাপারটা ঘটে গেছে"। বাংলায়ও "চলছে" বলি কোনো ঘটনার প্রসঙ্গে — "মিটিং চলছে"। দুই ভাষাই গতির রূপক ব্যবহার করে সময়ের সাথে। ভিন্ন পরিবারে একই কাব্য।</div>
+
+    <h3><span class="num">৭.৫</span>রঙ</h3>
+    <div class="words">
+      <div class="word"><div class="mal">വെള്ള</div><div class="bn-eq">সাদা</div><div class="trans">veḷḷa</div><div class="note"><span class="tag">দ্রাবিড়</span>"বেল্ল" — জল-ও একই মূল থেকে</div></div>
+      <div class="word"><div class="mal">കറുപ്പ്</div><div class="bn-eq">কালো</div><div class="trans">kaṟuppŭ</div><div class="note"><span class="tag">দ্রাবিড়</span>শক্ত র റ</div></div>
+      <div class="word"><div class="mal">ചുവപ്പ്</div><div class="bn-eq">লাল</div><div class="trans">cuvappŭ</div><div class="note"><span class="tag">দ্রাবিড়</span></div></div>
+      <div class="word"><div class="mal">പച്ച</div><div class="bn-eq">সবুজ</div><div class="trans">pacca</div><div class="note"><span class="tag">দ্রাবিড়</span>"পাক্কা" — গাছের সবুজ</div></div>
+      <div class="word"><div class="mal">നീല</div><div class="bn-eq">নীল</div><div class="trans">nīla</div><div class="note"><span class="tag">তৎসম</span>অবিকল</div></div>
+      <div class="word"><div class="mal">മഞ്ഞ</div><div class="bn-eq">হলুদ</div><div class="trans">mañña</div><div class="note"><span class="tag">দ্রাবিড়</span>"হলুদ" গুঁড়োর রং</div></div>
+    </div>
+
+    <h3><span class="num">৭.৬</span>খাবার — কেরালার রান্নাঘরে</h3>
+    <div class="words">
+      <div class="word"><div class="mal">ചോറ്</div><div class="bn-eq">ভাত</div><div class="trans">cōṟ</div><div class="note"><span class="tag">দ্রাবিড়</span>শক্ত র റ + চন্দ্রক্কল</div></div>
+      <div class="word"><div class="mal">മീൻ</div><div class="bn-eq">মাছ</div><div class="trans">mīṉ</div><div class="note"><span class="tag">দ্রাবিড়</span>চিল্লু ൻ — বাংলার মতোই দুই সংস্কৃতির জাতীয় খাবার</div></div>
+      <div class="word"><div class="mal">കറി</div><div class="bn-eq">তরকারি / ঝোল</div><div class="trans">kaṟi</div><div class="note"><span class="tag">দ্রাবিড়</span>"কারি" শব্দটি ইংরেজিতেও গেছে!</div></div>
+      <div class="word"><div class="mal">ചായ</div><div class="bn-eq">চা</div><div class="trans">cāya</div><div class="note"><span class="tag">সাধারণ</span>"চা" থেকে — দুই ভাষাতেই চীনা ধার</div></div>
+      <div class="word"><div class="mal">തേങ്ങ</div><div class="bn-eq">নারকেল</div><div class="trans">tēṅṅa</div><div class="note"><span class="tag">দ্রাবিড়</span>কেরালার প্রাণ</div></div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-08" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · ব্যবহার</div>
+    <h2 class="stage-title">শ্রদ্ধা, নরমতা, প্রথা</h2>
+    <p class="stage-lede">বাংলায় তুই/তুমি/আপনি — তিন স্তর। মালায়ালমে মূলত দুই — নীৎ/নিঙ্ঙল্‌। কিন্তু নরম ভাষার কৌশল — 'কুরচ্চ্‌', 'এন্নাল্‌', প্রশ্নের ঢেউ — দু'ভাষায় অদ্ভুত মিল।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">৮.১</span>সম্বোধনের স্তর</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead>
+          <tr><th>বাংলা</th><th>মালায়ালম</th><th>কখন</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="bn">তুই</td><td class="mal g">നീ (nī)</td><td class="bn">ঘনিষ্ঠ, ছোট, বন্ধু</td></tr>
+          <tr><td class="bn">তুমি</td><td class="mal g">നീ / താൻ (tān)</td><td class="bn">সমবয়স্ক, পরিচিত — "তান্‌" মান্য ও নরম</td></tr>
+          <tr><td class="bn">আপনি</td><td class="mal g">നിങ്ങൾ (niṅṅaḷ)</td><td class="bn">সম্মান, অচেনা, বয়োজ্যেষ্ঠ — বহুবচন রূপেই</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>দুই স্তর বনাম তিন।</strong> বাংলায় "তুমি" আর "আপনি"-র মাঝখানে "তুই" একটি গভীর ঘনিষ্ঠতার রূপ। মালায়ালমে সে স্তরটি "নী"-র মধ্যেই রয়ে গেছে — প্রসঙ্গ বলে দেয় এটা ঘনিষ্ঠ না আনুষ্ঠানিক। তাই কেরলের মানুষ বাংলায় কথা বলতে গেলে "তুই" আর "তুমি" নিয়ে দ্বিধায় পড়ে — ভাষাতাত্ত্বিকভাবে তাঁদের কাছে পার্থক্য অলিখিত।</div>
+
+    <h3><span class="num">৮.২</span>ক্রিয়াকে সম্মানে বদলানো</h3>
+    <p>বাংলায় "আসেন" / "করেন" — -এন প্রত্যয়। মালায়ালমে ক্রিয়াপদ পরিবর্তন করে না; পরিবর্তে সর্বনামটি বদলায়, অথবা বাক্যে -നാൽ, -ട്ടെ জাতীয় কোমল প্রত্যয় আসে।</p>
+
+    <div class="sentence">
+      <div class="mal">ദയവായി ഇരിക്കൂ.</div>
+      <div class="trans">dayavāyi irikkū.</div>
+      <div class="bn-gloss">দয়া করে বসুন।</div>
+      <div class="literal">"দয়বায়ি" = সংস্কৃত "দয়া" থেকে — দু'ভাষায় একই কোমলকারক</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">നിങ്ങൾ വന്നാൽ നന്നായിരിക്കും.</div>
+      <div class="trans">niṅṅaḷ vannāl nannāyirikkuṃ.</div>
+      <div class="bn-gloss">আপনি এলে ভালো হবে।</div>
+      <div class="literal">-ആൽ = "যদি/এলে" (বাংলার -লে); শর্তে মিনতি ঢাকা</div>
+    </div>
+
+    <h3><span class="num">৮.৩</span>নরম করার শব্দ</h3>
+    <div class="words">
+      <div class="word"><div class="mal">കുറച്ച്</div><div class="bn-eq">একটু</div><div class="trans">kuṟacc</div><div class="note">"একটু জল দিন" — আদেশকে অনুরোধে বদলায়</div></div>
+      <div class="word"><div class="mal">ദയവായി</div><div class="bn-eq">দয়া করে</div><div class="trans">dayavāyi</div><div class="note"><span class="tag">তৎসম</span>"দয়া" থেকে — সংস্কৃতের সেতু</div></div>
+      <div class="word"><div class="mal">ഒന്ന്</div><div class="bn-eq">একটু / একবার</div><div class="trans">onn</div><div class="note">সংখ্যা "এক" থেকে — বাংলার "একটু"-র ছন্দ</div></div>
+      <div class="word"><div class="mal">പക്ഷേ</div><div class="bn-eq">কিন্তু</div><div class="trans">pakṣē</div><div class="note"><span class="tag">তৎসম</span>"পক্ষ" থেকে — প্রায় অবিকল</div></div>
+    </div>
+
+    <h3><span class="num">৮.৪</span>দৈনন্দিন বাক্যাংশ</h3>
+
+    <div class="sentence">
+      <div class="mal">സുഖമാണോ?</div>
+      <div class="trans">sukhamāṇō?</div>
+      <div class="bn-gloss">কেমন আছ? (আক্ষরিক: "সুখ আছে?")</div>
+      <div class="literal">"সুখ" তৎসম; -ആണ് (আছে) + -ഓ (প্রশ্ন)</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">സുഖമാണ്, നന്ദി.</div>
+      <div class="trans">sukhamāṇ, nandi.</div>
+      <div class="bn-gloss">ভালো আছি, ধন্যবাদ।</div>
+      <div class="literal">আক্ষরিক "সুখে আছি"</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">ചോറുണ്ടോ?</div>
+      <div class="trans">cōṟuṇṭō?</div>
+      <div class="bn-gloss">ভাত খেয়েছ?</div>
+      <div class="literal">প্রাচীন কেরালীয় অভিবাদন — বাংলার "খেয়েছিস তো?"-র জুড়ি</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">ശുഭരാത്രി.</div>
+      <div class="trans">śubharātri.</div>
+      <div class="bn-gloss">শুভরাত্রি।</div>
+      <div class="literal"><span class="tag">তৎসম</span>অবিকল — দু'ভাষার সংস্কৃত-সেতু</div>
+    </div>
+
+    <div class="sentence">
+      <div class="mal">എനിക്ക് മനസ്സിലായില്ല.</div>
+      <div class="trans">enikku manassilāyilla.</div>
+      <div class="bn-gloss">আমি বুঝিনি।</div>
+      <div class="literal">"এনিক্কু" (আমার-কে) + "মনসিলায়িল্ল" (মনে আসেনি) — "বুঝি না" = "মনে আসে না"</div>
+    </div>
+
+    <div class="aside"><strong>"মনস্সিলায়িল্ল" — বোঝার মালায়ালম রূপক।</strong> মালায়ালমে "বুঝি" বলতে "মনস্‌-এ এসেছে" (মনসিলায়ি) — সংস্কৃত "মনস্‌" + দ্রাবিড় "ইল্‌" (-এ)। বাংলাতেও বলি "মনে পড়ছে", "মনে আসছে না"। দু'ভাষাই জ্ঞান আর স্মৃতিকে "মন"-এর ভিতরের ঘরে বসায়। এক রূপক, দুই হাতে ধরা।</div>
+
+    <h3><span class="num">৮.৫</span>অচেনাকে ডাকা</h3>
+    <p>বাসে, দোকানে, রাস্তায় — পরিচয়হীন মানুষকে কী বলে সম্বোধন করবে?</p>
+    <div class="words">
+      <div class="word"><div class="mal">ചേട്ടാ</div><div class="bn-eq">দাদা (বয়স্ক পুরুষ)</div><div class="trans">cēṭṭā</div><div class="note">বাংলার "দাদা" ডাকার অনুরূপ — অচেনাকেও</div></div>
+      <div class="word"><div class="mal">ചേച്ചി</div><div class="bn-eq">দিদি (বয়স্ক স্ত্রী)</div><div class="trans">cēcci</div><div class="note">বাংলার "দিদি"</div></div>
+      <div class="word"><div class="mal">അങ്കിൾ / ചാച്ചൻ</div><div class="bn-eq">কাকা (বয়োজ্যেষ্ঠ)</div><div class="trans">aṅkiḷ / cācchaṉ</div><div class="note">ইংরেজি "uncle" ধার — ক্রিশ্চান কেরালায় "চাচ্চন্‌"</div></div>
+      <div class="word"><div class="mal">ആന്റി</div><div class="bn-eq">কাকিমা / মাসী</div><div class="trans">āṇṭi</div><div class="note">আধুনিক কেরালায় ব্যবহৃত</div></div>
+    </div>
+
+    <div class="aside"><strong>দু'সংস্কৃতির একই নিয়ম।</strong> বাংলা আর কেরালা — দুই জায়গাতেই পথে-চলা অচেনা বয়স্ক মানুষকে "দাদা/দিদি" (ঘেট্টা/চেচ্চি) বলে ডাকা রীতি। আত্মীয়তার শব্দ পুরো সমাজে ছড়িয়ে পড়ে। এই সাংস্কৃতিক উষ্ণতা — রক্ত না থাকলেও ভাইবোন বানানো — দু'প্রান্তে একই।</div>
+  </div>
+</section>
+<section class="stage" id="stage-09" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · সাহিত্য</div>
+    <h2 class="stage-title">মালায়ালম সাহিত্য — বাংলার আয়নায়</h2>
+    <p class="stage-lede">৮০০ বছরের মালায়ালম সাহিত্য। একটি ভাষা, যা ছোট আয়তনের ভূখণ্ডে বেড়েছে কিন্তু পৃথিবীর বড় সাহিত্য রচেছে। নিচে সাতটি সেতু — মালায়ালম লেখক ↔ বাংলার লেখক।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="bridge">
+
+      <div class="bridge-item">
+        <div class="mal-name">തുഞ്ചത്ത് എഴുത്തച്ഛൻ</div>
+        <div class="bn-name">তুঞ্চত্তু এড়ুত্তচ্ছন্‌</div>
+        <div class="era">১৬শ শতক · কবি · "অধ্যাত্ম রামায়ণম্‌"</div>
+        <div class="desc">মালায়ালম ভাষাটিকেই বর্তমান রূপে দাঁড় করালেন। সংস্কৃতের জট ছেড়ে সাধারণ মানুষের ভাষায় রামায়ণ বললেন — তাও কিলিপ্পাট্টু (পাখির ডাক) ছন্দে।</div>
+        <div class="bridge-to"><strong>বাংলার সেতু:</strong> ঈশ্বরচন্দ্র বিদ্যাসাগর-এর মতো — ভাষার ব্যাকরণ, বানান, গদ্যের শরীর তিনি-ই সাজিয়ে গেছেন। "মালায়ালমের বিদ্যাসাগর" বললে অত্যুক্তি হবে না। ভাষা পেলো মাটি, মাটি পেল ভাষা।</div>
+      </div>
+
+      <div class="bridge-item">
+        <div class="mal-name">വൈക്കം മുഹമ്മദ് ബഷീർ</div>
+        <div class="bn-name">বৈক্কম্‌ মুহম্মদ্‌ বশীর্‌</div>
+        <div class="era">১৯০৮–১৯৯৪ · উপন্যাস, গল্প · "পাত্তুম্মায়ুডে আডু", "বাল্যকালসখী"</div>
+        <div class="desc">"বেপূরের সুলতান্‌"। সাধারণ কেরালীয় মুসলিম জীবন — মজার, মমতাময়, একদম ঘরের ভাষায়। জেলে গিয়ে লিখেছেন স্বাধীনতা-সংগ্রামী হয়ে। দৈনন্দিন কথার মধ্যে কবিতা লুকিয়ে রাখতেন।</div>
+        <div class="bridge-to"><strong>বাংলার সেতু:</strong> বিভূতিভূষণ বন্দ্যোপাধ্যায়-এর মতো — গ্রামীণ, কোমল, মানুষের ভিতরের আলো দেখানো লেখক। বশীর-এর "বাল্যকালসখী" আর বিভূতিভূষণের "পথের পাঁচালী" একই উষ্ণ শৈশব-স্মৃতি থেকে উঠে আসা।</div>
+      </div>
+
+      <div class="bridge-item">
+        <div class="mal-name">തകഴി ശിവശങ്കര പിള്ള</div>
+        <div class="bn-name">তকড়ি শিবশঙ্কর পিল্লা</div>
+        <div class="era">১৯১২–১৯৯৯ · উপন্যাস · "চেম্মীন্‌", "কয়র্‌"</div>
+        <div class="desc">কেরালার মৎস্যজীবী সমাজকে মহাকাব্যিক মাত্রায় এনেছেন। "চেম্মীন্‌" (চিংড়ি) — প্রেম, সাগর, জাতি-বাধা-র গল্প — জ্ঞানপীঠ পেয়েছে; সিনেমা হয়েছে; বাংলায়ও অনূদিত।</div>
+        <div class="bridge-to"><strong>বাংলার সেতু:</strong> মানিক বন্দ্যোপাধ্যায়-এর মতো — "পদ্মা নদীর মাঝি"-র সাথে "চেম্মীন্‌" পড়লে বুঝবে, দুই উপকূলের জেলে-জীবন একই চোখে দেখা। জলের মানুষের কথা, জল-ই যাদের ঈশ্বর।</div>
+      </div>
+
+      <div class="bridge-item">
+        <div class="mal-name">ഒ. വി. വിജയൻ</div>
+        <div class="bn-name">ও. ভি. বিজয়ন্‌</div>
+        <div class="era">১৯৩০–২০০৫ · উপন্যাস · "খসাক্কিন্তে ইতিহাসম্‌"</div>
+        <div class="desc">মালায়ালম সাহিত্যে আধুনিকতার সূচনা। "খসাক্কের ইতিহাস" — একটি গ্রামে একজন শিক্ষকের আগমন থেকে আত্মসন্ধানের যাত্রা। কাফকা, মার্কেজের ছায়া, কিন্তু মাটি-গন্ধ কেরালার।</div>
+        <div class="bridge-to"><strong>বাংলার সেতু:</strong> জীবনানন্দ দাশ গদ্যে লিখলে এমনই হতো। অথবা সুনীল গঙ্গোপাধ্যায়-এর "অরণ্যের দিনরাত্রি"-র চেতনাপ্রবাহ — একাকীত্ব, স্বপ্ন, অস্তিত্বের সংশয়। মহানগর ও গ্রাম, আধুনিক ও প্রাচীন — মাঝামাঝি দাঁড়িয়ে।</div>
+      </div>
+
+      <div class="bridge-item">
+        <div class="mal-name">കമല ദാസ് (മാധവിക്കുട്ടി)</div>
+        <div class="bn-name">কমলা দাস (মাধবিক্কুট্টি)</div>
+        <div class="era">১৯৩৪–২০০৯ · কবিতা, গল্প · "എന്റെ കഥ"</div>
+        <div class="desc">দুই ভাষায় লিখেছেন — ইংরেজিতে কবিতা, মালায়ালমে গল্প। নারীর আকাঙ্ক্ষা, দেহ, বিচ্ছিন্নতা — খোলাখুলি। "এন্টে কথা" (আমার গল্প) আত্মজীবনীতে নিষিদ্ধ কথা বলেছেন।</div>
+        <div class="bridge-to"><strong>বাংলার সেতু:</strong> মহাশ্বেতা দেবী ও আশাপূর্ণা দেবী-র মধ্যবর্তী স্বর। পারিবারিক সীমানা ভেঙে নারী-অভিজ্ঞতাকে কবিতায় আনা — "প্রথম প্রতিশ্রুতি"-র সুবর্ণলতার চাপা ক্রোধ আর কমলা দাসের খোলা কান্না একই রাগে বাঁধা।</div>
+      </div>
+
+      <div class="bridge-item">
+        <div class="mal-name">എം. ടി. വാസുദേവൻ നായർ</div>
+        <div class="bn-name">এম. টি. বাসুদেবন্‌ নায়র্‌</div>
+        <div class="era">১৯৩৩– · উপন্যাস, চিত্রনাট্য · "নালুকেট্টু"</div>
+        <div class="desc">মাতৃতান্ত্রিক নায়র সমাজের ভাঙনের কথাকার। যৌথ পরিবারের ধাঁচ — 'নালুকেট্টু' (চার-আঙিনা বাড়ি) — যে ভেঙে পড়ছিল ২০শ শতকে, সেই ক্ষয়ের দলিল।</div>
+        <div class="bridge-to"><strong>বাংলার সেতু:</strong> তারাশঙ্কর বন্দ্যোপাধ্যায়-এর "গণদেবতা"-র মতো — সামাজিক পরিবর্তনের কাল-চিত্র। পুরনো বনেদী বাড়ির ক্ষয় আর নতুন যুগের উদয়, শরৎচন্দ্রের মানসপুত্রী-দের নিঃশব্দ বেদনার ছায়া।</div>
+      </div>
+
+      <div class="bridge-item">
+        <div class="mal-name">കുമാരനാശാൻ</div>
+        <div class="bn-name">কুমারনাশান্‌</div>
+        <div class="era">১৮৭৩–১৯২৪ · কবি · "വീണപൂവ്" (বীণাপূবু), "ചണ്ഡാലഭിക്ഷുകി"</div>
+        <div class="desc">মালায়ালম কবিতাকে ক্লাসিকাল ধাঁচ থেকে রোমান্টিক ও সামাজিক-সংবেদনশীল রূপে এনেছেন। জাতিভেদের বিরুদ্ধে লিখেছেন — "চণ্ডালভিক্ষুকী"-তে বুদ্ধ আর একজন দলিত নারীর কথোপকথন।</div>
+        <div class="bridge-to"><strong>বাংলার সেতু:</strong> রবীন্দ্রনাথ ঠাকুর-এর কাছাকাছি সময়ে, প্রায় একই সংস্কারমুখী চেতনায়। "চণ্ডালিকা"-তে রবীন্দ্রনাথ যে প্রকৃতিকে (নিচু জাতির নারী) বুদ্ধ-ভিক্ষুকের মুখোমুখি দাঁড় করিয়েছিলেন, কুমারনাশানের কবিতা তার মালায়ালম প্রতিধ্বনি। দুই কবি, এক বোধ — একই দশকে।</div>
+      </div>
+
+    </div>
+
+    <div class="aside"><strong>দুই পূর্ব-পশ্চিম উপকূল।</strong> বাংলা ও মালায়ালম — ভারতের দুই প্রান্তে, দুই সাগর (বঙ্গোপসাগর আর আরব সাগর)-এর তীরে, ছোট ভূখণ্ডে বড় সাহিত্যের জন্ম। দু'জায়গাই বাণিজ্যপথ, বহু সংস্কৃতির মিলনস্থল। দু'জায়গাই জ্ঞানপীঠ-সম্মাননা বহু পেয়েছে (বাংলা ৬, মালায়ালম ৬)। দু'জায়গাই চলচ্চিত্রের স্বাধীন ধারা গড়েছে (সত্যজিৎ রায় ↔ অদূর গোপালকৃষ্ণণ)। ভাষা আলাদা, সংস্কৃতি আলাদা — কিন্তু ভূগোল ও ইতিহাসের ছন্দ একই।</div>
+
+    <h3><span class="num">৯.১</span>একটি কবিতার দু'লাইন — কুমারনাশান্‌</h3>
+
+    <div class="passage">
+      <div class="mal">മാറ്റുവിൻ ചട്ടങ്ങളേ,<br/>സ്വയമല്ലെങ്കിൽ നിങ്ങളേ<br/>മാറ്റുമതുകളിവിടെ</div>
+      <div class="trans">māṟṟuvin caṭṭaṅṅaḷē,<br/>svayamallenkil niṅṅaḷē<br/>māṟṟumatukaḷiviṭe</div>
+      <div class="bn-gloss">পাল্টাও নিয়মগুলো, হে —<br/>নিজে না পাল্টালে, তোমাদেরকেই<br/>পাল্টে দেবে এই নিয়মগুলো।</div>
+      <div class="attrib">· কুমারনাশান্‌ · ১৯২১ ·</div>
+    </div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">কোর্স শেষ। এবার শুরু প্রকৃত অভ্যাস — মালায়ালম খবরের কাগজ, গান, সিনেমা, সংলাপ। ভাষা একটি চর্চা, পাঠ নয়।</p>
+
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn">← আগে</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">পরে →</button>
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="mal">മലയാളം പഠിക്കാം</span>
+    বিদ্যাসাগরের পদ্ধতিতে একটি প্রাইমার · যত্নে তৈরি · ২০২৬<br/>
+    একসাথে একটিই অজানা · রূপ আগে অর্থ পরে · তালিকা নয় ব্যবস্থা<br/>
+    <span style="display:inline-block;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sindoor);">made by Nil <span class="sep">·</span> using Claude</span>
+  </div>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.stage-tab');
+  const sections = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const scrollWrap = document.getElementById('stageScroll');
+  const total = sections.length;
+  let current = 0;
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function show(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+    sections.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.toggle('done', i < current);
+      d.classList.toggle('current', i === current);
+    });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    nextBtn.textContent = current === total - 1 ? 'শেষ' : 'পরে →';
+
+    const activeTab = tabs[current];
+    if (activeTab && scrollWrap) {
+      const tabLeft = activeTab.offsetLeft;
+      const tabWidth = activeTab.offsetWidth;
+      const wrapWidth = scrollWrap.clientWidth;
+      scrollWrap.scrollTo({ left: tabLeft - wrapWidth / 2 + tabWidth / 2, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+  });
+
+  document.querySelectorAll('.map-cell').forEach(card => {
+    const hint = card.querySelector('.hint');
+    const hintText = card.dataset.hint;
+    if (hintText && hint) hint.textContent = hintText;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+      }
+    });
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>
