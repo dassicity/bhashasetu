@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#F4ECDA"/>
 <title>BHASHASETU — ভাষাসেতু · भाषासेतु</title>
 <meta name="description" content="Learn a sister Indian language from a language you already know. Eight languages, 56 bridges."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -16,8 +17,8 @@
   --rule:rgba(28,22,17,0.12);
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0}
-html{background:var(--paper)}
+html,body{margin:0;padding:0;overflow-x:hidden}
+html{background:var(--paper); -webkit-text-size-adjust:100%}
 body{
   font-family:'Fraunces',serif;
   color:var(--ink);
@@ -26,6 +27,7 @@ body{
     radial-gradient(ellipse 1000px 500px at 80% 100%, rgba(168,48,36,0.07), transparent 60%),
     var(--paper);
   min-height:100vh;
+  min-height:100dvh;
   position:relative;
   line-height:1.5;
 }
@@ -42,33 +44,43 @@ header{text-align:center; margin-bottom:40px}
 .brand{
   font-family:'Fraunces',serif;
   font-weight:600;
-  font-size:clamp(36px, 6vw, 64px);
+  font-size:clamp(30px, 6vw, 64px);
   letter-spacing:0.02em;
-  line-height:1.05;
-  margin:0 0 10px;
+  line-height:1.1;
+  margin:0 0 12px;
   color:var(--ink);
+  overflow-wrap:break-word;
 }
-.brand em{font-style:italic; color:var(--sindoor)}
+.brand em{font-style:italic; color:var(--sindoor); display:block; font-size:0.55em; font-weight:400; margin-top:6px}
 .native{
-  font-size:clamp(18px, 2.6vw, 26px);
+  font-size:clamp(16px, 2.6vw, 26px);
   color:var(--ink-faded);
   margin:0 0 22px;
   font-family:'Fraunces',serif;
   font-style:italic;
+  line-height:1.6;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:baseline;
+  gap:4px 10px;
 }
-.native .bn{font-family:'Noto Serif Bengali',serif; font-style:normal; margin:0 6px}
-.native .hi{font-family:'Noto Serif Devanagari',serif; font-style:normal; margin:0 6px}
-.native .ta{font-family:'Noto Serif Tamil',serif; font-style:normal; margin:0 6px}
-.native .kn{font-family:'Noto Serif Kannada',serif; font-style:normal; margin:0 6px}
-.native .te{font-family:'Noto Serif Telugu',serif; font-style:normal; margin:0 6px}
-.native .ml{font-family:'Noto Serif Malayalam',serif; font-style:normal; margin:0 6px}
-.native .pa{font-family:'Noto Serif Gurmukhi',serif; font-style:normal; margin:0 6px}
-.native .ur{font-family:'Noto Nastaliq Urdu',serif; font-style:normal; margin:0 6px; direction:rtl; unicode-bidi:isolate}
+.native .sep{color:var(--ink-faded); opacity:0.4}
+.native span[class]:not(.sep){font-style:normal}
+.native .bn{font-family:'Noto Serif Bengali',serif}
+.native .hi{font-family:'Noto Serif Devanagari',serif}
+.native .ta{font-family:'Noto Serif Tamil',serif}
+.native .kn{font-family:'Noto Serif Kannada',serif}
+.native .te{font-family:'Noto Serif Telugu',serif}
+.native .ml{font-family:'Noto Serif Malayalam',serif}
+.native .pa{font-family:'Noto Serif Gurmukhi',serif}
+.native .ur{font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate}
 .tagline{
-  font-size:clamp(15px, 1.9vw, 19px);
+  font-size:clamp(14px, 1.9vw, 19px);
   color:var(--ink-soft);
   max-width:580px;
   margin:0 auto;
+  line-height:1.55;
 }
 .step{
   background:var(--paper-warm);
@@ -89,13 +101,14 @@ header{text-align:center; margin-bottom:40px}
 .step h2{
   font-family:'Fraunces',serif;
   font-weight:500;
-  font-size:clamp(20px, 2.6vw, 26px);
+  font-size:clamp(18px, 2.6vw, 26px);
   margin:0 0 18px;
   color:var(--ink);
+  line-height:1.3;
 }
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns:repeat(auto-fill, minmax(170px, 1fr));
   gap:12px;
 }
 .lang{
@@ -112,16 +125,19 @@ header{text-align:center; margin-bottom:40px}
   color:inherit;
   text-align:left;
   font-family:'Fraunces',serif;
+  min-height:72px;
+  -webkit-tap-highlight-color:transparent;
 }
 .lang:hover{border-color:var(--ochre); background:var(--paper-deep)}
 .lang:active{transform:translateY(1px)}
+.lang:focus-visible{outline:2px solid var(--sindoor); outline-offset:2px}
 .lang.selected{
   border-color:var(--sindoor);
   background:#FBF4E3;
   box-shadow:0 0 0 2px rgba(168,48,36,0.15);
 }
 .lang.disabled{
-  opacity:0.38;
+  opacity:0.4;
   cursor:not-allowed;
   pointer-events:none;
 }
@@ -138,16 +154,16 @@ header{text-align:center; margin-bottom:40px}
 .lang-native.te{font-family:'Noto Serif Telugu',serif}
 .lang-native.ml{font-family:'Noto Serif Malayalam',serif}
 .lang-native.pa{font-family:'Noto Serif Gurmukhi',serif}
-.lang-native.ur{font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate}
+.lang-native.ur{font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate; line-height:1.6}
 .lang-en{
-  font-size:13px;
+  font-size:12px;
   color:var(--ink-faded);
   font-family:'JetBrains Mono',monospace;
   letter-spacing:0.02em;
 }
 .soon{
   font-size:10px;
-  letter-spacing:0.16em;
+  letter-spacing:0.14em;
   text-transform:uppercase;
   color:var(--ochre);
   margin-top:4px;
@@ -155,6 +171,7 @@ header{text-align:center; margin-bottom:40px}
 }
 #step-target{display:none}
 #step-target.active{display:block}
+.step h2 .selected-pill{margin-left:10px; margin-top:4px}
 .back{
   display:inline-flex;
   align-items:center;
@@ -164,39 +181,41 @@ header{text-align:center; margin-bottom:40px}
   font:inherit;
   color:var(--sindoor);
   cursor:pointer;
-  padding:0;
+  padding:6px 0;
   margin-bottom:14px;
   font-family:'JetBrains Mono',monospace;
   font-size:12px;
   letter-spacing:0.1em;
   text-transform:uppercase;
+  min-height:36px;
+  -webkit-tap-highlight-color:transparent;
 }
 .back:hover{text-decoration:underline}
 .selected-pill{
   display:inline-flex;
   align-items:center;
-  gap:8px;
-  padding:5px 12px;
+  gap:6px;
+  padding:4px 12px;
   background:var(--paper-deep);
   border:1px solid var(--rule);
   border-radius:100px;
   font-size:13px;
   color:var(--ink-soft);
-  margin-left:10px;
   font-family:'JetBrains Mono',monospace;
+  vertical-align:middle;
 }
 .about{
   margin-top:40px;
-  padding:24px;
+  padding:24px 0 0;
   border-top:1px solid var(--rule);
   color:var(--ink-soft);
-  font-size:15px;
+  font-size:clamp(14px, 1.7vw, 16px);
   line-height:1.65;
 }
 .about p{margin:0 0 12px}
 .about p:last-child{margin-bottom:0}
 footer{
-  margin-top:60px;
+  margin-top:50px;
   padding-top:24px;
   border-top:1px solid var(--rule);
   text-align:center;
@@ -206,12 +225,28 @@ footer{
   text-transform:uppercase;
   color:var(--sindoor);
 }
-@media (max-width:480px){
-  .wrap{padding:28px 16px 60px}
-  .step{padding:20px 16px}
-  .grid{grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:10px}
-  .lang{padding:12px 14px}
+@media (max-width:640px){
+  .wrap{padding:32px 18px 60px}
+  .step{padding:22px 18px; margin:22px 0}
+  .grid{grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:10px}
+  .lang{padding:12px 14px; min-height:68px}
   .lang-native{font-size:20px}
+  .step h2{display:block}
+  .step h2 .selected-pill{display:inline-flex; margin:8px 0 0}
+}
+@media (max-width:420px){
+  .wrap{padding:24px 14px 50px}
+  .step{padding:18px 14px}
+  .grid{grid-template-columns:1fr 1fr; gap:8px}
+  .lang{padding:11px 12px; min-height:64px}
+  .lang-native{font-size:19px}
+  .lang-en{font-size:11px}
+  .brand{font-size:clamp(26px, 7vw, 40px)}
+  .about{padding-top:20px; margin-top:32px}
+}
+@media (max-width:340px){
+  .grid{grid-template-columns:1fr}
+  .lang{min-height:auto}
 }
 </style>
 </head>
@@ -219,9 +254,16 @@ footer{
 <div class="wrap">
 
 <header>
-  <h1 class="brand">BHASHASETU <em>— a bridge between languages</em></h1>
+  <h1 class="brand">BHASHASETU <em>a bridge between languages</em></h1>
   <p class="native">
-    <span class="bn">ভাষাসেতু</span>·<span class="hi">भाषासेतु</span>·<span class="ta">மொழிப்பாலம்</span>·<span class="kn">ಭಾಷಾಸೇತು</span>·<span class="te">భాషాసేతు</span>·<span class="ml">ഭാഷാസേതു</span>·<span class="pa">ਭਾਸ਼ਾ ਪੁਲ</span>·<span class="ur">زبان کا پل</span>
+    <span class="bn">ভাষাসেতু</span><span class="sep">·</span>
+    <span class="hi">भाषासेतु</span><span class="sep">·</span>
+    <span class="ta">மொழிப்பாலம்</span><span class="sep">·</span>
+    <span class="kn">ಭಾಷಾಸೇತು</span><span class="sep">·</span>
+    <span class="te">భాషాసేతు</span><span class="sep">·</span>
+    <span class="ml">ഭാഷാസേതു</span><span class="sep">·</span>
+    <span class="pa">ਭਾਸ਼ਾ ਪੁਲ</span><span class="sep">·</span>
+    <span class="ur">زبان کا پل</span>
   </p>
   <p class="tagline">Learn a sister Indian language from one you already know. Eight languages, fifty-six bridges. No English in the learning path — just the two scripts, side by side.</p>
 </header>
@@ -234,7 +276,7 @@ footer{
 
 <section id="step-target" class="step">
   <div class="step-label">Step 02</div>
-  <h2>What would you like to learn?<span id="source-pill" class="selected-pill"></span></h2>
+  <h2>What would you like to learn? <span id="source-pill" class="selected-pill"></span></h2>
   <button class="back" id="back-btn" type="button">← change</button>
   <div id="target-grid" class="grid"></div>
 </section>
@@ -261,14 +303,13 @@ const LANGS = [
 ];
 
 const AVAILABLE = new Set([
-  'bengali_to_hindi',
-  'bengali_to_kannada',
-  'bengali_to_malayalam',
-  'bengali_to_punjabi',
-  'bengali_to_tamil',
-  'bengali_to_telugu',
-  'bengali_to_urdu',
-  'hindi_to_bengali',
+  'bengali_to_hindi','bengali_to_kannada','bengali_to_malayalam','bengali_to_punjabi','bengali_to_tamil','bengali_to_telugu','bengali_to_urdu',
+  'hindi_to_bengali','hindi_to_kannada','hindi_to_malayalam','hindi_to_punjabi','hindi_to_tamil','hindi_to_telugu','hindi_to_urdu',
+  'kannada_to_bengali','kannada_to_hindi','kannada_to_malayalam','kannada_to_punjabi','kannada_to_tamil','kannada_to_telugu','kannada_to_urdu',
+  'malayalam_to_bengali','malayalam_to_hindi','malayalam_to_kannada','malayalam_to_punjabi','malayalam_to_tamil','malayalam_to_telugu','malayalam_to_urdu',
+  'tamil_to_bengali','tamil_to_hindi','tamil_to_kannada','tamil_to_malayalam','tamil_to_punjabi','tamil_to_telugu','tamil_to_urdu',
+  'telugu_to_bengali','telugu_to_hindi','telugu_to_kannada','telugu_to_malayalam','telugu_to_punjabi','telugu_to_tamil','telugu_to_urdu',
+  'urdu_to_bengali','urdu_to_hindi',
 ]);
 
 const sourceGrid = document.getElementById('source-grid');

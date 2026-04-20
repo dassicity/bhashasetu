@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اردو سے ہندی — بھاشا سیتو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Noto Nastaliq Urdu', serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:2.1;
+  font-size:17px;
+  direction:rtl;
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(184,128,45,0.08), transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(168,48,36,0.06), transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(31,77,74,0.04), transparent 60%);
+  min-height:100vh;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  opacity:0.35;
+  z-index:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.dev,[dir="ltr"]{font-family:'Noto Serif Devanagari', serif; direction:ltr; unicode-bidi:isolate}
+.mono{font-family:'JetBrains Mono', monospace; direction:ltr; unicode-bidi:isolate; font-size:0.85em; color:var(--ink-faded)}
+.display{font-family:'Fraunces', serif; direction:ltr; unicode-bidi:isolate}
+header{
+  text-align:center;
+  padding:42px 20px 18px;
+  position:relative; z-index:1;
+}
+header h1{
+  font-size:34px; margin:0 0 6px;
+  color:var(--sindoor);
+  font-weight:600;
+}
+header .sub{color:var(--ink-faded); font-size:15px}
+header .sub .dev{color:var(--teal)}
+nav.tabs{
+  position:sticky; top:0;
+  background:rgba(244,236,218,0.96);
+  backdrop-filter:blur(6px);
+  border-top:1px solid var(--paper-deep);
+  border-bottom:1px solid var(--paper-deep);
+  z-index:10;
+  overflow-x:auto;
+  white-space:nowrap;
+  padding:10px 12px;
+  direction:rtl;
+}
+nav.tabs button{
+  background:transparent;
+  border:1px solid transparent;
+  border-radius:999px;
+  padding:7px 14px;
+  margin:0 3px;
+  font-family:inherit;
+  font-size:14px;
+  color:var(--ink-soft);
+  cursor:pointer;
+  transition:all 0.2s;
+}
+nav.tabs button:hover{background:var(--paper-warm)}
+nav.tabs button.active{
+  background:var(--ink);
+  color:var(--paper);
+  border-color:var(--ink);
+}
+main{
+  max-width:820px;
+  margin:0 auto;
+  padding:20px 18px 60px;
+  position:relative; z-index:1;
+}
+section{display:none; animation:fade 0.4s ease}
+section.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+h2{
+  font-size:26px;
+  color:var(--teal);
+  border-bottom:2px solid var(--paper-deep);
+  padding-bottom:8px;
+  margin-top:10px;
+}
+h3{color:var(--sindoor); font-size:19px; margin-top:28px}
+h4{color:var(--ochre); font-size:17px; margin:18px 0 8px}
+p{margin:10px 0}
+.lede{font-size:18px; color:var(--ink-soft)}
+.aside{
+  background:linear-gradient(135deg, var(--paper-warm), var(--paper-deep));
+  border-right:4px solid var(--ochre);
+  padding:14px 18px;
+  margin:20px 0;
+  border-radius:6px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.04);
+}
+.aside.teal{border-right-color:var(--teal)}
+.aside.sindoor{border-right-color:var(--sindoor)}
+.aside b{color:var(--sindoor)}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));
+  gap:10px;
+  margin:14px 0;
+}
+.card{
+  background:var(--paper-warm);
+  border:1px solid var(--paper-deep);
+  border-radius:8px;
+  padding:12px 10px;
+  text-align:center;
+  cursor:pointer;
+  transition:all 0.2s;
+  position:relative;
+}
+.card:hover{background:var(--paper-deep); transform:translateY(-1px)}
+.card .big{font-size:34px; line-height:1.4; color:var(--ink); margin-bottom:4px}
+.card .big.dev{font-family:'Noto Serif Devanagari', serif}
+.card .src{font-size:22px; color:var(--sindoor)}
+.card .hint{
+  display:none;
+  margin-top:8px;
+  font-size:13px;
+  color:var(--ink-soft);
+  border-top:1px dashed var(--ink-faded);
+  padding-top:6px;
+}
+.card.open .hint{display:block}
+.card.new::after{
+  content:"⚡"; position:absolute; top:4px; left:6px; font-size:13px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  font-size:15px;
+  background:var(--paper-warm);
+  border-radius:6px;
+  overflow:hidden;
+}
+th,td{
+  padding:8px 10px;
+  border-bottom:1px solid var(--paper-deep);
+  text-align:right;
+}
+th{background:var(--paper-deep); color:var(--ink); font-weight:600}
+td.dev,td .dev{font-size:19px}
+.video{margin:18px 0}
+.video-frame{
+  position:relative;
+  padding-bottom:56.25%;
+  height:0;
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--ink);
+  box-shadow:0 4px 14px rgba(0,0,0,0.15);
+}
+.video-frame iframe{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  border:0;
+}
+.video-caption{
+  text-align:center;
+  margin-top:8px;
+  font-size:14px;
+  color:var(--ink-faded);
+}
+.video-caption a{color:var(--teal)}
+.passage{
+  background:var(--paper-warm);
+  border-radius:8px;
+  padding:16px 18px;
+  margin:14px 0;
+  border:1px solid var(--paper-deep);
+}
+.passage .tgt{font-family:'Noto Serif Devanagari', serif; direction:ltr; font-size:19px; line-height:2.2; color:var(--ink); unicode-bidi:isolate}
+.passage .trans{color:var(--ink-faded); font-size:14px; margin-top:6px; font-family:'JetBrains Mono', monospace; direction:ltr; unicode-bidi:isolate}
+.passage .gloss{margin-top:8px; color:var(--ink-soft); border-top:1px dashed var(--paper-deep); padding-top:8px}
+.word{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 12px;
+  background:var(--paper-warm);
+  border-radius:6px;
+  margin:6px 0;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.word .t{font-family:'Noto Serif Devanagari', serif; font-size:22px; color:var(--ink); direction:ltr; unicode-bidi:isolate}
+.word .s{font-size:20px; color:var(--sindoor)}
+.word .tr{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--ink-faded); direction:ltr; unicode-bidi:isolate}
+.word .tag{font-size:12px; background:var(--paper-deep); padding:2px 8px; border-radius:12px; color:var(--ink-soft)}
+.nav-foot{
+  display:flex;
+  justify-content:space-between;
+  margin-top:40px;
+  padding-top:20px;
+  border-top:1px solid var(--paper-deep);
+}
+.nav-foot button{
+  background:var(--ink);
+  color:var(--paper);
+  border:0;
+  border-radius:6px;
+  padding:10px 18px;
+  font-family:inherit;
+  font-size:15px;
+  cursor:pointer;
+}
+.nav-foot button:disabled{opacity:0.35; cursor:default}
+footer{
+  text-align:center;
+  padding:30px 20px;
+  color:var(--ink-faded);
+  font-size:13px;
+  border-top:1px solid var(--paper-deep);
+  position:relative; z-index:1;
+}
+.family{
+  background:var(--paper-warm);
+  border-radius:10px;
+  padding:12px 16px;
+  margin:14px 0;
+  border:1px solid var(--paper-deep);
+}
+.family h4{margin-top:0; color:var(--teal)}
+.varga{
+  background:var(--paper-warm);
+  border-radius:10px;
+  padding:12px;
+  margin:12px 0;
+  border:1px solid var(--paper-deep);
+}
+.varga h4{margin:0 0 8px; color:var(--teal)}
+@media (max-width:480px){
+  body{font-size:16px}
+  header h1{font-size:26px}
+  h2{font-size:22px}
+  main{padding:14px 12px 40px}
+  .grid{grid-template-columns:repeat(auto-fill, minmax(110px, 1fr))}
+  .card .big{font-size:28px}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>اردو سے ہندی</h1>
+  <div class="sub">بھاشا سیتو · زبان کا پل · <span class="dev">हिन्दी</span> سیکھیے اردو کے راستے</div>
+</header>
+<nav class="tabs" id="tabs">
+  <button data-s="00" class="active">۰۰ · تعارف</button>
+  <button data-s="01">۰۱ · حروفِ علت</button>
+  <button data-s="02">۰۲ · حروف</button>
+  <button data-s="03">۰۳ · ترکیب</button>
+  <button data-s="04">۰۴ · الفاظ</button>
+  <button data-s="05">۰۵ · جملے</button>
+  <button data-s="06">۰۶ · مطالعہ</button>
+  <button data-s="07">۰۷ · لفظی میدان</button>
+  <button data-s="08">۰۸ · استعمال</button>
+  <button data-s="09">۰۹ · ادب</button>
+</nav>
+<main>
+  <section id="stage-00" class="active">
+    <h2>۰۰ · تعارف — جو آپ جانتے ہیں، جو نیا ہے</h2>
+    <p class="lede">یاد کیجیے وہ پہلا <b>قاعدہ</b> جس سے آپ نے الف، بے، پے سیکھا تھا۔ ہندی سیکھنا بھی ویسا ہی سفر ہے — مگر ایک حیرت انگیز خبر کے ساتھ: جسے آپ ہندی کہتے ہیں اور جسے آپ اردو کہتے ہیں، بولی میں وہ تقریباً ایک ہی زبان ہیں۔ دونوں کی بنیاد ہندوستانی (کھڑی بولی) ہے۔ فرق بس یہ ہے کہ ایک <span class="dev">देवनागरी</span> لباس پہنتی ہے اور دوسری نستعلیق۔</p>
+
+    <p>چلیے ایک چھوٹا سا تجربہ کیجیے۔ اردو میں آپ کہتے ہیں: <b>میں کتاب پڑھتا ہوں</b>۔ ہندی میں یہی جملہ یوں ہوگا: <span class="dev">मैं किताब पढ़ता हूँ</span>۔ آوازیں وہی ہیں، ترتیب وہی (مفعول پھر فعل — SOV)، حتیٰ کہ لفظ "کتاب" بھی وہی۔ بس رسم الخط بدل گیا۔ ۴۴ میں سے ۴۱ آوازیں مشترک ہیں یعنی ۹۳ فیصد سے زیادہ صوتی مشترک۔</p>
+
+    <p>پھر نیا کیا ہے؟ نیا ہے یہ کہ نستعلیق <b>ابجد</b> ہے (حروف صامت اصل، حرکات اختیاری) جبکہ دیوناگری <b>ابوگدا</b> ہے (ہر حرف میں "اَ" کی آواز بطور ڈیفالٹ شامل)۔ نیا ہے یہ کہ اردو دائیں سے بائیں بہتی ہے، ہندی بائیں سے دائیں۔ نیا ہے یہ کہ الفاظ کے دو خزانے ہیں — فارسی-عربی (آپ کا اپنا) اور سنسکرتی (تتسم)۔ رجسٹر بدل جاتا ہے، بات وہی رہتی ہے۔</p>
+
+    <h3>چھ بنیادی اصول</h3>
+    <div class="aside"><b>۱۔ منہ کو پہلے سے سب معلوم ہے۔</b> ک، گ، چ، ج، ت، د، پ، ب، م، ن — یہ سب ہندی میں بھی ہیں اور بالکل ویسے ہی بولے جاتے ہیں۔ <span class="dev">क, ग, च, ज, त, द, प, ब, म, न</span> — کوئی نئی تربیت نہیں۔ ۴۱/۴۴ آوازیں مشترک ہیں۔</div>
+    <div class="aside"><b>۲۔ جملے کی ترتیب ایک سی ہے۔</b> اردو "میں گھر جاتا ہوں" — ہندی <span class="dev">मैं घर जाता हूँ</span>۔ فاعل، مفعول، فعل — وہی SOV۔ آپ کو جملہ نہیں بدلنا پڑتا، بس لباس بدلنا پڑتا ہے۔</div>
+    <div class="aside"><b>۳۔ پوسٹ پوزیشن (لاحقے) یکساں ہیں۔</b> "گھر میں" — <span class="dev">घर में</span>۔ "علی کو" — <span class="dev">अली को</span>۔ "ماں سے" — <span class="dev">माँ से</span>۔ کا، کی، کے، کو، سے، میں، پر — سب وہی رہتے ہیں۔</div>
+    <div class="aside sindoor"><b>۴۔ رسم الخط بالکل نیا ہے۔</b> نستعلیق گھسٹی ہوئی، متصل اور ابجدی ہے۔ دیوناگری علیحدہ خانوں میں، اوپر شیروریکھا لگائے، ابوگدی ہے۔ <span class="dev">क</span> میں <b>"کَ"</b> پوشیدہ ہے — لکھنے سے پہلے سمجھیے۔</div>
+    <div class="aside sindoor"><b>۵۔ تین نئی آوازیں ہیں۔</b> <span class="dev">ञ</span> (نیا نون-تالوی)، <span class="dev">ष</span> (ش کا مرجع دار)، اور <span class="dev">ऋ</span> (ر کے ساتھ ننھی اِ)۔ یہ تینوں سنسکرتی الفاظ میں آتے ہیں، روزمرہ میں بہت کم۔</div>
+    <div class="aside teal"><b>۶۔ لغت کے دو دروازے ہیں۔</b> <span class="dev">समय</span> (تتسم) اور <span class="dev">वक़्त</span> (فارسی-عربی) دونوں "وقت" ہیں۔ <span class="dev">पुस्तक</span> اور <span class="dev">किताब</span> دونوں "کتاب" ہیں۔ رسمی ہندی سنسکرت کی طرف جھکتی ہے، بولی جانے والی ہندی آپ کی اردو کے بہت قریب ہے۔</div>
+
+    <div class="nav-foot"><button class="prev" disabled>گذشتہ</button><button class="next">اگلا ←</button></div>
+  </section>
+  <section id="stage-01">
+    <h2>۰۱ · حروفِ علت — سواروں کا خاندان</h2>
+    <p class="lede">اردو میں حرکات (زبر، زیر، پیش) اختیاری ہیں — کاتب انہیں اکثر چھوڑ دیتا ہے۔ ہندی میں صورتحال الٹ ہے: ہر حرف میں <b>اَ</b> کی آواز چپ چاپ شامل ہے، اور ہر دوسرا سَور (حرفِ علت) <b>ماترا</b> بن کر لگانا لازم ہے۔ پہلے خاندانوں سے ملیے:</p>
+
+    <div class="family">
+      <h4>"اَ" کا خاندان — مختصر اور طویل</h4>
+      <div class="grid">
+        <div class="card"><div class="big dev">अ</div><div class="src">اَ</div><div class="hint">مختصر "اَ" — جیسے <span class="dev">अब</span> (ابھی)۔ ہندی میں یہ ہر حرف میں چھپی ہوتی ہے۔</div></div>
+        <div class="card"><div class="big dev">आ</div><div class="src">آ</div><div class="hint">طویل "آ" — جیسے <span class="dev">आम</span> (آم)۔ اردو کا "آ" بالکل یہی ہے۔</div></div>
+      </div>
+      <p class="mono" style="text-align:right; direction:rtl; font-family:'Noto Nastaliq Urdu'">نکتہ: نستعلیق میں زبر لگانا اختیاری، دیوناگری میں <span class="dev">अ</span> خود ایک مکمل حرف ہے۔</p>
+    </div>
+
+    <div class="family">
+      <h4>"اِ" کا خاندان — چھوٹی اور بڑی یے</h4>
+      <div class="grid">
+        <div class="card"><div class="big dev">इ</div><div class="src">اِ</div><div class="hint">مختصر "اِ" — زیر جیسا۔ <span class="dev">इधर</span> (اِدھر)۔</div></div>
+        <div class="card"><div class="big dev">ई</div><div class="src">ای</div><div class="hint">طویل "ای" — بڑی یے۔ <span class="dev">ईद</span> (عید)۔</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>"اُ" کا خاندان — پیش اور واؤ</h4>
+      <div class="grid">
+        <div class="card"><div class="big dev">उ</div><div class="src">اُ</div><div class="hint">مختصر "اُ" — پیش جیسا۔ <span class="dev">उधर</span> (اُدھر)۔</div></div>
+        <div class="card"><div class="big dev">ऊ</div><div class="src">او</div><div class="hint">طویل "او" — <span class="dev">ऊपर</span> (اوپر)۔</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>"اے" اور "او" کا خاندان</h4>
+      <div class="grid">
+        <div class="card"><div class="big dev">ए</div><div class="src">ے</div><div class="hint"><span class="dev">एक</span> (ایک)۔ اردو کی بڑی یے۔</div></div>
+        <div class="card"><div class="big dev">ऐ</div><div class="src">اَے</div><div class="hint"><span class="dev">ऐनक</span> (عینک)۔ "اَے" کی مخلوط آواز۔</div></div>
+        <div class="card"><div class="big dev">ओ</div><div class="src">او</div><div class="hint"><span class="dev">ओस</span> (اوس)۔ واؤ کی طویل آواز۔</div></div>
+        <div class="card"><div class="big dev">औ</div><div class="src">اَو</div><div class="hint"><span class="dev">और</span> (اور)۔ "اَو" کی مخلوط آواز۔</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>⚡ نیا سَور — "رِ"</h4>
+      <div class="grid">
+        <div class="card new"><div class="big dev">ऋ</div><div class="src">رِ</div><div class="hint">یہ سنسکرت سے آیا ہے۔ صرف تتسم الفاظ میں: <span class="dev">ऋतु</span> (موسم)، <span class="dev">कृषि</span> (کاشتکاری)۔ روزمرہ اردو میں فارسی-عربی متبادل موجود ہیں۔</div></div>
+      </div>
+    </div>
+
+    <div class="aside teal"><b>ابجد بمقابلہ ابوگدا۔</b> اردو میں "کتاب" لکھیں تو ک-ت-ا-ب دکھتا ہے — حرکات اختیاری۔ ہندی میں وہی لفظ <span class="dev">किताब</span> — "ک" کے نیچے زیر ماترا لازم، ورنہ پڑھا جائے گا "کَتاب"۔ <b>دیوناگری میں حرکات چھپائی نہیں جا سکتیں۔</b></div>
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+hindi+vowels+swar+pronunciation" title="Hindi vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">ہندی سَوروں کا تلفظ سنیے — <a href="https://www.youtube.com/results?search_query=learn+hindi+vowels+swar+pronunciation" target="_blank" rel="noopener">مزید ویڈیوز ڈھونڈیں ↗</a></div>
+    </div>
+
+    <div class="nav-foot"><button class="prev">→ پچھلا</button><button class="next">اگلا ←</button></div>
+  </section>
+  <section id="stage-02">
+    <h2>۰۲ · حروف — ورگوں کی تختی</h2>
+    <p class="lede">دیوناگری کے حروف بے ترتیب نہیں — پانی نی نے انہیں آواز کے مقام کے حساب سے <b>ورگوں</b> میں جوڑا۔ ہر ورگ پانچ کا گروہ: غیر مہموس، مہموس، غیر مہموس مجاز، مہموس مجاز، اور ناسک۔ آپ کی اردو میں یہی ترتیب پوشیدہ ہے، بس فارسی-عربی ترتیب (الف، بے، تے...) اسے چھپا دیتی ہے۔</p>
+
+    <div class="varga">
+      <h4>کنٹھی ورگ (حلقی) — گلا</h4>
+      <div class="grid">
+        <div class="card"><div class="big dev">क</div><div class="src">ک</div><div class="hint"><span class="dev">कब</span> (کب)۔ وہی "ک"۔</div></div>
+        <div class="card"><div class="big dev">ख</div><div class="src">کھ</div><div class="hint"><span class="dev">खाना</span> (کھانا)۔ ہوا دار "ک"۔</div></div>
+        <div class="card"><div class="big dev">ग</div><div class="src">گ</div><div class="hint"><span class="dev">गया</span> (گیا)۔</div></div>
+        <div class="card"><div class="big dev">घ</div><div class="src">گھ</div><div class="hint"><span class="dev">घर</span> (گھر)۔ ہوا دار "گ"۔</div></div>
+        <div class="card"><div class="big dev">ङ</div><div class="src">نگ</div><div class="hint">ناسک — تنہا بہت کم، زیادہ تر ما<span class="dev">ङ</span>گ جیسے جوڑوں میں۔</div></div>
+      </div>
+    </div>
+
+    <div class="varga">
+      <h4>تالوی ورگ — تالو</h4>
+      <div class="grid">
+        <div class="card"><div class="big dev">च</div><div class="src">چ</div><div class="hint"><span class="dev">चार</span> (چار)۔</div></div>
+        <div class="card"><div class="big dev">छ</div><div class="src">چھ</div><div class="hint"><span class="dev">छह</span> (چھ)۔</div></div>
+        <div class="card"><div class="big dev">ज</div><div class="src">ج</div><div class="hint"><span class="dev">जाना</span> (جانا)۔</div></div>
+        <div class="card"><div class="big dev">झ</div><div class="src">جھ</div><div class="hint"><span class="dev">झूठ</span> (جھوٹ)۔</div></div>
+        <div class="card new"><div class="big dev">ञ</div><div class="src">ںَ</div><div class="hint">⚡ نئی آواز۔ تالوی نون۔ روزمرہ میں تقریباً غائب، صرف سنسکرتی اجتماعات میں۔</div></div>
+      </div>
+    </div>
+
+    <div class="varga">
+      <h4>مرجع دار ورگ (رٹرو فلیکس)</h4>
+      <div class="grid">
+        <div class="card"><div class="big dev">ट</div><div class="src">ٹ</div><div class="hint"><span class="dev">टमाटर</span> (ٹماٹر)۔ آپ کی "ٹ" بالکل وہی۔</div></div>
+        <div class="card"><div class="big dev">ठ</div><div class="src">ٹھ</div><div class="hint"><span class="dev">ठीक</span> (ٹھیک)۔</div></div>
+        <div class="card"><div class="big dev">ड</div><div class="src">ڈ</div><div class="hint"><span class="dev">डर</span> (ڈر)۔</div></div>
+        <div class="card"><div class="big dev">ढ</div><div class="src">ڈھ</div><div class="hint"><span class="dev">ढाई</span> (ڈھائی)۔</div></div>
+        <div class="card"><div class="big dev">ण</div><div class="src">ݨ</div><div class="hint">مرجع دار نون۔ <span class="dev">प्राण</span> (پران)۔ سنسکرتی الفاظ میں۔</div></div>
+      </div>
+    </div>
+
+    <div class="varga">
+      <h4>دندانی ورگ — دانت</h4>
+      <div class="grid">
+        <div class="card"><div class="big dev">त</div><div class="src">ت</div><div class="hint"><span class="dev">तुम</span> (تم)۔</div></div>
+        <div class="card"><div class="big dev">थ</div><div class="src">تھ</div><div class="hint"><span class="dev">थोड़ा</span> (تھوڑا)۔</div></div>
+        <div class="card"><div class="big dev">द</div><div class="src">د</div><div class="hint"><span class="dev">दिन</span> (دن)۔</div></div>
+        <div class="card"><div class="big dev">ध</div><div class="src">دھ</div><div class="hint"><span class="dev">धूप</span> (دھوپ)۔</div></div>
+        <div class="card"><div class="big dev">न</div><div class="src">ن</div><div class="hint"><span class="dev">नाम</span> (نام)۔</div></div>
+      </div>
+    </div>
+
+    <div class="varga">
+      <h4>لبی ورگ — ہونٹ</h4>
+      <div class="grid">
+        <div class="card"><div class="big dev">प</div><div class="src">پ</div><div class="hint"><span class="dev">पानी</span> (پانی)۔</div></div>
+        <div class="card"><div class="big dev">फ</div><div class="src">پھ</div><div class="hint"><span class="dev">फल</span> (پھل)۔ نقطے کے ساتھ <span class="dev">फ़</span> "ف" بنتا ہے۔</div></div>
+        <div class="card"><div class="big dev">ब</div><div class="src">ب</div><div class="hint"><span class="dev">बात</span> (بات)۔</div></div>
+        <div class="card"><div class="big dev">भ</div><div class="src">بھ</div><div class="hint"><span class="dev">भाई</span> (بھائی)۔</div></div>
+        <div class="card"><div class="big dev">म</div><div class="src">م</div><div class="hint"><span class="dev">माँ</span> (ماں)۔</div></div>
+      </div>
+    </div>
+
+    <div class="varga">
+      <h4>اَنتستھ اور اوشَم — بقیہ آوازیں</h4>
+      <div class="grid">
+        <div class="card"><div class="big dev">य</div><div class="src">ی</div><div class="hint"><span class="dev">यह</span> (یہ)۔</div></div>
+        <div class="card"><div class="big dev">र</div><div class="src">ر</div><div class="hint"><span class="dev">रात</span> (رات)۔</div></div>
+        <div class="card"><div class="big dev">ल</div><div class="src">ل</div><div class="hint"><span class="dev">लड़का</span> (لڑکا)۔</div></div>
+        <div class="card"><div class="big dev">व</div><div class="src">و</div><div class="hint"><span class="dev">वह</span> (وہ)۔</div></div>
+        <div class="card"><div class="big dev">श</div><div class="src">ش</div><div class="hint"><span class="dev">शाम</span> (شام)۔</div></div>
+        <div class="card new"><div class="big dev">ष</div><div class="src">ش</div><div class="hint">⚡ مرجع دار "ش"۔ صرف سنسکرتی الفاظ میں۔</div></div>
+        <div class="card"><div class="big dev">स</div><div class="src">س</div><div class="hint"><span class="dev">सब</span> (سب)۔</div></div>
+        <div class="card"><div class="big dev">ह</div><div class="src">ہ</div><div class="hint"><span class="dev">हाथ</span> (ہاتھ)۔</div></div>
+      </div>
+    </div>
+
+    <h3>نقطے والے حروف — اردو کی خاص آوازیں محفوظ</h3>
+    <div class="aside sindoor"><b>نقطہ کا کرشمہ۔</b> جب ہندی میں فارسی-عربی الفاظ آتے ہیں تو نیچے ایک نقطہ لگا کر آپ کی اصل آوازیں محفوظ کر لی جاتی ہیں: <span class="dev">क़</span> (ق)، <span class="dev">ख़</span> (خ)، <span class="dev">ग़</span> (غ)، <span class="dev">ज़</span> (ز)، <span class="dev">फ़</span> (ف)۔ یعنی "قسمت" = <span class="dev">क़िस्मत</span>، "خدا" = <span class="dev">ख़ुदा</span>، "غزل" = <span class="dev">ग़ज़ल</span>۔ نقطہ آپ کی زبان کا پاسبان ہے۔</div>
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+hindi+consonants+vyanjan+pronunciation" title="Hindi consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">ہندی حروف صامت کا تلفظ سنیے — <a href="https://www.youtube.com/results?search_query=learn+hindi+consonants+vyanjan+pronunciation" target="_blank" rel="noopener">مزید ویڈیوز ↗</a></div>
+    </div>
+
+    <div class="nav-foot"><button class="prev">→ پچھلا</button><button class="next">اگلا ←</button></div>
+  </section>
+  <section id="stage-03">
+    <h2>۰۳ · ترکیب — ماتراؤں اور حلنت کا کھیل</h2>
+    <p class="lede">اردو میں "ک" لکھنے کا مطلب صرف "ک" کی آواز ہے۔ ہندی میں <span class="dev">क</span> لکھنے کا مطلب ہے <b>"کَ"</b> (ک + اَ) — آواز اپنے ساتھ ایک چھپی ہوئی زبر لے کر چلتی ہے۔ اسے بدلنے کے لیے <b>ماترا</b> لگتی ہے۔</p>
+
+    <h3>"ک" کے ساتھ ہر حرفِ علت</h3>
+    <table>
+      <tr><th>آواز</th><th>اردو</th><th>ہندی</th><th>ماترا</th></tr>
+      <tr><td>کَ</td><td>کَ</td><td class="dev">क</td><td>کچھ نہیں (ڈیفالٹ)</td></tr>
+      <tr><td>کا</td><td>کا</td><td class="dev">का</td><td class="dev">ा</td></tr>
+      <tr><td>کِ</td><td>کِ</td><td class="dev">कि</td><td class="dev">ि (بائیں!)</td></tr>
+      <tr><td>کی</td><td>کی</td><td class="dev">की</td><td class="dev">ी</td></tr>
+      <tr><td>کُ</td><td>کُ</td><td class="dev">कु</td><td class="dev">ु (نیچے)</td></tr>
+      <tr><td>کو</td><td>کو</td><td class="dev">कू</td><td class="dev">ू (نیچے)</td></tr>
+      <tr><td>کے</td><td>کے</td><td class="dev">के</td><td class="dev">े (اوپر)</td></tr>
+      <tr><td>کَے</td><td>کَے</td><td class="dev">कै</td><td class="dev">ै (اوپر)</td></tr>
+      <tr><td>کو</td><td>کو</td><td class="dev">को</td><td class="dev">ो (اوپر)</td></tr>
+      <tr><td>کَو</td><td>کَو</td><td class="dev">कौ</td><td class="dev">ौ (اوپر)</td></tr>
+    </table>
+
+    <div class="aside"><b>چالاک قاعدہ۔</b> دیوناگری میں صرف <span class="dev">ि</span> (چھوٹی اِ) ماترا حرف کے <b>بائیں</b> لگتی ہے حالانکہ آواز بعد میں آتی ہے۔ یعنی <span class="dev">कि</span> پڑھا جائے گا "کِ"، "اِک" نہیں۔ لکھنے میں بائیں، پڑھنے میں دائیں!</div>
+
+    <h3>حلنت (हलंत) — چھپی ہوئی زبر مٹانا</h3>
+    <p>اگر آپ چاہتے ہیں کہ حرف میں ڈیفالٹ "اَ" نہ آئے تو نیچے ایک چھوٹی سی ترچھی لکیر لگاتے ہیں: <span class="dev">्</span> — اسے <b>حلنت</b> کہتے ہیں۔ یہ اردو کے جزم (ْ) کے برابر ہے۔</p>
+    <table>
+      <tr><th>اردو</th><th>ہندی (حلنت کے ساتھ)</th><th>ہندی (جوڑ کی صورت)</th></tr>
+      <tr><td>پرَ + ت = پرَت</td><td class="dev">प् + त = प्त</td><td class="dev">प्त</td></tr>
+      <tr><td>نَمَس + تے = نمستے</td><td class="dev">नमस् + ते</td><td class="dev">नमस्ते</td></tr>
+    </table>
+
+    <h3>جوڑ (صنیوُکت اکشر) — دو حروف گلے ملتے ہیں</h3>
+    <div class="grid">
+      <div class="card"><div class="big dev">क्य</div><div class="src">کْیَ</div><div class="hint"><span class="dev">क्या</span> = کیا۔ ک + ی ملے۔</div></div>
+      <div class="card"><div class="big dev">त्र</div><div class="src">ترَ</div><div class="hint"><span class="dev">त्रिशूल</span> = ترشول۔ ت + ر۔</div></div>
+      <div class="card"><div class="big dev">श्र</div><div class="src">شْرَ</div><div class="hint"><span class="dev">श्री</span> = شری۔ ش + ر۔</div></div>
+      <div class="card"><div class="big dev">क्ष</div><div class="src">کْش</div><div class="hint"><span class="dev">क्षण</span> = چھن (لمحہ)۔ ک + ش۔</div></div>
+      <div class="card"><div class="big dev">ज्ञ</div><div class="src">گْیَ</div><div class="hint"><span class="dev">ज्ञान</span> = گیان۔ تاریخی ج + ن، بولا "گیان"۔</div></div>
+    </div>
+
+    <div class="aside teal"><b>شَوا کی گمشدگی۔</b> ہندی لکھتی ہے <span class="dev">नमस्कार</span> (نَمَسْکارَ) مگر بولتی ہے "نمسکار" — آخری اَ گرا دیا جاتا ہے۔ اردو میں یہ مسئلہ نہیں کیونکہ آپ زبر لکھتے ہی نہیں۔ ہندی میں لکھنا پڑتا ہے مگر بولنا نہیں پڑتا۔ <b>یہی شَوا-ڈیلیشن کہلاتا ہے۔</b></div>
+
+    <h3>اَنُسوار (ں) اور چندربندو (ں)</h3>
+    <table>
+      <tr><th>علامت</th><th>ہندی</th><th>اردو</th><th>مثال</th></tr>
+      <tr><td class="dev">ं</td><td>اَنُسوار</td><td>نون غنہ سخت</td><td><span class="dev">हिंदी</span> = ہِندی</td></tr>
+      <tr><td class="dev">ँ</td><td>چندربندو</td><td>نون غنہ نرم</td><td><span class="dev">माँ</span> = ماں</td></tr>
+    </table>
+
+    <div class="nav-foot"><button class="prev">→ پچھلا</button><button class="next">اگلا ←</button></div>
+  </section>
+  <section id="stage-04">
+    <h2>۰۴ · الفاظ — پچاس بنیادی الفاظ</h2>
+    <p class="lede">ہندی کی لغت دو دریاؤں سے بنی ہے: تدبھو (پراکرت سے آئے روزمرہ کے لفظ، اکثر آپ کی اردو جیسے) اور تتسم (سنسکرت سے براہ راست لیے گئے رسمی لفظ)۔ فارسی-عربی الفاظ بھی بے شمار ہیں، بالخصوص بول چال میں۔</p>
+
+    <h3>ضمیر</h3>
+    <div class="word"><span class="t">मैं</span><span class="s">میں</span><span class="tr">maĩ</span><span class="tag">تدبھو</span></div>
+    <div class="word"><span class="t">तू</span><span class="s">تُو</span><span class="tr">tū</span><span class="tag">دوستانہ</span></div>
+    <div class="word"><span class="t">तुम</span><span class="s">تم</span><span class="tr">tum</span><span class="tag">اپنائیت</span></div>
+    <div class="word"><span class="t">आप</span><span class="s">آپ</span><span class="tr">āp</span><span class="tag">ادب</span></div>
+    <div class="word"><span class="t">वह</span><span class="s">وہ</span><span class="tr">vah</span><span class="tag">دور کا</span></div>
+    <div class="word"><span class="t">यह</span><span class="s">یہ</span><span class="tr">yah</span><span class="tag">قریب کا</span></div>
+    <div class="word"><span class="t">हम</span><span class="s">ہم</span><span class="tr">ham</span><span class="tag">ہم سب</span></div>
+    <div class="word"><span class="t">वे</span><span class="s">وہ (جمع)</span><span class="tr">ve</span><span class="tag">تعظیمی</span></div>
+
+    <h3>اسم — روزمرہ</h3>
+    <div class="word"><span class="t">घर</span><span class="s">گھر</span><span class="tr">ghar</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">पानी</span><span class="s">پانی</span><span class="tr">pānī</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">नाम</span><span class="s">نام</span><span class="tr">nām</span><span class="tag">تتسم</span></div>
+    <div class="word"><span class="t">किताब</span><span class="s">کتاب</span><span class="tr">kitāb</span><span class="tag">عربی</span></div>
+    <div class="word"><span class="t">पुस्तक</span><span class="s">کتاب (رسمی)</span><span class="tr">pustak</span><span class="tag">تتسم</span></div>
+    <div class="word"><span class="t">स्कूल</span><span class="s">اسکول</span><span class="tr">skūl</span><span class="tag">انگریزی</span></div>
+    <div class="word"><span class="t">विद्यालय</span><span class="s">مدرسہ</span><span class="tr">vidyālay</span><span class="tag">تتسم</span></div>
+    <div class="word"><span class="t">पैसा</span><span class="s">پیسہ</span><span class="tr">paisā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">वक़्त</span><span class="s">وقت</span><span class="tr">vaqt</span><span class="tag">عربی</span></div>
+    <div class="word"><span class="t">समय</span><span class="s">وقت (رسمی)</span><span class="tr">samay</span><span class="tag">تتسم</span></div>
+    <div class="word"><span class="t">दिन</span><span class="s">دن</span><span class="tr">din</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">रात</span><span class="s">رات</span><span class="tr">rāt</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">दूध</span><span class="s">دودھ</span><span class="tr">dūdh</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">सूरज</span><span class="s">سورج / آفتاب</span><span class="tr">sūraj</span><span class="tag">تدبھو</span></div>
+    <div class="word"><span class="t">ज़मीन</span><span class="s">زمین</span><span class="tr">zamīn</span><span class="tag">فارسی</span></div>
+    <div class="word"><span class="t">चावल</span><span class="s">چاول</span><span class="tr">cāval</span><span class="tag">مشترک</span></div>
+
+    <h3>فعل — دس بنیادی</h3>
+    <div class="word"><span class="t">होना</span><span class="s">ہونا</span><span class="tr">honā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">करना</span><span class="s">کرنا</span><span class="tr">karnā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">जाना</span><span class="s">جانا</span><span class="tr">jānā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">आना</span><span class="s">آنا</span><span class="tr">ānā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">खाना</span><span class="s">کھانا</span><span class="tr">khānā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">पीना</span><span class="s">پینا</span><span class="tr">pīnā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">देखना</span><span class="s">دیکھنا</span><span class="tr">dekhnā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">पढ़ना</span><span class="s">پڑھنا</span><span class="tr">paṛhnā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">लिखना</span><span class="s">لکھنا</span><span class="tr">likhnā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">बोलना</span><span class="s">بولنا</span><span class="tr">bolnā</span><span class="tag">مشترک</span></div>
+
+    <h3>گنتی</h3>
+    <div class="grid">
+      <div class="card"><div class="big dev">एक</div><div class="src">ایک</div><div class="hint">ek — ۱</div></div>
+      <div class="card"><div class="big dev">दो</div><div class="src">دو</div><div class="hint">do — ۲</div></div>
+      <div class="card"><div class="big dev">तीन</div><div class="src">تین</div><div class="hint">tīn — ۳</div></div>
+      <div class="card"><div class="big dev">चार</div><div class="src">چار</div><div class="hint">cār — ۴</div></div>
+      <div class="card"><div class="big dev">पाँच</div><div class="src">پانچ</div><div class="hint">pā̃c — ۵</div></div>
+      <div class="card"><div class="big dev">छह</div><div class="src">چھ</div><div class="hint">chah — ۶</div></div>
+      <div class="card"><div class="big dev">सात</div><div class="src">سات</div><div class="hint">sāt — ۷</div></div>
+      <div class="card"><div class="big dev">आठ</div><div class="src">آٹھ</div><div class="hint">āṭh — ۸</div></div>
+      <div class="card"><div class="big dev">नौ</div><div class="src">نو</div><div class="hint">nau — ۹</div></div>
+      <div class="card"><div class="big dev">दस</div><div class="src">دس</div><div class="hint">das — ۱۰</div></div>
+      <div class="card"><div class="big dev">सौ</div><div class="src">سَو</div><div class="hint">sau — ۱۰۰</div></div>
+    </div>
+
+    <div class="aside teal"><b>دو لفظ، ایک معنی۔</b> ہندی کی خوبصورتی یہ ہے کہ ہر رسمی تتسم لفظ کا ایک عوامی اردو-نما متبادل موجود ہے: <span class="dev">समय / वक़्त</span>، <span class="dev">पुस्तक / किताब</span>، <span class="dev">जल / पानी</span>، <span class="dev">नेत्र / आँख</span>، <span class="dev">अग्नि / आग</span>۔ دفتری ہندی پہلا اختیار کرتی ہے، بول چال دوسرا — جو آپ کی اردو ہے۔</div>
+
+    <div class="nav-foot"><button class="prev">→ پچھلا</button><button class="next">اگلا ←</button></div>
+  </section>
+  <section id="stage-05">
+    <h2>۰۵ · جملے — ایک ہی نحو، دو لباس</h2>
+    <p class="lede">یہی وہ مقام ہے جہاں اردو بولنے والے کو سب سے بڑی راحت ملتی ہے۔ جملے کی ساخت بالکل آپ کی اردو جیسی ہے — صرف حروف بدلتے ہیں۔</p>
+
+    <h3>"کرنا" کی گردان — حال جاری</h3>
+    <table>
+      <tr><th>شخص</th><th>اردو</th><th>ہندی</th></tr>
+      <tr><td>میں</td><td>کرتا/کرتی ہوں</td><td class="dev">करता/करती हूँ</td></tr>
+      <tr><td>تُو</td><td>کرتا/کرتی ہے</td><td class="dev">करता/करती है</td></tr>
+      <tr><td>تم</td><td>کرتے/کرتی ہو</td><td class="dev">करते/करती हो</td></tr>
+      <tr><td>وہ</td><td>کرتا/کرتی ہے</td><td class="dev">करता/करती है</td></tr>
+      <tr><td>ہم</td><td>کرتے/کرتی ہیں</td><td class="dev">करते/करती हैं</td></tr>
+      <tr><td>آپ</td><td>کرتے/کرتی ہیں</td><td class="dev">करते/करती हैं</td></tr>
+      <tr><td>وہ (جمع)</td><td>کرتے/کرتی ہیں</td><td class="dev">करते/करती हैं</td></tr>
+    </table>
+
+    <div class="aside"><b>بالکل وہی صرف۔</b> "کرتا ہوں" اور <span class="dev">करता हूँ</span> میں آواز کا ذرا سا فرق بھی نہیں۔ جو گردان آپ نے بچپن میں سیکھی وہ دیوناگری میں لکھنے کے لائق بنانی ہے، دوبارہ سیکھنی نہیں۔</div>
+
+    <h3>لاحقے (پوسٹ پوزیشن) — ایک جیسے</h3>
+    <table>
+      <tr><th>کام</th><th>اردو</th><th>ہندی</th></tr>
+      <tr><td>مفعول</td><td>کو</td><td class="dev">को</td></tr>
+      <tr><td>ذریعہ / سے</td><td>سے</td><td class="dev">से</td></tr>
+      <tr><td>اندر</td><td>میں</td><td class="dev">में</td></tr>
+      <tr><td>اوپر</td><td>پر</td><td class="dev">पर</td></tr>
+      <tr><td>ملکیت (مذکر)</td><td>کا</td><td class="dev">का</td></tr>
+      <tr><td>ملکیت (مؤنث)</td><td>کی</td><td class="dev">की</td></tr>
+      <tr><td>ملکیت (جمع)</td><td>کے</td><td class="dev">के</td></tr>
+    </table>
+
+    <h3>سوالیہ الفاظ</h3>
+    <div class="grid">
+      <div class="card"><div class="big dev">क्या</div><div class="src">کیا</div><div class="hint">kyā</div></div>
+      <div class="card"><div class="big dev">कौन</div><div class="src">کون</div><div class="hint">kaun</div></div>
+      <div class="card"><div class="big dev">कहाँ</div><div class="src">کہاں</div><div class="hint">kahā̃</div></div>
+      <div class="card"><div class="big dev">कब</div><div class="src">کب</div><div class="hint">kab</div></div>
+      <div class="card"><div class="big dev">क्यों</div><div class="src">کیوں</div><div class="hint">kyõ</div></div>
+      <div class="card"><div class="big dev">कैसे</div><div class="src">کیسے</div><div class="hint">kaise</div></div>
+      <div class="card"><div class="big dev">कितना</div><div class="src">کتنا</div><div class="hint">kitnā</div></div>
+    </div>
+
+    <h3>مثال کے جملے</h3>
+    <div class="passage">
+      <div class="tgt">मैं घर जाता हूँ।</div>
+      <div class="trans">maĩ ghar jātā hū̃</div>
+      <div class="gloss">میں گھر جاتا ہوں۔ — حرف بہ حرف وہی۔</div>
+    </div>
+    <div class="passage">
+      <div class="tgt">वह किताब पढ़ रही है।</div>
+      <div class="trans">vah kitāb paṛh rahī hai</div>
+      <div class="gloss">وہ کتاب پڑھ رہی ہے۔</div>
+    </div>
+    <div class="passage">
+      <div class="tgt">क्या आप हिंदी बोलते हैं?</div>
+      <div class="trans">kyā āp hindī bolte hãi?</div>
+      <div class="gloss">کیا آپ ہندی بولتے ہیں؟</div>
+    </div>
+    <div class="passage">
+      <div class="tgt">मुझे पानी नहीं चाहिए।</div>
+      <div class="trans">mujhe pānī nahī̃ cāhiye</div>
+      <div class="gloss">مجھے پانی نہیں چاہیے۔ — نفی کے لیے <span class="dev">नहीं</span>، بالکل آپ کا "نہیں"۔</div>
+    </div>
+
+    <div class="aside teal"><b>ایک سیدھی چاپی۔</b> اگر آپ کوئی اردو جملہ جانتے ہیں، ہر حرف کو اس کا ہندی بدل لگا دیں — جملہ درست ہندی بن جائے گا۔ نحو، لاحقے، گردان، سوالیہ — سب مشترک۔ <b>یہی ہندوستانی کا معجزہ ہے۔</b></div>
+
+    <div class="nav-foot"><button class="prev">→ پچھلا</button><button class="next">اگلا ←</button></div>
+  </section>
+  <section id="stage-06">
+    <h2>۰۶ · مطالعہ — تین تحریریں</h2>
+    <p class="lede">اب وہ وقت آ گیا ہے کہ دیوناگری کو آنکھ کی زبان بنایا جائے۔ تحریر پڑھیں، نقل حرفی سے آواز ملائیں، پھر اردو گلوس سے مطلب۔</p>
+
+    <h3>۱۔ تعارف</h3>
+    <div class="passage">
+      <div class="tgt">मेरा नाम अहमद है। मैं दिल्ली में रहता हूँ। मैं एक विद्यार्थी हूँ। मुझे किताबें पढ़ना अच्छा लगता है। मेरी माँ शिक्षिका हैं।</div>
+      <div class="trans">merā nām ahmad hai. maĩ dillī mẽ rahtā hū̃. maĩ ek vidyārthī hū̃. mujhe kitābẽ paṛhnā acchā lagtā hai. merī mā̃ śikṣikā hãi.</div>
+      <div class="gloss">میرا نام احمد ہے۔ میں دہلی میں رہتا ہوں۔ میں ایک طالب علم (ودیارتھی) ہوں۔ مجھے کتابیں پڑھنا اچھا لگتا ہے۔ میری ماں اُستانی ہیں۔</div>
+    </div>
+
+    <h3>۲۔ دن بھر کی روداد</h3>
+    <div class="passage">
+      <div class="tgt">मैं रोज़ सुबह छह बजे उठता हूँ। फिर मैं चाय पीता हूँ और अख़बार पढ़ता हूँ। आठ बजे मैं दफ़्तर जाता हूँ। दोपहर को खाना खाता हूँ। शाम को दोस्तों से मिलता हूँ और रात को जल्दी सो जाता हूँ।</div>
+      <div class="trans">maĩ roz subah chah baje uṭhtā hū̃. phir maĩ cāy pītā hū̃ aur aḵẖbār paṛhtā hū̃. āṭh baje maĩ daftar jātā hū̃. dopahar ko khānā khātā hū̃. śām ko dostõ se miltā hū̃ aur rāt ko jaldī so jātā hū̃.</div>
+      <div class="gloss">میں روز صبح چھ بجے اٹھتا ہوں۔ پھر میں چائے پیتا ہوں اور اخبار پڑھتا ہوں۔ آٹھ بجے میں دفتر جاتا ہوں۔ دوپہر کو کھانا کھاتا ہوں۔ شام کو دوستوں سے ملتا ہوں اور رات کو جلدی سو جاتا ہوں۔</div>
+    </div>
+
+    <h3>۳۔ دو لوگوں کی گفتگو</h3>
+    <div class="passage">
+      <div class="tgt">
+        रेहाना: नमस्ते! आप कैसे हैं?<br>
+        सलीम: मैं ठीक हूँ, शुक्रिया। आप सुनाइए।<br>
+        रेहाना: बस, ठीक-ठाक। आज शाम को क्या कर रहे हैं?<br>
+        सलीम: कुछ ख़ास नहीं। क्यों, कोई योजना है?<br>
+        रेहाना: हाँ, चलिए बाज़ार चलते हैं। मुझे एक किताब ख़रीदनी है।<br>
+        सलीम: ज़रूर। मैं पाँच बजे आपके घर आ जाऊँगा।<br>
+        रेहाना: बहुत अच्छा। फिर मिलते हैं।
+      </div>
+      <div class="trans">rehānā: namaste! āp kaise hãi? / salīm: maĩ ṭhīk hū̃, śukriyā. / rehānā: ... āj śām ko kyā kar rahe hãi? / salīm: kuch ḵẖās nahī̃. kyõ, koī yojnā hai? / rehānā: hā̃, calie bāzār calte hãi. mujhe ek kitāb ḵẖarīdnī hai. / salīm: zarūr. maĩ pā̃c baje āpke ghar ā jāū̃gā. / rehānā: bahut acchā. phir milte hãi.</div>
+      <div class="gloss">ریحانہ: نمستے! آپ کیسے ہیں؟ سلیم: میں ٹھیک ہوں، شکریہ۔ آپ سنائیے۔ ریحانہ: بس، ٹھیک ٹھاک۔ آج شام کو کیا کر رہے ہیں؟ سلیم: کچھ خاص نہیں۔ کیوں، کوئی منصوبہ (یوجنا) ہے؟ ریحانہ: ہاں، چلیے بازار چلتے ہیں۔ مجھے ایک کتاب خریدنی ہے۔ سلیم: ضرور۔ میں پانچ بجے آپ کے گھر آ جاؤں گا۔ ریحانہ: بہت اچھا۔ پھر ملتے ہیں۔</div>
+    </div>
+
+    <div class="aside"><b>غور کیجیے۔</b> اوپر کی گفتگو میں آپ نے <span class="dev">शुक्रिया</span>، <span class="dev">ख़ास</span>، <span class="dev">ज़रूर</span>، <span class="dev">ख़रीदनी</span>، <span class="dev">बाज़ार</span> — سب فارسی-عربی الفاظ پڑھے، مگر دیوناگری میں۔ نقطے نے آواز محفوظ رکھی۔ یہ آپ کی اپنی زبان ہے، بس نیا لباس پہنے۔</div>
+
+    <div class="nav-foot"><button class="prev">→ پچھلا</button><button class="next">اگلا ←</button></div>
+  </section>
+  <section id="stage-07">
+    <h2>۰۷ · لفظی میدان — معنی کے خانے</h2>
+    <p class="lede">الفاظ محض آوازیں نہیں — وہ دنیا کو کاٹنے کے طریقے ہیں۔ اردو اور ہندی زیادہ تر ایک جیسا کاٹتے ہیں، مگر کچھ جگہیں ایسی ہیں جہاں دونوں کا نشتر ذرا مختلف بیٹھتا ہے۔</p>
+
+    <h3>رشتہ داری</h3>
+    <div class="word"><span class="t">पिता / पापा</span><span class="s">والد / پاپا</span><span class="tr">pitā / pāpā</span><span class="tag">باپ</span></div>
+    <div class="word"><span class="t">माँ / माता</span><span class="s">ماں / والدہ</span><span class="tr">mā̃ / mātā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">भाई / भैया</span><span class="s">بھائی</span><span class="tr">bhāī / bhaiyā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">बहन / दीदी</span><span class="s">بہن / باجی</span><span class="tr">bahan / dīdī</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">दादा</span><span class="s">دادا</span><span class="tr">dādā</span><span class="tag">باپ کی طرف</span></div>
+    <div class="word"><span class="t">नाना</span><span class="s">نانا</span><span class="tr">nānā</span><span class="tag">ماں کی طرف</span></div>
+    <div class="word"><span class="t">दादी</span><span class="s">دادی</span><span class="tr">dādī</span><span class="tag">باپ کی طرف</span></div>
+    <div class="word"><span class="t">नानी</span><span class="s">نانی</span><span class="tr">nānī</span><span class="tag">ماں کی طرف</span></div>
+    <div class="word"><span class="t">मामा</span><span class="s">ماموں</span><span class="tr">māmā</span><span class="tag">ماں کا بھائی</span></div>
+    <div class="word"><span class="t">चाचा</span><span class="s">چچا</span><span class="tr">cācā</span><span class="tag">باپ کا چھوٹا بھائی</span></div>
+    <div class="word"><span class="t">ताऊ</span><span class="s">تایا</span><span class="tr">tāū</span><span class="tag">باپ کا بڑا بھائی</span></div>
+
+    <div class="aside teal"><b>رشتوں کی دولت مشترک۔</b> ہندوستانی خاندان کا ہر رشتہ دونوں زبانوں میں محفوظ ہے کیونکہ دونوں نے یہ الفاظ ایک ہی مشترک ورثے سے لیے۔ "تایا" اور <span class="dev">ताऊ</span>، "ممانی" اور <span class="dev">मामी</span> — صرف رسم الخط بدلیں، رشتہ وہی۔</div>
+
+    <h3>وقت — ایک عجیب لفظ</h3>
+    <div class="aside sindoor"><b>کل کے دو چہرے۔</b> اردو کا "کل" اور ہندی کا <span class="dev">कल</span> — دونوں میں عجیب بات یہ ہے کہ یہ <b>آنے والا کل</b> اور <b>گزرا ہوا کل</b> دونوں کو ایک ہی لفظ سے کہتے ہیں! سیاق بتاتا ہے کہ کون سا۔ یہ اشتراک آپ کو مسافر بناتا ہے، اجنبی نہیں۔</div>
+    <div class="word"><span class="t">आज</span><span class="s">آج</span><span class="tr">āj</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">कल</span><span class="s">کل (دونوں)</span><span class="tr">kal</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">परसों</span><span class="s">پرسوں</span><span class="tr">parsõ</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">अब / अभी</span><span class="s">اب / ابھی</span><span class="tr">ab / abhī</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">सुबह</span><span class="s">صبح</span><span class="tr">subah</span><span class="tag">عربی</span></div>
+    <div class="word"><span class="t">दोपहर</span><span class="s">دوپہر</span><span class="tr">dopahar</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">शाम</span><span class="s">شام</span><span class="tr">śām</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">रात</span><span class="s">رات</span><span class="tr">rāt</span><span class="tag">مشترک</span></div>
+
+    <h3>جسم</h3>
+    <div class="word"><span class="t">सिर</span><span class="s">سر</span><span class="tr">sir</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">आँख</span><span class="s">آنکھ</span><span class="tr">ā̃kh</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">कान</span><span class="s">کان</span><span class="tr">kān</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">नाक</span><span class="s">ناک</span><span class="tr">nāk</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">हाथ</span><span class="s">ہاتھ</span><span class="tr">hāth</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">पैर</span><span class="s">پاؤں / پیر</span><span class="tr">pair</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">पेट</span><span class="s">پیٹ</span><span class="tr">peṭ</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">दिल</span><span class="s">دل</span><span class="tr">dil</span><span class="tag">فارسی</span></div>
+
+    <h3>حرکت کے فعل</h3>
+    <div class="word"><span class="t">चलना</span><span class="s">چلنا</span><span class="tr">calnā</span><span class="tag">پیدل / روانگی</span></div>
+    <div class="word"><span class="t">दौड़ना</span><span class="s">دوڑنا</span><span class="tr">dauṛnā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">उठना</span><span class="s">اٹھنا</span><span class="tr">uṭhnā</span><span class="tag">مشترک</span></div>
+    <div class="word"><span class="t">बैठना</span><span class="s">بیٹھنا</span><span class="tr">baiṭhnā</span><span class="tag">مشترک</span></div>
+
+    <div class="nav-foot"><button class="prev">→ پچھلا</button><button class="next">اگلا ←</button></div>
+  </section>
+  <section id="stage-08">
+    <h2>۰۸ · استعمال — آداب، تخاطب، نرمی</h2>
+    <p class="lede">زبان صرف گرامر نہیں، ادب بھی ہے۔ ہندی اور اردو دونوں تین درجے احترام رکھتی ہیں — اور دونوں کے درجے بھی ایک ہیں۔</p>
+
+    <h3>تین درجے "تم"</h3>
+    <table>
+      <tr><th>درجہ</th><th>اردو</th><th>ہندی</th><th>کب</th></tr>
+      <tr><td>بے تکلف</td><td>تُو</td><td class="dev">तू</td><td>خدا سے، بہت قریبی سے، غصہ میں</td></tr>
+      <tr><td>اپنائیت</td><td>تم</td><td class="dev">तुम</td><td>دوست، چھوٹے بھائی بہن، ہم عمر</td></tr>
+      <tr><td>تعظیم</td><td>آپ</td><td class="dev">आप</td><td>بڑے، اجنبی، رسمی موقع</td></tr>
+    </table>
+
+    <h3>روزمرہ کے جملے</h3>
+    <div class="passage">
+      <div class="tgt">नमस्ते / नमस्कार</div>
+      <div class="trans">namaste / namaskār</div>
+      <div class="gloss">ہیلو / سلام۔ "السلام علیکم" کا عمومی ہندی بدل۔</div>
+    </div>
+    <div class="passage">
+      <div class="tgt">शुक्रिया / धन्यवाद</div>
+      <div class="trans">śukriyā / dhanyavād</div>
+      <div class="gloss">شکریہ (روزمرہ) / دھنیاواد (رسمی)۔ پہلا آپ کا اپنا ہے۔</div>
+    </div>
+    <div class="passage">
+      <div class="tgt">माफ़ कीजिए</div>
+      <div class="trans">māf kījiye</div>
+      <div class="gloss">معاف کیجیے۔ لفظ بہ لفظ وہی۔</div>
+    </div>
+    <div class="passage">
+      <div class="tgt">आप कैसे हैं?</div>
+      <div class="trans">āp kaise hãi?</div>
+      <div class="gloss">آپ کیسے ہیں؟</div>
+    </div>
+    <div class="passage">
+      <div class="tgt">मैं ठीक हूँ।</div>
+      <div class="trans">maĩ ṭhīk hū̃</div>
+      <div class="gloss">میں ٹھیک ہوں۔</div>
+    </div>
+    <div class="passage">
+      <div class="tgt">खाना खाया?</div>
+      <div class="trans">khānā khāyā?</div>
+      <div class="gloss">کھانا کھایا؟ — شمالی ہندوستان میں دعا سلام کا اصل ہوتا جا رہا ہے؛ خیریت سے زیادہ اپنائیت کا پوچھنا۔</div>
+    </div>
+
+    <h3>نرمی کا جادو — "ذرا" اور "ذرا سا"</h3>
+    <div class="aside"><b>ذرا کی اہمیت۔</b> ہندی میں <span class="dev">ज़रा</span> وہی کام کرتا ہے جو آپ کی اردو میں "ذرا" کرتا ہے — حکم کو درخواست بناتا ہے۔ <span class="dev">सुनिए</span> (سنیے) — حکم۔ <span class="dev">ज़रा सुनिए</span> (ذرا سنیے) — درخواست۔ ایک چھوٹا سا لفظ لہجہ بدل دیتا ہے۔</div>
+
+    <h3>اجنبی کو کیا پکاریں</h3>
+    <table>
+      <tr><th>کون</th><th>ہندی</th><th>اردو</th></tr>
+      <tr><td>بڑا مرد</td><td class="dev">भैया / भाई साहब</td><td>بھائی صاحب / بھیا</td></tr>
+      <tr><td>بڑی عورت</td><td class="dev">दीदी / बहनजी</td><td>باجی / بہن جی</td></tr>
+      <tr><td>بزرگ مرد</td><td class="dev">अंकल / बाबा</td><td>انکل / بابا</td></tr>
+      <tr><td>بزرگ عورت</td><td class="dev">आंटी / अम्माजी</td><td>آنٹی / اماں جی</td></tr>
+    </table>
+
+    <div class="aside teal"><b>"جی" کا اشتراک۔</b> اردو کی طرح ہندی میں بھی نام کے بعد "جی" لگا کر احترام دیا جاتا ہے: <span class="dev">अहमद जी</span>، <span class="dev">पिताजी</span>، <span class="dev">माताजी</span>۔ یہ چھوٹا سا لاحقہ دونوں تہذیبوں کی مشترک میراث ہے۔</div>
+
+    <div class="aside sindoor"><b>رسمی ہندی بمقابلہ بول چال۔</b> ٹی وی خبروں کی ہندی (<span class="dev">आकाशवाणी</span>، <span class="dev">दूरदर्शन</span>) سنسکرت کی طرف جاتی ہے — <span class="dev">धन्यवाद</span>، <span class="dev">कृपया</span>، <span class="dev">नमस्कार</span>۔ بالی ووڈ فلموں کی ہندی آپ کی اردو ہے — <span class="dev">शुक्रिया</span>، <span class="dev">मेहरबानी</span>، <span class="dev">माफ़ी</span>۔ جس ماحول میں ہوں، ویسا لباس۔</div>
+
+    <div class="nav-foot"><button class="prev">→ پچھلا</button><button class="next">اگلا ←</button></div>
+  </section>
+  <section id="stage-09">
+    <h2>۰۹ · ادب — دو رسم الخط، ایک دل</h2>
+    <p class="lede">ہندی اور اردو کی ادبی تاریخ جڑواں بہنوں کی کہانی ہے۔ بہت سے شاعر دونوں زبانوں میں لکھتے رہے۔ آئیں چند پُل دیکھیں:</p>
+
+    <h3>کبیر ↔ بھلے شاہ</h3>
+    <div class="aside"><b>صوفی اور بھگت ایک ہی دریا سے۔</b> <span class="dev">कबीर</span> (۱۵ویں صدی) بنارس کے جولاہے تھے — ہندو رسم اور اسلامی شریعت دونوں پر چوٹ کرتے تھے۔ ان کے دوہے "نہ مَیں مندر میں، نہ میں مسجد میں" کی صدا بھلے شاہ کی کافیوں جیسی ہے۔ کبیر کی زبان وہی بھکتی-صوفی ہندوستانی ہے جو اردو غزل کا دل بھی ہے۔</div>
+
+    <h3>پریم چند — ایک نام، دو لباس</h3>
+    <div class="aside sindoor"><b>سب سے عجیب پُل۔</b> <span class="dev">प्रेमचंद</span> (۱۸۸۰-۱۹۳۶) نے اپنی زندگی کا پہلا نصف اردو میں لکھا — "نواب رائے" کے نام سے۔ جب انگریز حکومت نے ان کا اردو ناول "سوزِ وطن" ضبط کر لیا، تو انہوں نے ہندی اپنائی اور "پریم چند" بن گئے۔ <span class="dev">गोदान</span>، "کفن"، "عید گاہ" — یہ تحریریں دونوں زبانوں میں ان کا نام ہیں۔ پریم چند یاد دلاتے ہیں کہ لباس بدلنے سے دل نہیں بدلتا۔</div>
+
+    <h3>نرالا ↔ اقبال</h3>
+    <div class="aside"><b>بغاوت کے دو شعلے۔</b> <span class="dev">निराला</span> (سوریہ کانت ترپاٹھی، ۱۸۹۶-۱۹۶۱) نے ہندی چھند کی زنجیریں توڑیں۔ <span class="dev">सरोज-स्मृति</span> میں بیٹی کی موت پر جو درد لکھا — وہی درد اقبال کے "مسجدِ قرطبہ" کی بلندی والا ہے۔ دونوں نے اپنی اپنی زبان کو جدیدیت کی ہوا دی۔</div>
+
+    <h3>مہا دیوی ↔ عصمت چغتائی</h3>
+    <div class="aside"><b>دو عورتیں، دو آوازیں۔</b> <span class="dev">महादेवी वर्मा</span> (۱۹۰۷-۱۹۸۷) ہندی میں چھایاواد کی ملکہ تھیں، اور عصمت چغتائی اردو افسانے کی بے باک آواز۔ مہا دیوی کی نظموں میں صوفیانہ عورت کی خاموش جدوجہد ہے؛ عصمت کے "لحاف" میں شور والی بغاوت۔ دونوں نے ادب کو عورت کے تجربے سے رنگا۔</div>
+
+    <h3>مکتی بودھ ↔ فیض احمد فیض</h3>
+    <div class="aside teal"><b>سیاہی میں گھلی انقلاب کی سیاہی۔</b> <span class="dev">मुक्तिबोध</span> (۱۹۱۷-۱۹۶۴) کی "اندھیرے میں" اور فیض کی "سبحِ آزادی" ایک ہی مایوسی سے پیدا ہوئیں — وہ آزادی جس نے غریب کو غریب ہی رکھا۔ دونوں ترقی پسند، دونوں مایوسی کے شاعر جن کا مصرع امید سے بھرا۔</div>
+
+    <h3>نرالا کا "سروج سمریتی"، مہا دیوی کا "یاما"</h3>
+    <div class="passage">
+      <div class="tgt">निराला — "तुम तुंग हिमालय शृंग"</div>
+      <div class="trans">tum tuṅg himālay śṛṅg</div>
+      <div class="gloss">تم بلند ہمالیائی چوٹی — نرالا کی نظم میں ہندوستان کی عظمت کا گیت، جو اقبال کے "ترانہ ہندی" کی ہم آہنگی رکھتا ہے۔</div>
+    </div>
+
+    <h3>غالب کا ہندی چچا زاد — تلسی داس</h3>
+    <div class="aside"><b>مذہبی دوربین، ایک ہی زبان۔</b> <span class="dev">तुलसीदास</span> (۱۵۳۲-۱۶۲۳) نے "رام چرت مانس" اودھی میں لکھا — وہی اودھی جسے آگے چل کر بارہ بنکی کے لکھنے والوں نے اردو کا گہنہ بنایا۔ میر، نظیر اکبر آبادی، اور تلسی ایک ہی مٹی کے پھول ہیں۔</div>
+
+    <h3>امیر خسرو — اصل پل</h3>
+    <div class="aside sindoor"><b>سب سے پرانی کڑی۔</b> امیر خسرو (۱۲۵۳-۱۳۲۵) نے <span class="dev">ज़े हाल-ए-मिस्कीं मकुन तग़ाफ़ुल</span> جیسی پہیلیاں لکھیں — ایک مصرع فارسی، دوسرا ہندوی میں۔ یہی خسرو کا تجربہ ہندی اور اردو کا جنم دینے والا نسخہ ہے۔ ہم ان سب کے بچے ہیں۔</div>
+
+    <div class="aside teal"><b>آخری خیال۔</b> ہندی سیکھنا غیر زبان سیکھنا نہیں — یہ تو اپنی زبان کا دوسرا چہرہ دیکھنا ہے۔ جب آپ <span class="dev">हिन्दुस्तान</span> پڑھ سکیں گے اور "ہندوستان" لکھ سکیں گے — تب آپ کو یاد آئے گا کہ یہ دونوں ایک ہی لفظ کے دو رخ ہیں۔</div>
+
+    <div class="nav-foot"><button class="prev">→ پچھلا</button><button class="next" disabled>تمام</button></div>
+  </section>
+</main>
+<footer>made by Nil · using Claude</footer>
+<script>
+(function(){
+  var tabs = document.querySelectorAll('nav.tabs button');
+  var sections = document.querySelectorAll('main > section');
+  function show(idx){
+    tabs.forEach(function(t,i){ t.classList.toggle('active', i===idx); });
+    sections.forEach(function(s,i){ s.classList.toggle('active', i===idx); });
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ show(i); });
+  });
+  document.querySelectorAll('.nav-foot .next').forEach(function(b){
+    b.addEventListener('click', function(){
+      var cur = Array.prototype.indexOf.call(sections, b.closest('section'));
+      if(cur < sections.length - 1) show(cur + 1);
+    });
+  });
+  document.querySelectorAll('.nav-foot .prev').forEach(function(b){
+    b.addEventListener('click', function(){
+      var cur = Array.prototype.indexOf.call(sections, b.closest('section'));
+      if(cur > 0) show(cur - 1);
+    });
+  });
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('click', function(){ c.classList.toggle('open'); });
+  });
+})();
+</script>
+</body>
+</html>

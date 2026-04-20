@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اردو سے پنجابی — بھاشا سیتو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Noto+Serif+Gurmukhi:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Noto Nastaliq Urdu', serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:2.1;
+  font-size:17px;
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(184,128,45,0.08), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(168,48,36,0.06), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(31,77,74,0.04), transparent 60%);
+  min-height:100vh;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.35'/></svg>");
+  opacity:0.5; pointer-events:none; z-index:1;
+}
+main, header, footer, nav{position:relative; z-index:2}
+.wrap{max-width:860px; margin:0 auto; padding:20px 18px 80px}
+header{padding:36px 18px 12px; text-align:center}
+header h1{
+  font-family:'Noto Nastaliq Urdu', serif;
+  font-size:34px; margin:0 0 6px; color:var(--ink);
+  line-height:1.6;
+}
+header .sub{color:var(--ink-faded); font-size:15px}
+header .gur{font-family:'Noto Serif Gurmukhi', serif; color:var(--sindoor); direction:ltr; display:inline-block; margin:0 6px}
+nav.tabs{
+  position:sticky; top:0; z-index:10;
+  background:rgba(244,236,218,0.95);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--paper-deep);
+  padding:8px 10px;
+  display:flex; gap:4px; overflow-x:auto;
+  scrollbar-width:thin;
+}
+nav.tabs button{
+  font-family:'Noto Nastaliq Urdu', serif;
+  background:transparent; border:1px solid transparent;
+  color:var(--ink-soft); padding:8px 12px; border-radius:8px;
+  font-size:15px; cursor:pointer; white-space:nowrap;
+  line-height:1.8;
+}
+nav.tabs button.active{
+  background:var(--paper-deep);
+  color:var(--ink);
+  border-color:var(--ochre);
+}
+nav.tabs button:hover{background:var(--paper-warm)}
+section.stage{display:none; padding:20px 0}
+section.stage.active{display:block}
+section.stage h2{
+  font-family:'Noto Nastaliq Urdu', serif;
+  font-size:26px; color:var(--sindoor);
+  border-bottom:2px solid var(--ochre);
+  padding-bottom:8px; margin:10px 0 20px;
+}
+section.stage h3{
+  font-family:'Noto Nastaliq Urdu', serif;
+  font-size:20px; color:var(--teal); margin:24px 0 10px;
+}
+section.stage p{margin:10px 0}
+.gur, .tg{font-family:'Noto Serif Gurmukhi', serif; direction:ltr; unicode-bidi:isolate; display:inline-block; color:var(--ink)}
+.tl{font-family:'JetBrains Mono', monospace; direction:ltr; unicode-bidi:isolate; display:inline-block; color:var(--ink-faded); font-size:13px}
+.aside{
+  background:var(--paper-warm);
+  border-right:4px solid var(--ochre);
+  padding:14px 16px; margin:18px 0; border-radius:6px;
+  font-size:15.5px;
+}
+.aside strong{color:var(--sindoor)}
+.grid{display:grid; gap:10px}
+.grid.cols{grid-template-columns:repeat(auto-fill, minmax(120px, 1fr))}
+.card{
+  background:var(--paper-warm);
+  border:1px solid var(--paper-deep);
+  border-radius:8px; padding:12px;
+  cursor:pointer; transition:all 0.2s;
+  text-align:center;
+}
+.card:hover{background:var(--paper-deep); transform:translateY(-2px)}
+.card .big{font-size:30px; line-height:1.4; display:block; margin-bottom:4px}
+.card .hint{display:none; font-size:13px; color:var(--ink-soft); margin-top:6px; line-height:1.7}
+.card.open .hint{display:block}
+.card.new::after{content:"⚡"; color:var(--sindoor); font-size:14px; margin-right:4px}
+table{width:100%; border-collapse:collapse; margin:12px 0; font-size:15px}
+th,td{padding:8px 10px; border-bottom:1px solid var(--paper-deep); text-align:right}
+th{background:var(--paper-warm); color:var(--ink-soft); font-weight:600}
+.video{margin:16px 0}
+.video-frame{position:relative; padding-bottom:56.25%; height:0; border-radius:8px; overflow:hidden; background:var(--paper-deep)}
+.video-frame iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0}
+.video-caption{font-size:13px; color:var(--ink-faded); margin-top:6px; text-align:center}
+.video-caption a{color:var(--teal)}
+.family{
+  border:1px dashed var(--ochre);
+  padding:14px; border-radius:8px; margin:14px 0;
+  background:rgba(239,229,204,0.5);
+}
+.family h4{margin:0 0 10px; color:var(--ochre); font-size:18px}
+.nav-btns{display:flex; justify-content:space-between; margin:30px 0 10px; gap:10px}
+.nav-btns button{
+  font-family:'Noto Nastaliq Urdu', serif;
+  background:var(--paper-warm); border:1px solid var(--ochre);
+  color:var(--ink); padding:10px 18px; border-radius:8px;
+  font-size:15px; cursor:pointer;
+}
+.nav-btns button:hover{background:var(--paper-deep)}
+.passage{
+  background:var(--paper-warm);
+  padding:16px; border-radius:8px; margin:14px 0;
+  border-right:3px solid var(--teal);
+}
+.passage .line{margin:10px 0}
+.passage .tg{font-size:20px; display:block; margin-bottom:2px}
+.passage .tl{font-size:12px; display:block; margin-bottom:2px}
+.passage .gloss{font-size:14.5px; color:var(--ink-soft); display:block}
+footer{
+  text-align:center; color:var(--ink-faded); font-size:13px;
+  padding:30px 18px; border-top:1px solid var(--paper-deep); margin-top:40px;
+}
+@media (max-width:480px){
+  body{font-size:16px}
+  header h1{font-size:26px}
+  section.stage h2{font-size:22px}
+  .wrap{padding:14px 12px 60px}
+  .card .big{font-size:26px}
+  th,td{padding:6px 7px; font-size:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>اردو سے پنجابی <span class="gur">ਪੰਜਾਬੀ</span></h1>
+  <div class="sub">بھاشا سیتو — دو بہنوں کی زبان کا پل</div>
+</header>
+<nav class="tabs" id="tabs">
+  <button data-stage="0" class="active">۰۰ · تعارف</button>
+  <button data-stage="1">۰۱ · حروفِ علت</button>
+  <button data-stage="2">۰۲ · حروف</button>
+  <button data-stage="3">۰۳ · ترکیب</button>
+  <button data-stage="4">۰۴ · الفاظ</button>
+  <button data-stage="5">۰۵ · جملے</button>
+  <button data-stage="6">۰۶ · مطالعہ</button>
+  <button data-stage="7">۰۷ · لفظی میدان</button>
+  <button data-stage="8">۰۸ · استعمال</button>
+  <button data-stage="9">۰۹ · ادب</button>
+</nav>
+<main class="wrap">
+<section class="stage active" id="stage-00">
+<h2>۰۰ · تعارف — دو بہنیں، دو رسم الخط</h2>
+<p>آپ نے بچپن میں <strong>قاعدہ</strong> سے الف، بے، تے پڑھی تھی۔ اب ایک نیا قاعدہ کھل رہا ہے — <span class="gur">ਪੈਂਤੀ</span> (پینتی)، یعنی پنجابی کے پینتیس گرمکھی حروف۔ خوشخبری یہ ہے کہ آپ زبان پہلے سے جانتی ہیں — لاہور، امرتسر، جالندھر، راولپنڈی — سب ایک ہی پنجاب کی بولی بولتے ہیں۔ فرق صرف رسم الخط کا ہے۔ پاکستانی پنجابی <em>شاہمکھی</em> (فارسی عربی) میں، ہندوستانی پنجابی <em>گرمکھی</em> میں لکھی جاتی ہے۔ آپ کو بس لکھائی سیکھنی ہے، زبان تو پہلے سے کانوں میں بستی ہے۔</p>
+
+<p>اردو اور پنجابی میں <strong>چوالیس میں سے تینتالیس آوازیں</strong> (۴۱ میں سے ۴۰ سے زائد) مشترک ہیں — آپ کے منہ کو کچھ نیا نہیں سیکھنا۔ لفظی ذخیرے کا تقریباً ۴۳ فیصد براہِ راست پہچانی جانے والی بات ہے۔ دیکھیے:</p>
+<p style="text-align:center; font-size:19px; line-height:2.4">
+میں گھر جاتا ہوں۔ ← <span class="gur">ਮੈਂ ਘਰ ਜਾਂਦਾ ਹਾਂ।</span><br>
+<span class="tl">maĩ ghar jāndā hā̃</span>
+</p>
+<p>یکسر وہی ترتیب، وہی فعل، وہی مددگار فعل ہے — صرف حروف کی شکل بدلی ہے۔ دونوں زبانیں <em>SOV</em> (فاعل۔مفعول۔فعل) ہیں، دونوں میں <em>حروفِ جر</em> کی بجائے <em>پسپوزیشن</em> لگتی ہیں (کو، میں، سے — ਨੂੰ، ਵਿੱਚ، ਤੋਂ)۔</p>
+
+<h3>چھ اصول — جو آسانی کرتے ہیں، جو چیلنج دیتے ہیں</h3>
+<div class="aside"><strong>۱۔ رسم الخط بالکل نیا ہے۔</strong> عربی فارسی سے شمالی براہمی — دائیں سے بائیں نہیں، بائیں سے دائیں۔ اردو کا <strong>ک</strong> گرمکھی میں <span class="gur">ਕ</span> بنتا ہے، <strong>گ</strong> <span class="gur">ਗ</span>۔ شکل نئی، آواز پرانی۔</div>
+<div class="aside"><strong>۲۔ حروفِ علت کا حامل نظام۔</strong> اردو میں اَ، اِ، اُ کے لیے الف پر زبر، زیر، پیش لگتے ہیں۔ گرمکھی میں تین <em>حامل</em> (ਕੈਰੀਅਰ) ہیں: <span class="gur">ੳ</span> (اوڑا — او/اُو کے لیے)، <span class="gur">ਅ</span> (ایڑا — اَ/آ/اَے کے لیے)، <span class="gur">ੲ</span> (اِڑی — ای/اِی/اے کے لیے)۔ ہر حرفِ علت کا اپنا حامل ہے — یہ پہلی نظر میں عجیب، مگر استعمال میں نہایت منطقی ہے۔</div>
+<div class="aside"><strong>۳۔ اُنتالیس فیصد الفاظ مشترک۔</strong> <span class="gur">ਘਰ</span> = گھر، <span class="gur">ਦੁੱਧ</span> = دودھ، <span class="gur">ਨਾਮ</span> = نام، <span class="gur">ਦਿਨ</span> = دن۔ آپ پہلے دن سے پچاس سے زیادہ الفاظ پہچان لیں گی۔</div>
+<div class="aside"><strong>۴۔ آوازیں جو آپ پہلے سے جانتی ہیں۔</strong> مہاپران (بھ، دھ، گھ، تھ) اردو میں بھی ہیں — <em>بھائی، دھوپ، گھر، تھا</em>۔ گرمکھی میں یہ <span class="gur">ਭ, ਧ, ਘ, ਥ</span> ہیں۔ نئی مشق کی ضرورت نہیں۔</div>
+<div class="aside"><strong>۵۔ لہجے کا سر (ٹون) — پنجابی کی خاص شے۔</strong> پنجابی میں تین سر ہیں: اونچا، نیچا، اور ہموار۔ اردو میں سر نہیں۔ مثال: <span class="gur">ਘੋੜਾ</span> (گھوڑا) بولیں تو پہلا حرف نیچے گرتا ہے — <em>کوڑا</em> جیسی آواز مگر اندر سے گہری۔ یہ کان سے پکڑنا ہوگا۔</div>
+<div class="aside"><strong>۶۔ ایک نئی آواز — <span class="gur">ਞ</span> (نیا)۔</strong> یہ اردو میں نہیں۔ یہ ں اور ی کے بیچ کی آواز ہے — ہسپانوی <em>ñ</em> جیسی۔ لیکن فکر نہ کریں — جدید پنجابی میں بہت کم استعمال ہوتی ہے۔</div>
+</section>
+<section class="stage" id="stage-01">
+<h2>۰۱ · حروفِ علت — تین حامل، دس آوازیں</h2>
+<p>اردو میں زبر، زیر، پیش الف پر سوار ہوتے ہیں۔ گرمکھی میں <strong>تین خالی حامل</strong> ہیں، جن پر حرفِ علت کے نشان چڑھ کر پوری آواز بنتے ہیں۔ یہ ایسا ہے جیسے قاعدے کا الف تین میں بٹ گیا ہو — ہر ایک اپنے خاندان کی آوازیں سنبھالتا ہے۔</p>
+
+<div class="aside"><strong>حاملوں کا راز۔</strong> <span class="gur">ੳ</span> اوڑا — اُ، اُو، او کے لیے۔ <span class="gur">ਅ</span> ایڑا — اَ، آ، اَے کے لیے۔ <span class="gur">ੲ</span> اِڑی — اِ، ای، اے کے لیے۔ حامل کا انتخاب حرفِ علت کی <em>جگہ</em> (منہ کے اگلے حصے، درمیان، پیچھے) پر منحصر ہے — یہ محض حروف نہیں، بلکہ صوتی گروہ ہیں۔</div>
+
+<div class="family"><h4>«اَ» خاندان — ایڑا <span class="gur">ਅ</span></h4>
+<div class="grid cols">
+<div class="card"><span class="big gur">ਅ</span><span class="tl">a</span><div class="hint"><span class="gur">ਅ</span> = اَ (زبر)۔ <span class="gur">ਅਮਰ</span> = اَمر۔</div></div>
+<div class="card"><span class="big gur">ਆ</span><span class="tl">aː</span><div class="hint"><span class="gur">ਆ</span> = آ (مدّ)۔ <span class="gur">ਆਮ</span> = آم۔</div></div>
+<div class="card"><span class="big gur">ਐ</span><span class="tl">ai</span><div class="hint"><span class="gur">ਐ</span> = اَے۔ <span class="gur">ਐਨਕ</span> = عینک۔</div></div>
+</div></div>
+
+<div class="family"><h4>«اِ» خاندان — اِڑی <span class="gur">ੲ</span></h4>
+<div class="grid cols">
+<div class="card"><span class="big gur">ਇ</span><span class="tl">i</span><div class="hint"><span class="gur">ਇ</span> = اِ (زیر)۔ <span class="gur">ਇਹ</span> = یہ۔</div></div>
+<div class="card"><span class="big gur">ਈ</span><span class="tl">iː</span><div class="hint"><span class="gur">ਈ</span> = ای۔ <span class="gur">ਈਦ</span> = عید۔</div></div>
+<div class="card"><span class="big gur">ਏ</span><span class="tl">e</span><div class="hint"><span class="gur">ਏ</span> = ے (لمبی)۔ <span class="gur">ਏਕ</span> = ایک۔</div></div>
+</div></div>
+
+<div class="family"><h4>«اُ» خاندان — اوڑا <span class="gur">ੳ</span></h4>
+<div class="grid cols">
+<div class="card"><span class="big gur">ਉ</span><span class="tl">u</span><div class="hint"><span class="gur">ਉ</span> = اُ (پیش)۔ <span class="gur">ਉਮਰ</span> = عمر۔</div></div>
+<div class="card"><span class="big gur">ਊ</span><span class="tl">uː</span><div class="hint"><span class="gur">ਊ</span> = اُو۔ <span class="gur">ਊਠ</span> = اُونٹ۔</div></div>
+<div class="card"><span class="big gur">ਓ</span><span class="tl">o</span><div class="hint"><span class="gur">ਓ</span> = او۔ <span class="gur">ਓਹ</span> = وہ۔</div></div>
+<div class="card"><span class="big gur">ਔ</span><span class="tl">au</span><div class="hint"><span class="gur">ਔ</span> = اَو۔ <span class="gur">ਔਰਤ</span> = عورت۔</div></div>
+</div></div>
+
+<div class="aside"><strong>اردو میں چھپی لمبائی، گرمکھی میں کھلی۔</strong> اردو میں «زیر» اور «ی» دونوں کی آواز قریب ہوتی ہے — لکھائی میں فرق کم محسوس ہوتا ہے۔ گرمکھی میں <span class="gur">ਇ</span> (چھوٹی) اور <span class="gur">ਈ</span> (لمبی) بالکل الگ شکلیں ہیں۔ لمبائی کا فرق یہاں بصری بھی ہے، صوتی بھی۔</div>
+
+<div class="video">
+<div class="video-frame">
+<iframe src="https://www.youtube.com/embed?listType=search&list=learn+punjabi+gurmukhi+vowels+pronunciation" title="Punjabi Gurmukhi vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+</div>
+<div class="video-caption">گرمکھی کے حروفِ علت کا تلفظ سنیے — <a href="https://www.youtube.com/results?search_query=learn+punjabi+gurmukhi+vowels+pronunciation" target="_blank" rel="noopener">مزید تلاش کریں ↗</a></div>
+</div>
+</section>
+<section class="stage" id="stage-02"></section>
+<section class="stage" id="stage-03"></section>
+<section class="stage" id="stage-04"></section>
+<section class="stage" id="stage-05"></section>
+<section class="stage" id="stage-06"></section>
+<section class="stage" id="stage-07"></section>
+<section class="stage" id="stage-08"></section>
+<section class="stage" id="stage-09"></section>
+</main>
+<footer>made by Nil · using Claude</footer>
+</body>
+</html>

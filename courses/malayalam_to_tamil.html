@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="ml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>മലയാളത്തിൽ നിന്ന് തമിഴ് — ഭാഷാസേതു</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+Malayalam:wght@400;600;700&family=Noto+Serif+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --ml:'Noto Serif Malayalam', serif;
+  --ta:'Noto Serif Tamil', serif;
+  --mono:'JetBrains Mono', monospace;
+  --display:'Fraunces', serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--ml);
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at top left,#F8F1DF 0%,transparent 50%),
+    radial-gradient(ellipse at bottom right,#EFE3C6 0%,transparent 50%),
+    var(--paper);
+  line-height:1.7;
+  font-size:17px;
+  min-height:100vh;
+  position:relative;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.wrap{max-width:860px;margin:0 auto;padding:24px 20px 80px;position:relative;z-index:2}
+header.top{border-bottom:1px solid rgba(28,22,17,.18);padding-bottom:16px;margin-bottom:18px}
+header.top h1{font-family:var(--display);font-weight:600;font-size:28px;margin:0 0 4px;color:var(--ink)}
+header.top .sub{color:var(--ink-faded);font-size:15px}
+header.top .sub .tt{font-family:var(--ta);color:var(--sindoor);font-weight:600}
+nav.tabs{position:sticky;top:0;z-index:10;background:linear-gradient(var(--paper) 80%,transparent);padding:10px 0 12px;margin-bottom:18px;border-bottom:1px solid rgba(28,22,17,.15);overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
+nav.tabs button{font-family:var(--ml);background:transparent;border:1px solid rgba(28,22,17,.2);color:var(--ink-soft);padding:6px 12px;margin-right:6px;border-radius:999px;cursor:pointer;font-size:14px}
+nav.tabs button.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+section.stage{display:none;animation:fade .3s ease}
+section.stage.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+h2.stage-title{font-family:var(--display);font-weight:600;font-size:24px;color:var(--sindoor);margin:0 0 6px;letter-spacing:.3px}
+.stage-num{font-family:var(--mono);font-size:13px;color:var(--ochre);letter-spacing:2px}
+h3{font-family:var(--display);font-weight:600;color:var(--teal);font-size:19px;margin:28px 0 10px}
+h4{font-family:var(--ml);font-weight:600;color:var(--ink-soft);font-size:16px;margin:18px 0 8px}
+p{margin:0 0 12px}
+.ta{font-family:var(--ta);color:var(--ink)}
+.mono{font-family:var(--mono);color:var(--ink-faded);font-size:.88em}
+.aside{background:linear-gradient(135deg,#FBF3DD,#F1E4BE);border-left:3px solid var(--ochre);padding:14px 16px;margin:18px 0;border-radius:4px;font-size:15.5px}
+.aside.sin{border-left-color:var(--sindoor)}
+.aside.tea{border-left-color:var(--teal)}
+.aside b{color:var(--sindoor)}
+.grid{display:grid;gap:10px}
+.grid.c2{grid-template-columns:1fr 1fr}
+.grid.c3{grid-template-columns:repeat(3,1fr)}
+.grid.c4{grid-template-columns:repeat(4,1fr)}
+.grid.c5{grid-template-columns:repeat(5,1fr)}
+@media (max-width:640px){.grid.c5,.grid.c4{grid-template-columns:repeat(3,1fr)}.grid.c3{grid-template-columns:repeat(2,1fr)}.grid.c2{grid-template-columns:1fr}}
+.card{background:var(--paper-warm);border:1px solid rgba(28,22,17,.13);border-radius:8px;padding:12px 10px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.card:hover{background:var(--paper-deep);transform:translateY(-1px)}
+.card .big{font-family:var(--ta);font-size:32px;color:var(--ink);display:block;line-height:1.1}
+.card .src{font-family:var(--ml);font-size:18px;color:var(--ink-faded);margin-top:2px}
+.card .tr{font-family:var(--mono);font-size:12px;color:var(--ochre);margin-top:2px}
+.card .hint{display:none;font-size:13px;color:var(--ink-soft);margin-top:8px;padding-top:8px;border-top:1px dashed rgba(28,22,17,.2)}
+.card.open .hint{display:block}
+.card.new::after{content:'⚡';position:absolute;top:4px;right:6px;font-size:12px}
+.family{background:rgba(184,128,45,.08);border:1px dashed rgba(184,128,45,.4);border-radius:8px;padding:10px;margin:10px 0}
+.family h4{margin:0 0 8px;color:var(--ochre)}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid rgba(28,22,17,.12)}
+th{color:var(--ink-faded);font-weight:600;font-size:13px;letter-spacing:.5px;text-transform:uppercase}
+td.ta{font-family:var(--ta);font-size:18px}
+td.ml{font-family:var(--ml);font-size:17px}
+td.mono{font-family:var(--mono);font-size:13px}
+.video{margin:18px 0}
+.video-frame{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;border:1px solid rgba(28,22,17,.15)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-caption{font-size:14px;color:var(--ink-faded);margin-top:6px;text-align:center}
+.video-caption a{color:var(--teal)}
+.passage{background:var(--paper-warm);border:1px solid rgba(28,22,17,.12);border-radius:8px;padding:14px 16px;margin:14px 0}
+.passage .p-ta{font-family:var(--ta);font-size:18px;line-height:1.9}
+.passage .p-tr{font-family:var(--mono);font-size:13px;color:var(--ink-faded);margin-top:8px;line-height:1.7}
+.passage .p-ml{font-family:var(--ml);font-size:16px;color:var(--ink-soft);margin-top:8px;padding-top:8px;border-top:1px dashed rgba(28,22,17,.2)}
+.nav-btns{display:flex;justify-content:space-between;margin-top:36px;padding-top:18px;border-top:1px solid rgba(28,22,17,.15)}
+.nav-btns button{font-family:var(--ml);background:var(--ink);color:var(--paper);border:0;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:15px}
+.nav-btns button:disabled{opacity:.3;cursor:not-allowed}
+footer{text-align:center;margin-top:40px;padding-top:18px;border-top:1px solid rgba(28,22,17,.15);color:var(--ink-faded);font-size:13px;font-family:var(--mono)}
+.lead{font-size:17.5px;color:var(--ink-soft)}
+ol.princ{padding-left:22px}
+ol.princ li{margin-bottom:14px}
+ol.princ li b{color:var(--sindoor)}
+.pill{display:inline-block;font-size:11px;font-family:var(--mono);background:rgba(31,77,74,.12);color:var(--teal);padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.pill.new{background:rgba(168,48,36,.12);color:var(--sindoor)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.two{grid-template-columns:1fr}}
+.box{background:var(--paper-warm);border:1px solid rgba(28,22,17,.13);border-radius:8px;padding:12px 14px}
+.box h4{margin-top:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>മലയാളത്തിൽ നിന്ന് <span class="ta" style="color:var(--sindoor)">தமிழ்</span></h1>
+  <div class="sub">സഹോദരഭാഷയുടെ പാലം — പത്തു പടികളിൽ <span class="tt">தமிழ்</span> പഠിക്കാം</div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-s="0" class="active">00 · പരിചയം</button>
+  <button data-s="1">01 · സ്വരം</button>
+  <button data-s="2">02 · വ്യഞ്ജനം</button>
+  <button data-s="3">03 · സംയോജനം</button>
+  <button data-s="4">04 · പദങ്ങൾ</button>
+  <button data-s="5">05 · വാക്യം</button>
+  <button data-s="6">06 · വായന</button>
+  <button data-s="7">07 · പദമേഖല</button>
+  <button data-s="8">08 · ഉപയോഗം</button>
+  <button data-s="9">09 · സാഹിത്യം</button>
+</nav>
+
+<section class="stage active" id="stage-00">
+  <div class="stage-num">STAGE 00</div>
+  <h2 class="stage-title">പരിചയം — അറിയാവുന്നതും പുതിയതും</h2>
+
+  <p class="lead">മലയാളം പഴയ തമിഴിൽ നിന്നു പിരിഞ്ഞ കുഞ്ഞാണ്. രണ്ടു ഭാഷകളുടെയും അമ്മ ഒന്നുതന്നെ — പ്രാചീന ദ്രാവിഡം. അതിനാൽ നിങ്ങൾ <span class="ta">தமிழ்</span> പഠിക്കാൻ തുടങ്ങുമ്പോൾ, അന്യഭാഷ പഠിക്കുകയല്ല, മറന്നുപോയ പഴയ കുടുംബവീട്ടിലേക്കു തിരിച്ചുപോവുകയാണ്.</p>
+
+  <p>കുട്ടിക്കാലത്ത് "<b>സ്വരവും വ്യഞ്ജനവും</b>" എന്ന വരികളിൽ അ–ആ–ഇ–ഈ ചൊല്ലിപ്പഠിച്ചപ്പോൾ, അതേ ക്രമത്തിൽ തമിഴർ <span class="ta">அ–ஆ–இ–ஈ</span> എന്നും ചൊല്ലുകയായിരുന്നു — അക്ഷരങ്ങളുടെ രൂപം മാത്രം വേറേ. 33 ശബ്ദങ്ങളിൽ 31 എണ്ണവും പൊതു. വാക്യഘടന ഒന്നുതന്നെ (കർത്താവ്–കർമ്മം–ക്രിയ). പദാവലിയുടെ 70 ശതമാനത്തിലേറെ പങ്കുവെക്കുന്നു.</p>
+
+  <p>ഒരു ലളിതവാക്യം നോക്കൂ: <br>മലയാളം — <b>ഞാൻ വെള്ളം കുടിക്കുന്നു</b><br>തമിഴ് — <b class="ta">நான் தண்ணீர் குடிக்கிறேன்</b> (<span class="mono">nāṉ taṇṇīr kuḍikkiṟēṉ</span>)<br>വാക്കിന്റെ ക്രമം അതുതന്നെ. "ഞാൻ" — "<span class="ta">நான்</span>". "കുടി" — "<span class="ta">குடி</span>". വ്യത്യാസം ക്രിയാപദത്തിലെ ലിംഗബോധത്തിലും ചില്ലക്ഷരങ്ങളുടെ അസാന്നിധ്യത്തിലും മാത്രം.</p>
+
+  <h3>ആറു തത്ത്വങ്ങൾ</h3>
+  <ol class="princ">
+    <li><b>ലിപിയുടെ രൂപം മാറി, യുക്തി മാറിയില്ല.</b> രണ്ടും അബുഗിഡ — അക്ഷരത്തിൽ സ്വരം ഉൾച്ചേർന്നു നിൽക്കും; ചിഹ്നം ചേർത്താൽ മറ്റു സ്വരം വരും. ക + ാ = കാ എന്നതുപോലെ <span class="ta">க + ா = கா</span>. ചന്ദ്രക്കല ( ്) തമിഴിൽ പുള്ളി ( ்).</li>
+    <li><b>31/33 ശബ്ദങ്ങൾ ഒത്തവ.</b> നിങ്ങളുടെ നാവിനു പരിചയമുള്ള ശബ്ദങ്ങൾ തന്നെ. <span class="ta">க, ச, ட, த, ப, ம, ந, ர, ல, வ, ய, ள, ழ</span> — എല്ലാം മലയാളത്തിൽ ഉള്ളവ.</li>
+    <li><b>ഴ — രണ്ടു ഭാഷകളും മാത്രം പങ്കിടുന്ന അത്ഭുതധ്വനി.</b> മലയാളത്തിലെ <b>ഴ</b> (മഴ, വാഴ) തന്നെ തമിഴിലെ <b class="ta">ழ</b> (<span class="ta">மழை, வாழை</span>). ഇന്ത്യയിലെ മറ്റൊരു വലിയ ഭാഷയിലും ഈ ശബ്ദമില്ല — കന്നടയിലും തെലുഗുവിലും പോലുമില്ല.</li>
+    <li><b>തമിഴിന്റെ വ്യഞ്ജനശേഖരം ചെറുത്.</b> മലയാളത്തിൽ ഖ–ഘ, ഗ–ഗ്‌ഹ, ജ–ഝ എന്നീ മഹാപ്രാണ/ഘോഷ വ്യത്യാസങ്ങൾ ഉണ്ട്; തമിഴിനു ഒരേ <span class="ta">க</span> മാത്രം — സ്ഥാനമനുസരിച്ച് <i>ക, ഗ, ഹ</i> എന്നിങ്ങനെ ഉച്ചരിക്കും. <span class="ta">பகல்</span> = <i>പകൽ</i>, <span class="ta">தங்கம்</span> = <i>തങ്കം</i>.</li>
+    <li><b>സംസ്കൃതച്ചായ്‌വിൽ വ്യത്യാസം.</b> മലയാളം തത്സമ പദങ്ങൾ (ഭൂമി, സൂര്യൻ, സമയം) സ്വാഭാവികമായി ഉപയോഗിക്കുന്നു; തമിഴ് കഴിയുന്നിടത്തെല്ലാം ശുദ്ധ ദ്രാവിഡരൂപം (<span class="ta">நேரம், கதிரவன், நிலம்</span>) ഇഷ്ടപ്പെടുന്നു.</li>
+    <li><b>ലിംഗം — പുതിയ ശീലം.</b> മലയാളത്തിൽ ക്രിയാപദത്തിനു ലിംഗമില്ല ("അവൻ ചെയ്യുന്നു" / "അവൾ ചെയ്യുന്നു" — ഒരേ ചെയ്യുന്നു). തമിഴിൽ ക്രിയ തന്നെ മാറും: <span class="ta">அவன் செய்கிறான் / அவள் செய்கிறாள் / அது செய்கிறது</span>. ഇതു പുതുതായി ശീലിക്കേണ്ടത്.</li>
+  </ol>
+
+  <div class="aside sin"><b>ഏറ്റവും അടുത്ത സഹോദരി.</b> ഇന്ത്യൻ ഭാഷകളിൽ മലയാളത്തിന്റെ ഏറ്റവും അടുത്ത ബന്ധം തമിഴുമായാണ് — കന്നടയോടോ തെലുഗുവിനോടോ അല്ല. ഏകദേശം ഒൻപതാം–പത്താം നൂറ്റാണ്ടുവരെ ഇവ രണ്ടും ഒരു ഭാഷയുടെ രണ്ടു നാടൻപേരുകൾ മാത്രമായിരുന്നു.</div>
+</section>
+<section class="stage" id="stage-01">
+  <div class="stage-num">STAGE 01</div>
+  <h2 class="stage-title">സ്വരം — അ ആ ഇ ഈ</h2>
+  <p class="lead">മലയാളത്തിലെ സ്വരക്രമം അതേ പടി തമിഴിലുമുണ്ട്. രൂപങ്ങൾ മാത്രം പുതിയത്. തമിഴിൽ സ്വരങ്ങളെ <span class="ta">உயிர் எழுத்து</span> (ഉയിർ എഴുത്ത് — "ജീവനുള്ള അക്ഷരം") എന്നു വിളിക്കും.</p>
+
+  <div class="family">
+    <h4>'അ' കുടുംബം — ഹ്രസ്വവും ദീർഘവും</h4>
+    <div class="grid c2">
+      <div class="card" data-hint="മലയാളം 'അ' — ചുണ്ടു തുറന്ന് ഹ്രസ്വം"><span class="big ta">அ</span><span class="src">അ</span><span class="tr">a</span><span class="hint">മലയാളം "<b>അ</b>മ്മ" → തമിഴ് "<b class="ta">அ</b>ம்மா" — ഹ്രസ്വം, ഒരേ ശബ്ദം.</span></div>
+      <div class="card" data-hint="മലയാളം 'ആ' — അതേ ദീർഘം"><span class="big ta">ஆ</span><span class="src">ആ</span><span class="tr">aː</span><span class="hint">മലയാളം "<b>ആ</b>ന" → തമിഴ് "<b class="ta">ஆ</b>னை". ദീർഘം, ഒരേ ശബ്ദം.</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ഇ' കുടുംബം</h4>
+    <div class="grid c2">
+      <div class="card"><span class="big ta">இ</span><span class="src">ഇ</span><span class="tr">i</span><span class="hint">"<b>ഇ</b>ല" → "<b class="ta">இ</b>லை" (ഇലൈ).</span></div>
+      <div class="card"><span class="big ta">ஈ</span><span class="src">ഈ</span><span class="tr">iː</span><span class="hint">"<b>ഈ</b>" (ഈച്ച) → "<b class="ta">ஈ</b>" — അക്ഷരവും അർത്ഥവും ഒന്നുതന്നെ!</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ഉ' കുടുംബം</h4>
+    <div class="grid c2">
+      <div class="card"><span class="big ta">உ</span><span class="src">ഉ</span><span class="tr">u</span><span class="hint">"<b>ഉ</b>ണ്ണി" → "<b class="ta">உ</b>ண்" (ഉൺ — ഭക്ഷിക്കുക).</span></div>
+      <div class="card"><span class="big ta">ஊ</span><span class="src">ഊ</span><span class="tr">uː</span><span class="hint">"<b>ഊ</b>ര്" (ഗ്രാമം) → "<b class="ta">ஊ</b>ர்" — അക്ഷരവും അർത്ഥവും കൃത്യം!</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'എ' കുടുംബം + ഐ</h4>
+    <div class="grid c3">
+      <div class="card"><span class="big ta">எ</span><span class="src">എ</span><span class="tr">e</span><span class="hint">"<b>എ</b>ന്ത്" → "<b class="ta">எ</b>ன்ன" (എന്ന — എന്ത്).</span></div>
+      <div class="card"><span class="big ta">ஏ</span><span class="src">ഏ</span><span class="tr">eː</span><span class="hint">"<b>ഏ</b>ഴ്" → "<b class="ta">ஏ</b>ழு" (ഏഴു — ഏഴ്).</span></div>
+      <div class="card"><span class="big ta">ஐ</span><span class="src">ഐ</span><span class="tr">ai</span><span class="hint">"ഐരാവതം" → "<b class="ta">ஐ</b>ம்பது" (അമ്പത്).</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ഒ' കുടുംബം + ഔ</h4>
+    <div class="grid c3">
+      <div class="card"><span class="big ta">ஒ</span><span class="src">ഒ</span><span class="tr">o</span><span class="hint">"<b>ഒ</b>ന്ന്" → "<b class="ta">ஒ</b>ன்று" (ഒൻറു — ഒന്ന്).</span></div>
+      <div class="card"><span class="big ta">ஓ</span><span class="src">ഓ</span><span class="tr">oː</span><span class="hint">"<b>ഓ</b>ടുക" → "<b class="ta">ஓ</b>டு" (ഓടു).</span></div>
+      <div class="card"><span class="big ta">ஔ</span><span class="src">ഔ</span><span class="tr">au</span><span class="hint">സംസ്കൃതവാക്കുകളിൽ മാത്രം.</span></div>
+    </div>
+  </div>
+
+  <div class="aside tea"><b>പങ്കുവെക്കുന്ന പൊരുൾ.</b> മുകളിൽ കണ്ട പല കാർഡുകളിലും — <span class="ta">ஈ, ஊர், ஏழு, ஒன்று</span> — അക്ഷരവും വാക്കും അർത്ഥവും ഒരേ പോലെ! ഇതു യാദൃച്ഛികമല്ല; രണ്ടു ഭാഷകളും ഒരേ അമ്മയുടെ മക്കൾ എന്നതിന്റെ തെളിവ്.</div>
+
+  <div class="aside"><b>ചെറുത് ഒന്നുമില്ല.</b> മലയാളത്തിൽ <b>ഋ</b> (കൃഷ്ണൻ) സംസ്കൃതപദങ്ങളിൽ വരും. തമിഴിൽ ഈ സ്വരമില്ല — <span class="ta">கிருஷ்ணன்</span> എന്ന് കി-രി എന്ന രണ്ടക്ഷരമാക്കി എഴുതും. ഇതു തമിഴ് തത്സമ കുറച്ചതിന്റെ ലക്ഷണം.</div>
+
+  <div class="video">
+    <div class="video-frame"><iframe src="https://www.youtube.com/embed?listType=search&list=learn+tamil+vowels+uyir+ezhuthukal+pronunciation" title="Tamil vowel pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+    <div class="video-caption">തമിഴ് സ്വരങ്ങളുടെ ഉച്ചാരണം — <a href="https://www.youtube.com/results?search_query=learn+tamil+vowels+uyir+ezhuthukal+pronunciation" target="_blank" rel="noopener">കൂടുതൽ തിരയുക ↗</a></div>
+  </div>
+</section>
+<section class="stage" id="stage-02">
+  <div class="stage-num">STAGE 02</div>
+  <h2 class="stage-title">വ്യഞ്ജനം — മെയ് എഴുത്ത്</h2>
+  <p class="lead">തമിഴിൽ വ്യഞ്ജനങ്ങളെ <span class="ta">மெய் எழுத்து</span> (മെയ് എഴുത്ത് — "ശരീരാക്ഷരം") എന്നു വിളിക്കും. 18 അടിസ്ഥാന വ്യഞ്ജനങ്ങൾ മാത്രം — മലയാളത്തിലെ 36-നെ അപേക്ഷിച്ച് പാതിയിലും കുറവ്. കാരണം: തമിഴ് <b>ഒരേ അക്ഷരം</b> കൊണ്ട് ക, ഗ, ഹ എന്നിവയെല്ലാം എഴുതും — സ്ഥാനം നോക്കി ഉച്ചരിക്കും.</p>
+
+  <h3>കണ്ഠ്യവർഗം ("ക" വർഗം)</h3>
+  <div class="grid c5">
+    <div class="card"><span class="big ta">க</span><span class="src">ക / ഖ / ഗ / ഘ</span><span class="tr">ka</span><span class="hint">മലയാളത്തിലെ നാലു രൂപങ്ങൾ ഒന്നിലേക്കു ചുരുങ്ങി. <span class="ta">கதை</span>=കഥൈ, <span class="ta">பகல்</span>=പഗൽ, <span class="ta">அங்கே</span>=അങ്ങെ.</span></div>
+    <div class="card"><span class="big ta">ங</span><span class="src">ങ</span><span class="tr">ṅa</span><span class="hint">അതേ അനുനാസികം — <span class="ta">அங்கே</span> = അങ്ങെ.</span></div>
+  </div>
+
+  <h3>താലവ്യവർഗം ("ച" വർഗം)</h3>
+  <div class="grid c5">
+    <div class="card"><span class="big ta">ச</span><span class="src">ച / ഛ / ജ / ഝ / ശ</span><span class="tr">ca</span><span class="hint">പദാദിയിൽ "സ", മധ്യത്തിൽ "ച", "ശ" എന്നും ഉച്ചരിക്കും. <span class="ta">சரி</span>=സരി, <span class="ta">அச்சம்</span>=അച്ചം.</span></div>
+    <div class="card"><span class="big ta">ஞ</span><span class="src">ഞ</span><span class="tr">ña</span><span class="hint">അതേ ശബ്ദം — <span class="ta">ஞாயிறு</span> = ഞായിറു (ഞായർ).</span></div>
+  </div>
+
+  <h3>മൂർധന്യവർഗം ("ട" വർഗം)</h3>
+  <div class="grid c5">
+    <div class="card"><span class="big ta">ட</span><span class="src">ട / ഠ / ഡ / ഢ</span><span class="tr">ṭa</span><span class="hint">എല്ലാം ഒന്നായി. <span class="ta">கட்டை</span>=കട്ടൈ, <span class="ta">மாடு</span>=മാടു.</span></div>
+    <div class="card"><span class="big ta">ண</span><span class="src">ണ</span><span class="tr">ṇa</span><span class="hint">അതേ ശബ്ദം — <span class="ta">கண்</span> = കൺ (കണ്ണ്).</span></div>
+  </div>
+
+  <h3>ദന്ത്യവർഗം ("ത" വർഗം)</h3>
+  <div class="grid c5">
+    <div class="card"><span class="big ta">த</span><span class="src">ത / ഥ / ദ / ധ</span><span class="tr">ta</span><span class="hint">നാലു രൂപം ഒന്നിലേക്കു. <span class="ta">தங்கம்</span>=തങ്കം, <span class="ta">பாதம்</span>=പാദം.</span></div>
+    <div class="card"><span class="big ta">ந</span><span class="src">ന</span><span class="tr">na</span><span class="hint">പദാദിയിൽ ഈ അക്ഷരം — <span class="ta">நான்</span> = ഞാൻ.</span></div>
+  </div>
+
+  <h3>ഓഷ്ഠ്യവർഗം ("പ" വർഗം)</h3>
+  <div class="grid c5">
+    <div class="card"><span class="big ta">ப</span><span class="src">പ / ഫ / ബ / ഭ</span><span class="tr">pa</span><span class="hint">നാലു രൂപങ്ങൾ ഒന്നിൽ. <span class="ta">பால்</span>=പാൽ, <span class="ta">அபாயம்</span>=അബായം.</span></div>
+    <div class="card"><span class="big ta">ம</span><span class="src">മ</span><span class="tr">ma</span><span class="hint">അതേ ശബ്ദം — <span class="ta">மரம்</span> = മരം.</span></div>
+  </div>
+
+  <h3>അന്തഃസ്ഥം — ഇടവഴി വ്യഞ്ജനങ്ങൾ</h3>
+  <div class="grid c4">
+    <div class="card"><span class="big ta">ய</span><span class="src">യ</span><span class="tr">ya</span></div>
+    <div class="card"><span class="big ta">ர</span><span class="src">ര</span><span class="tr">ra</span></div>
+    <div class="card"><span class="big ta">ல</span><span class="src">ല</span><span class="tr">la</span></div>
+    <div class="card"><span class="big ta">வ</span><span class="src">വ</span><span class="tr">va</span></div>
+    <div class="card"><span class="big ta">ழ</span><span class="src">ഴ</span><span class="tr">ḻa</span><span class="hint">നമ്മുടെ സ്വന്തം ഴ! <span class="ta">மழை</span>=മഴൈ, <span class="ta">தமிழ்</span>=തമിഴ്.</span></div>
+    <div class="card"><span class="big ta">ள</span><span class="src">ള</span><span class="tr">ḷa</span><span class="hint">അതേ മൂർധന്യ-ള — <span class="ta">அள்ளி</span>=അള്ളി.</span></div>
+    <div class="card new"><span class="big ta">ற</span><span class="src">— (പുതുത്)</span><span class="tr">ṟa</span><span class="hint">മലയാളം ഉപേക്ഷിച്ച പഴയ ദ്രാവിഡ "റ". നാക്കിന്റെ അറ്റം മുകളിലെ പല്ലിന്റെ പിൻഭാഗത്തു തട്ടി വരും. <span class="ta">ஆறு</span>=ആറു (നദി/ആറ്).</span></div>
+    <div class="card new"><span class="big ta">ன</span><span class="src">— (പുതുത്)</span><span class="tr">ṉa</span><span class="hint">അൽവിയോളാർ "ന" — <span class="ta">நான்</span>=ഞാൻ. എഴുത്തിൽ <span class="ta">ந</span> (പദാദി) vs <span class="ta">ன</span> (അല്ലാത്തിടത്തെല്ലാം) എന്ന വേർതിരിവ് മലയാളത്തിൽ ഇല്ല.</span></div>
+  </div>
+
+  <div class="aside sin"><b>ചെറിയ കൂട്, വലിയ കൃത്യത.</b> തമിഴിനു 18 വ്യഞ്ജനങ്ങൾ; മലയാളത്തിനു 36. തമിഴ് ക/ഗ/ഹ വേർതിരിക്കാത്തത് ദരിദ്രത്വമല്ല — പ്രാചീന ദ്രാവിഡ സ്വഭാവം അതാണ്. സംസ്കൃതം വന്നപ്പോൾ മലയാളം പുതിയ അക്ഷരങ്ങൾ എടുത്തു, തമിഴ് സ്വയം ഭംഗിയിൽ നിലകൊണ്ടു.</div>
+
+  <div class="aside tea"><b>ചില്ലക്ഷരം ഇല്ല.</b> മലയാളത്തിലെ ൻ, ർ, ൽ, ൾ, ൺ — ഇവ തമിഴിൽ സ്വതന്ത്ര ചിഹ്നമായി ഇല്ല. പകരം <span class="ta">ன், ர், ல், ள், ண்</span> എന്നു പുള്ളിയിട്ടു എഴുതും. <span class="ta">அவன்</span> = അവൻ.</div>
+
+  <div class="video">
+    <div class="video-frame"><iframe src="https://www.youtube.com/embed?listType=search&list=learn+tamil+consonants+mei+ezhuthukal+pronunciation" title="Tamil consonant pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+    <div class="video-caption">തമിഴ് വ്യഞ്ജനങ്ങളുടെ ഉച്ചാരണം — <a href="https://www.youtube.com/results?search_query=learn+tamil+consonants+mei+ezhuthukal+pronunciation" target="_blank" rel="noopener">കൂടുതൽ തിരയുക ↗</a></div>
+  </div>
+</section>
+<section class="stage" id="stage-03">
+  <div class="stage-num">STAGE 03</div>
+  <h2 class="stage-title">സംയോജനം — അക്ഷരം പണിയുന്ന വിധം</h2>
+  <p class="lead">മലയാളത്തിലെ സ്വരചിഹ്നങ്ങളുടെ അതേ യുക്തി തമിഴിലും. "ക" എന്ന വ്യഞ്ജനത്തോട് ചിഹ്നം ചേർത്താൽ കാ, കി, കീ ഉണ്ടാകും. ചന്ദ്രക്കല ( ്) — തമിഴിൽ <b>പുള്ളി</b> ( ்) — സ്വരം ഇല്ലാതാക്കുന്നു.</p>
+
+  <h3>സ്വരചിഹ്ന താരതമ്യം</h3>
+  <table>
+    <tr><th>സ്വരം</th><th>മലയാളം</th><th>തമിഴ്</th><th>ഉച്ചാരണം</th></tr>
+    <tr><td>അ (ഉൾച്ചേർന്ന്)</td><td class="ml">ക</td><td class="ta">க</td><td class="mono">ka</td></tr>
+    <tr><td>ആ</td><td class="ml">കാ</td><td class="ta">கா</td><td class="mono">kaː</td></tr>
+    <tr><td>ഇ</td><td class="ml">കി</td><td class="ta">கி</td><td class="mono">ki</td></tr>
+    <tr><td>ഈ</td><td class="ml">കീ</td><td class="ta">கீ</td><td class="mono">kiː</td></tr>
+    <tr><td>ഉ</td><td class="ml">കു</td><td class="ta">கு</td><td class="mono">ku</td></tr>
+    <tr><td>ഊ</td><td class="ml">കൂ</td><td class="ta">கூ</td><td class="mono">kuː</td></tr>
+    <tr><td>എ</td><td class="ml">കെ</td><td class="ta">கெ</td><td class="mono">ke</td></tr>
+    <tr><td>ഏ</td><td class="ml">കേ</td><td class="ta">கே</td><td class="mono">keː</td></tr>
+    <tr><td>ഐ</td><td class="ml">കൈ</td><td class="ta">கை</td><td class="mono">kai</td></tr>
+    <tr><td>ഒ</td><td class="ml">കൊ</td><td class="ta">கொ</td><td class="mono">ko</td></tr>
+    <tr><td>ഓ</td><td class="ml">കോ</td><td class="ta">கோ</td><td class="mono">koː</td></tr>
+    <tr><td>ഔ</td><td class="ml">കൗ</td><td class="ta">கௌ</td><td class="mono">kau</td></tr>
+    <tr><td>സ്വരമില്ല</td><td class="ml">ക്</td><td class="ta">க்</td><td class="mono">k</td></tr>
+  </table>
+
+  <div class="aside"><b>കൈ — കൈ, അതേ ആകൃതി വരെ!</b> മലയാളത്തിൽ "കൈ" എഴുതുമ്പോൾ ൈ ചിഹ്നം ക-യ്ക്കു മുന്നിൽ; തമിഴിലും <span class="ta">கை</span>-യിൽ ை ചിഹ്നം க-യ്ക്കു വലത്ത് (വായിക്കുമ്പോൾ പിന്നാലെ). ശ്രദ്ധിക്കുക: ഒ, ഓ എന്നിവയിൽ ചിഹ്നം ഇരുവശവും വരും — രണ്ടു ഭാഷയിലും (<span class="ta">கொ, கோ</span>).</div>
+
+  <h3>സംയുക്താക്ഷരം — കൂട്ടക്ഷരം</h3>
+  <p>മലയാളത്തിൽ "ക്ക" എന്നത് ക + ് + ക. തമിഴിൽ അതേ യുക്തി: <span class="ta">க்க</span> = <span class="ta">க் + க</span>. പക്ഷേ <b>തമിഴ് രണ്ടക്ഷരവും മുഴുവനായി എഴുതും</b>; സംയുക്തരൂപം ഇല്ല.</p>
+  <table>
+    <tr><th>വാക്ക്</th><th>മലയാളം</th><th>തമിഴ്</th><th>വിശകലനം</th></tr>
+    <tr><td>അക്ക</td><td class="ml">അക്ക</td><td class="ta">அக்கா</td><td class="mono">a + k + ka</td></tr>
+    <tr><td>മരം</td><td class="ml">മരം</td><td class="ta">மரம்</td><td class="mono">ma + ra + m</td></tr>
+    <tr><td>കണ്ണ്</td><td class="ml">കണ്ണ്</td><td class="ta">கண்</td><td class="mono">ka + ṇ</td></tr>
+    <tr><td>പൊന്ന്</td><td class="ml">പൊന്ന്</td><td class="ta">பொன்</td><td class="mono">po + ṉ</td></tr>
+    <tr><td>തമിഴ്</td><td class="ml">തമിഴ്</td><td class="ta">தமிழ்</td><td class="mono">ta + mi + ḻ</td></tr>
+  </table>
+
+  <div class="aside tea"><b>പുള്ളിയുടെ മാന്ത്രികം.</b> മലയാളം ചന്ദ്രക്കല വിരളമായി മാത്രം ഉപയോഗിക്കും (സംയുക്ത രൂപം കൂടുതൽ). തമിഴ് എല്ലാ വ്യഞ്ജനാന്ത്യത്തിലും പുള്ളി ഇടും — <span class="ta">தமிழ்</span>, <span class="ta">நான்</span>, <span class="ta">வீடு</span> അല്ല <span class="ta">வீடு-ൻ</span>. ഓരോ പുള്ളിയും "ഇവിടെ സ്വരമില്ല" എന്ന പ്രഖ്യാപനം.</div>
+</section>
+<section class="stage" id="stage-04">
+  <div class="stage-num">STAGE 04</div>
+  <h2 class="stage-title">പദങ്ങൾ — അടിസ്ഥാന ശബ്ദാവലി</h2>
+  <p class="lead">71% പദാവലി പങ്കുവെക്കുന്ന രണ്ടു ഭാഷകൾ. പലതും ഉച്ചരിക്കുമ്പോൾ തന്നെ തിരിച്ചറിയാം. കാർഡിൽ തൊടുക.</p>
+
+  <h3>സർവനാമങ്ങൾ</h3>
+  <div class="grid c3">
+    <div class="card"><span class="big ta">நான்</span><span class="src">ഞാൻ</span><span class="tr">nāṉ</span><span class="hint">അതേ പദം, അതേ അർത്ഥം <span class="pill">ദ്രാവിഡം</span></span></div>
+    <div class="card"><span class="big ta">நீ</span><span class="src">നീ</span><span class="tr">nī</span><span class="hint">ഒരേ വാക്ക് — അനൗപചാരികം</span></div>
+    <div class="card"><span class="big ta">நீங்கள்</span><span class="src">നിങ്ങൾ</span><span class="tr">nīṅgaḷ</span><span class="hint">ബഹുമാനരൂപം — അതേ ഘടന</span></div>
+    <div class="card"><span class="big ta">அவன்</span><span class="src">അവൻ</span><span class="tr">avaṉ</span><span class="hint">ലിംഗരൂപം — കൃത്യം ഒന്നുതന്നെ</span></div>
+    <div class="card"><span class="big ta">அவள்</span><span class="src">അവൾ</span><span class="tr">avaḷ</span><span class="hint">സ്ത്രീലിംഗം</span></div>
+    <div class="card"><span class="big ta">அது</span><span class="src">അത്</span><span class="tr">adu</span><span class="hint">നപുംസകം / ദൂരം</span></div>
+    <div class="card"><span class="big ta">இது</span><span class="src">ഇത്</span><span class="tr">idu</span><span class="hint">സമീപ നപുംസകം</span></div>
+    <div class="card"><span class="big ta">நாங்கள்</span><span class="src">ഞങ്ങൾ</span><span class="tr">nāṅgaḷ</span><span class="hint">ഞങ്ങൾ (കേൾവിക്കാർ ഒഴിവായി)</span></div>
+    <div class="card"><span class="big ta">அவர்கள்</span><span class="src">അവർ</span><span class="tr">avargaḷ</span><span class="hint">അവർ — ബഹുവചനം</span></div>
+  </div>
+
+  <h3>അടിസ്ഥാന നാമങ്ങൾ</h3>
+  <div class="grid c3">
+    <div class="card"><span class="big ta">தண்ணீர்</span><span class="src">വെള്ളം</span><span class="tr">taṇṇīr</span><span class="hint">മലയാളം "തണ്ണീർ" (തണുത്ത നീര്) ഉണ്ട് — പഴയ ദ്രാവിഡം <span class="pill">ദ്രാവിഡം</span></span></div>
+    <div class="card"><span class="big ta">வீடு</span><span class="src">വീട്</span><span class="tr">vīḍu</span><span class="hint">അതേ വാക്ക് <span class="pill">ദ്രാവിഡം</span></span></div>
+    <div class="card"><span class="big ta">பெயர்</span><span class="src">പേര്</span><span class="tr">peyar</span><span class="hint">"പേരൈർ" → "പേര്"</span></div>
+    <div class="card"><span class="big ta">பணம்</span><span class="src">പണം</span><span class="tr">paṇam</span><span class="hint">കൃത്യം ഒന്നുതന്നെ</span></div>
+    <div class="card"><span class="big ta">மரம்</span><span class="src">മരം</span><span class="tr">maram</span><span class="hint">ഒരേ വാക്ക്</span></div>
+    <div class="card"><span class="big ta">நேரம்</span><span class="src">സമയം / നേരം</span><span class="tr">nēram</span><span class="hint">"നേരം" മലയാളത്തിലും ഉണ്ട് — "ഇപ്പോൾ നേരം എത്ര?"</span></div>
+    <div class="card"><span class="big ta">நாள்</span><span class="src">നാൾ / ദിവസം</span><span class="tr">nāḷ</span><span class="hint">"പിറന്നാൾ" — നാൾ തന്നെ</span></div>
+    <div class="card"><span class="big ta">சூரியன்</span><span class="src">സൂര്യൻ</span><span class="tr">sūriyaṉ</span><span class="hint">തത്സമം <span class="pill">സംസ്കൃതം</span></span></div>
+    <div class="card"><span class="big ta">பால்</span><span class="src">പാൽ</span><span class="tr">pāl</span><span class="hint">കൃത്യം ഒന്നുതന്നെ</span></div>
+    <div class="card"><span class="big ta">மழை</span><span class="src">മഴ</span><span class="tr">maḻai</span><span class="hint">അതേ "ഴ" — ശ്രദ്ധിക്കുക <span class="pill">ദ്രാവിഡം</span></span></div>
+    <div class="card"><span class="big ta">பூமி</span><span class="src">ഭൂമി</span><span class="tr">būmi</span><span class="hint">തത്സമം — തമിഴിൽ "ഭ" ഇല്ല, "പ" ആകും</span></div>
+    <div class="card"><span class="big ta">பூ</span><span class="src">പൂവ്</span><span class="tr">pū</span><span class="hint">മലയാളം "പൂ" തന്നെ</span></div>
+  </div>
+
+  <h3>അടിസ്ഥാന ക്രിയകൾ (ധാതുരൂപം)</h3>
+  <div class="grid c3">
+    <div class="card"><span class="big ta">இரு</span><span class="src">ഇരിക്കുക</span><span class="tr">iru</span></div>
+    <div class="card"><span class="big ta">செய்</span><span class="src">ചെയ്യുക</span><span class="tr">sey</span></div>
+    <div class="card"><span class="big ta">போ</span><span class="src">പോവുക</span><span class="tr">pō</span></div>
+    <div class="card"><span class="big ta">வா</span><span class="src">വരിക</span><span class="tr">vā</span></div>
+    <div class="card"><span class="big ta">சாப்பிடு</span><span class="src">തിന്നുക</span><span class="tr">sāppiḍu</span><span class="hint">തിൻ (<span class="ta">தின்</span>) ഉണ്ട്, പക്ഷേ ദൈനംദിനത്തിൽ <span class="ta">சாப்பிடு</span>.</span></div>
+    <div class="card"><span class="big ta">குடி</span><span class="src">കുടിക്കുക</span><span class="tr">kuḍi</span></div>
+    <div class="card"><span class="big ta">பார்</span><span class="src">നോക്കുക / കാണുക</span><span class="tr">pār</span></div>
+    <div class="card"><span class="big ta">கேள்</span><span class="src">കേൾക്കുക</span><span class="tr">kēḷ</span></div>
+    <div class="card"><span class="big ta">நட</span><span class="src">നടക്കുക</span><span class="tr">naḍa</span></div>
+    <div class="card"><span class="big ta">ஓடு</span><span class="src">ഓടുക</span><span class="tr">ōḍu</span></div>
+    <div class="card"><span class="big ta">கொடு</span><span class="src">കൊടുക്കുക</span><span class="tr">koḍu</span></div>
+    <div class="card"><span class="big ta">வேண்டும்</span><span class="src">വേണം</span><span class="tr">vēṇḍum</span></div>
+    <div class="card"><span class="big ta">நில்</span><span class="src">നിൽക്കുക</span><span class="tr">nil</span></div>
+  </div>
+
+  <h3>സംഖ്യകൾ</h3>
+  <div class="grid c5">
+    <div class="card"><span class="big ta">ஒன்று</span><span class="src">ഒന്ന്</span><span class="tr">oṉṟu</span></div>
+    <div class="card"><span class="big ta">இரண்டு</span><span class="src">രണ്ട്</span><span class="tr">iraṇḍu</span></div>
+    <div class="card"><span class="big ta">மூன்று</span><span class="src">മൂന്ന്</span><span class="tr">mūṉṟu</span></div>
+    <div class="card"><span class="big ta">நான்கு</span><span class="src">നാല്</span><span class="tr">nāṉku</span></div>
+    <div class="card"><span class="big ta">ஐந்து</span><span class="src">അഞ്ച്</span><span class="tr">aindu</span></div>
+    <div class="card"><span class="big ta">ஆறு</span><span class="src">ആറ്</span><span class="tr">āṟu</span></div>
+    <div class="card"><span class="big ta">ஏழு</span><span class="src">ഏഴ്</span><span class="tr">ēḻu</span></div>
+    <div class="card"><span class="big ta">எட்டு</span><span class="src">എട്ട്</span><span class="tr">eṭṭu</span></div>
+    <div class="card"><span class="big ta">ஒன்பது</span><span class="src">ഒമ്പത്</span><span class="tr">oṉbadu</span></div>
+    <div class="card"><span class="big ta">பத்து</span><span class="src">പത്ത്</span><span class="tr">pattu</span></div>
+    <div class="card"><span class="big ta">நூறு</span><span class="src">നൂറ്</span><span class="tr">nūṟu</span></div>
+  </div>
+
+  <div class="aside sin"><b>തത്സമം കുറക്കുന്ന തമിഴ്.</b> മലയാളം "സൂര്യൻ, ഭൂമി, സമയം, ദിനം" എന്നെല്ലാം സംസ്കൃതം ഇഷ്ടത്തോടെ ഉൾക്കൊള്ളും. തമിഴ് പലപ്പോഴും ശുദ്ധ ദ്രാവിഡരൂപം തിരഞ്ഞെടുക്കും — <span class="ta">கதிரவன்</span> (സൂര്യൻ), <span class="ta">நிலம்</span> (ഭൂമി), <span class="ta">நேரம்</span> (സമയം), <span class="ta">நாள்</span> (ദിനം). രണ്ടു രൂപവും അറിയണം.</div>
+</section>
+<section class="stage" id="stage-05">
+  <div class="stage-num">STAGE 05</div>
+  <h2 class="stage-title">വാക്യം — ഘടനയും ക്രിയയും</h2>
+  <p class="lead">വാക്യക്രമം ഒന്നുതന്നെ: കർത്താവ്–കർമ്മം–ക്രിയ. വിഭക്തിപ്രത്യയങ്ങൾ (ഉത്തരാന്വയം) ഇരു ഭാഷയിലും സമാനം. പുതിയത് ഒന്നുമാത്രം — ക്രിയയിലെ ലിംഗവിവേചനം.</p>
+
+  <h3>"ചെയ്യുക" — വർത്തമാനകാലം</h3>
+  <table>
+    <tr><th>വ്യക്തി</th><th>മലയാളം</th><th>തമിഴ്</th><th>ലിപ്യന്തരണം</th></tr>
+    <tr><td>ഞാൻ</td><td class="ml">ചെയ്യുന്നു</td><td class="ta">செய்கிறேன்</td><td class="mono">seykiṟēṉ</td></tr>
+    <tr><td>നീ</td><td class="ml">ചെയ്യുന്നു</td><td class="ta">செய்கிறாய்</td><td class="mono">seykiṟāy</td></tr>
+    <tr><td>അവൻ</td><td class="ml">ചെയ്യുന്നു</td><td class="ta">செய்கிறான்</td><td class="mono">seykiṟāṉ</td></tr>
+    <tr><td>അവൾ</td><td class="ml">ചെയ്യുന്നു</td><td class="ta">செய்கிறாள்</td><td class="mono">seykiṟāḷ</td></tr>
+    <tr><td>അത്</td><td class="ml">ചെയ്യുന്നു</td><td class="ta">செய்கிறது</td><td class="mono">seykiṟadu</td></tr>
+    <tr><td>ഞങ്ങൾ</td><td class="ml">ചെയ്യുന്നു</td><td class="ta">செய்கிறோம்</td><td class="mono">seykiṟōm</td></tr>
+    <tr><td>നിങ്ങൾ</td><td class="ml">ചെയ്യുന്നു</td><td class="ta">செய்கிறீர்கள்</td><td class="mono">seykiṟīrgaḷ</td></tr>
+    <tr><td>അവർ</td><td class="ml">ചെയ്യുന്നു</td><td class="ta">செய்கிறார்கள்</td><td class="mono">seykiṟārgaḷ</td></tr>
+  </table>
+
+  <div class="aside sin"><b>ഇതാണ് വലിയ മാറ്റം.</b> മലയാളത്തിൽ "ചെയ്യുന്നു" എല്ലാവർക്കും ഒരേ രൂപം. തമിഴിൽ ക്രിയ തന്നെ കർത്താവിന്റെ വ്യക്തി, വചനം, ലിംഗം അറിയിക്കും. "<span class="ta">-கிற்-</span>" വർത്തമാനചിഹ്നം; ശേഷം "<span class="ta">-ஏன், -ஆய், -ஆன், -ஆள், -அது, -ஓம், -ஈர்கள், -ஆர்கள்</span>" എന്നീ വ്യക്തിപ്രത്യയങ്ങൾ.</div>
+
+  <h3>വിഭക്തിപ്രത്യയങ്ങൾ</h3>
+  <table>
+    <tr><th>വിഭക്തി</th><th>മലയാളം</th><th>തമിഴ്</th><th>ഉദാഹരണം</th></tr>
+    <tr><td>നാമം</td><td class="mono">—</td><td class="mono">—</td><td class="ta">வீடு (വീട്)</td></tr>
+    <tr><td>പ്രതിഗ്രാഹിക</td><td class="mono">-എ</td><td class="mono">-ai</td><td class="ta">வீட்டை (വീട്ടിനെ)</td></tr>
+    <tr><td>ഉദ്ദേശിക</td><td class="mono">-ക്ക്</td><td class="mono">-kku</td><td class="ta">வீட்டுக்கு (വീട്ടിലേക്ക്)</td></tr>
+    <tr><td>ആധാരിക</td><td class="mono">-ഇൽ</td><td class="mono">-il</td><td class="ta">வீட்டில் (വീട്ടിൽ)</td></tr>
+    <tr><td>അപാദാന</td><td class="mono">-ഇൽ നിന്ന്</td><td class="mono">-iliruntu</td><td class="ta">வீட்டிலிருந்து (വീട്ടിൽ നിന്ന്)</td></tr>
+    <tr><td>സംബന്ധിക</td><td class="mono">-ന്റെ / -ഉടെ</td><td class="mono">-in / -uḍaiya</td><td class="ta">வீட்டின் (വീടിന്റെ)</td></tr>
+  </table>
+
+  <div class="aside tea"><b>പ്രത്യയം — ഒരേ ചിന്ത.</b> "വീട്ടിൽ" മലയാളത്തിൽ. "<span class="ta">வீட்டில்</span>" തമിഴിൽ. -ഇൽ, -il — ശബ്ദവും അർത്ഥവും ഒന്നുതന്നെ. ഇരു ഭാഷയിലും പദത്തിനു പിന്നിൽ (പിൻഘടകം) ചേർക്കും; ഹിന്ദി/സംസ്കൃതം പോലെ പദത്തിനു മുന്നിൽ (prepositions) അല്ല.</div>
+
+  <h3>നിഷേധം</h3>
+  <table>
+    <tr><th>മലയാളം</th><th>തമിഴ്</th><th>അർത്ഥം</th></tr>
+    <tr><td class="ml">ഞാൻ പോകുന്നു</td><td class="ta">நான் போகிறேன்</td><td>ഞാൻ പോകുന്നു</td></tr>
+    <tr><td class="ml">ഞാൻ പോകുന്നില്ല</td><td class="ta">நான் போகவில்லை</td><td>ഞാൻ പോകുന്നില്ല</td></tr>
+    <tr><td class="ml">വേണ്ട</td><td class="ta">வேண்டாம்</td><td>വേണ്ട</td></tr>
+    <tr><td class="ml">അറിയില്ല</td><td class="ta">தெரியாது</td><td>അറിയില്ല</td></tr>
+  </table>
+
+  <h3>ചോദ്യപദങ്ങൾ</h3>
+  <table>
+    <tr><th>മലയാളം</th><th>തമിഴ്</th><th>ലിപ്യന്തരണം</th></tr>
+    <tr><td class="ml">എന്ത്</td><td class="ta">என்ன</td><td class="mono">eṉṉa</td></tr>
+    <tr><td class="ml">ആര്</td><td class="ta">யார்</td><td class="mono">yār</td></tr>
+    <tr><td class="ml">എവിടെ</td><td class="ta">எங்கே</td><td class="mono">eṅgē</td></tr>
+    <tr><td class="ml">എപ്പോൾ</td><td class="ta">எப்போது</td><td class="mono">eppōdu</td></tr>
+    <tr><td class="ml">എന്തുകൊണ്ട്</td><td class="ta">ஏன்</td><td class="mono">ēṉ</td></tr>
+    <tr><td class="ml">എങ്ങനെ</td><td class="ta">எப்படி</td><td class="mono">eppaḍi</td></tr>
+    <tr><td class="ml">എത്ര</td><td class="ta">எவ்வளவு</td><td class="mono">evvaḷavu</td></tr>
+  </table>
+
+  <div class="aside"><b>ചോദ്യം എ-യിൽ തുടങ്ങും.</b> മലയാളത്തിൽ ഏതും "എ"-യിൽ: എന്ത്, എവിടെ, എപ്പോൾ, എങ്ങനെ. തമിഴിൽ അതേ സ്ഥിരത — <span class="ta">என்ன, எங்கே, எப்போது, எப்படி</span>. ഇത് പ്രാചീന ദ്രാവിഡത്തിൽ നിന്നുള്ള പൊതു പൈതൃകം.</div>
+</section>
+<section class="stage" id="stage-06">
+  <div class="stage-num">STAGE 06</div>
+  <h2 class="stage-title">വായന — മൂന്നു ഖണ്ഡികകൾ</h2>
+  <p class="lead">തമിഴ് ലിപി, ലിപ്യന്തരണം, മലയാള പരിഭാഷ — മൂന്നും ഒരുമിച്ച്.</p>
+
+  <h3>ഒന്ന് — സ്വയം പരിചയപ്പെടുത്തൽ</h3>
+  <div class="passage">
+    <div class="p-ta">என் பெயர் ராஜன். நான் கேரளத்தில் இருந்து வருகிறேன். எனக்கு தமிழ் பிடிக்கும். நான் தினமும் தமிழ் கற்றுக்கொள்கிறேன். என் வீடு திருவனந்தபுரத்தில் இருக்கிறது.</div>
+    <div class="p-tr">eṉ peyar rājaṉ. nāṉ kēraḷattil iruntu varukiṟēṉ. eṉakku tamiḻ piḍikkum. nāṉ diṉamum tamiḻ kaṟṟukkoḷkiṟēṉ. eṉ vīḍu tiruvaṉantapurattil irukkiṟadu.</div>
+    <div class="p-ml">എന്റെ പേര് രാജൻ. ഞാൻ കേരളത്തിൽ നിന്ന് വരുന്നു. എനിക്ക് തമിഴ് ഇഷ്ടമാണ്. ഞാൻ ദിവസവും തമിഴ് പഠിക്കുന്നു. എന്റെ വീട് തിരുവനന്തപുരത്താണ്.</div>
+  </div>
+
+  <h3>രണ്ട് — ദിവസചര്യ</h3>
+  <div class="passage">
+    <div class="p-ta">நான் காலையில் ஆறு மணிக்கு எழுந்திருக்கிறேன். பிறகு காபி குடிக்கிறேன். எட்டு மணிக்கு அலுவலகம் போகிறேன். மதியம் சாப்பிடுகிறேன். மாலையில் வீட்டுக்கு வருகிறேன். இரவு புத்தகம் படிக்கிறேன்.</div>
+    <div class="p-tr">nāṉ kālaiyil āṟu maṇikku eḻuntirukkiṟēṉ. piṟaku kāpi kuḍikkiṟēṉ. eṭṭu maṇikku aluvalakam pōkiṟēṉ. madiyam sāppiḍukiṟēṉ. mālaiyil vīṭṭukku varukiṟēṉ. iravu puttakam paḍikkiṟēṉ.</div>
+    <div class="p-ml">ഞാൻ രാവിലെ ആറ് മണിക്ക് എഴുന്നേൽക്കുന്നു. പിന്നെ കാപ്പി കുടിക്കുന്നു. എട്ട് മണിക്ക് ഓഫീസിലേക്ക് പോകുന്നു. ഉച്ചയ്ക്ക് ഊണ് കഴിക്കുന്നു. വൈകുന്നേരം വീട്ടിലേക്ക് വരുന്നു. രാത്രി പുസ്തകം വായിക്കുന്നു.</div>
+  </div>
+
+  <h3>മൂന്ന് — സംഭാഷണം</h3>
+  <div class="passage">
+    <div class="p-ta">முத்து: வணக்கம்! எப்படி இருக்கீங்க?<br>கலா: நல்லா இருக்கேன். நீங்க?<br>முத்து: நானும் நல்லா இருக்கேன். சாப்பிட்டீங்களா?<br>கலா: ஆமாம், சாப்பிட்டேன். நீங்க எங்கே போறீங்க?<br>முத்து: நான் கடைக்கு போறேன். கொஞ்சம் பால் வாங்கணும்.<br>கலா: சரி, பிறகு பாக்கலாம்.<br>முத்து: சரி, நன்றி!</div>
+    <div class="p-tr">muttu: vaṇakkam! eppaḍi irukkīṅga?<br>kalā: nallā irukkēṉ. nīṅga?<br>muttu: nāṉum nallā irukkēṉ. sāppiṭṭīṅgaḷā?<br>kalā: āmām, sāppiṭṭēṉ. nīṅga eṅgē pōṟīṅga?<br>muttu: nāṉ kaḍaikku pōṟēṉ. koñcam pāl vāṅgaṇum.<br>kalā: sari, piṟaku pākkalām.<br>muttu: sari, naṉṟi!</div>
+    <div class="p-ml">മുത്തു: നമസ്കാരം! സുഖമാണോ?<br>കല: സുഖമാണ്. നിങ്ങൾക്കോ?<br>മുത്തു: എനിക്കും സുഖം. ഭക്ഷണം കഴിച്ചോ?<br>കല: ഉവ്വ്, കഴിച്ചു. നിങ്ങൾ എങ്ങോട്ട് പോകുന്നു?<br>മുത്തു: ഞാൻ കടയിലേക്ക് പോകുന്നു. കുറച്ച് പാൽ വാങ്ങണം.<br>കല: ശരി, പിന്നീട് കാണാം.<br>മുത്തു: ശരി, നന്ദി!</div>
+  </div>
+
+  <div class="aside tea"><b>സാപ്പിട്ടീങ്കളാ? — കേരളത്തിലും കേട്ടിട്ടുണ്ട്.</b> ഊണു കഴിച്ചോ എന്നു ചോദിക്കുന്നത് സ്നേഹത്തിന്റെ വിളിയാണ്; ഭക്ഷണശാസ്ത്രമല്ല. തമിഴരുടെ "<span class="ta">சாப்பிட்டீங்களா?</span>" മലയാളിയുടെ "ഉണ്ടോ?" — ഒരേ സാംസ്കാരിക അർത്ഥം.</div>
+</section>
+<section class="stage" id="stage-07">
+  <div class="stage-num">STAGE 07</div>
+  <h2 class="stage-title">പദമേഖല — ബന്ധുത്വം, കാലം, ശരീരം</h2>
+
+  <h3>ബന്ധുത്വം</h3>
+  <div class="grid c3">
+    <div class="card"><span class="big ta">அப்பா</span><span class="src">അച്ഛൻ</span><span class="tr">appā</span><span class="hint">കേരളത്തിലും "അപ്പൻ", "അപ്പച്ചൻ" ഉണ്ട് — ഒരേ വേര്.</span></div>
+    <div class="card"><span class="big ta">அம்மா</span><span class="src">അമ്മ</span><span class="tr">ammā</span></div>
+    <div class="card"><span class="big ta">அண்ணா</span><span class="src">ചേട്ടൻ</span><span class="tr">aṇṇā</span><span class="hint">തമിഴിൽ മൂത്ത സഹോദരൻ; അപരിചിതനെ വിളിക്കാനും.</span></div>
+    <div class="card"><span class="big ta">தம்பி</span><span class="src">അനിയൻ</span><span class="tr">tambi</span></div>
+    <div class="card"><span class="big ta">அக்கா</span><span class="src">ചേച്ചി</span><span class="tr">akkā</span></div>
+    <div class="card"><span class="big ta">தங்கை</span><span class="src">അനിയത്തി</span><span class="tr">taṅkai</span></div>
+    <div class="card"><span class="big ta">தாத்தா</span><span class="src">മുത്തച്ഛൻ</span><span class="tr">tāttā</span></div>
+    <div class="card"><span class="big ta">பாட்டி</span><span class="src">മുത്തശ്ശി</span><span class="tr">pāṭṭi</span></div>
+    <div class="card"><span class="big ta">மாமா</span><span class="src">മാമൻ</span><span class="tr">māmā</span><span class="hint">അമ്മയുടെ സഹോദരൻ — കൃത്യം ഒന്നുതന്നെ</span></div>
+    <div class="card"><span class="big ta">அத்தை</span><span class="src">അമ്മായി</span><span class="tr">attai</span></div>
+  </div>
+
+  <div class="aside sin"><b>അണ്ണാ, അക്കാ — പേരറിയാത്തവരെ വിളിക്കാൻ.</b> തമിഴിൽ പ്രായത്തിലെ മൂത്തവരെ വിളിക്കാനുള്ള സ്നേഹരീതി; തെരുവിൽ ഉള്ള ചേട്ടനെയും ചേച്ചിയെയും അങ്ങനെ വിളിക്കാം. കേരളത്തിൽ "ചേട്ടാ", "ചേച്ചി" — അതേ ധർമ്മം.</div>
+
+  <h3>ശരീരം</h3>
+  <div class="grid c3">
+    <div class="card"><span class="big ta">தலை</span><span class="src">തല</span><span class="tr">talai</span></div>
+    <div class="card"><span class="big ta">கண்</span><span class="src">കണ്ണ്</span><span class="tr">kaṇ</span></div>
+    <div class="card"><span class="big ta">வாய்</span><span class="src">വായ</span><span class="tr">vāy</span></div>
+    <div class="card"><span class="big ta">கை</span><span class="src">കൈ</span><span class="tr">kai</span></div>
+    <div class="card"><span class="big ta">கால்</span><span class="src">കാൽ</span><span class="tr">kāl</span></div>
+    <div class="card"><span class="big ta">மூக்கு</span><span class="src">മൂക്ക്</span><span class="tr">mūkku</span></div>
+  </div>
+
+  <div class="aside"><b>പത്ത് ശരീരഭാഗങ്ങൾ — പത്തും സമാനം.</b> ശരീരത്തിന്റെ എല്ലാ അടിസ്ഥാന പദങ്ങളും ഇരു ഭാഷയിലും ഒന്നുതന്നെ. ഒരു സഹസ്രാബ്ദത്തിലേറെ വേർപിരിഞ്ഞിട്ടും, അമ്മ ശരീരത്തെ വിളിച്ച പേര് മാറിയില്ല.</div>
+
+  <h3>കാലം</h3>
+  <div class="grid c2">
+    <div class="card"><span class="big ta">இன்று</span><span class="src">ഇന്ന്</span><span class="tr">iṉṟu</span></div>
+    <div class="card"><span class="big ta">நாளை</span><span class="src">നാളെ</span><span class="tr">nāḷai</span></div>
+    <div class="card"><span class="big ta">நேற்று</span><span class="src">ഇന്നലെ</span><span class="tr">nēṟṟu</span></div>
+    <div class="card"><span class="big ta">இப்போது</span><span class="src">ഇപ്പോൾ</span><span class="tr">ippōdu</span></div>
+  </div>
+
+  <h3>ഗതി — ചലനം</h3>
+  <table>
+    <tr><th>മലയാളം</th><th>തമിഴ്</th><th>സന്ദർഭം</th></tr>
+    <tr><td class="ml">പോവുക</td><td class="ta">போ</td><td>പൊതുവായ പോക്ക്</td></tr>
+    <tr><td class="ml">വരിക</td><td class="ta">வா</td><td>വരവ്</td></tr>
+    <tr><td class="ml">നടക്കുക</td><td class="ta">நட</td><td>കാൽ നടയായി</td></tr>
+    <tr><td class="ml">ഓടുക</td><td class="ta">ஓடு</td><td>വേഗത്തിൽ</td></tr>
+    <tr><td class="ml">നിൽക്കുക</td><td class="ta">நில்</td><td>നിൽപ്പ്</td></tr>
+    <tr><td class="ml">ഇരിക്കുക</td><td class="ta">இரு</td><td>ഇരിപ്പ്; "ഉണ്ട്" എന്നതിന്റെ അർത്ഥവും</td></tr>
+  </table>
+
+  <div class="aside tea"><b>"ഇരു" — ഉണ്ട് എന്നതിനും.</b> മലയാളം "എനിക്കൊരു വീട് ഉണ്ട്" എന്നു പറയും. തമിഴിൽ "<span class="ta">எனக்கு ஒரு வீடு இருக்கிறது</span>" (എനക്കു ഒരു വീടു ഇരുക്കിറതു) — "ഉണ്ട്" എന്നതിന് <span class="ta">இரு</span> (ഇരിക്കുക) ധാതു ഉപയോഗിക്കും. മലയാളം "ഉണ്ട്" — പ്രത്യേക പദം; തമിഴ് "ഇരി-" ഉപയോഗിച്ചു.</div>
+</section>
+<section class="stage" id="stage-08">
+  <div class="stage-num">STAGE 08</div>
+  <h2 class="stage-title">ഉപയോഗം — മര്യാദയും സംഭാഷണവും</h2>
+
+  <h3>മൂന്നുതല ബഹുമാനരീതി</h3>
+  <p>മലയാളത്തിൽ രണ്ടു തലം — നീ / നിങ്ങൾ. തമിഴിൽ മൂന്നു തലം:</p>
+  <table>
+    <tr><th>തലം</th><th>തമിഴ്</th><th>മലയാളം</th><th>സന്ദർഭം</th></tr>
+    <tr><td>അടുപ്പം</td><td class="ta">நீ</td><td>നീ</td><td>കുട്ടി, അടുത്ത സുഹൃത്ത്</td></tr>
+    <tr><td>സാധാരണ</td><td class="ta">நீர்</td><td>—</td><td>അല്പം മുതിർന്ന ഇടത്തരം</td></tr>
+    <tr><td>ബഹുമാനം</td><td class="ta">நீங்கள்</td><td>നിങ്ങൾ / താങ്കൾ</td><td>അപരിചിതൻ, മുതിർന്നവർ</td></tr>
+  </table>
+
+  <h3>അവശ്യ വാചകങ്ങൾ</h3>
+  <table>
+    <tr><th>മലയാളം</th><th>തമിഴ്</th><th>ലിപ്യന്തരണം</th></tr>
+    <tr><td class="ml">നമസ്കാരം</td><td class="ta">வணக்கம்</td><td class="mono">vaṇakkam</td></tr>
+    <tr><td class="ml">നന്ദി</td><td class="ta">நன்றி</td><td class="mono">naṉṟi</td></tr>
+    <tr><td class="ml">സുഖമാണോ?</td><td class="ta">எப்படி இருக்கீங்க?</td><td class="mono">eppaḍi irukkīṅga?</td></tr>
+    <tr><td class="ml">സുഖമാണ്</td><td class="ta">நல்லா இருக்கேன்</td><td class="mono">nallā irukkēṉ</td></tr>
+    <tr><td class="ml">വേണം</td><td class="ta">வேண்டும்</td><td class="mono">vēṇḍum</td></tr>
+    <tr><td class="ml">വേണ്ട</td><td class="ta">வேண்டாம்</td><td class="mono">vēṇḍām</td></tr>
+    <tr><td class="ml">അറിയില്ല</td><td class="ta">தெரியாது</td><td class="mono">teriyādu</td></tr>
+    <tr><td class="ml">ഊണു കഴിച്ചോ?</td><td class="ta">சாப்பிட்டீங்களா?</td><td class="mono">sāppiṭṭīṅgaḷā?</td></tr>
+    <tr><td class="ml">ശരി</td><td class="ta">சரி</td><td class="mono">sari</td></tr>
+    <tr><td class="ml">അതെ</td><td class="ta">ஆமாம்</td><td class="mono">āmām</td></tr>
+    <tr><td class="ml">ഇല്ല</td><td class="ta">இல்லை</td><td class="mono">illai</td></tr>
+  </table>
+
+  <div class="aside sin"><b>"ഊണു കഴിച്ചോ?" — സ്നേഹവാചകം.</b> തമിഴ്നാട്ടിലെ "<span class="ta">சாப்பிட்டீங்களா?</span>" മലയാളത്തിലെ "ഉണ്ടോ?" "ഊണു കഴിച്ചോ?" എന്നിവയ്ക്കു തുല്യം. യഥാർത്ഥമായി ഭക്ഷണം അന്വേഷിക്കുന്നതല്ല — "സുഖമാണോ?" എന്നതിന്റെ സ്ഥാനത്താണ്. കർണാടകത്തിൽ "<b>ഊട്ട ആയ്തേ?</b>" — അതേ ധർമ്മം.</div>
+
+  <h3>മൃദുലപദങ്ങൾ</h3>
+  <div class="box">
+    <p><b class="ta">கொஞ்சம்</b> (<span class="mono">koñcam</span>) = "കുറച്ച്". അഭ്യർത്ഥന മൃദുവാക്കുന്നു. "<span class="ta">கொஞ்சம் தண்ணீர் கொடுங்க</span>" = "കുറച്ച് വെള്ളം തരൂ". മലയാളത്തിലെ "കുറച്ച്", കന്നടയിലെ "സ്വൽപ", ബംഗാളിയിലെ "ഏകടു" — ഒരേ ധർമ്മം.</p>
+  </div>
+
+  <h3>അപരിചിതരെ വിളിക്കാൻ</h3>
+  <table>
+    <tr><th>ആര്</th><th>തമിഴിൽ വിളി</th><th>മലയാളത്തിൽ</th></tr>
+    <tr><td>ചെറുപ്പക്കാരൻ</td><td class="ta">அண்ணா</td><td>ചേട്ടൻ / ചേട്ടാ</td></tr>
+    <tr><td>ചെറുപ്പക്കാരി</td><td class="ta">அக்கா</td><td>ചേച്ചി</td></tr>
+    <tr><td>വൃദ്ധൻ</td><td class="ta">தாத்தா</td><td>മുത്തച്ഛൻ / അപ്പച്ചൻ</td></tr>
+    <tr><td>വൃദ്ധ</td><td class="ta">பாட்டி</td><td>മുത്തശ്ശി / അമ്മച്ചി</td></tr>
+  </table>
+
+  <div class="aside tea"><b>സൗഹൃദപരമായ കുടുംബപദ്ധതി.</b> രണ്ടു ഭാഷയിലും — അറിയാത്തവരെ കുടുംബാംഗമെന്നപോലെ വിളിക്കുന്നത് — ദ്രാവിഡ സംസ്കാരത്തിന്റെ പൊതു സ്വഭാവം. "സർ" "മാഡം" എന്ന ദൂരമില്ല; ചേട്ടൻ/<span class="ta">அண்ணா</span> എന്ന അടുപ്പം.</div>
+</section>
+<section class="stage" id="stage-09">
+  <div class="stage-num">STAGE 09</div>
+  <h2 class="stage-title">സാഹിത്യം — പാലങ്ങൾ</h2>
+  <p class="lead">തമിഴ് സാഹിത്യത്തിന്റെ പാരമ്പര്യം 2300 വർഷം പഴക്കമുള്ളത് — ലോകത്തിലെ ജീവനുള്ള ശാസ്ത്രീയ ഭാഷകളിൽ ഏറ്റവും പഴക്കമുള്ളത്. സംഘം സാഹിത്യത്തിൽ നിന്നു തുടങ്ങി ആധുനിക നോവൽ വരെ. മലയാള സാഹിത്യം ഈ വേരിൽ നിന്ന് വളർന്നതാണ്.</p>
+
+  <h3>ഏഴു പാലങ്ങൾ</h3>
+
+  <div class="box">
+    <h4><span class="ta">திருவள்ளுவர்</span> — തിരുവള്ളുവർ (~ ക്രി.മു. 3-ാം നൂറ്റാണ്ട്)</h4>
+    <p><b>തിരുക്കുറൾ</b> — 1330 ഈരടികൾ; ധർമ്മം, അർത്ഥം, കാമം. മതമല്ല, മാനവിക ധർമ്മശാസ്ത്രം. മലയാളി എഴുത്തച്ഛൻ ആദ്ധ്യാത്മരാമായണം കിളിപ്പാട്ട്-ൽ തിരുവള്ളുവരുടെ ഈരടി-ശൈലിക്ക് സമാനമായ ഒതുക്കവും ഗാംഭീര്യവും കൊണ്ടുവരാൻ ശ്രമിച്ചു. രണ്ടുപേരും ഭാഷയെ പ്രസാദത്തിലേക്കു നയിച്ച മഹാഗുരുക്കൾ.</p>
+  </div>
+
+  <div class="box">
+    <h4><span class="ta">கம்பன்</span> — കമ്പൻ (~ 12-ാം നൂറ്റാണ്ട്)</h4>
+    <p><b>കമ്പരാമായണം</b>. തമിഴിന്റെ ആ മഹാകാവ്യം മലയാളത്തിൽ <b>തുഞ്ചത്ത് എഴുത്തച്ഛൻ</b> അധ്യാത്മരാമായണം കിളിപ്പാട്ടിലൂടെ പുനരാവിഷ്കരിച്ചു. കമ്പന്റെ സംസ്കൃത-ദ്രാവിഡ സങ്കലനം എഴുത്തച്ഛൻ മലയാളത്തിൽ ശുദ്ധീകരിച്ചു — രണ്ടുപേരും സ്വന്തം ഭാഷയെ "സാഹിത്യഭാഷ" ആക്കിയവർ.</p>
+  </div>
+
+  <div class="box">
+    <h4><span class="ta">சுப்பிரமணிய பாரதி</span> — സുബ്രഹ്മണ്യ ഭാരതി (1882–1921)</h4>
+    <p>നവോത്ഥാന കവി; സ്വാതന്ത്ര്യഗായകൻ. "<span class="ta">காக்கை குருவி எங்கள் சாதி</span>" — വർണവ്യവസ്ഥയെ ചോദ്യം ചെയ്ത വാക്ക്. മലയാളത്തിലെ <b>കുമാരനാശാൻ</b>-ന് ഭാരതി നേരിട്ടുള്ള സമകാലികൻ. "ചണ്ഡാലഭിക്ഷുകി"യും "വീണപൂവും" എഴുതിയ ആശാന്റെ സാമൂഹിക ഉൾക്കാഴ്ചയുമായി ഭാരതിയുടെ സാഹോദര്യകാവ്യം ഒത്തുചേരുന്നു.</p>
+  </div>
+
+  <div class="box">
+    <h4><span class="ta">புதுமைப்பித்தன்</span> — പുതുമൈപ്പിത്തൻ (1906–1948)</h4>
+    <p>തമിഴ് ചെറുകഥയുടെ പിതാവ്; ഇരുണ്ട റിയലിസം, നഗരദു:ഖം. മലയാളത്തിലെ <b>വൈക്കം മുഹമ്മദ് ബഷീർ</b> ഈ കാലത്ത് തന്നെ സാധാരണ മനുഷ്യരുടെ ഭാഷയിൽ എഴുതി — "ബാല്യകാലസഖി", "പാത്തുമ്മയുടെ ആട്". രണ്ടുപേരും സാഹിത്യത്തെ സംസ്കൃത ഭാരത്തിൽ നിന്നു മുക്തമാക്കി, തെരുവിന്റെ ശ്വാസം എഴുത്തിൽ കൊണ്ടുവന്നു.</p>
+  </div>
+
+  <div class="box">
+    <h4><span class="ta">ஜெயகாந்தன்</span> — ജയകാന്തൻ (1934–2015)</h4>
+    <p>ജ്ഞാനപീഠം. നഗര റിയലിസം; വേശ്യ, തൊഴിലാളി, അധഃസ്ഥിതൻ — സാഹിത്യത്തിലെ അവരുടെ സ്ഥാനം ഉറപ്പിച്ചു. മലയാളത്തിലെ <b>തകഴി ശിവശങ്കരപ്പിള്ള</b> — "ചെമ്മീൻ", "രണ്ടിടങ്ങഴി" — മത്സ്യത്തൊഴിലാളിയുടെയും കർഷകന്റെയും ജീവിതം സാഹിത്യത്തിലേക്കു കൊണ്ടുവന്നു. രണ്ടുപേരുടെയും പ്രമേയം ഒന്നുതന്നെ — അധികാരശ്രേണിയുടെ അടിയിലെ മനുഷ്യൻ.</p>
+  </div>
+
+  <div class="box">
+    <h4><span class="ta">சுந்தர ராமசாமி</span> — സുന്ദര രാമസ്വാമി (1931–2005)</h4>
+    <p>"<span class="ta">ஜே.ஜே: சில குறிப்புகள்</span>" — ആധുനികോത്തര തമിഴ് സാഹിത്യത്തിന്റെ അടിസ്ഥാനകൃതി; ശൈലിയും ഘടനയും പുതുക്കി. മലയാളത്തിലെ <b>ഒ.വി. വിജയൻ</b> "ഖസാക്കിന്റെ ഇതിഹാസം" — അതേ തലമുറയിൽ അതേ ലക്ഷ്യത്തോടെ എഴുതപ്പെട്ടത്. രണ്ടു കൃതികളും തെക്കൻ സാഹിത്യത്തിനു നവീനതയുടെ വാതിൽ തുറന്നു.</p>
+  </div>
+
+  <div class="box">
+    <h4>സമകാലികർ — മറ്റൊരു പാലം</h4>
+    <p>തമിഴിലെ <b class="ta">அசோகமித்திரன்</b> (അശോകമിത്രൻ) — നഗര ഇടത്തരക്കാരുടെ ഏകാന്തത. മലയാളത്തിലെ <b>എം.ടി. വാസുദേവൻ നായർ</b> — നാലുകെട്ടിലെ ഏകാന്തത. രണ്ടുപേരും സാവധാനത്തിലുള്ള, മൗനത്തിന്റെ ഭാരമുള്ള ഗദ്യം കെട്ടിപ്പടുത്തവർ.</p>
+  </div>
+
+  <div class="aside sin"><b>സാഹിത്യത്തിന്റെ പങ്കുവെപ്പ്.</b> തമിഴ് സംഘം സാഹിത്യത്തിലെ <b class="ta">அகம்</b> (അകം — അന്തരംഗം) / <b class="ta">புறம்</b> (പുറം — ബാഹ്യം) എന്ന വിഭജനം മലയാള ക്ലാസിക്കൽ കവിതയുടെ അടിയിലും ഒഴുകുന്നു. നിങ്ങൾ തമിഴ് വായിക്കുമ്പോൾ, മലയാളത്തിന്റെ വേരുകൾ സ്പർശിക്കുകയാണ്.</div>
+
+  <div class="aside tea"><b>അഭിനന്ദനം.</b> ഇവിടെ വരെ എത്തിയല്ലോ. <span class="ta">தமிழ்</span> ഇനി അന്യഭാഷയല്ല — നഷ്ടപ്പെട്ടുപോയ ഒരു ബന്ധു മാത്രം. <span class="ta">நன்றி, வணக்கம்!</span></div>
+</section>
+
+<div class="nav-btns">
+  <button id="prev">← മുമ്പ്</button>
+  <button id="next">അടുത്തത് →</button>
+</div>
+
+<footer>made by Nil · using Claude</footer>
+</div>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('#tabs button');
+  var stages=document.querySelectorAll('section.stage');
+  var prev=document.getElementById('prev');
+  var next=document.getElementById('next');
+  var cur=0;
+  function show(i){
+    if(i<0)i=0;if(i>9)i=9;
+    cur=i;
+    tabs.forEach(function(b,idx){b.classList.toggle('active',idx===i)});
+    stages.forEach(function(s,idx){s.classList.toggle('active',idx===i)});
+    prev.disabled=(i===0);
+    next.disabled=(i===9);
+    var t=tabs[i];if(t&&t.scrollIntoView){t.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  tabs.forEach(function(b,i){b.addEventListener('click',function(){show(i)})});
+  prev.addEventListener('click',function(){show(cur-1)});
+  next.addEventListener('click',function(){show(cur+1)});
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('.card');
+    if(c&&c.querySelector('.hint')){c.classList.toggle('open')}
+  });
+})();
+</script>
+</body>
+</html>

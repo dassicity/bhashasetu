@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="ml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>മലയാളം → ಕನ್ನಡ · ഭാഷാസേതു</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{lang:ml}
+body{
+  font-family:'Noto Serif Malayalam',serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  font-size:17px;
+  position:relative;
+  background-image:
+    radial-gradient(ellipse at top left,rgba(184,128,45,.08),transparent 50%),
+    radial-gradient(ellipse at bottom right,rgba(31,77,74,.07),transparent 55%),
+    radial-gradient(ellipse at center,var(--paper-warm),var(--paper) 70%);
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .05  0 0 0 .14 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.wrap{max-width:780px;margin:0 auto;padding:22px 20px 80px;position:relative;z-index:2}
+.kn{font-family:'Noto Serif Kannada',serif}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.88em;color:var(--ink-faded)}
+.display{font-family:'Fraunces',serif;font-style:italic}
+
+header.hero{padding:18px 0 14px;border-bottom:1px solid rgba(168,48,36,.18);margin-bottom:14px}
+.hero h1{font-family:'Noto Serif Malayalam',serif;font-size:1.55rem;margin:0 0 4px;letter-spacing:.2px}
+.hero h1 .arrow{color:var(--sindoor)}
+.hero .sub{color:var(--ink-faded);font-size:.95rem}
+
+nav.tabs{
+  position:sticky;top:0;z-index:10;background:rgba(244,236,218,.95);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(58,47,36,.14);
+  margin:0 -20px 18px;padding:8px 10px;
+  display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
+}
+nav.tabs button{
+  flex:0 0 auto;font-family:'Noto Serif Malayalam',serif;font-size:.92rem;
+  background:transparent;border:1px solid transparent;border-radius:999px;
+  padding:6px 12px;color:var(--ink-soft);cursor:pointer;white-space:nowrap;
+}
+nav.tabs button.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+nav.tabs button:hover:not(.active){background:rgba(28,22,17,.06)}
+
+section.stage{display:none}
+section.stage.active{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+h2.stage-title{font-family:'Noto Serif Malayalam',serif;font-size:1.35rem;margin:8px 0 4px;color:var(--ink)}
+h2.stage-title .num{color:var(--sindoor);margin-right:8px;font-family:'Fraunces',serif;font-style:italic}
+h3{font-family:'Noto Serif Malayalam',serif;font-size:1.08rem;margin:22px 0 8px;color:var(--ink-soft)}
+p{margin:10px 0}
+
+.aside{
+  background:linear-gradient(180deg,rgba(184,128,45,.10),rgba(184,128,45,.04));
+  border-left:3px solid var(--ochre);
+  padding:12px 14px;margin:16px 0;border-radius:0 6px 6px 0;
+  font-size:.97rem;color:var(--ink-soft);
+}
+.aside.teal{border-left-color:var(--teal);background:linear-gradient(180deg,rgba(31,77,74,.10),rgba(31,77,74,.03))}
+.aside.red{border-left-color:var(--sindoor);background:linear-gradient(180deg,rgba(168,48,36,.09),rgba(168,48,36,.03))}
+.aside .tag{display:inline-block;font-family:'Fraunces',serif;font-style:italic;font-size:.8rem;color:var(--ochre);margin-bottom:2px;letter-spacing:.5px}
+.aside.teal .tag{color:var(--teal)}
+.aside.red .tag{color:var(--sindoor)}
+
+.family{margin:18px 0;padding:12px 14px;background:rgba(239,229,204,.55);border-radius:8px;border:1px solid rgba(107,91,72,.15)}
+.family h4{margin:0 0 8px;font-size:1rem;color:var(--sindoor);font-family:'Noto Serif Malayalam',serif}
+.grid{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(128px,1fr))}
+.card{
+  background:var(--paper);border:1px solid rgba(107,91,72,.22);border-radius:8px;
+  padding:10px;cursor:pointer;text-align:center;transition:.2s;
+  box-shadow:0 1px 0 rgba(28,22,17,.04);
+}
+.card:hover{border-color:var(--ochre);transform:translateY(-1px)}
+.card .big{font-size:1.7rem;line-height:1.1;color:var(--ink)}
+.card .big .kn{color:var(--sindoor)}
+.card .mid{font-size:.82rem;color:var(--ink-faded);margin-top:4px}
+.card .hint{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(107,91,72,.3);font-size:.85rem;color:var(--ink-soft);text-align:left}
+.card.open .hint{display:block}
+.card .flag{color:var(--sindoor);font-size:.75rem}
+
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.95rem}
+th,td{padding:8px 10px;border-bottom:1px solid rgba(107,91,72,.18);text-align:left;vertical-align:top}
+th{color:var(--ink-faded);font-weight:600;font-size:.85rem;letter-spacing:.3px}
+td .kn{color:var(--sindoor);font-size:1.1em}
+
+.video{margin:16px 0}
+.video-frame{position:relative;padding-top:56.25%;border-radius:8px;overflow:hidden;background:#000}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-caption{font-size:.88rem;color:var(--ink-faded);margin-top:6px}
+.video-caption a{color:var(--teal);text-decoration:none;border-bottom:1px dotted var(--teal)}
+
+.passage{background:rgba(239,229,204,.6);padding:14px 16px;border-radius:8px;margin:14px 0;border:1px solid rgba(107,91,72,.18)}
+.passage .target{font-size:1.1rem;color:var(--ink);line-height:1.9;margin-bottom:8px}
+.passage .trans{margin-bottom:6px}
+.passage .gloss{color:var(--ink-soft);font-size:.95rem;padding-top:8px;border-top:1px dashed rgba(107,91,72,.3)}
+
+.nav-btns{display:flex;justify-content:space-between;margin-top:30px;padding-top:16px;border-top:1px solid rgba(107,91,72,.2)}
+.nav-btns button{
+  font-family:'Noto Serif Malayalam',serif;font-size:.95rem;
+  background:var(--ink);color:var(--paper);border:0;border-radius:6px;
+  padding:8px 16px;cursor:pointer;
+}
+.nav-btns button:disabled{opacity:.35;cursor:not-allowed}
+
+footer{margin-top:40px;padding-top:18px;border-top:1px solid rgba(107,91,72,.22);text-align:center;color:var(--ink-faded);font-size:.88rem;font-family:'Fraunces',serif;font-style:italic}
+
+@media (max-width:480px){
+  body{font-size:16px}
+  .wrap{padding:16px 14px 60px}
+  nav.tabs{margin:0 -14px 14px}
+  .hero h1{font-size:1.3rem}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
+  .card .big{font-size:1.5rem}
+  table{font-size:.9rem}
+  th,td{padding:6px 6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>മലയാളം <span class="arrow">→</span> <span class="kn">ಕನ್ನಡ</span></h1>
+  <div class="sub">സോദരഭാഷയിലേക്ക് ഒരു ചെറുയാത്ര · <span class="display">ഭാഷാസേതു</span></div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-i="0" class="active">00 · പരിചയം</button>
+  <button data-i="1">01 · സ്വരം</button>
+  <button data-i="2">02 · വ്യഞ്ജനം</button>
+  <button data-i="3">03 · സംയോജനം</button>
+  <button data-i="4">04 · പദങ്ങൾ</button>
+  <button data-i="5">05 · വാക്യം</button>
+  <button data-i="6">06 · വായന</button>
+  <button data-i="7">07 · പദമേഖല</button>
+  <button data-i="8">08 · ഉപയോഗം</button>
+  <button data-i="9">09 · സാഹിത്യം</button>
+</nav>
+
+<section id="stage-00" class="stage active">
+  <h2 class="stage-title"><span class="num">00</span>പരിചയം</h2>
+  <p>നാം ചെറുപ്പത്തിൽ <em>സ്വരവും വ്യഞ്ജനവും</em> എന്ന ക്രമത്തിൽ അക്ഷരമാല പഠിച്ചതുപോലെ, കന്നഡയും അതേ വഴിയിൽ തന്നെ നടക്കുന്നു. ഒരു തമിഴ്, തെലുഗു, മലയാളം, കന്നഡ — ഈ നാല് സോദരിമാർക്കും ഒരേ അമ്മ: ദ്രാവിഡം. അതിൽ കന്നഡയും മലയാളവും തുളു-കൊഡഗ് അതിർത്തിയിലൂടെ കൈകോർക്കുന്നു; സംഘകാലത്തിലേ ഈ അടുപ്പം.</p>
+  <p>ഒരു ഉദാഹരണം: <strong>ഞാൻ വെള്ളം കുടിക്കുന്നു</strong> — കന്നഡയിൽ <span class="kn">ನಾನು ನೀರು ಕುಡಿಯುತ್ತೇನೆ</span> (<span class="mono">nānu nīru kuḍiyuttēne</span>). കർത്താവ്, കർമ്മം, ക്രിയ — ഒരേ ക്രമം. വാക്കുകളും പരിചിതം: <em>നീര്</em> ↔ <span class="kn">ನೀರು</span>, <em>കുടി</em> ↔ <span class="kn">ಕುಡಿ</span>. ഏകദേശം <strong>47-ൽ 46 ധ്വനികൾ</strong> (98%) നമ്മുടെ നാവിന് ഇതിനകം പരിചയമുള്ളതാണ്; പുതിയത് ഒരേയൊരു <span class="kn">ಋ</span> മാത്രം.</p>
+  <p>പദസഞ്ചയത്തിൽ <strong>~62%</strong> സമാനത. ക്രിയാരൂപങ്ങളിൽ ഒരു വെല്ലുവിളി: കന്നഡ പുരുഷനും സ്ത്രീയും ജഡത്തിനും വ്യത്യസ്ത ക്രിയാപ്രത്യയം നൽകുന്നു; മലയാളത്തിൽ നാം അത് മറന്നുപോയി.</p>
+
+  <h3>ആറ് തത്ത്വങ്ങൾ</h3>
+  <div class="aside"><span class="tag">01 · സ്വാഗതം</span> രണ്ട് ലിപികളും <em>അബുഗിദ</em> — വ്യഞ്ജനത്തിൽ <span class="kn">ಅ</span> അന്തർലീനം, സ്വരചിഹ്നം ചേർത്ത് മാറ്റുന്നു. <em>ക + ാ = കാ</em> എന്ന നിയമം തന്നെ <span class="kn">ಕ + ಾ = ಕಾ</span>. നിങ്ങൾക്ക് ലിപിയുടെ <em>യുക്തി</em> ഇതിനകം അറിയാം; ആകൃതി മാത്രം പഠിക്കണം.</div>
+  <div class="aside teal"><span class="tag">02 · സ്വരയോജന</span> ഹ്രസ്വ-ദീർഘ വ്യത്യാസം രണ്ടിലും ജീവനോടെയുണ്ട്: <em>എ/ഏ, ഒ/ഓ</em> ↔ <span class="kn">ಎ/ಏ, ಒ/ಓ</span>. സംസ്കൃതം വരുത്തിയ ഹിന്ദി-ബംഗാളിക്ക് ഈ ഇരുട്ട്-വെളിച്ചം നഷ്ടമായി; നമുക്കും അവർക്കും അത് തൊട്ടുതന്നെയുണ്ട്.</div>
+  <div class="aside"><span class="tag">03 · വാക്യക്രമം</span> SOV — കർത്താവ്, കർമ്മം, ക്രിയ. <em>അവൻ പുസ്തകം വായിക്കുന്നു</em> ↔ <span class="kn">ಅವನು ಪುಸ್ತಕ ಓದುತ್ತಾನೆ</span>. വാക്കുകൾ വെച്ചുമാറിയാൽ മതി; മനസ്സ് മാറ്റേണ്ടതില്ല.</div>
+  <div class="aside red"><span class="tag">04 · ലിംഗഭേദം</span> മലയാളത്തിൽ ക്രിയയ്ക്ക് ലിംഗമില്ല — <em>അവൻ ചെയ്യുന്നു, അവൾ ചെയ്യുന്നു</em>. കന്നഡയിൽ പുരുഷന് <span class="kn">ಮಾಡುತ್ತಾನೆ</span>, സ്ത്രീക്ക് <span class="kn">ಮಾಡುತ್ತಾಳೆ</span>, ജഡത്തിന് <span class="kn">ಮಾಡುತ್ತದೆ</span>. ഇതാണ് യഥാർത്ഥ പുതുമ.</div>
+  <div class="aside"><span class="tag">05 · ള ↔ ಳ</span> ദ്രാവിഡരുടെ മൂർധന്യ <em>ള</em> രണ്ടിലും ജീവിച്ചിരിക്കുന്നു. <em>പാൽ</em> ↔ <span class="kn">ಹಾಲು</span>-ൽ ളയില്ല, പക്ഷേ <em>ഇളനീര്</em> പോലത്തെ വാക്കുകളിൽ <span class="kn">ಳ</span> അതേപടി നിൽക്കുന്നു. ഉത്തരേന്ത്യൻ ഭാഷകൾക്ക് ഈ ശബ്ദം അറിയില്ല.</div>
+  <div class="aside teal"><span class="tag">06 · ഴയുടെ വേദന</span> മലയാളത്തിന്റെ അഭിമാനമായ <em>ഴ</em> (മഴ, വഴി, കൊഴുപ്പ്) കന്നഡയിൽ നിലനിൽക്കുന്നില്ല. പഴയ കന്നഡ ശാസനങ്ങളിൽ ഉണ്ടായിരുന്നെങ്കിലും ഇന്ന് അത് <span class="kn">ಳ</span>-യായി ലയിച്ചു: <em>മഴ</em> ↔ <span class="kn">ಮಳೆ</span>, <em>വഴി</em> ↔ <span class="kn">ದಾರಿ</span>.</div>
+</section>
+<section id="stage-01" class="stage">
+  <h2 class="stage-title"><span class="num">01</span>സ്വരം</h2>
+  <p>കന്നഡയിൽ 13 സ്വരങ്ങൾ. മലയാളവുമായി താരതമ്യം ചെയ്താൽ ഒരു പുതിയ മുഖം മാത്രം: <span class="kn">ಋ</span>. ബാക്കിയെല്ലാം പഴയ സുഹൃത്തുക്കൾ. ഹ്രസ്വവും ദീർഘവും രണ്ട് ഭാഷയിലും വ്യത്യസ്ത അർത്ഥം നൽകുന്നു — ഈ സൂക്ഷ്മത നമുക്ക് ജന്മസിദ്ധം.</p>
+
+  <div class="family">
+    <h4>'അ' കുടുംബം</h4>
+    <div class="grid">
+      <div class="card"><div class="big">അ → <span class="kn">ಅ</span></div><div class="mid mono">a · ഹ്രസ്വ</div><div class="hint"><span class="kn">ಅಮ್ಮ</span> (amma) = അമ്മ. അതേ ശബ്ദം, അതേ അർത്ഥം.</div></div>
+      <div class="card"><div class="big">ആ → <span class="kn">ಆ</span></div><div class="mid mono">aː · ദീർഘ</div><div class="hint"><span class="kn">ಆನೆ</span> (āne) = ആന. ദീർഘം നീളുന്നത് നാവിന് അറിയാം.</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ഇ' കുടുംബം</h4>
+    <div class="grid">
+      <div class="card"><div class="big">ഇ → <span class="kn">ಇ</span></div><div class="mid mono">i · ഹ്രസ്വ</div><div class="hint"><span class="kn">ಇದು</span> (idu) = ഇത്. ചൂണ്ടിക്കാട്ടും വാക്ക്.</div></div>
+      <div class="card"><div class="big">ഈ → <span class="kn">ಈ</span></div><div class="mid mono">iː · ദീർഘ</div><div class="hint"><span class="kn">ಈಗ</span> (īga) = ഇപ്പോൾ.</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ഉ' കുടുംബം</h4>
+    <div class="grid">
+      <div class="card"><div class="big">ഉ → <span class="kn">ಉ</span></div><div class="mid mono">u · ഹ്രസ്വ</div><div class="hint"><span class="kn">ಉಪ್ಪು</span> (uppu) = ഉപ്പ്. ഒരേ വാക്ക്.</div></div>
+      <div class="card"><div class="big">ഊ → <span class="kn">ಊ</span></div><div class="mid mono">uː · ദീർഘ</div><div class="hint"><span class="kn">ಊಟ</span> (ūṭa) = ഊണ്, ഭക്ഷണം.</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ഋ' — ഏകാന്ത അതിഥി <span class="flag" style="color:var(--sindoor)">⚡</span></h4>
+    <div class="grid">
+      <div class="card"><div class="big">— → <span class="kn">ಋ</span></div><div class="mid mono">ɾu · പുതിയത്</div><div class="hint">മലയാളത്തിൽ 'ഋ' ലിപിയിലുണ്ടെങ്കിലും നാം <em>രു</em> എന്ന് ഉച്ചരിക്കുന്നു. കന്നഡയിലും <em>രു</em> തന്നെ — <span class="kn">ಋಷಿ</span> = ഋഷി. ഭയപ്പെടേണ്ട.</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'എ' കുടുംബം — ദ്രാവിഡ നിധി</h4>
+    <div class="grid">
+      <div class="card"><div class="big">എ → <span class="kn">ಎ</span></div><div class="mid mono">e · ഹ്രസ്വ</div><div class="hint"><span class="kn">ಎರಡು</span> (eraḍu) = ഇരണ്ട്, രണ്ട്.</div></div>
+      <div class="card"><div class="big">ഏ → <span class="kn">ಏ</span></div><div class="mid mono">eː · ദീർഘ</div><div class="hint"><span class="kn">ಏಳು</span> (ēḷu) = ഏഴ്. ളയും ദീർഘവും അതേപടി.</div></div>
+      <div class="card"><div class="big">ഐ → <span class="kn">ಐ</span></div><div class="mid mono">ai · ദ്വിസ്വരം</div><div class="hint"><span class="kn">ಐದು</span> (aidu) = അഞ്ച്. ഐ ശബ്ദം ഒന്നു തന്നെ.</div></div>
+    </div>
+    <div class="aside teal" style="margin-top:10px"><span class="tag">സഹോദരലക്ഷണം</span> സംസ്കൃതം-വഴിവന്ന ഹിന്ദിയിൽ <em>എ</em>-യും <em>ഏ</em>-യും ഒന്നാണ്. പക്ഷേ നമുക്ക് രണ്ടും വേറെ — <em>എരി</em> ≠ <em>ഏറി</em>. കന്നഡയും ഈ വേർതിരിവ് കാത്തുസൂക്ഷിക്കുന്നു. ദ്രാവിഡമുദ്ര!</div>
+  </div>
+
+  <div class="family">
+    <h4>'ഒ' കുടുംബം</h4>
+    <div class="grid">
+      <div class="card"><div class="big">ഒ → <span class="kn">ಒ</span></div><div class="mid mono">o · ഹ്രസ്വ</div><div class="hint"><span class="kn">ಒಂದು</span> (ondu) = ഒന്ന്. അതേ അക്കം.</div></div>
+      <div class="card"><div class="big">ഓ → <span class="kn">ಓ</span></div><div class="mid mono">oː · ദീർഘ</div><div class="hint"><span class="kn">ಓದು</span> (ōdu) = വായിക്കുക.</div></div>
+      <div class="card"><div class="big">ഔ → <span class="kn">ಔ</span></div><div class="mid mono">au · ദ്വിസ്വരം</div><div class="hint"><span class="kn">ಔಷಧಿ</span> (auṣadhi) = ഔഷധം.</div></div>
+    </div>
+  </div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+kannada+vowels+swaragalu+pronunciation" title="Kannada vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">കന്നഡ സ്വരങ്ങൾ ഉച്ചരിക്കുന്നത് കേൾക്കുക · <a href="https://www.youtube.com/results?search_query=learn+kannada+vowels+swaragalu+pronunciation" target="_blank" rel="noopener">കൂടുതൽ തിരയുക ↗</a></div>
+  </div>
+</section>
+<section id="stage-02" class="stage">
+  <h2 class="stage-title"><span class="num">02</span>വ്യഞ്ജനം</h2>
+  <p>പാണിനിയുടെ <em>വർഗ്ഗം</em> ക്രമം രണ്ട് ലിപികളിലും ഒന്ന്. ഓരോ വർഗ്ഗത്തിലും അഞ്ച് അക്ഷരം: അഘോഷാൽപപ്രാണ, അഘോഷമഹാപ്രാണ, ഘോഷാൽപപ്രാണ, ഘോഷമഹാപ്രാണ, അനുനാസികം. ഒന്നുമറിയാതെ തന്നെ നിങ്ങൾക്ക് ഇത് മനഃപാഠമാണ്.</p>
+
+  <h3>കണ്ഠ്യവർഗ്ഗം (ക-വർഗ്ഗം)</h3>
+  <div class="grid">
+    <div class="card"><div class="big">ക → <span class="kn">ಕ</span></div><div class="mid mono">ka</div><div class="hint"><span class="kn">ಕೈ</span> = കൈ. ഒരേ ശബ്ദം, ഒരേ അർത്ഥം.</div></div>
+    <div class="card"><div class="big">ഖ → <span class="kn">ಖ</span></div><div class="mid mono">kha</div><div class="hint">സംസ്കൃതാഗത വാക്കുകളിൽ: <span class="kn">ಖಗ</span> = ഖഗം (പക്ഷി).</div></div>
+    <div class="card"><div class="big">ഗ → <span class="kn">ಗ</span></div><div class="mid mono">ga</div><div class="hint"><span class="kn">ಗುರು</span> = ഗുരു.</div></div>
+    <div class="card"><div class="big">ഘ → <span class="kn">ಘ</span></div><div class="mid mono">gha</div><div class="hint"><span class="kn">ಘಂಟೆ</span> = ഘടികാരം, മണിക്കൂർ.</div></div>
+    <div class="card"><div class="big">ങ → <span class="kn">ಙ</span></div><div class="mid mono">ṅa</div><div class="hint">ഒരുപാട് ഉപയോഗമില്ല; സംയുക്താക്ഷരങ്ങളിൽ മാത്രം.</div></div>
+  </div>
+
+  <h3>താലവ്യവർഗ്ഗം (ച-വർഗ്ഗം)</h3>
+  <div class="grid">
+    <div class="card"><div class="big">ച → <span class="kn">ಚ</span></div><div class="mid mono">ca</div><div class="hint"><span class="kn">ಚಂದ್ರ</span> = ചന്ദ്രൻ.</div></div>
+    <div class="card"><div class="big">ഛ → <span class="kn">ಛ</span></div><div class="mid mono">cha</div><div class="hint"><span class="kn">ಛಾಯೆ</span> = ഛായ.</div></div>
+    <div class="card"><div class="big">ജ → <span class="kn">ಜ</span></div><div class="mid mono">ja</div><div class="hint"><span class="kn">ಜಲ</span> = ജലം.</div></div>
+    <div class="card"><div class="big">ഝ → <span class="kn">ಝ</span></div><div class="mid mono">jha</div><div class="hint">അപൂർവ്വം.</div></div>
+    <div class="card"><div class="big">ഞ → <span class="kn">ಞ</span></div><div class="mid mono">ña</div><div class="hint">സംയുക്താക്ഷരത്തിൽ: <span class="kn">ಜ್ಞಾನ</span> = ജ്ഞാനം.</div></div>
+  </div>
+
+  <h3>മൂർധന്യവർഗ്ഗം (ട-വർഗ്ഗം)</h3>
+  <div class="grid">
+    <div class="card"><div class="big">ട → <span class="kn">ಟ</span></div><div class="mid mono">ṭa</div><div class="hint"><span class="kn">ಟೀ</span> = ചായ.</div></div>
+    <div class="card"><div class="big">ഠ → <span class="kn">ಠ</span></div><div class="mid mono">ṭha</div></div>
+    <div class="card"><div class="big">ഡ → <span class="kn">ಡ</span></div><div class="mid mono">ḍa</div><div class="hint"><span class="kn">ಡಬ್ಬಿ</span> = ഡബ്ബ.</div></div>
+    <div class="card"><div class="big">ഢ → <span class="kn">ಢ</span></div><div class="mid mono">ḍha</div></div>
+    <div class="card"><div class="big">ണ → <span class="kn">ಣ</span></div><div class="mid mono">ṇa</div><div class="hint"><span class="kn">ಕಣ್ಣು</span> = കണ്ണ്. മൂർധന്യ ണ അതേപടി.</div></div>
+  </div>
+
+  <h3>ദന്ത്യവർഗ്ഗം (ത-വർഗ്ഗം)</h3>
+  <div class="grid">
+    <div class="card"><div class="big">ത → <span class="kn">ತ</span></div><div class="mid mono">ta</div><div class="hint"><span class="kn">ತಲೆ</span> = തല.</div></div>
+    <div class="card"><div class="big">ഥ → <span class="kn">ಥ</span></div><div class="mid mono">tha</div></div>
+    <div class="card"><div class="big">ദ → <span class="kn">ದ</span></div><div class="mid mono">da</div><div class="hint"><span class="kn">ದಾರಿ</span> = വഴി.</div></div>
+    <div class="card"><div class="big">ധ → <span class="kn">ಧ</span></div><div class="mid mono">dha</div></div>
+    <div class="card"><div class="big">ന → <span class="kn">ನ</span></div><div class="mid mono">na</div><div class="hint"><span class="kn">ನಾನು</span> = ഞാൻ.</div></div>
+  </div>
+
+  <h3>ഓഷ്ഠ്യവർഗ്ഗം (പ-വർഗ്ഗം)</h3>
+  <div class="grid">
+    <div class="card"><div class="big">പ → <span class="kn">ಪ</span></div><div class="mid mono">pa</div><div class="hint"><span class="kn">ಪುಸ್ತಕ</span> = പുസ്തകം.</div></div>
+    <div class="card"><div class="big">ഫ → <span class="kn">ಫ</span></div><div class="mid mono">pha</div></div>
+    <div class="card"><div class="big">ബ → <span class="kn">ಬ</span></div><div class="mid mono">ba</div><div class="hint"><span class="kn">ಬಾ</span> = വാ, വരിക.</div></div>
+    <div class="card"><div class="big">ഭ → <span class="kn">ಭ</span></div><div class="mid mono">bha</div><div class="hint"><span class="kn">ಭೂಮಿ</span> = ഭൂമി.</div></div>
+    <div class="card"><div class="big">മ → <span class="kn">ಮ</span></div><div class="mid mono">ma</div><div class="hint"><span class="kn">ಮನೆ</span> = വീട്.</div></div>
+  </div>
+
+  <h3>അന്തസ്ഥ, ഊഷ്മ, സവിശേഷം</h3>
+  <div class="grid">
+    <div class="card"><div class="big">യ → <span class="kn">ಯ</span></div><div class="mid mono">ya</div></div>
+    <div class="card"><div class="big">ര → <span class="kn">ರ</span></div><div class="mid mono">ra</div></div>
+    <div class="card"><div class="big">ല → <span class="kn">ಲ</span></div><div class="mid mono">la</div></div>
+    <div class="card"><div class="big">വ → <span class="kn">ವ</span></div><div class="mid mono">va</div></div>
+    <div class="card"><div class="big">ശ → <span class="kn">ಶ</span></div><div class="mid mono">śa</div></div>
+    <div class="card"><div class="big">ഷ → <span class="kn">ಷ</span></div><div class="mid mono">ṣa</div></div>
+    <div class="card"><div class="big">സ → <span class="kn">ಸ</span></div><div class="mid mono">sa</div></div>
+    <div class="card"><div class="big">ഹ → <span class="kn">ಹ</span></div><div class="mid mono">ha</div><div class="hint">കന്നഡയിൽ <span class="kn">ಹ</span> പ്രത്യേകം പ്രധാനം — പഴയ <em>പ</em> പലപ്പോഴും <em>ഹ</em>-യായി: പാൽ → <span class="kn">ಹಾಲು</span>, പൂ → <span class="kn">ಹೂವು</span>, പത്ത് → <span class="kn">ಹತ್ತು</span>.</div></div>
+    <div class="card"><div class="big">ള → <span class="kn">ಳ</span></div><div class="mid mono">ḷa · പങ്കിടൽ</div><div class="hint"><span class="kn">ಮಳೆ</span> = മഴ. ചിഹ്നം അതേ; മലയാളത്തിലെ <em>ഴ</em> കന്നഡയിൽ <span class="kn">ಳ</span>-യായി കലർന്നു.</div></div>
+  </div>
+
+  <div class="aside red"><span class="tag">ചില്ലില്ല</span> മലയാളത്തിന്റെ <em>ചില്ലക്ഷരങ്ങൾ</em> — ൻ, ർ, ൽ, ൾ, ൺ — കന്നഡയിൽ ഇല്ല. വാക്യാന്ത്യത്തിൽ വ്യഞ്ജനം നിർത്തണമെങ്കിൽ കന്നഡ വിരാമം <span class="kn">್</span> ഉപയോഗിക്കുന്നു: <em>അവൻ</em> → <span class="kn">ಅವನ್</span>, പക്ഷേ സാധാരണ <span class="kn">ಅವನು</span> (അവനു) എന്ന് <em>ഉ</em> ചേർക്കുന്നു.</div>
+  <div class="aside"><span class="tag">ഴ എവിടെ?</span> മലയാളത്തിന്റെ അഭിമാനമായ <em>ഴ</em> കന്നഡയിൽ ലയിച്ചുപോയി. <em>മഴ</em> → <span class="kn">ಮಳೆ</span>, <em>കഴുത്ത്</em> → <span class="kn">ಕುತ್ತಿಗೆ</span>, <em>വഴി</em> → <span class="kn">ದಾರಿ</span>. പഴയ കന്നഡയിൽ ഉണ്ടായിരുന്നു (ഴ്), പക്ഷേ ആധുനികകാലത്ത് ളയായി.</div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+kannada+consonants+vyanjanagalu+pronunciation" title="Kannada consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">കന്നഡ വ്യഞ്ജനങ്ങൾ കേൾക്കുക · <a href="https://www.youtube.com/results?search_query=learn+kannada+consonants+vyanjanagalu+pronunciation" target="_blank" rel="noopener">കൂടുതൽ തിരയുക ↗</a></div>
+  </div>
+</section>
+<section id="stage-03" class="stage">
+  <h2 class="stage-title"><span class="num">03</span>സംയോജനം</h2>
+  <p>വ്യഞ്ജനത്തിൽ സ്വരചിഹ്നം ചേർക്കുന്ന രീതി രണ്ട് ലിപിയിലും ഏതാണ്ട് ഒരേ യുക്തി. <em>ക</em>-യിൽ ചിഹ്നം ചേർത്ത് എല്ലാ സ്വരങ്ങളും വരുത്താം:</p>
+
+  <table>
+    <tr><th>സ്വരം</th><th>മലയാളം</th><th>കന്നഡ</th><th>മാത്ര</th></tr>
+    <tr><td>ആ</td><td>കാ</td><td class="kn">ಕಾ</td><td class="mono">aː</td></tr>
+    <tr><td>ഇ</td><td>കി</td><td class="kn">ಕಿ</td><td class="mono">i</td></tr>
+    <tr><td>ഈ</td><td>കീ</td><td class="kn">ಕೀ</td><td class="mono">iː</td></tr>
+    <tr><td>ഉ</td><td>കു</td><td class="kn">ಕು</td><td class="mono">u</td></tr>
+    <tr><td>ഊ</td><td>കൂ</td><td class="kn">ಕೂ</td><td class="mono">uː</td></tr>
+    <tr><td>എ</td><td>കെ</td><td class="kn">ಕೆ</td><td class="mono">e</td></tr>
+    <tr><td>ഏ</td><td>കേ</td><td class="kn">ಕೇ</td><td class="mono">eː</td></tr>
+    <tr><td>ഐ</td><td>കൈ</td><td class="kn">ಕೈ</td><td class="mono">ai</td></tr>
+    <tr><td>ഒ</td><td>കൊ</td><td class="kn">ಕೊ</td><td class="mono">o</td></tr>
+    <tr><td>ഓ</td><td>കോ</td><td class="kn">ಕೋ</td><td class="mono">oː</td></tr>
+    <tr><td>ഔ</td><td>കൗ</td><td class="kn">ಕೌ</td><td class="mono">au</td></tr>
+  </table>
+
+  <div class="aside teal"><span class="tag">വിദ്യാസാഗർ-യുക്തി</span> ഈ 11 ചിഹ്നങ്ങൾ 34 വ്യഞ്ജനങ്ങളുടെ മേൽ ഒരേ ക്രമത്തിൽ ചേരും. 11 × 34 = 374 രൂപങ്ങൾ — വെറും 11 ചിഹ്നങ്ങളുടെ വിലയിൽ! നിങ്ങൾക്ക് ഇത് അറിയാം; പുതിയ ആകൃതി മാത്രം ശീലിച്ചാൽ മതി.</div>
+
+  <h3>വിരാമം — ചന്ദ്രക്കലയുടെ ജോടി</h3>
+  <p>മലയാളത്തിലെ <em>ചന്ദ്രക്കല</em> ( ് ) കന്നഡയിൽ <em>വിരാമ</em> ( <span class="kn">್</span> ) — സ്വരം ഇല്ലാതാക്കാനുള്ള ചിഹ്നം. <em>ക്</em> ↔ <span class="kn">ಕ್</span>.</p>
+
+  <h3>സംയുക്താക്ഷരം</h3>
+  <table>
+    <tr><th>ശബ്ദം</th><th>മലയാളം</th><th>കന്നഡ</th><th>വിശദീകരണം</th></tr>
+    <tr><td>kka</td><td>ക്ക</td><td class="kn">ಕ್ಕ</td><td>ക് + ക</td></tr>
+    <tr><td>nna</td><td>ന്ന</td><td class="kn">ನ್ನ</td><td>ന് + ന</td></tr>
+    <tr><td>stri</td><td>സ്ത്രി</td><td class="kn">ಸ್ತ್ರಿ</td><td>സ് + ത് + രി</td></tr>
+    <tr><td>jña</td><td>ജ്ഞ</td><td class="kn">ಜ್ಞ</td><td>ജ് + ഞ (ജ്ഞാനം ↔ <span class="kn">ಜ್ಞಾನ</span>)</td></tr>
+    <tr><td>kṣa</td><td>ക്ഷ</td><td class="kn">ಕ್ಷ</td><td>ക് + ഷ</td></tr>
+  </table>
+  <div class="aside"><span class="tag">രൂപഭേദം, യുക്തി ഒന്ന്</span> കന്നഡ സംയുക്താക്ഷരത്തിൽ രണ്ടാം വ്യഞ്ജനം <em>താഴെ ചെറുതായി</em> ഇരിക്കുന്നു (ottu എന്ന് വിളിക്കുന്നു). മലയാളത്തിൽ നാം അത് പല തരത്തിൽ — ചിലത് താഴെ, ചിലത് വശത്തേക്ക്, ചിലത് പൂർണ്ണസംയോജനം. ശീലിക്കാൻ എളുപ്പം; ഒരു തത്ത്വമേയുള്ളൂ.</div>
+</section>
+<section id="stage-04" class="stage">
+  <h2 class="stage-title"><span class="num">04</span>പദങ്ങൾ</h2>
+  <p>ഒരേ ദ്രാവിഡ വേരുകളിൽ നിന്ന് വന്ന വാക്കുകൾ പലതും ഇന്നും തിരിച്ചറിയാം. സംസ്കൃതാഗത <em>തത്സമം</em> വാക്കുകൾ രണ്ടിലും ഒന്നേ.</p>
+
+  <h3>സർവ്വനാമങ്ങൾ</h3>
+  <table>
+    <tr><th>കന്നഡ</th><th>ഉച്ചാരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="kn">ನಾನು</td><td class="mono">nānu</td><td>ഞാൻ</td></tr>
+    <tr><td class="kn">ನೀನು</td><td class="mono">nīnu</td><td>നീ</td></tr>
+    <tr><td class="kn">ನೀವು</td><td class="mono">nīvu</td><td>നിങ്ങൾ (ബഹുവചനം / ബഹുമാനം)</td></tr>
+    <tr><td class="kn">ಅವನು</td><td class="mono">avanu</td><td>അവൻ</td></tr>
+    <tr><td class="kn">ಅವಳು</td><td class="mono">avaḷu</td><td>അവൾ</td></tr>
+    <tr><td class="kn">ಅದು</td><td class="mono">adu</td><td>അത്</td></tr>
+    <tr><td class="kn">ಇದು</td><td class="mono">idu</td><td>ഇത്</td></tr>
+    <tr><td class="kn">ನಾವು</td><td class="mono">nāvu</td><td>ഞങ്ങൾ / നാം</td></tr>
+    <tr><td class="kn">ಅವರು</td><td class="mono">avaru</td><td>അവർ (ബഹുമാനം: അദ്ദേഹം, അവർ)</td></tr>
+  </table>
+  <div class="aside teal"><span class="tag">നാം ഒരേ</span> മലയാളത്തിൽ <em>നാം</em> (ഉൾപ്പെടെ) vs <em>ഞങ്ങൾ</em> (ഒഴിവാക്കി) — ഈ വേർതിരിവ് ദ്രാവിഡമുദ്ര. കന്നഡയിൽ <span class="kn">ನಾವು</span> രണ്ടിനും, പക്ഷേ പഴയ കന്നഡയിൽ <span class="kn">ನಾವು / ಎಮ್ಮ</span> എന്ന ഇരട്ടയുണ്ടായിരുന്നു. തമിഴ്-മലയാളം മാത്രമാണ് ഇത് ഇന്നും കാത്തുസൂക്ഷിക്കുന്നത്.</div>
+
+  <h3>സാധാരണ നാമങ്ങൾ</h3>
+  <table>
+    <tr><th>കന്നഡ</th><th>ഉച്ചാരണം</th><th>മലയാളം</th><th>കുറിപ്പ്</th></tr>
+    <tr><td class="kn">ಮನೆ</td><td class="mono">mane</td><td>വീട്</td><td>ദ്രാവിഡം · cf. തമിഴ് മനൈ</td></tr>
+    <tr><td class="kn">ನೀರು</td><td class="mono">nīru</td><td>വെള്ളം, നീര്</td><td>ദ്രാവിഡം · <em>നീര്</em> നമ്മിലും ഉണ്ട്</td></tr>
+    <tr><td class="kn">ಊಟ</td><td class="mono">ūṭa</td><td>ഊണ്</td><td>ദ്രാവിഡം · ഒരേ വേര്</td></tr>
+    <tr><td class="kn">ಹೆಸರು</td><td class="mono">hesaru</td><td>പേര്</td><td>ദ്രാവിഡം · പഴയ <em>പെസർ</em></td></tr>
+    <tr><td class="kn">ಪುಸ್ತಕ</td><td class="mono">pustaka</td><td>പുസ്തകം</td><td>തത്സമം</td></tr>
+    <tr><td class="kn">ಶಾಲೆ</td><td class="mono">śāle</td><td>സ്കൂൾ, ശാല</td><td>തത്സമം</td></tr>
+    <tr><td class="kn">ಹಣ</td><td class="mono">haṇa</td><td>പണം</td><td>ദ്രാവിഡം · പ → ഹ</td></tr>
+    <tr><td class="kn">ದಾರಿ</td><td class="mono">dāri</td><td>വഴി, ദാരി</td><td>ദ്രാവിഡം</td></tr>
+    <tr><td class="kn">ಸಮಯ</td><td class="mono">samaya</td><td>സമയം</td><td>തത്സമം</td></tr>
+    <tr><td class="kn">ದಿನ</td><td class="mono">dina</td><td>ദിനം</td><td>തത്സമം</td></tr>
+    <tr><td class="kn">ಹಾಲು</td><td class="mono">hālu</td><td>പാൽ</td><td>ദ്രാവിഡം · <em>പാൽ → ഹാലു</em></td></tr>
+    <tr><td class="kn">ಅನ್ನ</td><td class="mono">anna</td><td>അന്നം, ചോറ്</td><td>തത്സമം</td></tr>
+    <tr><td class="kn">ಹಣ್ಣು</td><td class="mono">haṇṇu</td><td>പഴം</td><td>ദ്രാവിഡം · <em>പഴം → ഹണ്ണു</em></td></tr>
+    <tr><td class="kn">ಮರ</td><td class="mono">mara</td><td>മരം</td><td>ദ്രാവിഡം</td></tr>
+    <tr><td class="kn">ಸೂರ್ಯ</td><td class="mono">sūrya</td><td>സൂര്യൻ</td><td>തത്സമം</td></tr>
+    <tr><td class="kn">ಮಳೆ</td><td class="mono">maḷe</td><td>മഴ</td><td>ദ്രാവിഡം · ഴ → ള</td></tr>
+    <tr><td class="kn">ಭೂಮಿ</td><td class="mono">bhūmi</td><td>ഭൂമി</td><td>തത്സമം</td></tr>
+    <tr><td class="kn">ಹೂವು</td><td class="mono">hūvu</td><td>പൂവ്</td><td>ദ്രാവിഡം · പൂവ് → ഹൂവു</td></tr>
+    <tr><td class="kn">ಮಗು</td><td class="mono">magu</td><td>കുട്ടി, മകൻ/മകൾ</td><td>ദ്രാവിഡം · മകൻ/മകൾ-ന്റെ വേര്</td></tr>
+    <tr><td class="kn">ಮನುಷ್ಯ</td><td class="mono">manuṣya</td><td>മനുഷ്യൻ</td><td>തത്സമം</td></tr>
+  </table>
+
+  <div class="aside"><span class="tag">പ → ഹ-ത്തിന്റെ ശാസ്ത്രം</span> പഴയ ദ്രാവിഡത്തിന്റെ <em>പ</em> കന്നഡയിൽ <em>ഹ</em>-യായി മാറി — ഏകദേശം 11-12 നൂറ്റാണ്ടുകളിൽ. മലയാളത്തിൽ ഈ മാറ്റം സംഭവിച്ചില്ല. ഇതൊരു താക്കോൽ: <em>പാൽ→ഹാലു, പൂ→ഹൂ, പഴം→ഹണ്ണു, പത്ത്→ഹത്തു, പന്ത്രണ്ട്→ഹನ್ನೆರಡು</em>. ഹ കണ്ടാൽ മലയാളത്തിൽ പ കൊണ്ട് നോക്കൂ — പലപ്പോഴും ശരിയാകും!</div>
+
+  <h3>ക്രിയകൾ</h3>
+  <table>
+    <tr><th>കന്നഡ</th><th>ഉച്ചാരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="kn">ಇರು</td><td class="mono">iru</td><td>ഇരിക്കുക, ഉണ്ടായിരിക്കുക</td></tr>
+    <tr><td class="kn">ಮಾಡು</td><td class="mono">māḍu</td><td>ചെയ്യുക</td></tr>
+    <tr><td class="kn">ಹೋಗು</td><td class="mono">hōgu</td><td>പോവുക</td></tr>
+    <tr><td class="kn">ಬಾ</td><td class="mono">bā</td><td>വരിക</td></tr>
+    <tr><td class="kn">ತಿನ್ನು</td><td class="mono">tinnu</td><td>തിന്നുക</td></tr>
+    <tr><td class="kn">ಕುಡಿ</td><td class="mono">kuḍi</td><td>കുടിക്കുക</td></tr>
+    <tr><td class="kn">ನೋಡು</td><td class="mono">nōḍu</td><td>നോക്കുക</td></tr>
+    <tr><td class="kn">ಕೇಳು</td><td class="mono">kēḷu</td><td>കേൾക്കുക / ചോദിക്കുക</td></tr>
+    <tr><td class="kn">ಓದು</td><td class="mono">ōdu</td><td>വായിക്കുക</td></tr>
+    <tr><td class="kn">ಬರೆ</td><td class="mono">bare</td><td>എഴുതുക</td></tr>
+    <tr><td class="kn">ಹೇಳು</td><td class="mono">hēḷu</td><td>പറയുക</td></tr>
+    <tr><td class="kn">ನಡೆ</td><td class="mono">naḍe</td><td>നടക്കുക</td></tr>
+    <tr><td class="kn">ಓಡು</td><td class="mono">ōḍu</td><td>ഓടുക</td></tr>
+    <tr><td class="kn">ಕೊಡು</td><td class="mono">koḍu</td><td>കൊടുക്കുക</td></tr>
+    <tr><td class="kn">ತೆಗೆದುಕೊ</td><td class="mono">tegedukoḷḷu</td><td>എടുക്കുക</td></tr>
+    <tr><td class="kn">ಗೊತ್ತು</td><td class="mono">gottu</td><td>അറിയാം</td></tr>
+    <tr><td class="kn">ಬೇಕು</td><td class="mono">bēku</td><td>വേണം</td></tr>
+    <tr><td class="kn">ಮಲಗು</td><td class="mono">malagu</td><td>കിടക്കുക, ഉറങ്ങുക</td></tr>
+    <tr><td class="kn">ಕುಳಿತುಕೊ</td><td class="mono">kuḷitukoḷḷu</td><td>ഇരിക്കുക</td></tr>
+    <tr><td class="kn">ನಿಲ್ಲು</td><td class="mono">nillu</td><td>നിൽക്കുക</td></tr>
+  </table>
+
+  <h3>സംഖ്യകൾ</h3>
+  <table>
+    <tr><th>കന്നഡ</th><th>ഉച്ചാരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="kn">ಒಂದು</td><td class="mono">ondu</td><td>ഒന്ന്</td></tr>
+    <tr><td class="kn">ಎರಡು</td><td class="mono">eraḍu</td><td>രണ്ട് (ഇരണ്ട്)</td></tr>
+    <tr><td class="kn">ಮೂರು</td><td class="mono">mūru</td><td>മൂന്ന്</td></tr>
+    <tr><td class="kn">ನಾಲ್ಕು</td><td class="mono">nālku</td><td>നാല്</td></tr>
+    <tr><td class="kn">ಐದು</td><td class="mono">aidu</td><td>അഞ്ച്</td></tr>
+    <tr><td class="kn">ಆರು</td><td class="mono">āru</td><td>ആറ്</td></tr>
+    <tr><td class="kn">ಏಳು</td><td class="mono">ēḷu</td><td>ഏഴ്</td></tr>
+    <tr><td class="kn">ಎಂಟು</td><td class="mono">eṇṭu</td><td>എട്ട്</td></tr>
+    <tr><td class="kn">ಒಂಬತ್ತು</td><td class="mono">ombattu</td><td>ഒമ്പത്</td></tr>
+    <tr><td class="kn">ಹತ್ತು</td><td class="mono">hattu</td><td>പത്ത്</td></tr>
+    <tr><td class="kn">ಇಪ್ಪತ್ತು</td><td class="mono">ippattu</td><td>ഇരുപത്</td></tr>
+    <tr><td class="kn">ಐವತ್ತು</td><td class="mono">aivattu</td><td>അമ്പത്</td></tr>
+    <tr><td class="kn">ನೂರು</td><td class="mono">nūru</td><td>നൂറ്</td></tr>
+  </table>
+</section>
+<section id="stage-05" class="stage">
+  <h2 class="stage-title"><span class="num">05</span>വാക്യം</h2>
+  <p>വാക്യക്രമം രണ്ടിലും SOV — കർത്താവ്, കർമ്മം, ക്രിയ. പക്ഷേ ക്രിയ രൂപപ്പെടുത്തുമ്പോൾ ഒരു വ്യത്യാസമുണ്ട്: <strong>കന്നഡയിൽ ക്രിയ ലിംഗവും വചനവും കാണിക്കുന്നു</strong>.</p>
+
+  <h3>'ചെയ്യുക' (ಮಾಡು) — വർത്തമാനകാലം</h3>
+  <table>
+    <tr><th>പുരുഷൻ</th><th>കന്നഡ</th><th>ഉച്ചാരണം</th><th>മലയാളം</th></tr>
+    <tr><td>ഞാൻ</td><td class="kn">ಮಾಡುತ್ತೇನೆ</td><td class="mono">māḍuttēne</td><td>ചെയ്യുന്നു</td></tr>
+    <tr><td>നീ</td><td class="kn">ಮಾಡುತ್ತೀಯ</td><td class="mono">māḍuttīya</td><td>ചെയ്യുന്നു</td></tr>
+    <tr><td>നിങ്ങൾ</td><td class="kn">ಮಾಡುತ್ತೀರಿ</td><td class="mono">māḍuttīri</td><td>ചെയ്യുന്നു</td></tr>
+    <tr><td>അവൻ</td><td class="kn">ಮಾಡುತ್ತಾನೆ</td><td class="mono">māḍuttāne</td><td>ചെയ്യുന്നു</td></tr>
+    <tr><td>അവൾ</td><td class="kn">ಮಾಡುತ್ತಾಳೆ</td><td class="mono">māḍuttāḷe</td><td>ചെയ്യുന്നു</td></tr>
+    <tr><td>അത്</td><td class="kn">ಮಾಡುತ್ತದೆ</td><td class="mono">māḍuttade</td><td>ചെയ്യുന്നു</td></tr>
+    <tr><td>ഞങ്ങൾ</td><td class="kn">ಮಾಡುತ್ತೇವೆ</td><td class="mono">māḍuttēve</td><td>ചെയ്യുന്നു</td></tr>
+    <tr><td>അവർ</td><td class="kn">ಮಾಡುತ್ತಾರೆ</td><td class="mono">māḍuttāre</td><td>ചെയ്യുന്നു</td></tr>
+  </table>
+  <div class="aside red"><span class="tag">യഥാർത്ഥ പുതുമ</span> മലയാളത്തിൽ ഒരേ <em>ചെയ്യുന്നു</em> എല്ലാവർക്കും. കന്നഡയിൽ പുരുഷൻ (<span class="kn">-ಾನೆ</span>), സ്ത്രീ (<span class="kn">-ಾಳೆ</span>), ജഡം (<span class="kn">-ದೆ</span>), ബഹുവചനം (<span class="kn">-ಾರೆ</span>) — ഓരോന്നിനും വ്യത്യസ്ത പ്രത്യയം. ഹിന്ദി അറിയാമെങ്കിൽ പരിചിതമാകും; അല്ലെങ്കിൽ ഇത് കുറച്ചുദിവസം ശീലിക്കണം.</div>
+
+  <h3>വിഭക്തിപ്രത്യയങ്ങൾ</h3>
+  <table>
+    <tr><th>വിഭക്തി</th><th>മലയാളം</th><th>കന്നഡ</th><th>ഉദാഹരണം</th></tr>
+    <tr><td>കർത്താ (നാമാർത്ഥം)</td><td>—</td><td>—</td><td class="kn">ಮನೆ</td></tr>
+    <tr><td>കർമ്മം</td><td>-എ</td><td class="kn">-ಅನ್ನು</td><td class="kn">ಮನೆಯನ್ನು</td></tr>
+    <tr><td>ഉദ്ദേശിക</td><td>-ക്ക്</td><td class="kn">-ಗೆ</td><td class="kn">ಮನೆಗೆ</td></tr>
+    <tr><td>അധികരണം</td><td>-ഇൽ</td><td class="kn">-ಅಲ್ಲಿ</td><td class="kn">ಮನೆಯಲ್ಲಿ</td></tr>
+    <tr><td>അപാദാനം</td><td>-ഇൽ നിന്ന്</td><td class="kn">-ಇಂದ</td><td class="kn">ಮನೆಯಿಂದ</td></tr>
+    <tr><td>സംബന്ധിക</td><td>-ന്റെ / -ഉടെ</td><td class="kn">-ಅ</td><td class="kn">ಮನೆಯ</td></tr>
+  </table>
+
+  <h3>ഉദാഹരണ വാക്യങ്ങൾ</h3>
+  <table>
+    <tr><th>കന്നഡ</th><th>മലയാളം</th></tr>
+    <tr><td class="kn">ನಾನು ಮನೆಗೆ ಹೋಗುತ್ತೇನೆ.<br><span class="mono">nānu manege hōguttēne.</span></td><td>ഞാൻ വീട്ടിലേക്ക് പോകുന്നു.</td></tr>
+    <tr><td class="kn">ಅವಳು ಪುಸ್ತಕ ಓದುತ್ತಾಳೆ.<br><span class="mono">avaḷu pustaka ōduttāḷe.</span></td><td>അവൾ പുസ്തകം വായിക്കുന്നു.</td></tr>
+    <tr><td class="kn">ಅವನಿಗೆ ಹಾಲು ಬೇಕು.<br><span class="mono">avanige hālu bēku.</span></td><td>അവന് പാൽ വേണം.</td></tr>
+  </table>
+
+  <h3>നിഷേധം</h3>
+  <p>മലയാളത്തിൽ <em>ഇല്ല, അല്ല</em> — കന്നഡയിൽ <span class="kn">ಇಲ್ಲ, ಅಲ್ಲ</span>. അതേ വേര്, അതേ ഉപയോഗം.</p>
+  <table>
+    <tr><td class="kn">ನಾನು ಬರುವುದಿಲ್ಲ.</td><td>ഞാൻ വരുന്നില്ല.</td></tr>
+    <tr><td class="kn">ಇದು ಮನೆಯಲ್ಲ.</td><td>ഇത് വീടല്ല.</td></tr>
+    <tr><td class="kn">ಗೊತ್ತಿಲ್ಲ.</td><td>അറിയില്ല.</td></tr>
+  </table>
+
+  <h3>ചോദ്യപദങ്ങൾ</h3>
+  <table>
+    <tr><th>കന്നഡ</th><th>ഉച്ചാരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="kn">ಏನು</td><td class="mono">ēnu</td><td>എന്ത്</td></tr>
+    <tr><td class="kn">ಯಾರು</td><td class="mono">yāru</td><td>ആര്</td></tr>
+    <tr><td class="kn">ಎಲ್ಲಿ</td><td class="mono">elli</td><td>എവിടെ</td></tr>
+    <tr><td class="kn">ಯಾವಾಗ</td><td class="mono">yāvāga</td><td>എപ്പോൾ</td></tr>
+    <tr><td class="kn">ಏಕೆ</td><td class="mono">ēke</td><td>എന്തുകൊണ്ട്</td></tr>
+    <tr><td class="kn">ಹೇಗೆ</td><td class="mono">hēge</td><td>എങ്ങനെ</td></tr>
+    <tr><td class="kn">ಎಷ್ಟು</td><td class="mono">eṣṭu</td><td>എത്ര</td></tr>
+  </table>
+  <div class="aside teal"><span class="tag">എ-യുടെ ഒരേ തുടക്കം</span> മലയാളത്തിലെ <em>എ-</em> (എന്ത്, എവിടെ, എപ്പോൾ, എങ്ങനെ) കന്നഡയിലെ <span class="kn">ಏ-/ಎ-/ಯಾ-</span> എന്നിവയ്ക്ക് സമാന്തരം. രണ്ടിലും ചോദ്യപദങ്ങൾ ഒരേ <em>സ്വരതുടക്കം</em> പങ്കിടുന്നു — പ്രോട്ടോ-ദ്രാവിഡ <em>*ya-</em>.</div>
+</section>
+<section id="stage-06" class="stage">
+  <h2 class="stage-title"><span class="num">06</span>വായന</h2>
+
+  <h3>പാഠം ഒന്ന് — സ്വയം പരിചയം</h3>
+  <div class="passage">
+    <div class="target kn">ನನ್ನ ಹೆಸರು ರಾಮು. ನಾನು ಕೇರಳದಿಂದ ಬಂದಿದ್ದೇನೆ. ನನಗೆ ಕನ್ನಡ ಸ್ವಲ್ಪ ಗೊತ್ತು. ನಾನು ಈಗ ಬೆಂಗಳೂರಿನಲ್ಲಿ ಇದ್ದೇನೆ. ನಾನು ವಿದ್ಯಾರ್ಥಿ.</div>
+    <div class="trans mono">nanna hesaru rāmu. nānu kēraḷadinda bandiddēne. nanage kannaḍa svalpa gottu. nānu īga beṅgaḷūrinalli iddēne. nānu vidyārthi.</div>
+    <div class="gloss">എന്റെ പേര് രാമു. ഞാൻ കേരളത്തിൽ നിന്ന് വന്നിരിക്കുന്നു. എനിക്ക് കന്നഡ കുറച്ച് അറിയാം. ഞാൻ ഇപ്പോൾ ബെംഗളൂരുവിൽ ആണ്. ഞാൻ വിദ്യാർത്ഥി.</div>
+  </div>
+
+  <h3>പാഠം രണ്ട് — ദിനചര്യ</h3>
+  <div class="passage">
+    <div class="target kn">ನಾನು ಬೆಳಿಗ್ಗೆ ಆರು ಗಂಟೆಗೆ ಏಳುತ್ತೇನೆ. ನಂತರ ಹಾಲು ಕುಡಿಯುತ್ತೇನೆ. ಎಂಟು ಗಂಟೆಗೆ ಊಟ ಮಾಡುತ್ತೇನೆ. ಒಂಬತ್ತು ಗಂಟೆಗೆ ಶಾಲೆಗೆ ಹೋಗುತ್ತೇನೆ. ಸಂಜೆ ಮನೆಗೆ ಬರುತ್ತೇನೆ. ರಾತ್ರಿ ಪುಸ್ತಕ ಓದುತ್ತೇನೆ.</div>
+    <div class="trans mono">nānu beḷigge āru gaṇṭege ēḷuttēne. nantara hālu kuḍiyuttēne. eṇṭu gaṇṭege ūṭa māḍuttēne. ombattu gaṇṭege śālege hōguttēne. sañje manege baruttēne. rātri pustaka ōduttēne.</div>
+    <div class="gloss">ഞാൻ രാവിലെ ആറ് മണിക്ക് എഴുന്നേൽക്കുന്നു. പിന്നെ പാൽ കുടിക്കുന്നു. എട്ട് മണിക്ക് ഊണ് കഴിക്കുന്നു. ഒൻപത് മണിക്ക് സ്കൂളിലേക്ക് പോകുന്നു. വൈകുന്നേരം വീട്ടിൽ വരുന്നു. രാത്രി പുസ്തകം വായിക്കുന്നു.</div>
+  </div>
+
+  <h3>പാഠം മൂന്ന് — സംഭാഷണം</h3>
+  <div class="passage">
+    <div class="target kn">
+      ರಾಮು: ನಮಸ್ಕಾರ! ಹೇಗಿದ್ದೀರಿ?<br>
+      ಸೀತಾ: ನಮಸ್ಕಾರ. ಚೆನ್ನಾಗಿದ್ದೇನೆ. ನೀವು?<br>
+      ರಾಮು: ನಾನೂ ಚೆನ್ನಾಗಿದ್ದೇನೆ. ನಿಮ್ಮ ಹೆಸರೇನು?<br>
+      ಸೀತಾ: ನನ್ನ ಹೆಸರು ಸೀತಾ. ನೀವು ಎಲ್ಲಿಂದ?<br>
+      ರಾಮು: ನಾನು ಕೇರಳದಿಂದ. ಊಟ ಆಯ್ತಾ?<br>
+      ಸೀತಾ: ಆಯ್ತು. ಧನ್ಯವಾದಗಳು.<br>
+      ರಾಮು: ಸರಿ, ನಾಳೆ ಸಿಗೋಣ.<br>
+      ಸೀತಾ: ಆಯ್ತು, ಹೋಗಿ ಬನ್ನಿ.
+    </div>
+    <div class="gloss">
+      രാമു: നമസ്കാരം! സുഖമാണോ?<br>
+      സീത: നമസ്കാരം. സുഖമാണ്. നിങ്ങൾക്ക്?<br>
+      രാമു: എനിക്കും സുഖമാണ്. നിങ്ങളുടെ പേരെന്താണ്?<br>
+      സീത: എന്റെ പേര് സീത. നിങ്ങൾ എവിടെ നിന്ന്?<br>
+      രാമു: ഞാൻ കേരളത്തിൽ നിന്ന്. ഊണായോ?<br>
+      സീത: ആയി. നന്ദി.<br>
+      രാമു: ശരി, നാളെ കാണാം.<br>
+      സീത: ശരി, പോയി വരൂ.
+    </div>
+  </div>
+  <div class="aside"><span class="tag">ചെറിയ കുറിപ്പ്</span> <span class="kn">ಹೋಗಿ ಬನ್ನಿ</span> (ഹോഗി ബന്നി) — അക്ഷരാർത്ഥത്തിൽ "പോയി വരൂ". മലയാളത്തിൽ അതേ വാക്കുകൾ: <em>പോയി വരൂ</em>. യാത്ര പറയുമ്പോൾ "നിലനിൽക്കാത്ത വിട" എന്ന ദ്രാവിഡരീതി — പോകുന്നവർ തിരിച്ചുവരുമെന്ന പ്രതീക്ഷ.</div>
+</section>
+<section id="stage-07" class="stage">
+  <h2 class="stage-title"><span class="num">07</span>പദമേഖല</h2>
+
+  <h3>ബന്ധുക്കൾ</h3>
+  <table>
+    <tr><th>കന്നഡ</th><th>ഉച്ചാരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="kn">ಅಪ್ಪ</td><td class="mono">appa</td><td>അച്ഛൻ, അപ്പൻ</td></tr>
+    <tr><td class="kn">ಅಮ್ಮ</td><td class="mono">amma</td><td>അമ്മ</td></tr>
+    <tr><td class="kn">ಅಣ್ಣ</td><td class="mono">aṇṇa</td><td>ചേട്ടൻ, ജ്യേഷ്ഠൻ</td></tr>
+    <tr><td class="kn">ತಮ್ಮ</td><td class="mono">tamma</td><td>അനിയൻ</td></tr>
+    <tr><td class="kn">ಅಕ್ಕ</td><td class="mono">akka</td><td>ചേച്ചി</td></tr>
+    <tr><td class="kn">ತಂಗಿ</td><td class="mono">taṅgi</td><td>അനിയത്തി</td></tr>
+    <tr><td class="kn">ಅಜ್ಜ</td><td class="mono">ajja</td><td>മുത്തച്ഛൻ</td></tr>
+    <tr><td class="kn">ಅಜ್ಜಿ</td><td class="mono">ajji</td><td>മുത്തശ്ശി</td></tr>
+    <tr><td class="kn">ಮಾವ</td><td class="mono">māva</td><td>മാമൻ</td></tr>
+    <tr><td class="kn">ಅತ್ತೆ</td><td class="mono">atte</td><td>അമ്മായി</td></tr>
+    <tr><td class="kn">ಚಿಕ್ಕಪ್ಪ</td><td class="mono">cikkappa</td><td>ചെറിയച്ഛൻ</td></tr>
+    <tr><td class="kn">ದೊಡ್ಡಪ್ಪ</td><td class="mono">doḍḍappa</td><td>വലിയച്ഛൻ</td></tr>
+  </table>
+  <div class="aside teal"><span class="tag">അമ്മ-അപ്പ</span> <em>അമ്മ, അപ്പ, ചേച്ചി(അക്ക), അനിയത്തി(തങ്ങി)</em> — ഈ വാക്കുകൾ കന്നഡ, മലയാളം, തെലുഗു, തമിഴ് എല്ലാറ്റിലും ഏതാണ്ട് ഒന്ന്. ലോകത്തിലെ ഏറ്റവും സ്ഥിരതയുള്ള ദ്രാവിഡ ബന്ധുവാക്കുകൾ!</div>
+
+  <h3>ശരീരം</h3>
+  <table>
+    <tr><th>കന്നഡ</th><th>മലയാളം</th></tr>
+    <tr><td class="kn">ತಲೆ (tale)</td><td>തല</td></tr>
+    <tr><td class="kn">ಕಣ್ಣು (kaṇṇu)</td><td>കണ്ണ്</td></tr>
+    <tr><td class="kn">ಕಿವಿ (kivi)</td><td>ചെവി</td></tr>
+    <tr><td class="kn">ಮೂಗು (mūgu)</td><td>മൂക്ക്</td></tr>
+    <tr><td class="kn">ಬಾಯಿ (bāyi)</td><td>വായ</td></tr>
+    <tr><td class="kn">ಕೈ (kai)</td><td>കൈ</td></tr>
+    <tr><td class="kn">ಕಾಲು (kālu)</td><td>കാൽ</td></tr>
+    <tr><td class="kn">ಹೊಟ್ಟೆ (hoṭṭe)</td><td>വയറ്</td></tr>
+  </table>
+
+  <h3>സമയം</h3>
+  <table>
+    <tr><th>കന്നഡ</th><th>മലയാളം</th></tr>
+    <tr><td class="kn">ಇಂದು (indu)</td><td>ഇന്ന്</td></tr>
+    <tr><td class="kn">ನಾಳೆ (nāḷe)</td><td>നാളെ</td></tr>
+    <tr><td class="kn">ನಿನ್ನೆ (ninne)</td><td>ഇന്നലെ</td></tr>
+    <tr><td class="kn">ಈಗ (īga)</td><td>ഇപ്പോൾ</td></tr>
+    <tr><td class="kn">ಬೆಳಿಗ್ಗೆ (beḷigge)</td><td>രാവിലെ</td></tr>
+    <tr><td class="kn">ಸಂಜೆ (sañje)</td><td>വൈകുന്നേരം</td></tr>
+    <tr><td class="kn">ರಾತ್ರಿ (rātri)</td><td>രാത്രി</td></tr>
+    <tr><td class="kn">ಮೊದಲು (modalu)</td><td>മുമ്പ്</td></tr>
+    <tr><td class="kn">ನಂತರ (nantara)</td><td>പിന്നീട്</td></tr>
+  </table>
+  <div class="aside"><span class="tag">നാളെ ↔ ನಾಳೆ</span> മലയാളത്തിലെ <em>നാളെ</em> കന്നഡയിൽ <span class="kn">ನಾಳೆ</span> — അക്ഷരം അക്ഷരം ഒന്നേ, ള ഉൾപ്പെടെ. <em>നാൾ</em> (ദിവസം) എന്ന പ്രോട്ടോ-ദ്രാവിഡ വേര് ഇവിടെ ഇരുവരുടേയും ഓർമ്മയിൽ.</div>
+
+  <h3>ചലനം</h3>
+  <p><span class="kn">ಹೋಗು</span> (പോവുക), <span class="kn">ಬಾ</span> (വരിക), <span class="kn">ನಡೆ</span> (നടക്കുക), <span class="kn">ಓಡು</span> (ഓടുക), <span class="kn">ಹಾರು</span> (ചാടുക, പറക്കുക), <span class="kn">ಇಳಿ</span> (ഇറങ്ങുക), <span class="kn">ಹತ್ತು</span> (കയറുക). <em>കയറുക</em>-യുടെ കന്നഡ <span class="kn">ಹತ್ತು</span> — പത്ത് എന്ന സംഖ്യയ്ക്ക് സമാനം! സന്ദർഭം കൊണ്ട് വേർതിരിക്കണം.</p>
+  <div class="aside red"><span class="tag">വ്യാജസുഹൃത്ത്</span> <span class="kn">ಹತ್ತು</span> = 10, <em>ഹത്തു</em> = കയറുക, എന്നും എന്നർത്ഥം. മലയാളത്തിൽ <em>പത്ത്</em> അക്കം മാത്രം. വായനയിൽ സന്ദർഭം നോക്കൂ!</div>
+</section>
+<section id="stage-08" class="stage">
+  <h2 class="stage-title"><span class="num">08</span>ഉപയോഗം</h2>
+
+  <h3>ദൈനംദിന പ്രയോഗങ്ങൾ</h3>
+  <table>
+    <tr><th>കന്നഡ</th><th>ഉച്ചാരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="kn">ನಮಸ್ಕಾರ</td><td class="mono">namaskāra</td><td>നമസ്കാരം</td></tr>
+    <tr><td class="kn">ಧನ್ಯವಾದಗಳು</td><td class="mono">dhanyavādagaḷu</td><td>നന്ദി</td></tr>
+    <tr><td class="kn">ಕ್ಷಮಿಸಿ</td><td class="mono">kṣamisi</td><td>ക്ഷമിക്കണം</td></tr>
+    <tr><td class="kn">ಪರವಾಗಿಲ್ಲ</td><td class="mono">paravāgilla</td><td>കുഴപ്പമില്ല, സാരമില്ല</td></tr>
+    <tr><td class="kn">ಹೇಗಿದ್ದೀರಿ?</td><td class="mono">hēgiddīri?</td><td>സുഖമാണോ? (ബഹുമാനം)</td></tr>
+    <tr><td class="kn">ಚೆನ್ನಾಗಿದ್ದೇನೆ</td><td class="mono">chennāgiddēne</td><td>സുഖമായിരിക്കുന്നു</td></tr>
+    <tr><td class="kn">ಸ್ವಲ್ಪ</td><td class="mono">svalpa</td><td>അൽപം, കുറച്ച്</td></tr>
+    <tr><td class="kn">ಬೇಕು</td><td class="mono">bēku</td><td>വേണം</td></tr>
+    <tr><td class="kn">ಬೇಡ</td><td class="mono">bēḍa</td><td>വേണ്ട</td></tr>
+    <tr><td class="kn">ಗೊತ್ತಿಲ್ಲ</td><td class="mono">gottilla</td><td>അറിയില്ല</td></tr>
+    <tr><td class="kn">ಹೌದು</td><td class="mono">haudu</td><td>അതെ</td></tr>
+    <tr><td class="kn">ಇಲ್ಲ</td><td class="mono">illa</td><td>ഇല്ല, അല്ല</td></tr>
+  </table>
+
+  <div class="aside teal"><span class="tag">ഊട ആയ്താ?</span> <span class="kn">ಊಟ ಆಯ್ತಾ?</span> — അക്ഷരാർത്ഥത്തിൽ "ഊണ് ആയോ?". പക്ഷേ ഇത് ഭക്ഷണത്തെക്കുറിച്ചുള്ള ചോദ്യമല്ല; സ്നേഹത്തോടെയുള്ള "സുഖമാണോ?". മറുപടി <span class="kn">ಆಯ್ತು</span> ("ആയി") — യഥാർത്ഥത്തിൽ കഴിച്ചിട്ടുണ്ടോ എന്നല്ല പ്രശ്നം. മലയാളത്തിലെ <em>ഊണ് കഴിച്ചോ?</em> എന്ന ആ സ്നേഹം അതേപടി.</div>
+
+  <h3>മൃദുവാക്ക്: സ്വൽപ</h3>
+  <p><span class="kn">ಸ್ವಲ್ಪ</span> (സ്വൽപ) = കുറച്ച്. ബാംഗ്ലൂരിന്റെ അർദ്ധ ജീവിതം ഈ ഒരു വാക്കിലാണ്. <em>സ്വൽപ അഡ്ജസ്റ്റ് മാഡി</em> — അൽപം ക്ഷമിച്ച് ക്രമീകരിക്കൂ. ഏത് അഭ്യർത്ഥനയേയും മയപ്പെടുത്താൻ ഇത് മുമ്പിൽ ചേർക്കുക: <span class="kn">ಸ್ವಲ್ಪ ನೀರು ಕೊಡಿ</span> = അൽപം വെള്ളം തരൂ.</p>
+
+  <h3>സംബോധന</h3>
+  <table>
+    <tr><th>സ്ഥാനം</th><th>കന്നഡ</th><th>മലയാളം സമാനം</th></tr>
+    <tr><td>പ്രായമുള്ള പുരുഷൻ</td><td class="kn">ಅಣ್ಣ (aṇṇa)</td><td>ചേട്ടാ, അണ്ണാ</td></tr>
+    <tr><td>പ്രായമുള്ള സ്ത്രീ</td><td class="kn">ಅಕ್ಕ (akka)</td><td>ചേച്ചി</td></tr>
+    <tr><td>വൃദ്ധൻ</td><td class="kn">ಅಜ್ಜ (ajja)</td><td>മുത്തച്ഛാ</td></tr>
+    <tr><td>വൃദ്ധ</td><td class="kn">ಅಜ್ಜಿ (ajji)</td><td>മുത്തശ്ശിയേ</td></tr>
+  </table>
+  <div class="aside"><span class="tag">വീടിനു വെളിയിൽ വീട്</span> കന്നഡയിലും മലയാളത്തിലും ബന്ധുവാക്കുകൾ കൊണ്ട് അപരിചിതരെ സംബോധന ചെയ്യുക സാധാരണം — ചേട്ടൻ, ചേച്ചി, അമ്മായി. ഉത്തരേന്ത്യയിലും ഇത് ഉണ്ട്, പക്ഷേ ദ്രാവിഡവഴിക്ക് ഇത് കൂടുതൽ ആത്മാർത്ഥം.</div>
+
+  <h3>ബഹുമാനസ്തര (ആദരം)</h3>
+  <p>മലയാളം: <em>നീ / നിങ്ങൾ / താങ്കൾ</em> — മൂന്ന് തലം. കന്നഡ: <span class="kn">ನೀನು / ನೀವು</span> — രണ്ട് തലം. <span class="kn">ನೀವು</span> ബഹുവചനത്തിനും ബഹുമാനത്തിനും — മലയാളത്തിലെ <em>നിങ്ങൾ</em> പോലെ. ക്രിയയിൽ <span class="kn">-ಇರಿ</span> ചേർത്താൽ ആദരം: <span class="kn">ಬನ್ನಿ</span> (വരൂ, ബഹുമാനം), <span class="kn">ಹೇಳಿ</span> (പറയൂ).</p>
+</section>
+<section id="stage-09" class="stage">
+  <h2 class="stage-title"><span class="num">09</span>സാഹിത്യം</h2>
+  <p>കന്നഡ സാഹിത്യത്തിന് 1400-ലധികം വർഷത്തെ പാരമ്പര്യം. എട്ട് ജ്ഞാനപീഠപുരസ്കാരങ്ങൾ — ഇന്ത്യൻ ഭാഷകളിൽ ഏറ്റവും കൂടുതൽ. നമ്മുടെ സാഹിത്യവുമായി ഇതിന് ആഴമേറിയ ബന്ധങ്ങളുണ്ട്.</p>
+
+  <h3>പ്രധാന എഴുത്തുകാർ</h3>
+  <table>
+    <tr><th>എഴുത്തുകാരൻ</th><th>കാലം</th><th>സംഭാവന</th></tr>
+    <tr><td class="kn">ಬಸವಣ್ಣ (ബസവണ്ണ)</td><td>12 നൂറ്റാണ്ട്</td><td>വചന കാവ്യം; ജാതിയും കർമ്മകാണ്ഡവും നിരസിച്ച ശരണ പ്രസ്ഥാനം.</td></tr>
+    <tr><td class="kn">ಅಕ್ಕ ಮಹಾದೇವಿ (അക്ക മഹാദേവി)</td><td>12 നൂറ്റാണ്ട്</td><td>വിവാഹവും കൊട്ടാരവും ഉപേക്ഷിച്ച് എഴുതിയ ഭക്തികാവ്യം.</td></tr>
+    <tr><td class="kn">ಪಂಪ (പമ്പ)</td><td>10 നൂറ്റാണ്ട്</td><td>ആദികവി. വിക്രമാർജുനവിജയം, ആദിപുരാണം.</td></tr>
+    <tr><td class="kn">ಕುವೆಂಪು (കുവെമ്പു)</td><td>1904-1994</td><td>രാഷ്ട്രകവി. ശ്രീരാമായണദർശനം.</td></tr>
+    <tr><td class="kn">ಬೇಂದ್ರೆ (ബേന്ദ്രെ)</td><td>1896-1981</td><td>ഗീതരചന — കന്നഡയുടെ ഏറ്റവും വലിയ ഗീതകവി.</td></tr>
+    <tr><td class="kn">ಕಾರಂತ (കാരന്ത)</td><td>1902-1997</td><td>തീരദേശ കർണ്ണാടകത്തിന്റെ നോവലിസ്റ്റ്; യക്ഷഗാനത്തിന്റെ പണ്ഡിതൻ.</td></tr>
+    <tr><td class="kn">ಅನಂತಮೂರ್ತಿ (അനന്തമൂർത്തി)</td><td>1932-2014</td><td>സംസ്കാര — ആധുനികതയുടെ ധാർമ്മിക സംഘർഷം.</td></tr>
+    <tr><td class="kn">ಗಿರೀಶ್ ಕಾರ್ನಾಡ್ (ഗിരീശ് കാർണാട്)</td><td>1938-2019</td><td>നാടകകൃത്ത്. യയാതി, തുഗ്ലക്, ഹയവദന.</td></tr>
+  </table>
+
+  <h3>സാഹിത്യ സേതുക്കൾ</h3>
+  <div class="aside"><span class="tag">പമ്പ ↔ എഴുത്തച്ഛൻ</span> കന്നഡ സാഹിത്യത്തിന്റെ ആദികവി <span class="kn">ಪಂಪ</span> (10 നൂറ്റാണ്ട്) മഹാഭാരതം ചമ്പു രൂപത്തിൽ എഴുതി. മലയാളത്തിന് തുഞ്ചത്ത് എഴുത്തച്ഛൻ (16 നൂറ്റാണ്ട്) അധ്യാത്മരാമായണം കിളിപ്പാട്ടായി തന്നു. രണ്ടുപേരും സംസ്കൃതത്തിൽ നിന്ന് ജനങ്ങളുടെ ഭാഷയിലേക്ക് ഇതിഹാസങ്ങളെ കൊണ്ടുവന്നു.</div>
+  <div class="aside teal"><span class="tag">കുവെമ്പു ↔ കുമാരനാശാൻ / വള്ളത്തോൾ</span> <span class="kn">ಕುವೆಂಪು</span>-വും കുമാരനാശാനും വള്ളത്തോളും — ദേശീയതയുടെയും നവീകരണത്തിന്റെയും കവിമുഖങ്ങൾ. കുവെമ്പു കന്നഡയിൽ സ്വദേശിതയും, ആശാൻ മലയാളത്തിൽ മാനവികതയും. രണ്ടും ഗാന്ധിയുടെ നിഴലിൽ വളർന്നവർ.</div>
+  <div class="aside"><span class="tag">ബേന്ദ്രെ ↔ ചങ്ങമ്പുഴ</span> <span class="kn">ಬೇಂದ್ರೆ</span>-യുടെ വരികൾ പാട്ടുപോലെ ഒഴുകുന്നു — ചങ്ങമ്പുഴയുടെ രമണനും അതേ സംഗീതം. രണ്ടുപേരും ജനസാമാന്യത്തിന് ആസ്വാദ്യമായ രാഗകവിത എഴുതി.</div>
+  <div class="aside teal"><span class="tag">ശിവരാമ കാരന്ത ↔ ബഷീർ</span> <span class="kn">ಕಾರಂತ</span> തീരദേശ കർണ്ണാടകത്തിന്റെ ചെറിയ ഗ്രാമങ്ങളെ നോവലിലാക്കി; വൈക്കം മുഹമ്മദ് ബഷീർ മലബാറിന്റെ ഇടവഴികൾ. രണ്ടുപേരും നടന്നുതെളിഞ്ഞ വഴികളിലൂടെ കഥ പെറുക്കിയവർ, ഔപചാരികതയെ മാറ്റിനിർത്തിയവർ.</div>
+  <div class="aside"><span class="tag">അനന്തമൂർത്തി ↔ ഒ.വി. വിജയൻ</span> <span class="kn">ಅನಂತಮೂರ್ತಿ</span>-യുടെ <em>സംസ്കാര</em>-യും ഒ.വി. വിജയന്റെ <em>ഖസാക്കിന്റെ ഇതിഹാസ</em>-വും ആധുനികതയുടെ ഏകാന്തതയെ അഭിമുഖീകരിക്കുന്നു. ഒരു ബ്രാഹ്മണാഗ്രഹാരം; ഒരു മലയാളഗ്രാമം — രണ്ടും പാരമ്പര്യവും ശൂന്യതയും തമ്മിലുള്ള ഇടവേള.</div>
+  <div class="aside teal"><span class="tag">അക്ക മഹാദേവി ↔ ലളിതാംബിക അന്തർജനം</span> 12-ാം നൂറ്റാണ്ടിന്റെ സ്ത്രീവിപ്ലവ ശബ്ദം <span class="kn">ಅಕ್ಕ ಮಹಾದೇವಿ</span>. 20-ാം നൂറ്റാണ്ടിൽ അതേ ശബ്ദം മലയാളത്തിൽ മുഴക്കിയവർ ലളിതാംബിക അന്തർജനം — <em>അഗ്നിസാക്ഷി</em>. സ്ത്രീക്ക് സ്വന്തം ശരീരവും വാക്കും ആവശ്യമാണ് എന്ന ഒരേ അവകാശവാദം.</div>
+
+  <h3>മാതൃകാ വചനം — ബസവണ്ണ</h3>
+  <div class="passage">
+    <div class="target kn">ಕಳಬೇಡ, ಕೊಲಬೇಡ, ಹುಸಿಯ ನುಡಿಯಲು ಬೇಡ<br>ಮುನಿಯಬೇಡ, ಅನ್ಯರಿಗೆ ಅಸಹ್ಯ ಪಡಬೇಡ<br>ತನ್ನ ಬಣ್ಣಿಸಬೇಡ, ಇದಿರ ಹಳಿಯಲು ಬೇಡ<br>ಇದೇ ಅಂತರಂಗಶುದ್ಧಿ, ಇದೇ ಬಹಿರಂಗಶುದ್ಧಿ<br>ಇದೇ ನಮ್ಮ ಕೂಡಲಸಂಗಮದೇವರನೊಲಿಸುವ ಪರಿ.</div>
+    <div class="gloss">മോഷ്ടിക്കരുത്, കൊല്ലരുത്, നുണ പറയരുത്. കോപിക്കരുത്, അന്യരെ വെറുക്കരുത്. സ്വയം സ്തുതിക്കരുത്, മറ്റുള്ളവരെ നിന്ദിക്കരുത്. ഇതാണ് അന്തരംഗശുദ്ധി, ഇതാണ് ബഹിരംഗശുദ്ധി — ഇതാണ് നമ്മുടെ കൂടൽസംഗമദേവനെ പ്രസാദിപ്പിക്കാനുള്ള വഴി.</div>
+  </div>
+  <div class="aside red"><span class="tag">വചനവും പാട്ടും</span> 12-ാം നൂറ്റാണ്ടിലെ ശരണ പ്രസ്ഥാനം ജാതിയെയും സംസ്കൃതാധിപത്യത്തെയും ധിക്കരിച്ച് ജനഭാഷയിൽ എഴുതി. മലയാളത്തിൽ എഴുത്തച്ഛനും പൂന്താനവും അതേ ദിശ സ്വീകരിച്ചു — <em>ജ്ഞാനപ്പാന</em> ജനങ്ങളുടെ മഹാസന്ദേശം. ദ്രാവിഡ ഭക്തിയുടെ ഒരേ നദി, രണ്ട് കരകൾ.</div>
+</section>
+
+<div class="nav-btns">
+  <button id="prev">← മുമ്പ്</button>
+  <button id="next">അടുത്തത് →</button>
+</div>
+
+<footer>made by Nil · using Claude</footer>
+
+</div>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('#tabs button');
+  var stages=document.querySelectorAll('section.stage');
+  var prev=document.getElementById('prev');
+  var next=document.getElementById('next');
+  var cur=0;
+  function show(i){
+    if(i<0)i=0;if(i>stages.length-1)i=stages.length-1;
+    cur=i;
+    tabs.forEach(function(b,ix){b.classList.toggle('active',ix===i)});
+    stages.forEach(function(s,ix){s.classList.toggle('active',ix===i)});
+    prev.disabled=(i===0);
+    next.disabled=(i===stages.length-1);
+    var t=tabs[i];if(t&&t.scrollIntoView)t.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  tabs.forEach(function(b,ix){b.addEventListener('click',function(){show(ix)})});
+  prev.addEventListener('click',function(){show(cur-1)});
+  next.addEventListener('click',function(){show(cur+1)});
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('.card');
+    if(c&&c.querySelector('.hint'))c.classList.toggle('open');
+  });
+  show(0);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="ml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>മലയാളം → తెలుగు · ഭാഷാസേതു</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Noto Serif Malayalam', serif;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at 20% 10%, #FAF2DF 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 90%, #EDDFC0 0%, transparent 60%),
+    var(--paper);
+  line-height:1.7;
+  min-height:100vh;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.35;mix-blend-mode:multiply;
+}
+.wrap{max-width:860px;margin:0 auto;padding:24px 20px 80px;position:relative;z-index:1}
+header.top{border-bottom:1px solid rgba(28,22,17,.15);padding-bottom:16px;margin-bottom:20px}
+header.top h1{font-family:'Fraunces',serif;font-weight:600;font-size:28px;margin:0 0 4px;color:var(--ink)}
+header.top .sub{color:var(--ink-faded);font-size:14px}
+header.top .tgt{font-family:'Noto Serif Telugu',serif}
+
+nav.tabs{
+  position:sticky;top:0;z-index:10;
+  background:linear-gradient(180deg, rgba(244,236,218,.96), rgba(244,236,218,.88));
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(28,22,17,.12);
+  margin:0 -20px 24px;padding:10px 12px;
+  display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;
+}
+nav.tabs button{
+  font-family:inherit;font-size:14px;
+  border:1px solid rgba(28,22,17,.18);
+  background:transparent;color:var(--ink-soft);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;cursor:pointer;
+}
+nav.tabs button.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+nav.tabs .num{font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.6;margin-right:4px}
+
+section.stage{display:none;animation:fade .3s ease}
+section.stage.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+h2.stage-h{font-family:'Fraunces',serif;font-weight:600;font-size:24px;margin:8px 0 4px;color:var(--ink)}
+h2.stage-h .n{font-family:'JetBrains Mono',monospace;color:var(--ochre);font-size:15px;margin-right:10px}
+.lede{color:var(--ink-soft);font-size:16px;margin:0 0 18px}
+h3{font-family:'Fraunces',serif;font-weight:600;font-size:19px;margin:24px 0 8px;color:var(--ink-soft)}
+
+p{margin:10px 0}
+.tel{font-family:'Noto Serif Telugu',serif}
+.tr{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink-faded)}
+
+.aside{
+  border-left:3px solid var(--sindoor);
+  background:rgba(168,48,36,.06);
+  padding:12px 14px;border-radius:0 10px 10px 0;
+  margin:18px 0;
+}
+.aside .tag{font-family:'Fraunces',serif;font-style:italic;color:var(--sindoor);font-size:13px;display:block;margin-bottom:4px}
+.aside.teal{border-color:var(--teal);background:rgba(31,77,74,.06)}
+.aside.teal .tag{color:var(--teal)}
+.aside.ochre{border-color:var(--ochre);background:rgba(184,128,45,.07)}
+.aside.ochre .tag{color:var(--ochre)}
+
+.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));margin:14px 0}
+.card{
+  background:var(--paper-warm);
+  border:1px solid rgba(28,22,17,.14);
+  border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;
+  transition:transform .15s, box-shadow .15s;
+  position:relative;
+}
+.card:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(28,22,17,.08)}
+.card .big{font-family:'Noto Serif Telugu',serif;font-size:34px;line-height:1;color:var(--ink);display:block;margin-bottom:4px}
+.card .src{font-size:15px;color:var(--ink-soft);display:block}
+.card .lat{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faded);display:block;margin-top:2px}
+.card .hint{display:none;font-size:12px;color:var(--ink-soft);margin-top:8px;border-top:1px dashed rgba(28,22,17,.15);padding-top:6px}
+.card.open .hint{display:block}
+.card .flag{position:absolute;top:4px;right:6px;font-size:11px;color:var(--sindoor)}
+
+.family{margin:18px 0}
+.family h4{font-family:'Fraunces',serif;font-size:16px;margin:6px 0;color:var(--teal)}
+
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid rgba(28,22,17,.1);vertical-align:top}
+th{font-family:'Fraunces',serif;font-weight:600;color:var(--ink-soft);background:rgba(232,220,190,.5)}
+td.tel{font-family:'Noto Serif Telugu',serif;font-size:18px}
+td.ml{font-size:17px}
+
+.video{margin:16px 0}
+.video-frame{position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px rgba(28,22,17,.12)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-caption{font-size:13px;color:var(--ink-faded);margin-top:6px}
+.video-caption a{color:var(--teal);text-decoration:none;border-bottom:1px dotted var(--teal)}
+
+ol.adv{padding-left:22px}
+ol.adv li{margin:10px 0}
+
+.nav-btns{display:flex;justify-content:space-between;margin:32px 0 10px;gap:10px}
+.nav-btns button{
+  font-family:inherit;font-size:14px;
+  background:var(--ink);color:var(--paper);border:0;
+  padding:10px 16px;border-radius:10px;cursor:pointer;
+}
+.nav-btns button.sec{background:transparent;color:var(--ink);border:1px solid rgba(28,22,17,.25)}
+.nav-btns button:disabled{opacity:.4;cursor:not-allowed}
+
+.passage{
+  background:var(--paper-warm);
+  border:1px solid rgba(28,22,17,.12);
+  border-radius:12px;padding:16px;margin:16px 0;
+}
+.passage .line{margin:10px 0;padding-bottom:8px;border-bottom:1px dashed rgba(28,22,17,.1)}
+.passage .line:last-child{border:0}
+.passage .t{font-family:'Noto Serif Telugu',serif;font-size:19px;color:var(--ink)}
+.passage .x{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-faded);margin:2px 0}
+.passage .m{font-size:15px;color:var(--ink-soft)}
+
+.lit{border-top:1px solid rgba(28,22,17,.1);padding:12px 0}
+.lit h4{font-family:'Fraunces',serif;margin:0 0 4px;font-size:17px}
+.lit h4 .tel{font-family:'Noto Serif Telugu',serif;margin-left:6px;color:var(--sindoor)}
+
+footer{margin-top:48px;padding-top:20px;border-top:1px solid rgba(28,22,17,.15);color:var(--ink-faded);font-size:13px;text-align:center;font-family:'Fraunces',serif;font-style:italic}
+
+@media (max-width:480px){
+  .wrap{padding:16px 14px 60px}
+  header.top h1{font-size:22px}
+  h2.stage-h{font-size:20px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+  .card .big{font-size:28px}
+  table{font-size:13px}
+  th,td{padding:6px 6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>മലയാളം → <span class="tgt">తెలుగు</span></h1>
+  <div class="sub">ഭാഷാസേതു · ദ്രാവിഡ സഹോദരിമാർക്കായി ഒരു പാലം</div>
+</header>
+
+<nav class="tabs" id="tabs"></nav>
+
+<section class="stage" id="stage-00">
+  <h2 class="stage-h"><span class="n">00</span>പരിചയം</h2>
+  <p class="lede">നിങ്ങൾക്ക് ഇതിനകം അറിയാവുന്നത്, ഇപ്പോൾ പുതിയതായി വരുന്നത്.</p>
+
+  <p>കുട്ടിക്കാലത്ത് <em>സ്വരവും വ്യഞ്ജനവും</em> എന്ന പാഠത്തിലൂടെ മലയാളം അക്ഷരമാല പഠിച്ചത് ഓർമയുണ്ടോ? അതേ ക്രമത്തിൽ — അ, ആ, ഇ, ഈ… ക, ഖ, ഗ, ഘ, ങ — തന്നെയാണ് <span class="tel">తెలుగు</span> അക്ഷരമാലയും. ലിപി മാത്രമേ മാറുന്നുള്ളൂ; ഘടന ഒന്നു തന്നെ.</p>
+
+  <p>മലയാളവും തെലുങ്കും ദ്രാവിഡ സഹോദരിമാരാണ്. <strong>47 ൽ 47 ധ്വനികളും</strong> പങ്കിട്ടതാണ് — നിങ്ങളുടെ നാവിന് പുതിയ ഒരു ശബ്ദവും പഠിക്കേണ്ടതില്ല. പദസമ്പത്തിന്റെ ഏകദേശം <strong>75%</strong> പൊതുവായതാണ്: <em>പുസ്തകം / <span class="tel">పుస్తకం</span></em>, <em>സമയം / <span class="tel">సమయం</span></em>, <em>ഭൂമി / <span class="tel">భూమి</span></em> — ഇവയെല്ലാം നേരിട്ട് തിരിച്ചറിയാം.</p>
+
+  <p>വാക്യഘടനയും ഒന്നുതന്നെ. മലയാളത്തിൽ <em>ഞാൻ പുസ്തകം വായിക്കുന്നു</em> എന്നതു പോലെ തെലുങ്കിലും <span class="tel">నేను పుస్తకం చదువుతున్నాను</span> — കർത്താവ്, കർമം, ക്രിയ (SOV). വിഭക്തി പ്രത്യയം (postposition) ഉപയോഗിക്കുന്ന ചിന്താരീതി നിങ്ങൾക്ക് സ്വാഭാവികം.</p>
+
+  <div class="aside teal"><span class="tag">സഹോദരി ഭാഷകൾ</span>തമിഴ്, കന്നഡ, മലയാളം, തെലുങ്ക് — നാലും ഒരേ ദ്രാവിഡ കുടുംബം. പദവ്യുൽപ്പത്തി, ആശ്ലിഷ്ടഘടന (agglutination), ഉൾപ്പെടുത്തൽ/ഒഴിവാക്കൽ "നാം" — എല്ലാം ഒന്നു തന്നെ.</div>
+
+  <h3>നേട്ടങ്ങളും വെല്ലുവിളികളും</h3>
+  <ol class="adv">
+    <li><strong>അബുഗിഡ ലിപി.</strong> രണ്ടിലും സ്വരം ഉള്ളടക്കമായി വ്യഞ്ജനത്തിൽ ഒളിഞ്ഞിരിക്കുന്നു — ക = ka, <span class="tel">క</span> = ka. സ്വരചിഹ്നങ്ങളും ചന്ദ്രക്കല/വിരാമവും ഒരേ ധർമം നിർവഹിക്കുന്നു (് ↔ ్).</li>
+    <li><strong>47/47 ധ്വനികൾ പൊതുവായത്.</strong> ടവർഗം, ണ, ള — എല്ലാം രണ്ടിലുമുണ്ട്. മലയാളത്തിലെ <em>ള</em> തെലുങ്കിലും <span class="tel">ళ</span> എന്നായി ജീവിച്ചിരിക്കുന്നു; തമിഴിൽ പോലും ഉണ്ട്.</li>
+    <li><strong>ഹ്രസ്വ/ദീർഘ എ, ഒ.</strong> ഉത്തരേന്ത്യൻ ഭാഷകളിൽ നഷ്ടമായ ഈ വേർതിരിവ് രണ്ടിലും നിലനിൽക്കുന്നു: എ/ഏ ↔ <span class="tel">ఎ/ఏ</span>, ഒ/ഓ ↔ <span class="tel">ఒ/ఓ</span>. ദ്രാവിഡ കുടുംബത്തിന്റെ മുദ്ര.</li>
+    <li><strong>~75% പദസാമ്യം.</strong> തത്സമ വാക്കുകളായ <em>പുസ്തകം, സമയം, ദിനം, രാത്രി, സൂര്യൻ, ഭൂമി</em> — ലിപി മാത്രം മാറ്റിയാൽ അതേപടി തെലുങ്കിൽ പറയാം.</li>
+    <li><strong>SOV + വിഭക്തി പ്രത്യയം.</strong> -കു ↔ <span class="tel">-కి/-కు</span>, -ഇൽ ↔ <span class="tel">-లో</span>. ചിന്ത മാറ്റേണ്ടതില്ല; പ്രത്യയം മാത്രം മാറ്റിയാൽ മതി.</li>
+    <li><strong>പുതിയത്: ലിംഗവ്യവസ്ഥ.</strong> മലയാളത്തിൽ ക്രിയയ്ക്ക് ലിംഗഭേദമില്ല — <em>അവൻ പോകുന്നു / അവൾ പോകുന്നു</em>. തെലുങ്കിൽ <span class="tel">అతడు వెళ్తాడు / ఆమె వెళ్తుంది</span> — ക്രിയാരൂപം തന്നെ മാറുന്നു. ഇതാണ് ശരിക്കും പുതിയ പാഠം.</li>
+  </ol>
+
+  <div class="nav-btns"><button class="sec" disabled>← മുൻപ്</button><button onclick="go(1)">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-01">
+  <h2 class="stage-h"><span class="n">01</span>സ്വരം</h2>
+  <p class="lede">മലയാള സ്വരങ്ങൾ അതേ ക്രമത്തിൽ — പുതിയ ലിപിയിൽ.</p>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+vowels+achulu+pronunciation" title="Telugu vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">തെലുങ്ക് സ്വരങ്ങളുടെ ഉച്ചാരണം കേൾക്കുക · <a href="https://www.youtube.com/results?search_query=learn+telugu+vowels+achulu+pronunciation" target="_blank" rel="noopener">കൂടുതൽ തിരയുക ↗</a></div>
+  </div>
+
+  <div class="family">
+    <h4>'അ' കുടുംബം — ഹ്രസ്വം/ദീർഘം</h4>
+    <div class="grid">
+      <div class="card"><span class="big tel">అ</span><span class="src">അ</span><span class="lat">a</span><span class="hint">ഹ്രസ്വ അ — ഒരേ ശബ്ദം, പുതിയ രൂപം</span></div>
+      <div class="card"><span class="big tel">ఆ</span><span class="src">ആ</span><span class="lat">aː</span><span class="hint">ദീർഘ ആ — <span class="tel">ఆమె</span> (āme) = അവൾ</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ഇ' കുടുംബം</h4>
+    <div class="grid">
+      <div class="card"><span class="big tel">ఇ</span><span class="src">ഇ</span><span class="lat">i</span><span class="hint"><span class="tel">ఇది</span> (idi) = ഇത്</span></div>
+      <div class="card"><span class="big tel">ఈ</span><span class="src">ഈ</span><span class="lat">iː</span><span class="hint"><span class="tel">ఈరోజు</span> (īrōju) = ഇന്ന്</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ഉ' കുടുംബം</h4>
+    <div class="grid">
+      <div class="card"><span class="big tel">ఉ</span><span class="src">ഉ</span><span class="lat">u</span><span class="hint"><span class="tel">ఉండు</span> (uṇḍu) = ഇരിക്കുക</span></div>
+      <div class="card"><span class="big tel">ఊ</span><span class="src">ഊ</span><span class="lat">uː</span><span class="hint">ദീർഘ ഊ</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'എ' കുടുംബം — ദ്രാവിഡ മുദ്ര</h4>
+    <div class="grid">
+      <div class="card"><span class="big tel">ఎ</span><span class="src">എ</span><span class="lat">e</span><span class="hint">ഹ്രസ്വ എ</span></div>
+      <div class="card"><span class="big tel">ఏ</span><span class="src">ഏ</span><span class="lat">eː</span><span class="hint">ദീർഘ ഏ — <span class="tel">ఏమిటి</span> = എന്ത്</span></div>
+      <div class="card"><span class="big tel">ఐ</span><span class="src">ഐ</span><span class="lat">ai</span><span class="hint">ദ്വ്യക്ഷരം</span></div>
+    </div>
+    <div class="aside"><span class="tag">പങ്കിട്ട നിധി</span>ഹിന്ദിയിൽ ഹ്രസ്വ 'എ' ഇല്ല; ദീർഘ 'ഏ' മാത്രം. മലയാളം–തെലുങ്ക് ജോഡി ഈ ദ്രാവിഡ വേർതിരിവ് കൃത്യമായി സൂക്ഷിച്ചിരിക്കുന്നു: <em>എരുമ / ഏരു</em> ↔ <span class="tel">ఎరుపు / ఏరు</span>.</div>
+  </div>
+
+  <div class="family">
+    <h4>'ഒ' കുടുംബം — വീണ്ടും ദ്രാവിഡ മുദ്ര</h4>
+    <div class="grid">
+      <div class="card"><span class="big tel">ఒ</span><span class="src">ഒ</span><span class="lat">o</span><span class="hint">ഹ്രസ്വ ഒ</span></div>
+      <div class="card"><span class="big tel">ఓ</span><span class="src">ഓ</span><span class="lat">oː</span><span class="hint">ദീർഘ ഓ</span></div>
+      <div class="card"><span class="big tel">ఔ</span><span class="src">ഔ</span><span class="lat">au</span><span class="hint">ദ്വ്യക്ഷരം</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>സംസ്കൃത സ്വരം</h4>
+    <div class="grid">
+      <div class="card"><span class="big tel">ఋ</span><span class="src">ഋ</span><span class="lat">ɾi</span><span class="hint">തത്സമ വാക്കുകളിൽ — <span class="tel">ఋషి</span> = ഋഷി</span></div>
+    </div>
+  </div>
+
+  <div class="aside ochre"><span class="tag">കാർഡ് തട്ടുക</span>ഓരോ കാർഡിലും തട്ടിയാൽ അർഥവും ഉദാഹരണവും തുറന്നുവരും.</div>
+
+  <div class="nav-btns"><button class="sec" onclick="go(0)">← മുൻപ്</button><button onclick="go(2)">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-02">
+  <h2 class="stage-h"><span class="n">02</span>വ്യഞ്ജനം</h2>
+  <p class="lede">ഒരേ വർഗ്ഗ ക്രമം — ക, ച, ട, ത, പ. പുതിയ ശബ്ദം ഒന്നുപോലും ഇല്ല.</p>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+consonants+hallulu+pronunciation" title="Telugu consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">തെലുങ്ക് വ്യഞ്ജനങ്ങളുടെ ഉച്ചാരണം · <a href="https://www.youtube.com/results?search_query=learn+telugu+consonants+hallulu+pronunciation" target="_blank" rel="noopener">കൂടുതൽ തിരയുക ↗</a></div>
+  </div>
+
+  <h3>കവർഗം (കണ്ഠ്യം)</h3>
+  <div class="grid">
+    <div class="card"><span class="big tel">క</span><span class="src">ക</span><span class="lat">ka</span><span class="hint">ഒന്നു തന്നെ</span></div>
+    <div class="card"><span class="big tel">ఖ</span><span class="src">ഖ</span><span class="lat">kha</span></div>
+    <div class="card"><span class="big tel">గ</span><span class="src">ഗ</span><span class="lat">ga</span></div>
+    <div class="card"><span class="big tel">ఘ</span><span class="src">ഘ</span><span class="lat">gha</span></div>
+    <div class="card"><span class="big tel">ఙ</span><span class="src">ങ</span><span class="lat">ṅa</span></div>
+  </div>
+
+  <h3>ചവർഗം (താലവ്യം)</h3>
+  <div class="grid">
+    <div class="card"><span class="big tel">చ</span><span class="src">ച</span><span class="lat">ca</span></div>
+    <div class="card"><span class="big tel">ఛ</span><span class="src">ഛ</span><span class="lat">cha</span></div>
+    <div class="card"><span class="big tel">జ</span><span class="src">ജ</span><span class="lat">ja</span></div>
+    <div class="card"><span class="big tel">ఝ</span><span class="src">ഝ</span><span class="lat">jha</span></div>
+    <div class="card"><span class="big tel">ఞ</span><span class="src">ഞ</span><span class="lat">ña</span></div>
+  </div>
+
+  <h3>ടവർഗം (മൂർധന്യം)</h3>
+  <div class="grid">
+    <div class="card"><span class="big tel">ట</span><span class="src">ട</span><span class="lat">ṭa</span></div>
+    <div class="card"><span class="big tel">ఠ</span><span class="src">ഠ</span><span class="lat">ṭha</span></div>
+    <div class="card"><span class="big tel">డ</span><span class="src">ഡ</span><span class="lat">ḍa</span></div>
+    <div class="card"><span class="big tel">ఢ</span><span class="src">ഢ</span><span class="lat">ḍha</span></div>
+    <div class="card"><span class="big tel">ణ</span><span class="src">ണ</span><span class="lat">ṇa</span></div>
+  </div>
+
+  <h3>തവർഗം (ദന്ത്യം)</h3>
+  <div class="grid">
+    <div class="card"><span class="big tel">త</span><span class="src">ത</span><span class="lat">ta</span></div>
+    <div class="card"><span class="big tel">థ</span><span class="src">ഥ</span><span class="lat">tha</span></div>
+    <div class="card"><span class="big tel">ద</span><span class="src">ദ</span><span class="lat">da</span></div>
+    <div class="card"><span class="big tel">ధ</span><span class="src">ധ</span><span class="lat">dha</span></div>
+    <div class="card"><span class="big tel">న</span><span class="src">ന</span><span class="lat">na</span></div>
+  </div>
+
+  <h3>പവർഗം (ഓഷ്ഠ്യം)</h3>
+  <div class="grid">
+    <div class="card"><span class="big tel">ప</span><span class="src">പ</span><span class="lat">pa</span></div>
+    <div class="card"><span class="big tel">ఫ</span><span class="src">ഫ</span><span class="lat">pha</span></div>
+    <div class="card"><span class="big tel">బ</span><span class="src">ബ</span><span class="lat">ba</span></div>
+    <div class="card"><span class="big tel">భ</span><span class="src">ഭ</span><span class="lat">bha</span></div>
+    <div class="card"><span class="big tel">మ</span><span class="src">മ</span><span class="lat">ma</span></div>
+  </div>
+
+  <h3>അന്തഃസ്ഥവും ഊഷ്മാവും</h3>
+  <div class="grid">
+    <div class="card"><span class="big tel">య</span><span class="src">യ</span><span class="lat">ya</span></div>
+    <div class="card"><span class="big tel">ర</span><span class="src">ര</span><span class="lat">ra</span></div>
+    <div class="card"><span class="big tel">ల</span><span class="src">ല</span><span class="lat">la</span></div>
+    <div class="card"><span class="big tel">వ</span><span class="src">വ</span><span class="lat">va</span></div>
+    <div class="card"><span class="big tel">శ</span><span class="src">ശ</span><span class="lat">śa</span></div>
+    <div class="card"><span class="big tel">ష</span><span class="src">ഷ</span><span class="lat">ṣa</span></div>
+    <div class="card"><span class="big tel">స</span><span class="src">സ</span><span class="lat">sa</span></div>
+    <div class="card"><span class="big tel">హ</span><span class="src">ഹ</span><span class="lat">ha</span></div>
+    <div class="card"><span class="big tel">ళ</span><span class="src">ള</span><span class="lat">ḷa</span><span class="flag">✓</span><span class="hint">മൂർധന്യ ള — ദ്രാവിഡ പൈതൃകം</span></div>
+  </div>
+
+  <div class="aside"><span class="tag">ള = <span class="tel">ళ</span></span>ഉത്തരേന്ത്യൻ ലിപികളിൽ ള ഇല്ല; തെലുങ്ക് <span class="tel">ళ</span> അത് സൂക്ഷിച്ചു — മലയാളം, തമിഴ്, കന്നഡ എന്നിവയോടൊപ്പം. <em>പാൽ / പൂള</em> ↔ <span class="tel">పాలు / పూల</span>.</div>
+
+  <div class="aside teal"><span class="tag">ഴ — നമ്മുടെ മാത്രം</span>മലയാളത്തിലെ <em>ഴ</em> (<em>മഴ, കാഴ്ച</em>) തെലുങ്കിൽ ഇല്ല. പുരാതന തമിഴ്-മലയാള പൈതൃകം; തെലുങ്കിൽ ഈ ശബ്ദം <em>ഡ</em>-യായോ <em>ള</em>-യായോ മാറിയിരിക്കുന്നു — <em>വാഴ</em> → <span class="tel">అరటి</span> (വേറെ വേര്), പക്ഷേ <em>തമിഴ്</em> → <span class="tel">తమిళం</span>.</div>
+
+  <div class="nav-btns"><button class="sec" onclick="go(1)">← മുൻപ്</button><button onclick="go(3)">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-03">
+  <h2 class="stage-h"><span class="n">03</span>സംയോജനം</h2>
+  <p class="lede">സ്വരചിഹ്നങ്ങൾ, വിരാമം, സംയുക്താക്ഷരങ്ങൾ — എല്ലാം പരിചിത യുക്തിയിൽ.</p>
+
+  <h3>ക + സ്വരചിഹ്നം</h3>
+  <table>
+    <thead><tr><th>സ്വരം</th><th>മലയാളം</th><th>തെലുങ്ക്</th><th>ശബ്ദം</th></tr></thead>
+    <tbody>
+      <tr><td>അ</td><td class="ml">ക</td><td class="tel">క</td><td class="tr">ka</td></tr>
+      <tr><td>ആ</td><td class="ml">കാ</td><td class="tel">కా</td><td class="tr">kā</td></tr>
+      <tr><td>ഇ</td><td class="ml">കി</td><td class="tel">కి</td><td class="tr">ki</td></tr>
+      <tr><td>ഈ</td><td class="ml">കീ</td><td class="tel">కీ</td><td class="tr">kī</td></tr>
+      <tr><td>ഉ</td><td class="ml">കു</td><td class="tel">కు</td><td class="tr">ku</td></tr>
+      <tr><td>ഊ</td><td class="ml">കൂ</td><td class="tel">కూ</td><td class="tr">kū</td></tr>
+      <tr><td>എ</td><td class="ml">കെ</td><td class="tel">కె</td><td class="tr">ke</td></tr>
+      <tr><td>ഏ</td><td class="ml">കേ</td><td class="tel">కే</td><td class="tr">kē</td></tr>
+      <tr><td>ഐ</td><td class="ml">കൈ</td><td class="tel">కై</td><td class="tr">kai</td></tr>
+      <tr><td>ഒ</td><td class="ml">കൊ</td><td class="tel">కొ</td><td class="tr">ko</td></tr>
+      <tr><td>ഓ</td><td class="ml">കോ</td><td class="tel">కో</td><td class="tr">kō</td></tr>
+      <tr><td>ഔ</td><td class="ml">കൌ</td><td class="tel">కౌ</td><td class="tr">kau</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside"><span class="tag">ചന്ദ്രക്കല ↔ ഹല്ലു</span>മലയാളത്തിലെ ് (ചന്ദ്രക്കല) ചെയ്യുന്ന ജോലി തെലുങ്കിൽ ్ (ഹല്ലു/വിരാമ) ചെയ്യുന്നു — സ്വരം നീക്കം ചെയ്യുക. <em>ക്</em> ↔ <span class="tel">క్</span>.</div>
+
+  <h3>സംയുക്താക്ഷരം</h3>
+  <table>
+    <thead><tr><th>മലയാളം</th><th>തെലുങ്ക്</th><th>വിശകലനം</th></tr></thead>
+    <tbody>
+      <tr><td class="ml">പുസ്തകം</td><td class="tel">పుస్తకం</td><td>പ + ു + സ് + ത + ക + ം</td></tr>
+      <tr><td class="ml">വിദ്യ</td><td class="tel">విద్య</td><td>വ + ി + ദ് + യ</td></tr>
+      <tr><td class="ml">സ്വന്തം</td><td class="tel">స్వంతం</td><td>സ് + വ + ന്+ത + ം</td></tr>
+      <tr><td class="ml">ക്ഷേത്രം</td><td class="tel">క్షేత్రం</td><td>ക് + ഷ + േ + ത് + ര + ം</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside teal"><span class="tag">ചില്ലക്ഷരം vs ഹല്ലു</span>മലയാളത്തിൽ വാക്കിന്റെ അവസാനം <em>ൻ, ർ, ൽ, ൾ, ൺ</em> എന്നീ ചില്ലുകൾ. തെലുങ്കിൽ അത്തരം പ്രത്യേക രൂപങ്ങൾ ഇല്ല — പകരം വ്യഞ്ജനത്തിൽ ్ ചേർത്ത് (<span class="tel">న్, ర్, ల్</span>) അല്ലെങ്കിൽ അനുസ്വാരം <span class="tel">ం</span> ഉപയോഗിച്ച് സമാപിക്കും. <em>അവൻ</em> ↔ <span class="tel">అతడు</span>; <em>കണ്ണ്</em> ↔ <span class="tel">కన్ను</span>.</div>
+
+  <div class="aside ochre"><span class="tag">അനുസ്വാരം</span>മലയാളത്തിലെ ം അതേപടി തെലുങ്കിൽ <span class="tel">ం</span>: <em>പുസ്തകം</em> ↔ <span class="tel">పుస్తకం</span>, <em>സമയം</em> ↔ <span class="tel">సమయం</span>.</div>
+
+  <div class="nav-btns"><button class="sec" onclick="go(2)">← മുൻപ്</button><button onclick="go(4)">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-04">
+  <h2 class="stage-h"><span class="n">04</span>പദങ്ങൾ</h2>
+  <p class="lede">50+ വാക്കുകൾ — പല തത്സമങ്ങളും പരിചിതം.</p>
+
+  <h3>സർവ്വനാമം</h3>
+  <table>
+    <thead><tr><th>തെലുങ്ക്</th><th>ഉച്ചാരണം</th><th>മലയാളം</th></tr></thead>
+    <tbody>
+      <tr><td class="tel">నేను</td><td class="tr">nēnu</td><td>ഞാൻ</td></tr>
+      <tr><td class="tel">అతడు</td><td class="tr">ataḍu</td><td>അവൻ</td></tr>
+      <tr><td class="tel">ఆమె</td><td class="tr">āme</td><td>അവൾ</td></tr>
+      <tr><td class="tel">అది</td><td class="tr">adi</td><td>അത്</td></tr>
+      <tr><td class="tel">ఇది</td><td class="tr">idi</td><td>ഇത്</td></tr>
+    </tbody>
+  </table>
+
+  <h3>മുഖ്യ നാമപദങ്ങൾ</h3>
+  <table>
+    <thead><tr><th>തെലുങ്ക്</th><th>ഉച്ചാരണം</th><th>മലയാളം</th><th>കുറിപ്പ്</th></tr></thead>
+    <tbody>
+      <tr><td class="tel">నీరు</td><td class="tr">nīru</td><td>വെള്ളം</td><td>ദ്രാവിഡം</td></tr>
+      <tr><td class="tel">పుస్తకం</td><td class="tr">pustakaṃ</td><td>പുസ്തകം</td><td>തത്സമം — ഒരേ രൂപം</td></tr>
+      <tr><td class="tel">సమయం</td><td class="tr">samayaṃ</td><td>സമയം</td><td>തത്സമം</td></tr>
+      <tr><td class="tel">దినం</td><td class="tr">dinaṃ</td><td>ദിനം</td><td>തത్സమം</td></tr>
+      <tr><td class="tel">పాలు</td><td class="tr">pālu</td><td>പാൽ</td><td>ദ്രാവിഡം</td></tr>
+      <tr><td class="tel">సూర్యుడు</td><td class="tr">sūryuḍu</td><td>സൂര്യൻ</td><td>തത്സമം + ലിംഗപ്രത്യയം</td></tr>
+      <tr><td class="tel">భూమి</td><td class="tr">bhūmi</td><td>ഭൂമി</td><td>തത്സമം</td></tr>
+      <tr><td class="tel">పేరు</td><td class="tr">pēru</td><td>പേര്</td><td>ദ്രാവിഡം</td></tr>
+      <tr><td class="tel">దారి</td><td class="tr">dāri</td><td>വഴി / ദാരി</td><td>ദ്രാവിഡം</td></tr>
+      <tr><td class="tel">రాత్రి</td><td class="tr">rātri</td><td>രാത്രി</td><td>തത്സమം</td></tr>
+      <tr><td class="tel">పువ్వు</td><td class="tr">puvvu</td><td>പൂവ്</td><td>ദ്രാവിഡം</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside"><span class="tag">തത്സമ പാലം</span>പുസ്തകം, സമയം, ദിനം, രാത്രി, ഭൂമി, സൂര്യൻ — സംസ്കൃതത്തിൽ നിന്ന് രണ്ടു ഭാഷകളും ഒരേ വാക്ക് കടം കൊണ്ടു. ലിപി മാറ്റിയാൽ ഉടനെ പരിചിത വാക്ക്.</div>
+
+  <h3>മുഖ്യ ക്രിയകൾ</h3>
+  <table>
+    <thead><tr><th>തെലുങ്ക്</th><th>ഉച്ചാരണം</th><th>മലയാളം</th></tr></thead>
+    <tbody>
+      <tr><td class="tel">ఉండు</td><td class="tr">uṇḍu</td><td>ഇരിക്കുക</td></tr>
+      <tr><td class="tel">పోవు</td><td class="tr">pōvu</td><td>പോവുക</td></tr>
+      <tr><td class="tel">రా</td><td class="tr">rā</td><td>വരിക</td></tr>
+      <tr><td class="tel">తిను</td><td class="tr">tinu</td><td>തിന്നുക</td></tr>
+      <tr><td class="tel">చూడు</td><td class="tr">cūḍu</td><td>നോക്കുക</td></tr>
+      <tr><td class="tel">చదువు</td><td class="tr">caduvu</td><td>വായിക്കുക</td></tr>
+      <tr><td class="tel">కావాలి</td><td class="tr">kāvāli</td><td>വേണം</td></tr>
+      <tr><td class="tel">తెలుసు</td><td class="tr">telusu</td><td>അറിയാം</td></tr>
+      <tr><td class="tel">నడచు</td><td class="tr">naḍacu</td><td>നടക്കുക</td></tr>
+      <tr><td class="tel">నిలుచు</td><td class="tr">nilucu</td><td>നിൽക്കുക</td></tr>
+      <tr><td class="tel">ఇవ్వు</td><td class="tr">ivvu</td><td>കൊടുക്കുക</td></tr>
+      <tr><td class="tel">చెప్పు</td><td class="tr">ceppu</td><td>പറയുക</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside teal"><span class="tag">'കാവാലി' = വേണം</span>തെലുങ്ക് <span class="tel">కావాలి</span> — മലയാള <em>വേണം</em> പോലെ; കർത്താവ് വിഭക്തി (dative) ഉപയോഗിക്കുന്നു. <span class="tel">నాకు కావాలి</span> = എനിക്ക് വേണം. ചിന്താരീതി ഒന്നു തന്നെ.</div>
+
+  <h3>സംഖ്യ</h3>
+  <table>
+    <tbody>
+      <tr><td class="tel">ఒకటి</td><td class="tr">okaṭi</td><td>ഒന്ന്</td></tr>
+      <tr><td class="tel">రెండు</td><td class="tr">reṇḍu</td><td>രണ്ട്</td></tr>
+      <tr><td class="tel">మూడు</td><td class="tr">mūḍu</td><td>മൂന്ന്</td></tr>
+      <tr><td class="tel">నాలుగు</td><td class="tr">nālugu</td><td>നാല്</td></tr>
+      <tr><td class="tel">ఐదు</td><td class="tr">aidu</td><td>അഞ്ച്</td></tr>
+      <tr><td class="tel">పది</td><td class="tr">padi</td><td>പത്ത്</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside ochre"><span class="tag">സംഖ്യാ കുടുംബം</span>"രണ്ട്" ↔ <span class="tel">రెండు</span>, "മൂന്ന്" ↔ <span class="tel">మూడు</span>, "അഞ്ച്" ↔ <span class="tel">ఐదు</span> — പ്രോട്ടോ-ദ്രാവിഡ വേരുകൾ അതേപടി. കന്നഡ, തമിഴ് സംഖ്യകളും സഹോദരങ്ങൾ.</div>
+
+  <div class="nav-btns"><button class="sec" onclick="go(3)">← മുൻപ്</button><button onclick="go(5)">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-05">
+  <h2 class="stage-h"><span class="n">05</span>വാക്യം</h2>
+  <p class="lede">SOV ക്രമം പരിചിതം — പുതിയത് ക്രിയയിലെ ലിംഗഭേദം.</p>
+
+  <h3>അടിസ്ഥാന ക്രമം</h3>
+  <table>
+    <thead><tr><th>മലയാളം</th><th>തെലുങ്ക്</th><th>ഘടന</th></tr></thead>
+    <tbody>
+      <tr><td class="ml">ഞാൻ പുസ്തകം വായിക്കുന്നു</td><td class="tel">నేను పుస్తకం చదువుతున్నాను</td><td>കർത്താവ് + കർമം + ക്രിയ</td></tr>
+      <tr><td class="ml">അവൻ വീട്ടിലേക്ക് പോകുന്നു</td><td class="tel">అతడు ఇంటికి వెళ్తాడు</td><td>വിഭക്തി പ്രത്യയം</td></tr>
+    </tbody>
+  </table>
+
+  <h3>ക്രിയാരൂപം — ചെയ്യുക (വർത്തമാനം)</h3>
+  <table>
+    <thead><tr><th>പുരുഷൻ</th><th>മലയാളം</th><th>തെലുങ്ക്</th></tr></thead>
+    <tbody>
+      <tr><td>ഞാൻ</td><td class="ml">ചെയ്യുന്നു</td><td class="tel">చేస్తాను</td></tr>
+      <tr><td>നീ</td><td class="ml">ചെയ്യുന്നു</td><td class="tel">చేస్తావు</td></tr>
+      <tr><td>അവൻ</td><td class="ml">ചെയ്യുന്നു</td><td class="tel">చేస్తాడు</td></tr>
+      <tr><td>അവൾ</td><td class="ml">ചെയ്യുന്നു</td><td class="tel">చేస్తుంది</td></tr>
+      <tr><td>ഞങ്ങൾ/നാം</td><td class="ml">ചെയ്യുന്നു</td><td class="tel">చేస్తాము</td></tr>
+      <tr><td>അവർ</td><td class="ml">ചെയ്യുന്നു</td><td class="tel">చేస్తారు</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside"><span class="tag">ശ്രദ്ധിക്കുക — പുതിയ പാഠം</span>മലയാളത്തിൽ "ചെയ്യുന്നു" എല്ലാവർക്കും ഒന്നു തന്നെ. തെലുങ്കിൽ കർത്താവിന്റെ പുരുഷനും ലിംഗവും അനുസരിച്ച് ക്രിയ മാറുന്നു: <span class="tel">చేస్తాడు</span> (അവൻ) / <span class="tel">చేస్తుంది</span> (അവൾ). ഇത് പരിശീലിക്കണം.</div>
+
+  <div class="aside teal"><span class="tag">ഉൾപ്പെടുത്തൽ/ഒഴിവാക്കൽ 'നാം'</span>രണ്ടു ഭാഷയിലും ഈ വ്യത്യാസമുണ്ട്: <em>നാം</em> (കേൾക്കുന്നവനെ ഉൾപ്പെടുത്തി) vs <em>ഞങ്ങൾ</em> (ഒഴിവാക്കി). തെലുങ്കിൽ <span class="tel">మనము</span> (ഉൾപ്പെടുത്തൽ) vs <span class="tel">మేము</span> (ഒഴിവാക്കൽ). ദ്രാവിഡ സമ്പത്ത്.</div>
+
+  <h3>വിഭക്തി പ്രത്യയം</h3>
+  <table>
+    <thead><tr><th>വിഭക്തി</th><th>മലയാളം</th><th>തെലുങ്ക്</th></tr></thead>
+    <tbody>
+      <tr><td>പ്രഥമ</td><td>—</td><td>—</td></tr>
+      <tr><td>ദ്വിതീയ</td><td>-എ</td><td class="tel">-ని / -ను</td></tr>
+      <tr><td>ചതുർത്ഥി</td><td>-ക്ക്</td><td class="tel">-కి / -కు</td></tr>
+      <tr><td>സപ്തമി</td><td>-ഇൽ</td><td class="tel">-లో</td></tr>
+      <tr><td>പഞ്ചമി</td><td>-ഇൽ നിന്ന്</td><td class="tel">-నుండి</td></tr>
+      <tr><td>ഷഷ്ഠി</td><td>-ന്റെ / -ഉടെ</td><td class="tel">-యొక్క</td></tr>
+    </tbody>
+  </table>
+
+  <h3>ചോദ്യങ്ങൾ</h3>
+  <table>
+    <tbody>
+      <tr><td class="tel">ఏమిటి</td><td class="tr">ēmiṭi</td><td>എന്ത്</td></tr>
+      <tr><td class="tel">ఎవరు</td><td class="tr">evaru</td><td>ആര്</td></tr>
+      <tr><td class="tel">ఎక్కడ</td><td class="tr">ekkaḍa</td><td>എവിടെ</td></tr>
+      <tr><td class="tel">ఎప్పుడు</td><td class="tr">eppuḍu</td><td>എപ്പോൾ</td></tr>
+      <tr><td class="tel">ఎందుకు</td><td class="tr">enduku</td><td>എന്തുകൊണ്ട്</td></tr>
+      <tr><td class="tel">ఎలా</td><td class="tr">elā</td><td>എങ്ങനെ</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside ochre"><span class="tag">ചോദ്യ വാക്കുകളുടെ 'എ'</span>മലയാളത്തിൽ എല്ലാ ചോദ്യ വാക്കുകളും 'എ' കൊണ്ട് തുടങ്ങുന്നു: എന്ത്, എവിടെ, എപ്പോൾ. തെലുങ്കിലും <span class="tel">ఏ/ఎ</span> കൊണ്ട് തന്നെ: <span class="tel">ఏమిటి, ఎక్కడ, ఎప్పుడు</span>. പ്രോട്ടോ-ദ്രാവിഡത്തിൽ നിന്നുള്ള പൈതൃകം.</div>
+
+  <h3>നിഷേധം</h3>
+  <p>മലയാളം: "ഞാൻ പോകുന്നില്ല". തെലുങ്ക്: <span class="tel">నేను వెళ్ళను</span> — ക്രിയയിൽത്തന്നെ നിഷേധ പ്രത്യയം ചേർക്കുന്നു.</p>
+
+  <div class="nav-btns"><button class="sec" onclick="go(4)">← മുൻപ്</button><button onclick="go(6)">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-06">
+  <h2 class="stage-h"><span class="n">06</span>വായന</h2>
+  <p class="lede">മൂന്ന് ചെറുപാഠങ്ങൾ — തെലുങ്ക്, ഉച്ചാരണം, മലയാളം അർഥം.</p>
+
+  <h3>1 · സ്വയം പരിചയം</h3>
+  <div class="passage">
+    <div class="line"><div class="t">నా పేరు రాము.</div><div class="x">nā pēru rāmu.</div><div class="m">എന്റെ പേര് രാമു.</div></div>
+    <div class="line"><div class="t">నేను హైదరాబాదులో ఉంటాను.</div><div class="x">nēnu haidarābādulō uṇṭānu.</div><div class="m">ഞാൻ ഹൈദരാബാദിൽ താമസിക്കുന്നു.</div></div>
+    <div class="line"><div class="t">నేను విద్యార్థిని.</div><div class="x">nēnu vidyārthini.</div><div class="m">ഞാൻ ഒരു വിദ്യാർത്ഥിയാണ്.</div></div>
+    <div class="line"><div class="t">నాకు పుస్తకాలు చదవడం ఇష్టం.</div><div class="x">nāku pustakālu cadavaḍaṃ iṣṭaṃ.</div><div class="m">എനിക്ക് പുസ്തകങ്ങൾ വായിക്കാൻ ഇഷ്ടമാണ്.</div></div>
+    <div class="line"><div class="t">మీ పేరు ఏమిటి?</div><div class="x">mī pēru ēmiṭi?</div><div class="m">നിങ്ങളുടെ പേരെന്താണ്?</div></div>
+  </div>
+
+  <h3>2 · ഒരു ദിവസം</h3>
+  <div class="passage">
+    <div class="line"><div class="t">ఉదయం నేను ఆరు గంటలకి లేస్తాను.</div><div class="x">udayaṃ nēnu āru gaṇṭalaki lēstānu.</div><div class="m">രാവിലെ ആറു മണിക്ക് ഞാൻ എഴുന്നേൽക്കുന്നു.</div></div>
+    <div class="line"><div class="t">తరువాత కాఫీ తాగుతాను.</div><div class="x">taruvāta kāphī tāgutānu.</div><div class="m">ശേഷം കാപ്പി കുടിക്കുന്നു.</div></div>
+    <div class="line"><div class="t">ఎనిమిది గంటలకి పనికి వెళ్తాను.</div><div class="x">enimidi gaṇṭalaki paniki veḷtānu.</div><div class="m">എട്ടു മണിക്ക് ജോലിക്ക് പോകുന്നു.</div></div>
+    <div class="line"><div class="t">మధ్యాహ్నం భోజనం చేస్తాను.</div><div class="x">madhyāhnaṃ bhōjanaṃ cēstānu.</div><div class="m">ഉച്ചയ്ക്ക് ഭക്ഷണം കഴിക്കുന്നു.</div></div>
+    <div class="line"><div class="t">రాత్రి పుస్తకం చదివి నిద్రపోతాను.</div><div class="x">rātri pustakaṃ cadivi nidrapōtānu.</div><div class="m">രാത്രിയിൽ പുസ്തകം വായിച്ച് ഉറങ്ങുന്നു.</div></div>
+  </div>
+
+  <h3>3 · സംഭാഷണം</h3>
+  <div class="passage">
+    <div class="line"><div class="t">— నమస్కారం! మీరు ఎలా ఉన్నారు?</div><div class="x">namaskāraṃ! mīru elā unnāru?</div><div class="m">— നമസ്കാരം! നിങ്ങൾ എങ്ങനെയുണ്ട്?</div></div>
+    <div class="line"><div class="t">— బాగున్నాను, మీరు?</div><div class="x">bāgunnānu, mīru?</div><div class="m">— സുഖമാണ്, നിങ്ങൾ?</div></div>
+    <div class="line"><div class="t">— నేను కూడా బాగున్నాను. భోజనం అయిందా?</div><div class="x">nēnu kūḍā bāgunnānu. bhōjanaṃ ayindā?</div><div class="m">— ഞാനും സുഖമായി ഇരിക്കുന്നു. ഭക്ഷണം കഴിച്ചോ?</div></div>
+    <div class="line"><div class="t">— అవును, అయింది. మీరు?</div><div class="x">avunu, ayindi. mīru?</div><div class="m">— അതെ, കഴിച്ചു. നിങ്ങൾ?</div></div>
+    <div class="line"><div class="t">— ఇప్పుడే చేస్తాను.</div><div class="x">ippuḍē cēstānu.</div><div class="m">— ഇപ്പോൾ കഴിക്കാൻ പോകുന്നു.</div></div>
+    <div class="line"><div class="t">— సరే, మళ్ళీ కలుద్దాం!</div><div class="x">sarē, maḷḷī kaluddāṃ!</div><div class="m">— ശരി, വീണ്ടും കാണാം!</div></div>
+  </div>
+
+  <div class="aside"><span class="tag">'ഭോജനം അയിന്ദാ?'</span>തെലുങ്കിലെ കുശലാന്വേഷണത്തിന്റെ ഹൃദയം — മലയാളത്തിലെ <em>"ഉണ്ടോ?"</em> പോലെ. ഭക്ഷണം കഴിച്ചോ എന്നത് സുഖമാണോ എന്നതിന്റെ പര്യായം. ദ്രാവിഡ സംസ്കാരത്തിന്റെ പൊതു ആതിഥ്യ മര്യാദ.</div>
+
+  <div class="nav-btns"><button class="sec" onclick="go(5)">← മുൻപ്</button><button onclick="go(7)">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-07">
+  <h2 class="stage-h"><span class="n">07</span>പദമേഖല</h2>
+  <p class="lede">കുടുംബം, ശരീരം, സമയം, ചലനം — രണ്ടു ഭാഷ എങ്ങനെ ലോകം വെട്ടി മുറിക്കുന്നു.</p>
+
+  <h3>കുടുംബം</h3>
+  <table>
+    <thead><tr><th>തെലുങ്ക്</th><th>ഉച്ചാരണം</th><th>മലയാളം</th></tr></thead>
+    <tbody>
+      <tr><td class="tel">నాన్న</td><td class="tr">nānna</td><td>അച്ഛൻ</td></tr>
+      <tr><td class="tel">అమ్మ</td><td class="tr">amma</td><td>അമ്മ</td></tr>
+      <tr><td class="tel">అన్న</td><td class="tr">anna</td><td>ചേട്ടൻ</td></tr>
+      <tr><td class="tel">అక్క</td><td class="tr">akka</td><td>ചേച്ചി</td></tr>
+      <tr><td class="tel">మామ</td><td class="tr">māma</td><td>മാമൻ</td></tr>
+      <tr><td class="tel">అత్త</td><td class="tr">atta</td><td>അമ്മായി</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside"><span class="tag">അമ്മ = <span class="tel">అమ్మ</span></span>നാലു ദ്രാവിഡ ഭാഷകളിലും "അമ്മ" ഒന്നു തന്നെ. <em>അമ്മായി</em> ↔ <span class="tel">అత్త</span>, <em>മാമൻ</em> ↔ <span class="tel">మామ</span> — കുടുംബ ബന്ധങ്ങളുടെ വർഗീകരണം പോലും സമാനം.</div>
+
+  <h3>ശരീരം</h3>
+  <table>
+    <tbody>
+      <tr><td class="tel">తల</td><td class="tr">tala</td><td>തല</td></tr>
+      <tr><td class="tel">కన్ను</td><td class="tr">kannu</td><td>കണ്ണ്</td></tr>
+      <tr><td class="tel">చేయి</td><td class="tr">cēyi</td><td>കൈ</td></tr>
+      <tr><td class="tel">కాలు</td><td class="tr">kālu</td><td>കാൽ</td></tr>
+      <tr><td class="tel">ముక్కు</td><td class="tr">mukku</td><td>മൂക്ക്</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside teal"><span class="tag">ഒരേ തല, ഒരേ കണ്ണ്</span>ശരീര ഭാഗങ്ങൾ — <em>തല, കണ്ണ്, കാൽ, മൂക്ക്</em> — രണ്ടിലും ഏതാണ്ട് അതേ രൂപത്തിൽ. പ്രോട്ടോ-ദ്രാവിഡ പൈതൃകത്തിന്റെ ശക്തമായ തെളിവ്.</div>
+
+  <h3>സമയം</h3>
+  <table>
+    <tbody>
+      <tr><td class="tel">ఈరోజు</td><td class="tr">īrōju</td><td>ഇന്ന്</td></tr>
+      <tr><td class="tel">రేపు</td><td class="tr">rēpu</td><td>നാളെ</td></tr>
+      <tr><td class="tel">నిన్న</td><td class="tr">ninna</td><td>ഇന്നലെ</td></tr>
+      <tr><td class="tel">ఇప్పుడు</td><td class="tr">ippuḍu</td><td>ഇപ്പോൾ</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside ochre"><span class="tag">'നിന്ന' — ഇന്നലെ</span>തെലുങ്ക് <span class="tel">నిన్న</span> കേൾക്കുമ്പോൾ മലയാളി "നിന്നെ" എന്നു കേൾക്കാം — പക്ഷേ അർഥം "ഇന്നലെ". ചെറിയ തെറ്റിദ്ധാരണകൾ ശ്രദ്ധിക്കുക.</div>
+
+  <h3>ചലനം</h3>
+  <table>
+    <tbody>
+      <tr><td class="tel">వెళ్ళు</td><td class="tr">veḷḷu</td><td>പോവുക</td></tr>
+      <tr><td class="tel">రా</td><td class="tr">rā</td><td>വരിക</td></tr>
+      <tr><td class="tel">నడవు</td><td class="tr">naḍavu</td><td>നടക്കുക</td></tr>
+      <tr><td class="tel">ఆగు</td><td class="tr">āgu</td><td>നിൽക്കുക</td></tr>
+      <tr><td class="tel">ఎక్కు</td><td class="tr">ekku</td><td>കയറുക</td></tr>
+    </tbody>
+  </table>
+
+  <div class="nav-btns"><button class="sec" onclick="go(6)">← മുൻപ്</button><button onclick="go(8)">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-08">
+  <h2 class="stage-h"><span class="n">08</span>ഉപയോഗം</h2>
+  <p class="lede">ബഹുമാനം, ഊഷ്മള വാക്കുകൾ, സാമൂഹിക മര്യാദ.</p>
+
+  <h3>ആശംസകൾ</h3>
+  <table>
+    <tbody>
+      <tr><td class="tel">నమస్కారం</td><td class="tr">namaskāraṃ</td><td>നമസ്കാരം</td></tr>
+      <tr><td class="tel">ధన్యవాదాలు</td><td class="tr">dhanyavādālu</td><td>നന്ദി</td></tr>
+      <tr><td class="tel">క్షమించండి</td><td class="tr">kṣamiñcaṇḍi</td><td>ക്ഷമിക്കണം</td></tr>
+      <tr><td class="tel">కావాలి</td><td class="tr">kāvāli</td><td>വേണം</td></tr>
+      <tr><td class="tel">తెలియదు</td><td class="tr">teliyadu</td><td>അറിയില്ല</td></tr>
+      <tr><td class="tel">సరే</td><td class="tr">sarē</td><td>ശരി</td></tr>
+    </tbody>
+  </table>
+
+  <h3>ബഹുമാനം — രണ്ട് പടികൾ</h3>
+  <table>
+    <thead><tr><th>ഭാവം</th><th>മലയാളം</th><th>തെലുങ്ക്</th></tr></thead>
+    <tbody>
+      <tr><td>സാധാരണ</td><td>നീ</td><td class="tel">నువ్వు</td></tr>
+      <tr><td>ബഹുമാന</td><td>താങ്കൾ / നിങ്ങൾ</td><td class="tel">మీరు</td></tr>
+      <tr><td>സാധാരണ 3-pers</td><td>അവൻ / അവൾ</td><td class="tel">అతడు / ఆమె</td></tr>
+      <tr><td>ബഹുമാന 3-pers</td><td>അദ്ദേഹം</td><td class="tel">ఆయన / ఆవిడ</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside"><span class="tag">ബഹുമാനത്തിന്റെ വിഭാജനം</span>മലയാളത്തിൽ <em>നീ → നിങ്ങൾ/താങ്കൾ</em> രണ്ടു പടി; തെലുങ്കിലും <span class="tel">నువ్వు → మీరు</span> രണ്ടു പടി. ഹിന്ദിയിലെ <em>तू/तुम/आप</em> മൂന്നു പടിയോളം കടുപ്പമില്ല.</div>
+
+  <h3>ഊഷ്മള വാക്കുകൾ (മൃദുകാരികൾ)</h3>
+  <table>
+    <tbody>
+      <tr><td class="tel">కొంచెం</td><td class="tr">koñceṃ</td><td>കുറച്ച് / അൽപം</td></tr>
+      <tr><td class="tel">దయచేసి</td><td class="tr">dayacēsi</td><td>ദയവായി</td></tr>
+      <tr><td class="tel">అండి</td><td class="tr">aṇḍi</td><td>ബഹുമാന സൂചകം (വാക്യാന്ത്യം)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside teal"><span class="tag">'കൊഞ്ചെം' — മലയാളി പരിചിതൻ</span>തെലുങ്ക് <span class="tel">కొంచెం</span> — മലയാള <em>കൊഞ്ചം</em> (കുറച്ച്) പോലെ തന്നെ. "കൊഞ്ചം വെള്ളം ഇങ്ങു തരൂ" — <span class="tel">కొంచెం నీరు ఇవ్వండి</span>. ദ്രാവിഡ വേര് ഒന്നു തന്നെ.</div>
+
+  <h3>അപരിചിതരെ സംബോധന</h3>
+  <ul>
+    <li>മുതിർന്ന പുരുഷൻ → <span class="tel">అన్నా</span> (annā) — ചേട്ടാ</li>
+    <li>മുതിർന്ന സ്ത്രീ → <span class="tel">అక్కా</span> (akkā) — ചേച്ചീ</li>
+  </ul>
+
+  <div class="aside ochre"><span class="tag">കുടുംബ ഭാഷ = പൊതുഭാഷ</span>രണ്ടു ഭാഷകളിലും അപരിചിതരോട് ചേട്ടാ/ചേച്ചീ എന്ന് വിളിക്കുന്ന പാരമ്പര്യം. തെലുങ്കിൽ <span class="tel">అన్నా, అక్కా</span> ബഹുമാനം പ്രകടിപ്പിക്കുന്നു.</div>
+
+  <h3>ഭക്ഷണ അഭിവാദ്യം</h3>
+  <p><span class="tel">భోజనం అయిందా?</span> <span class="tr">(bhōjanaṃ ayindā?)</span> — <em>"ഭക്ഷണം കഴിച്ചോ?"</em> — മലയാളത്തിൽ "ഊണ് കഴിച്ചോ?" എന്ന് ചോദിക്കുന്നതു പോലെ, ദൈനംദിന കുശലാന്വേഷണം.</p>
+
+  <div class="nav-btns"><button class="sec" onclick="go(7)">← മുൻപ്</button><button onclick="go(9)">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-09">
+  <h2 class="stage-h"><span class="n">09</span>സാഹിത്യം</h2>
+  <p class="lede">തെലുങ്ക് സാഹിത്യത്തിലേക്ക് മലയാള എഴുത്തുകാരിലൂടെ പാലം.</p>
+
+  <p>തെലുങ്കിന് ആയിരം വർഷത്തിലധികം പാരമ്പര്യം. നന്നയ്യ (11-ാം നൂറ്റാണ്ട്) മഹാഭാരതത്തെ തെലുങ്കിലേക്ക് പരിവർത്തനം ചെയ്തു — എഴുത്തച്ഛൻ അധ്യാത്മ രാമായണത്തിലൂടെ മലയാളത്തെ സാഹിത്യ ഭാഷയാക്കിയതു പോലെ.</p>
+
+  <div class="lit">
+    <h4>നന്നയ്യ <span class="tel">నన్నయ</span> ↔ എഴുത്തച്ഛൻ</h4>
+    <p>നന്നയ്യ 11-ാം നൂറ്റാണ്ടിൽ തെലുങ്ക് മഹാഭാരതം എഴുതി — ആദികാവ്യകാരൻ. എഴുത്തച്ഛൻ 16-ാം നൂറ്റാണ്ടിൽ അധ്യാത്മ രാമായണം കിളിപ്പാട്ടിലൂടെ മലയാളത്തെ സാഹിത്യ ഭാഷയാക്കി. രണ്ടു പേരും തങ്ങളുടെ ഭാഷയുടെ "ആദി കവി"കൾ.</p>
+  </div>
+
+  <div class="lit">
+    <h4>വേമന <span class="tel">వేమన</span> ↔ പൂന്താനം</h4>
+    <p>17-ാം നൂറ്റാണ്ടിലെ വേമന — ലളിത പദ്യങ്ങളിലൂടെ ചടങ്ങുകളെ നിരാകരിച്ച തത്ത്വചിന്തകൻ. ഭക്തിയിലും ലാളിത്യത്തിലും ജ്ഞാനപ്പാനയുടെ പൂന്താനത്തോട് ചേർത്തു വായിക്കാം.</p>
+  </div>
+
+  <div class="lit">
+    <h4>ഗുരജാഡ <span class="tel">గురజాడ</span> ↔ കുമാരനാശാൻ</h4>
+    <p>ഗുരജാഡ അപ്പാറാവു തെലുങ്കിലെ നവോത്ഥാന കവി — സാമൂഹിക പരിഷ്കരണം, "മുതാമ്മ" നാടകം. കുമാരനാശാൻ മലയാള നവോത്ഥാനത്തിന്റെ കവി — "ദുരവസ്ഥ", "കരുണ". രണ്ടു പേരും ജാതിക്കെതിരെ കവിതകൊണ്ട് പൊരുതി.</p>
+  </div>
+
+  <div class="lit">
+    <h4>ശ്രീശ്രീ <span class="tel">శ్రీ శ్రీ</span> ↔ വയലാർ</h4>
+    <p>ശ്രീശ്രീയുടെ "മഹാപ്രസ്ഥാനം" — വിപ്ലവ കവിത, രൂപഭേദത്തിന്റെ ധിക്കാരം. വയലാർ രാമവർമ്മയുടെ "ആയിരം പാദസരങ്ങൾ" — മലയാള ചലച്ചിത്ര കവിതയിലെ വിപ്ലവം. രണ്ടും 20-ാം നൂറ്റാണ്ടിലെ പുരോഗമന സ്വരം.</p>
+  </div>
+
+  <div class="lit">
+    <h4>വിശ്വനാഥ സത്യനാരായണ <span class="tel">విశ్వనాథ సత్యనారాయణ</span> ↔ എം.ടി. വാസുദേവൻ നായർ</h4>
+    <p>"വേയി പടഗലു" — തെലുങ്കിലെ ആദ്യ ജ്ഞാനപീഠം. ഗ്രാമസംസ്കാരവും പാരമ്പര്യവും. എം.ടി.യുടെ "രണ്ടാമൂഴം", "കാലം" — മലയാള ഗ്രാമ്യതയുടെയും സ്മൃതിയുടെയും ശിൽപശാല. രണ്ടു പേരും ജ്ഞാനപീഠ ജേതാക്കൾ.</p>
+  </div>
+
+  <div class="lit">
+    <h4>യദ്ദനപുഡി <span class="tel">యద్దనపూడి</span> ↔ മാധവിക്കുട്ടി</h4>
+    <p>യദ്ദനപുഡി സുലോചന റാണി — സ്ത്രീ പ്രേമ നോവലുകളുടെ രാജ്ഞി. മാധവിക്കുട്ടി (കമലാ ദാസ്) സ്ത്രീ ഭാവനയുടെ, അന്തരംഗത്തിന്റെ എഴുത്തുകാരി. രണ്ടു പേരും സ്ത്രീ മനസ്സിനെ തങ്ങളുടെ ഭാഷകളിൽ പുതുതായി തുറന്നിട്ടു.</p>
+  </div>
+
+  <div class="aside"><span class="tag">അവസാനം ഒരു ചിന്ത</span>മലയാളവും തെലുങ്കും — ദ്രാവിഡത്തിന്റെ രണ്ടു കൈകൾ. ലിപി മാറിയാലും, ഹൃദയം ഒന്നു തന്നെ. <span class="tel">తెలుగు నేర్చుకోవడం మలయాళం మీద మరో కిటికీ తెరవడం వంటిది.</span> — തെലുങ്ക് പഠിക്കുക എന്നാൽ മലയാളത്തിന്മേൽ മറ്റൊരു ജാലകം തുറക്കുന്നതു പോലെയാണ്.</div>
+
+  <div class="nav-btns"><button class="sec" onclick="go(8)">← മുൻപ്</button><button disabled>അവസാനം</button></div>
+</section>
+
+<footer>made by Nil · using Claude</footer>
+</div>
+<script>
+(function(){
+  var labels=[
+    {n:"00",t:"പരിചയം"},{n:"01",t:"സ്വരം"},{n:"02",t:"വ്യഞ്ജനം"},
+    {n:"03",t:"സംയോജനം"},{n:"04",t:"പദങ്ങൾ"},{n:"05",t:"വാക്യം"},
+    {n:"06",t:"വായന"},{n:"07",t:"പദമേഖല"},{n:"08",t:"ഉപയോഗം"},
+    {n:"09",t:"സാഹിത്യം"}
+  ];
+  var tabs=document.getElementById("tabs");
+  labels.forEach(function(l,i){
+    var b=document.createElement("button");
+    b.innerHTML='<span class="num">'+l.n+'</span>'+l.t;
+    b.onclick=function(){go(i)};
+    b.setAttribute("data-i",i);
+    tabs.appendChild(b);
+  });
+  window.go=function(i){
+    document.querySelectorAll("section.stage").forEach(function(s,idx){
+      s.classList.toggle("active", idx===i);
+    });
+    document.querySelectorAll("nav.tabs button").forEach(function(b,idx){
+      b.classList.toggle("active", idx===i);
+    });
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+  document.querySelectorAll(".card").forEach(function(c){
+    c.addEventListener("click",function(){c.classList.toggle("open")});
+  });
+  go(0);
+})();
+</script>
+</body>
+</html>
