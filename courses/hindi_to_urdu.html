@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="हिन्दी से उर्दू सीखने का प्रथम-सिद्धान्त पाठ्यक्रम — वर्णमाला की पद्धति में।" />
+<title>اردو سیکھیں — हिन्दी से उर्दू</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Devanagari', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .ur { font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; unicode-bidi: isolate; line-height: 2.1; }
+  .hi { font-family: 'Noto Serif Devanagari', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  /* ——— masthead ——— */
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .ur { font-weight: 500; display: block; font-size: 0.7em; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.6; }
+  .subtitle {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  /* ——— stage navigator ——— */
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  /* ——— stages ——— */
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.25;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  /* ——— mapping row (Hindi ↔ Urdu) ——— */
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 12px 6px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .hi-g {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 6px 0;
+  }
+  .map-cell .ur-g {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    direction: rtl;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 12px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+    line-height: 1.5;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 80px; margin-top: 6px; padding: 0 6px; }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  /* ——— word comparison card ——— */
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 14px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .ur { font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; font-size: 24px; font-weight: 500; line-height: 1.9; text-align: right; }
+  .word .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 13px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+
+  /* ——— sentence ——— */
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .ur { font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; font-size: 22px; line-height: 2; margin-bottom: 8px; font-weight: 500; text-align: right; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 13px; color: var(--ink-faded); font-family: 'Noto Serif Devanagari', serif; font-style: italic; }
+
+  /* ——— conjugation ——— */
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Devanagari', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .ur { font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; font-weight: 500; font-size: 19px; line-height: 1.9; text-align: right; }
+  .conjug-row .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 15px; color: var(--ink-soft); }
+
+  /* ——— guni/barahkhadi table ——— */
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 10px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 22px; line-height: 1.5; }
+  table.guni .ur-g { font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; font-size: 26px; line-height: 1.9; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+
+  /* ——— couplet (sher / shayari) ——— */
+  .sher {
+    margin: 24px 0;
+    padding: 22px 24px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .sher::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .sher .ur { font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; font-size: 22px; line-height: 2.2; font-weight: 500; margin-bottom: 14px; text-align: right; }
+  .sher .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; line-height: 1.8; color: var(--ink-soft); }
+  .sher .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ——— aside ——— */
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+    line-height: 1.7;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  /* ——— principles ——— */
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, devanagari);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 10px; line-height: 1.7; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  /* ——— positional forms (shuru/beech/ant) ——— */
+  .posform {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+    margin: 14px 0 20px;
+  }
+  .posform .cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 12px 6px;
+    text-align: center;
+  }
+  .posform .cell .ur-g { font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; font-size: 30px; line-height: 1.6; color: var(--ink); }
+  .posform .cell .lbl { font-family: 'Noto Serif Devanagari', serif; font-size: 11px; color: var(--ink-faded); margin-top: 4px; }
+
+  /* ——— video ——— */
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Devanagari', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  /* ——— progress ——— */
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .ur { font-size: 20px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; line-height: 2; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 100px; padding: 10px 4px 8px; }
+    .map-cell .ur-g { font-size: 28px; }
+    .map-cell .hi-g { font-size: 22px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 70px 1fr; gap: 6px; }
+    .conjug-row .hi-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+    .posform { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 380px) {
+    .wrap { padding: 0 14px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">एक प्राइमर · اردو سیکھیں</div>
+    <h1 class="title">
+      <span class="ur">اردو سیکھیں</span>
+      हिन्दी से उर्दू सीखिए
+    </h1>
+    <p class="subtitle">वर्णमाला और बारहखड़ी की पद्धति में — एक बार में एक ही नई चीज़, रूप पहले अर्थ बाद में, सूची नहीं व्यवस्था — हिन्दी जो जानती है उसी पर खड़ी उर्दू।</p>
+    <div class="byline">दस पड़ाव <span class="sep">·</span> मोबाइल-अनुकूल <span class="sep">·</span> बिल्कुल शुरू से</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">००</span>भूमिका</button>
+    <button class="stage-tab" data-stage="1"><span class="num">०१</span>स्वर</button>
+    <button class="stage-tab" data-stage="2"><span class="num">०२</span>व्यंजन</button>
+    <button class="stage-tab" data-stage="3"><span class="num">०३</span>संयोजन</button>
+    <button class="stage-tab" data-stage="4"><span class="num">०४</span>मूल शब्द</button>
+    <button class="stage-tab" data-stage="5"><span class="num">०५</span>वाक्य</button>
+    <button class="stage-tab" data-stage="6"><span class="num">०६</span>पाठ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">०७</span>शब्द-क्षेत्र</button>
+    <button class="stage-tab" data-stage="8"><span class="num">०८</span>प्रयोग</button>
+    <button class="stage-tab" data-stage="9"><span class="num">०९</span>साहित्य</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" id="stage-00" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · भूमिका</div>
+    <h2 class="stage-title">यह पाठ क्यों अलग है</h2>
+    <p class="stage-lede">आप हिन्दी जानते हैं। इसका मतलब है कि उर्दू सीखने के लिए आपको अंग्रेज़ी-भाषियों की तरह शून्य से शुरू करने की ज़रूरत नहीं है — आप पहले से ही लगभग ९०% ध्वनियाँ, पूरी व्याकरण की हड्डी, और आधे से ज़्यादा शब्द-भंडार जानते हैं। जो नया है वह सिर्फ़ लिपि है।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>बचपन में आपने <strong>वर्णमाला और बारहखड़ी</strong> रट कर हिन्दी पढ़ना सीखा था — क, का, कि, की, कु, कू। उसी पुस्तिका का मूल सिद्धान्त था: <strong>एक बार में केवल एक ही नई चीज़</strong>, और जो नहीं पढ़ाया गया उसका उदाहरण भी नहीं दिया जाएगा। यह पाठ्यक्रम वही पद्धति अपनाता है, पर एक असाधारण सुविधा के साथ: हिन्दी और उर्दू वास्तव में <em>एक ही बोली</em> हैं — भाषाविदों ने इसे "हिन्दुस्तानी" कहा है। अंतर मुख्यतः लिपि का है और कुछ हद तक शब्द-भंडार के स्रोत का।</p>
+
+    <p>एक ही वाक्य देखिए: "मैं किताब पढ़ता हूँ" = <span class="ur">میں کتاب پڑھتا ہوں</span> (<span class="mono">maĩ kitāb paṛhtā hū̃</span>)। शब्द-क्रम (कर्ता-कर्म-क्रिया, SOV) बिल्कुल वही। क्रिया की संरचना वही। सर्वनाम, पदबंध, सब वही। बस लिखने का तरीक़ा उल्टा — दाएँ से बाएँ — और लिपि नस्तालीक़ है, देवनागरी नहीं।</p>
+
+    <h3><span class="num">¶</span>हिन्दी → उर्दू: कहाँ मेल, कहाँ फ़र्क़</h3>
+
+    <ol class="principles">
+      <li><strong>ध्वनि — ४६ में से ४१ एक।</strong> क-ख-ग-घ, च-छ-ज-झ, ट-ठ-ड-ढ — वर्गीय व्यंजन, महाप्राण/अल्पप्राण, मूर्धन्य/दंत्य — आपके मुँह को सब पहले से आता है। केवल पाँच नई ध्वनियाँ हैं: <span class="ur">ق خ غ ز ف</span> (क़, ख़, ग़, ज़, फ़) — और ये भी आप नुक़्ते वाले अक्षरों से पहचानते हैं।</li>
+      <li><strong>व्याकरण — हड्डी बिल्कुल एक।</strong> दोनों SOV। दोनों में postposition (को, में, से, का) — prepositions नहीं। लिंग-व्यवस्था एक (करता/करती), क्रियारूप एक (करता हूँ / <span class="ur">کرتا ہوں</span>), सम्मान के तीन स्तर एक (तू/तुम/आप = <span class="ur">تو/تم/آپ</span>)। ग्रामर सीखने को कुछ नहीं है।</li>
+      <li><strong>शब्द-भंडार — ८८% साझा।</strong> घर, पानी, दूध, दिन, आज, हाथ, पाँव — ये शब्द उर्दू में हूबहू हैं, बस लिपि अलग: <span class="ur">گھر، پانی، دودھ، دن، آج، ہاتھ، پاؤں</span>। सैकड़ों शब्द तुरंत पहचान में आएँगे।</li>
+      <li><strong>लिपि — यहाँ सबसे बड़ा बदलाव।</strong> हिन्दी अबुगिदा है (व्यंजन में अंतर्निहित 'अ', स्वरचिह्न से बदलता है)। उर्दू <em>अब्जद</em> है — मूलतः केवल व्यंजन लिखे जाते हैं, छोटे स्वर (हरकात) सामान्यतः नहीं लिखे जाते। यह एक नई आदत है।</li>
+      <li><strong>दिशा — दाएँ से बाएँ।</strong> देवनागरी बाएँ से दाएँ चलती है, उर्दू नस्तालीक़ दाएँ से बाएँ। अख़बार का पहला पन्ना उल्टी तरफ़ खुलता है। यह सिर्फ़ आदत का मामला है — एक हफ़्ते में आँख पलट जाती है।</li>
+      <li><strong>शब्दों के रूप जुड़ते हैं।</strong> उर्दू में अक्षर शब्द में अपनी जगह (शुरू/बीच/अंत) के अनुसार शक्ल बदलते हैं। <span class="ur">ب</span> अकेला, <span class="ur">بـ</span> शुरू में, <span class="ur">ـبـ</span> बीच में, <span class="ur">ـب</span> अंत में — एक ही अक्षर की चार शक्लें। पहली नज़र में कठिन, पर तर्क साफ़ है।</li>
+    </ol>
+
+    <div class="aside"><strong>बोली एक, लिपि दो।</strong> हिन्दी और उर्दू व्याकरण के स्तर पर <em>एक ही भाषा</em> हैं। यह पाठ्यक्रम असल में एक <em>script course</em> है + एक <em>register layer</em> (फ़ारसी-अरबी शब्द-भंडार)। नई व्याकरण नहीं सीखनी।</div>
+
+    <div class="aside"><strong>पद्धति।</strong> हर पड़ाव में उर्दू अक्षर/शब्द/वाक्य के साथ-साथ हिन्दी समतुल्य दिया है। हिन्दी पहचानिए — उर्दू सिर्फ़ एक नया चेहरा है, कोई नई अवधारणा नहीं।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ऊपर <strong>स्वर</strong> ट्यब पर चटकाइए — शुरू कीजिए।</p>
+  </div>
+</section>
+<section class="stage" id="stage-01" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ध्वनि</div>
+    <h2 class="stage-title">स्वर — <span class="ur">حروفِ علّت</span></h2>
+    <p class="stage-lede">हिन्दी में ११ स्वर आप पहचानते हैं। उर्दू के अब्जद में स्वरों का तरीक़ा बिल्कुल अलग है — अलिफ़ (<span class="ur">ا</span>) ही अधिकांश स्वरों का वाहक है, और हरकात (<span class="ur">زبر، زیر، پیش</span>) छोटे स्वरों को दर्शाती हैं। ध्वनि वही है — बस लिखने का तरीक़ा नया।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+urdu+alphabets+pronunciation+vowels" title="Urdu vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">उर्दू स्वरों का उच्चारण <a href="https://www.youtube.com/results?search_query=learn+urdu+alphabets+pronunciation" target="_blank" rel="noopener">और खोजिए ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>पढ़ने का तरीक़ा।</strong> हर कार्ड पर चटकाइए — एक उदाहरण शब्द दिखेगा। हिन्दी अक्षर ऊपर, उर्दू नीचे (दाएँ से बाएँ)। आँख पहले हिन्दी पहचानेगी, फिर उर्दू की शक्ल याददाश्त में उतरेगी।</div>
+
+    <div class="aside"><strong>तीन हरकात जो नीचे/ऊपर लगती हैं:</strong> <span class="ur">زَبَر</span> (ज़बर — ऊपर की छोटी तिरछी रेखा) = अ की मात्रा, <span class="ur">زیر</span> (ज़ेर — नीचे की रेखा) = इ की मात्रा, <span class="ur">پیش</span> (पेश — ऊपर छोटा वाव) = उ की मात्रा। ये किताबों, क़ुरान और शुरुआती पाठों में लिखी जाती हैं — रोज़मर्रा में अक्सर छोड़ दी जाती हैं।</div>
+
+    <div class="group-label">'अ' परिवार — अलिफ़ का राज्य</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="اَب (ab) = अब। हरकत 'ज़बर' छोटे 'अ' के लिए।"><div class="hi-g">अ</div><div class="arrow">↓</div><div class="ur-g">اَ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="آم (ām) = आम (फल)। अलिफ़ पर 'मद' (~) = लम्बा आ।"><div class="hi-g">आ</div><div class="arrow">↓</div><div class="ur-g">آ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'इ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="اِس (is) = इस। ज़ेर हरकत नीचे लगती है।"><div class="hi-g">इ</div><div class="arrow">↓</div><div class="ur-g">اِ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ایک (ek) = एक। अलिफ़ + बड़ी ये = लम्बा ई।"><div class="hi-g">ई</div><div class="arrow">↓</div><div class="ur-g">ای</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'उ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="اُس (us) = उस। पेश हरकत छोटे वाव की शक्ल में।"><div class="hi-g">उ</div><div class="arrow">↓</div><div class="ur-g">اُ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="اوپر (ūpar) = ऊपर। अलिफ़ + वाव = लम्बा ऊ।"><div class="hi-g">ऊ</div><div class="arrow">↓</div><div class="ur-g">او</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ए' परिवार — छोटी ये और बड़ी ये</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="کے (ke) = के। अंत में 'बड़ी ये' (ے) = ए।"><div class="hi-g">ए</div><div class="arrow">↓</div><div class="ur-g">ے</div><div class="label">e</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="اَیسا (aisā) = ऐसा। अलिफ़ + ज़बर + बड़ी ये।"><div class="hi-g">ऐ</div><div class="arrow">↓</div><div class="ur-g">اَے</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ओ' परिवार — वाव का काम</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="او (o) / اور (aur) में वाव। शब्द के आरंभ में अलिफ़ के साथ।"><div class="hi-g">ओ</div><div class="arrow">↓</div><div class="ur-g">او</div><div class="label">o</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="اَور (aur) = और। ज़बर + वाव = 'औ'।"><div class="hi-g">औ</div><div class="arrow">↓</div><div class="ur-g">اَو</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>अब्जद का मर्म।</strong> देवनागरी में हर स्वर का अपना अक्षर है — अ, आ, इ, ई। उर्दू में ऐसा नहीं — <span class="ur">ا</span> (अलिफ़), <span class="ur">و</span> (वाव), <span class="ur">ی</span> (ये) — केवल तीन "वाहक" अक्षर हैं जो अलग-अलग हरकात के साथ मिलकर सभी स्वर बनाते हैं। इसी वजह से एक ही <span class="ur">او</span> "ओ" भी है और "ऊ" भी — संदर्भ से तय होता है।</div>
+
+    <div class="group-label">नून-ग़ुन्ना — अनुनासिक 'ँ'</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ہاں (hā̃) = हाँ। ں (नून-ग़ुन्ना) = चंद्रबिंदु का समतुल्य।" style="grid-column: span 2; border-color: var(--teal);"><div class="hi-g">ाँ</div><div class="arrow">↓</div><div class="ur-g">ں</div><div class="label">~ / nūn-ghunna</div><div class="hint" style="opacity:1; max-height: 60px;">बिना बिंदु वाला नून — शब्द के अंत में आता है, नासिकी ध्वनि देता है।</div></div>
+    </div>
+
+    <h3><span class="num">१.१</span>अभ्यास</h3>
+    <ul class="clean">
+      <li>हर जोड़ी ज़ोर से २० बार बोलिए: अ-आ, इ-ई, उ-ऊ, ए-ऐ, ओ-औ — पर उर्दू रूप की तरफ़ देखते हुए।</li>
+      <li>काग़ज़ पर हर उर्दू स्वर-वाहक (अलिफ़, वाव, ये) को पाँच बार लिखिए। याद रखिए: दाएँ से बाएँ।</li>
+      <li>जब तक हर हरकत को पहचानने में एक सेकंड न लगे, अगले पड़ाव पर मत जाइए।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-02" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ध्वनि (जारी)</div>
+    <h2 class="stage-title">व्यंजन — <span class="ur">حروفِ تہجّی</span></h2>
+    <p class="stage-lede">देवनागरी के ३३ व्यंजन आप जानते हैं। उर्दू के हुरूफ़-ए-तहज्जी भी उसी क्रम में नहीं हैं — वर्णमाला अलग क्रम में चलती है (अलिफ़-बे-पे-ते...), पर हर हिन्दी व्यंजन का एक उर्दू समकक्ष है। केवल पाँच ध्वनियाँ वास्तव में नई हैं: क़, ख़, ग़, ज़, फ़।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+urdu+huroof+pronunciation" title="Urdu consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">उर्दू व्यंजनों का उच्चारण <a href="https://www.youtube.com/results?search_query=learn+urdu+huroof+pronunciation" target="_blank" rel="noopener">और खोजिए ↗</a></div>
+    </div>
+
+    <h3><span class="num">२.१</span>कवर्ग — कंठ्य (गले के पिछले हिस्से से)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="کتاب (kitāb) = किताब"><div class="hi-g">क</div><div class="arrow">↓</div><div class="ur-g">ک</div><div class="label">k</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="महाप्राण 'ख' — ک + ه (दो-चश्मी हे)"><div class="hi-g">ख</div><div class="arrow">↓</div><div class="ur-g">کھ</div><div class="label">kh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="گھر (ghar) = घर"><div class="hi-g">ग</div><div class="arrow">↓</div><div class="ur-g">گ</div><div class="label">g</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="महाप्राण 'घ' — گ + ه"><div class="hi-g">घ</div><div class="arrow">↓</div><div class="ur-g">گھ</div><div class="label">gh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="नासिकी 'ङ' — ں (नून-ग़ुन्ना) से मिलती-जुलती"><div class="hi-g">ङ</div><div class="arrow">↓</div><div class="ur-g">ں</div><div class="label">ṅ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>महाप्राण का राज़।</strong> देवनागरी में हर महाप्राण का अलग अक्षर है (क/ख, ग/घ)। उर्दू इसे व्यंजन + <em>दो-चश्मी हे</em> (<span class="ur">ھ</span>) से बनाती है: <span class="ur">کھ</span> = ख, <span class="ur">گھ</span> = घ, <span class="ur">پھ</span> = फ, <span class="ur">بھ</span> = भ। "दो-चश्मी" का अर्थ "दो आँखों वाली" — इस 'हे' में दो छेद दिखते हैं, अलग पहचानने के लिए।</div>
+
+    <h3><span class="num">२.२</span>चवर्ग — तालव्य</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="چار (cār) = चार"><div class="hi-g">च</div><div class="arrow">↓</div><div class="ur-g">چ</div><div class="label">c</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="महाप्राण — چ + ه"><div class="hi-g">छ</div><div class="arrow">↓</div><div class="ur-g">چھ</div><div class="label">ch</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="جانا (jānā) = जाना"><div class="hi-g">ज</div><div class="arrow">↓</div><div class="ur-g">ج</div><div class="label">j</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="महाप्राण — ج + ه"><div class="hi-g">झ</div><div class="arrow">↓</div><div class="ur-g">جھ</div><div class="label">jh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="बहुत दुर्लभ, संयुक्ताक्षरों में"><div class="hi-g">ञ</div><div class="arrow">↓</div><div class="ur-g">ن</div><div class="label">ñ</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.३</span>टवर्ग — मूर्धन्य (जीभ पीछे मुड़ी हुई)</h3>
+    <p>ट-ठ-ड-ढ-ण वे ध्वनियाँ हैं जो अंग्रेज़ी-भाषियों के लिए असंभव हैं — आपके लिए जन्मजात। उर्दू इन्हें अरबी अक्षरों पर <em>छोटी त/ट/ड</em> (एक छोटा स्वरित चिह्न) लगाकर दर्शाती है।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ٹوپی (ṭopī) = टोपी। ت पर छोटा ط = ٹ।"><div class="hi-g">ट</div><div class="arrow">↓</div><div class="ur-g">ٹ</div><div class="label">ṭ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ٹھنڈا (ṭhaṇḍā) = ठंडा"><div class="hi-g">ठ</div><div class="arrow">↓</div><div class="ur-g">ٹھ</div><div class="label">ṭh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ڈاک (ḍāk) = डाक। د पर छोटा ط।"><div class="hi-g">ड</div><div class="arrow">↓</div><div class="ur-g">ڈ</div><div class="label">ḍ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ڈھول (ḍhol) = ढोल"><div class="hi-g">ढ</div><div class="arrow">↓</div><div class="ur-g">ڈھ</div><div class="label">ḍh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="پڑھنا (paṛhnā) = पढ़ना। ड़/ढ़ = ڑ/ڑھ।"><div class="hi-g">ड़/ढ़</div><div class="arrow">↓</div><div class="ur-g">ڑ</div><div class="label">ṛ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ن के रूप में"><div class="hi-g">ण</div><div class="arrow">↓</div><div class="ur-g">ن</div><div class="label">ṇ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>भारतीय उपहार।</strong> अरबी/फ़ारसी में मूर्धन्य (retroflex) ध्वनियाँ नहीं थीं। जब उर्दू हिन्दुस्तान में बसी, उसने ट/ठ/ड/ढ/ड़ के लिए अक्षरों पर <em>छोटा ط</em> जोड़कर नए अक्षर बनाए। यह हिन्दुस्तानी ध्वनियों को परदेसी लिपि में पिरोने का एक सुन्दर समाधान है।</div>
+
+    <h3><span class="num">२.४</span>तवर्ग — दंत्य (जीभ दाँतों के पीछे)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="تم (tum) = तुम"><div class="hi-g">त</div><div class="arrow">↓</div><div class="ur-g">ت</div><div class="label">t</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="थोड़ा (thoṛā) = تھوڑا"><div class="hi-g">थ</div><div class="arrow">↓</div><div class="ur-g">تھ</div><div class="label">th</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="دودھ (dūdh) = दूध"><div class="hi-g">द</div><div class="arrow">↓</div><div class="ur-g">د</div><div class="label">d</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="دھن (dhan) = धन"><div class="hi-g">ध</div><div class="arrow">↓</div><div class="ur-g">دھ</div><div class="label">dh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="نام (nām) = नाम"><div class="hi-g">न</div><div class="arrow">↓</div><div class="ur-g">ن</div><div class="label">n</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.५</span>पवर्ग — ओष्ठ्य (होंठों से)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="پانی (pānī) = पानी"><div class="hi-g">प</div><div class="arrow">↓</div><div class="ur-g">پ</div><div class="label">p</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="पे + हे = फ (महाप्राण, फल वाला)"><div class="hi-g">फ</div><div class="arrow">↓</div><div class="ur-g">پھ</div><div class="label">ph</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="باپ (bāp) = बाप"><div class="hi-g">ब</div><div class="arrow">↓</div><div class="ur-g">ب</div><div class="label">b</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="بھائی (bhāī) = भाई"><div class="hi-g">भ</div><div class="arrow">↓</div><div class="ur-g">بھ</div><div class="label">bh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ماما (māmā) = मामा"><div class="hi-g">म</div><div class="arrow">↓</div><div class="ur-g">م</div><div class="label">m</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.६</span>अन्तःस्थ, ऊष्म और विशेष</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="یار (yār) = यार"><div class="hi-g">य</div><div class="arrow">↓</div><div class="ur-g">ی</div><div class="label">y</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="راج (rāj) = राज"><div class="hi-g">र</div><div class="arrow">↓</div><div class="ur-g">ر</div><div class="label">r</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="لال (lāl) = लाल"><div class="hi-g">ल</div><div class="arrow">↓</div><div class="ur-g">ل</div><div class="label">l</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="وقت (vaqt) = वक़्त"><div class="hi-g">व</div><div class="arrow">↓</div><div class="ur-g">و</div><div class="label">v/w</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="شام (shām) = शाम"><div class="hi-g">श</div><div class="arrow">↓</div><div class="ur-g">ش</div><div class="label">sh</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="सम (sam) — سلام में स। उर्दू में 'स' के तीन अक्षर हैं!"><div class="hi-g">स</div><div class="arrow">↓</div><div class="ur-g">س</div><div class="label">s</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ہاتھ (hāth) = हाथ"><div class="hi-g">ह</div><div class="arrow">↓</div><div class="ur-g">ہ</div><div class="label">h</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>एक ध्वनि, कई अक्षर।</strong> हिन्दी में 'स' एक है, 'ज़' एक है। उर्दू ने अरबी से विरासत में कई अक्षर लिए जो एक ही हिन्दुस्तानी ध्वनि देते हैं: 'स' के लिए <span class="ur">س، ص، ث</span> (सीन, स्वाद, से); 'ज़' के लिए <span class="ur">ز، ذ، ض، ظ</span> (ज़े, ज़ाल, ज़्वाद, ज़ोए); 'त' के लिए <span class="ur">ت، ط</span> (ते, तोए); 'ह' के लिए <span class="ur">ہ، ح</span> (हे, हे-मोहमला)। सुनने में फ़र्क़ नहीं, पर वर्तनी में फ़र्क़ है — शब्द के मूल (अरबी, फ़ारसी, हिन्दुस्तानी) पर निर्भर।</div>
+
+    <h3><span class="num">२.७</span>पाँच नई ध्वनियाँ — नुक़्ते का राज़</h3>
+    <p>हिन्दी में ये पाँच अक्षर नुक़्ते (<em>.</em>) के साथ लिखे जाते हैं। उर्दू में ये मूल अक्षर हैं, इन्हें पूरा महत्व मिलता है — फ़ारसी-अरबी शब्द-भंडार के द्वार।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="قلم (qalam) = क़लम। जीभ के बिल्कुल पीछे से — उवुलर क।" style="border-color: var(--sindoor);"><div class="hi-g" style="color: var(--sindoor);">क़</div><div class="arrow">↓</div><div class="ur-g" style="color: var(--sindoor);">ق</div><div class="label">q ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="خبر (khabar) = ख़बर। 'ख' से गहरी, गले से।" style="border-color: var(--sindoor);"><div class="hi-g" style="color: var(--sindoor);">ख़</div><div class="arrow">↓</div><div class="ur-g" style="color: var(--sindoor);">خ</div><div class="label">x ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="غزل (ghazal) = ग़ज़ल। गले से गड़गड़ाहट।" style="border-color: var(--sindoor);"><div class="hi-g" style="color: var(--sindoor);">ग़</div><div class="arrow">↓</div><div class="ur-g" style="color: var(--sindoor);">غ</div><div class="label">ɣ ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="زمین (zamīn) = ज़मीन। अंग्रेज़ी 'z' के समान।" style="border-color: var(--sindoor);"><div class="hi-g" style="color: var(--sindoor);">ज़</div><div class="arrow">↓</div><div class="ur-g" style="color: var(--sindoor);">ز</div><div class="label">z ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="فکر (fikr) = फ़िक्र। अंग्रेज़ी 'f' के समान, ऊपरी होंठ दाँत पर।" style="border-color: var(--sindoor);"><div class="hi-g" style="color: var(--sindoor);">फ़</div><div class="arrow">↓</div><div class="ur-g" style="color: var(--sindoor);">ف</div><div class="label">f ⚡</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>नुक़्ते की कहानी।</strong> <span class="ur">ق خ غ ز ف</span> — ये पाँच ध्वनियाँ फ़ारसी-अरबी से आईं। हिन्दी ने इनके लिए मौजूदा अक्षरों पर नुक़्ता (बिंदु) लगा दिया: क़, ख़, ग़, ज़, फ़। उर्दू में ये मूल, आज़ाद अक्षर हैं। बोलचाल में अक्सर हिन्दी-भाषी क़लम को "कलम", ख़बर को "खबर" कह देते हैं — उर्दू में यह "ग़लत" है। शुद्ध उर्दू बोलने के लिए ये पाँच ध्वनियाँ ठीक से सुनना-बोलना सीखना होगा।</div>
+
+    <h3><span class="num">२.८</span>अरबी विरासत के विशेष अक्षर</h3>
+    <p>ये अक्षर अरबी-फ़ारसी शब्दों में आते हैं, उच्चारण में हिन्दुस्तानी ध्वनियों के साथ विलय हो जाते हैं — पर वर्तनी में दिखते हैं।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="عَلَم (alam) = झंडा। 'ऐन' — अरबी की कंठ-ध्वनि, उर्दू में 'अ' की तरह।"><div class="hi-g">अ (अरबी)</div><div class="arrow">↓</div><div class="ur-g">ع</div><div class="label">ʿain</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ثابت (sābit) = साबित। 'से' — 'स' की तरह उच्चारित।"><div class="hi-g">स (अरबी)</div><div class="arrow">↓</div><div class="ur-g">ث</div><div class="label">s (se)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="حال (hāl) = हाल। 'हे-मोहमला' — गले से 'ह'।"><div class="hi-g">ह (अरबी)</div><div class="arrow">↓</div><div class="ur-g">ح</div><div class="label">ḥ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ذرا (zarā) = ज़रा। 'ज़ाल' — 'ज़' की तरह।"><div class="hi-g">ज़ (अरबी)</div><div class="arrow">↓</div><div class="ur-g">ذ</div><div class="label">z (zāl)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="صبح (sub'h) = सुबह। 'स्वाद' — 'स' की तरह।"><div class="hi-g">स (अरबी)</div><div class="arrow">↓</div><div class="ur-g">ص</div><div class="label">s (sv)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ضرور (zarūr) = ज़रूर। 'ज़्वाद' — 'ज़' की तरह।"><div class="hi-g">ज़ (अरबी)</div><div class="arrow">↓</div><div class="ur-g">ض</div><div class="label">z (zv)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="طالب (tālib) = तालिब। 'तोए' — 'त' की तरह।"><div class="hi-g">त (अरबी)</div><div class="arrow">↓</div><div class="ur-g">ط</div><div class="label">t (toe)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ظلم (zulm) = ज़ुल्म। 'ज़ोए' — 'ज़' की तरह।"><div class="hi-g">ज़ (अरबी)</div><div class="arrow">↓</div><div class="ur-g">ظ</div><div class="label">z (zo)</div><div class="hint"></div></div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-03" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · संयोजन</div>
+    <h2 class="stage-title">अक्षरों के रूप — <span class="ur">شکلیں</span></h2>
+    <p class="stage-lede">उर्दू का सबसे बड़ा अचरज यहाँ है: अक्षर शब्द में अपनी स्थिति के अनुसार शक्ल बदलते हैं। एक ही अक्षर की चार शक्लें — अकेला, शुरू में, बीच में, अंत में। यह कोई नई अवधारणा नहीं — अंग्रेज़ी में भी 'm' और 'M' अलग हैं। बस यहाँ चार रूप हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">३.१</span>एक अक्षर, चार शक्लें — <span class="ur">ب</span> (बे) का उदाहरण</h3>
+    <div class="posform">
+      <div class="cell"><div class="ur-g">ب</div><div class="lbl">अकेला</div></div>
+      <div class="cell"><div class="ur-g">بـ</div><div class="lbl">शुरू में</div></div>
+      <div class="cell"><div class="ur-g">ـبـ</div><div class="lbl">बीच में</div></div>
+      <div class="cell"><div class="ur-g">ـب</div><div class="lbl">अंत में</div></div>
+    </div>
+
+    <p>देखिए एक ही अक्षर — बे — कैसे शब्द में पिरोने पर रूप बदलता है। शुरू में दाएँ तरफ़ एक पूँछ जुड़ती है; बीच में दोनों तरफ़; अंत में केवल बाएँ (शब्द की दिशा में) पूँछ। नीचे के बिंदु (नुक़्ते) अक्षर की पहचान हैं — बे में एक बिंदु नीचे, पे में तीन बिंदु नीचे, ते में दो ऊपर।</p>
+
+    <div class="sentence">
+      <div class="ur">بابا، بابر، اب</div>
+      <div class="trans">bābā, bābar, ab</div>
+      <div class="hi-gloss">बाबा (शुरू में बे + बीच में बे), बाबर (शुरू-बीच-अंत तीनों), अब (अंत में बे)।</div>
+    </div>
+
+    <div class="aside"><strong>कुछ अक्षर "अलग रहने वाले" हैं।</strong> सात अक्षर ऐसे हैं जो अपने बाद आने वाले अक्षर से नहीं जुड़ते — वे रिश्ता तोड़ देते हैं: <span class="ur">ا د ذ ر ز ژ و</span> (अलिफ़, दाल, ज़ाल, रे, ज़े, झे, वाव)। इसलिए <span class="ur">دادا</span> (दादा) में 'दाल' अगले 'अलिफ़' से नहीं जुड़ती — दो अलग टुकड़े दिखते हैं।</div>
+
+    <h3><span class="num">३.२</span>बारहखड़ी — हिन्दी ↔ उर्दू साथ-साथ</h3>
+    <p>वर्णमाला के बाद बारहखड़ी आप रट चुके हैं — क, का, कि, की, कु, कू, के, कै, को, कौ। उर्दू में वही बारहखड़ी हरकात से बनती है:</p>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>स्वर</th><th>हिन्दी</th><th>उर्दू</th><th>उच्चारण</th></tr>
+        <tr><td>अ</td><td class="g">क</td><td><span class="ur-g">کَ</span></td><td class="mono">ka</td></tr>
+        <tr><td>आ</td><td class="g">का</td><td><span class="ur-g">کا</span></td><td class="mono">kā</td></tr>
+        <tr><td>इ</td><td class="g">कि</td><td><span class="ur-g">کِ</span></td><td class="mono">ki</td></tr>
+        <tr><td>ई</td><td class="g">की</td><td><span class="ur-g">کی</span></td><td class="mono">kī</td></tr>
+        <tr><td>उ</td><td class="g">कु</td><td><span class="ur-g">کُ</span></td><td class="mono">ku</td></tr>
+        <tr><td>ऊ</td><td class="g">कू</td><td><span class="ur-g">کو</span></td><td class="mono">kū</td></tr>
+        <tr><td>ए</td><td class="g">के</td><td><span class="ur-g">کے</span></td><td class="mono">ke</td></tr>
+        <tr><td>ऐ</td><td class="g">कै</td><td><span class="ur-g">کَے</span></td><td class="mono">kai</td></tr>
+        <tr><td>ओ</td><td class="g">को</td><td><span class="ur-g">کو</span></td><td class="mono">ko</td></tr>
+        <tr><td>औ</td><td class="g">कौ</td><td><span class="ur-g">کَو</span></td><td class="mono">kau</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>एक गड़बड़ देखिए।</strong> <span class="ur">کو</span> "कू" भी है और "को" भी! अब्जद में छोटे अंतर नहीं लिखे जाते — संदर्भ से पता चलता है। <span class="ur">کتاب کو</span> = "किताब को" (दात्री विभक्ति)। शुरू में भ्रम होगा, अभ्यास से आँख पहचानने लगेगी।</div>
+
+    <h3><span class="num">३.३</span>संयुक्ताक्षर — जोड़ों का हिसाब</h3>
+    <p>हिन्दी में संयुक्ताक्षर हलन्त (्) से बनते हैं: क् + त = क्त। उर्दू में हलन्त की ज़रूरत नहीं — अब्जद में हर अक्षर पहले से ही "बिना स्वर" माना जाता है। जो अक्षर जुड़ते हैं वे लिख दिए जाते हैं, बस।</p>
+    <div class="sentence">
+      <div class="ur">کتاب = ک + ت + ا + ب</div>
+      <div class="hi-gloss">"किताब" में क + ि + त + ा + ब — हिन्दी में पाँच अक्षर। उर्दू में भी चार हुरूफ़, बस 'इ' की हरकत नहीं दिखती।</div>
+    </div>
+    <div class="sentence">
+      <div class="ur">پُستک = پ + سُ + ت + ک</div>
+      <div class="hi-gloss">पुस्तक — संस्कृत मूल का शब्द। हिन्दी में 'स्त' संयुक्त है, उर्दू में 'स' और 'त' अलग-अलग लिखे हैं पर बिना स्वर के।</div>
+    </div>
+
+    <div class="aside"><strong>अब्जद बनाम अबुगिदा — गहरी बात।</strong> देवनागरी अबुगिदा है: हर व्यंजन में एक स्वर (अ) अंतर्निहित, स्वर हटाने के लिए हलन्त लगाना पड़ता है। उर्दू अब्जद है: कोई अंतर्निहित स्वर नहीं, स्वर जोड़ने के लिए हरकत लगानी पड़ती है। दोनों प्रणालियाँ विपरीत दिशा से एक ही काम करती हैं।</div>
+
+    <h3><span class="num">३.४</span>पढ़ने की आदत — दाएँ से बाएँ</h3>
+    <p>देवनागरी बाएँ से दाएँ चलती है, उर्दू दाएँ से बाएँ। पन्ना खोलिए — उर्दू किताब का "पहला" पन्ना हिन्दी के हिसाब से "आख़िरी" पन्ना होगा। पहले यह अजीब लगता है, पर एक सप्ताह के अभ्यास में आँख अपने आप पलट जाती है। संख्याएँ (१, २, ३...) दोनों भाषाओं में बाएँ से दाएँ लिखी जाती हैं — यह एक अपवाद है।</p>
+  </div>
+</section>
+<section class="stage" id="stage-04" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · मूल शब्द</div>
+    <h2 class="stage-title">पचास शब्द — हिन्दी के पास उर्दू</h2>
+    <p class="stage-lede">हर शब्द के साथ हिन्दी समतुल्य दिया है। अधिकांश शब्द तद्भव या फ़ारसी-अरबी से आए हैं — कान को पहले से परिचित, बस लिपि नई।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">४.१</span>सर्वनाम</h3>
+    <div class="words">
+      <div class="word"><span class="ur">میں</span><span class="hi-eq">मैं</span><span class="trans">maĩ</span></div>
+      <div class="word"><span class="ur">تُو</span><span class="hi-eq">तू</span><span class="trans">tū</span><span class="note">सबसे अनौपचारिक — बहुत करीबियों के लिए</span></div>
+      <div class="word"><span class="ur">تم</span><span class="hi-eq">तुम</span><span class="trans">tum</span><span class="note">दोस्तों के लिए, बराबर वालों के लिए</span></div>
+      <div class="word"><span class="ur">آپ</span><span class="hi-eq">आप</span><span class="trans">āp</span><span class="note">सम्मान, बड़ों और अजनबियों के लिए — सुरक्षित विकल्प</span></div>
+      <div class="word"><span class="ur">وہ</span><span class="hi-eq">वह / वो</span><span class="trans">vo / vuh</span></div>
+      <div class="word"><span class="ur">یہ</span><span class="hi-eq">यह / ये</span><span class="trans">ye / yih</span></div>
+      <div class="word"><span class="ur">ہم</span><span class="hi-eq">हम</span><span class="trans">ham</span></div>
+      <div class="word"><span class="ur">وہ لوگ / وہ</span><span class="hi-eq">वे / वे लोग</span><span class="trans">vo log</span></div>
+    </div>
+
+    <h3><span class="num">४.२</span>रोज़मर्रा की चीज़ें</h3>
+    <div class="words">
+      <div class="word"><span class="ur">گھر</span><span class="hi-eq">घर</span><span class="trans">ghar</span><span class="note">तद्भव — बिल्कुल वही शब्द</span></div>
+      <div class="word"><span class="ur">پانی</span><span class="hi-eq">पानी</span><span class="trans">pānī</span><span class="note">हूबहू</span></div>
+      <div class="word"><span class="ur">دودھ</span><span class="hi-eq">दूध</span><span class="trans">dūdh</span></div>
+      <div class="word"><span class="ur">کھانا</span><span class="hi-eq">खाना</span><span class="trans">khānā</span></div>
+      <div class="word"><span class="ur">کتاب</span><span class="hi-eq">किताब</span><span class="trans">kitāb</span><span class="note">फ़ारसी-अरबी — हिन्दी "पुस्तक" का उर्दू समकक्ष</span></div>
+      <div class="word"><span class="ur">قلم</span><span class="hi-eq">क़लम</span><span class="trans">qalam</span><span class="note">अरबी — हिन्दी में नुक़्ते वाला</span></div>
+      <div class="word"><span class="ur">وقت</span><span class="hi-eq">वक़्त</span><span class="trans">vaqt</span><span class="note">⚡ हिन्दी "समय" का उर्दू जोड़ीदार</span></div>
+      <div class="word"><span class="ur">نام</span><span class="hi-eq">नाम</span><span class="trans">nām</span></div>
+      <div class="word"><span class="ur">دن</span><span class="hi-eq">दिन</span><span class="trans">din</span><span class="note">तत्सम — संस्कृत से दोनों में</span></div>
+      <div class="word"><span class="ur">رات</span><span class="hi-eq">रात</span><span class="trans">rāt</span></div>
+      <div class="word"><span class="ur">کام</span><span class="hi-eq">काम</span><span class="trans">kām</span></div>
+      <div class="word"><span class="ur">بات</span><span class="hi-eq">बात</span><span class="trans">bāt</span></div>
+      <div class="word"><span class="ur">راستہ</span><span class="hi-eq">रास्ता</span><span class="trans">rāstā</span></div>
+      <div class="word"><span class="ur">شہر</span><span class="hi-eq">शहर</span><span class="trans">shahar</span></div>
+      <div class="word"><span class="ur">دوست</span><span class="hi-eq">दोस्त / मित्र</span><span class="trans">dost</span><span class="note">फ़ारसी — "मित्र" का उर्दू चेहरा</span></div>
+      <div class="word"><span class="ur">خبر</span><span class="hi-eq">ख़बर / समाचार</span><span class="trans">khabar</span><span class="note">अरबी — हिन्दी "समाचार" का उर्दू समकक्ष</span></div>
+    </div>
+
+    <div class="aside"><strong>रजिस्टर का जादू।</strong> <em>पुस्तक</em> और <em>किताब</em> दोनों ही हिन्दी-उर्दू में चलते हैं — पर एक संस्कृत से, दूसरा अरबी से। <em>समाचार / ख़बर</em>, <em>विद्यालय / मदरसा</em>, <em>मित्र / दोस्त</em>, <em>सूर्य / आफ़ताब</em>, <em>चंद्र / माहताब</em> — एक ही अर्थ के लिए दो स्रोत। उर्दू फ़ारसी-अरबी शब्द पसंद करती है, हिन्दी संस्कृत-निष्ठ। यही असली फ़र्क़ है — व्याकरण नहीं, शब्दों का स्वाद।</div>
+
+    <h3><span class="num">४.३</span>क्रियाएँ (धातु रूप)</h3>
+    <div class="words">
+      <div class="word"><span class="ur">کرنا</span><span class="hi-eq">करना</span><span class="trans">karnā</span></div>
+      <div class="word"><span class="ur">ہونا</span><span class="hi-eq">होना</span><span class="trans">honā</span></div>
+      <div class="word"><span class="ur">جانا</span><span class="hi-eq">जाना</span><span class="trans">jānā</span></div>
+      <div class="word"><span class="ur">آنا</span><span class="hi-eq">आना</span><span class="trans">ānā</span></div>
+      <div class="word"><span class="ur">کھانا</span><span class="hi-eq">खाना</span><span class="trans">khānā</span></div>
+      <div class="word"><span class="ur">پینا</span><span class="hi-eq">पीना</span><span class="trans">pīnā</span></div>
+      <div class="word"><span class="ur">دیکھنا</span><span class="hi-eq">देखना</span><span class="trans">dekhnā</span></div>
+      <div class="word"><span class="ur">سننا</span><span class="hi-eq">सुनना</span><span class="trans">sunnā</span></div>
+      <div class="word"><span class="ur">بولنا</span><span class="hi-eq">बोलना</span><span class="trans">bolnā</span></div>
+      <div class="word"><span class="ur">کہنا</span><span class="hi-eq">कहना</span><span class="trans">kahnā</span></div>
+      <div class="word"><span class="ur">پڑھنا</span><span class="hi-eq">पढ़ना</span><span class="trans">paṛhnā</span></div>
+      <div class="word"><span class="ur">لکھنا</span><span class="hi-eq">लिखना</span><span class="trans">likhnā</span></div>
+      <div class="word"><span class="ur">سمجھنا</span><span class="hi-eq">समझना</span><span class="trans">samajhnā</span></div>
+    </div>
+
+    <div class="aside"><strong>क्रियाएँ पूरी तरह हिन्दी हैं।</strong> देखिए — हर क्रिया तद्भव है, संस्कृत मूल से। उर्दू फ़ारसी-अरबी से संज्ञाएँ लेती है, पर क्रियाओं का कंकाल हिन्दुस्तानी (भारतीय) ही है। यही कारण है कि व्याकरण बिल्कुल एक है।</div>
+
+    <h3><span class="num">४.४</span>विभक्तियाँ — हिन्दी जैसी ही postposition</h3>
+    <p>हिन्दी में "घर में", "घर से", "घर का" — विभक्ति पीछे बैठती है। उर्दू में बिल्कुल वही:</p>
+    <div class="words">
+      <div class="word"><span class="ur">کو</span><span class="hi-eq">को (कर्म/सम्प्रदान)</span><span class="trans">ko</span><span class="note">گھر کو (ghar ko) = घर को</span></div>
+      <div class="word"><span class="ur">میں</span><span class="hi-eq">में (अधिकरण)</span><span class="trans">mẽ</span><span class="note">گھر میں = घर में</span></div>
+      <div class="word"><span class="ur">سے</span><span class="hi-eq">से (अपादान/करण)</span><span class="trans">se</span><span class="note">گھر سے = घर से</span></div>
+      <div class="word"><span class="ur">کا / کی / کے</span><span class="hi-eq">का / की / के (सम्बन्ध)</span><span class="trans">kā / kī / ke</span><span class="note">लिंग-वचन के साथ बदलता है — हिन्दी जैसा ही</span></div>
+      <div class="word"><span class="ur">پر</span><span class="hi-eq">पर</span><span class="trans">par</span></div>
+      <div class="word"><span class="ur">تک</span><span class="hi-eq">तक</span><span class="trans">tak</span></div>
+    </div>
+
+    <h3><span class="num">४.५</span>संख्या १-१०</h3>
+    <div class="words">
+      <div class="word"><span class="ur">ایک</span><span class="hi-eq">एक</span><span class="trans">ek</span></div>
+      <div class="word"><span class="ur">دو</span><span class="hi-eq">दो</span><span class="trans">do</span></div>
+      <div class="word"><span class="ur">تین</span><span class="hi-eq">तीन</span><span class="trans">tīn</span></div>
+      <div class="word"><span class="ur">چار</span><span class="hi-eq">चार</span><span class="trans">cār</span></div>
+      <div class="word"><span class="ur">پانچ</span><span class="hi-eq">पाँच</span><span class="trans">pā̃c</span></div>
+      <div class="word"><span class="ur">چھ</span><span class="hi-eq">छह</span><span class="trans">chah</span></div>
+      <div class="word"><span class="ur">سات</span><span class="hi-eq">सात</span><span class="trans">sāt</span></div>
+      <div class="word"><span class="ur">آٹھ</span><span class="hi-eq">आठ</span><span class="trans">āṭh</span></div>
+      <div class="word"><span class="ur">نو</span><span class="hi-eq">नौ</span><span class="trans">nau</span></div>
+      <div class="word"><span class="ur">دس</span><span class="hi-eq">दस</span><span class="trans">das</span></div>
+    </div>
+    <div class="aside"><strong>संख्याएँ हूबहू हिन्दी।</strong> ये संस्कृत-प्राकृत से दोनों में उतरी हैं। फ़ारसी "येक, दो, से, चहार" भी ज़रा मिलता है — पर उर्दू की रोज़मर्रा गिनती हिन्दी वाली ही है।</div>
+  </div>
+</section>
+<section class="stage" id="stage-05" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · वाक्य</div>
+    <h2 class="stage-title">वाक्य बनाना — <span class="ur">جُملہ سازی</span></h2>
+    <p class="stage-lede">यहाँ आपको सबसे कम काम करना है। हिन्दी और उर्दू की वाक्य-रचना एक है — SOV, postpositions, लिंग-संधि, क्रिया-रूप। बस लिपि बदलनी है।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">५.१</span>क्रिया-रूप — वर्तमान काल (<span class="ur">کرنا</span> = करना)</h3>
+    <div class="conjug">
+      <div class="conjug-row"><span class="pron">मैं</span><span class="ur">کرتا / کرتی ہوں</span><span class="hi-eq">करता / करती हूँ</span></div>
+      <div class="conjug-row"><span class="pron">तू</span><span class="ur">کرتا / کرتی ہے</span><span class="hi-eq">करता / करती है</span></div>
+      <div class="conjug-row"><span class="pron">तुम</span><span class="ur">کرتے / کرتی ہو</span><span class="hi-eq">करते / करती हो</span></div>
+      <div class="conjug-row"><span class="pron">आप</span><span class="ur">کرتے / کرتی ہیں</span><span class="hi-eq">करते / करती हैं</span></div>
+      <div class="conjug-row"><span class="pron">वह</span><span class="ur">کرتا / کرتی ہے</span><span class="hi-eq">करता / करती है</span></div>
+      <div class="conjug-row"><span class="pron">हम</span><span class="ur">کرتے / کرتی ہیں</span><span class="hi-eq">करते / करती हैं</span></div>
+      <div class="conjug-row"><span class="pron">वे</span><span class="ur">کرتے / کرتی ہیں</span><span class="hi-eq">करते / करती हैं</span></div>
+    </div>
+
+    <div class="aside"><strong>देखिए, हूबहू!</strong> हर रूप बिल्कुल वही है — उच्चारण, ध्वनि, लिंग-संधि, सम्मान के स्तर। केवल लिपि अलग है। यह इसलिए है कि हिन्दी और उर्दू एक ही बोली ("हिन्दुस्तानी") के दो रूप हैं — फ़र्क़ मुख्यतः लिखित परम्परा और उच्च शब्द-भंडार में है।</div>
+
+    <h3><span class="num">५.२</span>सरल वाक्य — SOV क्रम</h3>
+    <div class="sentence">
+      <div class="ur">میں کتاب پڑھتا ہوں۔</div>
+      <div class="trans">maĩ kitāb paṛhtā hū̃.</div>
+      <div class="hi-gloss">मैं किताब पढ़ता हूँ।</div>
+      <div class="literal">कर्ता (मैं) — कर्म (किताब) — क्रिया (पढ़ता हूँ)। अंत में ۔ (उर्दू का पूर्ण विराम)।</div>
+    </div>
+    <div class="sentence">
+      <div class="ur">وہ گھر جاتی ہے۔</div>
+      <div class="trans">vo ghar jātī hai.</div>
+      <div class="hi-gloss">वह घर जाती है।</div>
+    </div>
+    <div class="sentence">
+      <div class="ur">ہم پانی پیتے ہیں۔</div>
+      <div class="trans">ham pānī pīte haĩ.</div>
+      <div class="hi-gloss">हम पानी पीते हैं।</div>
+    </div>
+
+    <h3><span class="num">५.३</span>निषेध (नहीं) और प्रश्न (क्या)</h3>
+    <div class="sentence">
+      <div class="ur">میں نہیں جاتا۔</div>
+      <div class="trans">maĩ nahī̃ jātā.</div>
+      <div class="hi-gloss">मैं नहीं जाता।</div>
+    </div>
+    <div class="sentence">
+      <div class="ur">کیا آپ ہندی بولتے ہیں؟</div>
+      <div class="trans">kyā āp hindī bolte haĩ?</div>
+      <div class="hi-gloss">क्या आप हिन्दी बोलते हैं?</div>
+      <div class="literal">प्रश्नचिह्न उल्टा लिखा है — ؟ — क्योंकि उर्दू दाएँ से बाएँ चलती है।</div>
+    </div>
+
+    <h3><span class="num">५.४</span>प्रश्नवाचक शब्द</h3>
+    <div class="words">
+      <div class="word"><span class="ur">کیا</span><span class="hi-eq">क्या?</span><span class="trans">kyā</span></div>
+      <div class="word"><span class="ur">کون</span><span class="hi-eq">कौन?</span><span class="trans">kaun</span></div>
+      <div class="word"><span class="ur">کہاں</span><span class="hi-eq">कहाँ?</span><span class="trans">kahā̃</span></div>
+      <div class="word"><span class="ur">کب</span><span class="hi-eq">कब?</span><span class="trans">kab</span></div>
+      <div class="word"><span class="ur">کیوں</span><span class="hi-eq">क्यों?</span><span class="trans">kyõ</span></div>
+      <div class="word"><span class="ur">کیسے</span><span class="hi-eq">कैसे?</span><span class="trans">kaise</span></div>
+      <div class="word"><span class="ur">کتنا</span><span class="hi-eq">कितना?</span><span class="trans">kitnā</span></div>
+    </div>
+
+    <div class="sentence">
+      <div class="ur">آپ کا نام کیا ہے؟</div>
+      <div class="trans">āp kā nām kyā hai?</div>
+      <div class="hi-gloss">आपका नाम क्या है?</div>
+    </div>
+    <div class="sentence">
+      <div class="ur">آپ کہاں جاتے ہیں؟</div>
+      <div class="trans">āp kahā̃ jāte haĩ?</div>
+      <div class="hi-gloss">आप कहाँ जाते हैं?</div>
+    </div>
+
+    <h3><span class="num">५.५</span>विराम चिह्न — <span class="ur">علامتیں</span></h3>
+    <ul class="clean">
+      <li>पूर्ण विराम: <span class="ur">۔</span> (हिन्दी के । के समान, पर उर्दू की अपनी शक्ल)</li>
+      <li>अल्प विराम: <span class="ur">،</span> (उल्टा अल्प विराम)</li>
+      <li>प्रश्नचिह्न: <span class="ur">؟</span> (उल्टा ?)</li>
+      <li>अर्धविराम: <span class="ur">؛</span> (उल्टा ;)</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-06" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · पाठ</div>
+    <h2 class="stage-title">पहला उर्दू गद्यांश</h2>
+    <p class="stage-lede">हर शब्द आप पिछले पड़ावों में सीख चुके हैं। अगर पढ़ने में अटक रहे हैं, तो पिछले पड़ाव पर लौटिए — यह आपकी असफलता नहीं है।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">६.१</span>परिचय</h3>
+    <div class="sentence">
+      <div class="ur">میرا نام علی ہے۔ میں دلّی میں رہتا ہوں۔ میں ایک طالبِ علم ہوں۔ میں اردو اور ہندی دونوں بولتا ہوں۔ میرا گھر بڑا ہے۔</div>
+      <div class="trans">merā nām Alī hai. maĩ Dillī mẽ rahtā hū̃. maĩ ek tālib-e-ilm hū̃. maĩ urdū aur hindī donõ boltā hū̃. merā ghar baṛā hai.</div>
+      <div class="hi-gloss">मेरा नाम अली है। मैं दिल्ली में रहता हूँ। मैं एक विद्यार्थी (तालिब-ए-इल्म) हूँ। मैं उर्दू और हिन्दी दोनों बोलता हूँ। मेरा घर बड़ा है।</div>
+      <div class="literal">देखिए: "तालिब-ए-इल्म" — "इल्म का तालिब" यानी "ज्ञान का चाहने वाला" = विद्यार्थी। यह फ़ारसी 'एज़ाफ़त' रचना है — दो नाम जोड़ने का उर्दू तरीक़ा।</div>
+    </div>
+
+    <h3><span class="num">६.२</span>एक दिन</h3>
+    <div class="sentence">
+      <div class="ur">آج پیر ہے۔ میں صبح جلدی اُٹھتا ہوں۔ میں پانی پیتا ہوں۔ پھر ناشتہ کرتا ہوں۔ اس کے بعد میں اسکول جاتا ہوں۔ شام کو میں گھر واپس آتا ہوں۔</div>
+      <div class="trans">āj pīr hai. maĩ sub'h jaldī uṭhtā hū̃. maĩ pānī pītā hū̃. phir nāshtā kartā hū̃. uske bād maĩ iskūl jātā hū̃. shām ko maĩ ghar vāpas ātā hū̃.</div>
+      <div class="hi-gloss">आज सोमवार (पीर) है। मैं सुबह जल्दी उठता हूँ। मैं पानी पीता हूँ। फिर नाश्ता करता हूँ। उसके बाद मैं स्कूल जाता हूँ। शाम को मैं घर वापस आता हूँ।</div>
+      <div class="literal">"पीर" = सोमवार, फ़ारसी से। उर्दू में दिनों के नाम फ़ारसी मूल के हैं: पीर, मंगल, बुध, जुमेरात, जुमा, सनीचर, इतवार।</div>
+    </div>
+
+    <h3><span class="num">६.३</span>बातचीत</h3>
+    <div class="sentence">
+      <div class="ur">الف: السلام علیکم۔ آپ کیسے ہیں؟<br/>ب: وعلیکم السلام۔ میں ٹھیک ہوں، شکریہ۔ آپ؟<br/>الف: میں بھی ٹھیک ہوں۔ آپ کا نام کیا ہے؟<br/>ب: میرا نام زہرہ ہے۔ اور آپ؟<br/>الف: میں ندیم ہوں۔ آپ کہاں سے ہیں؟<br/>ب: میں لاہور سے ہوں۔ اور آپ؟<br/>الف: میں لکھنؤ سے ہوں۔</div>
+      <div class="hi-gloss">क: अस्सलामु अलैकुम। आप कैसे हैं?<br/>ख: वालैकुम अस्सलाम। मैं ठीक हूँ, शुक्रिया। आप?<br/>क: मैं भी ठीक हूँ। आपका नाम क्या है?<br/>ख: मेरा नाम ज़ोहरा है। और आप?<br/>क: मैं नदीम हूँ। आप कहाँ से हैं?<br/>ख: मैं लाहौर से हूँ। और आप?<br/>क: मैं लखनऊ से हूँ।</div>
+    </div>
+
+    <div class="aside"><strong>पढ़ने की सलाह।</strong> हर गद्यांश को हिन्दी अनुवाद देखने से पहले तीन बार ज़ोर से पढ़िए। लय पहले आए, अर्थ बाद में। आँख दाएँ से बाएँ की आदत डाल ले।</div>
+
+    <div class="aside"><strong>एक अद्भुत बात।</strong> ये तीनों गद्यांश अगर देवनागरी में लिखे जाएँ तो लगभग पूरी तरह हिन्दी के दिखेंगे। बस "तालिब-ए-इल्म", "पीर", "शुक्रिया", "वालैकुम" — कुछ फ़ारसी-अरबी शब्दों की जगह। व्याकरण एक, संरचना एक, केवल वेशभूषा अलग।</div>
+  </div>
+</section>
+<section class="stage" id="stage-07" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · शब्द-क्षेत्र</div>
+    <h2 class="stage-title">शब्दों के दो स्रोत — संस्कृत ↔ फ़ारसी-अरबी</h2>
+    <p class="stage-lede">यहाँ हिन्दी और उर्दू की असली पहचान बनती है। व्याकरण एक, पर उच्च शब्द-भंडार दो स्रोतों से आता है। हिन्दी संस्कृत से "तत्सम" उधार लेती है, उर्दू फ़ारसी-अरबी से।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">७.१</span>एक अर्थ, दो शब्द</h3>
+    <p>नीचे दी गई सूची में बाईं तरफ़ हिन्दी-शुद्ध (संस्कृत-निष्ठ) शब्द है, दाईं तरफ़ उर्दू-शुद्ध (फ़ारसी-अरबी) शब्द। दोनों हिन्दी-उर्दू में चलते हैं — बस किस रजिस्टर में है इसका अंतर है।</p>
+    <div class="words">
+      <div class="word"><span class="ur">کتاب</span><span class="hi-eq">किताब / पुस्तक</span><span class="trans">kitāb</span><span class="note">अरबी 'किताब' ↔ संस्कृत 'पुस्तक'</span></div>
+      <div class="word"><span class="ur">خبر</span><span class="hi-eq">ख़बर / समाचार</span><span class="trans">khabar</span></div>
+      <div class="word"><span class="ur">وقت</span><span class="hi-eq">वक़्त / समय</span><span class="trans">vaqt</span></div>
+      <div class="word"><span class="ur">دوست</span><span class="hi-eq">दोस्त / मित्र</span><span class="trans">dost</span><span class="note">फ़ारसी 'दोस्त' ↔ संस्कृत 'मित्र'</span></div>
+      <div class="word"><span class="ur">آفتاب</span><span class="hi-eq">आफ़ताब / सूर्य</span><span class="trans">āftāb</span><span class="note">फ़ारसी 'आफ़ताब' ↔ संस्कृत 'सूर्य'</span></div>
+      <div class="word"><span class="ur">ماہتاب / چاند</span><span class="hi-eq">माहताब / चंद्र</span><span class="trans">māhtāb / cā̃d</span></div>
+      <div class="word"><span class="ur">زبان</span><span class="hi-eq">ज़बान / भाषा</span><span class="trans">zabān</span></div>
+      <div class="word"><span class="ur">مکتب / مدرسہ</span><span class="hi-eq">मक्तब / मदरसा / विद्यालय</span><span class="trans">maktab / madrasā</span></div>
+      <div class="word"><span class="ur">دل</span><span class="hi-eq">दिल / हृदय</span><span class="trans">dil</span><span class="note">फ़ारसी 'दिल' — रोज़मर्रा, "दिल से"।</span></div>
+      <div class="word"><span class="ur">عشق / محبّت</span><span class="hi-eq">इश्क़ / मुहब्बत / प्रेम</span><span class="trans">ishq / muhabbat</span><span class="note">अरबी — उर्दू शायरी का केंद्र</span></div>
+    </div>
+
+    <div class="aside"><strong>"ज़बान एक, दो लिबास।"</strong> जब कोई उर्दू कविता पढ़ रहा हो और कहे "आफ़ताब-ओ-माहताब", वह "सूर्य और चंद्रमा" कह रहा है — बस फ़ारसी शब्दों में। "इश्क़" और "मुहब्बत" दोनों अरबी से हैं, "प्रेम" संस्कृत से — तीनों हिन्दुस्तान में एक ही भावना के लिए उपलब्ध हैं।</div>
+
+    <h3><span class="num">७.२</span>रिश्ते — <span class="ur">رشتے</span></h3>
+    <p>रिश्तों के नाम में उर्दू में दो सेट होते हैं: रोज़मर्रा (अरबी/फ़ारसी) और औपचारिक (तत्सम/फ़ारसी)।</p>
+    <div class="words">
+      <div class="word"><span class="ur">ابّا / والد</span><span class="hi-eq">पिता / अब्बा / वालिद</span><span class="trans">abbā / vālid</span><span class="note">अब्बा रोज़मर्रा, वालिद औपचारिक</span></div>
+      <div class="word"><span class="ur">اماں / والدہ</span><span class="hi-eq">माँ / अम्मा / वालिदा</span><span class="trans">ammā̃ / vālida</span></div>
+      <div class="word"><span class="ur">بھائی</span><span class="hi-eq">भाई</span><span class="trans">bhāī</span></div>
+      <div class="word"><span class="ur">بہن</span><span class="hi-eq">बहन</span><span class="trans">bahan</span></div>
+      <div class="word"><span class="ur">بیٹا</span><span class="hi-eq">बेटा</span><span class="trans">beṭā</span></div>
+      <div class="word"><span class="ur">بیٹی</span><span class="hi-eq">बेटी</span><span class="trans">beṭī</span></div>
+      <div class="word"><span class="ur">ماما / خالو</span><span class="hi-eq">मामा / खालू</span><span class="trans">māmā / khālū</span><span class="note">ख़ालू = खाला (मौसी) का पति</span></div>
+      <div class="word"><span class="ur">چاچا / تایا</span><span class="hi-eq">चाचा / ताया</span><span class="trans">cācā / tāyā</span><span class="note">चाचा = छोटा, ताया = बड़ा — हिन्दी जैसा ही</span></div>
+      <div class="word"><span class="ur">خالہ</span><span class="hi-eq">खाला / मौसी</span><span class="trans">khālā</span></div>
+      <div class="word"><span class="ur">پھوپھی</span><span class="hi-eq">फूफी / बुआ</span><span class="trans">phūphī</span></div>
+      <div class="word"><span class="ur">دادا / دادی</span><span class="hi-eq">दादा / दादी</span><span class="trans">dādā / dādī</span></div>
+      <div class="word"><span class="ur">نانا / نانی</span><span class="hi-eq">नाना / नानी</span><span class="trans">nānā / nānī</span></div>
+    </div>
+
+    <h3><span class="num">७.३</span>समय — <span class="ur">وقت</span></h3>
+    <div class="words">
+      <div class="word"><span class="ur">آج</span><span class="hi-eq">आज</span><span class="trans">āj</span></div>
+      <div class="word"><span class="ur">کل</span><span class="hi-eq">कल (बीता और आने वाला दोनों)</span><span class="trans">kal</span><span class="note">हिन्दी-उर्दू दोनों में "कल" दोहरा काम करता है — संदर्भ से तय होता है कि बीता या आने वाला</span></div>
+      <div class="word"><span class="ur">ابھی</span><span class="hi-eq">अभी</span><span class="trans">abhī</span></div>
+      <div class="word"><span class="ur">صبح</span><span class="hi-eq">सुबह</span><span class="trans">sub'h</span></div>
+      <div class="word"><span class="ur">دوپہر</span><span class="hi-eq">दोपहर</span><span class="trans">dopahar</span></div>
+      <div class="word"><span class="ur">شام</span><span class="hi-eq">शाम</span><span class="trans">shām</span></div>
+      <div class="word"><span class="ur">رات</span><span class="hi-eq">रात</span><span class="trans">rāt</span></div>
+      <div class="word"><span class="ur">ہفتہ</span><span class="hi-eq">हफ़्ता / सप्ताह</span><span class="trans">haftā</span><span class="note">हफ़्ता फ़ारसी, सप्ताह संस्कृत</span></div>
+      <div class="word"><span class="ur">مہینہ</span><span class="hi-eq">महीना</span><span class="trans">mahīnā</span></div>
+      <div class="word"><span class="ur">سال / برس</span><span class="hi-eq">साल / बरस / वर्ष</span><span class="trans">sāl / baras</span></div>
+    </div>
+
+    <h3><span class="num">७.४</span>शरीर — <span class="ur">جسم</span></h3>
+    <div class="words">
+      <div class="word"><span class="ur">سر</span><span class="hi-eq">सिर</span><span class="trans">sar</span></div>
+      <div class="word"><span class="ur">آنکھ</span><span class="hi-eq">आँख</span><span class="trans">ā̃kh</span></div>
+      <div class="word"><span class="ur">کان</span><span class="hi-eq">कान</span><span class="trans">kān</span></div>
+      <div class="word"><span class="ur">ناک</span><span class="hi-eq">नाक</span><span class="trans">nāk</span></div>
+      <div class="word"><span class="ur">منہ</span><span class="hi-eq">मुँह</span><span class="trans">mũh</span></div>
+      <div class="word"><span class="ur">ہاتھ</span><span class="hi-eq">हाथ</span><span class="trans">hāth</span></div>
+      <div class="word"><span class="ur">پاؤں / پیر</span><span class="hi-eq">पाँव / पैर</span><span class="trans">pā̃v / pair</span></div>
+      <div class="word"><span class="ur">دل</span><span class="hi-eq">दिल</span><span class="trans">dil</span></div>
+      <div class="word"><span class="ur">پیٹ</span><span class="hi-eq">पेट</span><span class="trans">peṭ</span></div>
+    </div>
+
+    <div class="aside"><strong>शरीर के अंग — सब हिन्दी।</strong> रोज़मर्रा के सबसे अधिक इस्तेमाल होने वाले शब्द — शरीर, परिवार, खाना, घर — सब तद्भव हैं (संस्कृत-प्राकृत से उतरे)। फ़ारसी-अरबी उर्दू के उच्च, भावुक, काव्यात्मक हिस्से में बसती है। इसलिए रोज़मर्रा उर्दू और रोज़मर्रा हिन्दी में कोई फ़र्क़ नहीं — फ़र्क़ अख़बार, अदालत, कविता में आता है।</div>
+  </div>
+</section>
+<section class="stage" id="stage-08" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · प्रयोग</div>
+    <h2 class="stage-title">असली उर्दू बोलना — <span class="ur">تہذیب</span></h2>
+    <p class="stage-lede">व्याकरण-सिद्ध वाक्य काफ़ी नहीं। भाषा में आदाब होते हैं, मिज़ाज होता है, छोटे शब्द होते हैं जो बातचीत को मुलायम करते हैं। उर्दू की 'तहज़ीब' (तमीज़-संस्कृति) हिन्दी से थोड़ी अलग रंगत की है।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">८.१</span>सम्मान के तीन स्तर — हिन्दी जैसे ही</h3>
+    <p>तू / तुम / आप = <span class="ur">تُو / تم / آپ</span>। बिल्कुल वही व्यवस्था, वही प्रयोग। सन्देह हो तो <span class="ur">آپ</span> ही बोलिए — हिन्दी में जैसे "आप" सुरक्षित है।</p>
+    <ul class="clean">
+      <li><span class="ur">تُو</span> (तू): माँ-बाप से (कुछ परिवारों में), क़रीबी दोस्त से, कविता में, ईश्वर से। रोज़मर्रा में अजनबी से कहना अपमान।</li>
+      <li><span class="ur">تم</span> (तुम): छोटे भाई-बहन, क़रीबी दोस्त, बराबर वाले। क्रिया बहुवचन: करते हो / करती हो।</li>
+      <li><span class="ur">آپ</span> (आप): बड़े, अजनबी, आदरयोग्य। क्रिया: करते हैं / करती हैं। पहली मुलाक़ात में हमेशा यही।</li>
+    </ul>
+
+    <h3><span class="num">८.२</span>आदाब और सलाम — मुलाक़ात के शब्द</h3>
+    <div class="words">
+      <div class="word"><span class="ur">السلام علیکم</span><span class="hi-eq">अस्सलामु अलैकुम / नमस्कार</span><span class="trans">assalāmu alaikum</span><span class="note">अरबी — "आप पर शान्ति हो"। मुस्लिम अभिवादन।</span></div>
+      <div class="word"><span class="ur">وعلیکم السلام</span><span class="hi-eq">वालैकुम अस्सलाम (उत्तर)</span><span class="trans">va alaikum assalām</span><span class="note">"आप पर भी शान्ति हो" — उत्तर हमेशा यही।</span></div>
+      <div class="word"><span class="ur">آداب</span><span class="hi-eq">आदाब (सेक्युलर अभिवादन)</span><span class="trans">ādāb</span><span class="note">लखनवी तहज़ीब — हिन्दू-मुसलमान दोनों एक-दूसरे से कहते रहे हैं</span></div>
+      <div class="word"><span class="ur">نمسکار / نمستے</span><span class="hi-eq">नमस्कार / नमस्ते</span><span class="trans">namaskār</span><span class="note">हिन्दू उर्दू-भाषियों के लिए भी उपलब्ध</span></div>
+      <div class="word"><span class="ur">شکریہ</span><span class="hi-eq">शुक्रिया / धन्यवाद</span><span class="trans">shukriyā</span><span class="note">अरबी 'शुक्र' से — हिन्दी में भी चलता है</span></div>
+      <div class="word"><span class="ur">مہربانی</span><span class="hi-eq">मेहरबानी</span><span class="trans">meharbānī</span><span class="note">फ़ारसी — "बड़ी मेहरबानी" गहरा आभार</span></div>
+      <div class="word"><span class="ur">معاف کیجیے</span><span class="hi-eq">माफ़ कीजिए</span><span class="trans">māf kījiye</span></div>
+      <div class="word"><span class="ur">کوئی بات نہیں</span><span class="hi-eq">कोई बात नहीं</span><span class="trans">koī bāt nahī̃</span></div>
+      <div class="word"><span class="ur">کیسے ہیں آپ؟</span><span class="hi-eq">कैसे हैं आप?</span><span class="trans">kaise haĩ āp?</span></div>
+      <div class="word"><span class="ur">ٹھیک ہوں</span><span class="hi-eq">ठीक हूँ</span><span class="trans">ṭhīk hū̃</span></div>
+      <div class="word"><span class="ur">خدا حافظ</span><span class="hi-eq">ख़ुदा हाफ़िज़ (विदा)</span><span class="trans">khudā hāfiz</span><span class="note">"ईश्वर रक्षक हो" — उर्दू विदाई</span></div>
+    </div>
+
+    <h3><span class="num">८.३</span>"खाना खाया?" — एक हिन्दुस्तानी सार्वजनीन</h3>
+    <div class="sentence">
+      <div class="ur">کھانا کھایا؟</div>
+      <div class="trans">khānā khāyā?</div>
+      <div class="hi-gloss">खाना खाया? / खाना हुआ?</div>
+      <div class="literal">हिन्दी "खाना खाया?" और उर्दू "खाना खाया?" बिल्कुल एक हैं — दोनों भाषाओं में यह "हाल-चाल पूछने" का सांस्कृतिक तरीक़ा है। सच्चाई से खाने का जवाब देना ज़रूरी नहीं; यह एक आत्मीय शुभकामना है।</div>
+    </div>
+
+    <h3><span class="num">८.४</span>"ज़रा" — एक जादुई शब्द</h3>
+    <p><span class="ur">ذرا</span> (<em>ज़रा</em>) = "ज़रा, थोड़ा"। हिन्दी-उर्दू दोनों में हम किसी भी अनुरोध को कोमल करने के लिए "ज़रा" लगाते हैं: "ज़रा सुनिए", "ज़रा पानी दीजिए", "ज़रा रुकिए"। यह अकेला शब्द रूखे आदेश को शिष्ट निवेदन में बदल देता है। उर्दू की तहज़ीब इसी छोटे-छोटे "ज़रा"-"मेहरबानी"-"अगर" में बसती है।</p>
+
+    <h3><span class="num">८.५</span>अजनबी को सम्बोधन — लखनवी आदाब</h3>
+    <p>सड़क पर अजनबी को कैसे बुलाएँ? हिन्दी में "भैया" / "दादा" / "दीदी" — उर्दू में:</p>
+    <ul class="clean">
+      <li>अजनबी बड़े पुरुष: <span class="ur">بھائی صاحب</span> (भाई साहब) — आदरपूर्ण, सार्वजनीन</li>
+      <li>अजनबी बड़ी महिला: <span class="ur">آپا</span> (आपा) या <span class="ur">باجی</span> (बाजी) — बड़ी बहन</li>
+      <li>बुज़ुर्ग पुरुष: <span class="ur">چچا</span> (चचा) या <span class="ur">میاں</span> (मियाँ)</li>
+      <li>बुज़ुर्ग महिला: <span class="ur">خالہ</span> (खाला) या <span class="ur">ماں جی</span> (माँ जी)</li>
+      <li>हमउम्र: <span class="ur">جناب</span> (जनाब — श्रीमान) या <span class="ur">محترمہ</span> (मोहतरमा — श्रीमती)</li>
+    </ul>
+
+    <div class="aside"><strong>लखनऊ की तहज़ीब।</strong> "पहले आप, पहले आप" की कहानी उर्दू की शिष्टाचार-संस्कृति का प्रतीक है — दो नवाब रेलगाड़ी में एक-दूसरे को पहले चढ़ने का आग्रह करते रह गए और गाड़ी छूट गई। यह अतिशयोक्ति है, पर उर्दू के आदाब की आत्मा यहीं है: <em>तकल्लुफ़</em> (शिष्टाचार), <em>तहज़ीब</em> (तमीज़), <em>अदब</em> (सभ्यता)।</div>
+
+    <h3><span class="num">८.६</span>रोज़मर्रा के उपयोगी वाक्य</h3>
+    <div class="sentence">
+      <div class="ur">مجھے اردو آتی ہے۔</div>
+      <div class="trans">mujhe urdū ātī hai.</div>
+      <div class="hi-gloss">मुझे उर्दू आती है।</div>
+    </div>
+    <div class="sentence">
+      <div class="ur">مجھے معاف کیجیے، مجھے دیر ہو گئی۔</div>
+      <div class="trans">mujhe māf kījiye, mujhe der ho gaī.</div>
+      <div class="hi-gloss">मुझे माफ़ कीजिए, मुझे देर हो गई।</div>
+    </div>
+    <div class="sentence">
+      <div class="ur">ذرا پانی دیجیے۔</div>
+      <div class="trans">zarā pānī dījiye.</div>
+      <div class="hi-gloss">ज़रा पानी दीजिए।</div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-09" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · साहित्य</div>
+    <h2 class="stage-title">उर्दू अदब — <span class="ur">اردو ادب</span></h2>
+    <p class="stage-lede">उर्दू साहित्य की रीढ़ कविता है — और उसकी रानी ग़ज़ल। ग़ालिब को पढ़ना ही इस ज़बान में प्रवेश करना है। यहाँ पाँच शायर और कहानीकार, हिन्दी के जाने-पहचाने नामों के पुल के साथ।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">९.१</span>मिर्ज़ा ग़ालिब (१७९७–१८६९) — <span class="ur">مرزا غالب</span></h3>
+    <p>उर्दू के सबसे बड़े शायर। दिल्ली में रहे, फ़ारसी में भी लिखा, पर उनकी उर्दू ग़ज़ल ने शायरी की हर बाद की पीढ़ी को आकार दिया। दुःख, विडम्बना, दार्शनिक बेचैनी — ग़ालिब का स्वर। हिन्दी कवि <strong>निराला</strong> की "राम की शक्ति पूजा" और ग़ालिब की आत्मचिंतक ग़ज़लें दोनों में एक ही बेचैन मानस बोलता है।</p>
+    <div class="sher">
+      <div class="ur">ہزاروں خواہشیں ایسی کہ ہر خواہش پہ دم نکلے<br/>بہت نکلے مرے ارمان لیکن پھر بھی کم نکلے</div>
+      <div class="hi-gloss">हज़ारों ख़्वाहिशें ऐसी कि हर ख़्वाहिश पे दम निकले<br/>बहुत निकले मेरे अरमान लेकिन फिर भी कम निकले</div>
+      <div class="attrib">— ग़ालिब</div>
+    </div>
+
+    <h3><span class="num">९.२</span>अल्लामा इक़बाल (१८७७–१९३८) — <span class="ur">علّامہ اقبال</span></h3>
+    <p>"सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा" — इक़बाल की ये पंक्ति हर हिन्दुस्तानी बच्चे ने गाई है। वे दर्शन और कविता को एक धागे में पिरोने वाले थे — जैसे हिन्दी में <strong>जयशंकर प्रसाद</strong> ने "कामायनी" में किया। दोनों ने ऐतिहासिक-सांस्कृतिक गहराई से आधुनिक पहचान टटोली।</p>
+    <div class="sher">
+      <div class="ur">سارے جہاں سے اچّھا ہندوستاں ہمارا<br/>ہم بلبلیں ہیں اس کی، یہ گلستاں ہمارا</div>
+      <div class="hi-gloss">सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा<br/>हम बुलबुलें हैं इसकी, ये गुलिस्ताँ हमारा</div>
+      <div class="attrib">— इक़बाल</div>
+    </div>
+
+    <h3><span class="num">९.३</span>फ़ैज़ अहमद फ़ैज़ (१९११–१९८४) — <span class="ur">فیض احمد فیض</span></h3>
+    <p>इन्क़लाबी शायर। प्रेम-कविता और राजनैतिक विद्रोह को एक ही वाक्य में बाँध देते थे — "मुझसे पहली-सी मुहब्बत मेरी महबूब न माँग"। हिन्दी में <strong>निराला</strong> और <strong>मुक्तिबोध</strong> के पुल। तीनों ने सौंदर्य और विद्रोह को एक मानते थे।</p>
+    <div class="sher">
+      <div class="ur">ہم دیکھیں گے<br/>لازم ہے کہ ہم بھی دیکھیں گے<br/>وہ دن کہ جس کا وعدہ ہے</div>
+      <div class="hi-gloss">हम देखेंगे<br/>लाज़िम है कि हम भी देखेंगे<br/>वो दिन कि जिसका वादा है</div>
+      <div class="attrib">— फ़ैज़</div>
+    </div>
+
+    <h3><span class="num">९.४</span>सआदत हसन मंटो (१९१२–१९५५) — <span class="ur">سعادت حسن منٹو</span></h3>
+    <p>उर्दू के सबसे बेबाक कहानीकार। विभाजन की त्रासदी, वेश्याओं का जीवन, सत्ता का पाखंड — मंटो ने बिना परदा किए लिखा, अश्लीलता के मुक़दमे झेले। हिन्दी में <strong>प्रेमचंद</strong> का यथार्थवाद ("कफ़न", "पूस की रात") और मंटो की "टोबा टेक सिंह" — एक ही ज़मीन पर दो पेड़। <em>और याद रहे: प्रेमचंद स्वयं पहले उर्दू में ही लिखते थे — "नवाब राय" नाम से।</em></p>
+
+    <h3><span class="num">९.५</span>इस्मत चुग़ताई (१९१५–१९९१) — <span class="ur">عصمت چغتائی</span></h3>
+    <p>स्त्री-दृष्टि, मध्यवर्गीय मुसलमान परिवार, तीखी भाषा। उनकी कहानी "लिहाफ़" पर भी अश्लीलता का मुक़दमा चला। हिन्दी की <strong>महादेवी वर्मा</strong> और <strong>मन्नू भंडारी</strong> के साथ उनका रिश्ता: तीनों ने स्त्री-अनुभव को साहित्य के केंद्र में रखा, पर इस्मत ने सबसे ज़्यादा हिम्मत से वर्जित विषयों को छुआ।</p>
+
+    <h3><span class="num">९.६</span>मीर तक़ी मीर (१७२३–१८१०) — <span class="ur">میر تقی میر</span></h3>
+    <p>ग़ालिब से पहले के उर्दू के सबसे बड़े शायर। सादगी, भावुकता, दर्द — मीर की पहचान। ग़ालिब ने कहा था "रेख़्ते के तुमही उस्ताद नहीं हो ग़ालिब, कहते हैं अगले ज़माने में कोई मीर भी था।" हिन्दी में <strong>सूरदास</strong> की कोमल भक्ति-वेदना जैसी ही मीर की प्रेम-वेदना।</p>
+
+    <h3><span class="num">९.७</span>साहिर लुधियानवी (१९२१–१९८०) — <span class="ur">ساحر لدھیانوی</span></h3>
+    <p>हिन्दी फ़िल्मी गीतों का बड़ा शायर — "मन रे तू काहे न धीर धरे", "अभी न जाओ छोड़कर"। साहिर के ज़रिए उर्दू शायरी हर हिन्दी-भाषी के कान तक पहुँची। <strong>गुलज़ार</strong> उनकी परंपरा के उत्तराधिकारी हैं — उर्दू-हिन्दी के बीच पुल।</p>
+
+    <div class="aside"><strong>एक मर्म की बात।</strong> प्रेमचंद, फ़िराक़ गोरखपुरी, गुलज़ार, जावेद अख़्तर — ये सभी दोनों लिपियों में घर जैसे हैं। बंटवारा राजनीति ने किया, भाषा ने नहीं। ग़ज़ल देवनागरी में भी ग़ज़ल है, कविता नस्तालीक़ में भी कविता। आप जो सीख रहे हैं वह "दूसरी ज़बान" नहीं है — वह <em>अपनी ज़बान का दूसरा लिबास</em> है।</div>
+
+    <div class="sher">
+      <div class="ur">دلِ ناداں تجھے ہوا کیا ہے<br/>آخر اس درد کی دوا کیا ہے</div>
+      <div class="hi-gloss">दिल-ए-नादाँ तुझे हुआ क्या है<br/>आख़िर इस दर्द की दवा क्या है</div>
+      <div class="attrib">— ग़ालिब (विदाई के लिए)</div>
+    </div>
+
+    <p style="margin-top: 40px; text-align: center; color: var(--ink-faded); font-style: italic;">यहीं से आगे — किताबें, रेडियो, फ़िल्में, मुशायरे। आपने दरवाज़ा खोल लिया है।</p>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn" disabled>← पिछला</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">अगला →</button>
+</div>
+
+</div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="ur">زبان ایک پُل ہے</span>
+    भाषा एक पुल है — दो किनारे, एक नदी।<br/>
+    made by Nil · using Claude
+  </div>
+</footer>
+
+<script>
+(function() {
+  var stages = document.querySelectorAll('section.stage');
+  var tabs = document.querySelectorAll('.stage-tab');
+  var prev = document.getElementById('prevBtn');
+  var next = document.getElementById('nextBtn');
+  var dotsEl = document.getElementById('dots');
+  var current = 0;
+  var total = stages.length;
+
+  // build dots
+  for (var i = 0; i < total; i++) {
+    var d = document.createElement('span');
+    d.className = 'dot';
+    dotsEl.appendChild(d);
+  }
+  var dots = dotsEl.querySelectorAll('.dot');
+
+  function show(idx) {
+    if (idx < 0) idx = 0;
+    if (idx >= total) idx = total - 1;
+    current = idx;
+    stages.forEach(function(s, i){ s.classList.toggle('active', i === idx); });
+    tabs.forEach(function(t, i){ t.classList.toggle('active', i === idx); });
+    dots.forEach(function(d, i){
+      d.classList.remove('done', 'current');
+      if (i < idx) d.classList.add('done');
+      if (i === idx) d.classList.add('current');
+    });
+    prev.disabled = (idx === 0);
+    next.disabled = (idx === total - 1);
+    // scroll active tab into view
+    var activeTab = tabs[idx];
+    if (activeTab && activeTab.scrollIntoView) {
+      activeTab.scrollIntoView({behavior: 'smooth', inline: 'center', block: 'nearest'});
+    }
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ show(i); });
+  });
+  prev.addEventListener('click', function(){ show(current - 1); });
+  next.addEventListener('click', function(){ show(current + 1); });
+
+  // map-cell tap to expand
+  document.addEventListener('click', function(e){
+    var cell = e.target.closest('.map-cell');
+    if (!cell) return;
+    var hint = cell.querySelector('.hint');
+    if (!hint) return;
+    var data = cell.getAttribute('data-hint');
+    if (data && !hint.textContent.trim()) hint.textContent = data;
+    cell.classList.toggle('expanded');
+  });
+  document.addEventListener('keydown', function(e){
+    if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.classList.contains('map-cell')) {
+      e.preventDefault();
+      document.activeElement.click();
+    }
+    if (e.key === 'ArrowRight') next.click();
+    if (e.key === 'ArrowLeft') prev.click();
+  });
+
+  // apply dir="rtl" to all Urdu spans for semantic correctness
+  document.querySelectorAll('.ur, .ur-g').forEach(function(el){
+    el.setAttribute('dir', 'rtl');
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

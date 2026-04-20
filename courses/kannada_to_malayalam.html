@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="kn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ಕನ್ನಡದಿಂದ ಮಲಯಾಳಂ — ಭಾಷಾಸೇತು</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+Kannada:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Serif Kannada', serif;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at 20% 10%, #F7EFDC 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 90%, #EADFC2 0%, transparent 55%),
+    var(--paper);
+  min-height:100vh;
+  line-height:1.65;
+  font-size:17px;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.35; mix-blend-mode:multiply;
+}
+.wrap{max-width:880px; margin:0 auto; padding:0 22px 80px; position:relative; z-index:2}
+header.hero{padding:56px 0 24px; text-align:center; border-bottom:1px solid #d7c9a8}
+header.hero .kicker{font-family:'Fraunces', serif; font-style:italic; color:var(--ink-faded); letter-spacing:.08em; font-size:13px; text-transform:uppercase}
+header.hero h1{font-size:40px; margin:12px 0 6px; font-weight:600; color:var(--ink)}
+header.hero h1 .ml{font-family:'Noto Serif Malayalam', serif}
+header.hero .sub{color:var(--ink-soft); font-size:16px; max-width:620px; margin:10px auto 0}
+nav.tabs{
+  position:sticky; top:0; z-index:10;
+  background:rgba(244,236,218,.94); backdrop-filter:blur(8px);
+  border-bottom:1px solid #d7c9a8;
+  display:flex; flex-wrap:wrap; gap:4px; padding:10px 14px; margin:0 -22px 26px;
+}
+nav.tabs a{
+  display:inline-block; padding:6px 10px; font-size:13.5px; color:var(--ink-soft);
+  text-decoration:none; border-radius:6px; border:1px solid transparent;
+  font-family:'Noto Serif Kannada', serif;
+}
+nav.tabs a:hover{background:var(--paper-deep); color:var(--ink)}
+nav.tabs a.active{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+section.stage{padding:34px 0; border-bottom:1px dashed #c8b98f; scroll-margin-top:70px}
+section.stage h2{font-size:28px; margin:0 0 4px; font-weight:600}
+section.stage h2 .num{font-family:'Fraunces', serif; color:var(--sindoor); margin-right:10px; font-style:italic}
+section.stage h3{font-size:19px; margin:26px 0 10px; color:var(--ink-soft); font-weight:600; border-left:3px solid var(--ochre); padding-left:10px}
+section.stage p{margin:10px 0}
+.target, .ml{font-family:'Noto Serif Malayalam', serif}
+.mono, .trans{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--ink-faded)}
+.aside{
+  background:linear-gradient(180deg, #F7EFDA, #EFE4C6);
+  border:1px solid #d8c99e; border-left:4px solid var(--teal);
+  padding:14px 16px; border-radius:6px; margin:18px 0;
+  box-shadow:0 1px 0 #fff6 inset, 0 2px 8px #00000010;
+}
+.aside .tag{font-family:'Fraunces', serif; font-style:italic; color:var(--teal); font-size:12px; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:4px}
+.aside.warn{border-left-color:var(--sindoor)} .aside.warn .tag{color:var(--sindoor)}
+.aside.ok{border-left-color:var(--ochre)} .aside.ok .tag{color:var(--ochre)}
+.grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(130px, 1fr)); gap:10px; margin:14px 0}
+.card{
+  background:var(--paper-warm); border:1px solid #d0bf90; border-radius:8px;
+  padding:12px 10px; text-align:center; cursor:pointer; position:relative;
+  transition:transform .15s, box-shadow .15s;
+}
+.card:hover{transform:translateY(-2px); box-shadow:0 4px 14px #00000015}
+.card .big{font-size:30px; line-height:1.1; display:block}
+.card .big.ml{font-family:'Noto Serif Malayalam', serif}
+.card .kn{font-size:22px; color:var(--ink-faded); display:block; margin-top:2px}
+.card .hint{display:none; font-size:13px; color:var(--ink-soft); margin-top:8px; border-top:1px dashed #c8b98f; padding-top:6px}
+.card.open .hint{display:block}
+.card .flag{position:absolute; top:4px; right:6px; font-size:12px; color:var(--sindoor)}
+.family{margin:18px 0}
+.family h4{margin:10px 0 6px; font-size:15px; color:var(--sindoor); font-weight:600; font-family:'Noto Serif Kannada', serif}
+.family .note{color:var(--ink-faded); font-size:14px; margin:4px 0 10px}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15px; background:#faf3e0}
+th,td{border:1px solid #d0bf90; padding:8px 10px; text-align:left; vertical-align:top}
+th{background:var(--paper-deep); font-weight:600; color:var(--ink-soft)}
+td .ml{font-size:18px}
+.video{margin:18px 0}
+.video-frame{position:relative; padding-bottom:56.25%; height:0; border-radius:8px; overflow:hidden; border:1px solid #d0bf90; background:#000}
+.video-frame iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0}
+.video-caption{font-size:14px; color:var(--ink-faded); margin-top:6px; text-align:center}
+.video-caption a{color:var(--teal)}
+.vocab{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px; margin:14px 0}
+.vword{background:var(--paper-warm); border:1px solid #d0bf90; border-radius:8px; padding:10px 12px}
+.vword .ml{font-size:22px; display:block}
+.vword .eq{color:var(--ink-soft); font-size:16px}
+.vword .tr{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-faded); display:block; margin-top:2px}
+.vword .tag{font-size:11px; color:var(--teal); font-family:'Fraunces', serif; font-style:italic; letter-spacing:.08em}
+.passage{background:#faf3e0; border:1px solid #d0bf90; border-left:4px solid var(--ochre); padding:14px 16px; border-radius:6px; margin:14px 0}
+.passage .ml{font-size:19px; line-height:1.9}
+.passage .tr{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--ink-faded); margin:6px 0}
+.passage .gloss{color:var(--ink-soft); font-size:15px}
+.nav-btns{display:flex; justify-content:space-between; margin-top:28px; gap:12px}
+.nav-btns a{
+  flex:1; text-align:center; padding:10px 14px; background:var(--paper-deep);
+  border:1px solid #c8b98f; border-radius:6px; color:var(--ink); text-decoration:none;
+  font-family:'Noto Serif Kannada', serif; font-size:15px;
+}
+.nav-btns a:hover{background:var(--ink); color:var(--paper)}
+footer{text-align:center; padding:40px 0 20px; color:var(--ink-faded); font-family:'Fraunces', serif; font-style:italic; font-size:14px}
+@media (max-width:520px){
+  body{font-size:16px}
+  header.hero h1{font-size:30px}
+  .wrap{padding:0 14px 60px}
+  nav.tabs{margin:0 -14px 20px; padding:8px 10px}
+  nav.tabs a{font-size:12.5px; padding:5px 8px}
+  .grid{grid-template-columns:repeat(auto-fill, minmax(100px, 1fr))}
+  .card .big{font-size:26px}
+}
+@media (max-width:380px){
+  body{font-size:15px}
+  header.hero h1{font-size:26px}
+  nav.tabs a{font-size:11.5px; padding:4px 6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">ಭಾಷಾಸೇತು · ದ್ರಾವಿಡ ಸಹೋದರಿಯರು</div>
+  <h1>ಕನ್ನಡದಿಂದ <span class="ml">മലയാളം</span></h1>
+  <div class="sub">ಕನ್ನಡಿಗರಿಗಾಗಿ ಮಲಯಾಳಂ — ಹತ್ತು ಹಂತಗಳಲ್ಲಿ. ಪಕ್ಕದ ಮನೆಯ ಭಾಷೆ; ಅದೇ ಮೂಲ, ಬೇರೆ ಲಿಪಿ.</div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <a href="#stage-00">೦೦ · ಪರಿಚಯ</a>
+  <a href="#stage-01">೦೧ · ಸ್ವರ</a>
+  <a href="#stage-02">೦೨ · ವ್ಯಂಜನ</a>
+  <a href="#stage-03">೦೩ · ಸಂಯೋಜನೆ</a>
+  <a href="#stage-04">೦೪ · ಪದಗಳು</a>
+  <a href="#stage-05">೦೫ · ವಾಕ್ಯ</a>
+  <a href="#stage-06">೦೬ · ಓದು</a>
+  <a href="#stage-07">೦೭ · ಪದಕ್ಷೇತ್ರ</a>
+  <a href="#stage-08">೦೮ · ಬಳಕೆ</a>
+  <a href="#stage-09">೦೯ · ಸಾಹಿತ್ಯ</a>
+</nav>
+
+<section class="stage" id="stage-00">
+  <h2><span class="num">೦೦</span>ಪರಿಚಯ</h2>
+  <p>ಬಾಲ್ಯದಲ್ಲಿ ನೀವು <em>ಕನ್ನಡ ಕಲಿ</em> ಅಥವಾ <em>ಬಾರಹ</em>ದಲ್ಲಿ ಕಲಿತ "ಅ ಆ ಇ ಈ"ಯ ಅದೇ ಸ್ವರಪಟ್ಟಿ ಮಲಯಾಳಂನಲ್ಲೂ "അ ആ ഇ ഈ" ಎಂದು ಹರಿಯುತ್ತದೆ. ಲಿಪಿಯ ಆಕಾರಗಳು ಬೇರೆ — ಆದರೆ ಪಾಠದ ಕ್ರಮ, ವರ್ಗ, ಹ್ರಸ್ವ–ದೀರ್ಘ ಭೇದ, ಸ್ವರ–ಸೂಚಕಗಳ ಹಿಂದೆ–ಮುಂದೆ–ಮೇಲೆ–ಕೆಳಗೆ ಕುಳಿತುಕೊಳ್ಳುವ ರೀತಿ — ಎಲ್ಲವೂ ನಿಮಗೆ ಈಗಾಗಲೇ ಗೊತ್ತು. ಕನ್ನಡ ಮತ್ತು ಮಲಯಾಳಂ ಎರಡೂ ದ್ರಾವಿಡ ಕುಟುಂಬದ ಸಹೋದರಿಯರು; ಎರಡೂ ಬ್ರಾಹ್ಮೀಯಿಂದ ಬಂದ ಅಬುಗಿದಾ ಲಿಪಿಗಳು.</p>
+  <p>ಉದಾಹರಣೆಗೆ "ನಾನು ನೀರು ಕುಡಿಯುತ್ತೇನೆ" — ಕನ್ನಡದಲ್ಲಿ <em>ನಾನು ನೀರು ಕುಡಿಯುತ್ತೇನೆ</em>; ಮಲಯಾಳದಲ್ಲಿ <span class="ml">ഞാൻ വെള്ളം കുടിക്കുന്നു</span> (ಞಾನ್ ವೆಳ್ಳಂ ಕುಡಿಕ್ಕುನ್ನು). ಕರ್ತೃ → ಕರ್ಮ → ಕ್ರಿಯಾಪದ — ಅದೇ SOV ಕ್ರಮ. ಪ್ರತ್ಯಯಗಳು, ವಿಭಕ್ತಿ, ಅಂಟಿಕೊಳ್ಳುವ ಕ್ರಿಯಾರೂಪ — ಎಲ್ಲವೂ ಒಂದೇ ತಾಯಿಯ ಪಾಠ. ೪೮ ಸ್ವನಗಳಲ್ಲಿ ೪೬ ಹಂಚಿಕೊಂಡಿವೆ — ಶೇ. ೯೬ ಮೇಲೆ.</p>
+  <p>ಪದಗಳೂ ಹಾಗೆಯೇ: "ಮರ" → <span class="ml">മരം</span>, "ಕಣ್ಣು" → <span class="ml">കണ്ണ്</span>, "ಅಮ್ಮ" → <span class="ml">അമ്മ</span>. ಶೇ. ೯೧ರಷ್ಟು ಪದಕೋಶ ಒಂದೇ. ಸಂಸ್ಕೃತ ತತ್ಸಮಗಳು ಎರಡೂ ಭಾಷೆಯಲ್ಲಿ ಒಂದೇ — ಭೂಮಿ, ಸೂರ್ಯ, ಸಮಯ, ರಾತ್ರಿ, ನಮಸ್ಕಾರ. ಕಲಿಯಲು ಬೇಕಾದದ್ದು ಎಂದರೆ ಲಿಪಿಯ ಹೊಸ ಆಕಾರ, ಎರಡು ಹೊಸ ಧ್ವನಿಗಳು (<span class="ml">ഴ</span> ಮತ್ತು <span class="ml">ഋ</span>), ಚಿಲ್ಲಕ್ಷರ ಎಂಬ ಹೊಸ ವ್ಯವಸ್ಥೆ — ಅಷ್ಟೇ.</p>
+
+  <h3>ಅನುಕೂಲಗಳು ಮತ್ತು ಸವಾಲುಗಳು — ೬ ತತ್ತ್ವಗಳು</h3>
+  <div class="aside ok"><span class="tag">೧ · ಅನುಕೂಲ</span>ಎರಡೂ ಅಬುಗಿದಾ. ಕನ್ನಡದ "ಕ + ಾ = ಕಾ" ಎಂಬ ನಿಯಮ ಮಲಯಾಳಂನಲ್ಲಿ "<span class="ml">ക + ാ = കാ</span>". ಅಂತರ್ಗತ ಸ್ವರ 'ಅ', ವಿರಾಮ (ಕನ್ನಡ ್) ಬದಲು ಚಂದ್ರಕ್ಕಲ (<span class="ml">്</span>) — ಕೆಲಸ ಒಂದೇ. ಲಿಪಿಯ ತತ್ತ್ವ ಕಲಿಯಬೇಕಾಗಿಲ್ಲ, ಹೊಸ ಆಕಾರಗಳು ಮಾತ್ರ.</div>
+  <div class="aside ok"><span class="tag">೨ · ಅನುಕೂಲ</span>ವಾಕ್ಯರಚನೆ ಒಂದೇ — SOV. "ಅವನು ಪುಸ್ತಕ ಓದುತ್ತಾನೆ" = <span class="ml">അവൻ പുസ്തകം വായിക്കുന്നു</span>. ಕರ್ತೃ, ಕರ್ಮ, ಕ್ರಿಯಾಪದ — ಅದೇ ಕ್ರಮ. ಯೋಚಿಸುವ ದಾರಿಯೇ ಬೇರೆ ಆಗಬೇಕಾಗಿಲ್ಲ.</div>
+  <div class="aside ok"><span class="tag">೩ · ಅನುಕೂಲ</span>ವಿಭಕ್ತಿ ಪ್ರತ್ಯಯಗಳು. ಕನ್ನಡ -ಗೆ (ಸಂಪ್ರದಾನ) = ಮಲಯಾಳಂ -ക്ക് (-ಕ್ಕ್); ಕನ್ನಡ -ಅಲ್ಲಿ (ಅಧಿಕರಣ) ≈ ಮಲಯಾಳಂ -ൽ (-ಇಲ್). ಪ್ರತ್ಯಯಗಳು ಪದದ ಹಿಂಬದಿ ಅಂಟುವ ವಿಧಾನವೇ ಒಂದೇ.</div>
+  <div class="aside ok"><span class="tag">೪ · ಅನುಕೂಲ</span>ತತ್ಸಮ ಸೇತು. "ಭೂಮಿ"–<span class="ml">ഭൂമി</span>, "ಸೂರ್ಯ"–<span class="ml">സൂര്യൻ</span>, "ಸಮಯ"–<span class="ml">സമയം</span>, "ರಾತ್ರಿ"–<span class="ml">രാത്രി</span>, "ನಮಸ್ಕಾರ"–<span class="ml">നമസ്കാരം</span>. ಉಚ್ಚಾರಣೆ ಸಹ ಒಂದೇ — ಸುಮ್ಮನೆ ಲಿಪಿ ಬದಲಾಯಿಸಿ ಬರೆದರೆ ಸಾಕು.</div>
+  <div class="aside warn"><span class="tag">೫ · ಸವಾಲು</span>ಹೊಸ ಧ್ವನಿ <span class="ml">ഴ</span> (ḻa). ಇದು ಮೂರ್ಧನ್ಯ ಅನುನಾಸಿಕವಲ್ಲ — ಒಂದು ನಯವಾದ ಹಿಂಬಾಯಿಯ "ಳ್ಱ" ತರಹದ ಧ್ವನಿ. ತಮಿಳಿನ ழ ಇದೇ. <span class="ml">മഴ</span> (ಮಳ) = ಕನ್ನಡ "ಮಳೆ" — ಆದರೆ ನಡುವಿನ ಅಕ್ಷರ ಕನ್ನಡದಲ್ಲಿ ಇಲ್ಲ. ನಾಲಿಗೆಯನ್ನು ಮೂರ್ಧಕ್ಕೆ ತಾಗಿಸದೆ ಹಿಂಬಾಯಿಯಲ್ಲಿ ಎತ್ತಿ ಬಿಡಿ.</div>
+  <div class="aside warn"><span class="tag">೬ · ಸವಾಲು</span>ಚಿಲ್ಲಕ್ಷರ. ಪದದ ಕೊನೆಯಲ್ಲಿ ಬರುವ ಸ್ವರರಹಿತ ವ್ಯಂಜನಕ್ಕೆ ಮಲಯಾಳಂನಲ್ಲಿ ವಿಶೇಷ ರೂಪ — <span class="ml">ൻ ൽ ൾ ൺ ർ</span>. ಕನ್ನಡದಲ್ಲಿ "ಮರಂ" ಎಂದು ಬರೆಯಲು ವಿರಾಮ ಹಾಕಿದರೆ ಸಾಕು; ಮಲಯಾಳಂ <span class="ml">മരം</span> — ಇಲ್ಲಿ "ಮ್" ಅಲ್ಲ, "ಮ್" ಗೆ ಅನುಸ್ವಾರ. ಆದರೆ "ಅವನ್" ಅಂತ್ಯ <span class="ml">അവൻ</span> — ൻ ಎಂಬ ಪ್ರತ್ಯೇಕ ಚಿಲ್ಲ್. ಹೊಸ ಆದರೆ ಕ್ರಮಬದ್ಧ.</div>
+
+  <div class="aside"><span class="tag">ಲಿಂಗದ ಹೊರೆ ಇಳಿಯುತ್ತದೆ</span>ಕನ್ನಡದಲ್ಲಿ "ಅವನು ಮಾಡುತ್ತಾನೆ / ಅವಳು ಮಾಡುತ್ತಾಳೆ / ಅದು ಮಾಡುತ್ತದೆ" — ಮೂರು ರೂಪ. ಮಲಯಾಳಂನಲ್ಲಿ ಎಲ್ಲವೂ <span class="ml">ചെയ്യുന്നു</span> (ಚೆಯ್ಯುನ್ನು) — ಒಂದೇ! ಕ್ರಿಯಾಪದ ಕರ್ತೃವಿಗೆ ಅನುಸರಿಸುವುದಿಲ್ಲ. ಇದು ಕಲಿಕೆಯ ದೊಡ್ಡ ಹೊರೆಯನ್ನು ಇಳಿಸುತ್ತದೆ.</div>
+
+  <div class="nav-btns"><a href="#stage-00">ಆರಂಭ</a><a href="#stage-01">ಮುಂದೆ · ಸ್ವರ →</a></div>
+</section>
+<section class="stage" id="stage-01">
+  <h2><span class="num">೦೧</span>ಸ್ವರ — ಸ್ವರಾಕ್ಷರಗಳು</h2>
+  <p>ಮಲಯಾಳಂ ಸ್ವರಮಾಲೆ ಕನ್ನಡದ್ದೇ ಪ್ರತಿಬಿಂಬ. ಹ್ರಸ್ವ–ದೀರ್ಘದ ಜೋಡಿಗಳು ಎರಡೂ ಭಾಷೆಯಲ್ಲೂ ಉಳಿದಿವೆ — ಉಚ್ಚಾರಣೆಯ ಮೌಲ್ಯಗಳು ಬಹುಮಟ್ಟಿಗೆ ಒಂದೇ. ಕೆಳಗಿನ ಕಾರ್ಡ್‌ಗಳನ್ನು ಮುಟ್ಟಿ ವಿವರ ತೆರೆಯಿರಿ.</p>
+
+  <div class="family">
+    <h4>'ಅ' ಕುಟುಂಬ — അ / ആ</h4>
+    <div class="note">ಹ್ರಸ್ವ–ದೀರ್ಘ ಭೇದ ಎರಡೂ ಭಾಷೆಯಲ್ಲಿ ಒಂದೇ.</div>
+    <div class="grid">
+      <div class="card"><span class="big ml">അ</span><span class="kn">ಅ</span><span class="hint">'ಅ' — ಅಂತರ್ಗತ ಸ್ವರ. <span class="ml">അമ്മ</span> (ಅಮ್ಮ) = ಅಮ್ಮ.</span></div>
+      <div class="card"><span class="big ml">ആ</span><span class="kn">ಆ</span><span class="hint">'ಆ' — ದೀರ್ಘ. <span class="ml">ആന</span> (ಆನ) = ಆನೆ.</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ಇ' ಕುಟುಂಬ — ഇ / ഈ</h4>
+    <div class="grid">
+      <div class="card"><span class="big ml">ഇ</span><span class="kn">ಇ</span><span class="hint">'ಇ' — ಹ್ರಸ್ವ. <span class="ml">ഇത്</span> (ಇತ್) = ಇದು.</span></div>
+      <div class="card"><span class="big ml">ഈ</span><span class="kn">ಈ</span><span class="hint">'ಈ' — ದೀರ್ಘ. <span class="ml">ഈച്ച</span> (ಈಚ್ಚ) = ನೊಣ.</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ಉ' ಕುಟುಂಬ — ഉ / ഊ</h4>
+    <div class="grid">
+      <div class="card"><span class="big ml">ഉ</span><span class="kn">ಉ</span><span class="hint">'ಉ' — ಹ್ರಸ್ವ. <span class="ml">ഉപ്പ്</span> (ಉಪ್ಪ್) = ಉಪ್ಪು.</span></div>
+      <div class="card"><span class="big ml">ഊ</span><span class="kn">ಊ</span><span class="hint">'ಊ' — ದೀರ್ಘ. <span class="ml">ഊണ്</span> (ಊಣ್) = ಊಟ.</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ಋ' ಕುಟುಂಬ — ഋ <span style="color:var(--sindoor)">⚡</span></h4>
+    <div class="note">ಸಂಸ್ಕೃತ ಋ. ಕನ್ನಡದಲ್ಲಿ ಬಳಕೆ ಕಡಿಮೆಯಾಗಿದೆ, ಮಲಯಾಳಂನಲ್ಲಿ ತತ್ಸಮ ಪದಗಳಲ್ಲಿ ಇಂದೂ ಕಾಣಿಸುತ್ತದೆ.</div>
+    <div class="grid">
+      <div class="card"><span class="flag">⚡</span><span class="big ml">ഋ</span><span class="kn">ಋ</span><span class="hint">'ಋ' — 'ರಿ' ರೀತಿ ಉಚ್ಚಾರ. <span class="ml">ഋതു</span> (ಋತು) = ಋತು.</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ಎ' ಕುಟುಂಬ — എ / ഏ</h4>
+    <div class="note">ಎರಡೂ ಭಾಷೆಗಳೂ ಹ್ರಸ್ವ–ದೀರ್ಘ ಭೇದ ಉಳಿಸಿಕೊಂಡಿವೆ — ಉತ್ತರದ ಭಾಷೆಗಳಿಗೆ ಇದಿಲ್ಲ. ದ್ರಾವಿಡ ಹೆಮ್ಮೆ.</div>
+    <div class="grid">
+      <div class="card"><span class="big ml">എ</span><span class="kn">ಎ</span><span class="hint">'ಎ' — ಹ್ರಸ್ವ. <span class="ml">എന്ത്</span> (ಎನ್ತ್) = ಏನು.</span></div>
+      <div class="card"><span class="big ml">ഏ</span><span class="kn">ಏ</span><span class="hint">'ಏ' — ದೀರ್ಘ. <span class="ml">ഏഴ്</span> (ಏಳ್) = ಏಳು.</span></div>
+      <div class="card"><span class="big ml">ഐ</span><span class="kn">ಐ</span><span class="hint">'ಐ' — ಸಂಧಿ ಸ್ವರ. <span class="ml">ഐരാവതം</span>.</span></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ಒ' ಕುಟುಂಬ — ഒ / ഓ</h4>
+    <div class="note">ಎ/ಏ ಹಾಗೆ ಒ/ಓ ಭೇದವೂ ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಸ್ಪಷ್ಟ.</div>
+    <div class="grid">
+      <div class="card"><span class="big ml">ഒ</span><span class="kn">ಒ</span><span class="hint">'ಒ' — ಹ್ರಸ್ವ. <span class="ml">ഒന്ന്</span> (ಒನ್ನ್) = ಒಂದು.</span></div>
+      <div class="card"><span class="big ml">ഓ</span><span class="kn">ಓ</span><span class="hint">'ಓ' — ದೀರ್ಘ. <span class="ml">ഓടുക</span> (ಓಡುಕ) = ಓಡು.</span></div>
+      <div class="card"><span class="big ml">ഔ</span><span class="kn">ಔ</span><span class="hint">'ಔ' — ಸಂಧಿ ಸ್ವರ. <span class="ml">ഔഷധം</span> = ಔಷಧ.</span></div>
+    </div>
+  </div>
+
+  <div class="aside"><span class="tag">ಹ್ರಸ್ವ–ದೀರ್ಘ ಸೇತು</span>ಹಿಂದಿಯಲ್ಲಿ ಎ/ಏ ಭೇದ ಇಲ್ಲ, ಒ/ಓ ಭೇದವೂ ಇಲ್ಲ. ಕನ್ನಡ ಮತ್ತು ಮಲಯಾಳಂ ಈ ಎರಡೂ ಭೇದಗಳನ್ನು ಜೀವಂತವಾಗಿ ಉಳಿಸಿವೆ — <em>ಕಲ್ಲು/ಕಾಲು</em>, <em>ಎರಡು/ಏರು</em>, <em>ಒಲೆ/ಓಲೆ</em>. ಮಲಯಾಳಂ <span class="ml">കല്ല്/കാല്</span>, <span class="ml">എട്ട്/ഏട്</span> — ಅದೇ ಭೇದ, ಅದೇ ಅರ್ಥವ್ಯತ್ಯಾಸ.</div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+malayalam+vowels+swarangal+pronunciation" title="Malayalam vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ಮಲಯಾಳಂ ಸ್ವರೋಚ್ಚಾರಣೆ · <a href="https://www.youtube.com/results?search_query=learn+malayalam+vowels+swarangal+pronunciation" target="_blank" rel="noopener">ಇನ್ನಷ್ಟು ಹುಡುಕಿ ↗</a></div>
+  </div>
+
+  <div class="nav-btns"><a href="#stage-00">← ಹಿಂದೆ · ಪರಿಚಯ</a><a href="#stage-02">ಮುಂದೆ · ವ್ಯಂಜನ →</a></div>
+</section>
+<section class="stage" id="stage-02">
+  <h2><span class="num">೦೨</span>ವ್ಯಂಜನ — ವರ್ಗಗಳು</h2>
+  <p>ಐದು ವರ್ಗ — ಕವರ್ಗ, ಚವರ್ಗ, ಟವರ್ಗ, ತವರ್ಗ, ಪವರ್ಗ — ಅದೇ ಕ್ರಮ, ಅದೇ ಧ್ವನಿ. ಅಂತಸ್ಥ (ಯ ರ ಲ ವ), ಊಷ್ಮ (ಶ ಷ ಸ ಹ), ಮತ್ತು ದ್ರಾವಿಡ ವಿಶೇಷ ಅಕ್ಷರಗಳು (ಳ, ಱ, ೞ) — ಎಲ್ಲವೂ ನಿಮಗೆ ಪರಿಚಯ.</p>
+
+  <h3>ಕವರ್ಗ — ಕಂಠ್ಯ</h3>
+  <div class="grid">
+    <div class="card"><span class="big ml">ക</span><span class="kn">ಕ</span><span class="hint">'ಕ'. ಒಂದೇ ಉಚ್ಚಾರ.</span></div>
+    <div class="card"><span class="big ml">ഖ</span><span class="kn">ಖ</span><span class="hint">'ಖ' — ಮಹಾಪ್ರಾಣ.</span></div>
+    <div class="card"><span class="big ml">ഗ</span><span class="kn">ಗ</span><span class="hint">'ಗ'.</span></div>
+    <div class="card"><span class="big ml">ഘ</span><span class="kn">ಘ</span><span class="hint">'ಘ'.</span></div>
+    <div class="card"><span class="big ml">ങ</span><span class="kn">ಙ</span><span class="hint">'ಙ' — ಕ-ಅನುನಾಸಿಕ. <span class="ml">മങ്ങൽ</span>.</span></div>
+  </div>
+
+  <h3>ಚವರ್ಗ — ತಾಲವ್ಯ</h3>
+  <div class="grid">
+    <div class="card"><span class="big ml">ച</span><span class="kn">ಚ</span><span class="hint">'ಚ'. <span class="ml">ചോറ്</span> (ಚೋಱ್) = ಅನ್ನ.</span></div>
+    <div class="card"><span class="big ml">ഛ</span><span class="kn">ಛ</span><span class="hint">'ಛ'.</span></div>
+    <div class="card"><span class="big ml">ജ</span><span class="kn">ಜ</span><span class="hint">'ಜ'.</span></div>
+    <div class="card"><span class="big ml">ഝ</span><span class="kn">ಝ</span><span class="hint">'ಝ'.</span></div>
+    <div class="card"><span class="big ml">ഞ</span><span class="kn">ಞ</span><span class="hint">'ಞ' — ಚ-ಅನುನಾಸಿಕ. <span class="ml">ഞാൻ</span> (ಞಾನ್) = ನಾನು. ಇದು ಮಲಯಾಳಂನಲ್ಲಿ ಆಗಾಗ್ಗೆ ಬರುತ್ತದೆ!</span></div>
+  </div>
+
+  <h3>ಟವರ್ಗ — ಮೂರ್ಧನ್ಯ</h3>
+  <div class="grid">
+    <div class="card"><span class="big ml">ട</span><span class="kn">ಟ</span><span class="hint">'ಟ'.</span></div>
+    <div class="card"><span class="big ml">ഠ</span><span class="kn">ಠ</span><span class="hint">'ಠ'.</span></div>
+    <div class="card"><span class="big ml">ഡ</span><span class="kn">ಡ</span><span class="hint">'ಡ'.</span></div>
+    <div class="card"><span class="big ml">ഢ</span><span class="kn">ಢ</span><span class="hint">'ಢ'.</span></div>
+    <div class="card"><span class="big ml">ണ</span><span class="kn">ಣ</span><span class="hint">'ಣ' — ಮೂರ್ಧನ್ಯ ನ. <span class="ml">കണ്ണ്</span> (ಕಣ್ಣ್) = ಕಣ್ಣು.</span></div>
+  </div>
+
+  <h3>ತವರ್ಗ — ದಂತ್ಯ</h3>
+  <div class="grid">
+    <div class="card"><span class="big ml">ത</span><span class="kn">ತ</span><span class="hint">'ತ'.</span></div>
+    <div class="card"><span class="big ml">ഥ</span><span class="kn">ಥ</span><span class="hint">'ಥ'.</span></div>
+    <div class="card"><span class="big ml">ദ</span><span class="kn">ದ</span><span class="hint">'ದ'.</span></div>
+    <div class="card"><span class="big ml">ധ</span><span class="kn">ಧ</span><span class="hint">'ಧ'.</span></div>
+    <div class="card"><span class="big ml">ന</span><span class="kn">ನ</span><span class="hint">'ನ'. <span class="ml">നാളെ</span> (ನಾಳೆ) = ನಾಳೆ.</span></div>
+  </div>
+
+  <h3>ಪವರ್ಗ — ಓಷ್ಠ್ಯ</h3>
+  <div class="grid">
+    <div class="card"><span class="big ml">പ</span><span class="kn">ಪ</span><span class="hint">'ಪ'. <span class="ml">പാൽ</span> (ಪಾಲ್) = ಹಾಲು.</span></div>
+    <div class="card"><span class="big ml">ഫ</span><span class="kn">ಫ</span><span class="hint">'ಫ'.</span></div>
+    <div class="card"><span class="big ml">ബ</span><span class="kn">ಬ</span><span class="hint">'ಬ'.</span></div>
+    <div class="card"><span class="big ml">ഭ</span><span class="kn">ಭ</span><span class="hint">'ಭ'.</span></div>
+    <div class="card"><span class="big ml">മ</span><span class="kn">ಮ</span><span class="hint">'ಮ'. <span class="ml">മരം</span> (ಮರಂ) = ಮರ.</span></div>
+  </div>
+
+  <h3>ಅಂತಸ್ಥ ಮತ್ತು ಊಷ್ಮ</h3>
+  <div class="grid">
+    <div class="card"><span class="big ml">യ</span><span class="kn">ಯ</span><span class="hint">'ಯ'.</span></div>
+    <div class="card"><span class="big ml">ര</span><span class="kn">ರ</span><span class="hint">'ರ' — ಮೆದು.</span></div>
+    <div class="card"><span class="big ml">ല</span><span class="kn">ಲ</span><span class="hint">'ಲ'.</span></div>
+    <div class="card"><span class="big ml">വ</span><span class="kn">ವ</span><span class="hint">'ವ'.</span></div>
+    <div class="card"><span class="big ml">ശ</span><span class="kn">ಶ</span><span class="hint">'ಶ'.</span></div>
+    <div class="card"><span class="big ml">ഷ</span><span class="kn">ಷ</span><span class="hint">'ಷ'.</span></div>
+    <div class="card"><span class="big ml">സ</span><span class="kn">ಸ</span><span class="hint">'ಸ'.</span></div>
+    <div class="card"><span class="big ml">ഹ</span><span class="kn">ಹ</span><span class="hint">'ಹ'.</span></div>
+  </div>
+
+  <h3>ದ್ರಾವಿಡ ವಿಶೇಷ</h3>
+  <div class="grid">
+    <div class="card"><span class="big ml">ള</span><span class="kn">ಳ</span><span class="hint">'ಳ' — ಮೂರ್ಧನ್ಯ ಲ. ಎರಡೂ ಭಾಷೆಯಲ್ಲೂ ಸ್ಪಷ್ಟ. <span class="ml">വെള്ളം</span> (ವೆಳ್ಳಂ) = ನೀರು.</span></div>
+    <div class="card"><span class="big ml">റ</span><span class="kn">ಱ</span><span class="hint">'ಱ' — ಗಟ್ಟಿ ರ. ಹಳೆ ಕನ್ನಡದ ಱ. <span class="ml">ചോറ്</span> (ಚೋಱ್) = ಅನ್ನ.</span></div>
+    <div class="card"><span class="flag">⚡</span><span class="big ml">ഴ</span><span class="kn">—</span><span class="hint">'ೞ' (ḻa) — ಹೊಸ ಧ್ವನಿ! ನಾಲಿಗೆ ಮೂರ್ಧಕ್ಕೆ ತಾಗಿಸದೆ ಹಿಂಬಾಯಿಯಲ್ಲಿ ಎತ್ತಿ ಬಿಡಿ. <span class="ml">മഴ</span> (ಮಳ) = ಮಳೆ, <span class="ml">കേരളം</span>ನಲ್ಲಿಯ ഴ!</span></div>
+    <div class="card"><span class="big ml">ഩ</span><span class="kn">ನ</span><span class="hint">'ನ಼' — ಅಲ್ವಿಯೋಲಾರ್ ನ. ಚಿಲ್ಲ್ <span class="ml">ൻ</span> ಆಗಿಯೂ ಬರುತ್ತದೆ.</span></div>
+  </div>
+
+  <div class="aside warn"><span class="tag">ೞ — ಹೊಸ ಅಕ್ಷರ</span>ಕನ್ನಡದಲ್ಲಿ ಹಳೆ <em>ಱ</em> ಮತ್ತು <em>ೞ</em> ಇಂದು ಉಳಿದಿಲ್ಲ. ಮಲಯಾಳಂ ತಮಿಳಿನ ಸೋದರಿ — ಎರಡನ್ನೂ ಉಳಿಸಿದೆ. <span class="ml">മലയാളം</span> ಪದದಲ್ಲಿ <span class="ml">ഴ</span> ಇದೆ — "ಮಲಯಾಳಂ" ಅಲ್ಲ, ನಿಜಕ್ಕೂ "ಮಲಯಾೞಂ". ನಾಲಿಗೆ ಹಿಂದಕ್ಕೆ, ಮೂರ್ಧಕ್ಕೆ ತಾಗಿಸಬೇಡಿ — ಗಾಳಿ ಸುರಿಯಲಿ.</div>
+
+  <div class="aside"><span class="tag">ಳ — ಹಂಚಿದ ಮೂರ್ಧನ್ಯ</span>ಉತ್ತರದವರಿಗೆ "ಳ" ಕಷ್ಟ. ಕನ್ನಡಿಗರಿಗೆ ಅದು ಉಸಿರಾಟದಷ್ಟು ಸಹಜ — "ಹಳ್ಳಿ, ಬಾಳೆ, ಕಳ್ಳ". ಮಲಯಾಳಂನಲ್ಲಿಯೂ ಅದೇ: <span class="ml">വെള്ളം</span>, <span class="ml">പുള്ളി</span>, <span class="ml">തുള്ളി</span>. ಕನ್ನಡ ಳ ↔ ಮಲಯಾಳಂ ള — ಲಿಪಿ ಮಾತ್ರ ಬೇರೆ, ನಾಲಿಗೆಯ ಚಲನೆ ಒಂದೇ.</div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+malayalam+consonants+vyanjanangal+pronunciation" title="Malayalam consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ಮಲಯಾಳಂ ವ್ಯಂಜನೋಚ್ಚಾರಣೆ · <a href="https://www.youtube.com/results?search_query=learn+malayalam+consonants+vyanjanangal+pronunciation" target="_blank" rel="noopener">ಇನ್ನಷ್ಟು ಹುಡುಕಿ ↗</a></div>
+  </div>
+
+  <div class="nav-btns"><a href="#stage-01">← ಹಿಂದೆ · ಸ್ವರ</a><a href="#stage-03">ಮುಂದೆ · ಸಂಯೋಜನೆ →</a></div>
+</section>
+<section class="stage" id="stage-03">
+  <h2><span class="num">೦೩</span>ಸಂಯೋಜನೆ — ಗುಣಿತಾಕ್ಷರ ಮತ್ತು ಸಂಯುಕ್ತ</h2>
+  <p>ಅಬುಗಿದಾ ತತ್ತ್ವ ಒಂದೇ: ವ್ಯಂಜನದ ಮೇಲೆ ಸ್ವರಸೂಚಕ ಬಸ್ತು, ವ್ಯಂಜನ ಜೊತೆಗೂಡಲು ವಿರಾಮ. ಕನ್ನಡದ <em>್</em> = ಮಲಯಾಳಂನ <span class="ml">്</span> (ಚಂದ್ರಕ್ಕಲ).</p>
+
+  <h3>ಸ್ವರಸೂಚಕ — 'ಕ' ಆಧಾರದ ಮೇಲೆ</h3>
+  <table>
+    <tr><th>ಸ್ವರ</th><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th><th>ಉಚ್ಚಾರ</th></tr>
+    <tr><td>ಅ</td><td>ಕ</td><td><span class="ml">ക</span></td><td>ka</td></tr>
+    <tr><td>ಆ</td><td>ಕಾ</td><td><span class="ml">കാ</span></td><td>kā</td></tr>
+    <tr><td>ಇ</td><td>ಕಿ</td><td><span class="ml">കി</span></td><td>ki</td></tr>
+    <tr><td>ಈ</td><td>ಕೀ</td><td><span class="ml">കീ</span></td><td>kī</td></tr>
+    <tr><td>ಉ</td><td>ಕು</td><td><span class="ml">കു</span></td><td>ku</td></tr>
+    <tr><td>ಊ</td><td>ಕೂ</td><td><span class="ml">കൂ</span></td><td>kū</td></tr>
+    <tr><td>ಎ</td><td>ಕೆ</td><td><span class="ml">കെ</span></td><td>ke</td></tr>
+    <tr><td>ಏ</td><td>ಕೇ</td><td><span class="ml">കേ</span></td><td>kē</td></tr>
+    <tr><td>ಐ</td><td>ಕೈ</td><td><span class="ml">കൈ</span></td><td>kai</td></tr>
+    <tr><td>ಒ</td><td>ಕೊ</td><td><span class="ml">കൊ</span></td><td>ko</td></tr>
+    <tr><td>ಓ</td><td>ಕೋ</td><td><span class="ml">കോ</span></td><td>kō</td></tr>
+    <tr><td>ಔ</td><td>ಕೌ</td><td><span class="ml">കൌ</span></td><td>kau</td></tr>
+  </table>
+
+  <div class="aside"><span class="tag">ಸೂಚಕಗಳ ಅದೇ ಸ್ಥಳ</span>ಕನ್ನಡದಲ್ಲಿ 'ಇ' ಸೂಚಕ ಮೇಲ್ಬದಿ ಬಲಕ್ಕೆ (ಕಿ) — ಮಲಯಾಳಂನಲ್ಲಿ ಎಡಕ್ಕೆ ಮುಂದೆ (<span class="ml">കി</span>). 'ಎ' ಸೂಚಕ ಎರಡರಲ್ಲಿಯೂ ಎಡಕ್ಕೆ. 'ಉ' ಕೆಳಕ್ಕೆ ಅಂಟು. ತತ್ತ್ವ ಒಂದೇ — ಅಕ್ಷರ ಮತ್ತು ಸೂಚಕ ಒಂದೇ ಘಟಕ. ನೆನಪಿನಲ್ಲಿಡಿ: ಅಕ್ಷರ ಎಲ್ಲಿ ಇದೆಯೆಂದು ನೋಡಿ, ಉಳಿದದ್ದು ಸೂಚಕ.</div>
+
+  <h3>ವಿರಾಮ ಮತ್ತು ಸಂಯುಕ್ತಾಕ್ಷರ</h3>
+  <table>
+    <tr><th>ಅರ್ಥ</th><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th></tr>
+    <tr><td>ಕ್</td><td>ಕ್</td><td><span class="ml">ക്</span></td></tr>
+    <tr><td>ಕ್ಷ (ಕ್+ಷ)</td><td>ಕ್ಷ</td><td><span class="ml">ക്ഷ</span></td></tr>
+    <tr><td>ಜ್ಞ (ಜ್+ಞ)</td><td>ಜ್ಞ</td><td><span class="ml">ജ്ഞ</span></td></tr>
+    <tr><td>ಸ್ತ್ರೀ</td><td>ಸ್ತ್ರೀ</td><td><span class="ml">സ്ത്രീ</span></td></tr>
+    <tr><td>ಪ್ರ</td><td>ಪ್ರ</td><td><span class="ml">പ്ര</span></td></tr>
+  </table>
+
+  <h3>ಚಿಲ್ಲಕ್ಷರ — ಮಲಯಾಳಂನ ವಿಶೇಷ</h3>
+  <p>ಪದದ ಕೊನೆಯಲ್ಲಿ ಬರುವ ಸ್ವರರಹಿತ ವ್ಯಂಜನಕ್ಕೆ ಐದು ಚಿಲ್ಲ್ ರೂಪಗಳು:</p>
+  <table>
+    <tr><th>ಪೂರ್ಣ</th><th>ಚಿಲ್ಲ್</th><th>ಉದಾಹರಣೆ</th><th>ಕನ್ನಡ</th></tr>
+    <tr><td><span class="ml">ൻ</span> (ന്)</td><td><span class="ml">ൻ</span></td><td><span class="ml">അവൻ</span></td><td>ಅವನ್</td></tr>
+    <tr><td><span class="ml">ൽ</span> (ല്)</td><td><span class="ml">ൽ</span></td><td><span class="ml">പാൽ</span></td><td>ಪಾಲ್</td></tr>
+    <tr><td><span class="ml">ൾ</span> (ള്)</td><td><span class="ml">ൾ</span></td><td><span class="ml">അവൾ</span></td><td>ಅವಳ್</td></tr>
+    <tr><td><span class="ml">ൺ</span> (ണ്)</td><td><span class="ml">ൺ</span></td><td><span class="ml">മൺ</span></td><td>ಮಣ್</td></tr>
+    <tr><td><span class="ml">ർ</span> (ര്)</td><td><span class="ml">ർ</span></td><td><span class="ml">അവർ</span></td><td>ಅವರ್</td></tr>
+  </table>
+
+  <div class="aside warn"><span class="tag">ಚಿಲ್ಲ್ ಹೊಸ ಆಲೋಚನೆ</span>ಕನ್ನಡದಲ್ಲಿ "ಅವನ್" ಎಂದು ಬರೆಯಲು <em>ನ್ + ವಿರಾಮ</em> ಸಾಕು. ಮಲಯಾಳಂನಲ್ಲಿ <span class="ml">ന്</span> ಎಂದು ಬರೆದರೆ "ಮುಂದೆ ಇನ್ನೊಂದು ವ್ಯಂಜನ ಬರಲಿದೆ" ಎಂಬ ಅರ್ಥ; ಪದ ಇಲ್ಲೇ ಮುಗಿಯುವುದಾದರೆ <span class="ml">ൻ</span> ಎಂಬ ಬೇರೆಯೇ ಆಕಾರ. <span class="ml">അവൻ</span> (ಅವನ್ — ಪದ ಮುಗಿದಿದೆ), <span class="ml">അവന്</span> (ಅವನ್ಗೆ — ಮುಂದೆ ಇನ್ನಷ್ಟು ಬರಲಿದೆ). ಈ ಭೇದ ಬರವಣಿಗೆಯಲ್ಲಿ ಮಾತ್ರ — ಉಚ್ಚಾರಣೆ ಒಂದೇ.</div>
+
+  <div class="aside"><span class="tag">ಅನುಸ್ವಾರದ ಆಟ</span>ಮಲಯಾಳಂನಲ್ಲಿ ಪದಾಂತ್ಯದ "ಮ್" ಧ್ವನಿಗೆ <span class="ml">ം</span> (ಅನುಸ್ವಾರ) ಬಳಸುತ್ತಾರೆ — <span class="ml">മരം</span> (ಮರಂ) = ಮರ, <span class="ml">സമയം</span> (ಸಮಯಂ) = ಸಮಯ. ಕನ್ನಡದಲ್ಲಿ "ಮ" ಅಂಟಿಸಿ ಬರೆಯುತ್ತೇವೆ; ಮಲಯಾಳಂನಲ್ಲಿ <span class="ml">ം</span> ಎಂಬ ಸಣ್ಣ ವೃತ್ತ. ಓದುವಾಗ ಇದು "ಂ" ಅಲ್ಲ — "ಮ್" ಎಂದು ಉಚ್ಚರಿಸಿ.</div>
+
+  <div class="nav-btns"><a href="#stage-02">← ಹಿಂದೆ · ವ್ಯಂಜನ</a><a href="#stage-04">ಮುಂದೆ · ಪದಗಳು →</a></div>
+</section>
+<section class="stage" id="stage-04">
+  <h2><span class="num">೦೪</span>ಪದಗಳು — ಮೂಲಶಬ್ದಕೋಶ</h2>
+  <p>ಶೇ. ೯೧ರಷ್ಟು ಪದಕೋಶ ಹಂಚಿಕೊಂಡಿದೆ. ಬಹಳಷ್ಟು ಪದಗಳು ಎರಡು ರೀತಿಯಲ್ಲಿ ಸೇತುವಾಗಿವೆ — ದ್ರಾವಿಡ ಮೂಲ (ಮರ, ಮಳೆ, ನೀರು), ಮತ್ತು ಸಂಸ್ಕೃತ ತತ್ಸಮ (ಭೂಮಿ, ಸೂರ್ಯ, ಸಮಯ).</p>
+
+  <h3>ಸರ್ವನಾಮ</h3>
+  <div class="vocab">
+    <div class="vword"><span class="ml">ഞാൻ</span><span class="eq">= ನಾನು</span><span class="tr">ñān</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">അവൻ</span><span class="eq">= ಅವನು</span><span class="tr">avaṉ</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">അവൾ</span><span class="eq">= ಅವಳು</span><span class="tr">avaḷ</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">അത്</span><span class="eq">= ಅದು</span><span class="tr">at</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">ഇത്</span><span class="eq">= ಇದು</span><span class="tr">it</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+  </div>
+
+  <div class="aside"><span class="tag">ನಾವು — ಹಂಚಿದ ಒಳ/ಹೊರ ಭೇದ</span>ಮಲಯಾಳಂನಲ್ಲಿ ಎರಡು 'ನಾವು' — <span class="ml">നമ്മൾ</span> (ನಮ್ಮಳ್, ಕೇಳುವವನನ್ನೂ ಒಳಗೊಂಡು) ಮತ್ತು <span class="ml">ഞങ്ങൾ</span> (ಞಙ್ಙಳ್, ಕೇಳುವವನನ್ನು ಬಿಟ್ಟು). ಕನ್ನಡದಲ್ಲಿ ಹಳೆಯ ಕಾಲದಲ್ಲಿ <em>ನಾವು</em>/<em>ನಾವೇ</em> ಇಂಥ ಭೇದ ಸೂಕ್ಷ್ಮವಾಗಿ ಇತ್ತು; ತಮಿಳು, ಮಲಯಾಳಂ, ತೆಲುಗಿನಲ್ಲಿ ಸ್ಪಷ್ಟವಾಗಿ ಉಳಿದಿದೆ. ದ್ರಾವಿಡ ಮೂಲಸ್ವರೂಪ.</div>
+
+  <h3>ನಾಮಪದ</h3>
+  <div class="vocab">
+    <div class="vword"><span class="ml">വെള്ളം</span><span class="eq">= ನೀರು</span><span class="tr">veḷḷaṃ</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">സമയം</span><span class="eq">= ಸಮಯ</span><span class="tr">samayaṃ</span><span class="tag">ತತ್ಸಮ</span></div>
+    <div class="vword"><span class="ml">ദിനം</span><span class="eq">= ದಿನ</span><span class="tr">dinaṃ</span><span class="tag">ತತ್ಸಮ</span></div>
+    <div class="vword"><span class="ml">പാൽ</span><span class="eq">= ಹಾಲು</span><span class="tr">pāl</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">മരം</span><span class="eq">= ಮರ</span><span class="tr">maraṃ</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">മഴ</span><span class="eq">= ಮಳೆ</span><span class="tr">maḻa</span><span class="tag">ದ್ರಾವಿಡ · ഴ</span></div>
+    <div class="vword"><span class="ml">പൂവ്</span><span class="eq">= ಹೂವು</span><span class="tr">pūv</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">ഭൂമി</span><span class="eq">= ಭೂಮಿ</span><span class="tr">bhūmi</span><span class="tag">ತತ್ಸಮ</span></div>
+    <div class="vword"><span class="ml">സൂര്യൻ</span><span class="eq">= ಸೂರ್ಯ</span><span class="tr">sūryaṉ</span><span class="tag">ತತ್ಸಮ</span></div>
+    <div class="vword"><span class="ml">പേര്</span><span class="eq">= ಹೆಸರು</span><span class="tr">pēr</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">രാത്രി</span><span class="eq">= ರಾತ್ರಿ</span><span class="tr">rātri</span><span class="tag">ತತ್ಸಮ</span></div>
+  </div>
+
+  <div class="aside ok"><span class="tag">ತತ್ಸಮ ಸೇತು</span>ಸಂಸ್ಕೃತದಿಂದ ಬಂದ ಪದಗಳು ಎರಡೂ ಭಾಷೆಯಲ್ಲೂ ಹೆಚ್ಚು–ಕಡಿಮೆ ಒಂದೇ ರೂಪ, ಒಂದೇ ಅರ್ಥ. <em>ಭೂಮಿ, ಸೂರ್ಯ, ಸಮಯ, ದಿನ, ರಾತ್ರಿ, ಔಷಧ, ಪ್ರಯತ್ನ, ವಿದ್ಯಾ</em> — ಬರೆಯುವಾಗ ಲಿಪಿ ಬದಲಾಯಿಸಿ, ಓದುವಾಗ ಕೇಳಿಸುವ ಧ್ವನಿ ಒಂದೇ. ಈ ಪದಗಳನ್ನು ಕಲಿಯುವ ಅಗತ್ಯವಿಲ್ಲ — ಬರೆಯಲು ಮಾತ್ರ ಕಲಿಯಿರಿ.</div>
+
+  <h3>ಕ್ರಿಯಾಪದ (ಮೂಲರೂಪ)</h3>
+  <div class="vocab">
+    <div class="vword"><span class="ml">ഇരിക്കുക</span><span class="eq">= ಇರು</span><span class="tr">irikkuka</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">പോവുക</span><span class="eq">= ಹೋಗು</span><span class="tr">pōvuka</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">വരിക</span><span class="eq">= ಬಾ</span><span class="tr">varika</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">തിന്നുക</span><span class="eq">= ತಿನ್ನು</span><span class="tr">tinnuka</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">കുടിക്കുക</span><span class="eq">= ಕುಡಿ</span><span class="tr">kuḍikkuka</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">നോക്കുക</span><span class="eq">= ನೋಡು</span><span class="tr">nōkkuka</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">കേൾക്കുക</span><span class="eq">= ಕೇಳು</span><span class="tr">kēḷkkuka</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">നടക്കുക</span><span class="eq">= ನಡೆ</span><span class="tr">naḍakkuka</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">ഓടുക</span><span class="eq">= ಓಡು</span><span class="tr">ōḍuka</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">കൊടുക്കുക</span><span class="eq">= ಕೊಡು</span><span class="tr">koḍukkuka</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">വേണം</span><span class="eq">= ಬೇಕು</span><span class="tr">vēṇaṃ</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+    <div class="vword"><span class="ml">നിൽക്കുക</span><span class="eq">= ನಿಲ್ಲು</span><span class="tr">nilkkuka</span><span class="tag">ದ್ರಾವಿಡ</span></div>
+  </div>
+
+  <h3>ಸಂಖ್ಯೆ</h3>
+  <div class="vocab">
+    <div class="vword"><span class="ml">ഒന്ന്</span><span class="eq">= ಒಂದು</span><span class="tr">onn</span></div>
+    <div class="vword"><span class="ml">രണ്ട്</span><span class="eq">= ಎರಡು</span><span class="tr">raṇṭ</span></div>
+    <div class="vword"><span class="ml">മൂന്ന്</span><span class="eq">= ಮೂರು</span><span class="tr">mūnn</span></div>
+    <div class="vword"><span class="ml">പത്ത്</span><span class="eq">= ಹತ್ತು</span><span class="tr">patt</span></div>
+  </div>
+
+  <h3>ಬಂಧುಬಳಗ, ದೇಹ, ಕಾಲ</h3>
+  <div class="vocab">
+    <div class="vword"><span class="ml">അച്ഛൻ</span><span class="eq">= ಅಪ್ಪ</span><span class="tr">acchaṉ</span></div>
+    <div class="vword"><span class="ml">അമ്മ</span><span class="eq">= ಅಮ್ಮ</span><span class="tr">amma</span></div>
+    <div class="vword"><span class="ml">മാമൻ</span><span class="eq">= ಮಾವ</span><span class="tr">māmaṉ</span></div>
+    <div class="vword"><span class="ml">തല</span><span class="eq">= ತಲೆ</span><span class="tr">tala</span></div>
+    <div class="vword"><span class="ml">കണ്ണ്</span><span class="eq">= ಕಣ್ಣು</span><span class="tr">kaṇṇ</span></div>
+    <div class="vword"><span class="ml">കൈ</span><span class="eq">= ಕೈ</span><span class="tr">kai</span></div>
+    <div class="vword"><span class="ml">കാൽ</span><span class="eq">= ಕಾಲು</span><span class="tr">kāl</span></div>
+    <div class="vword"><span class="ml">മൂക്ക്</span><span class="eq">= ಮೂಗು</span><span class="tr">mūkk</span></div>
+    <div class="vword"><span class="ml">ഇന്ന്</span><span class="eq">= ಇಂದು</span><span class="tr">inn</span></div>
+    <div class="vword"><span class="ml">നാളെ</span><span class="eq">= ನಾಳೆ</span><span class="tr">nāḷe</span></div>
+    <div class="vword"><span class="ml">ഇപ്പോൾ</span><span class="eq">= ಈಗ</span><span class="tr">ippōḷ</span></div>
+  </div>
+
+  <h3>ಶುಭಾಷಯ</h3>
+  <div class="vocab">
+    <div class="vword"><span class="ml">നമസ്കാരം</span><span class="eq">= ನಮಸ್ಕಾರ</span><span class="tr">namaskāraṃ</span></div>
+    <div class="vword"><span class="ml">നന്ദി</span><span class="eq">= ಧನ್ಯವಾದಗಳು</span><span class="tr">nandi</span></div>
+    <div class="vword"><span class="ml">വേണം</span><span class="eq">= ಬೇಕು</span><span class="tr">vēṇaṃ</span></div>
+  </div>
+
+  <div class="nav-btns"><a href="#stage-03">← ಹಿಂದೆ · ಸಂಯೋಜನೆ</a><a href="#stage-05">ಮುಂದೆ · ವಾಕ್ಯ →</a></div>
+</section>
+<section class="stage" id="stage-05">
+  <h2><span class="num">೦೫</span>ವಾಕ್ಯ — ರಚನೆ, ಕ್ರಿಯಾಪ್ರತ್ಯಯ, ಪ್ರಶ್ನೆ</h2>
+  <p>SOV ಕ್ರಮ — ಕರ್ತೃ, ಕರ್ಮ, ಕ್ರಿಯಾಪದ. ವಿಭಕ್ತಿ ಪ್ರತ್ಯಯಗಳು ಹಿಂಬದಿ ಅಂಟುತ್ತವೆ.</p>
+
+  <h3>ಕ್ರಿಯಾಪ್ರತ್ಯಯ — ವರ್ತಮಾನಕಾಲ ('ಮಾಡು')</h3>
+  <p>ಮಲಯಾಳಂನ ವಿಶೇಷ: ಕರ್ತೃವಿನ ಲಿಂಗ–ವಚನ–ಪುರುಷ ಬದಲಾದರೂ ಕ್ರಿಯಾಪದ ಬದಲಾಗುವುದಿಲ್ಲ! ಒಂದೇ ರೂಪ <span class="ml">ചെയ്യുന്നു</span>.</p>
+  <table>
+    <tr><th>ಕರ್ತೃ</th><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th></tr>
+    <tr><td>ನಾನು</td><td>ಮಾಡುತ್ತೇನೆ</td><td><span class="ml">ഞാൻ ചെയ്യുന്നു</span></td></tr>
+    <tr><td>ನೀನು</td><td>ಮಾಡುತ್ತೀಯ</td><td><span class="ml">നീ ചെയ്യുന്നു</span></td></tr>
+    <tr><td>ಅವನು</td><td>ಮಾಡುತ್ತಾನೆ</td><td><span class="ml">അവൻ ചെയ്യുന്നു</span></td></tr>
+    <tr><td>ಅವಳು</td><td>ಮಾಡುತ್ತಾಳೆ</td><td><span class="ml">അവൾ ചെയ്യുന്നു</span></td></tr>
+    <tr><td>ಅದು</td><td>ಮಾಡುತ್ತದೆ</td><td><span class="ml">അത് ചെയ്യുന്നു</span></td></tr>
+    <tr><td>ನಾವು</td><td>ಮಾಡುತ್ತೇವೆ</td><td><span class="ml">ഞങ്ങൾ/നമ്മൾ ചെയ്യുന്നു</span></td></tr>
+    <tr><td>ನೀವು</td><td>ಮಾಡುತ್ತೀರಿ</td><td><span class="ml">നിങ്ങൾ ചെയ്യുന്നു</span></td></tr>
+    <tr><td>ಅವರು</td><td>ಮಾಡುತ್ತಾರೆ</td><td><span class="ml">അവർ ചെയ്യുന്നു</span></td></tr>
+  </table>
+
+  <div class="aside ok"><span class="tag">ಲಿಂಗ ಇಲ್ಲದ ಕ್ರಿಯೆ</span>ಕನ್ನಡಿಗನಿಗೆ ಇದು ಒಂದು ದೊಡ್ಡ ಬಿಡುಗಡೆ. "ಮಾಡುತ್ತಾನೆ / ಮಾಡುತ್ತಾಳೆ / ಮಾಡುತ್ತದೆ / ಮಾಡುತ್ತಾರೆ" — ಎಲ್ಲ ಸ್ಥಾನದಲ್ಲಿ ಮಲಯಾಳಂನಲ್ಲಿ ಒಂದೇ <span class="ml">ചെയ്യുന്നു</span>. ಕಲಿಕೆಯ ಅರ್ಧ ಕೆಲಸ ಆದಂತೆ.</div>
+
+  <h3>ಕಾಲ</h3>
+  <table>
+    <tr><th>ಕಾಲ</th><th>ಕನ್ನಡ (ನಾನು)</th><th>ಮಲಯಾಳಂ (ಞಾನ್)</th></tr>
+    <tr><td>ವರ್ತಮಾನ</td><td>ಮಾಡುತ್ತೇನೆ</td><td><span class="ml">ചെയ്യുന്നു</span></td></tr>
+    <tr><td>ಭೂತ</td><td>ಮಾಡಿದೆ</td><td><span class="ml">ചെയ്തു</span></td></tr>
+    <tr><td>ಭವಿಷ್ಯ</td><td>ಮಾಡುತ್ತೇನೆ/ಮಾಡುವೆ</td><td><span class="ml">ചെയ്യും</span></td></tr>
+  </table>
+
+  <h3>ವಿಭಕ್ತಿ ಪ್ರತ್ಯಯ</h3>
+  <table>
+    <tr><th>ವಿಭಕ್ತಿ</th><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th><th>ಉದಾಹರಣೆ</th></tr>
+    <tr><td>ಕರ್ತೃ</td><td>—</td><td>—</td><td><span class="ml">അവൻ</span> (ಅವನು)</td></tr>
+    <tr><td>ಕರ್ಮ</td><td>-ಅನ್ನು</td><td>-<span class="ml">എ</span></td><td><span class="ml">അവനെ</span> (ಅವನನ್ನು)</td></tr>
+    <tr><td>ಸಂಪ್ರದಾನ</td><td>-ಗೆ</td><td>-<span class="ml">ക്ക്</span></td><td><span class="ml">അവന്</span> (ಅವನಿಗೆ)</td></tr>
+    <tr><td>ಅಧಿಕರಣ</td><td>-ಅಲ್ಲಿ</td><td>-<span class="ml">ൽ</span></td><td><span class="ml">വീട്ടിൽ</span> (ಮನೆಯಲ್ಲಿ)</td></tr>
+    <tr><td>ಅಪಾದಾನ</td><td>-ಇಂದ</td><td>-<span class="ml">ൽ നിന്ന്</span></td><td><span class="ml">വീട്ടിൽ നിന്ന്</span></td></tr>
+    <tr><td>ಸಂಬಂಧ</td><td>-ಅ</td><td>-<span class="ml">ന്റെ/ഉടെ</span></td><td><span class="ml">അവന്റെ</span> (ಅವನ)</td></tr>
+  </table>
+
+  <h3>ಉದಾಹರಣೆ ವಾಕ್ಯಗಳು</h3>
+  <table>
+    <tr><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th><th>ಲಿಪ್ಯಂತರ</th></tr>
+    <tr><td>ನಾನು ಮನೆಗೆ ಹೋಗುತ್ತೇನೆ.</td><td><span class="ml">ഞാൻ വീട്ടിൽ പോകുന്നു.</span></td><td>ñān vīṭṭil pōkunnu.</td></tr>
+    <tr><td>ಅವಳು ನೀರು ಕುಡಿಯುತ್ತಾಳೆ.</td><td><span class="ml">അവൾ വെള്ളം കുടിക്കുന്നു.</span></td><td>avaḷ veḷḷaṃ kuḍikkunnu.</td></tr>
+    <tr><td>ನನಗೆ ಹಾಲು ಬೇಕು.</td><td><span class="ml">എനിക്ക് പാൽ വേണം.</span></td><td>enikk pāl vēṇaṃ.</td></tr>
+  </table>
+
+  <h3>ನಿಷೇಧ ಮತ್ತು ಪ್ರಶ್ನೆ</h3>
+  <p>ನಿಷೇಧ: <span class="ml">ഇല്ല</span> (ಇಲ್ಲ) = ಇಲ್ಲ/ಅಲ್ಲ. <span class="ml">ഞാൻ വരുന്നില്ല</span> = ನಾನು ಬರುವುದಿಲ್ಲ.</p>
+  <p>ಪ್ರಶ್ನೆ: ಕ್ರಿಯಾಪದಕ್ಕೆ <span class="ml">-ഓ</span> ಸೇರಿಸಿ. <span class="ml">വരുന്നോ?</span> = ಬರುತ್ತೀರಾ? <span class="ml">കഴിച്ചോ?</span> = ಊಟ ಮಾಡಿದಿರಾ?</p>
+
+  <h3>ಪ್ರಶ್ನಾರ್ಥಕ ಪದಗಳು</h3>
+  <div class="vocab">
+    <div class="vword"><span class="ml">എന്ത്</span><span class="eq">= ಏನು</span><span class="tr">ent</span></div>
+    <div class="vword"><span class="ml">ആര്</span><span class="eq">= ಯಾರು</span><span class="tr">ār</span></div>
+    <div class="vword"><span class="ml">എവിടെ</span><span class="eq">= ಎಲ್ಲಿ</span><span class="tr">eviḍe</span></div>
+    <div class="vword"><span class="ml">എപ്പോൾ</span><span class="eq">= ಯಾವಾಗ</span><span class="tr">eppōḷ</span></div>
+    <div class="vword"><span class="ml">എന്തുകൊണ്ട്</span><span class="eq">= ಏಕೆ</span><span class="tr">entukoṇṭ</span></div>
+    <div class="vword"><span class="ml">എങ്ങനെ</span><span class="eq">= ಹೇಗೆ</span><span class="tr">eṅṅane</span></div>
+  </div>
+
+  <div class="aside"><span class="tag">ಪ್ರಶ್ನಾರ್ಥಕದ ಅ/ಇ/ಎ ಮಾದರಿ</span>ಕನ್ನಡದಲ್ಲಿ "ಯಾವುದು/ಇದು/ಅದು" ಎಂಬ ಯ್/ಇ/ಅ ಮಾದರಿ — ಮಲಯಾಳಂನಲ್ಲಿ <span class="ml">ഏത്/ഇത്/അത്</span> ಮತ್ತು <span class="ml">എങ്ങനെ/ഇങ്ങനെ/അങ്ങനെ</span>. ಅದೇ ಸಮಾನಾಂತರ ವಿನ್ಯಾಸ — ಪ್ರಶ್ನೆಗೆ ಎ, ಸಮೀಪಕ್ಕೆ ಇ, ದೂರಕ್ಕೆ ಅ. ದ್ರಾವಿಡ ಕುಟುಂಬದ ಹಳೆಯ ಶಿಸ್ತು.</div>
+
+  <div class="nav-btns"><a href="#stage-04">← ಹಿಂದೆ · ಪದಗಳು</a><a href="#stage-06">ಮುಂದೆ · ಓದು →</a></div>
+</section>
+<section class="stage" id="stage-06">
+  <h2><span class="num">೦೬</span>ಓದು — ಮೂರು ಪಾಠ</h2>
+  <p>ಈ ಹಂತದಲ್ಲಿ ಮೂರು ಗದ್ಯ ಪಾಠಗಳು. ಮೊದಲು ಮಲಯಾಳಂ ಓದಿ, ನಂತರ ಲಿಪ್ಯಂತರ ನೋಡಿ, ಕೊನೆಗೆ ಕನ್ನಡ ಅನುವಾದ.</p>
+
+  <h3>೧ · ಸ್ವಪರಿಚಯ</h3>
+  <div class="passage">
+    <div class="ml">എന്റെ പേര് രമേശ്. ഞാൻ ബംഗളൂരുവിൽ നിന്നാണ്. ഞാൻ മലയാളം പഠിക്കുന്നു. എനിക്ക് കേരളം വളരെ ഇഷ്ടമാണ്. എന്റെ അച്ഛൻ അധ്യാപകനാണ്.</div>
+    <div class="tr">enṟe pēr ramēś. ñān baṅgaḷūruvil ninnāṇ. ñān malayāḷaṃ paṭhikkunnu. enikk kēraḷaṃ vaḷare iṣṭamāṇ. enṟe acchan adhyāpakanāṇ.</div>
+    <div class="gloss">ನನ್ನ ಹೆಸರು ರಮೇಶ. ನಾನು ಬೆಂಗಳೂರಿನಿಂದ. ನಾನು ಮಲಯಾಳಂ ಕಲಿಯುತ್ತಿದ್ದೇನೆ. ನನಗೆ ಕೇರಳ ತುಂಬಾ ಇಷ್ಟ. ನನ್ನ ಅಪ್ಪ ಅಧ್ಯಾಪಕ.</div>
+  </div>
+
+  <h3>೨ · ಒಂದು ದಿನ</h3>
+  <div class="passage">
+    <div class="ml">രാവിലെ ഞാൻ നേരത്തെ എഴുന്നേൽക്കും. കാപ്പി കുടിച്ച് പത്രം വായിക്കും. പിന്നെ ഓഫീസിൽ പോകും. ഉച്ചയ്ക്ക് ചോറ് കഴിക്കും. വൈകുന്നേരം വീട്ടിലേക്ക് മടങ്ങും. രാത്രി കുടുംബത്തോടൊപ്പം സംസാരിക്കും.</div>
+    <div class="tr">rāvile ñān nēratte eḻunnēlkkuṃ. kāppi kuḍicc patraṃ vāyikkuṃ. pinne ōphīsil pōkuṃ. uccaykk cōṟ kaḻikkuṃ. vaikunnēraṃ vīṭṭilēkk maḍaṅṅuṃ. rātri kuḍumbattōḍoppaṃ saṃsārikkuṃ.</div>
+    <div class="gloss">ಬೆಳಿಗ್ಗೆ ನಾನು ಬೇಗ ಎದ್ದೇಳುತ್ತೇನೆ. ಕಾಫಿ ಕುಡಿದು ಪತ್ರಿಕೆ ಓದುತ್ತೇನೆ. ನಂತರ ಕಚೇರಿಗೆ ಹೋಗುತ್ತೇನೆ. ಮಧ್ಯಾಹ್ನ ಅನ್ನ ಉಣ್ಣುತ್ತೇನೆ. ಸಂಜೆ ಮನೆಗೆ ಹಿಂತಿರುಗುತ್ತೇನೆ. ರಾತ್ರಿ ಕುಟುಂಬದೊಂದಿಗೆ ಮಾತನಾಡುತ್ತೇನೆ.</div>
+  </div>
+
+  <h3>೩ · ಎರಡು ಜನರ ಸಂಭಾಷಣೆ</h3>
+  <div class="passage">
+    <div class="ml">— നമസ്കാരം, ചേട്ടാ! സുഖമാണോ?<br>— നമസ്കാരം! സുഖം. നിങ്ങൾക്കോ?<br>— എനിക്കും സുഖം. ചോറുണ്ടോ?<br>— ഉണ്ട്, കഴിച്ചു. നിങ്ങൾ എവിടെ പോകുന്നു?<br>— ഞാൻ കടയിലേക്ക് പോകുന്നു. പാൽ വാങ്ങാൻ.<br>— ശരി, പോയിട്ട് വരൂ.<br>— നന്ദി, വരാം.</div>
+    <div class="tr">— namaskāraṃ, cēṭṭā! sukhamāṇō?<br>— namaskāraṃ! sukhaṃ. niṅṅaḷkkō?<br>— enikkuṃ sukhaṃ. cōṟuṇṭō?<br>— uṇṭ, kaḻiccu. niṅṅaḷ eviḍe pōkunnu?<br>— ñān kaḍayilēkk pōkunnu. pāl vāṅṅān.<br>— śari, pōyiṭṭ varū.<br>— nandi, varāṃ.</div>
+    <div class="gloss">— ನಮಸ್ಕಾರ, ಅಣ್ಣ! ಕ್ಷೇಮವೇ?<br>— ನಮಸ್ಕಾರ! ಕ್ಷೇಮ. ನಿಮಗೆ?<br>— ನನಗೂ ಕ್ಷೇಮ. ಊಟ ಆಯಿತಾ?<br>— ಆಯಿತು, ಉಂಡೆ. ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತಿದ್ದೀರಿ?<br>— ನಾನು ಅಂಗಡಿಗೆ ಹೋಗುತ್ತಿದ್ದೇನೆ. ಹಾಲು ತರಲು.<br>— ಸರಿ, ಹೋಗಿ ಬನ್ನಿ.<br>— ಧನ್ಯವಾದ, ಬರುತ್ತೇನೆ.</div>
+  </div>
+
+  <div class="aside"><span class="tag">'ಚೋಱುಣ್ಟೋ' — ಸಂಸ್ಕೃತಿಯ ನಮಸ್ಕಾರ</span>ಮಲಯಾಳಂನ <span class="ml">ചോറുണ്ടോ?</span> (ಚೋಱುಣ್ಟೋ? — ಊಟ ಮಾಡಿದಿರಾ?) ಎಂಬುದು "ಹೇಗಿದ್ದೀರಿ?" ಇದರ ಬದಲು ಬಳಸುವ ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆ. ಕನ್ನಡದಲ್ಲೂ "ಊಟ ಆಯಿತಾ?" ಎಂಬುದು ಅಷ್ಟೇ ಸಹಜ. ದಕ್ಷಿಣ ಭಾರತದಾದ್ಯಂತ ಆಹಾರವೇ ಕುಶಲದ ಮಾಪಕ.</div>
+
+  <div class="nav-btns"><a href="#stage-05">← ಹಿಂದೆ · ವಾಕ್ಯ</a><a href="#stage-07">ಮುಂದೆ · ಪದಕ್ಷೇತ್ರ →</a></div>
+</section>
+<section class="stage" id="stage-07">
+  <h2><span class="num">೦೭</span>ಪದಕ್ಷೇತ್ರ — ಅರ್ಥಗುಚ್ಛಗಳು</h2>
+  <p>ಬಂಧು, ಕಾಲ, ದೇಹ, ಗತಿ — ಎರಡೂ ಭಾಷೆಗಳು ಜಗತ್ತನ್ನು ಹೇಗೆ ಕತ್ತರಿಸಿಕೊಂಡಿವೆ ಎಂಬ ಹೋಲಿಕೆ.</p>
+
+  <h3>ಬಂಧುಬಳಗ</h3>
+  <table>
+    <tr><th>ಸಂಬಂಧ</th><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th></tr>
+    <tr><td>ಅಪ್ಪ</td><td>ಅಪ್ಪ</td><td><span class="ml">അച്ഛൻ</span> (ಅಚ್ಛನ್)</td></tr>
+    <tr><td>ಅಮ್ಮ</td><td>ಅಮ್ಮ</td><td><span class="ml">അമ്മ</span> (ಅಮ್ಮ)</td></tr>
+    <tr><td>ಅಣ್ಣ</td><td>ಅಣ್ಣ</td><td><span class="ml">ചേട്ടൻ</span> (ಚೇಟ್ಟನ್)</td></tr>
+    <tr><td>ಅಕ್ಕ</td><td>ಅಕ್ಕ</td><td><span class="ml">ചേച്ചി</span> (ಚೇಚ್ಚಿ)</td></tr>
+    <tr><td>ತಮ್ಮ</td><td>ತಮ್ಮ</td><td><span class="ml">അനിയൻ</span> (ಅನಿಯನ್)</td></tr>
+    <tr><td>ತಂಗಿ</td><td>ತಂಗಿ</td><td><span class="ml">അനിയത്തി</span> (ಅನಿಯತ್ತಿ)</td></tr>
+    <tr><td>ಸೋದರಮಾವ</td><td>ಮಾವ</td><td><span class="ml">മാമൻ</span> (ಮಾಮನ್)</td></tr>
+    <tr><td>ಅತ್ತೆ</td><td>ಅತ್ತೆ</td><td><span class="ml">അമ്മായി</span> (ಅಮ್ಮಾಯಿ)</td></tr>
+  </table>
+
+  <div class="aside"><span class="tag">ಚೇಟ್ಟ/ಚೇಚ್ಚಿ — ಸಂಬಂಧದ ಕರೆ</span>ಮಲಯಾಳಂನಲ್ಲಿ ಅಪರಿಚಿತ ಹಿರಿಯನನ್ನೂ <span class="ml">ചേട്ടാ</span> (ಚೇಟ್ಟಾ), ಹಿರಿಯಳನ್ನು <span class="ml">ചേച്ചി</span> (ಚೇಚ್ಚಿ) ಎಂದು ಕರೆಯುತ್ತಾರೆ. ಕನ್ನಡದಲ್ಲಿ "ಅಣ್ಣ/ಅಕ್ಕ" ಅಂತಲೇ ಕರೆಯುವುದು ಸಹಜ. ಸಂಬಂಧ ಇಲ್ಲದಿದ್ದರೂ ಬಂಧುಪದಗಳಿಂದ ಕರೆಯುವ ಈ ಸಂಸ್ಕೃತಿ ಎರಡೂ ನಾಡಿನಲ್ಲೂ ಒಂದೇ.</div>
+
+  <h3>ಕಾಲ</h3>
+  <table>
+    <tr><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th></tr>
+    <tr><td>ಇಂದು</td><td><span class="ml">ഇന്ന്</span> (ಇನ್ನ್)</td></tr>
+    <tr><td>ನಾಳೆ</td><td><span class="ml">നാളെ</span> (ನಾಳೆ)</td></tr>
+    <tr><td>ನಿನ್ನೆ</td><td><span class="ml">ഇന്നലെ</span> (ಇನ್ನಲೆ)</td></tr>
+    <tr><td>ಈಗ</td><td><span class="ml">ഇപ്പോൾ</span> (ಇಪ್ಪೋಳ್)</td></tr>
+    <tr><td>ಆಮೇಲೆ</td><td><span class="ml">പിന്നെ</span> (ಪಿನ್ನೆ)</td></tr>
+    <tr><td>ಬೆಳಿಗ್ಗೆ</td><td><span class="ml">രാവിലെ</span> (ರಾವಿಲೆ)</td></tr>
+    <tr><td>ಸಂಜೆ</td><td><span class="ml">വൈകുന്നേരം</span> (ವೈಕುನ್ನೇರಂ)</td></tr>
+    <tr><td>ರಾತ್ರಿ</td><td><span class="ml">രാത്രി</span> (ರಾತ್ರಿ)</td></tr>
+  </table>
+
+  <h3>ದೇಹ</h3>
+  <table>
+    <tr><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th></tr>
+    <tr><td>ತಲೆ</td><td><span class="ml">തല</span></td></tr>
+    <tr><td>ಕಣ್ಣು</td><td><span class="ml">കണ്ണ്</span></td></tr>
+    <tr><td>ಕಿವಿ</td><td><span class="ml">ചെവി</span></td></tr>
+    <tr><td>ಮೂಗು</td><td><span class="ml">മൂക്ക്</span></td></tr>
+    <tr><td>ಬಾಯಿ</td><td><span class="ml">വായ</span></td></tr>
+    <tr><td>ಕೈ</td><td><span class="ml">കൈ</span></td></tr>
+    <tr><td>ಕಾಲು</td><td><span class="ml">കാൽ</span></td></tr>
+    <tr><td>ಹೃದಯ</td><td><span class="ml">ഹൃദയം</span></td></tr>
+  </table>
+
+  <h3>ಗತಿ — ಚಲನೆ</h3>
+  <table>
+    <tr><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th></tr>
+    <tr><td>ಹೋಗು</td><td><span class="ml">പോവുക</span></td></tr>
+    <tr><td>ಬಾ</td><td><span class="ml">വരിക</span></td></tr>
+    <tr><td>ನಡೆ</td><td><span class="ml">നടക്കുക</span></td></tr>
+    <tr><td>ಓಡು</td><td><span class="ml">ഓടുക</span></td></tr>
+    <tr><td>ನಿಲ್ಲು</td><td><span class="ml">നിൽക്കുക</span></td></tr>
+    <tr><td>ಕೂರು</td><td><span class="ml">ഇരിക്കുക</span></td></tr>
+  </table>
+
+  <div class="aside"><span class="tag">ಇರು — ಎರಡು ಅರ್ಥದ ಬೇರು</span>ಕನ್ನಡದ <em>ಇರು</em> ಎಂದರೆ "ಇರುವುದು" ಮತ್ತು "ಕೂರುವುದು" ಎರಡೂ ಕೆಲವೊಮ್ಮೆ. ಮಲಯಾಳಂನ <span class="ml">ഇരിക്കുക</span> ಕೂಡ "ಕೂರುವುದು" ಎಂಬ ಪ್ರಾಥಮಿಕ ಅರ್ಥದ ಜೊತೆಗೆ "ಇರುವುದು" ಎಂಬ ಸಹಾಯಕ ಕ್ರಿಯೆಯಾಗಿಯೂ ಬರುತ್ತದೆ. ದ್ರಾವಿಡ ಬೇರಿನ ಒಂದೇ ಎಳೆ.</div>
+
+  <div class="nav-btns"><a href="#stage-06">← ಹಿಂದೆ · ಓದು</a><a href="#stage-08">ಮುಂದೆ · ಬಳಕೆ →</a></div>
+</section>
+<section class="stage" id="stage-08">
+  <h2><span class="num">೦೮</span>ಬಳಕೆ — ಗೌರವ, ಸೌಜನ್ಯ, ಸಂಸ್ಕೃತಿ</h2>
+  <p>ಎರಡೂ ಭಾಷೆಗಳು ಎರಡು ಗೌರವಸ್ತರಗಳನ್ನು ಬಳಸುತ್ತವೆ — ಸಾಮಾನ್ಯ ಮತ್ತು ಗೌರವ.</p>
+
+  <h3>ಸರ್ವನಾಮ — ಎರಡು ಸ್ತರ</h3>
+  <table>
+    <tr><th>ಸ್ತರ</th><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th></tr>
+    <tr><td>ನೀನು (ಆತ್ಮೀಯ)</td><td>ನೀನು</td><td><span class="ml">നീ</span> (ನೀ)</td></tr>
+    <tr><td>ನೀವು (ಗೌರವ)</td><td>ನೀವು</td><td><span class="ml">നിങ്ങൾ</span> (ನಿಙ್ಙಳ್) / <span class="ml">താങ്കൾ</span> (ತಾಙ್ಕಳ್)</td></tr>
+    <tr><td>ಅವರು</td><td>ಅವರು</td><td><span class="ml">അവർ</span> (ಅವರ್) / <span class="ml">അദ്ദേഹം</span> (ಅದ್ದೇಹಂ)</td></tr>
+  </table>
+
+  <h3>ಅಪರಿಚಿತರನ್ನು ಕರೆಯುವ ರೀತಿ</h3>
+  <table>
+    <tr><th>ಸನ್ನಿವೇಶ</th><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th></tr>
+    <tr><td>ಹಿರಿಯ ಅಪರಿಚಿತ (ಪುರುಷ)</td><td>ಅಣ್ಣಾ / ಸಾರ್</td><td><span class="ml">ചേട്ടാ</span> (ಚೇಟ್ಟಾ)</td></tr>
+    <tr><td>ಹಿರಿಯ ಅಪರಿಚಿತ (ಸ್ತ್ರೀ)</td><td>ಅಕ್ಕಾ / ಅಮ್ಮ</td><td><span class="ml">ചേച്ചി</span> (ಚೇಚ್ಚಿ)</td></tr>
+  </table>
+
+  <h3>ನಿತ್ಯದ ನುಡಿಗಳು</h3>
+  <table>
+    <tr><th>ಕನ್ನಡ</th><th>ಮಲಯಾಳಂ</th></tr>
+    <tr><td>ನಮಸ್ಕಾರ</td><td><span class="ml">നമസ്കാരം</span></td></tr>
+    <tr><td>ಧನ್ಯವಾದಗಳು</td><td><span class="ml">നന്ദി</span> (ನನ್ದಿ)</td></tr>
+    <tr><td>ಕ್ಷಮಿಸಿ</td><td><span class="ml">ക്ഷമിക്കണം</span> (ಕ್ಷಮಿಕ್ಕಣಂ)</td></tr>
+    <tr><td>ಹೇಗಿದ್ದೀರಿ?</td><td><span class="ml">സുഖമാണോ?</span> (ಸುಖಮಾಣೋ?)</td></tr>
+    <tr><td>ಊಟ ಆಯಿತಾ?</td><td><span class="ml">ചോറുണ്ടോ?</span> (ಚೋಱುಣ್ಟೋ?)</td></tr>
+    <tr><td>ದಯವಿಟ್ಟು</td><td><span class="ml">ദയവായി</span> (ದಯವಾಯಿ)</td></tr>
+    <tr><td>ಸ್ವಲ್ಪ (ಮೃದುವಾಗಿಸುವ ಪದ)</td><td><span class="ml">കുറച്ച്</span> (ಕುಱಚ್ಚ್)</td></tr>
+  </table>
+
+  <div class="aside"><span class="tag">ಕುಱಚ್ಚ್ — ಮೃದುಗೊಳಿಸುವ ಪದ</span>ಮಲಯಾಳಂನಲ್ಲಿ ಕೋರಿಕೆ ಗಟ್ಟಿಯಾಗದಿರಲು <span class="ml">കുറച്ച്</span> (ಸ್ವಲ್ಪ) ಸೇರಿಸುತ್ತಾರೆ — <span class="ml">കുറച്ച് വെള്ളം തരൂ</span> = "ಸ್ವಲ್ಪ ನೀರು ಕೊಡಿ". ಕನ್ನಡದಲ್ಲಿ "ಸ್ವಲ್ಪ ನೀರು ಕೊಡಿ" — ಅದೇ ಮೃದುಗೊಳಿಸುವ ಕೆಲಸ. ದಕ್ಷಿಣ ಭಾರತೀಯ ಸೌಜನ್ಯದ ಸಾಮಾನ್ಯ ತಂತ್ರ.</div>
+
+  <div class="aside"><span class="tag">ಅದ್ದೇಹಂ — ಗೌರವಸೂಚಕ</span><span class="ml">അദ്ദേഹം</span> (ಅದ್ದೇಹಂ) ಎಂಬುದು ಮಲಯಾಳಂನಲ್ಲಿ ಅಪರಿಚಿತ/ಗೌರವಾನ್ವಿತ ಪುರುಷನಿಗೆ ಬಳಸುವ "ಆತ/ಅವರು". ಕನ್ನಡದಲ್ಲಿ "ಅವರು" ಎಂದು ಬಹುವಚನ ಗೌರವಾರ್ಥ ಬಳಕೆ — ಮಲಯಾಳಂ ಇದಕ್ಕೆ <span class="ml">അവർ</span> ಜೊತೆಗೆ ಪ್ರತ್ಯೇಕ ಪದವನ್ನೂ ಇಟ್ಟಿದೆ. ಸಂಸ್ಕೃತ <em>ಅದ್ದೇಹ</em>ದಿಂದ ಬಂದದ್ದು.</div>
+
+  <div class="nav-btns"><a href="#stage-07">← ಹಿಂದೆ · ಪದಕ್ಷೇತ್ರ</a><a href="#stage-09">ಮುಂದೆ · ಸಾಹಿತ್ಯ →</a></div>
+</section>
+<section class="stage" id="stage-09">
+  <h2><span class="num">೦೯</span>ಸಾಹಿತ್ಯ — ಎರಡು ಪರಂಪರೆಗಳ ಸೇತು</h2>
+  <p>ಮಲಯಾಳಂ ಸಾಹಿತ್ಯ ಸುಮಾರು ೮೦೦ ವರ್ಷಗಳ ಪರಂಪರೆ. ಎಳುತ್ತಚ್ಛನ್ ಭಾಷೆಯನ್ನು ಶುದ್ಧಗೊಳಿಸಿದ ಕಾಲದಿಂದ ಇಂದಿನ ಓ.ವಿ. ವಿಜಯನ್‌ವರೆಗೆ. ಕನ್ನಡ ಪರಂಪರೆಯೊಂದಿಗೆ ನೇರ ಸೇತುಗಳು ಸಾಕಷ್ಟು.</p>
+
+  <h3>ತುಂಚತ್ತ್ ಎೞುತ್ತಚ್ಛನ್ · <span class="ml">തുഞ്ചത്ത് എഴുത്തച്ഛൻ</span> (೧೬ನೇ ಶತಮಾನ)</h3>
+  <p>"ಮಲಯಾಳಂದ ಪಿತಾಮಹ" ಎಂದೇ ಪ್ರಸಿದ್ಧ. <em>ಅಧ್ಯಾತ್ಮ ರಾಮಾಯಣಂ ಕಿಳಿಪ್ಪಾಟ್ಟು</em> ಬರೆದು ಮಲಯಾಳಂ ಪದ್ಯಭಾಷೆಯನ್ನು ಸ್ಥಾಪಿಸಿದವರು.</p>
+  <div class="aside"><span class="tag">ಸೇತು · ಕುವೆಂಪು</span>ಎೞುತ್ತಚ್ಛನ್ ಮಲಯಾಳಂಗೆ ಏನಾದರೋ, ಕುವೆಂಪು ಕನ್ನಡಕ್ಕೆ ಅಷ್ಟೇ — ಅದೇ ರೀತಿ ಕುಮಾರವ್ಯಾಸರು ಸಂಸ್ಕೃತ ಮಹಾಕಾವ್ಯವನ್ನು ಜನಭಾಷೆಗೆ ತಂದ ಕೆಲಸವೇ ಎೞುತ್ತಚ್ಛನದ್ದು. ಜನಭಾಷೆಯಲ್ಲಿ ರಾಮಾಯಣ–ಭಾರತ ಬರೆದ ಪಿತೃಕರ್ಮಿಗಳು.</div>
+
+  <h3>ಕುಮಾರನ್ ಆಶಾನ್ · <span class="ml">കുമാരൻ ആശാൻ</span> (೧೮೭೩–೧೯೨೪)</h3>
+  <p>ನವೋದಯ ಕವಿ. <em>ವೀಣ ಪೂವ್</em>, <em>ಚಂಡಾಲಭಿಕ್ಷುಕಿ</em> — ಮನುಷ್ಯತ್ವ ಮತ್ತು ಸಾಮಾಜಿಕ ಎಚ್ಚರದ ಕಾವ್ಯ.</p>
+  <div class="aside"><span class="tag">ಸೇತು · ಕುವೆಂಪು</span>ಕುವೆಂಪು ಅವರ 'ವಿಶ್ವಮಾನವ' ದೃಷ್ಟಿ, ಜಾತಿಯ ಗಡಿಯನ್ನು ಪ್ರಶ್ನಿಸುವ ಧ್ವನಿ — ಆಶಾನ್ ಅವರ <em>ದುರವಸ್ಥ</em> ಮತ್ತು <em>ಚಂಡಾಲಭಿಕ್ಷುಕಿ</em>ಯಲ್ಲಿ ಅದೇ ಕಾಳಜಿ. ಇಬ್ಬರೂ ನವೋದಯದ ಮಾನವತಾವಾದಿ ಸ್ವರಗಳು.</div>
+
+  <h3>ವೈಕ್ಕಂ ಮುಹಮ್ಮದ್ ಬಷೀರ್ · <span class="ml">വൈക്കം മുഹമ്മദ് ബഷീർ</span> (೧೯೦೮–೧೯೯೪)</h3>
+  <p>"ಬೇಪ್ಪೂರಿನ ಸುಲ್ತಾನ". <em>ಪಾತುಮ್ಮಾಯುಡೆ ಆಡು</em>, <em>ಬಾಲ್ಯಕಾಲಸಖಿ</em> — ಜನರಾಡುವ ಮಲಯಾಳಂನಲ್ಲಿ, ಹಾಸ್ಯ ಮತ್ತು ಕರುಣೆ ಬೆರೆತ ಕಥೆಗಳು.</p>
+  <div class="aside"><span class="tag">ಸೇತು · ಶಿವರಾಮ ಕಾರಂತ</span>ಕಾರಂತರು <em>ಚೋಮನ ದುಡಿ</em>, <em>ಮರಳಿ ಮಣ್ಣಿಗೆ</em>ಯಲ್ಲಿ ನೆಲದ ಮನುಷ್ಯತ್ವವನ್ನು ಹಿಡಿದಂತೆ, ಬಷೀರ್ ಬೇಪ್ಪೂರಿನ ಬೀದಿ, ಸಂತೆ, ಜೈಲಿನ ಜನರ ಜೀವನವನ್ನು ಕಾಣಿಸಿದರು. ಮಣ್ಣಿನ ಮಾತು, ಮನುಷ್ಯತ್ವದ ತಿರುಳು — ಇಬ್ಬರ ಕಾಳಜಿಯೂ ಒಂದೇ.</div>
+
+  <h3>ತಕೞಿ ಶಿವಶಂಕರ ಪಿಳ್ಳೈ · <span class="ml">തകഴി ശിവശങ്കരപ്പിള്ള</span> (೧೯೧೨–೧೯೯೯)</h3>
+  <p><em>ಚೆಮ್ಮೀನ್</em> (ಕುಪ್ಪಸ), <em>ಕಯರ್</em> — ಕೇರಳದ ಮೀನುಗಾರ, ಕಾರ್ಮಿಕ, ಕೃಷಿಕನ ಬದುಕಿನ ಗಾಢ ಚಿತ್ರಣ. ಜ್ಞಾನಪೀಠ ಪ್ರಶಸ್ತಿ.</p>
+  <div class="aside"><span class="tag">ಸೇತು · ಮಾಸ್ತಿ</span>ಮಾಸ್ತಿ ವೆಂಕಟೇಶ ಅಯ್ಯಂಗಾರರು <em>ಚಿಕ್ಕವೀರ ರಾಜೇಂದ್ರ</em>ದಲ್ಲಿ ಪ್ರಾದೇಶಿಕ ಇತಿಹಾಸವನ್ನು ಕಾದಂಬರಿಯಾಗಿಸಿದಂತೆ, ತಕೞಿ ಕುಟ್ಟನಾಡಿನ ಭೂಮಿ ಮತ್ತು ಜಲಜೀವನವನ್ನು ಕಾದಂಬರಿಯಾಗಿಸಿದರು. ಇಬ್ಬರೂ ಜ್ಞಾನಪೀಠದ ಸೋಲು ಮುಟ್ಟಿದ ನೆಲಮೂಲದ ಕಥೆಗಾರರು.</div>
+
+  <h3>ಓ.ವಿ. ವಿಜಯನ್ · <span class="ml">ഒ. വി. വിജയൻ</span> (೧೯೩೦–೨೦೦೫)</h3>
+  <p><em>ಖಸಾಕ್ಕಿಂಟೆ ಇತಿಹಾಸಂ</em> (ಖಸಾಕ್ಕಿನ ಇತಿಹಾಸ) — ಮಲಯಾಳಂ ಆಧುನಿಕ ಕಾದಂಬರಿಯ ಮಹತ್ವದ ಮಾರ್ಪಾಟು. ಅಸ್ತಿತ್ವವಾದ, ತತ್ತ್ವಶಾಸ್ತ್ರ, ಗ್ರಾಮೀಣ ಕತ್ತಲೆ.</p>
+  <div class="aside"><span class="tag">ಸೇತು · ಯು.ಆರ್. ಅನಂತಮೂರ್ತಿ</span>ಅನಂತಮೂರ್ತಿಯ <em>ಸಂಸ್ಕಾರ</em> ಬ್ರಾಹ್ಮಣ ಅಗ್ರಹಾರದ ಆತ್ಮ ಶೋಧ; ವಿಜಯನ್ನ <em>ಖಸಾಕ್</em> ಒಂದು ಅನಾಮಿಕ ಹಳ್ಳಿಯ ಅಸ್ತಿತ್ವದ ಶೋಧ. ಇಬ್ಬರೂ ದಕ್ಷಿಣ ಭಾರತದ ಆಧುನಿಕತಾವಾದದ ಹೆಗ್ಗುರುತುಗಳು — ಸಂಪ್ರದಾಯ–ಆಧುನಿಕತೆಯ ನಡುವಿನ ಬಿರುಕು.</div>
+
+  <h3>ಎಂ.ಟಿ. ವಾಸುದೇವನ್ ನಾಯರ್ · <span class="ml">എം. ടി. വാസുദേവൻ നായർ</span> (೧೯೩೩–)</h3>
+  <p><em>ನಾಲುಕೆಟ್ಟ್</em>, <em>ರಂಡಾಮೂೞಂ</em> — ಮಲಬಾರ್ ನಾಯರ್ ತಾರಾವಾಡಿನ ಕುಸಿತ, ಮಹಾಭಾರತದ ಭೀಮನ ದೃಷ್ಟಿ. ಜ್ಞಾನಪೀಠ.</p>
+  <div class="aside"><span class="tag">ಸೇತು · ಭೈರಪ್ಪ</span>ಎಂ.ಟಿ. ಅವರ <em>ರಂಡಾಮೂೞಂ</em> ಭೀಮನ ದೃಷ್ಟಿಯಿಂದ ಮಹಾಭಾರತ; ಭೈರಪ್ಪನವರ <em>ಪರ್ವ</em> ಎಲ್ಲ ಪಾತ್ರಗಳ ದೃಷ್ಟಿಯಿಂದ ಮಹಾಭಾರತ. ಮಹಾಕಾವ್ಯವನ್ನು ಮತ್ತೆ ಕಾದಂಬರಿಯಾಗಿಸುವ ಅದೇ ಧೈರ್ಯ.</div>
+
+  <div class="aside ok"><span class="tag">ಜ್ಞಾನಪೀಠದ ಹಂಚಿಕೆ</span>ಮಲಯಾಳಂಗೆ ಆರು ಜ್ಞಾನಪೀಠಗಳು (ಎಸ್‌.ಕೆ. ಪೊಟ್ಟೆಕ್ಕಾಟ್, ತಕೞಿ, ಎಂ.ಟಿ., ಓ.ಎನ್.ವಿ., ಅಕ್ಕಿತ್ತಂ, ವೈಲೊಪ್ಪಿಳ್ಳಿ). ಕನ್ನಡಕ್ಕೆ ಎಂಟು (ಕುವೆಂಪು, ಬೇಂದ್ರೆ, ಮಾಸ್ತಿ, ಕಾರಂತ, ಅನಂತಮೂರ್ತಿ, ಭೈರಪ್ಪ... ಗಿರೀಶ್ ಕಾರ್ನಾಡ್ ಸಹಿತ). ಎರಡೂ ಭಾಷೆಗಳ ಸಾಹಿತ್ಯ ಭಾರತದ ಆಧುನಿಕ ಸಾಹಿತ್ಯದಲ್ಲಿ ಸಮಾನ ಎತ್ತರದಲ್ಲಿ ನಿಂತಿದೆ.</div>
+
+  <div class="nav-btns"><a href="#stage-08">← ಹಿಂದೆ · ಬಳಕೆ</a><a href="#stage-00">ಮೊದಲಿಗೆ ↑</a></div>
+</section>
+
+<footer>made by Nil · using Claude</footer>
+</div>
+<script>
+(function(){
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('click', function(){ c.classList.toggle('open'); });
+  });
+  var tabs = document.querySelectorAll('#tabs a');
+  var sections = document.querySelectorAll('section.stage');
+  function setActive(){
+    var y = window.scrollY + 120;
+    var cur = sections[0];
+    sections.forEach(function(s){ if(s.offsetTop <= y) cur = s; });
+    tabs.forEach(function(t){
+      t.classList.toggle('active', t.getAttribute('href') === '#' + cur.id);
+    });
+  }
+  window.addEventListener('scroll', setActive, {passive:true});
+  setActive();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="kn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ಕನ್ನಡದಿಂದ ತಮಿಳಿಗೆ · ಭಾಷಾಸೇತು</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --rule:rgba(28,22,17,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Serif Kannada', serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 800px at 10% -10%, #F7EFDE 0%, transparent 60%),
+    radial-gradient(1000px 700px at 110% 10%, #EEDFBE 0%, transparent 55%),
+    radial-gradient(900px 900px at 50% 120%, #E8DCBE 0%, transparent 60%),
+    var(--paper);
+  line-height:1.7;
+  font-size:17px;
+  position:relative;
+  min-height:100vh;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.35; mix-blend-mode:multiply; z-index:0;
+}
+.wrap{max-width:880px; margin:0 auto; padding:24px 22px 96px; position:relative; z-index:1}
+.target{font-family:'Noto Serif Tamil', serif}
+.mono{font-family:'JetBrains Mono', monospace; font-size:.88em; color:var(--ink-faded)}
+.display{font-family:'Fraunces', serif; font-style:italic; font-weight:600}
+
+header.top{
+  padding:36px 6px 14px;
+  border-bottom:1px solid var(--rule);
+  margin-bottom:10px;
+}
+header.top .eyebrow{
+  font-family:'Fraunces', serif; font-style:italic;
+  letter-spacing:.12em; text-transform:uppercase; font-size:12px;
+  color:var(--ink-faded);
+}
+header.top h1{
+  font-size:38px; line-height:1.15; margin:6px 0 4px;
+  font-weight:700;
+}
+header.top h1 .t{font-family:'Noto Serif Tamil', serif; color:var(--sindoor)}
+header.top .sub{color:var(--ink-soft); font-size:15.5px; max-width:60ch}
+
+nav.tabs{
+  position:sticky; top:0; z-index:20;
+  background:linear-gradient(var(--paper) 85%, rgba(244,236,218,0));
+  padding:10px 0 12px; margin-bottom:22px;
+  border-bottom:1px solid var(--rule);
+}
+nav.tabs .row{display:flex; gap:6px; overflow-x:auto; scrollbar-width:none}
+nav.tabs .row::-webkit-scrollbar{display:none}
+nav.tabs a{
+  flex:0 0 auto; text-decoration:none; color:var(--ink-soft);
+  padding:7px 12px; border:1px solid var(--rule);
+  border-radius:999px; background:rgba(255,255,255,.35);
+  font-size:14px; white-space:nowrap;
+}
+nav.tabs a.active{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+nav.tabs a:hover{border-color:var(--ink-soft)}
+
+section.stage{
+  padding:34px 0 28px;
+  border-bottom:1px dashed var(--rule);
+  scroll-margin-top:70px;
+}
+section.stage h2{
+  font-size:28px; margin:0 0 4px; font-weight:700;
+  display:flex; align-items:baseline; gap:12px;
+}
+section.stage h2 .num{
+  font-family:'Fraunces', serif; font-style:italic;
+  color:var(--ochre); font-size:22px;
+}
+section.stage > .lede{color:var(--ink-soft); margin:4px 0 22px; max-width:62ch}
+section.stage h3{font-size:20px; margin:26px 0 10px}
+section.stage h4{font-size:16px; margin:18px 0 8px; color:var(--ink-soft)}
+
+p{margin:10px 0}
+
+.aside{
+  background:linear-gradient(180deg, #FAF2DE, #F1E5C4);
+  border:1px solid var(--rule);
+  border-left:3px solid var(--sindoor);
+  padding:14px 16px; margin:18px 0;
+  border-radius:4px;
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+}
+.aside .tag{
+  font-family:'Fraunces', serif; font-style:italic;
+  color:var(--sindoor); font-size:13px;
+  letter-spacing:.06em; text-transform:uppercase;
+  display:block; margin-bottom:4px;
+}
+.aside.teal{border-left-color:var(--teal)}
+.aside.teal .tag{color:var(--teal)}
+.aside.ochre{border-left-color:var(--ochre)}
+.aside.ochre .tag{color:var(--ochre)}
+
+.grid{
+  display:grid; gap:10px;
+  grid-template-columns:repeat(auto-fill, minmax(132px, 1fr));
+}
+.card{
+  background:rgba(255,255,255,.45);
+  border:1px solid var(--rule); border-radius:8px;
+  padding:12px 10px; text-align:center;
+  cursor:pointer; transition:all .18s ease;
+  position:relative;
+}
+.card:hover{background:rgba(255,255,255,.7); transform:translateY(-1px)}
+.card .big{font-family:'Noto Serif Tamil', serif; font-size:34px; line-height:1; color:var(--ink); margin:2px 0 4px}
+.card .src{font-size:18px; color:var(--ink-faded)}
+.card .tl{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-faded); margin-top:3px}
+.card .hint{display:none; font-size:13px; color:var(--ink-soft); margin-top:8px; padding-top:8px; border-top:1px dotted var(--rule); text-align:left}
+.card.open .hint{display:block}
+.card.newp::after{
+  content:"⚡"; position:absolute; top:4px; right:6px; font-size:11px;
+}
+
+.family{
+  margin:14px 0 22px;
+  padding:14px 16px 4px;
+  background:rgba(255,255,255,.28);
+  border:1px solid var(--rule); border-radius:8px;
+}
+.family h4{margin:0 0 8px; color:var(--teal); font-family:'Fraunces', serif; font-style:italic; font-size:16px}
+.family .note{color:var(--ink-soft); font-size:14px; margin:6px 0 12px}
+
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15px}
+th,td{padding:9px 10px; text-align:left; border-bottom:1px solid var(--rule); vertical-align:top}
+th{color:var(--ink-soft); font-weight:600; background:rgba(255,255,255,.3)}
+td .target{font-size:20px}
+td.mono{font-family:'JetBrains Mono', monospace; color:var(--ink-faded); font-size:13px}
+
+.video{margin:18px 0}
+.video-frame{
+  position:relative; padding-bottom:56.25%; height:0; overflow:hidden;
+  border:1px solid var(--rule); border-radius:8px; background:#000;
+}
+.video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+.video-caption{margin-top:8px; font-size:14px; color:var(--ink-soft)}
+.video-caption a{color:var(--teal)}
+
+.passage{
+  background:rgba(255,255,255,.4);
+  border:1px solid var(--rule); border-radius:8px;
+  padding:16px 18px; margin:16px 0;
+}
+.passage .t-line{font-family:'Noto Serif Tamil', serif; font-size:19px; line-height:1.85}
+.passage .tl-line{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--ink-faded); margin:3px 0}
+.passage .kn-line{color:var(--ink-soft); font-size:15.5px}
+.passage .turn{margin:10px 0; padding-left:10px; border-left:2px solid var(--rule)}
+
+.nav-btns{display:flex; justify-content:space-between; gap:10px; margin-top:28px}
+.nav-btns a{
+  text-decoration:none; color:var(--ink); padding:9px 14px;
+  border:1px solid var(--rule); border-radius:6px;
+  background:rgba(255,255,255,.4); font-size:14.5px;
+}
+.nav-btns a:hover{background:rgba(255,255,255,.7)}
+
+footer.bottom{
+  padding:28px 0 8px; text-align:center;
+  color:var(--ink-faded); font-size:13.5px;
+  font-family:'Fraunces', serif; font-style:italic;
+}
+
+@media (max-width:520px){
+  .wrap{padding:16px 14px 80px}
+  header.top h1{font-size:30px}
+  section.stage h2{font-size:23px}
+  .grid{grid-template-columns:repeat(auto-fill, minmax(108px, 1fr))}
+  .card .big{font-size:28px}
+  table{font-size:14px}
+  th,td{padding:7px 6px}
+}
+@media (max-width:380px){
+  body{font-size:16px}
+  header.top h1{font-size:26px}
+  nav.tabs a{padding:6px 10px; font-size:13px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="eyebrow">ಭಾಷಾಸೇತು · Bhashasetu</div>
+  <h1>ಕನ್ನಡದಿಂದ <span class="t">தமிழ்</span>ಗೆ</h1>
+  <div class="sub">ಅಕ್ಕ-ತಂಗಿ ದ್ರಾವಿಡ ಭಾಷೆಗಳ ನಡುವಿನ ಒಂದು ಸೇತುವೆ — ನಿಮ್ಮ ಬಾಯಿಗೆ ೩೩ರಲ್ಲಿ ೩೦ ಶಬ್ದಗಳು ಈಗಾಗಲೇ ಗೊತ್ತು.</div>
+</header>
+
+<nav class="tabs">
+  <div class="row">
+    <a href="#stage-00" data-tab="0">೦೦ · ಪರಿಚಯ</a>
+    <a href="#stage-01" data-tab="1">೦೧ · ಸ್ವರ</a>
+    <a href="#stage-02" data-tab="2">೦೨ · ವ್ಯಂಜನ</a>
+    <a href="#stage-03" data-tab="3">೦೩ · ಸಂಯೋಜನೆ</a>
+    <a href="#stage-04" data-tab="4">೦೪ · ಪದಗಳು</a>
+    <a href="#stage-05" data-tab="5">೦೫ · ವಾಕ್ಯ</a>
+    <a href="#stage-06" data-tab="6">೦೬ · ಓದು</a>
+    <a href="#stage-07" data-tab="7">೦೭ · ಪದಕ್ಷೇತ್ರ</a>
+    <a href="#stage-08" data-tab="8">೦೮ · ಬಳಕೆ</a>
+    <a href="#stage-09" data-tab="9">೦೯ · ಸಾಹಿತ್ಯ</a>
+  </div>
+</nav>
+
+<section id="stage-00" class="stage">
+  <h2><span class="num">೦೦</span> ಪರಿಚಯ</h2>
+  <div class="lede">ನೀವು ಕನ್ನಡ ಬಲ್ಲವರಾದರೆ — ತಮಿಳು ನಿಮಗೆ ಪರಕೀಯ ಭಾಷೆಯಲ್ಲ, ಅಕ್ಕನ ಮನೆ.</div>
+
+  <p>ಚಿಕ್ಕಂದಿನಲ್ಲಿ <b>ಕನ್ನಡ ಕಲಿ</b> ಬಾರಹದಲ್ಲಿ <span class="mono">ಅ ಆ ಇ ಈ</span> ಬರೆದ ಕೈ ಇಂದು ತಮಿಳಿನ <span class="target">அ ஆ இ ஈ</span> ಬರೆಯಲು ಹೊಸದೇನನ್ನೂ ಕಲಿಯಬೇಕಾಗಿಲ್ಲ. ಎರಡೂ ಭಾಷೆಗಳು ಒಂದೇ ದ್ರಾವಿಡ ಬೇರಿನಿಂದ ಬಂದವು. ತಮಿಳು-ಕನ್ನಡ ಶಬ್ದ-ಸಂಪತ್ತಿನ ಸುಮಾರು <b>೮೪%</b> ಹಂಚಿಕೊಂಡಿದೆ; ೩೩ ಮೂಲಧ್ವನಿಗಳಲ್ಲಿ <b>೩೦</b> ಒಂದೇ. ನಿಮ್ಮ ಬಾಯಿ ಈಗಾಗಲೇ ಈ ಭಾಷೆಯನ್ನು ಮಾತನಾಡಲು ಸಿದ್ಧವಾಗಿದೆ.</p>
+
+  <p>ವಾಕ್ಯದ ಕ್ರಮ ನೋಡಿ — ಕನ್ನಡದಲ್ಲಿ "ನಾನು ನೀರು ಕುಡಿಯುತ್ತೇನೆ" ಎಂಬ ಕ್ರಮ <i>ಕರ್ತೃ-ಕರ್ಮ-ಕ್ರಿಯಾ</i>. ತಮಿಳಿನಲ್ಲಿ <span class="target">நான் தண்ணீர் குடிக்கிறேன்</span> — ಅದೇ ಕ್ರಮ, ಅದೇ ನುಡಿಕಟ್ಟು. <span class="mono">nāṉ taṇṇīr kuḍikkiṟēṉ</span>. ಹೀಗಾಗಿ ತಮಿಳು ಕಲಿಕೆ ಎಂದರೆ ಹೊಸ ಚಿಂತನೆ ಕಲಿಯುವುದಲ್ಲ — ಅದೇ ಚಿಂತನೆಯನ್ನು ಹೊಸ ಲಿಪಿಯಲ್ಲಿ ಇಳಿಸುವುದಷ್ಟೇ.</p>
+
+  <h3>ಆರು ತತ್ವಗಳು</h3>
+
+  <p><b>೧. ಎರಡೂ ಲಿಪಿಗಳು ಅಕ್ಷರಾತ್ಮಕ (abugida).</b> ಕನ್ನಡದಲ್ಲಿ <span>ಕ + ಾ = ಕಾ</span>; ತಮಿಳಿನಲ್ಲಿ <span class="target">க + ா = கா</span>. ಅದೇ ತತ್ವ — ವ್ಯಂಜನಕ್ಕೆ ಅಂತರ್ಗತ "ಅ" ಇರುತ್ತದೆ, ಬೇರೆ ಸ್ವರ ಬೇಕಾದರೆ ಗುರುತು ಸೇರಿಸುತ್ತೇವೆ. ಹೊಸದಾಗಿ ಕಲಿಯುವುದು ಆಕೃತಿಗಳು ಮಾತ್ರ, ನಿಯಮಗಳಲ್ಲ.</p>
+
+  <p><b>೨. ಪದಕ್ರಮ ಒಂದೇ (SOV).</b> ಕನ್ನಡ "ಅವನು ಮನೆಗೆ ಹೋದನು" = ತಮಿಳು <span class="target">அவன் வீட்டுக்கு போனான்</span>. ಕರ್ತೃ, ಕರ್ಮ, ಕ್ರಿಯೆ — ಅದೇ ಸಾಲು. ಕರ್ಮ ಕ್ರಿಯಾಪದಕ್ಕಿಂತ ಮೊದಲು ಬರುತ್ತದೆ.</p>
+
+  <p><b>೩. ವಿಭಕ್ತಿ ಪ್ರತ್ಯಯಗಳೇ, ಉಪಸರ್ಗಗಳಲ್ಲ.</b> ಕನ್ನಡ <i>ಮನೆಗೆ</i> (-ಗೆ); ತಮಿಳು <span class="target">வீட்டுக்கு</span> (-ಕ್ಕು). ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಅರ್ಥ ಪದದ ಹಿಂದೆ ಅಂಟಿಕೊಳ್ಳುತ್ತದೆ, ಹಿಂದಿಯಂತೆ "ಕೇ ಲಿಯೇ" ಮುಂದೆ ಬರುವುದಿಲ್ಲ.</p>
+
+  <p><b>೪. ತಮಿಳಿನ ವ್ಯಂಜನಗಳ ಸಂಖ್ಯೆ ಕಡಿಮೆ.</b> ಕನ್ನಡದಲ್ಲಿ <i>ಕ/ಖ/ಗ/ಘ</i> ನಾಲ್ಕು — ತಮಿಳಿನಲ್ಲಿ <span class="target">க</span> ಒಂದೇ ಅಕ್ಷರ, ಸಂದರ್ಭಕ್ಕೆ ತಕ್ಕಂತೆ <i>ಕ/ಗ/ಹ</i> ಎಂದು ಉಚ್ಚರಿಸಲಾಗುತ್ತದೆ. ಇದು ಸುಲಭ ಹಾಗೂ ಕಷ್ಟ ಎರಡೂ — ಬರೆಯಲು ಕಡಿಮೆ ಅಕ್ಷರಗಳು, ಆದರೆ ಓದುವಾಗ ಧ್ವನಿ ಊಹಿಸಬೇಕು.</p>
+
+  <p><b>೫. ತಮಿಳಿಗೆ ಮಾತ್ರ ಇರುವ ಒಂದು ಧ್ವನಿ — <span class="target">ழ</span>.</b> ಇದು ಕನ್ನಡ-ತೆಲುಗು ಎಲ್ಲೂ ಇಲ್ಲದ, ಮಲಯಾಳಂನಲ್ಲಿ ಮಾತ್ರ ಇರುವ ಹಿಮ್ಮುಖ ಅರ್ಧ-ಸ್ವರ. <span class="target">தமிழ்</span> ಪದದಲ್ಲಿಯೇ ಇದೆ — ಭಾಷೆಯ ಹೆಸರಿನಲ್ಲಿ! <span class="target">மழை</span> (ಮಳೆ), <span class="target">எழுது</span> (ಬರೆಯು) — ಈ ಧ್ವನಿ ಕಲಿಯಲು ಸ್ವಲ್ಪ ಸಮಯ ಬೇಕಾಗಬಹುದು.</p>
+
+  <p><b>೬. ಸಂಸ್ಕೃತ ತತ್ಸಮ ಕಡಿಮೆ, ಶುದ್ಧ ದ್ರಾವಿಡ ಹೆಚ್ಚು.</b> ಕನ್ನಡದಲ್ಲಿ "ಧನ್ಯವಾದ, ಸಮಯ, ಭೂಮಿ" ಸಾಮಾನ್ಯ — ತಮಿಳಿನಲ್ಲಿ ಅದೇ ಅರ್ಥಕ್ಕೆ <span class="target">நன்றி, நேரம், பூமி</span> — ತಮಿಳು ಸ್ವಂತ ದ್ರಾವಿಡ ಪದವನ್ನೇ ಆಯ್ಕೆ ಮಾಡಿಕೊಳ್ಳುವ ಪ್ರವೃತ್ತಿ ಹೊಂದಿದೆ. ಇದನ್ನೇ "ತಮಿಳ್ ತಿರವಿಡ ಶುದ್ಧಿ" ಎನ್ನುತ್ತಾರೆ.</p>
+
+  <div class="aside">
+    <span class="tag">ಆಹಾ</span>
+    ಕನ್ನಡದ "ನಾವು" ಒಂದೇ ರೂಪ — ಕೇಳುಗನನ್ನು ಒಳಗೊಂಡಿದ್ದಾರಾ ಇಲ್ಲವೇ ಎಂಬುದು ಗೊತ್ತಾಗುವುದಿಲ್ಲ. ತಮಿಳಿನಲ್ಲಿ <span class="target">நாம்</span> (ನೀನೂ ಸೇರಿದಂತೆ) ಮತ್ತು <span class="target">நாங்கள்</span> (ನೀನು ಹೊರತು) — ಎರಡು ಬೇರೆ ಬೇರೆ ಪದಗಳು. ದ್ರಾವಿಡ ಮೂಲದಲ್ಲಿ ಈ ಭೇದ ಇತ್ತು; ಕನ್ನಡ ಕಳೆದುಕೊಂಡಿದೆ, ತಮಿಳು ಉಳಿಸಿಕೊಂಡಿದೆ.
+  </div>
+
+  <div class="nav-btns"><span></span><a href="#stage-01">ಸ್ವರಗಳತ್ತ →</a></div>
+</section>
+<section id="stage-01" class="stage">
+  <h2><span class="num">೦೧</span> ಸ್ವರಗಳು</h2>
+  <div class="lede">ತಮಿಳಿನಲ್ಲಿ ೧೨ ಸ್ವರಗಳು — ಎಲ್ಲವೂ ಕನ್ನಡಕ್ಕೆ ಒಂದೊಂದಾಗಿ ಹೊಂದಿಕೊಳ್ಳುತ್ತವೆ. ಕಾರ್ಡ್‌ಗಳನ್ನು ಮುಟ್ಟಿ ಉಲ್ಲೇಖ ನೋಡಿ.</div>
+
+  <div class="family">
+    <h4>'ಅ' ಕುಟುಂಬ — ಹ್ರಸ್ವ ಮತ್ತು ದೀರ್ಘ</h4>
+    <div class="note">ಕನ್ನಡದಂತೆಯೇ ತಮಿಳು ಕೂಡ ಹ್ರಸ್ವ-ದೀರ್ಘ ಭೇದವನ್ನು ಲಿಪಿಯಲ್ಲಿ ಸ್ಪಷ್ಟವಾಗಿ ತೋರಿಸುತ್ತದೆ.</div>
+    <div class="grid">
+      <div class="card"><div class="src">ಅ</div><div class="big target">அ</div><div class="tl">a</div><div class="hint">ಹ್ರಸ್ವ "ಅ" — ಉದಾ. <span class="target">அப்பா</span> = ಅಪ್ಪ.</div></div>
+      <div class="card"><div class="src">ಆ</div><div class="big target">ஆ</div><div class="tl">aː</div><div class="hint">ದೀರ್ಘ "ಆ" — <span class="target">ஆறு</span> = ಆರು (೬).</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ಇ' ಕುಟುಂಬ</h4>
+    <div class="note">ಕನ್ನಡ ಮಾತಾಡುವ ನಾಲಿಗೆಗೆ ಈ ಜೋಡಿ ಹೊಸತಲ್ಲ.</div>
+    <div class="grid">
+      <div class="card"><div class="src">ಇ</div><div class="big target">இ</div><div class="tl">i</div><div class="hint">ಹ್ರಸ್ವ "ಇ" — <span class="target">இது</span> = ಇದು.</div></div>
+      <div class="card"><div class="src">ಈ</div><div class="big target">ஈ</div><div class="tl">iː</div><div class="hint">ದೀರ್ಘ "ಈ" — <span class="target">ஈ</span> = ನೊಣ.</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ಉ' ಕುಟುಂಬ</h4>
+    <div class="grid">
+      <div class="card"><div class="src">ಉ</div><div class="big target">உ</div><div class="tl">u</div><div class="hint">ಹ್ರಸ್ವ "ಉ" — <span class="target">உப்பு</span> = ಉಪ್ಪು.</div></div>
+      <div class="card"><div class="src">ಊ</div><div class="big target">ஊ</div><div class="tl">uː</div><div class="hint">ದೀರ್ಘ "ಊ" — <span class="target">ஊர்</span> = ಊರು.</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ಎ' ಕುಟುಂಬ</h4>
+    <div class="note">ದ್ರಾವಿಡ ಭಾಷೆಗಳ ವೈಶಿಷ್ಟ್ಯ — ಎ/ಏ ಭೇದ ಹಿಂದಿ/ಬೆಂಗಾಲಿಯಲ್ಲಿ ಇಲ್ಲ, ಆದರೆ ಕನ್ನಡ-ತಮಿಳಿನಲ್ಲಿ ಸ್ಪಷ್ಟ.</div>
+    <div class="grid">
+      <div class="card"><div class="src">ಎ</div><div class="big target">எ</div><div class="tl">e</div><div class="hint">ಹ್ರಸ್ವ "ಎ" — <span class="target">எட்டு</span> = ಎಂಟು (೮).</div></div>
+      <div class="card"><div class="src">ಏ</div><div class="big target">ஏ</div><div class="tl">eː</div><div class="hint">ದೀರ್ಘ "ಏ" — <span class="target">ஏழு</span> = ಏಳು (೭).</div></div>
+      <div class="card"><div class="src">ಐ</div><div class="big target">ஐ</div><div class="tl">ai</div><div class="hint">ಸಂಧ್ಯಕ್ಷರ — <span class="target">ஐந்து</span> = ಐದು (೫).</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ಒ' ಕುಟುಂಬ</h4>
+    <div class="grid">
+      <div class="card"><div class="src">ಒ</div><div class="big target">ஒ</div><div class="tl">o</div><div class="hint">ಹ್ರಸ್ವ "ಒ" — <span class="target">ஒன்று</span> = ಒಂದು.</div></div>
+      <div class="card"><div class="src">ಓ</div><div class="big target">ஓ</div><div class="tl">oː</div><div class="hint">ದೀರ್ಘ "ಓ" — <span class="target">ஓடு</span> = ಓಡು.</div></div>
+      <div class="card"><div class="src">ಔ</div><div class="big target">ஔ</div><div class="tl">au</div><div class="hint">ಸಂಧ್ಯಕ್ಷರ — ವಿರಳ ಬಳಕೆ.</div></div>
+    </div>
+  </div>
+
+  <div class="aside teal">
+    <span class="tag">ಗಮನಿಸಿ</span>
+    ಸಂಸ್ಕೃತ ಮೂಲದ <b>ಋ, ೠ, ಅಂ, ಅಃ</b> — ಕನ್ನಡದಲ್ಲಿ ಇವೆ, ತಮಿಳಿನಲ್ಲಿ ಇಲ್ಲ. ತಮಿಳಿನ ಸ್ವರಮಾಲೆ ಶುದ್ಧ ೧೨ ಸ್ವರಗಳಿಗೆ ಸೀಮಿತ. "ಋಷಿ" ಬರೆಯಬೇಕಾದರೆ <span class="target">ரிஷி</span> — ರ + ಇ.
+  </div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+tamil+vowels+uyir+ezhuthukal+pronunciation" title="Tamil uyir ezhuthukal pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ತಮಿಳು ಸ್ವರಗಳ ಉಚ್ಚಾರ — <span class="target">உயிர் எழுத்துக்கள்</span>. <a href="https://www.youtube.com/results?search_query=learn+tamil+vowels+uyir+ezhuthukal+pronunciation" target="_blank" rel="noopener">ಇನ್ನಷ್ಟು ಹುಡುಕಿ ↗</a></div>
+  </div>
+
+  <div class="nav-btns"><a href="#stage-00">← ಪರಿಚಯ</a><a href="#stage-02">ವ್ಯಂಜನಗಳತ್ತ →</a></div>
+</section>
+<section id="stage-02" class="stage">
+  <h2><span class="num">೦೨</span> ವ್ಯಂಜನಗಳು</h2>
+  <div class="lede">ತಮಿಳಿನ ವ್ಯಂಜನಮಾಲೆ ಕನ್ನಡಕ್ಕಿಂತ ಚಿಕ್ಕದು — ಕೇವಲ ೧೮ ಅಕ್ಷರ. ಪ್ರತಿ ವರ್ಗಕ್ಕೆ ೪ರ ಬದಲು ೧ ಅಕ್ಷರ ಮಾತ್ರ!</div>
+
+  <div class="aside ochre">
+    <span class="tag">ಮುಖ್ಯ</span>
+    ಕನ್ನಡದಲ್ಲಿ <b>ಕ-ಖ-ಗ-ಘ</b> ನಾಲ್ಕು ಬೇರೆ ಬೇರೆ ಅಕ್ಷರಗಳು. ತಮಿಳಿನಲ್ಲಿ ಅವೆಲ್ಲವೂ <span class="target">க</span> ಒಂದೇ. ಪದದ ಆರಂಭದಲ್ಲಿ "ಕ" ಎಂದು, ಎರಡು ಸ್ವರಗಳ ನಡುವೆ "ಗ" ಎಂದು ಉಚ್ಚರಿಸುವ ನಿಯಮ. ಹೀಗಾಗಿ <span class="target">பகல்</span> — "ಪಗಲ್" (ಹಗಲು) ಎಂದಾಗುತ್ತದೆ.
+  </div>
+
+  <h3>ಕವರ್ಗ — ಕಂಠ್ಯ</h3>
+  <div class="grid">
+    <div class="card"><div class="src">ಕ/ಖ/ಗ/ಘ</div><div class="big target">க</div><div class="tl">ka</div><div class="hint">ನಾಲ್ಕು ಕನ್ನಡ ಅಕ್ಷರಗಳೂ ಒಂದಾಗಿ ಸೇರಿವೆ.</div></div>
+    <div class="card"><div class="src">ಙ</div><div class="big target">ங</div><div class="tl">ṅa</div><div class="hint">ಮೂಗಿನಲ್ಲಿ ಬರುವ "ಙ". ಅಪರೂಪವಾದರೂ ತಮಿಳಿನಲ್ಲಿ ಸಕ್ರಿಯ.</div></div>
+  </div>
+
+  <h3>ಚವರ್ಗ — ತಾಲವ್ಯ</h3>
+  <div class="grid">
+    <div class="card"><div class="src">ಚ/ಛ/ಜ/ಝ</div><div class="big target">ச</div><div class="tl">ca</div><div class="hint">ಸಂದರ್ಭಕ್ಕೆ ತಕ್ಕಂತೆ "ಚ/ಸ/ಜ" — <span class="target">சாப்பிடு</span> "ಸಾಪ್ಪಿಡು".</div></div>
+    <div class="card"><div class="src">ಞ</div><div class="big target">ஞ</div><div class="tl">ña</div><div class="hint">"ಞ" — <span class="target">ஞாயிறு</span> = ಭಾನುವಾರ.</div></div>
+  </div>
+
+  <h3>ಟವರ್ಗ — ಮೂರ್ಧನ್ಯ</h3>
+  <div class="grid">
+    <div class="card"><div class="src">ಟ/ಠ/ಡ/ಢ</div><div class="big target">ட</div><div class="tl">ṭa</div><div class="hint">ನಾಲ್ಕೂ ಒಂದೇ ಅಕ್ಷರ. "ಟ" ಆಗಲಿ "ಡ" ಆಗಲಿ ಸ್ಥಾನವೇ ನಿರ್ಧರಿಸುತ್ತದೆ.</div></div>
+    <div class="card"><div class="src">ಣ</div><div class="big target">ண</div><div class="tl">ṇa</div><div class="hint">ಮೂರ್ಧನ್ಯ "ಣ" — <span class="target">கண்</span> = ಕಣ್.</div></div>
+  </div>
+
+  <h3>ತವರ್ಗ — ದಂತ್ಯ</h3>
+  <div class="grid">
+    <div class="card"><div class="src">ತ/ಥ/ದ/ಧ</div><div class="big target">த</div><div class="tl">ta</div><div class="hint">ದಂತ್ಯ — ಕನ್ನಡ "ತ"/"ದ" ಸ್ವರೂಪ.</div></div>
+    <div class="card newp"><div class="src">ನ</div><div class="big target">ந</div><div class="tl">na</div><div class="hint">ದಂತ್ಯ "ನ" — ಪದದ ಆರಂಭದಲ್ಲಿ ಬರುತ್ತದೆ.</div></div>
+  </div>
+
+  <h3>ಪವರ್ಗ — ಓಷ್ಠ್ಯ</h3>
+  <div class="grid">
+    <div class="card"><div class="src">ಪ/ಫ/ಬ/ಭ</div><div class="big target">ப</div><div class="tl">pa</div><div class="hint">ನಾಲ್ಕೂ ಒಂದೇ — <span class="target">அப்பா</span>=ಅಪ್ಪ, <span class="target">அபயம்</span>=ಅಭಯ.</div></div>
+    <div class="card"><div class="src">ಮ</div><div class="big target">ம</div><div class="tl">ma</div><div class="hint">ಪರಿಚಿತ "ಮ" — <span class="target">மரம்</span> = ಮರ.</div></div>
+  </div>
+
+  <h3>ಅವರ್ಗೀಯ ವ್ಯಂಜನಗಳು</h3>
+  <div class="grid">
+    <div class="card"><div class="src">ಯ</div><div class="big target">ய</div><div class="tl">ya</div><div class="hint">ಅಂತಃಸ್ಥ "ಯ".</div></div>
+    <div class="card newp"><div class="src">ರ</div><div class="big target">ர</div><div class="tl">ra</div><div class="hint">ಸಾಮಾನ್ಯ "ರ".</div></div>
+    <div class="card"><div class="src">ಲ</div><div class="big target">ல</div><div class="tl">la</div><div class="hint">ದಂತ್ಯ "ಲ".</div></div>
+    <div class="card"><div class="src">ವ</div><div class="big target">வ</div><div class="tl">va</div><div class="hint">ಓಷ್ಠ್ಯ "ವ".</div></div>
+    <div class="card newp"><div class="src">—</div><div class="big target">ழ</div><div class="tl">ḻa</div><div class="hint">ಇದು ತಮಿಳು-ಮಲಯಾಳಂಗೆ ಮಾತ್ರ ಇರುವ ಧ್ವನಿ. ನಾಲಿಗೆಯನ್ನು ಹಿಂದೆ ಸುರುಳಿ ಮಾಡಿ "ಳ/ರ" ಮಧ್ಯದ ಧ್ವನಿ ಹೊರಡಿಸಬೇಕು. ಭಾಷೆಯ ಹೆಸರೇ <span class="target">தமிழ்</span>!</div></div>
+    <div class="card"><div class="src">ಳ</div><div class="big target">ள</div><div class="tl">ḷa</div><div class="hint">ಮೂರ್ಧನ್ಯ "ಳ" — ಕನ್ನಡದಲ್ಲಿ ಇರುವ ಅದೇ.</div></div>
+    <div class="card newp"><div class="src">—</div><div class="big target">ற</div><div class="tl">ṟa</div><div class="hint">ಕಂಪಿತ "ರ" — ಕನ್ನಡದ ಹಳೆಯ <b>ಱ</b> ಇದಕ್ಕೆ ಸಮಾನ. ಇಂದು ಕನ್ನಡ ಕಳೆದಿದೆ, ತಮಿಳು ಉಳಿಸಿಕೊಂಡಿದೆ.</div></div>
+    <div class="card newp"><div class="src">—</div><div class="big target">ன</div><div class="tl">ṉa</div><div class="hint">ಅಲ್ವಿಯೋಲಾರ್ "ನ" — ಪದದ ಮಧ್ಯ/ಅಂತ್ಯದಲ್ಲಿ. <span class="target">நான்</span>=ನಾನ್.</div></div>
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಆಹಾ</span>
+    ಹಳೆಗನ್ನಡದಲ್ಲಿ <b>ಱ</b> ("ಕಂಪಿತ ರ") ಮತ್ತು <b>ೞ</b> ಅಕ್ಷರಗಳಿದ್ದವು — ನಮ್ಮಜ್ಜಿಯ ಕಾಲದ ಶಾಸನಗಳಲ್ಲಿ ಇವೆ. ಆಧುನಿಕ ಕನ್ನಡ ಇವುಗಳನ್ನು ಕಳೆದುಕೊಂಡಿದೆ. ತಮಿಳು ಮಾತ್ರ <span class="target">ற</span>, <span class="target">ழ</span> ಇಬ್ಬರನ್ನೂ ಇಂದಿಗೂ ಪ್ರೀತಿಯಿಂದ ಹಿಡಿದಿಟ್ಟುಕೊಂಡಿದೆ.
+  </div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+tamil+consonants+mei+ezhuthukal+pronunciation" title="Tamil mei ezhuthukal consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ತಮಿಳು ವ್ಯಂಜನಗಳ ಉಚ್ಚಾರ — <span class="target">மெய் எழுத்துக்கள்</span>. <a href="https://www.youtube.com/results?search_query=learn+tamil+consonants+mei+ezhuthukal+pronunciation" target="_blank" rel="noopener">ಇನ್ನಷ್ಟು ಹುಡುಕಿ ↗</a></div>
+  </div>
+
+  <div class="nav-btns"><a href="#stage-01">← ಸ್ವರ</a><a href="#stage-03">ಸಂಯೋಜನೆಯತ್ತ →</a></div>
+</section>
+<section id="stage-03" class="stage">
+  <h2><span class="num">೦೩</span> ಸಂಯೋಜನೆ</h2>
+  <div class="lede">ಸ್ವರ ಚಿಹ್ನೆಗಳು, ಪುಳ್ಳಿ (ಹಲಂತ), ಸಂಯುಕ್ತಾಕ್ಷರ — ಎಲ್ಲವೂ ಕನ್ನಡದ ತತ್ವಗಳನ್ನೇ ಅನುಸರಿಸುತ್ತವೆ.</div>
+
+  <h3>ಸ್ವರ ಗುರುತುಗಳು — "ಕ" ಜೊತೆ</h3>
+  <table>
+    <thead><tr><th>ಸ್ವರ</th><th>ಕನ್ನಡ</th><th>ತಮಿಳು</th><th>ಉಚ್ಚಾರ</th></tr></thead>
+    <tbody>
+      <tr><td>ಅ (ಅಂತರ್ಗತ)</td><td>ಕ</td><td class="target">க</td><td class="mono">ka</td></tr>
+      <tr><td>ಆ</td><td>ಕಾ</td><td class="target">கா</td><td class="mono">kā</td></tr>
+      <tr><td>ಇ</td><td>ಕಿ</td><td class="target">கி</td><td class="mono">ki</td></tr>
+      <tr><td>ಈ</td><td>ಕೀ</td><td class="target">கீ</td><td class="mono">kī</td></tr>
+      <tr><td>ಉ</td><td>ಕು</td><td class="target">கு</td><td class="mono">ku</td></tr>
+      <tr><td>ಊ</td><td>ಕೂ</td><td class="target">கூ</td><td class="mono">kū</td></tr>
+      <tr><td>ಎ</td><td>ಕೆ</td><td class="target">கெ</td><td class="mono">ke</td></tr>
+      <tr><td>ಏ</td><td>ಕೇ</td><td class="target">கே</td><td class="mono">kē</td></tr>
+      <tr><td>ಐ</td><td>ಕೈ</td><td class="target">கை</td><td class="mono">kai</td></tr>
+      <tr><td>ಒ</td><td>ಕೊ</td><td class="target">கொ</td><td class="mono">ko</td></tr>
+      <tr><td>ಓ</td><td>ಕೋ</td><td class="target">கோ</td><td class="mono">kō</td></tr>
+      <tr><td>ಔ</td><td>ಕೌ</td><td class="target">கௌ</td><td class="mono">kau</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside teal">
+    <span class="tag">ಗಮನಿಸಿ</span>
+    ತಮಿಳಿನಲ್ಲಿ "ಎ, ಏ, ಐ" — ಚಿಹ್ನೆ ಅಕ್ಷರದ <i>ಮುಂದೆ</i> ಬರುತ್ತದೆ: <span class="target">கெ, கே, கை</span>. "ಒ, ಓ" — ಎರಡೂ ಕಡೆ ಇರುತ್ತದೆ: <span class="target">கொ = க + ெ + ா</span>. ಕನ್ನಡದಂತೆಯೇ ಬಹು-ಅಂಗಿಕ ಸ್ವರ ಚಿಹ್ನೆಗಳು.
+  </div>
+
+  <h3>ಪುಳ್ಳಿ (ಹಲಂತ)</h3>
+  <p>ಕನ್ನಡದ <b>್</b> (ವಿರಾಮ) = ತಮಿಳಿನ <b>்</b> (ಪುಳ್ಳಿ — "ಚುಕ್ಕೆ"). ಅಕ್ಷರದ ಮೇಲೆ ಚುಕ್ಕೆಯಿಟ್ಟರೆ ಅಂತರ್ಗತ "ಅ" ಸ್ವರ ತೆಗೆಯಲಾಗುತ್ತದೆ.</p>
+  <table>
+    <tr><th>ಕನ್ನಡ</th><th>ತಮಿಳು</th><th>ಅರ್ಥ</th></tr>
+    <tr><td>ನಾನ್</td><td class="target">நான்</td><td>ನಾನು</td></tr>
+    <tr><td>ಕಣ್</td><td class="target">கண்</td><td>ಕಣ್ಣು</td></tr>
+    <tr><td>ಪಾಲ್</td><td class="target">பால்</td><td>ಹಾಲು</td></tr>
+  </table>
+
+  <h3>ಸಂಯುಕ್ತಾಕ್ಷರ</h3>
+  <p>ಕನ್ನಡದಲ್ಲಿ ಸಂಯುಕ್ತಾಕ್ಷರ ಒತ್ತಾಕ್ಷರದ ರೂಪ ಪಡೆಯುತ್ತದೆ — <b>ಕ್ತ = ಕ್ + ತ</b>. ತಮಿಳಿನಲ್ಲಿ ಸಂಯುಕ್ತಾಕ್ಷರ ಕಡಿಮೆ; ಬದಲಿಗೆ ಪುಳ್ಳಿ ಬಳಸಿ ಸ್ಪಷ್ಟವಾಗಿ ಬರೆಯಲಾಗುತ್ತದೆ.</p>
+  <table>
+    <tr><th>ಕನ್ನಡ</th><th>ತಮಿಳು</th><th>ಅರ್ಥ</th></tr>
+    <tr><td>ಅಕ್ಕ</td><td class="target">அக்கா</td><td>ಅಕ್ಕ</td></tr>
+    <tr><td>ಪತ್ತು</td><td class="target">பத்து</td><td>ಹತ್ತು</td></tr>
+    <tr><td>ಇನ್ನು</td><td class="target">இன்னும்</td><td>ಇನ್ನೂ</td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಆಹಾ</span>
+    ಕನ್ನಡದ "ಪತ್ತು" ಒಂದು ಗುಂಡಾದ ಒತ್ತಾಕ್ಷರ — ಆದರೆ ತಮಿಳು <span class="target">பத்து</span> = "ಪ + ತ್ (ಪುಳ್ಳಿ) + ತು" — ಮೂರು ಬೇರೆ ಬೇರೆ ಅಕ್ಷರಗಳು. ತಮಿಳು ಪ್ರತಿ ಧ್ವನಿಯನ್ನೂ ಪ್ರತ್ಯೇಕವಾಗಿ ತೋರಿಸುತ್ತದೆ — ಇದೇ ಅದರ ಪಾರದರ್ಶಕತೆ.
+  </div>
+
+  <div class="nav-btns"><a href="#stage-02">← ವ್ಯಂಜನ</a><a href="#stage-04">ಪದಗಳತ್ತ →</a></div>
+</section>
+<section id="stage-04" class="stage">
+  <h2><span class="num">೦೪</span> ಪದಗಳು</h2>
+  <div class="lede">ಕನ್ನಡ-ತಮಿಳಿನ ಶಬ್ದ ಸಂಪತ್ತಿನ ~೮೪% ಒಂದೇ. ಪ್ರತಿಯೊಂದು ಪದವೂ ಮಾತನಾಡಿದರೆ ಪರಿಚಿತವಾಗಿ ಕಾಣಿಸುತ್ತದೆ.</div>
+
+  <h3>ಸರ್ವನಾಮಗಳು</h3>
+  <table>
+    <tr><th>ತಮಿಳು</th><th>ಉಚ್ಚಾರ</th><th>ಕನ್ನಡ</th></tr>
+    <tr><td class="target">நான்</td><td class="mono">nāṉ</td><td>ನಾನು</td></tr>
+    <tr><td class="target">நீ</td><td class="mono">nī</td><td>ನೀನು</td></tr>
+    <tr><td class="target">நீங்கள்</td><td class="mono">nīṅgaḷ</td><td>ನೀವು (ಗೌರವ)</td></tr>
+    <tr><td class="target">அவன்</td><td class="mono">avaṉ</td><td>ಅವನು</td></tr>
+    <tr><td class="target">அவள்</td><td class="mono">avaḷ</td><td>ಅವಳು</td></tr>
+    <tr><td class="target">அவர்கள்</td><td class="mono">avargaḷ</td><td>ಅವರು</td></tr>
+    <tr><td class="target">அது</td><td class="mono">adu</td><td>ಅದು</td></tr>
+    <tr><td class="target">இது</td><td class="mono">idu</td><td>ಇದು</td></tr>
+    <tr><td class="target">நாம்</td><td class="mono">nām</td><td>ನಾವು (ನೀನೂ ಸೇರಿ)</td></tr>
+    <tr><td class="target">நாங்கள்</td><td class="mono">nāṅgaḷ</td><td>ನಾವು (ನೀನು ಹೊರತು)</td></tr>
+  </table>
+
+  <div class="aside ochre">
+    <span class="tag">ದ್ರಾವಿಡ ರಹಸ್ಯ</span>
+    ಕನ್ನಡದಲ್ಲಿ "ನಾವು" ಒಂದೇ. ತಮಿಳಿನಲ್ಲಿ ಎರಡು: <span class="target">நாம்</span> (ಕೇಳುವವನೂ ಸೇರಿದಂತೆ — "ನಾವೆಲ್ಲರೂ ಹೋಗೋಣ") ಮತ್ತು <span class="target">நாங்கள்</span> (ನೀನು ಹೊರತು — "ನಾವು ನಿನ್ನಿಲ್ಲದೆ ಹೋದೆವು"). ಈ ಭೇದ ಮೂಲ ದ್ರಾವಿಡ ಭಾಷೆಯಲ್ಲಿ ಇತ್ತು; ತೆಲುಗು-ತಮಿಳು-ಮಲಯಾಳಂ ಉಳಿಸಿಕೊಂಡಿವೆ, ಕನ್ನಡ ಕಳೆದುಕೊಂಡಿದೆ.
+  </div>
+
+  <h3>ಮೂಲ ನಾಮಪದಗಳು</h3>
+  <table>
+    <tr><th>ತಮಿಳು</th><th>ಉಚ್ಚಾರ</th><th>ಕನ್ನಡ</th><th>ಬೇರು</th></tr>
+    <tr><td class="target">தண்ணீர் / நீர்</td><td class="mono">taṇṇīr</td><td>ನೀರು</td><td>ದ್ರಾವಿಡ</td></tr>
+    <tr><td class="target">வீடு</td><td class="mono">vīḍu</td><td>ಮನೆ</td><td>ದ್ರಾವಿಡ</td></tr>
+    <tr><td class="target">பெயர்</td><td class="mono">peyar</td><td>ಹೆಸರು</td><td>ದ್ರಾವಿಡ</td></tr>
+    <tr><td class="target">பணம்</td><td class="mono">paṇam</td><td>ಹಣ</td><td>ದ್ರಾವಿಡ</td></tr>
+    <tr><td class="target">மரம்</td><td class="mono">maram</td><td>ಮರ</td><td>ದ್ರಾವಿಡ</td></tr>
+    <tr><td class="target">பால்</td><td class="mono">pāl</td><td>ಹಾಲು</td><td>ದ್ರಾವಿಡ</td></tr>
+    <tr><td class="target">மழை</td><td class="mono">maḻai</td><td>ಮಳೆ</td><td>ದ್ರಾವಿಡ</td></tr>
+    <tr><td class="target">பூ</td><td class="mono">pū</td><td>ಹೂವು</td><td>ದ್ರಾವಿಡ</td></tr>
+    <tr><td class="target">நேரம் / சமயம்</td><td class="mono">nēram</td><td>ಸಮಯ</td><td>ಸಂಸ್ಕೃತ ಸೇತು</td></tr>
+    <tr><td class="target">நாள் / தினம்</td><td class="mono">nāḷ</td><td>ದಿನ</td><td>ದ್ರಾವಿಡ/ತತ್ಸಮ</td></tr>
+    <tr><td class="target">சூரியன்</td><td class="mono">sūriyaṉ</td><td>ಸೂರ್ಯ</td><td>ಸಂಸ್ಕೃತ ಸೇತು</td></tr>
+    <tr><td class="target">பூமி</td><td class="mono">būmi</td><td>ಭೂಮಿ</td><td>ಸಂಸ್ಕೃತ ಸೇತು</td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಆಹಾ</span>
+    "ಹ" ಧ್ವನಿಯ ಕಥೆ — ಹಳೆಗನ್ನಡದಲ್ಲಿ <b>ಪ</b> ಇತ್ತು, ಅದು ಕಾಲಾಂತರದಲ್ಲಿ "ಹ" ಆಯಿತು. <i>ಪಾಲ್ → ಹಾಲು, ಪಣ → ಹಣ, ಪಗಲ್ → ಹಗಲು, ಪಾವು → ಹಾವು</i>. ತಮಿಳು ಈ ಪರಿವರ್ತನೆ ಮಾಡಲಿಲ್ಲ — ಹಾಗಾಗಿ ತಮಿಳು ನಮಗೆ ಹಳೆಗನ್ನಡದ ರೂಪವನ್ನು ತೋರಿಸುವ ಕನ್ನಡಿ. <span class="target">பால், பணம், பகல், பாம்பு</span>.
+  </div>
+
+  <h3>ಕ್ರಿಯಾಪದಗಳು</h3>
+  <table>
+    <tr><th>ತಮಿಳು</th><th>ಉಚ್ಚಾರ</th><th>ಕನ್ನಡ</th></tr>
+    <tr><td class="target">இரு</td><td class="mono">iru</td><td>ಇರು</td></tr>
+    <tr><td class="target">செய்</td><td class="mono">sey</td><td>ಮಾಡು</td></tr>
+    <tr><td class="target">போ</td><td class="mono">pō</td><td>ಹೋಗು</td></tr>
+    <tr><td class="target">வா</td><td class="mono">vā</td><td>ಬಾ</td></tr>
+    <tr><td class="target">சாப்பிடு / தின்</td><td class="mono">sāppiḍu</td><td>ತಿನ್ನು</td></tr>
+    <tr><td class="target">குடி</td><td class="mono">kuḍi</td><td>ಕುಡಿ</td></tr>
+    <tr><td class="target">பார்</td><td class="mono">pār</td><td>ನೋಡು</td></tr>
+    <tr><td class="target">கேள்</td><td class="mono">kēḷ</td><td>ಕೇಳು</td></tr>
+    <tr><td class="target">நட</td><td class="mono">naḍa</td><td>ನಡೆ</td></tr>
+    <tr><td class="target">ஓடு</td><td class="mono">ōḍu</td><td>ಓಡು</td></tr>
+    <tr><td class="target">கொடு</td><td class="mono">koḍu</td><td>ಕೊಡು</td></tr>
+    <tr><td class="target">நில்</td><td class="mono">nil</td><td>ನಿಲ್ಲು</td></tr>
+    <tr><td class="target">வேணும்</td><td class="mono">vēṇum</td><td>ಬೇಕು</td></tr>
+  </table>
+
+  <h3>ಸಂಖ್ಯೆಗಳು</h3>
+  <table>
+    <tr><th>ಸಂಖ್ಯೆ</th><th>ತಮಿಳು</th><th>ಉಚ್ಚಾರ</th><th>ಕನ್ನಡ</th></tr>
+    <tr><td>೧</td><td class="target">ஒன்று</td><td class="mono">oṉṟu</td><td>ಒಂದು</td></tr>
+    <tr><td>೨</td><td class="target">இரண்டு</td><td class="mono">iraṇḍu</td><td>ಎರಡು</td></tr>
+    <tr><td>೩</td><td class="target">மூன்று</td><td class="mono">mūṉṟu</td><td>ಮೂರು</td></tr>
+    <tr><td>೪</td><td class="target">நான்கு</td><td class="mono">nāṉku</td><td>ನಾಲ್ಕು</td></tr>
+    <tr><td>೫</td><td class="target">ஐந்து</td><td class="mono">aindu</td><td>ಐದು</td></tr>
+    <tr><td>೬</td><td class="target">ஆறு</td><td class="mono">āṟu</td><td>ಆರು</td></tr>
+    <tr><td>೭</td><td class="target">ஏழு</td><td class="mono">ēḻu</td><td>ಏಳು</td></tr>
+    <tr><td>೮</td><td class="target">எட்டு</td><td class="mono">eṭṭu</td><td>ಎಂಟು</td></tr>
+    <tr><td>೯</td><td class="target">ஒன்பது</td><td class="mono">oṉbadu</td><td>ಒಂಬತ್ತು</td></tr>
+    <tr><td>೧೦</td><td class="target">பத்து</td><td class="mono">pattu</td><td>ಹತ್ತು</td></tr>
+    <tr><td>೧೦೦</td><td class="target">நூறு</td><td class="mono">nūṟu</td><td>ನೂರು</td></tr>
+  </table>
+
+  <h3>ಸಂಬಂಧ-ಸೂಚಕ ಪದಗಳು</h3>
+  <table>
+    <tr><th>ತಮಿಳು</th><th>ಉಚ್ಚಾರ</th><th>ಕನ್ನಡ</th></tr>
+    <tr><td class="target">அப்பா</td><td class="mono">appā</td><td>ಅಪ್ಪ</td></tr>
+    <tr><td class="target">அம்மா</td><td class="mono">ammā</td><td>ಅಮ್ಮ</td></tr>
+    <tr><td class="target">அண்ணா</td><td class="mono">aṇṇā</td><td>ಅಣ್ಣ</td></tr>
+    <tr><td class="target">தம்பி</td><td class="mono">tambi</td><td>ತಮ್ಮ</td></tr>
+    <tr><td class="target">அக்கா</td><td class="mono">akkā</td><td>ಅಕ್ಕ</td></tr>
+    <tr><td class="target">தங்கை</td><td class="mono">taṅkai</td><td>ತಂಗಿ</td></tr>
+    <tr><td class="target">தாத்தா</td><td class="mono">tāttā</td><td>ಅಜ್ಜ</td></tr>
+    <tr><td class="target">பாட்டி</td><td class="mono">pāṭṭi</td><td>ಅಜ್ಜಿ</td></tr>
+    <tr><td class="target">மாமா</td><td class="mono">māmā</td><td>ಮಾವ</td></tr>
+    <tr><td class="target">அத்தை</td><td class="mono">attai</td><td>ಅತ್ತೆ</td></tr>
+  </table>
+
+  <h3>ಶರೀರ</h3>
+  <table>
+    <tr><th>ತಮಿಳು</th><th>ಉಚ್ಚಾರ</th><th>ಕನ್ನಡ</th></tr>
+    <tr><td class="target">தலை</td><td class="mono">talai</td><td>ತಲೆ</td></tr>
+    <tr><td class="target">கண்</td><td class="mono">kaṇ</td><td>ಕಣ್ಣು</td></tr>
+    <tr><td class="target">வாய்</td><td class="mono">vāy</td><td>ಬಾಯಿ</td></tr>
+    <tr><td class="target">கை</td><td class="mono">kai</td><td>ಕೈ</td></tr>
+    <tr><td class="target">கால்</td><td class="mono">kāl</td><td>ಕಾಲು</td></tr>
+    <tr><td class="target">மூக்கு</td><td class="mono">mūkku</td><td>ಮೂಗು</td></tr>
+  </table>
+
+  <h3>ಕಾಲ-ಸೂಚಕ</h3>
+  <table>
+    <tr><th>ತಮಿಳು</th><th>ಉಚ್ಚಾರ</th><th>ಕನ್ನಡ</th></tr>
+    <tr><td class="target">இன்று</td><td class="mono">iṉṟu</td><td>ಇಂದು</td></tr>
+    <tr><td class="target">நாளை</td><td class="mono">nāḷai</td><td>ನಾಳೆ</td></tr>
+    <tr><td class="target">நேற்று</td><td class="mono">nēṟṟu</td><td>ನಿನ್ನೆ</td></tr>
+    <tr><td class="target">இப்போது</td><td class="mono">ippōdu</td><td>ಈಗ</td></tr>
+  </table>
+
+  <div class="nav-btns"><a href="#stage-03">← ಸಂಯೋಜನೆ</a><a href="#stage-05">ವಾಕ್ಯಗಳತ್ತ →</a></div>
+</section>
+<section id="stage-05" class="stage">
+  <h2><span class="num">೦೫</span> ವಾಕ್ಯ</h2>
+  <div class="lede">ಪದಕ್ರಮ, ಕ್ರಿಯಾಪದ ರೂಪ, ವಿಭಕ್ತಿ, ಪ್ರಶ್ನೆ, ನಿಷೇಧ — ಕನ್ನಡದ ಎಲ್ಲ ನಿಯಮಗಳೂ ಇಲ್ಲಿಯೂ ಕೆಲಸ ಮಾಡುತ್ತವೆ.</div>
+
+  <h3>ಪದಕ್ರಮ</h3>
+  <p>ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ <b>ಕರ್ತೃ – ಕರ್ಮ – ಕ್ರಿಯೆ</b>:</p>
+  <table>
+    <tr><th>ಕನ್ನಡ</th><th>ತಮಿಳು</th></tr>
+    <tr><td>ನಾನು ನೀರು ಕುಡಿಯುತ್ತೇನೆ.</td><td class="target">நான் தண்ணீர் குடிக்கிறேன்.</td></tr>
+    <tr><td>ಅವಳು ಪುಸ್ತಕ ಓದುತ್ತಿದ್ದಾಳೆ.</td><td class="target">அவள் புத்தகம் படிக்கிறாள்.</td></tr>
+    <tr><td>ನಾವು ಮನೆಗೆ ಹೋಗುತ್ತೇವೆ.</td><td class="target">நாங்கள் வீட்டுக்கு போகிறோம்.</td></tr>
+  </table>
+
+  <h3>ವಿಭಕ್ತಿ ಪ್ರತ್ಯಯಗಳು</h3>
+  <table>
+    <tr><th>ಕಾರಕ</th><th>ಕನ್ನಡ</th><th>ತಮಿಳು</th><th>ಉದಾಹರಣೆ</th></tr>
+    <tr><td>ಪ್ರಥಮಾ</td><td>—</td><td>—</td><td><span class="target">வீடு</span> — ಮನೆ</td></tr>
+    <tr><td>ದ್ವಿತೀಯಾ</td><td>-ಅನ್ನು</td><td>-ಐ (-ai)</td><td><span class="target">வீட்டை</span> — ಮನೆಯನ್ನು</td></tr>
+    <tr><td>ಚತುರ್ಥಿ</td><td>-ಗೆ/-ಕ್ಕೆ</td><td>-ಕ್ಕು (-kku)</td><td><span class="target">வீட்டுக்கு</span> — ಮನೆಗೆ</td></tr>
+    <tr><td>ಪಂಚಮೀ</td><td>-ಇಂದ</td><td>-ಇಲಿರುಂದು</td><td><span class="target">வீட்டிலிருந்து</span> — ಮನೆಯಿಂದ</td></tr>
+    <tr><td>ಷಷ್ಠೀ</td><td>-ಅ / -ಯ</td><td>-ಇನ್ / -ಉಡೈಯ</td><td><span class="target">வீட்டின்</span> — ಮನೆಯ</td></tr>
+    <tr><td>ಸಪ್ತಮೀ</td><td>-ಅಲ್ಲಿ</td><td>-ಇಲ್ (-il)</td><td><span class="target">வீட்டில்</span> — ಮನೆಯಲ್ಲಿ</td></tr>
+  </table>
+
+  <div class="aside teal">
+    <span class="tag">ಸಾಮ್ಯ</span>
+    ಪ್ರತ್ಯಯ <i>ಪದದ ಹಿಂದೆ</i> ಅಂಟಿಕೊಳ್ಳುವ ರೀತಿ ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಒಂದೇ. ಕನ್ನಡ "ಮನೆಯಲ್ಲಿ" = ತಮಿಳು <span class="target">வீட்டில்</span>. ಪದ "ಮನೆ/<span class="target">வீடு</span>" ಒಳಸ್ವರೂಪವನ್ನು ಅಲ್ಪ ಬದಲಿಸಿ ಪ್ರತ್ಯಯ ಜೋಡಿಸಿಕೊಳ್ಳುತ್ತದೆ — ಇದು agglutination ಎಂಬ ದ್ರಾವಿಡ ಗುಣ.
+  </div>
+
+  <h3>ಕ್ರಿಯಾಪದ — ವರ್ತಮಾನ ಕಾಲ (ಮಾಡು/<span class="target">செய்</span>)</h3>
+  <table>
+    <tr><th>ಕರ್ತೃ</th><th>ತಮಿಳು</th><th>ಕನ್ನಡ</th></tr>
+    <tr><td>ನಾನು</td><td class="target">செய்கிறேன்</td><td>ಮಾಡುತ್ತೇನೆ</td></tr>
+    <tr><td>ನೀನು</td><td class="target">செய்கிறாய்</td><td>ಮಾಡುತ್ತೀಯ</td></tr>
+    <tr><td>ಅವನು</td><td class="target">செய்கிறான்</td><td>ಮಾಡುತ್ತಾನೆ</td></tr>
+    <tr><td>ಅವಳು</td><td class="target">செய்கிறாள்</td><td>ಮಾಡುತ್ತಾಳೆ</td></tr>
+    <tr><td>ಅದು</td><td class="target">செய்கிறது</td><td>ಮಾಡುತ್ತದೆ</td></tr>
+    <tr><td>ನಾವು</td><td class="target">செய்கிறோம்</td><td>ಮಾಡುತ್ತೇವೆ</td></tr>
+    <tr><td>ನೀವು</td><td class="target">செய்கிறீர்கள்</td><td>ಮಾಡುತ್ತೀರಿ</td></tr>
+    <tr><td>ಅವರು</td><td class="target">செய்கிறார்கள்</td><td>ಮಾಡುತ್ತಾರೆ</td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಹೋಲಿಕೆ</span>
+    ತಮಿಳಿನ <span class="target">-கிற்-</span> (kiṟ) ಮತ್ತು ಕನ್ನಡದ <b>-ತ್ತ್-</b> — ಎರಡೂ ವರ್ತಮಾನ ಸೂಚಕ ಕಾಲ-ಚಿಹ್ನೆಗಳು. ನಂತರ ವ್ಯಕ್ತಿ-ಪ್ರತ್ಯಯ: "-ಏನ್/-ಏನೆ", "-ಆನ್/-ಆನೆ", "-ಆಳ್/-ಆಳೆ" — ಶಬ್ದ ಶಬ್ದಕ್ಕೆ ಜೋಡಿ ಕಾಣಿಸುತ್ತದೆ. ಇದು ಕಾಕತಾಳೀಯವಲ್ಲ; ಅಕ್ಕತಂಗಿಯ ಮೂಲ.
+  </div>
+
+  <h3>ಪ್ರಶ್ನೆ ಪದಗಳು</h3>
+  <table>
+    <tr><th>ತಮಿಳು</th><th>ಉಚ್ಚಾರ</th><th>ಕನ್ನಡ</th></tr>
+    <tr><td class="target">என்ன</td><td class="mono">eṉṉa</td><td>ಏನು</td></tr>
+    <tr><td class="target">யார்</td><td class="mono">yār</td><td>ಯಾರು</td></tr>
+    <tr><td class="target">எங்கே</td><td class="mono">eṅgē</td><td>ಎಲ್ಲಿ</td></tr>
+    <tr><td class="target">எப்போது</td><td class="mono">eppōdu</td><td>ಯಾವಾಗ</td></tr>
+    <tr><td class="target">ஏன்</td><td class="mono">ēṉ</td><td>ಏಕೆ</td></tr>
+    <tr><td class="target">எப்படி</td><td class="mono">eppaḍi</td><td>ಹೇಗೆ</td></tr>
+    <tr><td class="target">எவ்வளவு</td><td class="mono">evvaḷavu</td><td>ಎಷ್ಟು</td></tr>
+  </table>
+
+  <h3>ಹೌದು/ಇಲ್ಲ ಪ್ರಶ್ನೆ</h3>
+  <p>ಕನ್ನಡದಂತೆಯೇ ತಮಿಳಿನಲ್ಲಿ ಕೂಡ ವಾಕ್ಯದ ಕೊನೆಗೆ ಪ್ರಶ್ನಾರ್ಥಕ ಪ್ರತ್ಯಯ ಸೇರಿಸಲಾಗುತ್ತದೆ:</p>
+  <table>
+    <tr><td>ಅವನು ಬರುತ್ತಾನೆಯೇ?</td><td class="target">அவன் வருகிறானா?</td></tr>
+    <tr><td>ನೀವು ಓದಿದಿರಾ?</td><td class="target">நீங்கள் படித்தீர்களா?</td></tr>
+  </table>
+  <p>ಕನ್ನಡ "-ಏ/-ಆ" = ತಮಿಳು <span class="target">-ஆ</span>. ಒಂದೇ ತತ್ವ.</p>
+
+  <h3>ನಿಷೇಧ</h3>
+  <table>
+    <tr><td>ನನಗೆ ಗೊತ್ತಿಲ್ಲ.</td><td class="target">எனக்கு தெரியாது.</td></tr>
+    <tr><td>ಬೇಡ.</td><td class="target">வேண்டாம்.</td></tr>
+    <tr><td>ಇಲ್ಲ.</td><td class="target">இல்லை.</td></tr>
+  </table>
+
+  <div class="nav-btns"><a href="#stage-04">← ಪದಗಳು</a><a href="#stage-06">ಓದಿಗೆ →</a></div>
+</section>
+<section id="stage-06" class="stage">
+  <h2><span class="num">೦೬</span> ಓದು</h2>
+  <div class="lede">ಮೂರು ಹಂತಗಳ ಓದು — ಸರಳದಿಂದ ಸಂವಾದದವರೆಗೆ. ಪ್ರತಿ ಸಾಲಿಗೆ ಉಚ್ಚಾರ ಮತ್ತು ಕನ್ನಡ ಅರ್ಥ.</div>
+
+  <h3>೧. ಸ್ವಪರಿಚಯ</h3>
+  <div class="passage">
+    <p class="t-line">என் பெயர் ராமன். நான் பெங்களூரில் இருக்கிறேன். எனக்கு தமிழ் கொஞ்சம் தெரியும். நான் ஒரு மாணவன். எனக்கு புத்தகம் படிக்க பிடிக்கும்.</p>
+    <p class="tl-line">eṉ peyar rāmaṉ. nāṉ peṅgaḷūril irukkiṟēṉ. eṉakku tamiḻ koñcam teriyum. nāṉ oru māṇavaṉ. eṉakku puttakam paḍikka piḍikkum.</p>
+    <p class="kn-line">ನನ್ನ ಹೆಸರು ರಾಮ. ನಾನು ಬೆಂಗಳೂರಿನಲ್ಲಿ ಇದ್ದೇನೆ. ನನಗೆ ತಮಿಳು ಸ್ವಲ್ಪ ಗೊತ್ತು. ನಾನು ಒಬ್ಬ ವಿದ್ಯಾರ್ಥಿ. ನನಗೆ ಪುಸ್ತಕ ಓದಲು ಇಷ್ಟ.</p>
+  </div>
+
+  <h3>೨. ದಿನಚರ್ಯೆ</h3>
+  <div class="passage">
+    <p class="t-line">காலையில் நான் சீக்கிரம் எழுந்திருக்கிறேன். பல் துலக்கி, குளித்து, காப்பி குடிக்கிறேன். அம்மா சாப்பாடு செய்கிறாள். நாங்கள் எல்லோரும் சேர்ந்து சாப்பிடுகிறோம். பிறகு நான் வேலைக்கு போகிறேன். மாலையில் வீட்டுக்கு திரும்பி வருகிறேன்.</p>
+    <p class="tl-line">kālaiyil nāṉ sīkkiram eḻundirukkiṟēṉ. pal tulakki, kuḷittu, kāppi kuḍikkiṟēṉ. ammā sāppāḍu seykiṟāḷ. nāṅgaḷ ellōrum sērndu sāppiḍukiṟōm. piṟaku nāṉ vēlaikku pōkiṟēṉ. mālaiyil vīṭṭukku tirumbi varukiṟēṉ.</p>
+    <p class="kn-line">ಬೆಳಿಗ್ಗೆ ನಾನು ಬೇಗ ಏಳುತ್ತೇನೆ. ಹಲ್ಲು ಉಜ್ಜಿ, ಸ್ನಾನ ಮಾಡಿ, ಕಾಫಿ ಕುಡಿಯುತ್ತೇನೆ. ಅಮ್ಮ ಊಟ ಮಾಡುತ್ತಾಳೆ. ನಾವೆಲ್ಲರೂ ಜೊತೆಯಾಗಿ ತಿನ್ನುತ್ತೇವೆ. ನಂತರ ನಾನು ಕೆಲಸಕ್ಕೆ ಹೋಗುತ್ತೇನೆ. ಸಂಜೆ ಮನೆಗೆ ಹಿಂತಿರುಗಿ ಬರುತ್ತೇನೆ.</p>
+  </div>
+
+  <h3>೩. ಸಂವಾದ — ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ</h3>
+  <div class="passage">
+    <div class="turn">
+      <p class="t-line">— வணக்கம்! இந்த பூ எவ்வளவு?</p>
+      <p class="tl-line">vaṇakkam! inda pū evvaḷavu?</p>
+      <p class="kn-line">ನಮಸ್ಕಾರ! ಈ ಹೂವು ಎಷ್ಟು?</p>
+    </div>
+    <div class="turn">
+      <p class="t-line">— ஒரு கட்டு ஐம்பது ரூபாய்.</p>
+      <p class="tl-line">oru kaṭṭu aimpadu rūpāy.</p>
+      <p class="kn-line">ಒಂದು ಕಟ್ಟು ಐವತ್ತು ರೂಪಾಯಿ.</p>
+    </div>
+    <div class="turn">
+      <p class="t-line">— கொஞ்சம் குறைக்க முடியுமா?</p>
+      <p class="tl-line">koñcam kuṟaikka muḍiyumā?</p>
+      <p class="kn-line">ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಲು ಆಗುತ್ತದೆಯೇ?</p>
+    </div>
+    <div class="turn">
+      <p class="t-line">— சரி, நாற்பது கொடுங்கள்.</p>
+      <p class="tl-line">sari, nāṟpadu koḍuṅgaḷ.</p>
+      <p class="kn-line">ಸರಿ, ನಲವತ್ತು ಕೊಡಿ.</p>
+    </div>
+    <div class="turn">
+      <p class="t-line">— நன்றி. இதோ பணம்.</p>
+      <p class="tl-line">naṉṟi. idō paṇam.</p>
+      <p class="kn-line">ಧನ್ಯವಾದ. ಇಗೋ ಹಣ.</p>
+    </div>
+    <div class="turn">
+      <p class="t-line">— மறுபடியும் வாங்க!</p>
+      <p class="tl-line">maṟupaḍiyum vāṅga!</p>
+      <p class="kn-line">ಮತ್ತೆ ಬನ್ನಿ!</p>
+    </div>
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಆಹಾ</span>
+    "ಸ್ವಲ್ಪ" — ಈ ಒಂದು ಪದದಲ್ಲಿ ಕನ್ನಡ-ತಮಿಳಿನ ಮಾಧುರ್ಯವೇ ಇದೆ. ಕನ್ನಡ <b>ಸ್ವಲ್ಪ</b> = ತಮಿಳು <span class="target">கொஞ்சம்</span>. ಮಾರುಕಟ್ಟೆ, ಅಡುಗೆ, ಕೋರಿಕೆ — ಎಲ್ಲೆಡೆ ವಿನಂತಿಯನ್ನು ಮೃದುಗೊಳಿಸಲು ಈ ಪದ. "ಸ್ವಲ್ಪ ನೋಡ್ತೀರಾ?" ಎನ್ನುವ ಅದೇ ಭಾವ <span class="target">கொஞ்சம் பார்க்கிறீங்களா?</span>ನಲ್ಲಿ.
+  </div>
+
+  <div class="nav-btns"><a href="#stage-05">← ವಾಕ್ಯ</a><a href="#stage-07">ಪದಕ್ಷೇತ್ರದತ್ತ →</a></div>
+</section>
+<section id="stage-07" class="stage">
+  <h2><span class="num">೦೭</span> ಪದಕ್ಷೇತ್ರ</h2>
+  <div class="lede">ಬಂಧು-ಬಳಗ, ಕಾಲ, ಶರೀರ, ಚಲನೆ — ಎರಡೂ ಭಾಷೆಗಳು ಲೋಕವನ್ನು ಹೇಗೆ ವಿಭಜಿಸುತ್ತವೆ?</div>
+
+  <h3>ಬಂಧು-ಬಳಗ</h3>
+  <p>ದ್ರಾವಿಡ ಭಾಷೆಗಳಲ್ಲಿ ಬಂಧು ಸಂಬಂಧಗಳ ವಿವರ ಬಹಳ ಸೂಕ್ಷ್ಮ — ಅಣ್ಣ/ತಮ್ಮ, ಅಕ್ಕ/ತಂಗಿ ಭೇದ ವಯಸ್ಸಿನ ಮೇಲೆ ನಿಂತಿದೆ. ಇಂಗ್ಲಿಷ್‌ನ "brother" ಒಂದೇ ಪದ ಇವೆರಡಕ್ಕೂ ಸಾಕಾಗುವುದಿಲ್ಲ.</p>
+  <table>
+    <tr><th>ಸಂಬಂಧ</th><th>ಕನ್ನಡ</th><th>ತಮಿಳು</th></tr>
+    <tr><td>ಅಣ್ಣ</td><td>ಅಣ್ಣ</td><td class="target">அண்ணா</td></tr>
+    <tr><td>ತಮ್ಮ</td><td>ತಮ್ಮ</td><td class="target">தம்பி</td></tr>
+    <tr><td>ಅಕ್ಕ</td><td>ಅಕ್ಕ</td><td class="target">அக்கா</td></tr>
+    <tr><td>ತಂಗಿ</td><td>ತಂಗಿ</td><td class="target">தங்கை</td></tr>
+    <tr><td>ತಾಯಿಯ ಅಣ್ಣ/ತಮ್ಮ</td><td>ಮಾವ</td><td class="target">மாமா</td></tr>
+    <tr><td>ತಂದೆಯ ಅಕ್ಕ/ತಂಗಿ</td><td>ಅತ್ತೆ</td><td class="target">அத்தை</td></tr>
+  </table>
+
+  <div class="aside ochre">
+    <span class="tag">ಸಾಂಸ್ಕೃತಿಕ ಜ್ಞಾನ</span>
+    ತಮಿಳಿನಲ್ಲಿ "ಮಾಮಾ" ಕೇವಲ ಮಾವ ಅಲ್ಲ — ಅಪರಿಚಿತ ಹಿರಿಯರನ್ನೂ <span class="target">மாமா</span> ಎಂದು ಸಂಬೋಧಿಸುತ್ತಾರೆ, ಕನ್ನಡದಲ್ಲಿ "ಮಾವ" ಎನ್ನುವಂತೆ. ಇದೇ ಪ್ರೀತಿ. ಹಿರಿಯ ಪುರುಷ <span class="target">அண்ணா</span>, ಹಿರಿಯ ಮಹಿಳೆ <span class="target">அக்கா</span>, ವಯಸ್ಸಾದವರು <span class="target">தாத்தா/பாட்டி</span> — ರಕ್ತ ಸಂಬಂಧವಿಲ್ಲದ ಬಂಧುತ್ವ.
+  </div>
+
+  <h3>ಕಾಲ</h3>
+  <table>
+    <tr><th>ಅರ್ಥ</th><th>ಕನ್ನಡ</th><th>ತಮಿಳು</th></tr>
+    <tr><td>ಇಂದು</td><td>ಇಂದು</td><td class="target">இன்று</td></tr>
+    <tr><td>ನಿನ್ನೆ</td><td>ನಿನ್ನೆ</td><td class="target">நேற்று</td></tr>
+    <tr><td>ನಾಳೆ</td><td>ನಾಳೆ</td><td class="target">நாளை</td></tr>
+    <tr><td>ಈಗ</td><td>ಈಗ</td><td class="target">இப்போது</td></tr>
+    <tr><td>ಬೆಳಿಗ್ಗೆ</td><td>ಬೆಳಿಗ್ಗೆ</td><td class="target">காலை</td></tr>
+    <tr><td>ಸಂಜೆ</td><td>ಸಂಜೆ</td><td class="target">மாலை</td></tr>
+    <tr><td>ರಾತ್ರಿ</td><td>ರಾತ್ರಿ</td><td class="target">இரவு</td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಆಹಾ</span>
+    ಕನ್ನಡದ "ನಾಳೆ" ಮತ್ತು ತಮಿಳಿನ <span class="target">நாளை</span> — ಅಕ್ಷರಶಃ ಒಂದೇ. "ನಿನ್ನೆ" ಮತ್ತು <span class="target">நேற்று</span> — ಬೇರೆ ಬೇರೆ ಮೂಲದಿಂದ ಬಂದಿವೆ. ಹಿಂದಿ/ಬೆಂಗಾಲಿಯಲ್ಲಿ "ಕಲ್/ಕಾಲ್" — ಒಂದೇ ಪದ ನಿನ್ನೆ-ನಾಳೆ ಎರಡಕ್ಕೂ; ಆದರೆ ದ್ರಾವಿಡ ಭಾಷೆಗಳು ಕಾಲದ ದಿಕ್ಕನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ಬೇರ್ಪಡಿಸುತ್ತವೆ.
+  </div>
+
+  <h3>ಶರೀರ</h3>
+  <table>
+    <tr><th>ಕನ್ನಡ</th><th>ತಮಿಳು</th></tr>
+    <tr><td>ತಲೆ</td><td class="target">தலை</td></tr>
+    <tr><td>ಮುಖ</td><td class="target">முகம்</td></tr>
+    <tr><td>ಕಣ್ಣು</td><td class="target">கண்</td></tr>
+    <tr><td>ಕಿವಿ</td><td class="target">காது</td></tr>
+    <tr><td>ಮೂಗು</td><td class="target">மூக்கு</td></tr>
+    <tr><td>ಬಾಯಿ</td><td class="target">வாய்</td></tr>
+    <tr><td>ಹಲ್ಲು</td><td class="target">பல்</td></tr>
+    <tr><td>ಕೈ</td><td class="target">கை</td></tr>
+    <tr><td>ಕಾಲು</td><td class="target">கால்</td></tr>
+    <tr><td>ಹೃದಯ</td><td class="target">இதயம்</td></tr>
+  </table>
+
+  <h3>ಚಲನೆ</h3>
+  <table>
+    <tr><th>ಕನ್ನಡ</th><th>ತಮಿಳು</th></tr>
+    <tr><td>ಬಾ</td><td class="target">வா</td></tr>
+    <tr><td>ಹೋಗು</td><td class="target">போ</td></tr>
+    <tr><td>ನಡೆ</td><td class="target">நட</td></tr>
+    <tr><td>ಓಡು</td><td class="target">ஓடு</td></tr>
+    <tr><td>ನಿಲ್ಲು</td><td class="target">நில்</td></tr>
+    <tr><td>ಕುಳಿತುಕೋ</td><td class="target">உட்கார்</td></tr>
+    <tr><td>ಏಳು</td><td class="target">எழுந்திரு</td></tr>
+  </table>
+
+  <div class="nav-btns"><a href="#stage-06">← ಓದು</a><a href="#stage-08">ಬಳಕೆಯತ್ತ →</a></div>
+</section>
+<section id="stage-08" class="stage">
+  <h2><span class="num">೦೮</span> ಬಳಕೆ</h2>
+  <div class="lede">ಗೌರವ, ವಿನಂತಿ, ಸ್ವಾಗತ — ತಮಿಳು ಸಂಸ್ಕೃತಿಯ ಸೂಕ್ಷ್ಮ ಕ್ರಮಗಳು.</div>
+
+  <h3>ಗೌರವ ಮಟ್ಟಗಳು</h3>
+  <p>ಕನ್ನಡದಲ್ಲಿ ಎರಡು ಮಟ್ಟ — "ನೀನು/ನೀವು". ತಮಿಳಿನಲ್ಲಿ ಮೂರು ಮಟ್ಟ ಇದೆ:</p>
+  <table>
+    <tr><th>ಮಟ್ಟ</th><th>ತಮಿಳು</th><th>ಬಳಕೆ</th></tr>
+    <tr><td>ಅತ್ಯಂತ ಆತ್ಮೀಯ</td><td class="target">நீ (nī)</td><td>ಚಿಕ್ಕವರು, ಸ್ನೇಹಿತರು — "ನೀನು"</td></tr>
+    <tr><td>ಸಾಮಾನ್ಯ ಗೌರವ</td><td class="target">நீங்க (nīṅga)</td><td>ಅಪರಿಚಿತರು, ಹಿರಿಯರು — "ನೀವು"</td></tr>
+    <tr><td>ಅತ್ಯಂತ ಗೌರವ</td><td class="target">தாங்கள் (tāṅgaḷ)</td><td>ಅಧಿಕಾರಿಗಳು, ಔಪಚಾರಿಕ — ಕನ್ನಡದಲ್ಲಿ ಇದೆ ಸಮಾನ ಇಲ್ಲ</td></tr>
+  </table>
+
+  <div class="aside teal">
+    <span class="tag">ಗಮನಿಸಿ</span>
+    ಮಾತನಾಡುವಾಗ <span class="target">நீங்கள்</span> — ಅಂತ್ಯದ "ಳ್" ಮುಗಿಸಿ ಬಿಟ್ಟು <span class="target">நீங்க</span> ಎಂದು ಕೇಳಿಬರುತ್ತದೆ. ಹಾಗೆಯೇ <span class="target">அவர்கள் → அவங்க, செய்கிறீர்கள் → செய்றீங்க</span>. ಬರಹ ಮತ್ತು ಆಡುನುಡಿ — ತಮಿಳಿನಲ್ಲಿ ಈ ಭೇದ ಗಣನೀಯ.
+  </div>
+
+  <h3>ಸ್ವಾಗತ ಮತ್ತು ವಿನಯ ಪದಗಳು</h3>
+  <table>
+    <tr><th>ತಮಿಳು</th><th>ಉಚ್ಚಾರ</th><th>ಕನ್ನಡ</th></tr>
+    <tr><td class="target">வணக்கம்</td><td class="mono">vaṇakkam</td><td>ನಮಸ್ಕಾರ</td></tr>
+    <tr><td class="target">நன்றி</td><td class="mono">naṉṟi</td><td>ಧನ್ಯವಾದಗಳು</td></tr>
+    <tr><td class="target">மன்னிக்கவும்</td><td class="mono">maṉṉikkavum</td><td>ಕ್ಷಮಿಸಿ</td></tr>
+    <tr><td class="target">எப்படி இருக்கீங்க?</td><td class="mono">eppaḍi irukkīṅga?</td><td>ಹೇಗಿದ್ದೀರಿ?</td></tr>
+    <tr><td class="target">நல்லா இருக்கேன்</td><td class="mono">nallā irukkēṉ</td><td>ಚೆನ್ನಾಗಿದ್ದೇನೆ</td></tr>
+    <tr><td class="target">வேணும்</td><td class="mono">vēṇum</td><td>ಬೇಕು</td></tr>
+    <tr><td class="target">வேண்டாம்</td><td class="mono">vēṇḍām</td><td>ಬೇಡ</td></tr>
+    <tr><td class="target">தெரியாது</td><td class="mono">teriyādu</td><td>ಗೊತ್ತಿಲ್ಲ</td></tr>
+    <tr><td class="target">தெரியும்</td><td class="mono">teriyum</td><td>ಗೊತ್ತು</td></tr>
+  </table>
+
+  <h3>"ಊಟ ಆಯ್ತಾ?" — ತಮಿಳು ರೀತಿಯಲ್ಲಿ</h3>
+  <div class="aside">
+    <span class="tag">ಸಾಂಸ್ಕೃತಿಕ ಸೇತು</span>
+    ಕನ್ನಡಿಗರು ಸಂಜೆ ಭೇಟಿಯಾದಾಗ ಕೇಳುವ <b>"ಊಟ ಆಯ್ತಾ?"</b> — ಇದು ಪ್ರಶ್ನೆಯಲ್ಲ, ಪ್ರೀತಿಯ ನಿಂತಿಸುವಿಕೆ. ತಮಿಳಿನಲ್ಲಿ ಅದೇ ಬೆಚ್ಚನೆಯ ಭಾವ: <span class="target">சாப்பிட்டீங்களா?</span> (sāppiṭṭīṅgaḷā?). "ಸಾಪ್ಪಿಡು" = ತಿನ್ನು. ಉತ್ತರ ಬೇಡ — "<span class="target">சாப்பிட்டேன், நீங்களும் சாப்பிடுங்க</span>" ಎನ್ನುತ್ತಾರೆ. ಬೆಂಗಾಲಿ ಭಾತ್ ಖೇಯೇಛೋ?, ತಮಿಳು ಸಾಪ್ಪಿಟ್ಟೀಂಗಳಾ?, ಕನ್ನಡ ಊಟ ಆಯ್ತಾ? — ಒಂದೇ ಹೃದಯ.
+  </div>
+
+  <h3>ಮೃದುಗೊಳಿಸುವ ಪದ</h3>
+  <p>ಕನ್ನಡ <b>ಸ್ವಲ್ಪ</b> = ತಮಿಳು <span class="target">கொஞ்சம்</span> (koñcam). ವಿನಂತಿಯನ್ನು ಸೌಮ್ಯಗೊಳಿಸಲು:</p>
+  <table>
+    <tr><td>ಸ್ವಲ್ಪ ಸಹಾಯ ಮಾಡ್ತೀರಾ?</td><td class="target">கொஞ்சம் உதவி செய்வீங்களா?</td></tr>
+    <tr><td>ಸ್ವಲ್ಪ ಹೇಳ್ತೀರಾ?</td><td class="target">கொஞ்சம் சொல்வீங்களா?</td></tr>
+  </table>
+
+  <h3>ಆಹ್ವಾನ ಮತ್ತು ಬೀಳ್ಕೊಡುಗೆ</h3>
+  <table>
+    <tr><td>ಬನ್ನಿ!</td><td class="target">வாங்க! (vāṅga)</td></tr>
+    <tr><td>ಒಳಗೆ ಬನ್ನಿ</td><td class="target">உள்ளே வாங்க</td></tr>
+    <tr><td>ಕೂಡಿ</td><td class="target">உட்காருங்க</td></tr>
+    <tr><td>ಹೋಗಿ ಬನ್ನಿ</td><td class="target">போய் வாங்க</td></tr>
+    <tr><td>ಮತ್ತೆ ಬನ್ನಿ</td><td class="target">மறுபடியும் வாங்க</td></tr>
+  </table>
+  <p>ಗಮನಿಸಿ — "ಹೋಗಿ ಬನ್ನಿ" ಎಂಬ ಭಾವ ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಒಂದೇ. ಹೋದವನು ಹಿಂತಿರುಗಿ ಬರಬೇಕೆಂಬ ಆಶೀರ್ವಾದ. ಈ ನುಡಿಗಟ್ಟು ಇಂಗ್ಲಿಷ್ "goodbye"ಗಿಂತ ಸಂಪೂರ್ಣ ಭಿನ್ನ.</p>
+
+  <div class="nav-btns"><a href="#stage-07">← ಪದಕ್ಷೇತ್ರ</a><a href="#stage-09">ಸಾಹಿತ್ಯದತ್ತ →</a></div>
+</section>
+<section id="stage-09" class="stage">
+  <h2><span class="num">೦೯</span> ಸಾಹಿತ್ಯ</h2>
+  <div class="lede">ತಮಿಳು ಸಾಹಿತ್ಯದ ೨೩೦೦ ವರ್ಷಗಳ ಪರಂಪರೆ — ಕನ್ನಡ ಸಾಹಿತ್ಯದ ಕವಿಗಳ ಕನ್ನಡಿಯಲ್ಲಿ.</div>
+
+  <p>ತಮಿಳು ಸಾಹಿತ್ಯ ಭಾರತದ ಅತಿ ಪ್ರಾಚೀನ ಜೀವಂತ ಸಾಹಿತ್ಯಗಳಲ್ಲಿ ಒಂದು. ಸಂಗಮ ಕಾಲದಿಂದ (ಕ್ರಿ.ಪೂ. ೩ನೇ ಶತಮಾನ) ಇಂದಿನವರೆಗೂ ಎಡೆಬಿಡದೆ ಹರಿಯುತ್ತಿರುವ ಕಾವ್ಯಧಾರೆ. ಕನ್ನಡ ಸಾಹಿತ್ಯಕ್ಕೂ ತಮಿಳಿಗೂ ನೂರಾರು ಸಮಾನಾಂಶಗಳಿವೆ — ಭಕ್ತಿ ಚಳವಳಿ, ವಚನ-ಕಾವ್ಯ ಸಂಪ್ರದಾಯ, ಆಧುನಿಕ ನವೋತ್ಥಾನ, ಅಸ್ಮಿತೆಯ ಅನ್ವೇಷಣೆ.</p>
+
+  <h3>ಸಾಹಿತ್ಯಿಕ ಸೇತುಗಳು</h3>
+
+  <div class="aside">
+    <span class="tag">ತಿರುವಳ್ಳುವರ್ ↔ ಬಸವಣ್ಣ</span>
+    <p><b><span class="target">திருவள்ளுவர்</span></b> (ಕ್ರಿ.ಪೂ. ೩ನೇ ಶತಮಾನ) — <i>ತಿರುಕ್ಕುರಳ್</i> ಬರೆದವರು. ೧೩೩೦ ಜೋಡಿ ಶ್ಲೋಕಗಳು — ಧರ್ಮ, ಅರ್ಥ, ಕಾಮ ಕುರಿತು. ಯಾವ ಜಾತಿ, ಧರ್ಮದ ಗೆರೆಯೂ ಇಲ್ಲ; ಸಾರ್ವತ್ರಿಕ ನೈತಿಕತೆ. ನಮ್ಮ <b>ಬಸವಣ್ಣ</b>ನ ವಚನಗಳಂತೆ — "ಕಳಬೇಡ, ಕೊಲಬೇಡ" ಎಂಬ ಸರಳ ಶಾಶ್ವತ ನೀತಿ, ಎಲ್ಲರ ಭಾಷೆಯಲ್ಲಿ, ಎಲ್ಲರಿಗಾಗಿ. ಇಬ್ಬರೂ ಜಾತಿ-ಪಂಥಗಳ ಗಡಿಯನ್ನು ಮೀರಿ ನಿಂತ ನೈತಿಕ ಸ್ವರ.</p>
+  </div>
+
+  <div class="aside ochre">
+    <span class="tag">ಭಾರತಿಯಾರ್ ↔ ಕುವೆಂಪು</span>
+    <p><b><span class="target">சுப்ரமணிய பாரதியார்</span></b> (೧೮೮೨–೧೯೨೧) — ಆಧುನಿಕ ತಮಿಳು ಕವಿತೆಯ ಸೂರ್ಯ. "ಸ್ವಾತಂತ್ರ್ಯಂ ಎಂಬತು ಅಡಿಮೈಯಿನ್ ಅಂತಕ್ಕಾಲಮ್" ಎಂಬ ಕವಿತೆಗಳಲ್ಲಿ ರಾಷ್ಟ್ರ ಭಾವ, ಭಾಷಾಭಿಮಾನ. ನಮ್ಮ <b>ಕುವೆಂಪು</b> ಅವರು "ಜಯ ಭಾರತ ಜನನಿಯ ತನುಜಾತೆ" ರಚಿಸಿದಂತೆ — ಇಬ್ಬರೂ ಆಧುನಿಕತೆ, ಸಾರ್ವಜನಿಕ ಧ್ವನಿ, ದೇಶ-ಭಾಷೆಯ ಅಭಿಮಾನವನ್ನು ಒಟ್ಟಿಗೆ ಒಗ್ಗೂಡಿಸಿದರು.</p>
+  </div>
+
+  <div class="aside teal">
+    <span class="tag">ಭಾರತಿದಾಸನ್ ↔ ಬೇಂದ್ರೆ</span>
+    <p><b><span class="target">பாரதிதாசன்</span></b> (೧೮೯೧–೧೯೬೪) — ಭಾರತಿಯಾರ್ ಅವರ ಶಿಷ್ಯ, ದ್ರಾವಿಡ ಗೌರವ ಆಂದೋಲನದ ಕವಿ. ಭಾಷೆಯ ಮಾಧುರ್ಯ, ಪ್ರೇಮ, ಸಾಮಾಜಿಕ ಸುಧಾರಣೆ — ನಮ್ಮ <b>ಬೇಂದ್ರೆ</b>ಯವರ ಕಾವ್ಯದಂತೆ ನುಡಿಯ ಜೇನಿಗೆ ನಾದವಿಡುವವರು.</p>
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಕಂಬನ್ ↔ ಕುಮಾರವ್ಯಾಸ/ಪಂಪ</span>
+    <p><b><span class="target">கம்பன்</span></b> (೧೨ನೇ ಶತಮಾನ) — <i>ಕಂಬ ರಾಮಾಯಣಂ</i> ಬರೆದ ಮಹಾಕವಿ. ವಾಲ್ಮೀಕಿ ಕಥೆಯನ್ನು ತಮಿಳು ಆತ್ಮದಲ್ಲಿ ಪುನರ್‌ಜನ್ಮ ಕೊಟ್ಟವರು. ನಮ್ಮ <b>ಕುಮಾರವ್ಯಾಸ</b>ನು ಭಾರತ ಕಥೆಯನ್ನು ಕನ್ನಡ ಮಣ್ಣಿಗೆ ಹೇಗೆ ತಂದನೋ ಹಾಗೆಯೇ. ಇಬ್ಬರೂ "ಅನುವಾದಕ"ರಲ್ಲ — ಮರುಸೃಷ್ಟಿಕರ್ತರು.</p>
+  </div>
+
+  <div class="aside ochre">
+    <span class="tag">ಜಯಕಾಂತನ್ ↔ ಯು.ಆರ್. ಅನಂತಮೂರ್ತಿ</span>
+    <p><b><span class="target">ஜெயகாந்தன்</span></b> (೧೯೩೪–೨೦೧೫) — ಜ್ಞಾನಪೀಠ ಪುರಸ್ಕೃತ, ನಗರ ವಾಸ್ತವವಾದಿ. ತಮಿಳು ಸಾಹಿತ್ಯದ ಸಾಂಪ್ರದಾಯಿಕ ಗಡಿಗಳನ್ನು ಒಡೆದವರು. ನಮ್ಮ <b>ಯು.ಆರ್. ಅನಂತಮೂರ್ತಿ</b> ಅವರ "ಸಂಸ್ಕಾರ"ದಂತೆ ಸಾಮಾಜಿಕ-ಸಾಹಿತ್ಯಿಕ ಸಂಪ್ರದಾಯಗಳೆರಡನ್ನೂ ಪ್ರಶ್ನಿಸಿದವರು. ಇಬ್ಬರೂ ಒಂದೇ ಕಾಲದ ಜ್ಞಾನಪೀಠಿಗಳು.</p>
+  </div>
+
+  <div class="aside teal">
+    <span class="tag">ಪುದುಮೈಪ್ಪಿತ್ತನ್ ↔ ಮಾಸ್ತಿ ವೆಂಕಟೇಶ ಅಯ್ಯಂಗಾರ್</span>
+    <p><b><span class="target">புதுமைப்பித்தன்</span></b> (೧೯೦೬–೧೯೪೮) — ಆಧುನಿಕ ತಮಿಳು ಸಣ್ಣ ಕಥೆಗೆ ಅಡಿಪಾಯ ಹಾಕಿದವರು. "ಹೊಸತನ ಹುಚ್ಚ" ಎಂಬ ಹೆಸರೇ ಕ್ರಾಂತಿಕಾರಕ. ಕನ್ನಡದಲ್ಲಿ <b>ಮಾಸ್ತಿ</b>ಯವರು ಸಣ್ಣ ಕಥೆಗೆ ಘನತೆ ತಂದಂತೆ, ಪುದುಮೈಪ್ಪಿತ್ತನ್ ತಮಿಳಿಗೆ ಆ ಗೌರವ ತಂದರು.</p>
+  </div>
+
+  <h3>ನಿಮಗೆ ಉಚ್ಚರಿಸಬಹುದಾದ ಕೆಲವು ಸಾಲುಗಳು</h3>
+  <div class="passage">
+    <p class="t-line">அகர முதல எழுத்தெல்லாம் ஆதி பகவன் முதற்றே உலகு.</p>
+    <p class="tl-line">akara mudala eḻuttellām ādi bhagavaṉ mudaṟṟē ulagu.</p>
+    <p class="kn-line">— ತಿರುಕ್ಕುರಳ್, ಮೊದಲ ಸಾಲು. "ಅಕ್ಷರಗಳಿಗೆ 'ಅ' ಹೇಗೆ ಮೂಲವೋ, ಹಾಗೆಯೇ ಜಗತ್ತಿಗೆ ಆದಿ ಭಗವಂತ ಮೂಲ."</p>
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಕೊನೆಯ ಮಾತು</span>
+    ನೀವು ಇಷ್ಟು ಕಲಿತಿದ್ದೀರಿ. ಈಗ ತಮಿಳು ಪತ್ರಿಕೆ, ಚಲನಚಿತ್ರ ಗೀತೆ, ಸಂಭಾಷಣೆ — ಯಾವುದೇ ಆಗಲಿ — ತೊಡಗಿ. ಕನ್ನಡಿಗನಿಗೆ ತಮಿಳು ಕಲಿಯಲು ಹೆಚ್ಚಿನ ಸಮಯ ಬೇಕಿಲ್ಲ, ಹೆಚ್ಚಿನ ಕಿವಿ ಬೇಕಷ್ಟೇ. <span class="target">தமிழ் கற்றல் இனிதே!</span> — "ತಮಿಳು ಕಲಿಕೆ ಸವಿ!"
+  </div>
+
+  <div class="nav-btns"><a href="#stage-08">← ಬಳಕೆ</a><a href="#stage-00">↑ ಮೊದಲಿಗೆ</a></div>
+</section>
+
+<footer class="bottom">made by Nil · using Claude</footer>
+
+</div>
+<script>
+(function(){
+  // Tap-to-reveal cards
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('click', function(){ c.classList.toggle('open'); });
+  });
+
+  // Sticky nav active state via scroll
+  var tabs = document.querySelectorAll('nav.tabs a');
+  var sections = document.querySelectorAll('section.stage');
+  function onScroll(){
+    var y = window.scrollY + 120;
+    var current = 0;
+    sections.forEach(function(s,i){
+      if(s.offsetTop <= y) current = i;
+    });
+    tabs.forEach(function(t,i){
+      t.classList.toggle('active', i===current);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>

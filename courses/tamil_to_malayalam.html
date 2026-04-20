@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="தமிழிலிருந்து மலையாளம் கற்கும் ஒரு முதல்-நெறி பாடத்திட்டம் — உயிர் மெய் எழுத்துகளின் வழியில்." />
+<title>മലയാളം പഠിക്കാം — தமிழிலிருந்து மலையாளம்</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Tamil:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Tamil', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .ml { font-family: 'Noto Serif Malayalam', serif; }
+  .ta { font-family: 'Noto Serif Tamil', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Tamil', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .ml { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Tamil', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Tamil', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Tamil', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .ta-g {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .ml-g {
+    font-family: 'Noto Serif Malayalam', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 80px; margin-top: 4px; }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .ml { font-family: 'Noto Serif Malayalam', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .ta-eq { font-family: 'Noto Serif Tamil', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .ml { font-family: 'Noto Serif Malayalam', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .ta-gloss { font-family: 'Noto Serif Tamil', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Tamil', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .ml { font-family: 'Noto Serif Malayalam', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .ta-eq { font-family: 'Noto Serif Tamil', serif; font-size: 15px; color: var(--ink-soft); }
+
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+
+  .vachana {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .vachana::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .vachana .ml { font-size: 18px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; }
+  .vachana .ta-gloss { font-family: 'Noto Serif Tamil', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .vachana .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, tamil);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Tamil', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .ml { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .ml-g { font-size: 26px; }
+    .map-cell .ta-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .ta-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">ஒரு பாலபாடம் · പ്രാഥമിക പുസ്തകം</div>
+    <h1 class="title">
+      <span class="ml">മലയാളം പഠിക്കാം</span>
+      தமிழிலிருந்து மலையாளம் கற்கலாம்
+    </h1>
+    <p class="subtitle">உயிர் மெய் எழுத்துகளின் வழியில் — ஒரே ஒரு புதிய விஷயம் ஒரு சமயத்தில், வடிவம் முன், பொருள் பின், பட்டியல் அல்ல — தமிழ் அறிந்த அனைத்தின் மீது நிற்கும் மலையாளம்.</p>
+    <div class="byline">பத்து படிகள் <span class="sep">·</span> கைப்பேசிக்கு ஏற்றது <span class="sep">·</span> முற்றிலும் சுழியிலிருந்து</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">00</span>அறிமுகம்</button>
+    <button class="stage-tab" data-stage="1"><span class="num">01</span>உயிர்</button>
+    <button class="stage-tab" data-stage="2"><span class="num">02</span>மெய்</button>
+    <button class="stage-tab" data-stage="3"><span class="num">03</span>சேர்க்கை</button>
+    <button class="stage-tab" data-stage="4"><span class="num">04</span>சொற்கள்</button>
+    <button class="stage-tab" data-stage="5"><span class="num">05</span>வாக்கியம்</button>
+    <button class="stage-tab" data-stage="6"><span class="num">06</span>வாசிப்பு</button>
+    <button class="stage-tab" data-stage="7"><span class="num">07</span>சொல்வெளி</button>
+    <button class="stage-tab" data-stage="8"><span class="num">08</span>பயன்பாடு</button>
+    <button class="stage-tab" data-stage="9"><span class="num">09</span>இலக்கியம்</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" id="stage-00" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · அறிமுகம்</div>
+    <h2 class="stage-title">ஏன் இந்த பாடம் வேறுபட்டது</h2>
+    <p class="stage-lede">நீங்கள் தமிழ் அறிவீர்கள். அதாவது மலையாளம் கற்க நீங்கள் ஆங்கில மொழி பேசுவோர் போல் சுழியிலிருந்து தொடங்க வேண்டியதில்லை — 48 ஒலிகளில் 31ஐ, இலக்கணத்தின் எலும்புக்கூட்டை, சொல்லகராதியின் 85%-ஐ நீங்கள் ஏற்கனவே அறிவீர்கள்.</p>
+  </div>
+  <div class="stage-body">
+
+    <p>உங்கள் பாலப் பருவத்தின் <strong>உயிர் மெய் எழுத்துகள்</strong> நூல் நினைவிருக்கிறதா? அதன் அடிப்படை நெறி: <strong>ஒரே சமயத்தில் ஒரே ஒரு புதிய விஷயம்</strong>, கற்பிக்கப்படாத எதையும் உதாரணமாகக் காட்டவேண்டாம். இந்த பாடத்திட்டம் அதே வழியைப் பின்பற்றுகிறது — ஆனால் ஒரு பெரிய சாதகத்துடன்: தமிழும் மலையாளமும் ஒரே குடும்பம், ஒரே தாய் — பழந்தமிழிலிருந்தே 9ஆம் நூற்றாண்டில் மலையாளம் பிரிந்தது. உலகில் மலையாளத்திற்கு தமிழை விட நெருங்கிய சகோதரி மொழி இல்லை.</p>
+
+    <p>ஒரு உதாரணம்: தமிழில் <strong>"நான் நீர் குடிக்கிறேன்"</strong>. மலையாளத்தில் <strong class="ml">"ഞാൻ വെള്ളം കുടിക്കുന്നു"</strong> (ñān veḷḷaṃ kuḍikkunnu). எழுத்துப்பார்த்தாலே சொல் வரிசை ஒன்றே — எழுவாய், செயப்படுபொருள், வினை (SOV). "குடி" என்ற தமிழ் வேர் மலையாளத்தில் "കുടി" ஆக அப்படியே இருக்கிறது. வடிவம் மட்டும் புதிது — கருத்து அல்ல.</p>
+
+    <h3><span class="num">¶</span>தமிழ் → மலையாளம்: எங்கு ஒன்று, எங்கு வேறு</h3>
+
+    <ol class="principles">
+      <li><strong>சொல்லகராதி — 85% பொது.</strong> மரம்/<span class="ml">മരം</span>, மழை/<span class="ml">മഴ</span>, தலை/<span class="ml">തല</span>, கண்/<span class="ml">കണ്ണ്</span>, கை/<span class="ml">കൈ</span>, பால்/<span class="ml">പാൽ</span> — ஒரே சொல், வடிவம் மட்டும் வட்டமான மலையாள வரிவடிவத்தில். ஒவ்வொரு பக்கத்திலும் ஏராளமான சொற்கள் முதல் பார்வையிலேயே அடையாளம் காணப்படும்.</li>
+      <li><strong>இலக்கணம் — எலும்புக்கூடு ஒன்றே.</strong> இரண்டும் SOV, இரண்டும் சொல்லின் பின் விகுதி ஒட்டும் (முன்னுருபல்ல, பின்னுருபு). வீட்டில் = <span class="ml">വീട്ടിൽ</span> (vīṭṭil) — "-il/-ൽ" அதே வேலை செய்கிறது.</li>
+      <li><strong>ழ (ḻ) — நம் இருவரின் மட்டும் சொந்தம்.</strong> தமிழின் <strong>ழ</strong> மலையாளத்தில் <strong class="ml">ഴ</strong> ஆக உள்ளது. உலகின் வேறு எந்த திராவிட மொழியிலும் இல்லை. மழை/<span class="ml">മഴ</span>, வாழை/<span class="ml">വാഴ</span>, ஆழம்/<span class="ml">ആഴം</span> — ஒரே அரிய ஒலி.</li>
+      <li><strong>சாதகம்: பால் வேறுபாடு கைவிடலாம்.</strong> தமிழில் வினை ஆண்/பெண்/அஃறிணையாகத் திரியும் — செய்கிறான்/செய்கிறாள்/செய்கிறது. மலையாளத்தில் இந்த வேறுபாடே இல்லை — <span class="ml">ചെയ്യുന്നു</span> எல்லாருக்கும் ஒன்றே! ஒரு சிக்கலை முற்றிலும் விட்டுவிடலாம்.</li>
+      <li><strong>புதியவை: மூச்சோலிகளும் (aspirated) ஒலிப்பொலிகளும் (voiced).</strong> தமிழில் க, ச, ட, த, ப ஒரே எழுத்து — சூழலுக்கேற்ப ஒலிக்கும். மலையாளத்தில் சமஸ்கிருத பாதிப்பால் <span class="ml">ക/ഖ/ഗ/ഘ</span> — நான்கு தனி எழுத்துகள்! கீதா = <span class="ml">ഗീത</span>, கோபம் = <span class="ml">കോപം</span>. வாயுக்கு இது புதிதல்ல — கண்ணுக்கு மட்டுமே.</li>
+      <li><strong>சில்லு (ചില്ലക്ഷരം) — முற்றிலும் புதிய வடிவம்.</strong> சொல்லின் இறுதியில் மெய்யெழுத்து புள்ளியின்றி தனி வடிவம் எடுக்கிறது: <span class="ml">ൺ, ൻ, ർ, ൽ, ൾ</span>. அவன் = <span class="ml">അവൻ</span> (avaṉ) — அந்த "ൻ" சில்லு. தமிழில் "ன்" என்று புள்ளியிட்டு எழுதுவதை மலையாளம் இந்த சுருக்கமான சிறப்பு வடிவம் செய்கிறது.</li>
+    </ol>
+
+    <div class="aside"><strong>வழிமுறை.</strong> ஒவ்வொரு படியிலும் மலையாள எழுத்து/சொல்/வாக்கியத்தின் அருகில் தமிழ் இணைச்சொல் வைக்கப்பட்டுள்ளது. நீங்கள் தமிழை அடையாளம் கண்டால், மலையாளம் புதிய வடிவம் மட்டுமே — புதிய கருத்து அல்ல.</div>
+
+    <div class="aside"><strong>ஒரு முக்கிய உண்மை.</strong> மலையாளம் தமிழிலிருந்து 9ஆம் நூற்றாண்டில் பிரிந்தது — இரண்டும் மிக நெருக்கம், ஆனால் எழுத்து முற்றிலும் வேறு. தமிழ் எழுத்து கோணமானது, மலையாளம் வட்டமானது — சமய சமஸ்கிருத தாக்கத்தால். வடிவங்கள் மாறின, வேர் ஒன்றே.</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">மேலே <strong>உயிர்</strong> தாவலில் தட்டுங்கள், தொடங்குங்கள்.</p>
+  </div>
+</section>
+<section class="stage" id="stage-01" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ஒலி</div>
+    <h2 class="stage-title">உயிரெழுத்துகள் — <span class="ml">സ്വരാക്ഷരങ്ങൾ</span></h2>
+    <p class="stage-lede">தமிழில் 12 உயிர்கள். மலையாளத்தில் 13 (ഋ சேர்ந்து). ஒலி கிட்டத்தட்ட ஒன்றே — வடிவம் மட்டும் புதிது. ஒவ்வொரு தமிழ் எழுத்திற்கும் அதன் மலையாள இரட்டையனை அடையாளம் காண்போம்.</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+malayalam+vowels+swarangal+pronunciation" title="Malayalam vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">மலையாள உயிரெழுத்துகளின் உச்சரிப்பு <a href="https://www.youtube.com/results?search_query=learn+malayalam+vowels+swarangal+pronunciation" target="_blank" rel="noopener">மேலும் தேடுக ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>படிக்கும் விதி.</strong> ஒவ்வொரு கார்டிலும் தட்டினால் ஒரு உதாரணச் சொல் தெரியும். தமிழ் எழுத்து மேலே, மலையாளம் கீழே — கண் தமிழை அடையாளம் காணும், பின் மலையாள வடிவம் நினைவில் ஏறும்.</div>
+
+    <div class="group-label">குறில் / நெடில் இணை — 'அ' குடும்பம்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="അമ്മ (amma) = அம்மா — தாய்"><div class="ta-g">அ</div><div class="arrow">↓</div><div class="ml-g">അ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ആന (āna) = ஆனை — யானை"><div class="ta-g">ஆ</div><div class="arrow">↓</div><div class="ml-g">ആ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'இ' குடும்பம்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഇത് (it) = இது"><div class="ta-g">இ</div><div class="arrow">↓</div><div class="ml-g">ഇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഈച്ച (īcca) = ஈ (பூச்சி)"><div class="ta-g">ஈ</div><div class="arrow">↓</div><div class="ml-g">ഈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'உ' குடும்பம்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഉപ്പ് (upp) = உப்பு"><div class="ta-g">உ</div><div class="arrow">↓</div><div class="ml-g">ഉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഊണ് (ūṇ) = ஊண் / உணவு"><div class="ta-g">ஊ</div><div class="arrow">↓</div><div class="ml-g">ഊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'எ' குடும்பம்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="എലി (eli) = எலி"><div class="ta-g">எ</div><div class="arrow">↓</div><div class="ml-g">എ</div><div class="label">e (குறில்)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഏഴ് (ēḻ) = ஏழு"><div class="ta-g">ஏ</div><div class="arrow">↓</div><div class="ml-g">ഏ</div><div class="label">ē (நெடில்)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഐദു (aidu) = ஐந்து"><div class="ta-g">ஐ</div><div class="arrow">↓</div><div class="ml-g">ഐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ஒ' குடும்பம்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഒന്ന് (onn) = ஒன்று"><div class="ta-g">ஒ</div><div class="arrow">↓</div><div class="ml-g">ഒ</div><div class="label">o (குறில்)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഓടുക (ōḍuka) = ஓடு"><div class="ta-g">ஓ</div><div class="arrow">↓</div><div class="ml-g">ഓ</div><div class="label">ō (நெடில்)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഔഷധം (auṣadhaṃ) = ஔஷதம் / மருந்து"><div class="ta-g">ஔ</div><div class="arrow">↓</div><div class="ml-g">ഔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>தமிழோடு ஒரே ஒரு வேறுபாடு.</strong> மலையாளத்தில் ஒரு சமஸ்கிருத உயிர் கூடுதலாக உள்ளது: <span class="ml">ഋ</span> (ṛ). தமிழில் இது "ரி" என்று எழுதுவோம் — ரிஷி, கிருஷ்ணன். மலையாளத்தில் அதற்கென்றே ஒரு எழுத்து: <span class="ml">ഋഷി</span> (ṛṣi) = ரிஷி. தமிழின் அதே ஒலி, மலையாளத்தில் தனி வடிவம்.</div>
+
+    <div class="group-label">'஋' — சமஸ்கிருதக் கடன்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഋഷി (ṛṣi) = ரிஷி — தமிழில் 'ரி' என்று எழுதுகிறோம், மலையாளத்தில் தனி எழுத்து" style="grid-column: span 2; border-color: var(--ochre);">
+        <div class="ta-g" style="color: var(--ink-faded);">(ரி)</div>
+        <div class="arrow">↓</div>
+        <div class="ml-g">ഋ</div>
+        <div class="label">ṛ</div>
+        <div class="hint"></div>
+      </div>
+    </div>
+
+    <div class="group-label">அனுஸ்வாரம் & விசர்கம்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഹംസം (haṃsaṃ) = அன்னப்பறவை"><div class="ta-g">அம்</div><div class="arrow">↓</div><div class="ml-g">അം</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ദുഃഖം (duḥkhaṃ) = துக்கம்"><div class="ta-g">அஃ</div><div class="arrow">↓</div><div class="ml-g">അഃ</div><div class="label">aḥ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>மலையாளத்தின் சிறப்பு.</strong> மலையாள சொற்கள் பெரும்பாலும் "-ം" (அனுஸ்வாரம்) முடிவில் வரும். தமிழில் "மரம்", மலையாளத்தில் <span class="ml">മരം</span> — அந்த "ம்" இங்கே "ം" என்று எழுதப்படுகிறது. இதை ஒரு சுரக்கமாகப் பாருங்கள்.</div>
+
+    <h3><span class="num">1.1</span>பயிற்சி</h3>
+    <ul class="clean">
+      <li>ஒவ்வொரு இணையையும் உரக்க 20 முறை சொல்லுங்கள்: அ-ஆ, இ-ஈ, உ-ஊ — ஆனால் மலையாள வடிவத்தை பார்த்தபடி.</li>
+      <li>காகிதத்தில் ஒவ்வொரு மலையாள உயிரையும் 5 முறை எழுதுங்கள். கை கண்ணுக்குக் கற்றுக்கொடுக்கிறது.</li>
+      <li>ஒவ்வொரு மலையாள உயிரையும் ஒரு விநாடியில் அடையாளம் காணும் வரை, படி 2-க்கு செல்லாதீர்கள்.</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-02" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ஒலி (தொடர்ச்சி)</div>
+    <h2 class="stage-title">மெய்யெழுத்துகள் — <span class="ml">വ്യഞ്ജനാക്ഷരങ്ങൾ</span></h2>
+    <p class="stage-lede">தமிழில் 18 மெய்கள். மலையாளத்தில் 36 — ஏனெனில் ஒவ்வொரு வர்க்கத்திலும் நான்கு வேறுபாடுகள் (அல்ப/மஹாப் + அகோஷ/ஹோஷ). தமிழின் "க" என்ற ஒரே எழுத்து மலையாளத்தில் <span class="ml">ക/ഖ/ഗ/ഘ</span> என்று நான்காகிறது.</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+malayalam+consonants+vyanjanangal+pronunciation" title="Malayalam consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">மலையாள மெய்யெழுத்துகளின் உச்சரிப்பு <a href="https://www.youtube.com/results?search_query=learn+malayalam+consonants+vyanjanangal+pronunciation" target="_blank" rel="noopener">மேலும் ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>புதிய கருத்து: மூச்சோலிகள்.</strong> தமிழில் "கமலம்" எழுதும்போது "க"-வின் உச்சரிப்பை வாய் சூழலிலிருந்து அறிகிறது. மலையாளத்தில் நான்கு எழுத்துகள்: <span class="ml">ക</span>(k), <span class="ml">ഖ</span>(kh), <span class="ml">ഗ</span>(g), <span class="ml">ഘ</span>(gh). கவலை வேண்டாம் — தூய திராவிட சொற்களில் பெரும்பாலும் முதல் (<span class="ml">ക</span>) மட்டுமே. மற்ற மூன்றும் சமஸ்கிருதக் கடன் சொற்களில் மட்டும்.</div>
+
+    <h3><span class="num">2.1</span>வல்லின-கண்ட (கவர்க்கம்) — நாக்கின் அடி அண்ணத்தில்</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="കമലം (kamalaṃ) = கமலம் — தாமரை"><div class="ta-g">க</div><div class="arrow">↓</div><div class="ml-g">ക</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ തமிழில் இல்லை! ഖഗം (khagaṃ) = பறவை"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഖ</div><div class="label">kha ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ഗീത (gīta) = கீதை"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഗ</div><div class="label">ga ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ഘടം (ghaṭaṃ) = கடம் / குடம்"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഘ</div><div class="label">gha ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="மெல்லின ங (tamizh ṅ) — அதே ஒலி"><div class="ta-g">ங</div><div class="arrow">↓</div><div class="ml-g">ങ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.2</span>அண்ண-கண்ட (சவர்க்கம்)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ചന്ദ്രൻ (candran) = சந்திரன்"><div class="ta-g">ச</div><div class="arrow">↓</div><div class="ml-g">ച</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ഛത്രം (chatraṃ) = குடை"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഛ</div><div class="label">cha ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ജലം (jalaṃ) = ஜலம் / நீர்"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ജ</div><div class="label">ja ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ഝരി (jhari) = அருவி"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഝ</div><div class="label">jha ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="தமிழ் ஞ — அதே ஒலி. ഞാൻ (ñān) = நான்"><div class="ta-g">ஞ</div><div class="arrow">↓</div><div class="ml-g">ഞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>நல்ல செய்தி.</strong> மலையாளத்தின் "ச" (<span class="ml">ച</span>) தமிழின் "ச" போலவே இருக்கிறது. "ജ" (ja) தமிழுக்குப் புதிது — ஆனால் "ஜன்னல், ஜாக்கிரதை" போன்ற சொற்களில் நீங்கள் ஏற்கனவே இதை பயன்படுத்துகிறீர்கள்.</div>
+
+    <h3><span class="num">2.3</span>நாவு-கண்ட (டவர்க்கம்) — நாக்கு பின்னே சுருட்டப்பட்டு</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ടാക്സി (ṭāksi) = டாக்ஸி"><div class="ta-g">ட</div><div class="arrow">↓</div><div class="ml-g">ട</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ഠ-கள் மலையாளத்திலும் அரிது"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഠ</div><div class="label">ṭha ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ഡംബം (ḍambaṃ) = டம்பம்"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഡ</div><div class="label">ḍa ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ அரிது"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഢ</div><div class="label">ḍha ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="கண் = കണ്ണ് — ண-ഺ ஒரே ஒலி"><div class="ta-g">ண</div><div class="arrow">↓</div><div class="ml-g">ണ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.4</span>பல்-கண்ட (தவர்க்கம்) — நாக்கின் நுனி பற்களின் பின்</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="തല (tala) = தலை"><div class="ta-g">த</div><div class="arrow">↓</div><div class="ml-g">ത</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ഥ-ஒலி — மூச்சுடன் 'த'"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഥ</div><div class="label">tha ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ദിനം (dinaṃ) = தினம் — ஒரே சொல்!"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ദ</div><div class="label">da ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ധനം (dhanaṃ) = தனம் / செல்வம்"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ധ</div><div class="label">dha ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ന — தமிழ் 'ந' (நான், நாடு)"><div class="ta-g">ந</div><div class="arrow">↓</div><div class="ml-g">ന</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.5</span>இதழ்-கண்ட (பவர்க்கம்)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="പുസ്തകം (pustakaṃ) = புஸ்தகம் / புத்தகம்"><div class="ta-g">ப</div><div class="arrow">↓</div><div class="ml-g">പ</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ഫലം (phalaṃ) = பலம் / பழம்"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഫ</div><div class="label">pha ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ബാല (bāla) = பாலன்"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ബ</div><div class="label">ba ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ഭാഷ (bhāṣa) = பாஷா / பாஷை"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഭ</div><div class="label">bha ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="മരം (maraṃ) = மரம் — ஒரே சொல்!"><div class="ta-g">ம</div><div class="arrow">↓</div><div class="ml-g">മ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.6</span>இடையினம் / ஊஷ்மம் / சிறப்பு</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="യാര് (yār) = யார்"><div class="ta-g">ய</div><div class="arrow">↓</div><div class="ml-g">യ</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="രാജാവ് (rājāv) = ராஜா"><div class="ta-g">ர</div><div class="arrow">↓</div><div class="ml-g">ര</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ലത (lata) = லதா / கொடி"><div class="ta-g">ல</div><div class="arrow">↓</div><div class="ml-g">ല</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="വനം (vanaṃ) = வனம் / காடு"><div class="ta-g">வ</div><div class="arrow">↓</div><div class="ml-g">വ</div><div class="label">va</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ശാല (śāla) = சாலை / பள்ளி"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ശ</div><div class="label">śa ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ഷഷ്ഠി (ṣaṣṭhi) = ஷஷ்டி"><div class="ta-g">—</div><div class="arrow">↓</div><div class="ml-g">ഷ</div><div class="label">ṣa ⚡</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="സമയം (samayaṃ) = சமயம் — ஒரே சொல்!"><div class="ta-g">ஸ</div><div class="arrow">↓</div><div class="ml-g">സ</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഹാലു (hālu) = ஹால் / பால்"><div class="ta-g">ஹ</div><div class="arrow">↓</div><div class="ml-g">ഹ</div><div class="label">ha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ളം (ḷaṃ) = இல்-ஒலி. தமிழ் 'ள' (வாழ்வு, ஆள்) போலவே"><div class="ta-g">ள</div><div class="arrow">↓</div><div class="ml-g">ള</div><div class="label">ḷa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.7</span>நம் இருவரின் பரிசு: <span class="ml">ഴ</span></h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="மழை = മഴ, வாழை = വാഴ, ஆழம் = ആഴം. தமிழும் மலையாளமும் மட்டுமே இந்த ஒலியை பாதுகாத்துள்ளன." style="grid-column: span 2; border-color: var(--sindoor);">
+        <div class="ta-g" style="color: var(--sindoor);">ழ</div>
+        <div class="arrow">↓</div>
+        <div class="ml-g" style="color: var(--sindoor);">ഴ</div>
+        <div class="label">ḻa — பழந்திராவிடம்</div>
+        <div class="hint" style="opacity:1; max-height: 80px;">3000 ஆண்டுப் பழைய ஒலி. கன்னடம், தெலுங்கு, துளு எல்லாம் இழந்துவிட்டன — தமிழும் மலையாளமும் மட்டுமே தாங்கி நிற்கின்றன.</div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>முக்கிய உண்மை.</strong> ழ (ḻ) இரண்டிலும் உண்டு — மற்ற திராவிட மொழிகளில் இல்லை. இது தமிழ்-மலையாள சிறப்பு ஒலி. மலையாளம் = <span class="ml">മലയാളം</span>; தமிழ் = தமிழ். இரண்டிலும் "ழ" / "ളം" முடிவில் — சகோதரி மொழிகளின் கையொப்பம்.</div>
+
+    <h3><span class="num">2.8</span>சில்லு (<span class="ml">ചില്ലക്ഷരങ്ങൾ</span>) — மலையாளத்தின் சிறப்பு</h3>
+    <p>சொல்லின் இறுதியில் மெய்யெழுத்து புள்ளியுடன் (் chandrakkala) வராமல், ஒரு தனிப்பட்ட சுருக்க வடிவம் எடுக்கிறது. தமிழில் "அவன்" என்று "ன்" புள்ளியிட்டு எழுதுகிறோம். மலையாளத்தில் <span class="ml">അവൻ</span> — அந்த "ൻ" ஒரு சில்லு.</p>
+
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="അവൻ (avaṉ) = அவன் — சொல் முடிவில் 'ൻ'"><div class="ta-g">ன்</div><div class="arrow">↓</div><div class="ml-g">ൻ</div><div class="label">cil-n</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="പാൽ (pāl) = பால் — சொல் முடிவில் 'ൽ'"><div class="ta-g">ல்</div><div class="arrow">↓</div><div class="ml-g">ൽ</div><div class="label">cil-l</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="കാള (kāḷa) → കാൾ = காள் (உயர்ந்த)"><div class="ta-g">ள்</div><div class="arrow">↓</div><div class="ml-g">ൾ</div><div class="label">cil-ḷ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="കണ്ണ് → சில நேரம் 'ൺ' வடிவம்"><div class="ta-g">ண்</div><div class="arrow">↓</div><div class="ml-g">ൺ</div><div class="label">cil-ṇ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="പേര് → പേർ = பேர்"><div class="ta-g">ர்</div><div class="arrow">↓</div><div class="ml-g">ർ</div><div class="label">cil-r</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>சில்லு புரிந்துவிட்டால்.</strong> ஒரு முழு வகை மலையாளச் சொற்கள் திறந்துவிடுகின்றன: <span class="ml">അവൾ</span> (அவள்), <span class="ml">അവർ</span> (அவர்), <span class="ml">പേർ</span> (பேர்), <span class="ml">പാൽ</span> (பால்). தமிழில் புள்ளியிட்டு எழுதுவதை மலையாளம் சில்லு வடிவில் எழுதுகிறது. கருத்து ஒன்றே — வடிவம் வேறு.</div>
+  </div>
+</section>
+<section class="stage" id="stage-03" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · சேர்க்கை</div>
+    <h2 class="stage-title">உயிர்மெய் & கூட்டெழுத்து — <span class="ml">കൂട്ടക്ഷരങ്ങൾ</span></h2>
+    <p class="stage-lede">தமிழில் க + ா = கா, க + ி = கி. மலையாளத்தில் அதே நிகழ்வு: <span class="ml">ക + ാ = കാ, ക + ി = കി</span>. குறியீட்டு வடிவம் மட்டும் வேறு — விதி ஒன்றே.</p>
+  </div>
+  <div class="stage-body">
+
+    <p>நீங்கள் ஏற்கனவே அறிவீர்கள்: ஒவ்வொரு மெய்யெழுத்திலும் உள்ளார்ந்த 'அ' உள்ளது. உயிர்க்குறி சேர்த்தால் அது மாறும். புள்ளி (்) போட்டால் உயிரே இல்லாமல் நிற்கும். இரண்டு மொழிகளிலும் அதே அபுகிடா அமைப்பு — பிராமி லிபியின் பரிசு.</p>
+
+    <h3><span class="num">3.1</span><span class="ml">ക</span>-வின் உயிர்மெய் — தமிழ் ↔ மலையாளம்</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>உயிர்</th><th>தமிழ்</th><th>மலையாளம்</th><th>உச்சரிப்பு</th></tr>
+        <tr><td>அ</td><td class="ta g">க</td><td><span class="ml g">ക</span></td><td class="mono">ka</td></tr>
+        <tr><td>ஆ</td><td class="ta g">கா</td><td><span class="ml g">കാ</span></td><td class="mono">kā</td></tr>
+        <tr><td>இ</td><td class="ta g">கி</td><td><span class="ml g">കി</span></td><td class="mono">ki</td></tr>
+        <tr><td>ஈ</td><td class="ta g">கீ</td><td><span class="ml g">കീ</span></td><td class="mono">kī</td></tr>
+        <tr><td>உ</td><td class="ta g">கு</td><td><span class="ml g">കു</span></td><td class="mono">ku</td></tr>
+        <tr><td>ஊ</td><td class="ta g">கூ</td><td><span class="ml g">കൂ</span></td><td class="mono">kū</td></tr>
+        <tr><td>எ</td><td class="ta g">கெ</td><td><span class="ml g">കെ</span></td><td class="mono">ke</td></tr>
+        <tr><td>ஏ</td><td class="ta g">கே</td><td><span class="ml g">കേ</span></td><td class="mono">kē</td></tr>
+        <tr><td>ஐ</td><td class="ta g">கை</td><td><span class="ml g">കൈ</span></td><td class="mono">kai</td></tr>
+        <tr><td>ஒ</td><td class="ta g">கொ</td><td><span class="ml g">കൊ</span></td><td class="mono">ko</td></tr>
+        <tr><td>ஓ</td><td class="ta g">கோ</td><td><span class="ml g">കോ</span></td><td class="mono">kō</td></tr>
+        <tr><td>ஔ</td><td class="ta g">கௌ</td><td><span class="ml g">കൌ</span></td><td class="mono">kau</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>வெற்றிக்கதை.</strong> இந்த 11 குறியீடுகள் 36 மலையாள மெய்யெழுத்துகளிலும் அப்படியே பொருந்தும். 11 × 36 = 396 எழுத்துகள் — 11 குறியீடுகளின் விலையில்! தமிழில் நீங்கள் இதை ஏற்கனவே செய்துள்ளீர்கள், இப்போது வடிவங்கள் மட்டும் புதிய உடை அணிகின்றன.</div>
+
+    <h3><span class="num">3.2</span>புள்ளி (சந்திரக்கல) — <span class="ml">ചന്ദ്രക്കല / ്</span></h3>
+    <p>தமிழில் புள்ளி (்) மெய்யெழுத்தின் உள்ளிருக்கும் 'அ'-ஐ நீக்கும். மலையாளத்தில் <span class="ml">്</span> (சந்திரக்கல) அதே வேலையை செய்கிறது. <span class="ml">ക</span> (ka) + <span class="ml">്</span> = <span class="ml">ക്</span> (k).</p>
+
+    <div class="sentence">
+      <div class="ml">ക് + ക = ക്ക</div>
+      <div class="ta-gloss">க் + க = க்க — "அக்கம்", "பக்கம்" போல</div>
+    </div>
+
+    <h3><span class="num">3.3</span>கூட்டெழுத்துகள் — <span class="ml">കൂട്ടക്ഷരങ്ങൾ</span></h3>
+    <p>தமிழில் "வண்ணம், கண்ணன், பட்சி" எழுதும்போது நீங்கள் கூட்டெழுத்துகளையே பயன்படுத்துகிறீர்கள். மலையாளத்தில் அதே வேலை:</p>
+
+    <div class="sentence">
+      <div class="ml">ന് + ന = ന്ന → ഞാന്ന്</div>
+      <div class="ta-gloss">ந் + ந = ந்ந → "ഇന്ന്" (இன்று), "ഒന്ന്" (ஒன்று) — தமிழ் 'ன்ன' வடிவம்</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">ക് + ക = ക്ക → പക്ക</div>
+      <div class="ta-gloss">க் + க = க்க → "பக்கம்" தமிழில், <span class="ml">പക്ക</span> மலையாளத்தில்</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">സ് + ത = സ്ത → പുസ്തകം</div>
+      <div class="ta-gloss">ஸ் + த = ஸ்த → புஸ்தகம் / புத்தகம் — ஒரே சமஸ்கிருத சொல், ஒரே கூட்டெழுத்து</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">ക് + ഷ = ക്ഷ → അക്ഷരം</div>
+      <div class="ta-gloss">க் + ஷ = க்ஷ → அக்ஷரம் / அட்சரம் — தமிழிலும் "க்ஷ" என்றே சேர்க்கிறோம்!</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">ള് + ള = ള്ള → വെള്ളം</div>
+      <div class="ta-gloss">ள் + ள = ள்ள → "வெள்ளம்" தமிழில் — ஒலி அதே, வடிவம் வேறு</div>
+    </div>
+
+    <div class="aside"><strong>பொது விதி.</strong> மலையாளத்தில் கூட்டெழுத்துகள் இடத்திற்கேற்ப இரு வடிவம் எடுக்கும் — சில நேரம் எழுத்துகள் நெருங்கி (<span class="ml">ക്ക</span>), சில நேரம் கீழே ஏறி (<span class="ml">ല്ല</span>). தமிழில் "ட்ட" "ண்ண" போல, மலையாளத்திலும் வெவ்வேறு வடிவம். விதி ஒன்றே: முதல் மெய்யை சந்திரக்கலையால் சுருக்கி அடுத்ததோடு இணை.</div>
+  </div>
+</section>
+<section class="stage" id="stage-04" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · மூல சொற்கள்</div>
+    <h2 class="stage-title">ஐம்பது சொற்கள் — தமிழின் அருகில் மலையாளம்</h2>
+    <p class="stage-lede">ஒவ்வொரு சொல்லின் அருகிலும் தமிழ் இணைச்சொல் உள்ளது. பலவும் நேர் சகோதரிகள் — வடிவம் வேறு, சொல் ஒன்றே.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">4.1</span>பெயர்ச்சொல் / சுட்டுச்சொல்</h3>
+    <div class="words">
+      <div class="word"><span class="ml">ഞാൻ</span><span class="ta-eq">நான்</span><span class="trans">ñān</span><span class="note">நேர் சகோதரி! 'ഞ' = 'ஞ', 'ൻ' = 'ன்'</span></div>
+      <div class="word"><span class="ml">നീ</span><span class="ta-eq">நீ</span><span class="trans">nī</span></div>
+      <div class="word"><span class="ml">നിങ്ങൾ</span><span class="ta-eq">நீங்கள்</span><span class="trans">niṅṅaḷ</span><span class="note">மரியாதை/பன்மை</span></div>
+      <div class="word"><span class="ml">അവൻ</span><span class="ta-eq">அவன்</span><span class="trans">avaṉ</span></div>
+      <div class="word"><span class="ml">അവൾ</span><span class="ta-eq">அவள்</span><span class="trans">avaḷ</span></div>
+      <div class="word"><span class="ml">അത്</span><span class="ta-eq">அது</span><span class="trans">at</span></div>
+      <div class="word"><span class="ml">ഇത്</span><span class="ta-eq">இது</span><span class="trans">it</span></div>
+      <div class="word"><span class="ml">ഞങ്ങൾ</span><span class="ta-eq">நாங்கள்</span><span class="trans">ñaṅṅaḷ</span></div>
+      <div class="word"><span class="ml">അവർ</span><span class="ta-eq">அவர்கள்</span><span class="trans">avar</span></div>
+    </div>
+
+    <div class="aside"><strong>ஒரே வேர், இரு கிளை.</strong> நான்/<span class="ml">ഞാൻ</span>, நீ/<span class="ml">നീ</span>, அவன்/<span class="ml">അവൻ</span>, அவள்/<span class="ml">അവൾ</span>, அது/<span class="ml">അത്</span>. இவை ஐயமற திராவிடச் சொற்கள் — இரண்டும் பழந்தமிழிலிருந்து அப்படியே இறங்கியவை.</div>
+
+    <h3><span class="num">4.2</span>அன்றாடப் பெயர்ச்சொற்கள்</h3>
+    <div class="words">
+      <div class="word"><span class="ml">വീട്</span><span class="ta-eq">வீடு</span><span class="trans">vīḍ</span><span class="note">நேர் சகோதரி!</span></div>
+      <div class="word"><span class="ml">വെള്ളം</span><span class="ta-eq">நீர் / தண்ணீர்</span><span class="trans">veḷḷaṃ</span><span class="note">⚡ வேறுபட்ட சொல்! தமிழ் "வெள்ளம்" = பெருக்கெடுத்த நீர்; மலையாளம் "வெள்ளம்" = சாதாரண நீர்/தண்ணீர்.</span></div>
+      <div class="word"><span class="ml">പേര്</span><span class="ta-eq">பெயர்</span><span class="trans">pēr</span></div>
+      <div class="word"><span class="ml">പുസ്തകം</span><span class="ta-eq">புத்தகம் / புஸ்தகம்</span><span class="trans">pustakaṃ</span><span class="note">ஒரே சமஸ்கிருத சொல்!</span></div>
+      <div class="word"><span class="ml">പൂവ്</span><span class="ta-eq">பூ</span><span class="trans">pūv</span></div>
+      <div class="word"><span class="ml">മരം</span><span class="ta-eq">மரம்</span><span class="trans">maraṃ</span><span class="note">ஒரே சொல்!</span></div>
+      <div class="word"><span class="ml">മഴ</span><span class="ta-eq">மழை</span><span class="trans">maḻa</span><span class="note">'ழ' இரண்டிலும் உண்டு!</span></div>
+      <div class="word"><span class="ml">പാൽ</span><span class="ta-eq">பால்</span><span class="trans">pāl</span><span class="note">சில்லு 'ൽ' = 'ல்'</span></div>
+      <div class="word"><span class="ml">ഭൂമി</span><span class="ta-eq">பூமி</span><span class="trans">bhūmi</span><span class="note">ஒரே சமஸ்கிருத சொல்</span></div>
+      <div class="word"><span class="ml">സൂര്യൻ</span><span class="ta-eq">சூரியன்</span><span class="trans">sūryaṉ</span></div>
+      <div class="word"><span class="ml">സമയം</span><span class="ta-eq">சமயம்</span><span class="trans">samayaṃ</span><span class="note">ஒரே சொல்!</span></div>
+      <div class="word"><span class="ml">ദിനം</span><span class="ta-eq">தினம்</span><span class="trans">dinaṃ</span><span class="note">ஒரே சொல்!</span></div>
+      <div class="word"><span class="ml">രാത്രി</span><span class="ta-eq">ராத்திரி</span><span class="trans">rātri</span><span class="note">சமஸ்கிருதம் — இரண்டிலும் பயன்</span></div>
+      <div class="word"><span class="ml">പണം</span><span class="ta-eq">பணம்</span><span class="trans">paṇaṃ</span></div>
+      <div class="word"><span class="ml">വഴി</span><span class="ta-eq">வழி</span><span class="trans">vaḻi</span><span class="note">'ழ' + 'ഴ' — நம் பரிசு</span></div>
+    </div>
+
+    <h3><span class="num">4.3</span>வினை (எளிய வடிவம்)</h3>
+    <div class="words">
+      <div class="word"><span class="ml">ഇരിക്കുക</span><span class="ta-eq">இரு / இருத்தல்</span><span class="trans">irikkuka</span></div>
+      <div class="word"><span class="ml">പോവുക</span><span class="ta-eq">போ / போதல்</span><span class="trans">pōvuka</span></div>
+      <div class="word"><span class="ml">വരിക</span><span class="ta-eq">வா / வருதல்</span><span class="trans">varika</span></div>
+      <div class="word"><span class="ml">തിന്നുക</span><span class="ta-eq">தின் / தின்னுதல்</span><span class="trans">tinnuka</span></div>
+      <div class="word"><span class="ml">കുടിക്കുക</span><span class="ta-eq">குடி</span><span class="trans">kuḍikkuka</span></div>
+      <div class="word"><span class="ml">നോക്കുക</span><span class="ta-eq">பார் / நோக்கு</span><span class="trans">nōkkuka</span><span class="note">தமிழ் "நோக்கு" (கவனி) = மலையாளம் "பார்"</span></div>
+      <div class="word"><span class="ml">കേൾക്കുക</span><span class="ta-eq">கேள் / கேட்டல்</span><span class="trans">kēḷkkuka</span></div>
+      <div class="word"><span class="ml">നടക്കുക</span><span class="ta-eq">நட / நடத்தல்</span><span class="trans">naḍakkuka</span></div>
+      <div class="word"><span class="ml">ഓടുക</span><span class="ta-eq">ஓடு</span><span class="trans">ōḍuka</span></div>
+      <div class="word"><span class="ml">കൊടുക്കുക</span><span class="ta-eq">கொடு</span><span class="trans">koḍukkuka</span></div>
+      <div class="word"><span class="ml">നിൽക്കുക</span><span class="ta-eq">நில்</span><span class="trans">nilkkuka</span></div>
+      <div class="word"><span class="ml">വേണം</span><span class="ta-eq">வேணும் / வேண்டும்</span><span class="trans">vēṇaṃ</span></div>
+    </div>
+
+    <div class="aside"><strong>வினையின் வேர்.</strong> தமிழ் வினைவேர் அப்படியே மலையாள வினையில் உள்ளது: போ → <span class="ml">പോ</span>, வா → <span class="ml">വാ</span>, இரு → <span class="ml">ഇരു</span>. பிறகு "-uka" சேர்க்கப்படுகிறது — அதுவே மலையாள வினைச்சொல். தமிழில் "-தல்" (நட-த்தல்) என்பது போல.</div>
+
+    <h3><span class="num">4.4</span>வேற்றுமை உருபுகள் — தமிழைப் போலவே பின்னே</h3>
+    <p>தமிழில் "வீட்டில்", "வீட்டிலிருந்து", "வீட்டின்" — உருபு எப்போதும் சொல்லின் பின். மலையாளத்திலும் அதே:</p>
+    <div class="words">
+      <div class="word"><span class="ml">-ക്ക്</span><span class="ta-eq">-க்கு</span><span class="trans">-kku</span><span class="note"><span class="ml">വീട്ടിന്</span> / <span class="ml">വീടിനു</span> = வீட்டுக்கு</span></div>
+      <div class="word"><span class="ml">-ഇൽ</span><span class="ta-eq">-இல்</span><span class="trans">-il</span><span class="note"><span class="ml">വീട്ടിൽ</span> (vīṭṭil) = வீட்டில்</span></div>
+      <div class="word"><span class="ml">-ഇൽ നിന്ന്</span><span class="ta-eq">-இலிருந்து</span><span class="trans">-il ninnu</span><span class="note"><span class="ml">വീട്ടിൽ നിന്ന്</span> = வீட்டிலிருந்து</span></div>
+      <div class="word"><span class="ml">-ഇനെ</span><span class="ta-eq">-ஐ (செயப்படு)</span><span class="trans">-e / -ine</span><span class="note"><span class="ml">പുസ്തകത്തെ</span> = புத்தகத்தை</span></div>
+      <div class="word"><span class="ml">-ന്റെ / -ഉടെ</span><span class="ta-eq">-இன் / -உடைய</span><span class="trans">-nte / -uḍe</span><span class="note"><span class="ml">എന്റെ</span> (ente) = என்னுடைய</span></div>
+    </div>
+
+    <div class="aside"><strong>கிட்டத்தட்ட ஒரே அமைப்பு.</strong> தமிழ் "-இல்" = மலையாளம் "-ഇൽ". தமிழ் "-க்கு" = மலையாளம் "-ക്ക്". தமிழ் "-இன்" = மலையாளம் "-ന്റെ" (உச்சரிப்பு: inte). நீங்கள் தமிழ் சொல்லில் எந்த உருபை சேர்ப்பீர்களோ, அதே இடத்தில் மலையாள சமமானதை சேருங்கள்.</div>
+
+    <h3><span class="num">4.5</span>எண்கள் 1-10</h3>
+    <div class="words">
+      <div class="word"><span class="ml">ഒന്ന്</span><span class="ta-eq">ஒன்று</span><span class="trans">onn</span></div>
+      <div class="word"><span class="ml">രണ്ട്</span><span class="ta-eq">இரண்டு</span><span class="trans">raṇḍ</span></div>
+      <div class="word"><span class="ml">മൂന്ന്</span><span class="ta-eq">மூன்று</span><span class="trans">mūnn</span></div>
+      <div class="word"><span class="ml">നാല്</span><span class="ta-eq">நான்கு</span><span class="trans">nāl</span></div>
+      <div class="word"><span class="ml">അഞ്ച്</span><span class="ta-eq">ஐந்து</span><span class="trans">añc</span></div>
+      <div class="word"><span class="ml">ആറ്</span><span class="ta-eq">ஆறு</span><span class="trans">āṟ</span></div>
+      <div class="word"><span class="ml">ഏഴ്</span><span class="ta-eq">ஏழு</span><span class="trans">ēḻ</span><span class="note">'ழ' இரண்டிலும்!</span></div>
+      <div class="word"><span class="ml">എട്ട്</span><span class="ta-eq">எட்டு</span><span class="trans">eṭṭ</span></div>
+      <div class="word"><span class="ml">ഒമ്പത്</span><span class="ta-eq">ஒன்பது</span><span class="trans">ompat</span></div>
+      <div class="word"><span class="ml">പത്ത്</span><span class="ta-eq">பத்து</span><span class="trans">patt</span></div>
+    </div>
+
+    <div class="aside"><strong>பத்தும் திராவிடம்.</strong> ஒன்று, இரண்டு, மூன்று, நான்கு, ஐந்து, ஆறு, ஏழு, எட்டு, ஒன்பது, பத்து — இவை அனைத்தும் பழந்தமிழிலிருந்து மலையாளம் அப்படியே எடுத்துக்கொண்டவை. சமஸ்கிருதம் (ஏக், த்வி, த்ரி...) எண்களில் நுழையவே இல்லை.</div>
+  </div>
+</section>
+<section class="stage" id="stage-05" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · வாக்கியம்</div>
+    <h2 class="stage-title">வாக்கிய அமைப்பு & வினை வடிவம்</h2>
+    <p class="stage-lede">SOV — எழுவாய், செயப்படுபொருள், வினை. தமிழில் "நான் சோறு தின்கிறேன்", மலையாளத்தில் <span class="ml">"ഞാൻ ചോറ് തിന്നുന്നു"</span>. வரிசை ஒன்றே. ஆனால் ஒரு பெரிய சாதகம்: மலையாளம் வினையில் பால் காட்டாது!</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">5.1</span>சொல் வரிசை — ஒரே அமைப்பு</h3>
+    <div class="sentence">
+      <div class="ml">ഞാൻ പുസ്തകം വായിക്കുന്നു.</div>
+      <div class="trans">ñān pustakaṃ vāyikkunnu.</div>
+      <div class="ta-gloss">நான் புத்தகம் வாசிக்கிறேன்.</div>
+      <div class="literal">எழுவாய் + செயப்படுபொருள் + வினை</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">അവൻ വീട്ടിൽ ഉണ്ട്.</div>
+      <div class="trans">avaṉ vīṭṭil uṇḍ.</div>
+      <div class="ta-gloss">அவன் வீட்டில் இருக்கிறான் / உண்டு.</div>
+    </div>
+
+    <h3><span class="num">5.2</span>வினை வடிவம் — பெரிய சாதகம்</h3>
+    <p>தமிழில் "செய்" என்ற வினை எட்டு வடிவம் எடுக்கும் — செய்கிறேன், செய்கிறாய், செய்கிறான், செய்கிறாள், செய்கிறது, செய்கிறோம், செய்கிறீர்கள், செய்கிறார்கள். மலையாளத்தில்: <strong>ஒரே ஒரு வடிவம்</strong> — <span class="ml">ചെയ്യുന്നു</span> (ceyyunnu). யார் செய்தாலும் அதே சொல்!</p>
+
+    <div class="conjug">
+      <div class="conjug-row"><span class="pron">நான்</span><span class="ta-eq">செய்கிறேன்</span><span class="ml">ചെയ്യുന്നു</span></div>
+      <div class="conjug-row"><span class="pron">நீ</span><span class="ta-eq">செய்கிறாய்</span><span class="ml">ചെയ്യുന്നു</span></div>
+      <div class="conjug-row"><span class="pron">அவன்</span><span class="ta-eq">செய்கிறான்</span><span class="ml">ചെയ്യുന്നു</span></div>
+      <div class="conjug-row"><span class="pron">அவள்</span><span class="ta-eq">செய்கிறாள்</span><span class="ml">ചെയ്യുന്നു</span></div>
+      <div class="conjug-row"><span class="pron">அது</span><span class="ta-eq">செய்கிறது</span><span class="ml">ചെയ്യുന്നു</span></div>
+      <div class="conjug-row"><span class="pron">நாங்கள்</span><span class="ta-eq">செய்கிறோம்</span><span class="ml">ചെയ്യുന്നു</span></div>
+      <div class="conjug-row"><span class="pron">நீங்கள்</span><span class="ta-eq">செய்கிறீர்கள்</span><span class="ml">ചെയ്യുന്നു</span></div>
+      <div class="conjug-row"><span class="pron">அவர்கள்</span><span class="ta-eq">செய்கிறார்கள்</span><span class="ml">ചെയ്യുന്നു</span></div>
+    </div>
+
+    <div class="aside"><strong>சுதந்திரம்!</strong> தமிழ் வினை எப்போதும் எழுவாயோடு ஒத்துப்போக வேண்டும். மலையாளத்தில் அந்த சங்கிலி இல்லை. யார் செய்தாலும் வினை அப்படியே. ஒரு பெரிய சிக்கலை விட்டுவிடுங்கள்.</div>
+
+    <h3><span class="num">5.3</span>மூன்று காலம் — ஒரே வேர்</h3>
+    <div class="conjug">
+      <div class="conjug-row"><span class="pron">நிகழ்</span><span class="ta-eq">செய்கிறேன்</span><span class="ml">ചെയ്യുന്നു (ceyyunnu)</span></div>
+      <div class="conjug-row"><span class="pron">இறந்த</span><span class="ta-eq">செய்தேன்</span><span class="ml">ചെയ്തു (ceytu)</span></div>
+      <div class="conjug-row"><span class="pron">எதிர்</span><span class="ta-eq">செய்வேன்</span><span class="ml">ചെയ്യും (ceyyuṃ)</span></div>
+    </div>
+
+    <h3><span class="num">5.4</span>எதிர்மறை</h3>
+    <div class="sentence">
+      <div class="ml">ഞാൻ പോവുന്നില്ല.</div>
+      <div class="trans">ñān pōvunnilla.</div>
+      <div class="ta-gloss">நான் போகவில்லை.</div>
+      <div class="literal">"-இல்ல" = "-இல்லை" (தமிழ்)</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">അവൻ ഇവിടെ ഇല്ല.</div>
+      <div class="trans">avaṉ iviḍe illa.</div>
+      <div class="ta-gloss">அவன் இங்கே இல்லை.</div>
+    </div>
+
+    <div class="aside"><strong>"இல்ல" என்ற சொல்.</strong> தமிழின் "இல்லை" மலையாளத்தில் "<span class="ml">ഇല്ല</span>" (illa). முடிவு 'ை' போகிறது, அவ்வளவே. எதிர்மறைக்கு மையமான இந்த சொல் இரண்டிலும் அப்படியே.</div>
+
+    <h3><span class="num">5.5</span>வினாச் சொற்கள்</h3>
+    <div class="words">
+      <div class="word"><span class="ml">എന്ത്?</span><span class="ta-eq">என்ன?</span><span class="trans">ent?</span></div>
+      <div class="word"><span class="ml">ആര്?</span><span class="ta-eq">யார்?</span><span class="trans">ār?</span></div>
+      <div class="word"><span class="ml">എവിടെ?</span><span class="ta-eq">எங்கே?</span><span class="trans">eviḍe?</span></div>
+      <div class="word"><span class="ml">എപ്പോൾ?</span><span class="ta-eq">எப்போது?</span><span class="trans">eppōḷ?</span></div>
+      <div class="word"><span class="ml">എന്തുകൊണ്ട്?</span><span class="ta-eq">ஏன்?</span><span class="trans">entukoṇṭ?</span><span class="note">"என்ன கொண்டு?" என்ற நேரடிப் பொருள்</span></div>
+      <div class="word"><span class="ml">എങ്ങനെ?</span><span class="ta-eq">எப்படி?</span><span class="trans">eṅṅane?</span></div>
+    </div>
+
+    <h3><span class="num">5.6</span>சில முழு வாக்கியங்கள்</h3>
+    <div class="sentence">
+      <div class="ml">എന്റെ പേര് രമേശ് ആണ്.</div>
+      <div class="trans">ente pēr ramēś āṇ.</div>
+      <div class="ta-gloss">என் பெயர் ரமேஷ் ஆகும்.</div>
+    </div>
+    <div class="sentence">
+      <div class="ml">നിങ്ങൾക്ക് എങ്ങനെ ഉണ്ട്?</div>
+      <div class="trans">niṅṅaḷkk eṅṅane uṇḍ?</div>
+      <div class="ta-gloss">உங்களுக்கு எப்படி இருக்கிறது? / நீங்கள் எப்படி இருக்கிறீர்கள்?</div>
+    </div>
+    <div class="sentence">
+      <div class="ml">എനിക്ക് വെള്ളം വേണം.</div>
+      <div class="trans">enikk veḷḷaṃ vēṇaṃ.</div>
+      <div class="ta-gloss">எனக்கு தண்ணீர் வேணும். (வேண்டும்)</div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-06" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · வாசிப்பு</div>
+    <h2 class="stage-title">மூன்று பத்திகள் — படிப்படியாக</h2>
+    <p class="stage-lede">இப்போது வரை படித்ததை வைத்து மூன்று பத்திகள். ஒவ்வொன்றும் மலையாள எழுத்து + உச்சரிப்பு + தமிழ் பொருள். ஆங்கிலம் இல்லை.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">6.1</span>சுய அறிமுகம்</h3>
+    <div class="vachana">
+      <div class="ml">എന്റെ പേര് അനു ആണ്. ഞാൻ കേരളത്തിൽ നിന്നാണ്. എനിക്ക് ഇരുപത് വയസ്സ് ആണ്. ഞാൻ പുസ്തകം വായിക്കുന്നു. എനിക്ക് മഴ ഇഷ്ടമാണ്.</div>
+      <div class="trans mono" style="font-size:13px; color: var(--sindoor); margin-bottom: 10px;">ente pēr anu āṇ. ñān kēraḷattil ninnāṇ. enikk irupat vayassu āṇ. ñān pustakaṃ vāyikkunnu. enikk maḻa iṣṭamāṇ.</div>
+      <div class="ta-gloss">என் பெயர் அனு ஆகும். நான் கேரளத்திலிருந்து (வந்தவள்). எனக்கு இருபது வயதாகும். நான் புத்தகம் வாசிக்கிறேன். எனக்கு மழை பிடிக்கும்.</div>
+      <div class="attrib">பத்தி 1 · சுய அறிமுகம்</div>
+    </div>
+
+    <h3><span class="num">6.2</span>ஒரு நாள் வாழ்க்கை</h3>
+    <div class="vachana">
+      <div class="ml">രാവിലെ ഞാൻ എഴുന്നേൽക്കുന്നു. മുഖം കഴുകി, പാല് കുടിക്കുന്നു. പിന്നെ ഞാൻ സ്കൂളിൽ പോവുന്നു. ഉച്ചയ്ക്ക് ചോറ് തിന്നുന്നു. വൈകുന്നേരം വീട്ടിൽ വരുന്നു. രാത്രി അമ്മ കഥ പറയുന്നു.</div>
+      <div class="trans mono" style="font-size:13px; color: var(--sindoor); margin-bottom: 10px;">rāvile ñān eḻunnēlkkunnu. mukhaṃ kaḻuki, pāl kuḍikkunnu. pinne ñān skūḷil pōvunnu. uccaykk cōṟ tinnunnu. vaikunnēraṃ vīṭṭil varunnu. rātri amma katha paṟayunnu.</div>
+      <div class="ta-gloss">காலையில் நான் எழுகிறேன். முகம் கழுவி, பால் குடிக்கிறேன். பிறகு நான் பள்ளிக்குப் போகிறேன். மதியம் சோறு தின்கிறேன். மாலையில் வீட்டிற்கு வருகிறேன். இரவு அம்மா கதை சொல்கிறாள்.</div>
+      <div class="attrib">பத்தி 2 · ஒரு நாள்</div>
+    </div>
+
+    <div class="aside"><strong>அடையாளம் கண்டீர்களா?</strong> "ரா(வி)லே, பால், போ(வுன்னு), சோறு, வீட்டில், ராத்திரி, அம்மா, கதை, (பர)சொல்" — பெரும்பாலான வேர்கள் உங்கள் அன்றாடத் தமிழே! மலையாள அமைப்பில் "-உன்னு" (நிகழ்வு) சேர்கிறது. அது மட்டுமே புதிது.</div>
+
+    <h3><span class="num">6.3</span>இருவர் உரையாடல்</h3>
+    <div class="vachana">
+      <div class="ml">
+        <strong>അനു:</strong> രമേശേ, നീ എവിടെ പോവുന്നു?<br/>
+        <strong>രമേശ്:</strong> ഞാൻ കടയിൽ പോവുന്നു. പാല് വാങ്ങണം.<br/>
+        <strong>അനു:</strong> എനിക്കും വരാമോ?<br/>
+        <strong>രമേശ്:</strong> വരൂ. ഒരുമിച്ച് പോവാം.<br/>
+        <strong>അനു:</strong> പുറത്ത് മഴ ഉണ്ടോ?<br/>
+        <strong>രമേശ്:</strong> ഇല്ല, ഇപ്പോൾ ഇല്ല. വേഗം വാ.<br/>
+        <strong>അനു:</strong> ശരി, വരുന്നു.
+      </div>
+      <div class="trans mono" style="font-size:13px; color: var(--sindoor); margin-bottom: 10px;">anu: ramēśē, nī eviḍe pōvunnu? — ramēś: ñān kaḍayil pōvunnu, pāl vāṅṅaṇaṃ. — anu: enikkuṃ varāmō? — ramēś: varū, orumiccu pōvāṃ. — anu: puṟattu maḻa uṇḍō? — ramēś: illa, ippōḷ illa, vēgaṃ vā. — anu: śari, varunnu.</div>
+      <div class="ta-gloss">
+        <strong>அனு:</strong> ரமேஷே, நீ எங்கே போகிறாய்?<br/>
+        <strong>ரமேஷ்:</strong> நான் கடைக்கு போகிறேன். பால் வாங்க வேண்டும்.<br/>
+        <strong>அனு:</strong> எனக்கும் வரலாமா?<br/>
+        <strong>ரமேஷ்:</strong> வா. ஒருமிச்சு / சேர்ந்து போவோம்.<br/>
+        <strong>அனு:</strong> வெளியே மழை உண்டா?<br/>
+        <strong>ரமேஷ்:</strong> இல்லை, இப்போ இல்லை. வேகமாக வா.<br/>
+        <strong>அனு:</strong> சரி, வருகிறேன்.
+      </div>
+      <div class="attrib">பத்தி 3 · உரையாடல்</div>
+    </div>
+
+    <div class="aside"><strong>ஒரு கண்ணோட்டம்.</strong> "சரி" என்ற தமிழ் வார்த்தை மலையாளத்திலும் <span class="ml">ശരി</span> (śari). "வேகம்" = <span class="ml">വേഗം</span>. "வா" = <span class="ml">വാ</span>. "ஒருமிச்சு" (சேர்ந்து) = <span class="ml">ഒരുമിച്ചു</span>. மலையாளப் பேச்சில் பாதிக்கு மேல் சொற்களை நீங்கள் உடனே புரிந்துகொள்ள முடியும்.</div>
+  </div>
+</section>
+<section class="stage" id="stage-07" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · சொல்வெளி</div>
+    <h2 class="stage-title">சொல்லின் நிலப்பரப்பு — உறவு, காலம், உடல், இயக்கம்</h2>
+    <p class="stage-lede">இரு மொழிகளும் உலகை எப்படி வெட்டி எடுக்கின்றன. ஒரே கருத்து, வேறு வடிவம் — அல்லது ஒரே சொல், சற்று வேறு பொருள். இங்கே ஒரு பக்கத்திற்கு அனைத்தும்.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">7.1</span>குடும்ப உறவுகள்</h3>
+    <div class="words">
+      <div class="word"><span class="ml">അമ്മ</span><span class="ta-eq">அம்மா</span><span class="trans">amma</span><span class="note">நேர் சகோதரி!</span></div>
+      <div class="word"><span class="ml">അച്ഛൻ</span><span class="ta-eq">அப்பா / அச்சன்</span><span class="trans">acchaṉ</span><span class="note">தமிழ் "அச்சன்" (மனிதன்) = மலையாளம் "தந்தை"</span></div>
+      <div class="word"><span class="ml">മാമൻ</span><span class="ta-eq">மாமா</span><span class="trans">māmaṉ</span><span class="note">தாய்வழி மாமா</span></div>
+      <div class="word"><span class="ml">ചേട്ടൻ</span><span class="ta-eq">அண்ணன்</span><span class="trans">cēṭṭaṉ</span><span class="note">மூத்த சகோதரன்</span></div>
+      <div class="word"><span class="ml">ചേച്ചി</span><span class="ta-eq">அக்கா</span><span class="trans">cēcci</span><span class="note">மூத்த சகோதரி</span></div>
+      <div class="word"><span class="ml">അനിയൻ</span><span class="ta-eq">தம்பி</span><span class="trans">aniyaṉ</span></div>
+      <div class="word"><span class="ml">അനിയത്തി</span><span class="ta-eq">தங்கை</span><span class="trans">aniyatti</span></div>
+      <div class="word"><span class="ml">മകൻ</span><span class="ta-eq">மகன்</span><span class="trans">makaṉ</span><span class="note">ஒரே சொல்!</span></div>
+      <div class="word"><span class="ml">മകൾ</span><span class="ta-eq">மகள்</span><span class="trans">makaḷ</span><span class="note">ஒரே சொல்!</span></div>
+    </div>
+
+    <div class="aside"><strong>கவனிக்க.</strong> தமிழில் "அச்சன்" = ஒரு ஆண், ஒரு நபர். மலையாளத்தில் <span class="ml">അച്ഛൻ</span> = தந்தை. ஒரே சொல், பொருள் குறுக்கியுள்ளது. தாய்வழி உறவுகள் (மாமா, மாமி, அம்மா) இரண்டிலும் பழைய திராவிட முறையை காத்துள்ளன.</div>
+
+    <h3><span class="num">7.2</span>காலம் — நேற்று / இன்று / நாளை</h3>
+    <div class="words">
+      <div class="word"><span class="ml">ഇന്ന്</span><span class="ta-eq">இன்று</span><span class="trans">inn</span></div>
+      <div class="word"><span class="ml">ഇന്നലെ</span><span class="ta-eq">நேற்று</span><span class="trans">innale</span></div>
+      <div class="word"><span class="ml">നാളെ</span><span class="ta-eq">நாளை</span><span class="trans">nāḷe</span><span class="note">நேர் சகோதரி!</span></div>
+      <div class="word"><span class="ml">ഇപ്പോൾ</span><span class="ta-eq">இப்போது</span><span class="trans">ippōḷ</span></div>
+      <div class="word"><span class="ml">അപ്പോൾ</span><span class="ta-eq">அப்போது</span><span class="trans">appōḷ</span></div>
+      <div class="word"><span class="ml">രാവിലെ</span><span class="ta-eq">காலை / ராவிலே</span><span class="trans">rāvile</span></div>
+      <div class="word"><span class="ml">ഉച്ച</span><span class="ta-eq">உச்சி / நண்பகல்</span><span class="trans">ucca</span></div>
+      <div class="word"><span class="ml">വൈകുന്നേരം</span><span class="ta-eq">மாலை</span><span class="trans">vaikunnēraṃ</span><span class="note">தமிழ் "வைகு-" வேர், "நேரம்" சேர்ந்தது</span></div>
+      <div class="word"><span class="ml">രാത്രി</span><span class="ta-eq">ராத்திரி / இரவு</span><span class="trans">rātri</span></div>
+    </div>
+
+    <h3><span class="num">7.3</span>உடல் உறுப்புகள்</h3>
+    <div class="words">
+      <div class="word"><span class="ml">തല</span><span class="ta-eq">தலை</span><span class="trans">tala</span></div>
+      <div class="word"><span class="ml">കണ്ണ്</span><span class="ta-eq">கண்</span><span class="trans">kaṇṇ</span><span class="note">ஒரே சொல்!</span></div>
+      <div class="word"><span class="ml">മൂക്ക്</span><span class="ta-eq">மூக்கு</span><span class="trans">mūkk</span></div>
+      <div class="word"><span class="ml">ചെവി</span><span class="ta-eq">செவி / காது</span><span class="trans">cevi</span></div>
+      <div class="word"><span class="ml">വായ</span><span class="ta-eq">வாய்</span><span class="trans">vāya</span></div>
+      <div class="word"><span class="ml">നാക്ക്</span><span class="ta-eq">நாக்கு</span><span class="trans">nākk</span></div>
+      <div class="word"><span class="ml">കൈ</span><span class="ta-eq">கை</span><span class="trans">kai</span><span class="note">ஒரே சொல்!</span></div>
+      <div class="word"><span class="ml">കാൽ</span><span class="ta-eq">கால்</span><span class="trans">kāl</span><span class="note">சில்லு 'ൽ' = 'ல்'</span></div>
+      <div class="word"><span class="ml">വയർ</span><span class="ta-eq">வயிறு</span><span class="trans">vayar</span></div>
+      <div class="word"><span class="ml">ഹൃദയം</span><span class="ta-eq">இதயம் / ஹ்ருதயம்</span><span class="trans">hṛdayaṃ</span><span class="note">சமஸ்கிருதம்</span></div>
+    </div>
+
+    <div class="aside"><strong>உடல் முழுவதும் பொதுச் சொல்.</strong> தலை, கண், மூக்கு, செவி, வாய், நாக்கு, கை, கால், வயிறு — ஒவ்வொன்றும் திராவிடச் சொல். சமஸ்கிருதத்தின் "நேத்ரம், கர்ணம், ஹஸ்தம், பாதம்" பேச்சில் நுழையவே இல்லை. இரண்டு மொழிகளும் தம் உடலை தம் சொற்களால் பெயரிட்டன.</div>
+
+    <h3><span class="num">7.4</span>இயக்க வினைகள்</h3>
+    <div class="words">
+      <div class="word"><span class="ml">പോവുക</span><span class="ta-eq">போ</span><span class="trans">pōvuka</span></div>
+      <div class="word"><span class="ml">വരിക</span><span class="ta-eq">வா</span><span class="trans">varika</span></div>
+      <div class="word"><span class="ml">നടക്കുക</span><span class="ta-eq">நட</span><span class="trans">naḍakkuka</span></div>
+      <div class="word"><span class="ml">ഓടുക</span><span class="ta-eq">ஓடு</span><span class="trans">ōḍuka</span></div>
+      <div class="word"><span class="ml">ഇരിക്കുക</span><span class="ta-eq">இரு / உட்காரு</span><span class="trans">irikkuka</span></div>
+      <div class="word"><span class="ml">നിൽക്കുക</span><span class="ta-eq">நில்</span><span class="trans">nilkkuka</span></div>
+      <div class="word"><span class="ml">കയറുക</span><span class="ta-eq">ஏறு / கயறு</span><span class="trans">kayaṟuka</span></div>
+      <div class="word"><span class="ml">ഇറങ്ങുക</span><span class="ta-eq">இறங்கு</span><span class="trans">iraṅṅuka</span></div>
+    </div>
+
+    <div class="aside"><strong>ஒரே ஒரு பொதுப் போக்கு.</strong> மலையாள வினையில் ஒரு "-க்குக" (-kkuka) முடிவை கவனித்தீர்களா? இரு-க்குக, நட-க்குக. தமிழில் இதற்கு நிகர் "-த்தல்" (இரு-த்தல், நட-த்தல்). வேர் ஒன்றே, முடிவு மட்டும் வேறு.</div>
+
+    <h3><span class="num">7.5</span>இயற்கை</h3>
+    <div class="words">
+      <div class="word"><span class="ml">കടൽ</span><span class="ta-eq">கடல்</span><span class="trans">kaḍal</span></div>
+      <div class="word"><span class="ml">മല</span><span class="ta-eq">மலை</span><span class="trans">mala</span></div>
+      <div class="word"><span class="ml">ആകാശം</span><span class="ta-eq">ஆகாசம் / வானம்</span><span class="trans">ākāśaṃ</span></div>
+      <div class="word"><span class="ml">കാറ്റ്</span><span class="ta-eq">காற்று</span><span class="trans">kāṟṟ</span></div>
+      <div class="word"><span class="ml">നക്ഷത്രം</span><span class="ta-eq">நட்சத்திரம்</span><span class="trans">nakṣatraṃ</span></div>
+      <div class="word"><span class="ml">ചന്ദ്രൻ</span><span class="ta-eq">சந்திரன் / நிலா</span><span class="trans">candraṉ</span></div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-08" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · பயன்பாடு</div>
+    <h2 class="stage-title">மரியாதை, மென்மை, மற்றும் அன்றாடப் பேச்சு</h2>
+    <p class="stage-lede">வாக்கியம் அறிந்த பிறகு அதை மென்மையாக சொல்வது. மலையாளத்தில் மரியாதை அமைப்பு இரண்டு நிலை; தமிழில் மூன்று. அதுவே கற்க எளிய சமன்பாடு.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">8.1</span>மரியாதை நிலைகள்</h3>
+    <div class="words">
+      <div class="word"><span class="ml">നീ</span><span class="ta-eq">நீ</span><span class="trans">nī</span><span class="note">தோழமை / குழந்தை</span></div>
+      <div class="word"><span class="ml">നിങ്ങൾ</span><span class="ta-eq">நீங்கள்</span><span class="trans">niṅṅaḷ</span><span class="note">மரியாதை / பன்மை</span></div>
+      <div class="word"><span class="ml">താങ്കൾ</span><span class="ta-eq">தாங்கள்</span><span class="trans">tāṅkaḷ</span><span class="note">உயர் மரியாதை (எழுத்துமுறை)</span></div>
+    </div>
+
+    <div class="aside"><strong>ஒரே அமைப்பு.</strong> தமிழ் "நீ/நீங்கள்/தாங்கள்" = மலையாளம் "<span class="ml">നീ/നിങ്ങൾ/താങ്കൾ</span>". அதே வேர்கள், அதே நிலைப்படி! மலையாளத்தில் மூன்றாவது நிலை பேச்சில் அரிது — இரண்டு நிலை போதும். தமிழ் பேசும் நீங்கள் ஒரு நிலை குறைவாக நினைத்துக்கொள்ளலாம்.</div>
+
+    <h3><span class="num">8.2</span>வழங்கும் சொற்றொடர்கள்</h3>
+    <div class="words">
+      <div class="word"><span class="ml">നമസ്കാരം</span><span class="ta-eq">வணக்கம் / நமஸ்காரம்</span><span class="trans">namaskāraṃ</span><span class="note">இரண்டிலும் பயன்படும் சமஸ்கிருத சொல்</span></div>
+      <div class="word"><span class="ml">നന്ദി</span><span class="ta-eq">நன்றி</span><span class="trans">nandi</span><span class="note">ஒரே சொல்!</span></div>
+      <div class="word"><span class="ml">ക്ഷമിക്കണം</span><span class="ta-eq">மன்னிக்கவும் / க்ஷமிக்கவும்</span><span class="trans">kṣamikkaṇaṃ</span></div>
+      <div class="word"><span class="ml">ശരി</span><span class="ta-eq">சரி</span><span class="trans">śari</span><span class="note">ஒரே சொல்!</span></div>
+      <div class="word"><span class="ml">വേണ്ട</span><span class="ta-eq">வேண்டாம்</span><span class="trans">vēṇḍa</span></div>
+      <div class="word"><span class="ml">വേണം</span><span class="ta-eq">வேணும்</span><span class="trans">vēṇaṃ</span></div>
+    </div>
+
+    <h3><span class="num">8.3</span>கேரளத்தின் வரவேற்பு — "சாப்பிட்டாயா?"</h3>
+    <div class="sentence">
+      <div class="ml">ചോറുണ്ടോ?</div>
+      <div class="trans">cōṟuṇḍō?</div>
+      <div class="ta-gloss">சோறு உண்டோ? / சாப்பிட்டாயா?</div>
+      <div class="literal">"சோறு + உண்டு + -ஓ?" — உடனடியாக கவனிக்கும் வாழ்த்து</div>
+    </div>
+
+    <div class="aside"><strong>"சாப்பிட்டாயா?" என்ற பண்பாடு.</strong> கேரளத்திலும் தமிழகத்திலும் உறவினரை சந்தித்ததும் முதல் கேள்வி உணவு சம்பந்தமாக இருக்கும். தமிழில் "சாப்பிட்டாயா?"; மலையாளத்தில் "<span class="ml">ചോറുണ്ടോ?</span>" (சோறு உண்டோ?). "உண்டு/ഉണ്ട്" என்ற வினை இரண்டிலும் ஒன்றே — "இருத்தல்" / "சாப்பிடுதல்".</div>
+
+    <h3><span class="num">8.4</span>மென்மையாக்கும் சொற்கள்</h3>
+    <div class="words">
+      <div class="word"><span class="ml">കുറച്ച്</span><span class="ta-eq">கொஞ்சம் / சற்று</span><span class="trans">kuṟacc</span><span class="note">கேட்பதை மென்மையாக்கும்</span></div>
+      <div class="word"><span class="ml">ഒന്ന്</span><span class="ta-eq">ஒரு / ஒன்று</span><span class="trans">onn</span><span class="note">"கொஞ்சம்" போல கோரிக்கையை மென்மையாக்கும்</span></div>
+      <div class="word"><span class="ml">ദയവായി</span><span class="ta-eq">தயவுசெய்து</span><span class="trans">dayavāyi</span></div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">ഒന്ന് കുറച്ച് വെള്ളം തരാമോ?</div>
+      <div class="trans">onn kuṟacc veḷḷaṃ tarāmō?</div>
+      <div class="ta-gloss">கொஞ்சம் தண்ணீர் தருவீர்களா?</div>
+    </div>
+
+    <h3><span class="num">8.5</span>அந்நியரை அழைக்கும் முறை</h3>
+    <div class="words">
+      <div class="word"><span class="ml">ചേട്ടാ</span><span class="ta-eq">அண்ணா</span><span class="trans">cēṭṭā</span><span class="note">மூத்த ஆடவனை அழைக்க</span></div>
+      <div class="word"><span class="ml">ചേച്ചി</span><span class="ta-eq">அக்கா</span><span class="trans">cēcci</span><span class="note">மூத்த பெண்ணை அழைக்க</span></div>
+      <div class="word"><span class="ml">അമ്മാവാ</span><span class="ta-eq">மாமா</span><span class="trans">ammāvā</span><span class="note">பெரியோர் ஆடவர்</span></div>
+      <div class="word"><span class="ml">അമ്മായി</span><span class="ta-eq">மாமி</span><span class="trans">ammāyi</span></div>
+    </div>
+
+    <div class="aside"><strong>தமிழ் பாணியே.</strong> நீங்கள் தமிழ்நாட்டில் "அண்ணா, அக்கா, மாமா, மாமி" போல் அழைப்பீர்கள் — கேரளத்திலும் அதே முறை: "ചേട്ടാ, ചേച്ചി, അമ്മാവാ, അമ്മായി". பழக்கம் ஒன்றே, வடிவம் வேறு.</div>
+
+    <h3><span class="num">8.6</span>சில முக்கியத் தொடர்கள்</h3>
+    <div class="sentence">
+      <div class="ml">എനിക്ക് മനസ്സിലാവുന്നില്ല.</div>
+      <div class="trans">enikk manassilāvunnilla.</div>
+      <div class="ta-gloss">எனக்கு புரியவில்லை.</div>
+    </div>
+    <div class="sentence">
+      <div class="ml">ഒന്നുകൂടി പറയാമോ?</div>
+      <div class="trans">onnukūḍi paṟayāmō?</div>
+      <div class="ta-gloss">ஒரு முறை (மேலும்) சொல்வீர்களா?</div>
+    </div>
+    <div class="sentence">
+      <div class="ml">സുഖമാണോ?</div>
+      <div class="trans">sukhamāṇō?</div>
+      <div class="ta-gloss">சுகமா? / நலமா?</div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-09" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · இலக்கியம்</div>
+    <h2 class="stage-title">மலையாள இலக்கியத்தின் பாலம்</h2>
+    <p class="stage-lede">மலையாள இலக்கியம் 800 ஆண்டுகள் பழையது — ஆனால் தமிழின் உடன்பிறப்பு. ஒவ்வொரு மலையாள எழுத்தாளருக்கும் தமிழில் ஒரு சகோதர ஆளுமை உண்டு. அந்தப் பாலத்தில் நிற்கும்போது மலையாள இலக்கியம் அந்நியமாகத் தோன்றாது.</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="vachana">
+      <div class="ml" style="font-size: 17px; line-height: 1.8;">
+        "ഹരിശ്രീ ഗണപതയേ നമഃ" — എഴുത്തിനിരുത്തൽ ചടങ്ങിൽ കുട്ടിയുടെ നാവിൽ അരി മണിയിൽ ആദ്യമായി എഴുതിക്കുന്ന വരി.
+      </div>
+      <div class="ta-gloss">"ஹரிஷ்ரீ கணபதயே நம:" — எழுத்தினிருத்தல் என்ற சடங்கில் குழந்தையின் நாக்கில் அரிசி மணியில் முதலாவதாக எழுதிக்காட்டும் வரி. கேரளத்தின் "வித்யாரம்ப" சடங்கு — தமிழில் இதற்கு இணை "ஏடு துவங்குதல்".</div>
+      <div class="attrib">ஒரு பாலபாடம் — கேரளம்</div>
+    </div>
+
+    <h3><span class="num">9.1</span>இலக்கியப் பாலங்கள் — மலையாளம் ↔ தமிழ்</h3>
+
+    <div class="vachana">
+      <div class="ml"><strong>തുഞ്ചത്ത് എഴുത്തച്ഛൻ ↔ கம்பன்</strong></div>
+      <div class="ta-gloss">எழுத்தச்சன் (16ஆம் நூற்றாண்டு) "அத்யாத்ம ராமாயணம் கிளிப்பாட்டு" எழுதி மலையாளத்தை செம்மைப்படுத்தினார். கம்பனின் "கம்ப ராமாயணம்" தமிழில் அதே வேலையைச் செய்தது — ராமகதையை மக்கள் மொழிக்கு கொண்டு வந்தார். "மொழித்தந்தை" என்ற பட்டம் எழுத்தச்சனுக்கு, தமிழின் "கம்பன் பாடியிருக்கும்" புகழ் போன்றது.</div>
+      <div class="attrib">பாலம் 1 · மொழித்தந்தை</div>
+    </div>
+
+    <div class="vachana">
+      <div class="ml"><strong>വൈക്കം മുഹമ്മദ് ബഷീർ ↔ புதுமைப்பித்தன்</strong></div>
+      <div class="ta-gloss">பஷீர் (1908-1994) மலையாளத்தின் நகைச்சுவை மனிதாபிமான குரல். சாதாரண மனிதர்களை, அடித்தட்டு மக்களை, முஸ்லிம் சமூகத்தை முதன்முதலாக இலக்கியத்தில் கொண்டுவந்தார். "பால்யகாலசகி", "பாத்துமாவின் ஆடு" என்ற படைப்புகள். தமிழில் புதுமைப்பித்தனின் சிறுகதைகள் — சமூகத்தின் ஒதுக்கப்பட்டவர்களின் குரல், அதே சுதந்திரமான நடை.</div>
+      <div class="attrib">பாலம் 2 · சாமானிய மனிதனின் குரல்</div>
+    </div>
+
+    <div class="vachana">
+      <div class="ml"><strong>തകഴി ശിവശങ്കരപിള്ള ↔ ஜெயகாந்தன்</strong></div>
+      <div class="ta-gloss">தகழி (1912-1999) "செம்மீன்", "கயர்" எழுதி ஞானபீட விருது பெற்றவர். மீனவர், விவசாயிகள், உழைக்கும் வர்க்கம் — சமூகப் போராட்டம். ஜெயகாந்தன் தமிழில் அதே இலக்கிய யதார்த்தம் — "கோகிலா" "சில நேரங்களில் சில மனிதர்கள்" — நகர்ப்புற ஏழைகளின் வாழ்க்கை. இருவரும் இலக்கியத்திற்கு சமூக மனசாட்சியாக இருந்தனர்.</div>
+      <div class="attrib">பாலம் 3 · சமூக யதார்த்தம்</div>
+    </div>
+
+    <div class="vachana">
+      <div class="ml"><strong>ഒ. വി. വിജയൻ ↔ சுந்தர ராமசாமி</strong></div>
+      <div class="ta-gloss">ஓ.வி. விஜயன் "ഖസാക്കിന്റെ ഇതിഹാസം" (கசாக்கின் இதிஹாசம்) — மலையாள நவீன இலக்கியத்தின் திருப்பு. தத்துவம், கற்பனை, மொழி சோதனை. சுந்தர ராமசாமி தமிழில் "ஜே.ஜே. சில குறிப்புகள்", "குழந்தைகள் பெண்கள் ஆண்கள்" — அதே சோதனை மனம், நவீன மொழி தேடல். இருவரும் தம் மொழியை மொடர்னிஸத்துக்கு கொண்டு சேர்த்தவர்கள்.</div>
+      <div class="attrib">பாலம் 4 · நவீனத்துவம்</div>
+    </div>
+
+    <div class="vachana">
+      <div class="ml"><strong>കുമാരൻ ആശാൻ ↔ பாரதியார்</strong></div>
+      <div class="ta-gloss">குமாரன் ஆசான் (1873-1924) — மலையாளத்தின் "மஹாகவி". "வீண பூ", "சிந்தாவிஷ்டயாய சீதா" — சாதி எதிர்ப்பு, பெண் விடுதலை, நவயுக கவிதை. பாரதி தமிழில் ஒரே காலகட்டத்தில் அதே சுவாசம் — "பாரதத்தின் ஜெய கோஷம்", "குயில் பாட்டு". இருவருமே தம் மொழியின் முதல் நவீன கவிஞர், தம் சமூகத்தின் மறுமலர்ச்சிக் குரல்.</div>
+      <div class="attrib">பாலம் 5 · மறுமலர்ச்சிக் கவிஞர்கள்</div>
+    </div>
+
+    <h3><span class="num">9.2</span>முதல் கவிதை — சொற்கள் நீங்கள் அறிந்தவை</h3>
+
+    <div class="vachana">
+      <div class="ml" style="font-size: 19px; line-height: 2;">
+        മഴ പെയ്യുന്നു,<br/>
+        മരം നനയുന്നു,<br/>
+        പൂവ് ചിരിക്കുന്നു,<br/>
+        ഭൂമി മണക്കുന്നു.
+      </div>
+      <div class="trans mono" style="font-size:13px; color: var(--sindoor); margin-bottom: 10px;">maḻa peyyunnu, maraṃ nanayunnu, pūv cirikkunnu, bhūmi maṇakkunnu.</div>
+      <div class="ta-gloss">
+        மழை பெய்கிறது,<br/>
+        மரம் நனைகிறது,<br/>
+        பூ சிரிக்கிறது,<br/>
+        பூமி மணக்கிறது.
+      </div>
+      <div class="attrib">ஒரு சிறு கவிதை · அனைத்தும் உங்களுக்குத் தெரிந்த சொற்கள்</div>
+    </div>
+
+    <div class="aside"><strong>எண்ணிப் பாருங்கள்.</strong> "மழை, மரம், பூ, பூமி, நனை, சிரி, மணக்க" — நான்கு வரியில் ஏழு சொற்கள், அனைத்தும் தமிழ்! வினை முடிவு "-உன்னு" மட்டும் புதிது. இதுதான் மலையாள இலக்கியத்தின் ரகசியம் — உங்கள் அன்றாடத் தமிழின் வேர்களிலேயே அது ஓடுகிறது.</div>
+
+    <h3><span class="num">9.3</span>இங்கிருந்து எங்கே?</h3>
+    <ul class="clean">
+      <li>எழுத்தச்சனின் "ராமாயணம் கிளிப்பாட்டு" தொடங்கும் வரிகளை படியுங்கள் — அனைவருக்கும் அறிமுகமான ராமகதை, புதிய மொழியில்.</li>
+      <li>பஷீரின் "ந്துപ്പാപ്പാക്കൊരാനേണ്ടാര്ന്ന്" — சிறிய நாவல், பேச்சு மலையாளம், நகைச்சுவை.</li>
+      <li>குமாரன் ஆசானின் "வீண பூ" — பத்து வரி கவிதைகள், பாரதியின் தரம், அதே காலகட்டம்.</li>
+      <li>மனோரமா, மாத்ருபூமி போன்ற நாளிதழ்களை தினம் ஒரு தலைப்பு படியுங்கள் — அன்றாட சொற்கள் நிறைய மீண்டும் மீண்டும் வரும்.</li>
+      <li>மலையாள திரைப்படம் — பாஷீர், அடூர் கோபாலகிருஷ்ணன், ஆர். வி. ராமனின் படங்களில் தமிழ் போலவே பேசுகிறார்கள். கவனியுங்கள்.</li>
+    </ul>
+
+    <div class="aside"><strong>இறுதி வார்த்தை.</strong> மலையாளம் தமிழின் உடன்பிறப்பு — ஒரே தாய், ஒரே காலம், ஒரே மண். வெறும் 1200 ஆண்டுகள் முன்பு ஒரு சிறு மலையின் அப்பால் உங்கள் முன்னோர் பேசிக்கொண்டிருந்தது எதுவோ, அதுதான் இன்றைய மலையாளம். வடிவம் வேறுபட்டிருக்கலாம் — குரல் ஒன்றே.</div>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn">← முன்</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">பின் →</button>
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="ml">മലയാളം പഠിക്കാം</span>
+    உயிர் மெய் முறையில் ஒரு பாலபாடம் · அக்கறையுடன் உருவாக்கப்பட்டது · 2026<br/>
+    ஒரே ஒரு புதிய விஷயம் ஒரு சமயத்தில் · வடிவம் முன், பொருள் பின் · பட்டியல் அல்ல, அமைப்பு<br/>
+    <span style="display:inline-block;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sindoor);">made by Nil <span class="sep">·</span> using Claude</span>
+  </div>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.stage-tab');
+  const sections = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const scrollWrap = document.getElementById('stageScroll');
+  const total = sections.length;
+  let current = 0;
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function show(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+    sections.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.toggle('done', i < current);
+      d.classList.toggle('current', i === current);
+    });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    nextBtn.textContent = current === total - 1 ? 'முடிவு' : 'பின் →';
+    prevBtn.textContent = current === 0 ? '← முன்' : '← முன்';
+
+    const activeTab = tabs[current];
+    if (activeTab && scrollWrap) {
+      const tabLeft = activeTab.offsetLeft;
+      const tabWidth = activeTab.offsetWidth;
+      const wrapWidth = scrollWrap.clientWidth;
+      scrollWrap.scrollTo({ left: tabLeft - wrapWidth / 2 + tabWidth / 2, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+  });
+
+  document.querySelectorAll('.map-cell').forEach(card => {
+    const hint = card.querySelector('.hint');
+    const hintText = card.dataset.hint;
+    if (hintText && hint && !hint.textContent.trim()) hint.textContent = hintText;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+      }
+    });
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

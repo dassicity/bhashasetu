@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="kn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ಕನ್ನಡದಿಂದ ಪಂಜಾಬಿಗೆ — ಭಾಷಾಸೇತು</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;600;700&family=Noto+Serif+Gurmukhi:wght@400;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Noto Serif Kannada',serif;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at top left,#F7EFD9 0%,transparent 50%),
+    radial-gradient(ellipse at bottom right,#EDE2C4 0%,transparent 60%),
+    var(--paper);
+  line-height:1.7;
+  min-height:100vh;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.35; pointer-events:none; z-index:1; mix-blend-mode:multiply;
+}
+.wrap{position:relative; z-index:2; max-width:820px; margin:0 auto; padding:20px 18px 80px}
+header.top{text-align:center; padding:22px 8px 10px; border-bottom:1px solid rgba(60,40,20,.18)}
+header.top h1{font-family:'Fraunces',serif; font-weight:600; font-style:italic; font-size:30px; margin:0 0 6px; color:var(--sindoor)}
+header.top .sub{color:var(--ink-faded); font-size:15px}
+.target{font-family:'Noto Serif Gurmukhi',serif}
+.mono{font-family:'JetBrains Mono',monospace; font-size:.92em; color:var(--ink-faded)}
+nav.tabs{
+  position:sticky; top:0; z-index:10;
+  display:flex; flex-wrap:wrap; gap:6px;
+  padding:10px 4px; margin:14px -4px 18px;
+  background:linear-gradient(to bottom,var(--paper) 82%,transparent);
+  border-bottom:1px solid rgba(60,40,20,.15);
+}
+nav.tabs button{
+  font-family:'Noto Serif Kannada',serif; font-size:14px;
+  background:var(--paper-warm); color:var(--ink-soft);
+  border:1px solid rgba(60,40,20,.18);
+  padding:6px 10px; border-radius:18px; cursor:pointer;
+}
+nav.tabs button.active{background:var(--sindoor); color:#FBF4E0; border-color:var(--sindoor)}
+section.stage{display:none; padding:14px 2px 30px}
+section.stage.active{display:block}
+section.stage h2{font-family:'Fraunces',serif; font-weight:600; font-style:italic; color:var(--teal); border-bottom:2px solid var(--ochre); padding-bottom:6px; margin:10px 0 18px; font-size:26px}
+section.stage h3{font-family:'Fraunces',serif; font-weight:600; color:var(--sindoor); margin:22px 0 8px; font-size:20px}
+section.stage h4{color:var(--ink-soft); margin:18px 0 6px; font-size:17px}
+p{margin:10px 0}
+.aside{
+  background:linear-gradient(135deg,#F9F1DA,#EFE2BF);
+  border-left:4px solid var(--ochre);
+  padding:12px 14px; margin:14px 0; border-radius:4px;
+  box-shadow:0 1px 2px rgba(60,40,20,.08);
+}
+.aside b{color:var(--sindoor)}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:8px; margin:10px 0}
+.card{
+  background:var(--paper-warm); border:1px solid rgba(60,40,20,.18);
+  padding:10px; border-radius:6px; text-align:center; cursor:pointer;
+  transition:background .2s;
+}
+.card:hover{background:var(--paper-deep)}
+.card .t{font-family:'Noto Serif Gurmukhi',serif; font-size:28px; color:var(--ink); line-height:1.2}
+.card .s{font-family:'Noto Serif Kannada',serif; font-size:18px; color:var(--ink-soft)}
+.card .tr{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-faded)}
+.card .hint{display:none; font-size:13px; color:var(--ink-soft); margin-top:6px; padding-top:6px; border-top:1px dashed rgba(60,40,20,.25)}
+.card.open .hint{display:block}
+.family{margin:14px 0 6px; padding:10px 12px; background:rgba(184,128,45,.12); border-radius:6px}
+.family .label{font-weight:700; color:var(--teal); font-size:16px}
+.family .note{font-size:14px; color:var(--ink-faded); margin-top:4px}
+table{width:100%; border-collapse:collapse; margin:12px 0; font-size:14px}
+th,td{border:1px solid rgba(60,40,20,.18); padding:6px 8px; text-align:left; vertical-align:top}
+th{background:var(--paper-deep); color:var(--ink-soft)}
+td .target{font-size:18px}
+.video{margin:14px 0}
+.video-frame{position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:6px; border:1px solid rgba(60,40,20,.2)}
+.video-frame iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0}
+.video-caption{font-size:13px; color:var(--ink-faded); margin-top:6px; text-align:center}
+.video-caption a{color:var(--sindoor); text-decoration:none}
+.passage{background:var(--paper-warm); border:1px solid rgba(60,40,20,.15); padding:14px; border-radius:6px; margin:12px 0}
+.passage .tg{font-family:'Noto Serif Gurmukhi',serif; font-size:19px; line-height:1.9; color:var(--ink)}
+.passage .tr{font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--ink-faded); margin:8px 0}
+.passage .gl{color:var(--ink-soft); font-size:15px}
+.flag{display:inline-block; background:var(--sindoor); color:#FBF4E0; font-size:11px; padding:1px 5px; border-radius:3px; margin-left:4px; vertical-align:middle}
+.known{display:inline-block; background:var(--teal); color:#FBF4E0; font-size:11px; padding:1px 5px; border-radius:3px; margin-left:4px}
+.nav-btns{display:flex; justify-content:space-between; gap:10px; margin-top:24px; padding-top:14px; border-top:1px solid rgba(60,40,20,.18)}
+.nav-btns button{
+  font-family:'Noto Serif Kannada',serif; font-size:14px;
+  background:var(--teal); color:#FBF4E0; border:none; padding:8px 16px; border-radius:4px; cursor:pointer;
+}
+.nav-btns button:disabled{background:var(--ink-faded); opacity:.5; cursor:default}
+footer{text-align:center; padding:22px 8px 4px; color:var(--ink-faded); font-size:13px; font-style:italic; font-family:'Fraunces',serif}
+ul.clean{padding-left:20px} ul.clean li{margin:6px 0}
+.ol li{margin:10px 0}
+@media(max-width:420px){
+  .wrap{padding:14px 10px 60px}
+  header.top h1{font-size:24px}
+  nav.tabs button{font-size:13px; padding:5px 8px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+  section.stage h2{font-size:22px}
+  .card .t{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>ಕನ್ನಡದಿಂದ ಪಂಜಾಬಿಗೆ</h1>
+  <div class="sub">ಕನ್ನಡಿಗರಿಗಾಗಿ <span class="target">ਪੰਜਾਬੀ</span> — ಹತ್ತು ಹಂತಗಳ ಸೇತುವೆ</div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-stage="0" class="active">೦೦ · ಪರಿಚಯ</button>
+  <button data-stage="1">೦೧ · ಸ್ವರ</button>
+  <button data-stage="2">೦೨ · ವ್ಯಂಜನ</button>
+  <button data-stage="3">೦೩ · ಸಂಯೋಜನೆ</button>
+  <button data-stage="4">೦೪ · ಪದಗಳು</button>
+  <button data-stage="5">೦೫ · ವಾಕ್ಯ</button>
+  <button data-stage="6">೦೬ · ಓದು</button>
+  <button data-stage="7">೦೭ · ಪದಕ್ಷೇತ್ರ</button>
+  <button data-stage="8">೦೮ · ಬಳಕೆ</button>
+  <button data-stage="9">೦೯ · ಸಾಹಿತ್ಯ</button>
+</nav>
+
+<section class="stage active" id="stage-00">
+<h2>ಪರಿಚಯ — ಎರಡು ಲಿಪಿಗಳ ನಡುವೆ ಸೇತುವೆ</h2>
+
+<p>ನೀವು ಚಿಕ್ಕಂದಿನಲ್ಲಿ <b>ಕನ್ನಡ ಕಲಿ</b> ಅಥವಾ <b>ಬಾರಹ</b> ಪುಸ್ತಕದಿಂದ ಅಕ್ಷರಮಾಲೆ ಕಲಿತಿರಬಹುದು — "ಕ ಕಾ ಕಿ ಕೀ ಕು ಕೂ" ಎಂದು ಪಠಣ ಮಾಡಿದ್ದು ನೆನಪಿದೆಯೇ? ಆ ಒಂದೇ ಪಾಠದ ತತ್ತ್ವ — ವ್ಯಂಜನ ಜೊತೆ ಸ್ವರಚಿಹ್ನೆ — ಪಂಜಾಬಿಯ ಗುರುಮುಖಿ ಲಿಪಿಯಲ್ಲಿಯೂ ಅದೇ ನಿಯಮದಲ್ಲಿ ನಡೆಯುತ್ತದೆ. <span class="target">ਕ ਕਾ ਕਿ ਕੀ ਕੁ ਕੂ</span> — ಅಕ್ಷರಗಳ ಆಕಾರ ಬೇರೆ, ಆಟದ ನಿಯಮ ಒಂದೇ.</p>
+
+<p>ಕನ್ನಡ ದ್ರಾವಿಡ ಕುಟುಂಬ, ಪಂಜಾಬಿ ಇಂಡೋ-ಆರ್ಯನ್ ಕುಟುಂಬ — ಬೇರೆ ಕುಟುಂಬಗಳಾದರೂ, ಎರಡಕ್ಕೂ ಬ್ರಾಹ್ಮೀ ಮೂಲದ ಅಬುಗಿದ ಲಿಪಿ, ಎರಡಕ್ಕೂ SOV ವಾಕ್ಯಕ್ರಮ, ಎರಡಕ್ಕೂ ಪರಸರ್ಗ (postposition). <b>೪೨ರಲ್ಲಿ ೪೨ ಧ್ವನಿಗಳು ಹಂಚಿಕೊಳ್ಳಲ್ಪಟ್ಟಿವೆ</b> — ಅಂದರೆ ನಿಮ್ಮ ಬಾಯಿಗೆ ಹೊಸ ಉಚ್ಚಾರಣೆಯ ಅಭ್ಯಾಸ ಬೇಡ. ಸಂಸ್ಕೃತದ ಮೂಲಕ ~೭೦% ಪದಸಂಪತ್ತಿ ಹೊಂದಿಕೊಳ್ಳುತ್ತದೆ: <span class="target">ਦਿਨ</span> = ದಿನ, <span class="target">ਨਾਮ</span> = ನಾಮ/ಹೆಸರು, <span class="target">ਸੂਰਜ</span> = ಸೂರ್ಯ.</p>
+
+<p>ಒಂದು ಸರಳ ವಾಕ್ಯ ನೋಡಿ — ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಪದಗಳ ಕ್ರಮ ನಿಖರವಾಗಿ ಒಂದೇ:<br>
+ಕನ್ನಡ: <b>ನಾನು ಹಾಲು ಕುಡಿಯುತ್ತೇನೆ.</b> (ಕರ್ತೃ — ಕರ್ಮ — ಕ್ರಿಯೆ)<br>
+ಪಂಜಾಬಿ: <span class="target">ਮੈਂ ਦੁੱਧ ਪੀਂਦਾ ਹਾਂ।</span> <span class="mono">(maĩ duddh pīndā hā̃)</span> — ಅದೇ ಕ್ರಮ.</p>
+
+<h3>೬ ಸೇತುಬಿಂದುಗಳು — ಲಾಭ ಮತ್ತು ಎಚ್ಚರಿಕೆ</h3>
+<ol class="ol">
+<li><b>ಅಬುಗಿದ ತತ್ತ್ವ ನಿಮಗೆ ಗೊತ್ತು.</b> ಕನ್ನಡದಲ್ಲಿ ಕ + ಾ = ಕಾ; ಗುರುಮುಖಿಯಲ್ಲಿ <span class="target">ਕ + ਾ = ਕਾ</span>. ವ್ಯಂಜನದಲ್ಲಿ ಅಂತರ್ಗತ 'ಅ' ಇದೆ, ಸ್ವರಚಿಹ್ನೆ ಸೇರಿಸಿದರೆ ಬೇರೆ ಸ್ವರ — ಈ ಸೂತ್ರ ಬದಲಾಗುವುದಿಲ್ಲ.</li>
+<li><b>ಬಾಯಿಗೆ ಹೊಸ ಸದ್ದಿಲ್ಲ.</b> ಕ, ಖ, ಗ, ಘ, ಟ, ಠ, ಣ, ತ, ದ, ಧ — ಈ ಎಲ್ಲ ಧ್ವನಿಗಳೂ ಕನ್ನಡದಲ್ಲಿಯೇ ಇವೆ. ಹೊಸ ಫೋನೀಮ್ ಶೂನ್ಯ.</li>
+<li><b>ವಾಕ್ಯಕ್ರಮ ಒಂದೇ (SOV).</b> "ಅವನು ಪುಸ್ತಕ ಓದುತ್ತಾನೆ" = <span class="target">ਉਹ ਕਿਤਾਬ ਪੜ੍ਹਦਾ ਹੈ</span>. ಕ್ರಿಯೆ ಕೊನೆಯಲ್ಲಿ — ಯಾವುದೇ ಪುನಾರಚನೆ ಬೇಡ.</li>
+<li><b>ಪರಸರ್ಗಗಳ ಭಾಷೆ.</b> ಕನ್ನಡದ -ಗೆ, -ಅಲ್ಲಿ, -ಇಂದ — ಪಂಜಾಬಿಯ <span class="target">ਨੂੰ, ਵਿਚ, ਤੋਂ</span>. ಪದದ ನಂತರ ಬರುವ ಸಹಾಯಕ — ಇದು ನಿಮ್ಮ ಚಿಂತನಾ ಕ್ರಮ.</li>
+<li><b>ತತ್ಸಮ ಸೇತುವೆ.</b> ಸಂಸ್ಕೃತ ಮೂಲದ ಪದಗಳು ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಇವೆ: ಧನ್ಯವಾದ → <span class="target">ਧੰਨਵਾਦ</span>, ಸಮಯ → <span class="target">ਸਮਾਂ</span>, ಮಿತ್ರ → <span class="target">ਮਿੱਤਰ</span>. ಈಗಾಗಲೇ ಕಲಿತ ಶಬ್ದಕೋಶ.</li>
+<li><b>ಎಚ್ಚರಿಕೆ — ಲಿಪಿಯ ಆಕಾರ ಮಾತ್ರ ಬೇರೆ.</b> ಗುರುಮುಖಿ ಉತ್ತರ-ಬ್ರಾಹ್ಮೀ ಶಾಖೆ — ಮೇಲೆ ಒಂದು ಶಿರೋರೇಖೆ (ਸਿਰਲੇਖ) ಇದ್ದು ಅದರಿಂದ ಅಕ್ಷರಗಳು ತೂಗಾಡುತ್ತವೆ. ಕನ್ನಡದಲ್ಲಿ ತಲೆಕಟ್ಟು ಇಲ್ಲ, ಬದಲಾಗಿ ಬಳಕುತ ವೃತ್ತಾಕಾರ. ನಿಯಮ ಒಂದೇ, ಚಿತ್ರ ಬೇರೆ.</li>
+</ol>
+
+<div class="aside"><b>ಗಮನಿಸಿ —</b> ಗುರುಮುಖಿಯಲ್ಲಿ ಸ್ವರಾಕ್ಷರಗಳಿಗೆ ಮೂರು ಆಧಾರ ಅಕ್ಷರಗಳಿವೆ: <span class="target">ੳ</span> (ಊರ), <span class="target">ਅ</span> (ಐಡ), <span class="target">ੲ</span> (ಇಡೀ). ಇವೇ ವಾಹಕಗಳ ಮೇಲೆ ಸ್ವರಚಿಹ್ನೆ ಬಸ್ತು ಸ್ವತಂತ್ರ ಸ್ವರ ಬರೆಯುತ್ತಾರೆ. ಕನ್ನಡದಲ್ಲಿ ಅ, ಇ, ಉ ಪ್ರತ್ಯೇಕ ಅಕ್ಷರಗಳು — ಇದೇ ಅತಿ ಮುಖ್ಯ ವ್ಯತ್ಯಾಸ.</div>
+</section>
+<section class="stage" id="stage-01">
+<h2>ಸ್ವರ — ಕುಟುಂಬಗಳಲ್ಲಿ ಜೋಡಿಸಿದ ಹತ್ತು ಧ್ವನಿಗಳು</h2>
+
+<p>ಕನ್ನಡದ ಹ್ರಸ್ವ-ದೀರ್ಘ ಜೋಡಿಗಳನ್ನು ನೀವು ಚೆನ್ನಾಗಿ ಬಲ್ಲಿರಿ. ಗುರುಮುಖಿಯಲ್ಲಿ ಅದೇ ಹತ್ತು ಸ್ವರಗಳು — ಆದರೆ ಎರಡು ಮುಖ್ಯ ಮಾರ್ಪಾಡು: ಒಂದು, ಹ್ರಸ್ವ 'ಎ' ಇಲ್ಲ, ಕೇವಲ ದೀರ್ಘ <span class="target">ਏ</span>; ಎರಡು, ಹ್ರಸ್ವ 'ಒ' ಇಲ್ಲ, ಕೇವಲ ದೀರ್ಘ <span class="target">ਓ</span>. ಬೇರೆ ಎಲ್ಲ ಜೋಡಿಗಳು ಒಂದೇ.</p>
+
+<div class="family">
+  <div class="label">'ಅ' ಕುಟುಂಬ — ಹ್ರಸ್ವ/ದೀರ್ಘ ಜೋಡಿ</div>
+  <div class="note">ಕನ್ನಡದಂತೆ ಇಲ್ಲಿಯೂ ಸ್ಪಷ್ಟ ಹ್ರಸ್ವ-ದೀರ್ಘ ಭೇದ.</div>
+</div>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਅ</div><div class="s">ಅ</div><div class="tr">a</div><div class="hint">ಹ್ರಸ್ವ 'ಅ' — ಉದಾ: <span class="target">ਅੱਜ</span> = ಇಂದು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਆ</div><div class="s">ಆ</div><div class="tr">aː</div><div class="hint">ದೀರ್ಘ 'ಆ' — ಉದಾ: <span class="target">ਆਮ</span> = ಸಾಮಾನ್ಯ/ಮಾವು</div></div>
+</div>
+
+<div class="family">
+  <div class="label">'ಇ' ಕುಟುಂಬ — ವಾಹಕ <span class="target">ੲ</span> ಮೇಲೆ</div>
+  <div class="note">ಸ್ವತಂತ್ರ ಇ, ಈ — ಗುರುಮುಖಿಯಲ್ಲಿ <span class="target">ੲ</span> ಎಂಬ ಆಧಾರ ಅಕ್ಷರದ ಮೇಲೆ ಚಿಹ್ನೆ ಬರೆಯಲಾಗುತ್ತದೆ.</div>
+</div>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਇ</div><div class="s">ಇ</div><div class="tr">i</div><div class="hint">ಹ್ರಸ್ವ 'ಇ' — ಉದಾ: <span class="target">ਇੱਕ</span> = ಒಂದು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਈ</div><div class="s">ಈ</div><div class="tr">iː</div><div class="hint">ದೀರ್ಘ 'ಈ' — ಉದಾ: <span class="target">ਈਦ</span> = ಈದ್ ಹಬ್ಬ</div></div>
+</div>
+
+<div class="family">
+  <div class="label">'ಉ' ಕುಟುಂಬ — ವಾಹಕ <span class="target">ੳ</span> ಮೇಲೆ</div>
+  <div class="note">ಉ, ಊ, ಓ — ಮೂರೂ <span class="target">ੳ</span> ಆಧಾರದ ಮೇಲೆ ಬರೆಯಲಾಗುತ್ತವೆ.</div>
+</div>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਉ</div><div class="s">ಉ</div><div class="tr">u</div><div class="hint">ಹ್ರಸ್ವ 'ಉ' — ಉದಾ: <span class="target">ਉਹ</span> = ಅವನು/ಅವಳು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਊ</div><div class="s">ಊ</div><div class="tr">uː</div><div class="hint">ದೀರ್ಘ 'ಊ' — ಉದಾ: <span class="target">ਊਠ</span> = ಒಂಟೆ</div></div>
+</div>
+
+<div class="family">
+  <div class="label">'ಏ/ಐ' ಕುಟುಂಬ — ದೀರ್ಘ ಏ ಮಾತ್ರ</div>
+  <div class="note">ಕನ್ನಡದಲ್ಲಿ ಎ/ಏ ಭೇದ ಇದೆ; ಪಂಜಾಬಿಯಲ್ಲಿ ಕೇವಲ ದೀರ್ಘ ಏ. ಹ್ರಸ್ವ ಎ ಧ್ವನಿ ಇಲ್ಲ.</div>
+</div>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਏ</div><div class="s">ಏ</div><div class="tr">eː</div><div class="hint">ದೀರ್ಘ 'ಏ' — ಉದಾ: <span class="target">ਏਕ</span> = ಏಕ/ಒಂದು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਐ</div><div class="s">ಐ</div><div class="tr">ai</div><div class="hint">ಸಂಧ್ಯಕ್ಷರ — ಉದಾ: <span class="target">ਐਨਕ</span> = ಕನ್ನಡಕ</div></div>
+</div>
+
+<div class="family">
+  <div class="label">'ಓ/ಔ' ಕುಟುಂಬ — ದೀರ್ಘ ಓ ಮಾತ್ರ</div>
+  <div class="note">ಹ್ರಸ್ವ 'ಒ' ಇಲ್ಲ — ಪಂಜಾಬಿ ಕೇವಲ ದೀರ್ಘ ಓ ಇಟ್ಟುಕೊಂಡಿದೆ.</div>
+</div>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਓ</div><div class="s">ಓ</div><div class="tr">oː</div><div class="hint">ದೀರ್ಘ 'ಓ' — ಉದಾ: <span class="target">ਓਹ</span> = ಅವನು/ಅದು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਔ</div><div class="s">ಔ</div><div class="tr">au</div><div class="hint">ಸಂಧ್ಯಕ್ಷರ — ಉದಾ: <span class="target">ਔਰਤ</span> = ಮಹಿಳೆ</div></div>
+</div>
+
+<div class="aside"><b>ಮೂರು ವಾಹಕಗಳ ಒಗಟು —</b> ಗುರುಮುಖಿಯಲ್ಲಿ ಸ್ವತಂತ್ರ ಸ್ವರಗಳಿಗೆ <span class="target">ੳ · ਅ · ੲ</span> ಮೂರು ವಾಹಕ ಅಕ್ಷರಗಳಿವೆ. <span class="target">ਅ</span> ಮೇಲೆ ಅ/ಆ/ಐ/ਔ; <span class="target">ੲ</span> ಮೇಲೆ ಇ/ಈ/ಏ; <span class="target">ੳ</span> ಮೇಲೆ ಉ/ಊ/ਓ. ಕನ್ನಡದಲ್ಲಿ ಪ್ರತಿ ಸ್ವರಕ್ಕೂ ಸ್ವಂತ ಅಕ್ಷರವಿದೆ — ನೆನಪಿಡಿ: ಇಲ್ಲಿ ಸ್ವರಚಿಹ್ನೆಯೇ ಮುಖ್ಯ, ವಾಹಕ ಬದಲಾಗುತ್ತದೆ.</div>
+
+<div class="video">
+  <div class="video-frame">
+    <iframe src="https://www.youtube.com/embed?listType=search&list=punjabi+gurmukhi+vowels+pronunciation" title="Punjabi Gurmukhi vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+  </div>
+  <div class="video-caption">ಪಂಜಾಬಿ ಸ್ವರೋಚ್ಚಾರಣೆ ವೀಡಿಯೊ — <a href="https://www.youtube.com/results?search_query=learn+punjabi+gurmukhi+vowels+pronunciation" target="_blank" rel="noopener">ಇನ್ನಷ್ಟು ಹುಡುಕಿ ↗</a></div>
+</div>
+</section>
+<section class="stage" id="stage-02">
+<h2>ವ್ಯಂಜನ — ವರ್ಗಗಳ ಕ್ರಮದಲ್ಲಿ</h2>
+
+<p>ಪಂಜಾಬಿಯ ಗುರುಮುಖಿ ವ್ಯಂಜನಗಳನ್ನು ಕನ್ನಡದಂತೆಯೇ ಐದು ವರ್ಗಗಳಲ್ಲಿ ಜೋಡಿಸಬಹುದು: ಕವರ್ಗ, ಚವರ್ಗ, ಟವರ್ಗ, ತವರ್ಗ, ಪವರ್ಗ. ಪ್ರತಿ ವರ್ಗದಲ್ಲಿ ಅಘೋಷ-ಅಲ್ಪಪ್ರಾಣ, ಅಘೋಷ-ಮಹಾಪ್ರಾಣ, ಘೋಷ-ಅಲ್ಪಪ್ರಾಣ, ಘೋಷ-ಮಹಾಪ್ರಾಣ, ಅನುನಾಸಿಕ — ಐದು ಸ್ಥಾನ. ನಿಖರವಾಗಿ ಕನ್ನಡದ ವರ್ಣಮಾಲೆಯ ಸೂತ್ರ.</p>
+
+<h3>ಕವರ್ಗ (ಕಂಠ್ಯ)</h3>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਕ</div><div class="s">ಕ</div><div class="tr">ka</div><div class="hint">ಉದಾ: <span class="target">ਕਰਨਾ</span> = ಮಾಡು <span class="known">ಗೊತ್ತು</span></div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਖ</div><div class="s">ಖ</div><div class="tr">kha</div><div class="hint">ಉದಾ: <span class="target">ਖਾਣਾ</span> = ತಿನ್ನು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਗ</div><div class="s">ಗ</div><div class="tr">ga</div><div class="hint">ಉದಾ: <span class="target">ਗਰਮ</span> = ಬಿಸಿ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਘ</div><div class="s">ಘ</div><div class="tr">gha</div><div class="hint">ಉದಾ: <span class="target">ਘਰ</span> = ಮನೆ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਙ</div><div class="s">ಙ</div><div class="tr">ṅa</div><div class="hint">ಅನುನಾಸಿಕ — ಅಪರೂಪ</div></div>
+</div>
+
+<h3>ಚವರ್ಗ (ತಾಲವ್ಯ)</h3>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਚ</div><div class="s">ಚ</div><div class="tr">ca</div><div class="hint">ಉದಾ: <span class="target">ਚਾਹ</span> = ಚಹಾ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਛ</div><div class="s">ಛ</div><div class="tr">cha</div><div class="hint">ಉದಾ: <span class="target">ਛੇ</span> = ಆರು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਜ</div><div class="s">ಜ</div><div class="tr">ja</div><div class="hint">ಉದಾ: <span class="target">ਜਾਣਾ</span> = ಹೋಗು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਝ</div><div class="s">ಝ</div><div class="tr">jha</div><div class="hint">ಉದಾ: <span class="target">ਝਾੜੂ</span> = ಪೊರಕೆ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਞ</div><div class="s">ಞ</div><div class="tr">ña</div><div class="hint">ಅನುನಾಸಿಕ — ಅಪರೂಪ</div></div>
+</div>
+
+<h3>ಟವರ್ಗ (ಮೂರ್ಧನ್ಯ)</h3>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਟ</div><div class="s">ಟ</div><div class="tr">ṭa</div><div class="hint">ಉದಾ: <span class="target">ਟੋਪੀ</span> = ಟೋಪಿ <span class="known">ಗೊತ್ತು</span></div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਠ</div><div class="s">ಠ</div><div class="tr">ṭha</div><div class="hint">ಉದಾ: <span class="target">ਠੰਢ</span> = ಚಳಿ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਡ</div><div class="s">ಡ</div><div class="tr">ḍa</div><div class="hint">ಉದಾ: <span class="target">ਡਰ</span> = ಭಯ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਢ</div><div class="s">ಢ</div><div class="tr">ḍha</div><div class="hint">ಉದಾ: <span class="target">ਢੋਲ</span> = ಡೋಲು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਣ</div><div class="s">ಣ</div><div class="tr">ṇa</div><div class="hint">ಕನ್ನಡದ ಣ — ಅದೇ ಸ್ಥಾನ <span class="known">ಗೊತ್ತು</span></div></div>
+</div>
+
+<h3>ತವರ್ಗ (ದಂತ್ಯ)</h3>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਤ</div><div class="s">ತ</div><div class="tr">ta</div><div class="hint">ಉದಾ: <span class="target">ਤੁਸੀਂ</span> = ನೀವು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਥ</div><div class="s">ಥ</div><div class="tr">tha</div><div class="hint">ಉದಾ: <span class="target">ਥਾਲੀ</span> = ತಟ್ಟೆ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਦ</div><div class="s">ದ</div><div class="tr">da</div><div class="hint">ಉದಾ: <span class="target">ਦਿਨ</span> = ದಿನ <span class="known">ಗೊತ್ತು</span></div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਧ</div><div class="s">ಧ</div><div class="tr">dha</div><div class="hint">ಉದಾ: <span class="target">ਧੰਨਵਾਦ</span> = ಧನ್ಯವಾದ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਨ</div><div class="s">ನ</div><div class="tr">na</div><div class="hint">ಉದಾ: <span class="target">ਨਾਮ</span> = ಹೆಸರು</div></div>
+</div>
+
+<h3>ಪವರ್ಗ (ಓಷ್ಠ್ಯ)</h3>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਪ</div><div class="s">ಪ</div><div class="tr">pa</div><div class="hint">ಉದಾ: <span class="target">ਪਾਣੀ</span> = ನೀರು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਫ</div><div class="s">ಫ</div><div class="tr">pha</div><div class="hint">ಉದಾ: <span class="target">ਫੁੱਲ</span> = ಹೂವು</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਬ</div><div class="s">ಬ</div><div class="tr">ba</div><div class="hint">ಉದಾ: <span class="target">ਬਾਪੂ</span> = ಅಪ್ಪ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਭ</div><div class="s">ಭ</div><div class="tr">bha</div><div class="hint">ಉದಾ: <span class="target">ਭੈਣ</span> = ತಂಗಿ/ಅಕ್ಕ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਮ</div><div class="s">ಮ</div><div class="tr">ma</div><div class="hint">ಉದಾ: <span class="target">ਮਾਂ</span> = ಅಮ್ಮ</div></div>
+</div>
+
+<h3>ಅಂತಸ್ಥ ಮತ್ತು ಊಷ್ಮ</h3>
+<div class="grid">
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਯ</div><div class="s">ಯ</div><div class="tr">ya</div><div class="hint">ಉದಾ: <span class="target">ਯਾਰ</span> = ಗೆಳೆಯ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਰ</div><div class="s">ರ</div><div class="tr">ra</div><div class="hint">ಉದಾ: <span class="target">ਰਾਤ</span> = ರಾತ್ರಿ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਲ</div><div class="s">ಲ</div><div class="tr">la</div><div class="hint">ಉದಾ: <span class="target">ਲੜਕੀ</span> = ಹುಡುಗಿ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਵ</div><div class="s">ವ</div><div class="tr">va</div><div class="hint">ಉದಾ: <span class="target">ਵੀਰ</span> = ಸಹೋದರ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ੜ</div><div class="s">ಳ</div><div class="tr">ṛa</div><div class="hint">ಕನ್ನಡದ ಳ-ಗೆ ಸಮೀಪ <span class="known">ಗೊತ್ತು</span></div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਸ</div><div class="s">ಸ</div><div class="tr">sa</div><div class="hint">ಉದಾ: <span class="target">ਸਤ</span> = ಸತ್ಯ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਹ</div><div class="s">ಹ</div><div class="tr">ha</div><div class="hint">ಉದಾ: <span class="target">ਹੱਥ</span> = ಕೈ</div></div>
+  <div class="card" onclick="this.classList.toggle('open')"><div class="t target">ਸ਼</div><div class="s">ಶ</div><div class="tr">śa</div><div class="hint">ಪಾದಬಿಂದು ಸೇರಿಸಿದ ಶ <span class="flag">⚡</span></div></div>
+</div>
+
+<div class="aside"><b>ಐದು ಪ್ರವಿಷ್ಟ ಅಕ್ಷರಗಳು —</b> ಪಂಜಾਬಿ ಸಂಸ್ಕೃತ/ಪರ್ಶಿಯನ್ ಪದಗಳಿಗಾಗಿ ಐದು ಅಕ್ಷರಗಳನ್ನು ಕೆಳಗೆ ಚುಕ್ಕೆ ಹಾಕಿ ಪ್ರತ್ಯೇಕಿಸುತ್ತದೆ: <span class="target">ਸ਼, ਖ਼, ਗ਼, ਜ਼, ਫ਼</span>. ಕನ್ನಡದಲ್ಲಿ ಇದಕ್ಕೆ ನೇರ ಸಮಾನಾಂತರವಿಲ್ಲ — ಆದರೆ ಶ/ಷ ಭೇದ ಗೊತ್ತಿರುವ ನಿಮಗೆ ಕಲ್ಪನೆ ಸುಲಭ.</div>
+
+<div class="video">
+  <div class="video-frame">
+    <iframe src="https://www.youtube.com/embed?listType=search&list=punjabi+gurmukhi+consonants+pronunciation" title="Punjabi Gurmukhi consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+  </div>
+  <div class="video-caption">ಪಂಜಾಬಿ ವ್ಯಂಜನ ಉಚ್ಚಾರಣೆ — <a href="https://www.youtube.com/results?search_query=learn+punjabi+gurmukhi+consonants+pronunciation" target="_blank" rel="noopener">ಇನ್ನಷ್ಟು ಹುಡುಕಿ ↗</a></div>
+</div>
+</section>
+<section class="stage" id="stage-03">
+<h2>ಸಂಯೋಜನೆ — ಸ್ವರಚಿಹ್ನೆ, ಹಲಂತ, ಸಂಯುಕ್ತಾಕ್ಷರ</h2>
+
+<p>ಕನ್ನಡದಲ್ಲಿ 'ಕ' ಅಕ್ಷರಕ್ಕೆ ಕಾ, ಕಿ, ಕೀ, ಕು, ಕೂ ಎಂದು ಸ್ವರಚಿಹ್ನೆ ಸೇರಿಸುವ ಕ್ರಮ ಪಂಜಾಬಿಯಲ್ಲಿಯೂ ಅದೇ — ಆಕಾರ ಮಾತ್ರ ಬೇರೆ. ಕೆಳಗಿನ ಕೋಷ್ಟಕದಲ್ಲಿ ಸಮಾನಾಂತರ ನೋಡಿ.</p>
+
+<table>
+<tr><th>ಸ್ವರ</th><th>ಕನ್ನಡ</th><th>ಪಂಜಾಬಿ</th><th>ಉಚ್ಚಾರಣೆ</th></tr>
+<tr><td>ಅ (ಅಂತರ್ಗತ)</td><td>ಕ</td><td class="target">ਕ</td><td class="mono">ka</td></tr>
+<tr><td>ಆ</td><td>ಕಾ</td><td class="target">ਕਾ</td><td class="mono">kaː</td></tr>
+<tr><td>ಇ</td><td>ಕಿ</td><td class="target">ਕਿ</td><td class="mono">ki</td></tr>
+<tr><td>ಈ</td><td>ಕೀ</td><td class="target">ਕੀ</td><td class="mono">kiː</td></tr>
+<tr><td>ಉ</td><td>ಕು</td><td class="target">ਕੁ</td><td class="mono">ku</td></tr>
+<tr><td>ಊ</td><td>ಕೂ</td><td class="target">ਕੂ</td><td class="mono">kuː</td></tr>
+<tr><td>ಏ</td><td>ಕೇ</td><td class="target">ਕੇ</td><td class="mono">keː</td></tr>
+<tr><td>ಐ</td><td>ಕೈ</td><td class="target">ਕੈ</td><td class="mono">kai</td></tr>
+<tr><td>ಓ</td><td>ಕೋ</td><td class="target">ਕੋ</td><td class="mono">koː</td></tr>
+<tr><td>ಔ</td><td>ಕೌ</td><td class="target">ਕੌ</td><td class="mono">kau</td></tr>
+</table>
+
+<h3>ಹಲಂತ (ਵਿਰਾਮ)</h3>
+<p>ಕನ್ನಡದಲ್ಲಿ ್ (ವಿರಾಮ) — ಅಂತರ್ಗತ 'ಅ' ತೆಗೆಯಲು. ಪಂಜಾಬಿಯಲ್ಲಿ <span class="target">੍</span> (ಹಲಂತ್) — ಅದೇ ಕೆಲಸ. ಆದರೆ ಪಂಜಾಬಿಯಲ್ಲಿ ಹಲಂತ್ ಬಹಳ ಅಪರೂಪ — ಬಹುತೇಕ ಸಂಯುಕ್ತಾಕ್ಷರಗಳನ್ನು ಪ್ರತ್ಯೇಕ ಗುರುತುಗಳಿಂದ (ಪಾದಬಿಂದು, ಅದ್ಧಕ್) ಬರೆಯುತ್ತಾರೆ.</p>
+
+<h3>ಸಂಯುಕ್ತಾಕ್ಷರ — ಸಮಾನಾಂತರ ಬಿಡಿಸುವಿಕೆ</h3>
+<table>
+<tr><th>ಧ್ವನಿ</th><th>ಕನ್ನಡ</th><th>ಪಂಜಾಬಿ</th><th>ಟಿಪ್ಪಣಿ</th></tr>
+<tr><td>k + r</td><td>ಕ್ರ</td><td class="target">ਕ੍ਰ</td><td>ರ-ಕಾರ ಕೆಳಗೆ</td></tr>
+<tr><td>p + r</td><td>ಪ್ರ</td><td class="target">ਪ੍ਰ</td><td>ಅಧೋರೇಫ</td></tr>
+<tr><td>s + t</td><td>ಸ್ತ</td><td class="target">ਸਤ</td><td>ಪಂಜಾಬಿಯಲ್ಲಿ ಪ್ರತ್ಯೇಕವಾಗಿ ಬರೆಯಲಾಗುತ್ತದೆ</td></tr>
+<tr><td>ದ್ವಿತ್ವ (ತ್ತ)</td><td>ಕತ್ತೆ</td><td class="target">ਹੱਥ</td><td>ಅದ್ಧಕ್ <span class="target">ੱ</span> ಚಿಹ್ನೆ</td></tr>
+</table>
+
+<div class="aside"><b>ಅದ್ಧಕ್ ಎಂಬ ಜಾಣ್ಮೆ —</b> ಕನ್ನಡದಲ್ಲಿ ದ್ವಿತ್ವಕ್ಕೆ ವ್ಯಂಜನವನ್ನೇ ದುಪ್ಪಟ್ಟು ಬರೆಯುತ್ತೇವೆ: ಅಮ್ಮ, ಅಪ್ಪ, ಹತ್ತು. ಪಂಜಾಬಿ ಇದಕ್ಕಾಗಿ ಒಂದೇ ಚಿಹ್ನೆ ಕಂಡುಹಿಡಿದಿದೆ — <span class="target">ੱ</span> (ਅੱਧਕ). <span class="target">ਹੱਥ</span> (ಹತ್ಥ್ = ಕೈ), <span class="target">ਦੁੱਧ</span> (ದುದ್ಧ್ = ಹಾಲು), <span class="target">ਇੱਕ</span> (ಇಕ್ಕ್ = ಒಂದು). ಒಂದೇ ಚುಕ್ಕೆ — ವ್ಯಂಜನದ ಪೂರ್ತಿ ದುಪ್ಪಟ್ಟು!</div>
+
+<h3>ಟಿಪ್ಪಿ ಮತ್ತು ಬಿಂದಿ — ಅನುಸ್ವಾರ ಸಹೋದರರು</h3>
+<p>ಕನ್ನಡದಲ್ಲಿ ಒಂದೇ ಅನುಸ್ವಾರ ಂ. ಪಂಜಾಬಿಯಲ್ಲಿ ಎರಡಿವೆ: <span class="target">ਟਿੱਪੀ (ੰ)</span> ಹ್ರಸ್ವ ಸ್ವರಗಳ ಮೇಲೆ, <span class="target">ਬਿੰਦੀ (ਂ)</span> ದೀರ್ಘ ಸ್ವರಗಳ ಮೇಲೆ. ಉದಾ: <span class="target">ਰੰਗ</span> (ರಂಗ್), <span class="target">ਮਾਂ</span> (ಮಾಂ = ಅಮ್ಮ). ಬಳಕೆಯ ವ್ಯತ್ಯಾಸ ಅಷ್ಟೇ — ಧ್ವನಿ ಅನುಸ್ವಾರವೇ.</p>
+</section>
+<section class="stage" id="stage-04">
+<h2>ಪದಗಳು — ನಿಮಗೆ ಈಗಾಗಲೇ ಹಲವು ಗೊತ್ತು</h2>
+
+<p>ಸಂಸ್ಕೃತ ಸೇತುವೆಯ ಮೂಲಕ ಸುಮಾರು ೭೦% ಪದಗಳು ಹೊಂದಿಕೊಳ್ಳುತ್ತವೆ. ಕೆಳಗಿನ ಕೋಷ್ಟಕಗಳಲ್ಲಿ ತತ್ಸಮ (ಸಂಸ್ಕೃತದಿಂದ ಅದೇ ರೂಪದಲ್ಲಿ) ಮತ್ತು ತದ್ಭವ (ಬದಲಾದ ರೂಪ) ಎಂದು ಗುರುತು ಹಾಕಲಾಗಿದೆ.</p>
+
+<h3>ಸರ್ವನಾಮ</h3>
+<table>
+<tr><th>ಪಂಜಾಬಿ</th><th>ಉಚ್ಚಾರಣೆ</th><th>ಕನ್ನಡ</th><th>ಟಿಪ್ಪಣಿ</th></tr>
+<tr><td class="target">ਮੈਂ</td><td class="mono">maĩ</td><td>ನಾನು</td><td>ಪ್ರಥಮ ಪುರುಷ ಏಕವಚನ</td></tr>
+<tr><td class="target">ਤੂੰ</td><td class="mono">tū̃</td><td>ನೀನು</td><td>ಅನ್ಯೋನ್ಯ ಏಕವಚನ</td></tr>
+<tr><td class="target">ਤੁਸੀਂ</td><td class="mono">tusī̃</td><td>ನೀವು</td><td>ಗೌರವಾರ್ಥ/ಬಹುವಚನ</td></tr>
+<tr><td class="target">ਉਹ</td><td class="mono">uh</td><td>ಅವನು/ಅವಳು/ಅದು</td><td>ಲಿಂಗಭೇದವಿಲ್ಲ</td></tr>
+<tr><td class="target">ਅਸੀਂ</td><td class="mono">asī̃</td><td>ನಾವು</td><td>—</td></tr>
+</table>
+
+<h3>ಮುಖ್ಯ ನಾಮಪದ</h3>
+<table>
+<tr><th>ಪಂಜಾಬಿ</th><th>ಉಚ್ಚಾರಣೆ</th><th>ಕನ್ನಡ</th><th>ಟಿಪ್ಪಣಿ</th></tr>
+<tr><td class="target">ਘਰ</td><td class="mono">ghar</td><td>ಮನೆ</td><td>ತದ್ಭವ (ಗೃಹ)</td></tr>
+<tr><td class="target">ਦਿਨ</td><td class="mono">din</td><td>ದಿನ</td><td>ತತ್ಸಮ — ಹೂಬಹೂ ಒಂದೇ</td></tr>
+<tr><td class="target">ਰਾਤ</td><td class="mono">rāt</td><td>ರಾತ್ರಿ</td><td>ತದ್ಭವ</td></tr>
+<tr><td class="target">ਦੁੱਧ</td><td class="mono">duddh</td><td>ಹಾಲು</td><td>ತದ್ಭವ (ದುಗ್ಧ)</td></tr>
+<tr><td class="target">ਪਾਣੀ</td><td class="mono">pāṇī</td><td>ನೀರು</td><td>ತದ್ಭವ (ಪಾನೀಯ ಬೇರು)</td></tr>
+<tr><td class="target">ਸੂਰਜ</td><td class="mono">sūraj</td><td>ಸೂರ್ಯ</td><td>ತತ್ಸಮ</td></tr>
+<tr><td class="target">ਨਾਮ</td><td class="mono">nām</td><td>ಹೆಸರು/ನಾಮ</td><td>ತತ್ಸಮ</td></tr>
+<tr><td class="target">ਕਿਤਾਬ</td><td class="mono">kitāb</td><td>ಪುಸ್ತಕ</td><td>ಅರಬಿ-ಪರ್ಶಿಯನ್ ಮೂಲ</td></tr>
+<tr><td class="target">ਪੈਸਾ</td><td class="mono">paisā</td><td>ಹಣ/ಪೈಸೆ</td><td>ಕನ್ನಡದಲ್ಲೂ "ಪೈಸೆ"</td></tr>
+<tr><td class="target">ਸਮਾਂ</td><td class="mono">samāṃ</td><td>ಸಮಯ</td><td>ತತ್ಸಮ</td></tr>
+</table>
+
+<h3>ಕ್ರಿಯಾಪದ (ಮೂಲ ರೂಪ)</h3>
+<table>
+<tr><th>ಪಂಜಾಬಿ</th><th>ಉಚ್ಚಾರಣೆ</th><th>ಕನ್ನಡ</th></tr>
+<tr><td class="target">ਕਰਨਾ</td><td class="mono">karnā</td><td>ಮಾಡು</td></tr>
+<tr><td class="target">ਜਾਣਾ</td><td class="mono">jāṇā</td><td>ಹೋಗು</td></tr>
+<tr><td class="target">ਆਉਣਾ</td><td class="mono">āuṇā</td><td>ಬಾ</td></tr>
+<tr><td class="target">ਖਾਣਾ</td><td class="mono">khāṇā</td><td>ತಿನ್ನು</td></tr>
+<tr><td class="target">ਪੀਣਾ</td><td class="mono">pīṇā</td><td>ಕುಡಿ</td></tr>
+<tr><td class="target">ਦੇਖਣਾ</td><td class="mono">dēkhṇā</td><td>ನೋಡು</td></tr>
+<tr><td class="target">ਬੋਲਣਾ</td><td class="mono">bōlṇā</td><td>ಮಾತಾಡು</td></tr>
+<tr><td class="target">ਸੁਣਨਾ</td><td class="mono">suṇnā</td><td>ಕೇಳು</td></tr>
+<tr><td class="target">ਹੋਣਾ</td><td class="mono">hōṇā</td><td>ಆಗು/ಇರು</td></tr>
+</table>
+
+<div class="aside"><b>ಒಂದು ಕಿವಿಗೆ ಬೀಳುವ ಜಾಡು —</b> ಎಲ್ಲ ಪಂಜಾಬಿ ಕ್ರಿಯಾ ಮೂಲರೂಪಗಳೂ <span class="target">-ਣਾ/-ਨਾ</span>ದಿಂದ ಮುಗಿಯುತ್ತವೆ. ಕನ್ನಡದ -ಉ/-ಇ ಅಂತ್ಯದಂತೆ ಇದು ಕ್ರಿಯಾಪದದ ಗುರುತು. ಕಂಡ ತಕ್ಷಣ "ಅಯ್ಯೋ, ಇದು ಕ್ರಿಯೆ!" ಎಂದು ಗೊತ್ತಾಗುತ್ತದೆ.</div>
+
+<h3>ಸಂಖ್ಯೆ</h3>
+<table>
+<tr><th>ಅಂಕಿ</th><th>ಪಂಜಾಬಿ</th><th>ಉಚ್ಚಾರಣೆ</th><th>ಕನ್ನಡ</th></tr>
+<tr><td>೧</td><td class="target">ਇੱਕ</td><td class="mono">ikk</td><td>ಒಂದು</td></tr>
+<tr><td>೨</td><td class="target">ਦੋ</td><td class="mono">do</td><td>ಎರಡು</td></tr>
+<tr><td>೩</td><td class="target">ਤਿੰਨ</td><td class="mono">tinn</td><td>ಮೂರು</td></tr>
+<tr><td>೪</td><td class="target">ਚਾਰ</td><td class="mono">cār</td><td>ನಾಲ್ಕು</td></tr>
+<tr><td>೫</td><td class="target">ਪੰਜ</td><td class="mono">panj</td><td>ಐದು</td></tr>
+<tr><td>೧೦</td><td class="target">ਦਸ</td><td class="mono">das</td><td>ಹತ್ತು</td></tr>
+</table>
+
+<h3>ಸಂಬಂಧ ಮತ್ತು ಶರೀರ</h3>
+<table>
+<tr><th>ಪಂಜಾಬಿ</th><th>ಉಚ್ಚಾರಣೆ</th><th>ಕನ್ನಡ</th></tr>
+<tr><td class="target">ਪਿਤਾ / ਬਾਪੂ</td><td class="mono">pitā / bāpū</td><td>ಅಪ್ಪ / ತಂದೆ</td></tr>
+<tr><td class="target">ਮਾਂ / ਮਾਤਾ</td><td class="mono">mā̃ / mātā</td><td>ಅಮ್ಮ / ತಾಯಿ</td></tr>
+<tr><td class="target">ਭਰਾ</td><td class="mono">bharā</td><td>ಅಣ್ಣ/ತಮ್ಮ</td></tr>
+<tr><td class="target">ਭੈਣ</td><td class="mono">bhaiṇ</td><td>ಅಕ್ಕ/ತಂಗಿ</td></tr>
+<tr><td class="target">ਸਿਰ</td><td class="mono">sir</td><td>ತಲೆ</td></tr>
+<tr><td class="target">ਹੱਥ</td><td class="mono">hatth</td><td>ಕೈ</td></tr>
+<tr><td class="target">ਅੱਖ</td><td class="mono">akkh</td><td>ಕಣ್ಣು</td></tr>
+<tr><td class="target">ਪੈਰ</td><td class="mono">pair</td><td>ಕಾಲು</td></tr>
+</table>
+
+<h3>ಕಾಲ ಮತ್ತು ನಮಸ್ಕಾರ</h3>
+<table>
+<tr><th>ಪಂಜಾಬಿ</th><th>ಉಚ್ಚಾರಣೆ</th><th>ಕನ್ನಡ</th></tr>
+<tr><td class="target">ਅੱਜ</td><td class="mono">ajj</td><td>ಇಂದು</td></tr>
+<tr><td class="target">ਕੱਲ੍ਹ</td><td class="mono">kallh</td><td>ನಾಳೆ / ನಿನ್ನೆ</td></tr>
+<tr><td class="target">ਹੁਣ</td><td class="mono">huṇ</td><td>ಈಗ</td></tr>
+<tr><td class="target">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</td><td class="mono">sat srī akāl</td><td>ನಮಸ್ಕಾರ (ಸಿಖ್)</td></tr>
+<tr><td class="target">ਧੰਨਵਾਦ</td><td class="mono">dhannvād</td><td>ಧನ್ಯವಾದಗಳು</td></tr>
+</table>
+
+<div class="aside"><b>ਕੱਲ੍ਹ ಎಂಬ ಒಗಟು —</b> ಪಂಜಾಬಿಯ <span class="target">ਕੱਲ੍ਹ</span> ನಾಳೆಯನ್ನೂ ನಿನ್ನೆಯನ್ನೂ ಸೂಚಿಸುತ್ತದೆ — ಸಂದರ್ಭ/ಕ್ರಿಯಾಪದ ಕಾಲದಿಂದ ಮಾತ್ರ ತಿಳಿಯುತ್ತದೆ. ಕನ್ನಡ ಸ್ಪಷ್ಟವಾಗಿ ಒಡೆಯುತ್ತದೆ: ನಿನ್ನೆ ≠ ನಾಳೆ. ಒಂದೇ ಪದ ಎರಡು ಕಾಲ — ಸಂಸ್ಕೃತ "ಕಲ್ಯ"ದ ಹಳೆಯ ತಟಸ್ಥತೆ.</div>
+</section>
+<section class="stage" id="stage-05">
+<h2>ವಾಕ್ಯ — ಕ್ರಮ, ಕ್ರಿಯಾ ರೂಪ, ಪ್ರಶ್ನೆ, ನಿಷೇಧ</h2>
+
+<h3>ವಾಕ್ಯಕ್ರಮ — ಎರಡಕ್ಕೂ SOV</h3>
+<p>ಕನ್ನಡ: <b>ನಾನು ಪುಸ್ತಕ ಓದುತ್ತೇನೆ.</b><br>
+ಪಂಜಾಬಿ: <span class="target">ਮੈਂ ਕਿਤਾਬ ਪੜ੍ਹਦਾ ਹਾਂ।</span> <span class="mono">(maĩ kitāb paṛhdā hā̃)</span><br>
+ಕರ್ತೃ → ಕರ್ಮ → ಕ್ರಿಯೆ. ಪದಗಳನ್ನು ಕನ್ನಡದಿಂದ ಒಂದೊಂದಾಗಿ ಪಂಜಾಬಿಗೆ ಪಲ್ಲಟಿಸಬಹುದು.</p>
+
+<h3>ಕ್ರಿಯಾ ಸಂಯೋಜನೆ — ವರ್ತಮಾನ (ਕਰਨਾ = ಮಾಡು)</h3>
+<p>ಪಂಜಾಬಿ ಕ್ರಿಯಾರೂಪ ಎರಡು ಭಾಗಗಳಾಗಿ: <b>ಕ್ರಿಯಾಂಗ</b> (ಲಿಂಗ/ವಚನ ಸೂಚಿ) + <b>ಸಹಾಯಕ ಕ್ರಿಯೆ</b> (ਹੋਣਾ). ಕನ್ನಡದಲ್ಲಿ ಎರಡೂ ಒಂದೇ ಪದದಲ್ಲಿ ಅಡಗಿವೆ.</p>
+<table>
+<tr><th>ವ್ಯಕ್ತಿ</th><th>ಕನ್ನಡ</th><th>ಪಂಜಾಬಿ</th></tr>
+<tr><td>ನಾನು (ಪುಂ)</td><td>ಮಾಡುತ್ತೇನೆ</td><td class="target">ਮੈਂ ਕਰਦਾ ਹਾਂ <span class="mono">(kardā hā̃)</span></td></tr>
+<tr><td>ನಾನು (ಸ್ತ್ರೀ)</td><td>ಮಾಡುತ್ತೇನೆ</td><td class="target">ਮੈਂ ਕਰਦੀ ਹਾਂ <span class="mono">(kardī hā̃)</span></td></tr>
+<tr><td>ನೀನು</td><td>ಮಾಡುತ್ತೀಯ</td><td class="target">ਤੂੰ ਕਰਦਾ/ਕਰਦੀ ਹੈਂ <span class="mono">(haĩ)</span></td></tr>
+<tr><td>ಅವನು</td><td>ಮಾಡುತ್ತಾನೆ</td><td class="target">ਉਹ ਕਰਦਾ ਹੈ <span class="mono">(hai)</span></td></tr>
+<tr><td>ಅವಳು</td><td>ಮಾಡುತ್ತಾಳೆ</td><td class="target">ਉਹ ਕਰਦੀ ਹੈ</td></tr>
+<tr><td>ಅದು</td><td>ಮಾಡುತ್ತದೆ</td><td class="target">ਉਹ ਕਰਦਾ ਹੈ</td></tr>
+<tr><td>ನಾವು</td><td>ಮಾಡುತ್ತೇವೆ</td><td class="target">ਅਸੀਂ ਕਰਦੇ/ਕਰਦੀਆਂ ਹਾਂ</td></tr>
+<tr><td>ನೀವು</td><td>ಮಾಡುತ್ತೀರಿ</td><td class="target">ਤੁਸੀਂ ਕਰਦੇ/ਕਰਦੀਆਂ ਹੋ <span class="mono">(ho)</span></td></tr>
+<tr><td>ಅವರು</td><td>ಮಾಡುತ್ತಾರೆ</td><td class="target">ਉਹ ਕਰਦੇ/ਕਰਦੀਆਂ ਹਨ <span class="mono">(han)</span></td></tr>
+</table>
+
+<div class="aside"><b>ಮುಖ್ಯ ವ್ಯತ್ಯಾಸ —</b> ಕನ್ನಡ ಕ್ರಿಯಾಪದ ವ್ಯಕ್ತಿ-ವಚನ-ಲಿಂಗ ಎಲ್ಲವನ್ನೂ ಸೂಚಿಸುತ್ತದೆ; ಪಂಜಾಬಿಯ ಕ್ರಿಯಾಂಗ ಲಿಂಗ ಮತ್ತು ವಚನ ಮಾತ್ರ ಸೂಚಿಸುತ್ತದೆ — ವ್ಯಕ್ತಿ ಸಹಾಯಕ ಕ್ರಿಯೆ (ਹਾਂ/ਹੈ/ਹੋ) ನಿಂದ ತಿಳಿಯುತ್ತದೆ. ಹಾಗಾಗಿ ಪಂಜಾಬಿಯಲ್ಲಿ ಸರ್ವನಾಮ ಬಿಡುವಂತಿಲ್ಲ; ಕನ್ನಡದಲ್ಲಿ ಬಿಡಬಹುದು.</div>
+
+<h3>ಪರಸರ್ಗ/ವಿಭಕ್ತಿ ಹೋಲಿಕೆ</h3>
+<table>
+<tr><th>ವಿಭಕ್ತಿ</th><th>ಕನ್ನಡ</th><th>ಪಂಜಾಬಿ</th><th>ಉದಾಹರಣೆ</th></tr>
+<tr><td>ಪ್ರಥಮಾ</td><td>—</td><td>—</td><td>ನಾನು / <span class="target">ਮੈਂ</span></td></tr>
+<tr><td>ದ್ವಿತೀಯಾ</td><td>-ಅನ್ನು</td><td class="target">ਨੂੰ</td><td>ಅವನನ್ನು / <span class="target">ਉਸ ਨੂੰ</span></td></tr>
+<tr><td>ಚತುರ್ಥಿ</td><td>-ಗೆ</td><td class="target">ਨੂੰ</td><td>ಅವನಿಗೆ / <span class="target">ਉਸ ਨੂੰ</span></td></tr>
+<tr><td>ಸಪ್ತಮಿ</td><td>-ಅಲ್ಲಿ</td><td class="target">ਵਿਚ</td><td>ಮನೆಯಲ್ಲಿ / <span class="target">ਘਰ ਵਿਚ</span></td></tr>
+<tr><td>ಪಂಚಮಿ</td><td>-ಇಂದ</td><td class="target">ਤੋਂ</td><td>ಮನೆಯಿಂದ / <span class="target">ਘਰ ਤੋਂ</span></td></tr>
+<tr><td>ಷಷ್ಠಿ</td><td>-ಅ</td><td class="target">ਦਾ/ਦੀ/ਦੇ</td><td>ಅಪ್ಪನ ಮನೆ / <span class="target">ਪਿਤਾ ਦਾ ਘਰ</span></td></tr>
+</table>
+
+<div class="aside"><b>ਦਾ/ਦੀ/ਦੇ ಎಂಬ ಲಿಂಗ-ಕ್ಯಾಮೆಲಿಯನ್ —</b> ಕನ್ನಡದ -ಅ (ಷಷ್ಠಿ) ಒಂದೇ ರೂಪ. ಪಂಜಾಬಿಯ 'ಆಫ್' ಪದ ಮೂರು ರೂಪ ತಾಳುತ್ತದೆ — ಕೆಳಗಿನ ಪದದ ಲಿಂಗ-ವಚನ ಅನುಸರಿಸಿ: ਪੁ.ಏಕ <span class="target">ਦਾ</span>, ಸ್ತ್ರೀ <span class="target">ਦੀ</span>, ಪು.ಬಹು <span class="target">ਦੇ</span>. ಉದಾ: <span class="target">ਪਿਤਾ ਦਾ ਘਰ</span> (ಅಪ್ಪನ ಮನೆ), <span class="target">ਪਿਤਾ ਦੀ ਕਿਤਾਬ</span> (ಅಪ್ಪನ ಪುಸ್ತಕ).</div>
+
+<h3>ಪ್ರಶ್ನಾರ್ಥಕ ಪದಗಳು</h3>
+<table>
+<tr><th>ಪಂಜಾಬಿ</th><th>ಉಚ್ಚಾರಣೆ</th><th>ಕನ್ನಡ</th></tr>
+<tr><td class="target">ਕੀ</td><td class="mono">kī</td><td>ಏನು</td></tr>
+<tr><td class="target">ਕੌਣ</td><td class="mono">kauṇ</td><td>ಯಾರು</td></tr>
+<tr><td class="target">ਕਿੱਥੇ</td><td class="mono">kitthe</td><td>ಎಲ್ಲಿ</td></tr>
+<tr><td class="target">ਕਦੋਂ</td><td class="mono">kadõ</td><td>ಯಾವಾಗ</td></tr>
+<tr><td class="target">ਕਿਉਂ</td><td class="mono">kiũ</td><td>ಏಕೆ</td></tr>
+<tr><td class="target">ਕਿਵੇਂ</td><td class="mono">kivẽ</td><td>ಹೇಗೆ</td></tr>
+</table>
+
+<h3>ನಿಷೇಧ</h3>
+<p>ಕನ್ನಡ ನಿಷೇಧಕ್ಕೆ ಕ್ರಿಯೆ ಬದಲಾಗುತ್ತದೆ — "ಮಾಡುತ್ತೇನೆ" → "ಮಾಡುವುದಿಲ್ಲ". ಪಂಜಾಬಿಯಲ್ಲಿ ಕ್ರಿಯೆಯ ಮುಂದೆ <span class="target">ਨਹੀਂ</span> (ನಹೀಂ) ಸೇರಿಸಿ ಸಾಕು:<br>
+<span class="target">ਮੈਂ ਨਹੀਂ ਕਰਦਾ।</span> <span class="mono">(maĩ nahī̃ kardā)</span> = ನಾನು ಮಾಡುವುದಿಲ್ಲ.<br>
+ಆಜ್ಞಾ ನಿಷೇಧಕ್ಕೆ <span class="target">ਨਾ</span>: <span class="target">ਨਾ ਜਾ।</span> = ಹೋಗಬೇಡ.</p>
+
+<h3>ಉದಾಹರಣೆ ವಾಕ್ಯಗಳು</h3>
+<ul class="clean">
+<li><span class="target">ਮੈਂ ਘਰ ਜਾਂਦਾ ਹਾਂ।</span> <span class="mono">(maĩ ghar jāndā hā̃)</span> — ನಾನು ಮನೆಗೆ ಹೋಗುತ್ತೇನೆ.</li>
+<li><span class="target">ਤੁਸੀਂ ਕੀ ਖਾਂਦੇ ਹੋ?</span> <span class="mono">(tusī̃ kī khānde ho)</span> — ನೀವು ಏನು ತಿನ್ನುತ್ತೀರಿ?</li>
+<li><span class="target">ਉਹ ਪਾਣੀ ਪੀਂਦਾ ਹੈ।</span> <span class="mono">(uh pāṇī pīndā hai)</span> — ಅವನು ನೀರು ಕುಡಿಯುತ್ತಾನೆ.</li>
+<li><span class="target">ਮੇਰਾ ਨਾਮ ਨੀਲ ਹੈ।</span> <span class="mono">(merā nām Nīl hai)</span> — ನನ್ನ ಹೆಸರು ನೀಲ್.</li>
+</ul>
+</section>
+<section class="stage" id="stage-06">
+<h2>ಓದು — ಮೂರು ಹಂತ ಪಾಠಗಳು</h2>
+<p>ಪ್ರತಿ ಪಾಠದಲ್ಲಿ: ಪಂಜಾಬಿ ಪಠ್ಯ → ಲಿಪ್ಯಂತರ → ಕನ್ನಡ ಅನುವಾದ. ಪದ-ಪದವಾಗಿ ಹೋಗಿ, ಆಮೇಲೆ ಒಟ್ಟಾರೆ ಅರ್ಥ ಗ್ರಹಿಸಿ.</p>
+
+<h3>ಪಾಠ ೧ — ಸ್ವಪರಿಚಯ</h3>
+<div class="passage">
+<div class="tg">ਮੇਰਾ ਨਾਮ ਅਰਜਨ ਹੈ। ਮੈਂ ਅੰਮ੍ਰਿਤਸਰ ਵਿਚ ਰਹਿੰਦਾ ਹਾਂ। ਮੇਰੇ ਪਿਤਾ ਅਧਿਆਪਕ ਹਨ ਅਤੇ ਮੇਰੀ ਮਾਂ ਡਾਕਟਰ ਹੈ। ਮੈਨੂੰ ਕਿਤਾਬਾਂ ਪੜ੍ਹਨੀਆਂ ਬਹੁਤ ਪਸੰਦ ਹਨ।</div>
+<div class="tr">merā nām Arjan hai. maĩ Amritsar vic rahindā hā̃. mere pitā adhiāpak han ate merī mā̃ ḍākṭar hai. mainū̃ kitābā̃ paṛhnīā̃ bahut pasand han.</div>
+<div class="gl">ನನ್ನ ಹೆಸರು ಅರ್ಜನ್. ನಾನು ಅಮೃತಸರದಲ್ಲಿ ವಾಸಿಸುತ್ತೇನೆ. ನನ್ನ ಅಪ್ಪ ಶಿಕ್ಷಕರು ಮತ್ತು ನನ್ನ ಅಮ್ಮ ವೈದ್ಯೆ. ನನಗೆ ಪುಸ್ತಕಗಳನ್ನು ಓದುವುದು ಬಹಳ ಇಷ್ಟ.</div>
+</div>
+
+<h3>ಪಾಠ ೨ — ಒಂದು ದಿನ</h3>
+<div class="passage">
+<div class="tg">ਮੈਂ ਸਵੇਰੇ ਛੇ ਵਜੇ ਉੱਠਦਾ ਹਾਂ। ਫਿਰ ਮੈਂ ਚਾਹ ਪੀਂਦਾ ਹਾਂ ਅਤੇ ਅਖ਼ਬਾਰ ਪੜ੍ਹਦਾ ਹਾਂ। ਅੱਠ ਵਜੇ ਮੈਂ ਕੰਮ ਉੱਤੇ ਜਾਂਦਾ ਹਾਂ। ਦੁਪਹਿਰ ਨੂੰ ਮੈਂ ਰੋਟੀ ਖਾਂਦਾ ਹਾਂ। ਸ਼ਾਮ ਨੂੰ ਮੈਂ ਘਰ ਵਾਪਸ ਆਉਂਦਾ ਹਾਂ ਅਤੇ ਪਰਿਵਾਰ ਨਾਲ ਗੱਲਾਂ ਕਰਦਾ ਹਾਂ।</div>
+<div class="tr">maĩ savēre che vaje uṭṭhdā hā̃. phir maĩ cāh pīndā hā̃ ate akhbār paṛhdā hā̃. aṭṭh vaje maĩ kamm utte jāndā hā̃. dupahir nū̃ maĩ roṭī khāndā hā̃. śām nū̃ maĩ ghar vāpas āundā hā̃ ate parivār nāl gallā̃ kardā hā̃.</div>
+<div class="gl">ನಾನು ಬೆಳಿಗ್ಗೆ ಆರು ಗಂಟೆಗೆ ಏಳುತ್ತೇನೆ. ನಂತರ ಚಹಾ ಕುಡಿದು ಪತ್ರಿಕೆ ಓದುತ್ತೇನೆ. ಎಂಟು ಗಂಟೆಗೆ ಕೆಲಸಕ್ಕೆ ಹೋಗುತ್ತೇನೆ. ಮಧ್ಯಾಹ್ನ ರೊಟ್ಟಿ ತಿನ್ನುತ್ತೇನೆ. ಸಂಜೆ ಮನೆಗೆ ವಾಪಸ್ ಬರುತ್ತೇನೆ ಮತ್ತು ಕುಟುಂಬದೊಂದಿಗೆ ಮಾತನಾಡುತ್ತೇನೆ.</div>
+</div>
+
+<h3>ಪಾಠ ೩ — ಇಬ್ಬರ ಸಂಭಾಷಣೆ</h3>
+<div class="passage">
+<div class="tg">— ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?<br>
+— ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੇਰਾ ਨਾਮ ਸਿਮਰਨ ਹੈ। ਤੁਸੀਂ ਕਿੱਥੋਂ ਹੋ?<br>
+— ਮੈਂ ਬੰਗਲੌਰ ਤੋਂ ਹਾਂ। ਮੈਂ ਪੰਜਾਬੀ ਸਿੱਖ ਰਹੀ ਹਾਂ।<br>
+— ਵਾਹ! ਬਹੁਤ ਵਧੀਆ। ਕੀ ਤੁਸੀਂ ਰੋਟੀ ਖਾਧੀ?<br>
+— ਹਾਂ ਜੀ, ਧੰਨਵਾਦ। ਤੁਸੀਂ ਵੀ ਖਾਓ।<br>
+— ਮਿਲ ਕੇ ਖ਼ੁਸ਼ੀ ਹੋਈ।</div>
+<div class="tr">— sat srī akāl! tuhāḍā nām kī hai? <br>— sat srī akāl! merā nām Simran hai. tusī̃ kitthõ ho? <br>— maĩ Banglaur tõ hā̃. maĩ Panjābī sikkh rahī hā̃. <br>— vāh! bahut vadhīā. kī tusī̃ roṭī khādhī? <br>— hā̃ jī, dhannvād. tusī̃ vī khāo. <br>— mil ke khuśī hoī.</div>
+<div class="gl">— ನಮಸ್ಕಾರ! ನಿಮ್ಮ ಹೆಸರೇನು?<br>
+— ನಮಸ್ಕಾರ! ನನ್ನ ಹೆಸರು ಸಿಮ್ರನ್. ನೀವು ಎಲ್ಲಿಂದ ಬಂದವರು?<br>
+— ನಾನು ಬೆಂಗಳೂರಿನಿಂದ. ನಾನು ಪಂಜಾಬಿ ಕಲಿಯುತ್ತಿದ್ದೇನೆ.<br>
+— ಭಲೇ! ಬಹಳ ಚೆನ್ನಾಗಿದೆ. ನೀವು ಊಟ ಮಾಡಿದಿರಾ?<br>
+— ಹೌದು, ಧನ್ಯವಾದಗಳು. ನೀವೂ ತಿನ್ನಿ.<br>
+— ಸಂಧಿಸಿ ಸಂತೋಷವಾಯಿತು.</div>
+</div>
+
+<div class="aside"><b>"ਰੋਟੀ ಖਾਧੀ?" —</b> ಉತ್ತರ ಭಾರತೀಯ ಕುಶಲೋಪರಿಯ ಪ್ರಮುಖ ಪ್ರಶ್ನೆ. ಕನ್ನಡದ "ಊಟ ಆಯ್ತಾ?" ಜೊತೆ ಸರಿಯಾಗಿ ಹೋಲಿಕೆಯಾಗುತ್ತದೆ — ಆಹಾರದ ಮೂಲಕವೇ ಕಾಳಜಿ ವ್ಯಕ್ತಪಡಿಸುವ ಉಪಖಂಡದ ಸಾಂಸ್ಕೃತಿಕ ಅಡಿಪಾಯ.</div>
+</section>
+<section class="stage" id="stage-07">
+<h2>ಪದಕ್ಷೇತ್ರ — ಎರಡು ಭಾಷೆಗಳು ಜಗತ್ತನ್ನು ಹೇಗೆ ತುಂಡರಿಸುತ್ತವೆ</h2>
+
+<h3>ಸಂಬಂಧ — ಕುಟುಂಬದ ನಕ್ಷೆ</h3>
+<p>ಕನ್ನಡ ಸಂಬಂಧಗಳಲ್ಲಿ ಹಿರಿಯ/ಕಿರಿಯ ಭೇದ ಸ್ಪಷ್ಟ — ಅಣ್ಣ/ತಮ್ಮ, ಅಕ್ಕ/ತಂಗಿ. ಪಂಜಾಬಿಯಲ್ಲಿ <span class="target">ਭਰਾ</span> ಎಂದರೆ ಸಹೋದರ (ಹಿರಿಯ/ಕಿರಿಯ ಇಬ್ಬರಿಗೂ); <span class="target">ਭੈਣ</span> ಎಂದರೆ ಸಹೋದರಿ. ವಯಸ್ಸನ್ನು ಪ್ರತ್ಯೇಕ ಪದಗಳಿಂದ ಸೂಚಿಸಬೇಕು: <span class="target">ਵੱਡਾ ਭਰਾ</span> (ದೊಡ್ಡ ಅಣ್ಣ), <span class="target">ਛੋਟਾ ਭਰਾ</span> (ಚಿಕ್ಕ ತಮ್ಮ).</p>
+<table>
+<tr><th>ಸಂಬಂಧ</th><th>ಕನ್ನಡ</th><th>ಪಂಜಾಬಿ</th></tr>
+<tr><td>ತಂದೆಯ ತಂದೆ</td><td>ಅಜ್ಜ</td><td class="target">ਦਾਦਾ</td></tr>
+<tr><td>ತಾಯಿಯ ತಂದೆ</td><td>ತಾತ</td><td class="target">ਨਾਨਾ</td></tr>
+<tr><td>ತಂದೆಯ ತಾಯಿ</td><td>ಅಜ್ಜಿ</td><td class="target">ਦਾਦੀ</td></tr>
+<tr><td>ತಾಯಿಯ ತಾಯಿ</td><td>ತಾಯಜ್ಜಿ</td><td class="target">ਨਾਨੀ</td></tr>
+<tr><td>ಚಿಕ್ಕಪ್ಪ</td><td>ಚಿಕ್ಕಪ್ಪ</td><td class="target">ਚਾਚਾ</td></tr>
+<tr><td>ಅತ್ತೆ</td><td>ಅತ್ತೆ</td><td class="target">ਮਾਸੀ/ਭੂਆ</td></tr>
+</table>
+
+<div class="aside"><b>ದಾದಾ/ನಾನಾ ಎಂಬ ಉತ್ತರದ ಜಾಣ್ಮೆ —</b> ಪಂಜಾಬಿ ತಂದೆಯ ಕಡೆ/ತಾಯಿಯ ಕಡೆ ಎಂದು ಸ್ಪಷ್ಟ ವಿಭಾಗ ಮಾಡುತ್ತದೆ: <span class="target">ਦਾਦਾ</span> = ತಂದೆಯ ತಂದೆ, <span class="target">ਨਾਨਾ</span> = ತಾಯಿಯ ತಂದೆ. ಕನ್ನಡ "ಅಜ್ಜ/ತಾತ" ಎಂದು ಇದೇ ಬೇಧ ಮಾಡಿದರೂ ಕೆಲವೊಮ್ಮೆ ಎರಡೂ ಅದಲುಬದಲಾಗುತ್ತವೆ.</div>
+
+<h3>ಕಾಲ — ದಿನ/ಕಾಲ</h3>
+<table>
+<tr><th>ಪಂಜಾಬಿ</th><th>ಕನ್ನಡ</th></tr>
+<tr><td class="target">ਸਵੇਰ</td><td>ಬೆಳಿಗ್ಗೆ</td></tr>
+<tr><td class="target">ਦੁਪਹਿਰ</td><td>ಮಧ್ಯಾಹ್ನ</td></tr>
+<tr><td class="target">ਸ਼ਾਮ</td><td>ಸಂಜೆ</td></tr>
+<tr><td class="target">ਰਾਤ</td><td>ರಾತ್ರಿ</td></tr>
+<tr><td class="target">ਹਫ਼ਤਾ</td><td>ವಾರ</td></tr>
+<tr><td class="target">ਮਹੀਨਾ</td><td>ತಿಂಗಳು</td></tr>
+<tr><td class="target">ਸਾਲ</td><td>ವರ್ಷ</td></tr>
+</table>
+
+<h3>ಶರೀರ — ಅಂಗಗಳು</h3>
+<table>
+<tr><th>ಪಂಜಾಬಿ</th><th>ಕನ್ನಡ</th></tr>
+<tr><td class="target">ਸਿਰ</td><td>ತಲೆ</td></tr>
+<tr><td class="target">ਮੂੰਹ</td><td>ಬಾಯಿ</td></tr>
+<tr><td class="target">ਅੱਖ</td><td>ಕಣ್ಣು</td></tr>
+<tr><td class="target">ਕੰਨ</td><td>ಕಿವಿ</td></tr>
+<tr><td class="target">ਨੱਕ</td><td>ಮೂಗು</td></tr>
+<tr><td class="target">ਹੱਥ</td><td>ಕೈ</td></tr>
+<tr><td class="target">ਪੈਰ</td><td>ಕಾಲು</td></tr>
+<tr><td class="target">ਦਿਲ</td><td>ಹೃದಯ/ಎದೆ</td></tr>
+</table>
+
+<h3>ಚಲನೆ — ಕ್ರಿಯಾಪದ ಕ್ಷೇತ್ರ</h3>
+<table>
+<tr><th>ಪಂಜಾಬಿ</th><th>ಕನ್ನಡ</th></tr>
+<tr><td class="target">ਜਾਣਾ</td><td>ಹೋಗುವುದು</td></tr>
+<tr><td class="target">ਆਉਣਾ</td><td>ಬರುವುದು</td></tr>
+<tr><td class="target">ਚੱਲਣਾ</td><td>ನಡೆಯುವುದು</td></tr>
+<tr><td class="target">ਦੌੜਨਾ</td><td>ಓಡುವುದು</td></tr>
+<tr><td class="target">ਬੈਠਣਾ</td><td>ಕುಳಿತುಕೊಳ್ಳುವುದು</td></tr>
+<tr><td class="target">ਖੜ੍ਹਨਾ</td><td>ನಿಲ್ಲುವುದು</td></tr>
+</table>
+
+<div class="aside"><b>ಒಂದು ಧ್ವನಿಸಾಮ್ಯ —</b> ಕನ್ನಡದಲ್ಲಿ "ನಡೆ/ಓಡು" — ಎರಡೂ ಗ-ಕಾರ ಅಲ್ಲ, ಡ-ಕಾರ. ಪಂಜಾಬಿ <span class="target">ਦੌੜਨਾ</span> ಕೂಡ ಡ-ಕಾರವೇ! ಉಪಖಂಡದ "ಓಡು/ಧಾವ" ಮೂಲ ಎರಡೂ ಕಡೆ ಉಳಿದಿದೆ.</div>
+</section>
+<section class="stage" id="stage-08">
+<h2>ಬಳಕೆ — ಗೌರವ, ನುಡಿಕಟ್ಟು, ಸಂಸ್ಕೃತಿ</h2>
+
+<h3>ಗೌರವ ಪ್ರಮಾಣ — ಎರಡು ಭಾಷೆ, ಎರಡು ಹಂತ</h3>
+<p>ಕನ್ನಡದಲ್ಲಿ "ನೀನು" (ಅನ್ಯೋನ್ಯ) ಮತ್ತು "ನೀವು" (ಗೌರವ) — ಎರಡು ಹಂತ. ಪಂಜಾಬಿಯಲ್ಲಿಯೂ ಅದೇ: <span class="target">ਤੂੰ</span> (ಅನ್ಯೋನ್ಯ, ಸ್ನೇಹಿತರೊಡನೆ, ಮಕ್ಕಳೊಡನೆ) ಮತ್ತು <span class="target">ਤੁਸੀਂ</span> (ಗೌರವ, ಹಿರಿಯರೊಡನೆ, ಅಪರಿಚಿತರೊಡನೆ). ಎರಡೂ ಭಾಷೆ ಪ್ರಮಾಣಗಳ ಮಟ್ಟದಲ್ಲಿ ಸಮಾನ.</p>
+<table>
+<tr><th>ಹಂತ</th><th>ಕನ್ನಡ</th><th>ಪಂಜಾಬಿ</th></tr>
+<tr><td>ಅನ್ಯೋನ್ಯ</td><td>ನೀನು</td><td class="target">ਤੂੰ</td></tr>
+<tr><td>ಗೌರವ</td><td>ನೀವು</td><td class="target">ਤੁਸੀਂ</td></tr>
+</table>
+
+<h3>ਜੀ — ಒಂದು ಚಿಕ್ಕ ಪದ, ಬಹಳ ಭಾರ</h3>
+<p>ಪಂಜಾಬಿಯಲ್ಲಿ <span class="target">ਜੀ</span> ಎಂಬ ಒಂದೇ ಅಕ್ಷರ ಗೌರವವನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ — ಹೆಸರಿನ ನಂತರ (<span class="target">ਨਾਨਕ ਜੀ</span>), ಉತ್ತರದ ನಂತರ (<span class="target">ਹਾਂ ਜੀ</span> = ಹೌದು), ನಮಸ್ಕಾರದ ನಂತರ. ಕನ್ನಡದ "-ರು" (ತೀರ್ಥರು, ಗುರುಗಳು) ಅಥವಾ "-ಅವರು" ಗೌರವ ಪ್ರತ್ಯಯಕ್ಕೆ ಸಮಾನ.</p>
+
+<h3>ಸ್ವಾಗತ ಮತ್ತು ನಮಸ್ಕಾರ</h3>
+<table>
+<tr><th>ಪಂಜಾಬಿ</th><th>ಉಚ್ಚಾರಣೆ</th><th>ಕನ್ನಡ ಸಮಾನ</th></tr>
+<tr><td class="target">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</td><td class="mono">sat srī akāl</td><td>ಸಿಖ್ಖ ನಮಸ್ಕಾರ — 'ಸತ್ಯ-ಶ್ರೀ ಅಕಾಲ' (ಶಾಶ್ವತ ಸತ್ಯಕ್ಕೆ ಪ್ರಣಾಮ)</td></tr>
+<tr><td class="target">ਨਮਸਤੇ</td><td class="mono">namaste</td><td>ನಮಸ್ತೆ (ಸಾಮಾನ್ಯ)</td></tr>
+<tr><td class="target">ਸ਼ੁਭ ਸਵੇਰ</td><td class="mono">śubh savēr</td><td>ಶುಭೋದಯ</td></tr>
+<tr><td class="target">ਧੰਨਵਾਦ</td><td class="mono">dhannvād</td><td>ಧನ್ಯವಾದಗಳು</td></tr>
+<tr><td class="target">ਮਾਫ਼ ਕਰੋ</td><td class="mono">māf karo</td><td>ಕ್ಷಮಿಸಿ</td></tr>
+</table>
+
+<div class="aside"><b>"ਰੋਟੀ ਖਾਧੀ?" = "ಊಟ ಆಯ್ತಾ?" —</b> ಎರಡೂ ಸಂಸ್ಕೃತಿಗಳಲ್ಲಿ ಪ್ರೀತಿಯನ್ನು ಆಹಾರದ ಮೂಲಕ ವ್ಯಕ್ತಪಡಿಸುತ್ತೇವೆ. ಹಿರಿಯರು, ಅತಿಥಿಗಳು ಮನೆಗೆ ಬಂದಾಗ ಮೊದಲ ಪ್ರಶ್ನೆ ಆಹಾರದ ಬಗ್ಗೆಯೇ. ಉತ್ತರಿಸುವಾಗ "ಹೌದು" ಎಂದರೂ, ತಟ್ಟೆ ಸಿದ್ಧವಾಗುತ್ತದೆ!</div>
+
+<h3>ಅಪರಿಚಿತರನ್ನು ಉದ್ದೇಶಿಸುವುದು</h3>
+<table>
+<tr><th>ಸನ್ನಿವೇಶ</th><th>ಪಂಜಾಬಿ</th><th>ಕನ್ನಡ ಸಮಾನ</th></tr>
+<tr><td>ಹಿರಿಯ ಪುರುಷ</td><td class="target">ਵੀਰ ਜੀ / ਭਾਜੀ</td><td>ಅಣ್ಣ / ಸಾರ್</td></tr>
+<tr><td>ಹಿರಿಯ ಮಹಿಳೆ</td><td class="target">ਭੈਣ ਜੀ</td><td>ಅಕ್ಕ / ಮೇಡಂ</td></tr>
+<tr><td>ಬಹಳ ಹಿರಿಯ ಪುರುಷ</td><td class="target">ਬਾਊ ਜੀ / ਬਜ਼ੁਰਗ</td><td>ತಾತ / ಅಜ್ಜ</td></tr>
+</table>
+
+<h3>ಮೃದುಕರಣ — ਜ਼ਰਾ</h3>
+<p>ಪಂಜಾಬಿಯಲ್ಲಿ ಕೋರಿಕೆಯನ್ನು ಮೃದುಗೊಳಿಸಲು <span class="target">ਜ਼ਰਾ</span> (ಜರಾ = ಸ್ವಲ್ಪ) ಸೇರಿಸಲಾಗುತ್ತದೆ: <span class="target">ਜ਼ਰਾ ਪਾਣੀ ਦਿਓ।</span> = ಸ್ವಲ್ಪ ನೀರು ಕೊಡಿ. ಕನ್ನಡದ "ಸ್ವಲ್ಪ", "ಕೊಂಚ" — ಅದೇ ಮೃದುಕರಣ ಕಾರ್ಯ.</p>
+
+<div class="aside"><b>ಸಿಖ್ಖರ ವಿಶಿಷ್ಟ ನಮಸ್ಕಾರ —</b> <span class="target">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</span> ಎಂದರೆ "ಶಾಶ್ವತನೇ ಸತ್ಯ" — ಅಲ್ಲಾಹ್/ಈಶ್ವರನ ಕಾಲಾತೀತತೆಯನ್ನು ಸ್ಮರಿಸುವ ವಚನ. ಕನ್ನಡದ "ನಮಸ್ಕಾರ" ಭೌತಿಕ ಪ್ರಣಾಮಕ್ಕೆ ಸೀಮಿತವಾದರೆ, ಪಂಜಾಬಿಯ ಈ ನುಡಿಕಟ್ಟು ತಾತ್ತ್ವಿಕ ಘೋಷಣೆ — ಭಾಷೆಯೊಳಗೆ ಬಸವಣ್ಣನ "ಕಾಲ ಕಾಯಕ ಸಿದ್ಧಾಂತ"ದಂತಹ ಆಲೋಚನೆ.</div>
+</section>
+<section class="stage" id="stage-09">
+<h2>ಸಾಹಿತ್ಯ — ಕನ್ನಡದ ಕನ್ನಡಿಯಲ್ಲಿ ಪಂಜಾಬಿ ಲೇಖಕರು</h2>
+
+<p>ಪಂಜಾಬಿ ಸಾಹಿತ್ಯ ಸುಮಾರು ೫೦೦ ವರ್ಷಗಳಿಂದ ಸಕ್ರಿಯ. ಗುರು ನಾನಕ್ ಅವರಿಂದ ಮೊದಲ್ಗೊಂಡು ಶಿವ ಕುಮಾರ್ ಬಟಾಲ್ವಿಯವರೆಗೆ — ಭಕ್ತಿ, ಸೂಫಿ, ರಾಷ್ಟ್ರಗೀತೆ, ವಿಭಜನೆಯ ನೋವು, ನಗರ-ಪ್ರಜ್ಞೆ ಎಲ್ಲವನ್ನೂ ಒಳಗೊಂಡಿದೆ. ಕೆಳಗಿನ ಸೇತುಗಳು ಅವರನ್ನು ನಮಗೆ ಗೊತ್ತಿರುವ ಕನ್ನಡ ಲೇಖಕರೊಂದಿಗೆ ಜೋಡಿಸುತ್ತವೆ.</p>
+
+<h3>ಗುರು ನಾನಕ್ ↔ ಬಸವಣ್ಣ</h3>
+<p><b><span class="target">ਗੁਰੂ ਨਾਨਕ</span> (೧೪೬೯-೧೫೩೯)</b> — ಸಿಖ್ಖ ಧರ್ಮದ ಸಂಸ್ಥಾಪಕ. ಅವರ ಕವಿತೆಗಳು (ਬਾਣੀ) ಜಾತಿ-ಕರ್ಮಕಾಂಡಗಳನ್ನು ನಿರಾಕರಿಸಿ ಒಬ್ಬ ನಿರ್ಗುಣ ಈಶ್ವರನ ಆರಾಧನೆಯನ್ನು ಬೋಧಿಸಿದವು. ಗ್ರಂಥ ಸಾಹಿಬ್‌ನ ತಳಹದಿ.</p>
+<p>ಬಸವಣ್ಣನವರಂತೆ (೧೧೦೫-೧೧೬೭) — ವಚನಗಳ ಮೂಲಕ ವರ್ಣಾಶ್ರಮ-ಯಜ್ಞ-ಪೂಜೆಗಳ ಡಂಬಾಚಾರವನ್ನು ನಿರಾಕರಿಸಿ "ಕಾಯಕವೇ ಕೈಲಾಸ" ಎಂದ ಅನುಭಾವಿ ಚಳವಳಿ. ಎರಡೂ ಚಳವಳಿಗಳು ಜನಭಾಷೆಯಲ್ಲಿ ಕಾವ್ಯ ಬರೆದು ಸಾಮಾಜಿಕ ಪಂಥಗಳನ್ನು ಹುಟ್ಟುಹಾಕಿದವು.</p>
+
+<h3>ಬುಲ್ಲೇ ಶಾಹ್ ↔ ಅಲ್ಲಮಪ್ರಭು</h3>
+<p><b><span class="target">ਬੁੱਲ੍ਹੇ ਸ਼ਾਹ</span> (೧೬೮೦-೧೭೫೭)</b> — ಪಂಜಾಬಿ ಸೂಫಿ ಕವಿ. ಕಾಫಿ ಛಂದಸ್ಸಿನಲ್ಲಿ "ನಾನು ಯಾರು?" ಎಂಬ ತಾತ್ತ್ವಿಕ ಪ್ರಶ್ನೆಗಳನ್ನು ವಿಚಾರಿಸಿ, ಮೂಲ್ಲಾ-ಪಂಡಿತರ ಅಡಗೆಗಳನ್ನು ವ್ಯಂಗ್ಯಗೈದರು.</p>
+<p>ಅಲ್ಲಮಪ್ರಭು (೧೨ನೇ ಶತಮಾನ) — ವಚನಕಾರರ ಮಂಡಲದಲ್ಲಿ ಅನುಭಾವದ ನೆತ್ತಿ. "ಭಿತ್ತಿಯ ಮೇಲೆ ಗೆಜ್ಜೆ ಕಟ್ಟಿ" ಎಂಬಂತಹ ಬೆಡಗಿನ ವಚನಗಳು — ಬುಲ್ಲೇಶಾಹರ "ਬੁੱਲ੍ਹਾ ਕੀ ਜਾਣਾ ਮੈਂ ਕੌਣ" ಎಂಬ ಸ್ವ-ಅನ್ವೇಷಣೆಯ ಸೋದರ ಕಾವ್ಯ. ಎರಡೂ ಕವಿಗಳು ಭಾಷೆಯೊಳಗಿನ ಗೂಢವನ್ನೇ ಆಯುಧವಾಗಿ ಬಳಸಿದರು.</p>
+
+<h3>ಅಮೃತಾ ಪ್ರೀತಮ್ ↔ ವೈದೇಹಿ</h3>
+<p><b><span class="target">ਅੰਮ੍ਰਿਤਾ ਪ੍ਰੀਤਮ</span> (೧೯೧೯-೨೦೦೫)</b> — ಪಂಜಾಬಿಯ ಮೊದಲ ಪ್ರಮುಖ ಮಹಿಳಾ ಕವಿ. ವಿಭಜನೆಯ ಘೋರವನ್ನು ಹಿಡಿದ "ਅੱਜ ਆਖਾਂ ਵਾਰਿਸ ਸ਼ਾਹ ਨੂੰ" ಮತ್ತು "ਪਿੰਜਰ" ಕಾದಂಬರಿ — ಲಿಂಗ-ಧರ್ಮ-ಸ್ವಾಯತ್ತತೆಯ ಪ್ರಶ್ನೆಗಳನ್ನು ಮುಂಚೂಣಿಗೆ ತಂದರು.</p>
+<p>ವೈದೇಹಿ — ಕನ್ನಡ ಕಥೆಗಾರ್ತಿ. ಕರಾವಳಿಯ ಮಹಿಳೆಯರ ಮೌನ-ಕೋಪಗಳನ್ನು ನಯವಾಗಿ ಹೊರಗೆಳೆದ ಕಥೆಗಳು. ಎರಡೂ ಬರಹಗಾರ್ತಿಯರು ಪಿತೃಪ್ರಧಾನ ಪರಂಪರೆಯ ಒಳಗೆ ಮಹಿಳಾ-ದೇಹ-ಆತ್ಮವನ್ನು ಮರುಶೋಧಿಸಿದವರು.</p>
+
+<h3>ಅಮೃತಾ ಪ್ರೀತಮ್ ↔ ಅಕ್ಕಮಹಾದೇವಿ (ಇನ್ನೊಂದು ಕೋನ)</h3>
+<p>ಅಕ್ಕಮಹಾದೇವಿ (೧೨ನೇ ಶತಮಾನ) — "ಚೆನ್ನಮಲ್ಲಿಕಾರ್ಜುನಾ" ಎಂಬ ವಚನಗಳ ಮೂಲಕ ಸಮಾಜದ ನಿರ್ಬಂಧಗಳನ್ನೊಡೆದ ವಚನಕಾರ್ತಿ. ಅಮೃತಾ ಪ್ರೀತಮ್ ಸಾಹಿರ್ ಲುಧಿಯಾನ್ವಿಯೊಂದಿಗಿನ ತಮ್ಮ ಪ್ರೀತಿ-ಬಂಡಾಯವನ್ನು ಬರೆದಂತೆ — ಎಂಟು ಶತಮಾನಗಳ ಅಂತರದಲ್ಲಿ ಎರಡು ಸ್ವಾಭಿಮಾನಿ ಮಹಿಳಾ-ಧ್ವನಿಗಳು.</p>
+
+<h3>ಶಿವ ಕುಮಾರ್ ಬಟಾಲ್ವಿ ↔ ಚೆನ್ನವೀರ ಕಣವಿ</h3>
+<p><b><span class="target">ਸ਼ਿਵ ਕੁਮਾਰ ਬਟਾਲਵੀ</span> (೧೯೩೬-೧೯೭೩)</b> — "ਬਿਰਹਾ ਦਾ ਸੁਲਤਾਨ" (ವಿರಹದ ಸುಲ್ತಾನ) ಎಂದೇ ಪ್ರಸಿದ್ಧ. ಪಂಜಾಬಿ ಕಾವ್ಯಕ್ಕೆ ಗೀತಿಕ ರಾಗ-ಲಯಗಳನ್ನು ಮರಳಿ ತಂದವರು.</p>
+<p>ಚೆನ್ನವೀರ ಕಣವಿಯವರಂತೆ — ಕನ್ನಡ ನವ್ಯ-ಸಂವೇದನೆಗೆ ಮುಕ್ತ ಛಂದಸ್ಸನ್ನೂ, ಒಳಬೆಡಗಿನ ಏಕಾಂತ-ಭಾವವನ್ನೂ ತಂದವರು. ಎರಡೂ ಕವಿಗಳು ತಮ್ಮ ತಮ್ಮ ಭಾಷೆಗಳಲ್ಲಿ "ಅಂತರಂಗದ ನೋವು" ಎಂಬ ಹೊಸ ಕಾವ್ಯವಿಶೇಷವನ್ನು ಸ್ಥಾಪಿಸಿದರು.</p>
+
+<h3>ವಾರಿಸ್ ಶಾಹ್ ↔ ಕುಮಾರವ್ಯಾಸ</h3>
+<p><b><span class="target">ਵਾਰਿਸ ਸ਼ਾਹ</span> (೧೭೨೨-೧೭೯೮)</b> — "ਹੀਰ ਰਾਂਝਾ" ಮಹಾಕಾವ್ಯದ ಕರ್ತೃ. ಜಾನಪದ ಪ್ರೇಮಕಥೆಯನ್ನು ತೆಗೆದುಕೊಂಡು ಅದಕ್ಕೆ ಕಾವ್ಯಭವ್ಯತೆ ನೀಡಿದವರು. ಕುಮಾರವ್ಯಾಸರು ಕರ್ಣಾಟ ಭಾರತ ಕಥಾಮಂಜರಿಯಲ್ಲಿ ಸಂಸ್ಕೃತ ಮಹಾಭಾರತವನ್ನು ಜನಕನ್ನಡದ ಭಾಮಿನಿಗೆ ಸಾರಿದಂತೆ — ಶಾಸ್ತ್ರವನ್ನು ಜನಭಾಷೆಯಲ್ಲಿ ಕಟ್ಟಿಕೊಟ್ಟ ಜೋಡಿ.</p>
+
+<div class="aside"><b>ಒಂದು ಕೊನೆಯ ಸೇತು —</b> ಗ್ರಂಥ ಸಾಹಿಬ್‌ನಲ್ಲಿ ಬರಿ ಸಿಖ್ಖ ಗುರುಗಳ ಬಾಣಿ ಮಾತ್ರವಲ್ಲ — ಕಬೀರ, ರವಿದಾಸ, ನಾಮದೇವ ಮತ್ತಿತರ ಭಕ್ತ ಕವಿಗಳ ರಚನೆಗಳೂ ಇವೆ. ಅದೇ ಉತ್ತರ ಭಾರತದ ಭಕ್ತಿ ಚಳವಳಿಗೆ ಸಮಾನಾಂತರವಾಗಿ ಕರ್ನಾಟಕದಲ್ಲಿ ವಚನ ಚಳವಳಿ ನಡೆಯುತ್ತಿತ್ತು. ಎರಡೂ ಚಳವಳಿಗಳು ಜಾತಿ-ಧರ್ಮದ ಗೋಡೆಗಳನ್ನೊಡೆದು ಕನ್ನಡ/ಪಂಜಾಬಿ ಎಂಬ ಜನಭಾಷೆಗಳನ್ನು ದಾರ್ಶನಿಕ ವಾಹನಗಳಾಗಿ ಎತ್ತಿದವು.</div>
+
+<p style="text-align:center;font-style:italic;color:var(--ink-faded);margin-top:20px">ಸೇತುವೆ ನಿಮಿಸಿಯಾಗಿದೆ. ಈಗ ನಡೆಯುವ ಸರದಿ ನಿಮ್ಮದು.</p>
+</section>
+
+<footer>made by Nil · using Claude</footer>
+</div>
+<script>
+(function(){
+  var tabs = document.querySelectorAll('nav.tabs button');
+  var stages = document.querySelectorAll('section.stage');
+  function show(n){
+    tabs.forEach(function(t,i){ t.classList.toggle('active', i===n); });
+    stages.forEach(function(s,i){ s.classList.toggle('active', i===n); });
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  tabs.forEach(function(t,i){ t.addEventListener('click', function(){ show(i); }); });
+  // Prev/Next buttons appended to each stage
+  stages.forEach(function(s, idx){
+    var nav = document.createElement('div');
+    nav.className = 'nav-btns';
+    var prev = document.createElement('button');
+    prev.textContent = '‹ ಹಿಂದಿನ ಹಂತ';
+    prev.disabled = idx === 0;
+    prev.addEventListener('click', function(){ if(idx>0) show(idx-1); });
+    var next = document.createElement('button');
+    next.textContent = 'ಮುಂದಿನ ಹಂತ ›';
+    next.disabled = idx === stages.length - 1;
+    next.addEventListener('click', function(){ if(idx<stages.length-1) show(idx+1); });
+    nav.appendChild(prev);
+    nav.appendChild(next);
+    s.appendChild(nav);
+  });
+})();
+</script>
+</body>
+</html>

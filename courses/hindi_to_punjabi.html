@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="हिन्दी से पंजाबी सीखने का प्रथम-सिद्धांत पाठ्यक्रम — बारहखड़ी की पद्धति में।" />
+<title>ਪੰਜਾਬੀ ਸਿੱਖੀਏ — हिन्दी से पंजाबी</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Gurmukhi:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Devanagari', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .pa { font-family: 'Noto Serif Gurmukhi', serif; }
+  .hi { font-family: 'Noto Serif Devanagari', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .pa { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .hi-g {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .pa-g {
+    font-family: 'Noto Serif Gurmukhi', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 4px; }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .pa { font-family: 'Noto Serif Gurmukhi', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .pa { font-family: 'Noto Serif Gurmukhi', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Devanagari', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .pa { font-family: 'Noto Serif Gurmukhi', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 15px; color: var(--ink-soft); }
+
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+
+  .passage {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .passage::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .passage .pa { font-size: 19px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; font-family: 'Noto Serif Gurmukhi', serif; }
+  .passage .trans-block { font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7; color: var(--sindoor); margin-bottom: 10px; }
+  .passage .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .passage .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, devanagari);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Devanagari', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .pa { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .pa-g { font-size: 26px; }
+    .map-cell .hi-g { font-size: 22px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .hi-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 400px) {
+    .wrap { padding: 0 14px; }
+    body { font-size: 16px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+    h2.stage-title { font-size: 24px; }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">एक प्राइमर · ਇੱਕ ਪ੍ਰਾਈਮਰ</div>
+    <h1 class="title">
+      <span class="pa">ਪੰਜਾਬੀ ਸਿੱਖੀਏ</span>
+      हिन्दी से पंजाबी सीखें
+    </h1>
+    <p class="subtitle">बारहखड़ी की पद्धति में — एक बार में एक ही अनजानी बात, रूप पहले अर्थ बाद में, सूची नहीं व्यवस्था — हिन्दी जो जानती है उसी पर पंजाबी खड़ी है।</p>
+    <div class="byline">दस पड़ाव <span class="sep">·</span> मोबाइल-अनुकूल <span class="sep">·</span> शून्य से पूरी</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">००</span>भूमिका</button>
+    <button class="stage-tab" data-stage="1"><span class="num">०१</span>स्वर</button>
+    <button class="stage-tab" data-stage="2"><span class="num">०२</span>व्यंजन</button>
+    <button class="stage-tab" data-stage="3"><span class="num">०३</span>संयोजन</button>
+    <button class="stage-tab" data-stage="4"><span class="num">०४</span>मूल शब्द</button>
+    <button class="stage-tab" data-stage="5"><span class="num">०५</span>वाक्य</button>
+    <button class="stage-tab" data-stage="6"><span class="num">०६</span>पाठ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">०७</span>शब्द-क्षेत्र</button>
+    <button class="stage-tab" data-stage="8"><span class="num">०८</span>प्रयोग</button>
+    <button class="stage-tab" data-stage="9"><span class="num">०९</span>साहित्य</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" data-stage="0" id="stage-00">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · भूमिका</div>
+    <h2 class="stage-title">यह पाठ क्यों अलग है</h2>
+    <p class="stage-lede">आप हिन्दी जानते हैं। इसका अर्थ है कि पंजाबी सीखने के लिए आपको अंग्रेज़ी-भाषियों की तरह शून्य से शुरू नहीं करना होगा — आप पहले से ही क़रीब ४२ में से ४२ ध्वनियाँ, वाक्य का ढाँचा, और लगभग ८३% शब्दावली पहचानते हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>बचपन में जो <strong>वर्णमाला</strong> और <strong>बारहखड़ी</strong> आपने याद की थी — क, का, कि, की — वही पद्धति इस पाठ्यक्रम का आधार है। बारहखड़ी का मूल सिद्धांत था: <strong>एक समय में केवल एक नई चीज़</strong>, और अनसिखाए हुए उदाहरण कभी नहीं। यह पाठ्यक्रम उसी अनुशासन पर चलता है — एक बड़ी सुविधा के साथ। आपकी भाषा और पंजाबी दोनों इन्डो-आर्य परिवार की बहनें हैं, एक ही संस्कृत-प्राकृत जड़ से निकली हैं, एक ही SOV क्रम, एक ही अनुस्वार, एक ही परसर्ग (postposition) का व्याकरण।</p>
+
+    <p>एक उदाहरण: <span class="hi">मैं घर जाता हूँ</span> = <span class="pa">ਮੈਂ ਘਰ ਜਾਂਦਾ ਹਾਂ</span> (मैं घर जांदा हां)। कर्ता, कर्म, क्रिया — ठीक उसी क्रम में। शब्द लगभग वही; केवल लिपि गुरमुखी है और क्रिया का रूप थोड़ा बदला है। असल काम लिपि का है — <strong>गुरमुखी</strong> — जिसे गुरु अंगद ने सोलहवीं सदी में व्यवस्थित किया।</p>
+
+    <h3><span class="num">¶</span>हिन्दी → पंजाबी: कहाँ मेल, कहाँ फ़र्क़</h3>
+
+    <ol class="principles">
+      <li><strong>ध्वनियाँ — लगभग पूरी साझा।</strong> क-ख-ग-घ-ङ, च-छ-ज-झ-ञ, ट-ठ-ड-ढ-ण, त-थ-द-ध-न, प-फ-ब-भ-म — सब जस की तस पंजाबी में हैं: <span class="pa">ਕ-ਖ-ਗ-ਘ-ਙ</span>। आपका मुँह इन्हें पहले से बोलता है।</li>
+      <li><strong>लिपि — नई सूरत, पुराना नियम।</strong> गुरमुखी भी अबुगिदा है — हर व्यंजन में अंतर्निहित 'अ' है, स्वर-चिह्नों से बदलता है। जैसे <span class="hi">क + ा = का</span>, वैसे ही <span class="pa">ਕ + ਾ = ਕਾ</span>। नियम एक, चेहरा अलग।</li>
+      <li><strong>स्वर-वाहक तीन हैं, एक नहीं।</strong> हिन्दी में 'अ' स्वतंत्र स्वरों का आधार है। पंजाबी में तीन वाहक हैं: <span class="pa">ੳ</span> (उ/ऊ/ओ के लिए), <span class="pa">ਅ</span> (अ/आ/ऐ/औ के लिए), <span class="pa">ੲ</span> (इ/ई/ए के लिए)। यह एकमात्र "नया विचार" है — बाक़ी सब परिचित।</li>
+      <li><strong>व्याकरण — कंकाल वही।</strong> दोनों SOV; दोनों में परसर्ग (को, में, से / -ਨੂੰ, -ਵਿਚ, -ਤੋਂ); दोनों में लिंग-वचन का अनुक्रमण क्रिया पर। <span class="hi">लड़का जाता है / लड़की जाती है</span> = <span class="pa">ਮੁੰਡਾ ਜਾਂਦਾ ਹੈ / ਕੁੜੀ ਜਾਂਦੀ ਹੈ</span>।</li>
+      <li><strong>शब्दावली — ८३% साझा।</strong> दिन/<span class="pa">ਦਿਨ</span>, नाम/<span class="pa">ਨਾਮ</span>, सूरज/<span class="pa">ਸੂਰਜ</span>, घर/<span class="pa">ਘਰ</span>, हाथ/<span class="pa">ਹੱਥ</span> — तत्सम और तद्भव दोनों साझा हैं। फ़ारसी-अरबी उधार भी लगभग वही: <span class="hi">किताब/दुनिया/वक़्त</span> = <span class="pa">ਕਿਤਾਬ/ਦੁਨੀਆ/ਵਕਤ</span>।</li>
+      <li><strong>असली चुनौती: <span class="pa">ਤੋਨ</span> — सुर।</strong> पंजाबी की एकमात्र ऐसी विशेषता जो हिन्दी में नहीं है। जहाँ संस्कृत में महाप्राण घ/झ/ढ/ध/भ थे, वहाँ पंजाबी ने अक्सर उनका महाप्राण गँवाकर पूरे शब्द को एक नीचा या ऊँचा सुर दे दिया। <span class="hi">घोड़ा</span> = <span class="pa">ਘੋੜਾ</span> (कोड़ा जैसा, पर नीचे से उठता सुर)।</li>
+    </ol>
+
+    <div class="aside"><strong>पद्धति।</strong> प्रत्येक पड़ाव पर पंजाबी अक्षर/शब्द/वाक्य के साथ हिन्दी समतुल्य रखा गया है। आप हिन्दी पहचानते हैं — पंजाबी केवल नया चेहरा है, नया विचार नहीं।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ऊपर <strong>स्वर</strong> टैब दबाएँ, शुरुआत करें।</p>
+  </div>
+</section>
+<section class="stage" data-stage="1" id="stage-01">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ध्वनि</div>
+    <h2 class="stage-title">स्वर — <span class="pa">ਸਵਰ</span></h2>
+    <p class="stage-lede">हिन्दी में आप ११ स्वर जानते हैं। पंजाबी में भी १० मुख्य स्वर लगभग वही। ध्वनि बराबर — केवल चेहरा और <em>वाहक प्रणाली</em> नई है। गुरमुखी हर स्वर को तीन वाहकों में से किसी एक पर बिठाती है।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+punjabi+gurmukhi+vowels+pronunciation" title="Punjabi Gurmukhi vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">पंजाबी स्वरों का उच्चारण <a href="https://www.youtube.com/results?search_query=learn+punjabi+gurmukhi+vowels+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>वाहक-प्रणाली — एक ही नया विचार।</strong> हिन्दी में "अ, आ, इ, ई..." हर स्वर अपने आप खड़ा होता है। गुरमुखी में स्वतंत्र स्वर हमेशा तीन वाहकों में से एक पर सवार होते हैं: <span class="pa">ੳ</span> (ऊड़ा — उ/ऊ/ओ), <span class="pa">ਅ</span> (ऐड़ा — अ/आ/ऐ/औ), <span class="pa">ੲ</span> (ईड़ी — इ/ई/ए)। वाहक अकेले नहीं बोलते; उन पर चिह्न चढ़े बिना उच्चारण नहीं।</div>
+
+    <div class="aside"><strong>पढ़ने का नियम।</strong> हर कार्ड पर तर्जनी दबाएँ — एक उदाहरण शब्द खुलेगा। हिन्दी अक्षर ऊपर, पंजाबी नीचे — आँख हिन्दी पहचानेगी, फिर गुरमुखी रूप याद में बैठेगा।</div>
+
+    <div class="group-label">'अ' परिवार — वाहक <span class="pa">ਅ</span> (ऐड़ा)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਅੱਜ (ajj) = आज — एक ही शब्द, एक ही अर्थ"><div class="hi-g">अ</div><div class="arrow">↓</div><div class="pa-g">ਅ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਆਉਣਾ (āuṇā) = आना"><div class="hi-g">आ</div><div class="arrow">↓</div><div class="pa-g">ਆ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'इ' परिवार — वाहक <span class="pa">ੲ</span> (ईड़ी)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਇੱਕ (ikk) = एक"><div class="hi-g">इ</div><div class="arrow">↓</div><div class="pa-g">ਇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਈਦ (īd) = ईद"><div class="hi-g">ई</div><div class="arrow">↓</div><div class="pa-g">ਈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'उ' परिवार — वाहक <span class="pa">ੳ</span> (ऊड़ा)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਉਮਰ (umar) = उम्र"><div class="hi-g">उ</div><div class="arrow">↓</div><div class="pa-g">ਉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਊਠ (ūṭh) = ऊँट"><div class="hi-g">ऊ</div><div class="arrow">↓</div><div class="pa-g">ਊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ए' परिवार — ईड़ी पर सवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਏਕ (ek) = एक (पंजाबी ਇੱਕ भी कहती है)"><div class="hi-g">ए</div><div class="arrow">↓</div><div class="pa-g">ਏ</div><div class="label">e</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਐਨਕ (ainak) = ऐनक — एक ही शब्द"><div class="hi-g">ऐ</div><div class="arrow">↓</div><div class="pa-g">ਐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ओ' परिवार — ऊड़ा पर सवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਓਹ (oh) = वह"><div class="hi-g">ओ</div><div class="arrow">↓</div><div class="pa-g">ਓ</div><div class="label">o</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਔਰਤ (aurat) = औरत — फ़ारसी-अरबी से, दोनों भाषाओं में एक जैसा"><div class="hi-g">औ</div><div class="arrow">↓</div><div class="pa-g">ਔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी से तुलना।</strong> हिन्दी में "ऋ" है (संस्कृत ऋषि, मृत्यु) — गुरमुखी में वह पृथक स्वर नहीं है; जहाँ संस्कृत मूल में ऋ था, पंजाबी उसे 'रि' या 'ऋ'-वाला तत्सम मानकर अपनाती है (<span class="pa">ਰਿਸ਼ੀ</span>)। अनुस्वार <span class="pa">ਂ</span> (टिप्पी) और <span class="pa">ੰ</span> (बिंदी) दोनों हैं — नाक से निकलने वाली ध्वनि हिन्दी <span class="hi">ं</span>/<span class="hi">ँ</span> जैसी ही।</div>
+
+    <h3><span class="num">१.१</span>अभ्यास</h3>
+    <ul class="clean">
+      <li>हर जोड़ी को ज़ोर से २० बार बोलें: अ-आ, इ-ई, उ-ऊ — लेकिन आँख गुरमुखी रूप पर।</li>
+      <li>काग़ज़ पर तीनों वाहक (<span class="pa">ੳ ਅ ੲ</span>) पाँच-पाँच बार लिखें। हाथ आँख को सिखाता है।</li>
+      <li>जब तक हर स्वर १ सेकंड में न पहचान सकें, पड़ाव २ पर न जाएँ।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" data-stage="2" id="stage-02">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ध्वनि (जारी)</div>
+    <h2 class="stage-title">व्यंजन — <span class="pa">ਵਿਅੰਜਨ</span></h2>
+    <p class="stage-lede">बारहखड़ी का वर्गीय क्रम आपकी स्मृति में है। क-ख-ग-घ-ङ, च-छ-ज-झ-ञ... ठीक उसी क्रम में गुरमुखी बैठी है। केवल चेहरा नया।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+punjabi+gurmukhi+consonants+pronunciation" title="Punjabi Gurmukhi consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">पंजाबी व्यंजनों का उच्चारण <a href="https://www.youtube.com/results?search_query=learn+punjabi+gurmukhi+consonants+pronunciation" target="_blank" rel="noopener">और ↗</a></div>
+    </div>
+
+    <h3><span class="num">२.१</span>कण्ठ्य वर्ग (कवर्ग) — जीभ की जड़ तालु के पीछे</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਕਮਲ (kamal) = कमल"><div class="hi-g">क</div><div class="arrow">↓</div><div class="pa-g">ਕ</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਖ਼ਬਰ (khabar) = ख़बर"><div class="hi-g">ख</div><div class="arrow">↓</div><div class="pa-g">ਖ</div><div class="label">kha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਗਗਨ (gagan) = गगन"><div class="hi-g">ग</div><div class="arrow">↓</div><div class="pa-g">ਗ</div><div class="label">ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਘਰ (ghar) = घर — ⚡ यहाँ पंजाबी में अक्सर नीचा सुर आता है"><div class="hi-g">घ</div><div class="arrow">↓</div><div class="pa-g">ਘ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="दुर्लभ, संयुक्ताक्षरों में"><div class="hi-g">ङ</div><div class="arrow">↓</div><div class="pa-g">ਙ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.२</span>तालव्य वर्ग (चवर्ग)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਚੰਦ (cand) = चाँद"><div class="hi-g">च</div><div class="arrow">↓</div><div class="pa-g">ਚ</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਛੇ (che) = छह"><div class="hi-g">छ</div><div class="arrow">↓</div><div class="pa-g">ਛ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਜਲ (jal) = जल"><div class="hi-g">ज</div><div class="arrow">↓</div><div class="pa-g">ਜ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਝੂਠ (jhūṭh) = झूठ — ⚡ सुर ज्ञ नहीं, पंजाबी में स्वर पर गिरता है"><div class="hi-g">झ</div><div class="arrow">↓</div><div class="pa-g">ਝ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="दुर्लभ"><div class="hi-g">ञ</div><div class="arrow">↓</div><div class="pa-g">ਞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.३</span>मूर्धन्य वर्ग (टवर्ग) — जीभ पीछे मोड़कर</h3>
+    <p>हिन्दी ट-ठ-ड-ढ-ण जैसे, पंजाबी में ठीक वैसे। अंग्रेज़ी-भाषी इन्हें कठिन पाते हैं — आपको नहीं।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਟੋਕਰੀ (ṭokrī) = टोकरी"><div class="hi-g">ट</div><div class="arrow">↓</div><div class="pa-g">ਟ</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਠੀਕ (ṭhīk) = ठीक"><div class="hi-g">ठ</div><div class="arrow">↓</div><div class="pa-g">ਠ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਡਰ (ḍar) = डर"><div class="hi-g">ड</div><div class="arrow">↓</div><div class="pa-g">ਡ</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="दुर्लभ; ੜ भी देखें (टवर्गीय ड़)"><div class="hi-g">ढ</div><div class="arrow">↓</div><div class="pa-g">ਢ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਕਾਣ (kāṇ) = काण"><div class="hi-g">ण</div><div class="arrow">↓</div><div class="pa-g">ਣ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.४</span>दन्त्य वर्ग (तवर्ग) — जीभ की नोक दाँतों के पीछे</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਤਾਰਾ (tārā) = तारा"><div class="hi-g">त</div><div class="arrow">↓</div><div class="pa-g">ਤ</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਥਾਂ (thā̃) = स्थान"><div class="hi-g">थ</div><div class="arrow">↓</div><div class="pa-g">ਥ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਦਿਨ (din) = दिन — एक ही शब्द!"><div class="hi-g">द</div><div class="arrow">↓</div><div class="pa-g">ਦ</div><div class="label">da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਧਨ (dhan) = धन — ⚡ अक्सर सुर में बदल जाता है"><div class="hi-g">ध</div><div class="arrow">↓</div><div class="pa-g">ਧ</div><div class="label">dha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਨਾਮ (nām) = नाम"><div class="hi-g">न</div><div class="arrow">↓</div><div class="pa-g">ਨ</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.५</span>ओष्ठ्य वर्ग (पवर्ग)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਪੁਸਤਕ (pustak) = पुस्तक"><div class="hi-g">प</div><div class="arrow">↓</div><div class="pa-g">ਪ</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਫਲ (phal) = फल"><div class="hi-g">फ</div><div class="arrow">↓</div><div class="pa-g">ਫ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਬਾਹਰ (bāhar) = बाहर"><div class="hi-g">ब</div><div class="arrow">↓</div><div class="pa-g">ਬ</div><div class="label">ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਭਾਸ਼ਾ (bhāshā) = भाषा — ⚡ सुर-परिवर्तन यहाँ भी"><div class="hi-g">भ</div><div class="arrow">↓</div><div class="pa-g">ਭ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਮਾਂ (mā̃) = माँ"><div class="hi-g">म</div><div class="arrow">↓</div><div class="pa-g">ਮ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.६</span>अन्तःस्थ, ऊष्म और विशेष</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਯਾਰ (yār) = यार"><div class="hi-g">य</div><div class="arrow">↓</div><div class="pa-g">ਯ</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਰਾਜਾ (rājā) = राजा"><div class="hi-g">र</div><div class="arrow">↓</div><div class="pa-g">ਰ</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਲੜਕਾ (laṛkā) = लड़का"><div class="hi-g">ल</div><div class="arrow">↓</div><div class="pa-g">ਲ</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਵਤਨ (vatan) = वतन — हिन्दी 'व' को पंजाबी 'ਵ' लिखती है"><div class="hi-g">व</div><div class="arrow">↓</div><div class="pa-g">ਵ</div><div class="label">va</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਸ਼ਹਿਰ (shahar) = शहर — नुक़्तेदार स"><div class="hi-g">श</div><div class="arrow">↓</div><div class="pa-g">ਸ਼</div><div class="label">śa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="पंजाबी में ष नहीं — ਸ या ਸ਼ से काम चलता है"><div class="hi-g">ष</div><div class="arrow">↓</div><div class="pa-g">ਸ਼</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਸਮਾਂ (samā̃) = समय"><div class="hi-g">स</div><div class="arrow">↓</div><div class="pa-g">ਸ</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ਹੱਥ (hatth) = हाथ"><div class="hi-g">ह</div><div class="arrow">↓</div><div class="pa-g">ਹ</div><div class="label">ha</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.७</span>पंजाबी की अपनी आवाज़ — <span class="pa">ੜ</span> और नुक़्ते</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ਘੋੜਾ (ghoṛā) = घोड़ा — हिन्दी ड़ की बहन, मूर्धन्य तड़क" style="grid-column: span 2; border-color: var(--sindoor);">
+        <div class="hi-g" style="color: var(--sindoor);">ड़</div>
+        <div class="arrow">↓</div>
+        <div class="pa-g" style="color: var(--sindoor);">ੜ</div>
+        <div class="label">ṛa — मूर्धन्य तड़क</div>
+        <div class="hint" style="opacity:1; max-height: 60px;">हिन्दी 'ड़' बिल्कुल वैसी — केवल गुरमुखी रूप अलग। घोड़ा = <span class="pa">ਘੋੜਾ</span>, लड़का = <span class="pa">ਲੜਕਾ</span>।</div>
+      </div>
+    </div>
+    <p style="margin-top: 10px;">फ़ारसी-अरबी से आए अक्षर नुक़्ते (पैर बिंदी) से बनते हैं, हिन्दी की तरह ही: <span class="pa">ਸ਼</span> (श), <span class="pa">ਖ਼</span> (ख़), <span class="pa">ਗ਼</span> (ग़), <span class="pa">ਜ਼</span> (ज़), <span class="pa">ਫ਼</span> (फ़), <span class="pa">ਲ਼</span> (ळ — दुर्लभ)। परिचय पक्का है।</p>
+
+    <div class="aside"><strong>महाप्राण का रहस्य।</strong> संस्कृत में घ-झ-ढ-ध-भ महाप्राण थे ('हाँ' की साँस के साथ)। हिन्दी ने वह साँस रखी है — आप आज भी "घर" में पूरा महाप्राण बोलते हैं। पंजाबी ने सदियों में वह साँस छोड़ दी और बदले में <strong>स्वर पर सुर (ਤੋਨ)</strong> डाल दिया। <span class="pa">ਘੋੜਾ</span> सुनने में "कोड़ा" जैसा लगता है पर स्वर नीचे से उठता है — यही पंजाबी को हिन्दी से अलग धुन देता है।</div>
+  </div>
+</section>
+<section class="stage" data-stage="3" id="stage-03">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · संयोजन</div>
+    <h2 class="stage-title">मात्राएँ, हलन्त और संयुक्ताक्षर — <span class="pa">ਮਾਤਰਾਵਾਂ ਤੇ ਸੰਯੁਕਤ</span></h2>
+    <p class="stage-lede">बारहखड़ी की सारी शिक्षा एक पंक्ति में: क + मात्रा = कार। गुरमुखी में वही नियम, वही बारह ख़ाने — केवल चिह्न का चेहरा बदला है।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>आप जानते हैं: <span class="hi">क + ा = का</span>, <span class="hi">क + ि = कि</span>। गुरमुखी में ठीक वैसा ही: <span class="pa">ਕ + ਾ = ਕਾ</span>, <span class="pa">ਕ + ਿ = ਕਿ</span>। मात्रा की सूरत बदलती है, नियम बिल्कुल नहीं।</p>
+
+    <h3><span class="num">३.१</span>क की बारहखड़ी — हिन्दी ↔ पंजाबी</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>स्वर</th><th>हिन्दी</th><th>पंजाबी</th><th>उच्चारण</th></tr>
+        <tr><td>अ</td><td class="hi g">क</td><td><span class="pa g">ਕ</span></td><td class="mono">ka</td></tr>
+        <tr><td>आ</td><td class="hi g">का</td><td><span class="pa g">ਕਾ</span></td><td class="mono">kā</td></tr>
+        <tr><td>इ</td><td class="hi g">कि</td><td><span class="pa g">ਕਿ</span></td><td class="mono">ki</td></tr>
+        <tr><td>ई</td><td class="hi g">की</td><td><span class="pa g">ਕੀ</span></td><td class="mono">kī</td></tr>
+        <tr><td>उ</td><td class="hi g">कु</td><td><span class="pa g">ਕੁ</span></td><td class="mono">ku</td></tr>
+        <tr><td>ऊ</td><td class="hi g">कू</td><td><span class="pa g">ਕੂ</span></td><td class="mono">kū</td></tr>
+        <tr><td>ए</td><td class="hi g">के</td><td><span class="pa g">ਕੇ</span></td><td class="mono">ke</td></tr>
+        <tr><td>ऐ</td><td class="hi g">कै</td><td><span class="pa g">ਕੈ</span></td><td class="mono">kai</td></tr>
+        <tr><td>ओ</td><td class="hi g">को</td><td><span class="pa g">ਕੋ</span></td><td class="mono">ko</td></tr>
+        <tr><td>औ</td><td class="hi g">कौ</td><td><span class="pa g">ਕੌ</span></td><td class="mono">kau</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>बारहखड़ी की चाल।</strong> ये १० मात्राएँ ३५ अक्षरों पर एक जैसी बैठती हैं। १० × ३५ = ३५० अक्षर — केवल १० चिह्नों के दाम में! आपने हिन्दी में यह पहले किया है, यहाँ केवल नया चेहरा याद करना है।</div>
+
+    <h3><span class="num">३.२</span>हलन्त / विरामी — <span class="pa">੍ (ਹਲੰਤ)</span></h3>
+    <p>हिन्दी में <span class="hi">्</span> (हलन्त) जो काम करता है — व्यंजन की अंतर्निहित 'अ' हटा देना — गुरमुखी में <span class="pa">੍</span> ठीक वही करता है। <span class="pa">ਕ (ka) + ੍ = ਕ੍ (k)</span>।</p>
+
+    <h3><span class="num">३.३</span>संयुक्ताक्षर — <span class="pa">ਸੰਯੁਕਤ ਅੱਖਰ</span></h3>
+    <p>बारहखड़ी की मूल शिक्षा: क्ष = क + ष, ज्ञ = ज + ञ। पंजाबी में:</p>
+    <div class="sentence">
+      <div class="pa">ਕ੍ + ਕ = ਕੱਕ / ਅਧਕ ਵਰਤ ਕੇ → ਪੱਕਾ</div>
+      <div class="trans">adhak</div>
+      <div class="hi-gloss">पंजाबी में दुगुनाकरण अधकर चिह्न <span class="pa">ੱ</span> से होता है। <span class="pa">ਪੱਕਾ</span> = पक्का — अक्षर दुगुना, अर्थ वही।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਸ੍ + ਤ = ਸਤ / ਪੁਸਤਕ</div>
+      <div class="hi-gloss">स् + त = स्त → पुस्तक = <span class="pa">ਪੁਸਤਕ</span>। एक ही शब्द, एक ही संयुक्त।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਨ੍ + ਨ = ਮੇਰਾ (ਮੇਰੇ / ਤੇਰਾ ਦੀ ਤਰ੍ਹਾਂ)</div>
+      <div class="hi-gloss">हिन्दी के "मेरा/तेरा" की तरह पंजाबी ने प्राचीन संयुक्ताक्षरों को अक्सर खोलकर सरल कर दिया है।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਪੈਰੀਂ ਅੱਖਰ — ਵਿੱਦਿਆ</div>
+      <div class="trans">paireen akkhar</div>
+      <div class="hi-gloss">पंजाबी में कुछ अक्षर दूसरे अक्षर के "पैर" में बैठते हैं — जैसे हिन्दी की 'र' "प्र" में ऊपर, वैसे गुरमुखी में र-य-ह-व के पैरीं रूप होते हैं। <span class="pa">ਵਿੱਦਿਆ</span> = विद्या।</div>
+    </div>
+
+    <h3><span class="num">३.४</span>बिंदी, टिप्पी, अधक — तीन छोटे चिह्न जो पंजाबी को पंजाबी बनाते हैं</h3>
+    <ul class="clean">
+      <li><strong><span class="pa">ਂ</span> बिंदी (दीर्घ पर):</strong> अनुस्वार, हिन्दी <span class="hi">ं/ँ</span> की तरह। <span class="pa">ਮਾਂ</span> = माँ।</li>
+      <li><strong><span class="pa">ੰ</span> टिप्पी (ह्रस्व पर):</strong> वही अनुस्वार, पर ह्रस्व स्वर के ऊपर। <span class="pa">ਪੰਜਾਬ</span> = पंजाब।</li>
+      <li><strong><span class="pa">ੱ</span> अधक:</strong> अगले व्यंजन को दुगुना करता है। <span class="pa">ਹੱਥ</span> = हत्थ/हाथ। हिन्दी में यह कार्य संयुक्ताक्षर <span class="hi">त्थ</span> से होता है; गुरमुखी ने इसे एक चिह्न में समेट दिया।</li>
+    </ul>
+
+    <div class="aside"><strong>मूल बात।</strong> संयुक्ताक्षर नई धारणा नहीं — आप बचपन से "क्ष = क + ष" जानते हैं। यहाँ केवल गुरमुखी ने तीन छोटे चिह्न जोड़े हैं जो काम आसान करते हैं — अधक से दुगुनाकरण, टिप्पी से ह्रस्व-अनुस्वार, पैरीं से नीचे-बैठा व्यंजन।</div>
+  </div>
+</section>
+<section class="stage" data-stage="4" id="stage-04">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · मूल शब्द</div>
+    <h2 class="stage-title">पचास शब्द — हिन्दी के साथ-साथ पंजाबी</h2>
+    <p class="stage-lede">हर शब्द के पास उसकी हिन्दी जुड़वाँ खड़ी है। अधिकांश तत्सम — केवल लिपि बदली है, शब्द वही।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">४.१</span>सर्वनाम</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਮੈਂ</span><span class="hi-eq">मैं</span><span class="trans">maĩ</span></div>
+      <div class="word"><span class="pa">ਤੂੰ</span><span class="hi-eq">तू</span><span class="trans">tū̃</span><span class="note">अति-अनौपचारिक — "तू" के बराबर</span></div>
+      <div class="word"><span class="pa">ਤੁਸੀਂ</span><span class="hi-eq">आप / तुम</span><span class="trans">tusī̃</span><span class="note">पंजाबी में केवल दो स्तर — 'तू' और 'तुसीं'; हिन्दी का 'तुम' यहाँ 'तुसीं' में समा गया</span></div>
+      <div class="word"><span class="pa">ਉਹ</span><span class="hi-eq">वह / वे</span><span class="trans">oh</span><span class="note">दूर के लिए; हिन्दी 'वह/वो' की तरह</span></div>
+      <div class="word"><span class="pa">ਇਹ</span><span class="hi-eq">यह / ये</span><span class="trans">ih</span></div>
+      <div class="word"><span class="pa">ਅਸੀਂ</span><span class="hi-eq">हम</span><span class="trans">asī̃</span></div>
+      <div class="word"><span class="pa">ਮੇਰਾ / ਮੇਰੀ / ਮੇਰੇ</span><span class="hi-eq">मेरा / मेरी / मेरे</span><span class="trans">merā / merī / mere</span><span class="note">लिंग-वचन का अनुक्रमण हिन्दी की तरह ही</span></div>
+      <div class="word"><span class="pa">ਤੇਰਾ / ਤੇਰੀ</span><span class="hi-eq">तेरा / तेरी</span><span class="trans">terā / terī</span></div>
+    </div>
+
+    <h3><span class="num">४.२</span>संज्ञा — घर, परिवार, शरीर</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਘਰ</span><span class="hi-eq">घर</span><span class="trans">ghar</span><span class="note">तद्भव — संस्कृत गृह से</span></div>
+      <div class="word"><span class="pa">ਦਿਨ</span><span class="hi-eq">दिन</span><span class="trans">din</span><span class="note">तत्सम — शुद्ध संस्कृत</span></div>
+      <div class="word"><span class="pa">ਰਾਤ</span><span class="hi-eq">रात</span><span class="trans">rāt</span></div>
+      <div class="word"><span class="pa">ਦੁੱਧ</span><span class="hi-eq">दूध</span><span class="trans">duddh</span><span class="note">यहाँ अधक <span class="pa">ੱ</span> ने त्थ/ध को दुगुना किया है</span></div>
+      <div class="word"><span class="pa">ਪਾਣੀ</span><span class="hi-eq">पानी</span><span class="trans">pāṇī</span><span class="note">मूर्धन्य ण — हिन्दी 'पानी' में भी ण का अंश है</span></div>
+      <div class="word"><span class="pa">ਸੂਰਜ</span><span class="hi-eq">सूरज / सूर्य</span><span class="trans">sūraj</span><span class="note">तत्सम — एक ही शब्द</span></div>
+      <div class="word"><span class="pa">ਚੰਦ</span><span class="hi-eq">चाँद</span><span class="trans">cand</span></div>
+      <div class="word"><span class="pa">ਨਾਮ</span><span class="hi-eq">नाम</span><span class="trans">nām</span></div>
+      <div class="word"><span class="pa">ਪਿਤਾ / ਬਾਪੂ</span><span class="hi-eq">पिता / पापा</span><span class="trans">pitā / bāpū</span><span class="note">बापू पंजाब में प्यार से पिता के लिए — हिन्दी में भी परिचित</span></div>
+      <div class="word"><span class="pa">ਮਾਂ / ਮਾਤਾ</span><span class="hi-eq">माँ / माता</span><span class="trans">mā̃ / mātā</span></div>
+      <div class="word"><span class="pa">ਵੀਰ / ਭਰਾ</span><span class="hi-eq">भाई</span><span class="trans">vīr / bharā</span><span class="note">वीर = संस्कृत वीर; हिन्दी में 'वीर' बहादुर के लिए, पंजाबी में सगा भाई!</span></div>
+      <div class="word"><span class="pa">ਭੈਣ</span><span class="hi-eq">बहन</span><span class="trans">bhaiṇ</span></div>
+      <div class="word"><span class="pa">ਪੁੱਤਰ / ਮੁੰਡਾ</span><span class="hi-eq">पुत्र / लड़का</span><span class="trans">puttar / muṇḍā</span></div>
+      <div class="word"><span class="pa">ਧੀ / ਕੁੜੀ</span><span class="hi-eq">बेटी / लड़की</span><span class="trans">dhī / kuṛī</span></div>
+      <div class="word"><span class="pa">ਸਿਰ</span><span class="hi-eq">सिर</span><span class="trans">sir</span></div>
+      <div class="word"><span class="pa">ਹੱਥ</span><span class="hi-eq">हाथ</span><span class="trans">hatth</span><span class="note">दुगुना त्थ = अधक चिह्न का जादू</span></div>
+      <div class="word"><span class="pa">ਪੈਰ</span><span class="hi-eq">पैर</span><span class="trans">pair</span></div>
+      <div class="word"><span class="pa">ਅੱਖ</span><span class="hi-eq">आँख</span><span class="trans">akkh</span></div>
+      <div class="word"><span class="pa">ਕੰਨ</span><span class="hi-eq">कान</span><span class="trans">kann</span></div>
+    </div>
+
+    <h3><span class="num">४.३</span>क्रियाएँ — मूल रूप (-ਣਾ/-ਨਾ पर अंत)</h3>
+    <div class="aside"><strong>ध्यान दें।</strong> हिन्दी क्रिया का मूल रूप '-ना' पर समाप्त होता है (करना, जाना)। पंजाबी में अक्सर '-ਣਾ' (मूर्धन्य ण) या '-ਨਾ' — जहाँ मूल शब्द में दन्त्य न था वहाँ न, जहाँ मूर्धन्य आभास है वहाँ ण।</div>
+    <div class="words">
+      <div class="word"><span class="pa">ਕਰਨਾ</span><span class="hi-eq">करना</span><span class="trans">karnā</span></div>
+      <div class="word"><span class="pa">ਜਾਣਾ</span><span class="hi-eq">जाना</span><span class="trans">jāṇā</span></div>
+      <div class="word"><span class="pa">ਆਉਣਾ</span><span class="hi-eq">आना</span><span class="trans">āuṇā</span></div>
+      <div class="word"><span class="pa">ਖਾਣਾ</span><span class="hi-eq">खाना</span><span class="trans">khāṇā</span><span class="note">संज्ञा के रूप में भी 'भोजन' — हिन्दी की ही तरह</span></div>
+      <div class="word"><span class="pa">ਪੀਣਾ</span><span class="hi-eq">पीना</span><span class="trans">pīṇā</span></div>
+      <div class="word"><span class="pa">ਦੇਖਣਾ / ਵੇਖਣਾ</span><span class="hi-eq">देखना</span><span class="trans">dekhṇā / vekhṇā</span></div>
+      <div class="word"><span class="pa">ਬੋਲਣਾ</span><span class="hi-eq">बोलना</span><span class="trans">bolṇā</span></div>
+      <div class="word"><span class="pa">ਸੁਣਨਾ</span><span class="hi-eq">सुनना</span><span class="trans">suṇnā</span></div>
+      <div class="word"><span class="pa">ਪੜ੍ਹਨਾ</span><span class="hi-eq">पढ़ना</span><span class="trans">paṛhnā</span></div>
+      <div class="word"><span class="pa">ਲਿਖਣਾ</span><span class="hi-eq">लिखना</span><span class="trans">likhṇā</span></div>
+      <div class="word"><span class="pa">ਹੋਣਾ</span><span class="hi-eq">होना</span><span class="trans">hoṇā</span></div>
+    </div>
+
+    <h3><span class="num">४.४</span>संख्याएँ</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਇੱਕ</span><span class="hi-eq">एक</span><span class="trans">ikk</span></div>
+      <div class="word"><span class="pa">ਦੋ</span><span class="hi-eq">दो</span><span class="trans">do</span></div>
+      <div class="word"><span class="pa">ਤਿੰਨ</span><span class="hi-eq">तीन</span><span class="trans">tinn</span></div>
+      <div class="word"><span class="pa">ਚਾਰ</span><span class="hi-eq">चार</span><span class="trans">cār</span></div>
+      <div class="word"><span class="pa">ਪੰਜ</span><span class="hi-eq">पाँच</span><span class="trans">panj</span><span class="note">राज्य का नाम पंजाब = पंज + आब (पाँच पानी) — फ़ारसी उधार</span></div>
+      <div class="word"><span class="pa">ਛੇ</span><span class="hi-eq">छह</span><span class="trans">che</span></div>
+      <div class="word"><span class="pa">ਸੱਤ</span><span class="hi-eq">सात</span><span class="trans">satt</span></div>
+      <div class="word"><span class="pa">ਅੱਠ</span><span class="hi-eq">आठ</span><span class="trans">aṭṭh</span></div>
+      <div class="word"><span class="pa">ਨੌਂ</span><span class="hi-eq">नौ</span><span class="trans">nauṃ</span></div>
+      <div class="word"><span class="pa">ਦਸ</span><span class="hi-eq">दस</span><span class="trans">das</span></div>
+    </div>
+
+    <h3><span class="num">४.५</span>समय और अभिवादन</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਅੱਜ</span><span class="hi-eq">आज</span><span class="trans">ajj</span></div>
+      <div class="word"><span class="pa">ਕੱਲ੍ਹ</span><span class="hi-eq">कल</span><span class="trans">kallh</span><span class="note">हिन्दी की तरह ही दोनों दिशा में काम करता है — बीता कल और आने वाला कल</span></div>
+      <div class="word"><span class="pa">ਹੁਣ</span><span class="hi-eq">अभी / अब</span><span class="trans">huṇ</span></div>
+      <div class="word"><span class="pa">ਸਵੇਰ</span><span class="hi-eq">सुबह</span><span class="trans">savēr</span></div>
+      <div class="word"><span class="pa">ਸ਼ਾਮ</span><span class="hi-eq">शाम</span><span class="trans">shām</span></div>
+      <div class="word"><span class="pa">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</span><span class="hi-eq">नमस्कार (सिख अभिवादन)</span><span class="trans">sat srī akāl</span><span class="note">अर्थ: "ईश्वर कालातीत सत्य है" — गुरु गोबिन्द सिंह ने दिया</span></div>
+      <div class="word"><span class="pa">ਧੰਨਵਾਦ</span><span class="hi-eq">धन्यवाद</span><span class="trans">dhannvād</span><span class="note">तत्सम — वही संस्कृत शब्द</span></div>
+      <div class="word"><span class="pa">ਮਿਹਰਬਾਨੀ</span><span class="hi-eq">मेहरबानी / कृपया</span><span class="trans">miharbānī</span><span class="note">फ़ारसी उधार — हिन्दी में भी परिचित</span></div>
+    </div>
+
+    <div class="aside"><strong>मिथ्या मित्र — सावधान!</strong> पंजाबी <span class="pa">ਵੀਰ</span> (वीर) का अर्थ है "सगा भाई" (हिन्दी "भाई"), जबकि हिन्दी "वीर" का अर्थ है "बहादुर"। यह शब्द एक ही संस्कृत जड़ से — पंजाबी ने इसे स्नेह का पता बना लिया ("वीर जी!"), हिन्दी ने साहस का। संदर्भ पढ़कर पहचानें।</div>
+  </div>
+</section>
+<section class="stage" data-stage="5" id="stage-05">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · वाक्य</div>
+    <h2 class="stage-title">वाक्य बनाना — <span class="pa">ਵਾਕ ਬਣਾਉਣਾ</span></h2>
+    <p class="stage-lede">पंजाबी का वाक्य-ढाँचा हिन्दी का ही दर्पण है: कर्ता, कर्म, क्रिया (SOV)। परसर्ग क्रिया के पहले बैठते हैं। क्रिया लिंग और वचन से मिलती है। नया कुछ नहीं, बस चेहरा नया।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">५.१</span>क्रियारूप — "करना" का वर्तमान काल</h3>
+    <div class="conjug">
+      <div class="conjug-row" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--sindoor); letter-spacing: 0.1em;">
+        <div>पुरुष</div><div>पंजाबी</div><div>हिन्दी</div>
+      </div>
+      <div class="conjug-row"><div class="pron">मैं</div><div class="pa">ਮੈਂ ਕਰਦਾ/ਕਰਦੀ ਹਾਂ</div><div class="hi-eq">मैं करता/करती हूँ</div></div>
+      <div class="conjug-row"><div class="pron">तू</div><div class="pa">ਤੂੰ ਕਰਦਾ/ਕਰਦੀ ਹੈਂ</div><div class="hi-eq">तू करता/करती है</div></div>
+      <div class="conjug-row"><div class="pron">वह</div><div class="pa">ਉਹ ਕਰਦਾ/ਕਰਦੀ ਹੈ</div><div class="hi-eq">वह करता/करती है</div></div>
+      <div class="conjug-row"><div class="pron">हम</div><div class="pa">ਅਸੀਂ ਕਰਦੇ/ਕਰਦੀਆਂ ਹਾਂ</div><div class="hi-eq">हम करते/करती हैं</div></div>
+      <div class="conjug-row"><div class="pron">आप</div><div class="pa">ਤੁਸੀਂ ਕਰਦੇ/ਕਰਦੀਆਂ ਹੋ</div><div class="hi-eq">आप करते/करती हैं</div></div>
+      <div class="conjug-row"><div class="pron">वे</div><div class="pa">ਉਹ ਕਰਦੇ/ਕਰਦੀਆਂ ਹਨ</div><div class="hi-eq">वे करते/करती हैं</div></div>
+    </div>
+
+    <div class="aside"><strong>रूप-तुलना।</strong> हिन्दी में पुल्लिंग "-ता/-ते", स्त्रीलिंग "-ती/-तीं"; पंजाबी में पुल्लिंग "-ਦਾ/-ਦੇ", स्त्रीलिंग "-ਦੀ/-ਦੀਆਂ"। 'त' की जगह 'द', बाक़ी वही। सहायक 'है/हैं' पंजाबी में <span class="pa">ਹੈ/ਹਾਂ/ਹੋ/ਹਨ</span>।</div>
+
+    <h3><span class="num">५.२</span>परसर्ग — हिन्दी के साथ-साथ</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>काम</th><th>हिन्दी</th><th>पंजाबी</th></tr>
+        <tr><td>कर्ता (ने)</td><td class="hi g">ने</td><td><span class="pa g">ਨੇ</span></td></tr>
+        <tr><td>कर्म / सम्प्रदान</td><td class="hi g">को</td><td><span class="pa g">ਨੂੰ</span></td></tr>
+        <tr><td>करण / अपादान</td><td class="hi g">से</td><td><span class="pa g">ਤੋਂ / ਨਾਲ</span></td></tr>
+        <tr><td>अधिकरण</td><td class="hi g">में</td><td><span class="pa g">ਵਿਚ</span></td></tr>
+        <tr><td>सम्बन्ध (का)</td><td class="hi g">का/की/के</td><td><span class="pa g">ਦਾ/ਦੀ/ਦੇ</span></td></tr>
+      </table>
+    </div>
+
+    <h3><span class="num">५.३</span>उदाहरण वाक्य</h3>
+
+    <div class="sentence">
+      <div class="pa">ਮੇਰਾ ਨਾਮ ਰਾਜ ਹੈ।</div>
+      <div class="trans">mērā nām rāj hai.</div>
+      <div class="hi-gloss">मेरा नाम राज है।</div>
+      <div class="literal">मेरा · नाम · राज · है</div>
+    </div>
+
+    <div class="sentence">
+      <div class="pa">ਮੈਂ ਘਰ ਜਾਂਦਾ ਹਾਂ।</div>
+      <div class="trans">maĩ ghar jā̃dā hā̃.</div>
+      <div class="hi-gloss">मैं घर जाता हूँ।</div>
+      <div class="literal">मैं · घर · जाता · हूँ</div>
+    </div>
+
+    <div class="sentence">
+      <div class="pa">ਤੁਸੀਂ ਕੀ ਪੀਂਦੇ ਹੋ?</div>
+      <div class="trans">tusī̃ kī pī̃de ho?</div>
+      <div class="hi-gloss">आप क्या पीते हैं?</div>
+      <div class="literal">आप · क्या · पीते · हो</div>
+    </div>
+
+    <div class="sentence">
+      <div class="pa">ਮੈਂ ਦੁੱਧ ਪੀਂਦਾ ਹਾਂ।</div>
+      <div class="trans">maĩ duddh pī̃dā hā̃.</div>
+      <div class="hi-gloss">मैं दूध पीता हूँ।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="pa">ਉਹ ਕਿਤਾਬ ਪੜ੍ਹ ਰਹੀ ਹੈ।</div>
+      <div class="trans">oh kitāb paṛh rahī hai.</div>
+      <div class="hi-gloss">वह (स्त्री) किताब पढ़ रही है।</div>
+      <div class="literal">वह · किताब · पढ़ · रही · है</div>
+    </div>
+
+    <h3><span class="num">५.४</span>प्रश्नवाचक शब्द</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>अर्थ</th><th>हिन्दी</th><th>पंजाबी</th><th>रोमन</th></tr>
+        <tr><td>क्या</td><td class="hi g">क्या</td><td><span class="pa g">ਕੀ</span></td><td class="mono">kī</td></tr>
+        <tr><td>कौन</td><td class="hi g">कौन</td><td><span class="pa g">ਕੌਣ</span></td><td class="mono">kauṇ</td></tr>
+        <tr><td>कहाँ</td><td class="hi g">कहाँ</td><td><span class="pa g">ਕਿੱਥੇ</span></td><td class="mono">kitthe</td></tr>
+        <tr><td>कब</td><td class="hi g">कब</td><td><span class="pa g">ਕਦੋਂ</span></td><td class="mono">kadõ</td></tr>
+        <tr><td>क्यों</td><td class="hi g">क्यों</td><td><span class="pa g">ਕਿਉਂ</span></td><td class="mono">kiũ</td></tr>
+        <tr><td>कैसे</td><td class="hi g">कैसे</td><td><span class="pa g">ਕਿਵੇਂ</span></td><td class="mono">kivẽ</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>ध्यान दें।</strong> पंजाबी <span class="pa">ਕੀ</span> (की) का अर्थ है "क्या" — लेकिन हिन्दी में "की" स्त्रीलिंग सम्बन्धकारक है (राम की किताब)! संदर्भ पढ़कर पहचानें: प्रश्नवाचक आरंभ में या क्रिया के पहले, सम्बन्धकारक दो संज्ञाओं के बीच।</div>
+
+    <h3><span class="num">५.५</span>नकारात्मक</h3>
+    <div class="sentence">
+      <div class="pa">ਮੈਂ ਨਹੀਂ ਜਾਂਦਾ।</div>
+      <div class="trans">maĩ nahī̃ jā̃dā.</div>
+      <div class="hi-gloss">मैं नहीं जाता।</div>
+      <div class="literal">"नहीं" हिन्दी जैसा ही, क्रिया के पहले।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਨਾ ਜਾਓ।</div>
+      <div class="trans">nā jāo.</div>
+      <div class="hi-gloss">मत जाओ / न जाओ।</div>
+    </div>
+
+    <div class="aside"><strong>सुर दिखाई देता है।</strong> पंजाबी <span class="pa">ਕੋੜ੍ਹਾ</span> (कोड़ा, "कोढ़ का रोगी") और <span class="pa">ਘੋੜਾ</span> (घोड़ा) — लिखने में केवल 'क/घ' का अंतर, पर सुर के कारण वे बहुत अलग सुनाई देते हैं। हिन्दी के लिए यह नई बारीकी है: कान धीरे-धीरे पकड़ेगा।</div>
+  </div>
+</section>
+<section class="stage" data-stage="6" id="stage-06">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · पाठ</div>
+    <h2 class="stage-title">तीन पाठ — क्रमशः कठिन</h2>
+    <p class="stage-lede">अब तक आप सब टुकड़े जानते हैं। तीन छोटे पाठ पढ़ें — पहले गुरमुखी, फिर रोमन, फिर हिन्दी अर्थ। आँख-कान-समझ साथ चलेंगे।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">६.१</span>अपना परिचय</h3>
+    <div class="passage">
+      <div class="pa">
+        ਸਤ ਸ੍ਰੀ ਅਕਾਲ। ਮੇਰਾ ਨਾਮ ਅਮਨ ਹੈ। ਮੈਂ ਅੰਮ੍ਰਿਤਸਰ ਦਾ ਰਹਿਣ ਵਾਲਾ ਹਾਂ। ਮੇਰੇ ਪਿਤਾ ਜੀ ਅਧਿਆਪਕ ਹਨ ਅਤੇ ਮੇਰੀ ਮਾਂ ਘਰ ਸੰਭਾਲਦੀ ਹੈ। ਮੈਂ ਹਿੰਦੀ ਅਤੇ ਪੰਜਾਬੀ ਦੋਵੇਂ ਜਾਣਦਾ ਹਾਂ।
+      </div>
+      <div class="trans-block">
+        sat srī akāl. mērā nām aman hai. maĩ amritsar dā rahiṇ vālā hā̃. mere pitā jī adhyāpak han atē mērī mā̃ ghar sambhāldī hai. maĩ hindī atē panjābī dovē̃ jāṇdā hā̃.
+      </div>
+      <div class="hi-gloss">
+        नमस्कार। मेरा नाम अमन है। मैं अमृतसर का रहने वाला हूँ। मेरे पिताजी अध्यापक हैं और मेरी माँ घर सँभालती है। मैं हिन्दी और पंजाबी दोनों जानता हूँ।
+      </div>
+      <div class="attrib">पाठ १ · परिचय</div>
+    </div>
+
+    <h3><span class="num">६.२</span>एक दिन की दिनचर्या</h3>
+    <div class="passage">
+      <div class="pa">
+        ਸਵੇਰੇ ਮੈਂ ਛੇ ਵਜੇ ਉੱਠਦਾ ਹਾਂ। ਫਿਰ ਮੈਂ ਇੱਕ ਗਲਾਸ ਦੁੱਧ ਪੀਂਦਾ ਹਾਂ ਅਤੇ ਅਖ਼ਬਾਰ ਪੜ੍ਹਦਾ ਹਾਂ। ਅੱਠ ਵਜੇ ਮੈਂ ਕੰਮ ’ਤੇ ਜਾਂਦਾ ਹਾਂ। ਦੁਪਹਿਰ ਨੂੰ ਮੈਂ ਰੋਟੀ ਖਾਂਦਾ ਹਾਂ। ਸ਼ਾਮ ਨੂੰ ਘਰ ਵਾਪਸ ਆ ਕੇ ਮੈਂ ਆਪਣੇ ਪਰਿਵਾਰ ਨਾਲ ਗੱਲਾਂ ਕਰਦਾ ਹਾਂ।
+      </div>
+      <div class="trans-block">
+        savere maĩ che vaje uṭṭhdā hā̃. phir maĩ ikk glās duddh pī̃dā hā̃ atē akhbār paṛhdā hā̃. aṭṭh vaje maĩ kamm 'te jā̃dā hā̃. dupahir nū̃ maĩ roṭī khā̃dā hā̃. shām nū̃ ghar vāpas ā ke maĩ āpṇe parivār nāl gallā̃ kardā hā̃.
+      </div>
+      <div class="hi-gloss">
+        सुबह मैं छह बजे उठता हूँ। फिर मैं एक गिलास दूध पीता हूँ और अख़बार पढ़ता हूँ। आठ बजे मैं काम पर जाता हूँ। दोपहर को मैं रोटी खाता हूँ। शाम को घर वापस आकर मैं अपने परिवार के साथ बातें करता हूँ।
+      </div>
+      <div class="attrib">पाठ २ · दिनचर्या</div>
+    </div>
+
+    <h3><span class="num">६.३</span>दो लोगों की बातचीत</h3>
+    <div class="passage">
+      <div class="pa">
+        — ਸਤ ਸ੍ਰੀ ਅਕਾਲ, ਵੀਰ ਜੀ। ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ?<br>
+        — ਸਤ ਸ੍ਰੀ ਅਕਾਲ। ਮੈਂ ਠੀਕ ਹਾਂ, ਤੁਸੀਂ ਸੁਣਾਓ।<br>
+        — ਸਭ ਠੀਕ। ਰੋਟੀ ਖਾਧੀ?<br>
+        — ਹਾਂ ਜੀ, ਹੁਣੇ ਹੀ ਖਾਧੀ। ਤੁਸੀਂ ਕਿੱਥੇ ਜਾ ਰਹੇ ਹੋ?<br>
+        — ਬਜ਼ਾਰ ਜਾ ਰਿਹਾ ਹਾਂ। ਕੁਝ ਚਾਹੀਦਾ ਹੈ?<br>
+        — ਜ਼ਰਾ ਦੁੱਧ ਲੈ ਆਉਣਾ, ਮਿਹਰਬਾਨੀ।<br>
+        — ਜ਼ਰੂਰ, ਭੈਣ ਜੀ। ਧੰਨਵਾਦ।
+      </div>
+      <div class="trans-block">
+        sat srī akāl, vīr jī. tusī̃ kivē̃ ho? / ... maĩ ṭhīk hā̃, tusī̃ suṇāo. / sabh ṭhīk. roṭī khādhī? / hā̃ jī, huṇe hī khādhī. tusī̃ kitthe jā rahe ho? / bazār jā rihā hā̃. kujh cāhīdā hai? / zarā duddh lai āuṇā, miharbānī. / zarūr, bhaiṇ jī. dhannvād.
+      </div>
+      <div class="hi-gloss">
+        — नमस्कार, भाई जी। आप कैसे हैं?<br>
+        — नमस्कार। मैं ठीक हूँ, आप सुनाइए।<br>
+        — सब ठीक। रोटी खाई?<br>
+        — हाँ जी, अभी-अभी खाई। आप कहाँ जा रहे हैं?<br>
+        — बाज़ार जा रहा हूँ। कुछ चाहिए?<br>
+        — ज़रा दूध लेते आना, मेहरबानी।<br>
+        — ज़रूर, बहन जी। धन्यवाद।
+      </div>
+      <div class="attrib">पाठ ३ · बातचीत</div>
+    </div>
+
+    <div class="aside"><strong>"रोटी खाई?"</strong> पंजाब में यह केवल खाने का प्रश्न नहीं, अभिवादन है — जैसे बंगाली में "भात खेइचो?" या हिन्दी में "खाना खा लिया?"। इसका उत्तर नहीं चाहिए, केवल स्नेह की पुष्टि। पंजाब के "रोटी" पर इस उपमहाद्वीप का पूरा आतिथ्य-दर्शन टिका है।</div>
+  </div>
+</section>
+<section class="stage" data-stage="7" id="stage-07">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · शब्द-क्षेत्र</div>
+    <h2 class="stage-title">शब्दों के खेत — <span class="pa">ਸ਼ਬਦਾਂ ਦੇ ਖੇਤ</span></h2>
+    <p class="stage-lede">रिश्ते, समय, शरीर, गति — इन चार खेतों में हिन्दी और पंजाबी प्रायः एक ही बीज बोती हैं, पर फ़सल थोड़ी अलग उगती है।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">७.१</span>रिश्ते — <span class="pa">ਰਿਸ਼ਤੇ</span></h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਪਿਤਾ ਜੀ / ਬਾਪੂ ਜੀ</span><span class="hi-eq">पिताजी</span><span class="trans">pitā jī / bāpū jī</span></div>
+      <div class="word"><span class="pa">ਮਾਂ ਜੀ / ਬੇਬੇ</span><span class="hi-eq">माँजी / माँ</span><span class="trans">mā̃ jī / bebe</span><span class="note">'बेबे' — माँ के लिए पंजाबी का प्यार-भरा शब्द</span></div>
+      <div class="word"><span class="pa">ਦਾਦਾ ਜੀ / ਬਾਬਾ ਜੀ</span><span class="hi-eq">दादा जी</span><span class="trans">dādā jī / bābā jī</span></div>
+      <div class="word"><span class="pa">ਦਾਦੀ ਜੀ / ਬੀਬੀ ਜੀ</span><span class="hi-eq">दादी जी</span><span class="trans">dādī jī / bībī jī</span></div>
+      <div class="word"><span class="pa">ਨਾਨਾ ਜੀ</span><span class="hi-eq">नाना जी</span><span class="trans">nānā jī</span></div>
+      <div class="word"><span class="pa">ਨਾਨੀ ਜੀ</span><span class="hi-eq">नानी जी</span><span class="trans">nānī jī</span></div>
+      <div class="word"><span class="pa">ਵੀਰ ਜੀ / ਭਾ ਜੀ</span><span class="hi-eq">भाई साहब / भैया</span><span class="trans">vīr jī / bhā jī</span><span class="note">अजनबी बड़े पुरुष को भी यही पुकारा जाता है — स्नेह का विस्तार</span></div>
+      <div class="word"><span class="pa">ਭੈਣ ਜੀ</span><span class="hi-eq">बहन जी / दीदी</span><span class="trans">bhaiṇ jī</span></div>
+      <div class="word"><span class="pa">ਚਾਚਾ / ਤਾਇਆ</span><span class="hi-eq">चाचा / ताया</span><span class="trans">cācā / tāiā</span><span class="note">हिन्दी की तरह बड़े-छोटे भाई के लिए अलग शब्द</span></div>
+    </div>
+
+    <div class="aside"><strong>"जी" — सम्मान का सुर।</strong> हिन्दी में "जी" नाम या रिश्ते के बाद लगाया जाता है (पिताजी, रामजी)। पंजाबी इसे और भी प्यार से इस्तेमाल करती है — हर वाक्य के उत्तर में "हाँ जी", "ठीक है जी"। पंजाब की बोली में "जी" लगभग एक विराम-चिह्न है, जो सुनने वाले का सम्मान बनाए रखता है।</div>
+
+    <h3><span class="num">७.२</span>समय — <span class="pa">ਸਮਾਂ</span></h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਸਵੇਰ</span><span class="hi-eq">सुबह / प्रातः</span><span class="trans">savēr</span></div>
+      <div class="word"><span class="pa">ਦੁਪਹਿਰ</span><span class="hi-eq">दोपहर</span><span class="trans">dupahir</span></div>
+      <div class="word"><span class="pa">ਸ਼ਾਮ</span><span class="hi-eq">शाम</span><span class="trans">shām</span></div>
+      <div class="word"><span class="pa">ਰਾਤ</span><span class="hi-eq">रात</span><span class="trans">rāt</span></div>
+      <div class="word"><span class="pa">ਅੱਜ / ਕੱਲ੍ਹ / ਪਰਸੋਂ</span><span class="hi-eq">आज / कल / परसों</span><span class="trans">ajj / kallh / parsõ</span><span class="note">हिन्दी की तरह 'कल' यहाँ भी दोनों दिशाओं में काम करता है</span></div>
+      <div class="word"><span class="pa">ਹਫ਼ਤਾ</span><span class="hi-eq">सप्ताह / हफ़्ता</span><span class="trans">haftā</span><span class="note">फ़ारसी उधार — दोनों भाषाओं में समान</span></div>
+      <div class="word"><span class="pa">ਮਹੀਨਾ</span><span class="hi-eq">महीना</span><span class="trans">mahīnā</span></div>
+      <div class="word"><span class="pa">ਸਾਲ / ਵਰ੍ਹਾ</span><span class="hi-eq">साल / वर्ष</span><span class="trans">sāl / varhā</span></div>
+    </div>
+
+    <h3><span class="num">७.३</span>शरीर — <span class="pa">ਸਰੀਰ</span></h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਸਿਰ</span><span class="hi-eq">सिर</span><span class="trans">sir</span></div>
+      <div class="word"><span class="pa">ਮੂੰਹ</span><span class="hi-eq">मुँह</span><span class="trans">mū̃h</span></div>
+      <div class="word"><span class="pa">ਅੱਖ / ਅੱਖਾਂ</span><span class="hi-eq">आँख / आँखें</span><span class="trans">akkh / akkhā̃</span></div>
+      <div class="word"><span class="pa">ਕੰਨ</span><span class="hi-eq">कान</span><span class="trans">kann</span></div>
+      <div class="word"><span class="pa">ਨੱਕ</span><span class="hi-eq">नाक</span><span class="trans">nakk</span></div>
+      <div class="word"><span class="pa">ਹੱਥ</span><span class="hi-eq">हाथ</span><span class="trans">hatth</span></div>
+      <div class="word"><span class="pa">ਪੈਰ</span><span class="hi-eq">पैर</span><span class="trans">pair</span></div>
+      <div class="word"><span class="pa">ਦਿਲ</span><span class="hi-eq">दिल</span><span class="trans">dil</span><span class="note">फ़ारसी उधार — दोनों में समान</span></div>
+    </div>
+
+    <h3><span class="num">७.४</span>गति — <span class="pa">ਆਉਣਾ-ਜਾਣਾ</span></h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਆਉਣਾ</span><span class="hi-eq">आना</span><span class="trans">āuṇā</span></div>
+      <div class="word"><span class="pa">ਜਾਣਾ</span><span class="hi-eq">जाना</span><span class="trans">jāṇā</span></div>
+      <div class="word"><span class="pa">ਚੱਲਣਾ</span><span class="hi-eq">चलना</span><span class="trans">callṇā</span></div>
+      <div class="word"><span class="pa">ਦੌੜਨਾ</span><span class="hi-eq">दौड़ना</span><span class="trans">dauṛnā</span></div>
+      <div class="word"><span class="pa">ਉੱਠਣਾ</span><span class="hi-eq">उठना</span><span class="trans">uṭṭhṇā</span></div>
+      <div class="word"><span class="pa">ਬੈਠਣਾ</span><span class="hi-eq">बैठना</span><span class="trans">baiṭhṇā</span></div>
+      <div class="word"><span class="pa">ਮੁੜਨਾ</span><span class="hi-eq">मुड़ना / लौटना</span><span class="trans">muṛnā</span></div>
+    </div>
+
+    <div class="aside"><strong>"मुड़ना" का दो अर्थ।</strong> हिन्दी में "मुड़ना" = दिशा बदलना। पंजाबी <span class="pa">ਮੁੜਨਾ</span> का प्रयोग "लौटना" के लिए भी होता है — "मैं कल मुड़ आऊँगा" = "मैं कल लौट आऊँगा"। सूफ़ी शायरी में यही शब्द आत्मा की ईश्वर की ओर वापसी के लिए प्रयुक्त है — बुल्ले शाह बार-बार इसे दोहराते हैं।</div>
+
+    <div class="aside"><strong>तत्सम का सेतु।</strong> <span class="pa">ਧੰਨਵਾਦ, ਨਾਮ, ਦਿਨ, ਸੂਰਜ, ਪੁਸਤਕ, ਵਿੱਦਿਆ, ਗਿਆਨ, ਸ਼ਾਂਤੀ, ਪ੍ਰੇਮ</span> — ये सब संस्कृत से सीधे आए तत्सम हैं। हिन्दी और पंजाबी दोनों ने उन्हें बिना बदले अपनाया। केवल लिपि अलग — शब्द, अर्थ, प्रसंग बिलकुल वही। इसलिए पढ़ते ही ये पहचाने जाते हैं।</div>
+  </div>
+</section>
+<section class="stage" data-stage="8" id="stage-08">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · प्रयोग</div>
+    <h2 class="stage-title">शिष्टाचार और बोलचाल — <span class="pa">ਅਦਬ ਤੇ ਬੋਲਚਾਲ</span></h2>
+    <p class="stage-lede">भाषा केवल व्याकरण नहीं — यह संबंधों की लिपि है। पंजाबी में सम्मान कम शब्दों में, अधिक स्वर में बोला जाता है।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">८.१</span>सम्मान के स्तर</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>स्तर</th><th>हिन्दी</th><th>पंजाबी</th><th>कब</th></tr>
+        <tr><td>अति-अनौपचारिक</td><td class="hi g">तू</td><td><span class="pa g">ਤੂੰ</span></td><td>बच्चा, निकट मित्र, ईश्वर</td></tr>
+        <tr><td>मध्य</td><td class="hi g">तुम</td><td class="hi g" style="color:var(--ink-faded);">—</td><td>पंजाबी में यह स्तर नहीं; सीधे 'तुसीं'</td></tr>
+        <tr><td>सम्मान</td><td class="hi g">आप</td><td><span class="pa g">ਤੁਸੀਂ</span></td><td>अजनबी, बड़े, विनम्रता</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>तीन से दो।</strong> हिन्दी में तू/तुम/आप तीन स्तर हैं। पंजाबी में दो — <span class="pa">ਤੂੰ</span> और <span class="pa">ਤੁਸੀਂ</span>। हिन्दी का "तुम" पंजाबी में बोलने पर स्वतः "तुसीं" बन जाता है। इससे वाक्य सरल हो जाते हैं — बोलते समय एक निर्णय कम।</div>
+
+    <h3><span class="num">८.२</span>भोजन और आतिथ्य</h3>
+    <div class="sentence">
+      <div class="pa">ਰੋਟੀ ਖਾਧੀ?</div>
+      <div class="trans">roṭī khādhī?</div>
+      <div class="hi-gloss">खाना खाया? — अभिवादन की तरह, केवल प्रश्न नहीं।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਚਾਹ ਪੀਓਗੇ?</div>
+      <div class="trans">cāh pīoge?</div>
+      <div class="hi-gloss">चाय पिएँगे? — मेज़बानी का पहला वचन।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਘਰ ਆਓ ਜੀ।</div>
+      <div class="trans">ghar āo jī.</div>
+      <div class="hi-gloss">घर आइए जी। — न्योते का मानक रूप।</div>
+    </div>
+
+    <h3><span class="num">८.३</span>अजनबियों को पुकारना</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਵੀਰ ਜੀ / ਭਾ ਜੀ</span><span class="hi-eq">भाई साहब</span><span class="trans">vīr jī / bhā jī</span><span class="note">अजनबी बड़े पुरुष को</span></div>
+      <div class="word"><span class="pa">ਭੈਣ ਜੀ</span><span class="hi-eq">बहन जी</span><span class="trans">bhaiṇ jī</span><span class="note">अजनबी स्त्री को — हर उम्र</span></div>
+      <div class="word"><span class="pa">ਬੇਟਾ / ਬੇਟੀ</span><span class="hi-eq">बेटा / बेटी</span><span class="trans">beṭā / beṭī</span><span class="note">छोटों को — प्यार से</span></div>
+      <div class="word"><span class="pa">ਸਰਦਾਰ ਜੀ</span><span class="hi-eq">सरदार जी</span><span class="trans">sardār jī</span><span class="note">सिख पुरुष के लिए सम्मानजनक</span></div>
+    </div>
+
+    <h3><span class="num">८.४</span>कोमल करने वाले शब्द</h3>
+    <div class="sentence">
+      <div class="pa">ਜ਼ਰਾ ਦੱਸੋ...</div>
+      <div class="trans">zarā dasso...</div>
+      <div class="hi-gloss">ज़रा बताइए... — हिन्दी की तरह ही "ज़रा" कठोर आदेश को निवेदन बना देता है।</div>
+    </div>
+    <div class="sentence">
+      <div class="pa">ਮਿਹਰਬਾਨੀ ਕਰ ਕੇ...</div>
+      <div class="trans">miharbānī kar ke...</div>
+      <div class="hi-gloss">कृपया / मेहरबानी करके... — फ़ारसी उधार दोनों में एक समान।</div>
+    </div>
+
+    <div class="aside"><strong>क्षमा और माफ़ी।</strong> हिन्दी "माफ़ कीजिए" पंजाबी में <span class="pa">ਮਾਫ਼ ਕਰਨਾ / ਮਾਫ਼ ਕਰੋ</span>। दोनों फ़ारसी-अरबी जड़ से। पंजाबी "<span class="pa">ਭੁੱਲ-ਚੁੱਕ ਮਾਫ਼</span>" — "भूल-चूक माफ़" — विशेष रूप से भोजन या पाठ के बाद कहा जाता है, आत्म-विनम्रता का सुर।</div>
+
+    <h3><span class="num">८.५</span>विदाई</h3>
+    <div class="words">
+      <div class="word"><span class="pa">ਫਿਰ ਮਿਲਾਂਗੇ</span><span class="hi-eq">फिर मिलेंगे</span><span class="trans">phir milā̃ge</span></div>
+      <div class="word"><span class="pa">ਰੱਬ ਰਾਖਾ</span><span class="hi-eq">ईश्वर रक्षा करे</span><span class="trans">rabb rākhā</span><span class="note">'रब' — फ़ारसी-अरबी से, पंजाबी में सबसे साझा ईश्वर-नाम</span></div>
+      <div class="word"><span class="pa">ਵਾਹਿਗੁਰੂ ਜੀ ਕਾ ਖ਼ਾਲਸਾ, ਵਾਹਿਗੁਰੂ ਜੀ ਕੀ ਫ਼ਤਹਿ</span><span class="hi-eq">वाहेगुरु जी का ख़ालसा, वाहेगुरु जी की फ़तेह</span><span class="trans">vāhigurū jī kā khālsā, vāhigurū jī kī fateh</span><span class="note">औपचारिक सिख अभिवादन/विदाई</span></div>
+    </div>
+
+    <div class="aside"><strong>"रब" बनाम "भगवान"।</strong> हिन्दी "भगवान" संस्कृत से, पंजाबी "<span class="pa">ਰੱਬ</span>" फ़ारसी-अरबी से — पर पंजाबी में दोनों चलते हैं। सूफ़ी-सिख परंपरा में 'रब' का इतना गहरा प्रयोग है कि हिन्दू पंजाबी भी सहज रूप से "रब दा शुक्र" कहते हैं। यही पंजाब की भाषाई-मज़हबी सहजता है।</div>
+  </div>
+</section>
+<section class="stage" data-stage="9" id="stage-09">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · साहित्य</div>
+    <h2 class="stage-title">पंजाबी साहित्य और हिन्दी के सेतु — <span class="pa">ਸਾਹਿਤ</span></h2>
+    <p class="stage-lede">पंजाबी साहित्य की जड़ें ५०० साल पुरानी हैं। हर बड़े कवि का एक हिन्दी जुड़वाँ है — यदि आप कबीर को जानते हैं, बुल्ले शाह आपके लिए पहले से परिचित हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">९.१</span>गुरु नानक ↔ कबीर</h3>
+    <p><span class="pa">ਗੁਰੂ ਨਾਨਕ</span> (१४६९–१५३९), सिख धर्म के संस्थापक और गुरु ग्रंथ साहिब के प्रथम कवि। उनकी वाणी जाति-पाँति और बाहरी कर्मकांड को नकारती है, भीतरी सत्य और नाम-सिमरन पर बल देती है।</p>
+    <div class="aside"><strong>सेतु।</strong> जैसे <strong>कबीर</strong> ने हिन्दी के संत-काव्य में "पोथी पढ़ि पढ़ि जग मुआ, पंडित भया न कोय" कहा, वैसे ही नानक ने पंजाबी में ढकोसलों को ललकारा। दोनों निर्गुण भक्ति की एक ही धारा के दो नाम। गुरु ग्रंथ साहिब में कबीर के स्वयं के पद भी दर्ज हैं — यह सेतु साहित्यिक नहीं, शास्त्रीय है।</div>
+
+    <h3><span class="num">९.२</span>बुल्ले शाह ↔ कबीर / रैदास</h3>
+    <p><span class="pa">ਬੁੱਲ੍ਹੇ ਸ਼ਾਹ</span> (१६८०–१७५७), सूफ़ी शायर। "<span class="pa">ਬੁੱਲ੍ਹਾ ਕੀ ਜਾਣਾਂ ਮੈਂ ਕੌਣ</span>" — 'मैं कौन हूँ, यह बुल्ला नहीं जानता' — आत्म-विस्मृति का एक अमर प्रश्न।</p>
+    <div class="aside"><strong>सेतु।</strong> कबीर के "न मैं हिन्दू न मुसलमान" और बुल्ले शाह के "ना मैं मोमिन विच मसीतां, ना मैं विच कुफ़र दीयां रीतां" एक ही स्वर हैं। दोनों ने संस्थागत धर्म को चुनौती दी और सीधी आध्यात्मिकता का मार्ग दिखाया। पंजाबी में बुल्ला, हिन्दी में कबीर — एक ही सत्य दो लिपियों में।</div>
+
+    <h3><span class="num">९.३</span>वारिस शाह ↔ तुलसीदास</h3>
+    <p><span class="pa">ਵਾਰਿਸ ਸ਼ਾਹ</span> (१७२२–१७९८) ने <em>हीर-रांझा</em> का अमर संस्करण लिखा — पंजाबी का महाकाव्य।</p>
+    <div class="aside"><strong>सेतु।</strong> जैसे तुलसी ने संस्कृत रामायण को अवधी जन-भाषा में "<em>रामचरितमानस</em>" बनाकर हर घर में पहुँचाया, वैसे वारिस शाह ने प्राचीन प्रेम-कथा को पंजाबी बोली में पिरोकर गाँव-गाँव की कंठस्थ बना दिया। दोनों ने शास्त्रीय विषय को लोक-भाषा से जोड़ा — यही उनका साहित्यिक कर्म है।</div>
+
+    <h3><span class="num">९.४</span>अमृता प्रीतम ↔ महादेवी वर्मा</h3>
+    <p><span class="pa">ਅੰਮ੍ਰਿਤਾ ਪ੍ਰੀਤਮ</span> (१९१९–२००५), पंजाबी की पहली प्रमुख महिला कवयित्री, उपन्यासकार। <em>पिंजर</em> — विभाजन का अमर उपन्यास। "<span class="pa">ਅੱਜ ਆਖਾਂ ਵਾਰਿਸ ਸ਼ਾਹ ਨੂੰ</span>" — विभाजन की हिंसा पर लिखी उनकी पुकार आज भी गूँजती है।</p>
+    <div class="aside"><strong>सेतु।</strong> जैसे <strong>महादेवी वर्मा</strong> ने हिन्दी छायावाद में स्त्री-स्वर को एक नई गहराई दी, वैसे अमृता ने पंजाबी में। दोनों ने प्रेम को व्यक्तिगत से आगे ले जाकर दर्शन बनाया। अमृता के गद्य की विह्वलता को हिन्दी पाठक महादेवी के "यामा" में पहले से पहचान लेगा।</div>
+
+    <h3><span class="num">९.५</span>शिव कुमार बटालवी ↔ निराला / सूर्यकांत त्रिपाठी</h3>
+    <p><span class="pa">ਸ਼ਿਵ ਕੁਮਾਰ ਬਟਾਲਵੀ</span> (१९३६–१९७३), "विरह का राजकुमार"। "<span class="pa">ਮਾਏ ਨੀ ਮਾਏ, ਮੇਰੇ ਗੀਤਾਂ ਦੇ ਨੈਣਾਂ ਵਿਚ</span>" — ३६ वर्ष की अल्पायु में गहरी तड़प की कविता छोड़ गए।</p>
+    <div class="aside"><strong>सेतु।</strong> <strong>निराला</strong> की "सरोज-स्मृति" की पीड़ा और शिव कुमार की विरह-वेदना एक ही वंशावली के — दोनों ने व्यक्तिगत शोक को महाकाव्यीय बनाया। छंद-मुक्ति की हिन्दी परंपरा का पंजाबी समानार्थी यही है।</div>
+
+    <h3><span class="num">९.६</span>पाश ↔ मुक्तिबोध / दुष्यंत कुमार</h3>
+    <p><span class="pa">ਪਾਸ਼</span> (अवतार सिंह संधू, १९५०–१९८८), क्रांतिकारी कवि। "<span class="pa">ਸਭ ਤੋਂ ਖ਼ਤਰਨਾਕ ਹੁੰਦਾ ਹੈ ਸੁਪਨਿਆਂ ਦਾ ਮਰ ਜਾਣਾ</span>" — "सबसे ख़तरनाक होता है सपनों का मर जाना।"</p>
+    <div class="aside"><strong>सेतु।</strong> जैसे हिन्दी में <strong>मुक्तिबोध</strong> की "अँधेरे में" और <strong>दुष्यंत</strong> की "हो गई है पीर पर्वत-सी" ने निज़ाम को ललकारा, वैसे पाश ने पंजाबी में। तीनों की कविता आज भी प्रतिरोध का पाठ है — भाषा अलग, नस एक।</div>
+
+    <h3><span class="num">९.७</span>गुरु ग्रंथ साहिब ↔ संत काव्य संग्रह</h3>
+    <p><span class="pa">ਗੁਰੂ ਗ੍ਰੰਥ ਸਾਹਿਬ</span> — केवल सिख धर्मग्रन्थ नहीं; यह एक बहुभाषी काव्य-संग्रह है जिसमें गुरुओं के साथ कबीर, रैदास, नामदेव, फ़रीद के पद भी संग्रहीत हैं।</p>
+    <div class="aside"><strong>सेतु।</strong> हिन्दी के <strong>संत-साहित्य</strong> — रामानंद, कबीर, रैदास, दादू — की जो भक्ति धारा पारसनाथ शर्मा या हज़ारीप्रसाद द्विवेदी पढ़ते हैं, उसका मूल-पाठ पहले से गुरु ग्रंथ साहिब में दर्ज है। पंजाबी साहित्य और हिन्दी भक्ति-साहित्य असल में एक ही वृक्ष की दो शाखाएँ हैं।</div>
+
+    <div class="aside" style="margin-top: 36px; background: rgba(168, 48, 36, 0.08); border-left-color: var(--sindoor);"><strong>समापन।</strong> अब आप पंजाबी का कंकाल जानते हैं — लिपि, ध्वनि, व्याकरण, शब्द, वाक्य, पाठ, शब्द-क्षेत्र, शिष्टाचार, साहित्य। आगे की यात्रा केवल अभ्यास है। <span class="pa">ਰੋਟੀ ਖਾਧੀ?</span> पूछिए; किसी दुकानदार से <span class="pa">ਇਹ ਕਿੰਨੇ ਦਾ ਹੈ?</span> पूछिए; बुल्ले शाह को गाइए। भाषा कान से मुँह तक पहुँचती है, कागज़ से नहीं।</div>
+
+    <p style="margin-top: 30px; text-align: center; color: var(--ink-faded); font-style: italic;"><span class="pa">ਰੱਬ ਰਾਖਾ।</span> ईश्वर आपकी रक्षा करे।</p>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn" disabled>← पिछला</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">अगला →</button>
+</div>
+
+</div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="pa">ਧੰਨਵਾਦ</span>
+    धन्यवाद — आपकी यात्रा शुरू हुई।
+    <div style="margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sindoor);">made by Nil · using Claude</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const tabs = document.querySelectorAll('.stage-tab');
+  const stages = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsEl = document.getElementById('dots');
+  const total = stages.length;
+  let current = 0;
+
+  // build dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot';
+    dotsEl.appendChild(d);
+  }
+  const dots = dotsEl.querySelectorAll('.dot');
+
+  function show(i) {
+    if (i < 0) i = 0;
+    if (i >= total) i = total - 1;
+    current = i;
+    tabs.forEach((t, idx) => t.classList.toggle('active', idx === i));
+    stages.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => {
+      d.classList.toggle('current', idx === i);
+      d.classList.toggle('done', idx < i);
+    });
+    prevBtn.disabled = (i === 0);
+    nextBtn.disabled = (i === total - 1);
+    // scroll active tab into view
+    const activeTab = tabs[i];
+    if (activeTab && activeTab.scrollIntoView) {
+      activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((t, idx) => {
+    t.addEventListener('click', () => show(idx));
+  });
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+
+  // map-cell tap to expand
+  document.querySelectorAll('.map-cell').forEach(cell => {
+    const hint = cell.getAttribute('data-hint');
+    const hintEl = cell.querySelector('.hint');
+    if (hintEl && hint) hintEl.textContent = hint;
+    cell.addEventListener('click', () => {
+      document.querySelectorAll('.map-cell.expanded').forEach(c => {
+        if (c !== cell) c.classList.remove('expanded');
+      });
+      cell.classList.toggle('expanded');
+    });
+    cell.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        cell.click();
+      }
+    });
+  });
+
+  // keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    if (e.key === 'ArrowRight') { show(current + 1); }
+    else if (e.key === 'ArrowLeft') { show(current - 1); }
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

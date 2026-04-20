@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="kn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ಕನ್ನಡ → اردو · ಭಾಷಾಸೇತು</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{background:var(--paper)}
+body{
+  font-family:'Noto Serif Kannada', serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 800px at 15% -10%, #F6EFDD 0%, transparent 55%),
+    radial-gradient(900px 700px at 110% 10%, #EFE5CC 0%, transparent 60%),
+    radial-gradient(1000px 800px at 50% 110%, #E8DCBE 0%, transparent 60%),
+    var(--paper);
+  min-height:100vh;
+  line-height:1.75;
+  font-size:17px;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.28 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.wrap{max-width:880px; margin:0 auto; padding:28px 20px 80px; position:relative; z-index:1}
+header.top{
+  display:flex; flex-direction:column; gap:6px;
+  border-bottom:1px solid rgba(28,22,17,.14);
+  padding-bottom:18px; margin-bottom:14px;
+}
+.brand{font-family:'Fraunces', serif; font-weight:600; font-size:15px; letter-spacing:.06em; color:var(--sindoor); text-transform:uppercase}
+h1.title{
+  font-family:'Noto Serif Kannada', serif;
+  font-size:34px; font-weight:700; margin:0; line-height:1.25; color:var(--ink);
+}
+h1.title .ur{font-family:'Noto Nastaliq Urdu', serif; font-size:30px; direction:rtl; unicode-bidi:isolate}
+.subtitle{color:var(--ink-faded); font-size:15px}
+nav.tabs{
+  position:sticky; top:0; z-index:10;
+  display:flex; flex-wrap:wrap; gap:4px;
+  background:linear-gradient(var(--paper), var(--paper) 70%, rgba(244,236,218,.85));
+  padding:10px 0 12px; margin-bottom:20px;
+  border-bottom:1px solid rgba(28,22,17,.1);
+  backdrop-filter: blur(2px);
+}
+nav.tabs button{
+  font-family:inherit; font-size:13.5px;
+  border:1px solid rgba(28,22,17,.18);
+  background:var(--paper-warm);
+  color:var(--ink-soft);
+  border-radius:999px;
+  padding:6px 12px;
+  cursor:pointer;
+  transition:all .15s;
+}
+nav.tabs button:hover{background:var(--paper-deep)}
+nav.tabs button.active{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+section.stage{display:none; animation:fade .3s ease}
+section.stage.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+section.stage h2{
+  font-family:'Fraunces', serif; font-weight:600;
+  font-size:28px; color:var(--ink); margin:8px 0 6px;
+  border-bottom:2px solid var(--ochre); padding-bottom:4px; display:inline-block;
+}
+section.stage h2 .kn{font-family:'Noto Serif Kannada', serif; font-weight:700}
+section.stage h3{
+  font-family:'Noto Serif Kannada', serif; font-weight:600;
+  font-size:20px; color:var(--ink-soft); margin:28px 0 8px;
+}
+section.stage h4{
+  font-family:'Noto Serif Kannada', serif; font-weight:600;
+  font-size:16px; color:var(--teal); margin:18px 0 6px;
+}
+p{margin:10px 0}
+.ur{font-family:'Noto Nastaliq Urdu', serif; direction:rtl; unicode-bidi:isolate; line-height:2.1}
+.ur.big{font-size:30px}
+.tr{font-family:'JetBrains Mono', monospace; font-size:13.5px; color:var(--ink-faded)}
+.aside{
+  background:linear-gradient(180deg, #F9F2DF, #EFE5CC);
+  border-left:4px solid var(--sindoor);
+  padding:14px 16px; margin:18px 0;
+  border-radius:6px;
+  box-shadow:0 1px 0 rgba(28,22,17,.05);
+}
+.aside .tag{
+  font-family:'Fraunces', serif; font-size:11.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--sindoor); font-weight:600;
+  display:block; margin-bottom:4px;
+}
+.grid{display:grid; gap:10px}
+.grid.cols-2{grid-template-columns:repeat(2, 1fr)}
+.grid.cols-3{grid-template-columns:repeat(3, 1fr)}
+.grid.cols-4{grid-template-columns:repeat(4, 1fr)}
+.grid.cols-5{grid-template-columns:repeat(5, 1fr)}
+@media (max-width:560px){
+  .grid.cols-4,.grid.cols-5{grid-template-columns:repeat(3,1fr)}
+  .grid.cols-3{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:400px){
+  .grid.cols-4,.grid.cols-5,.grid.cols-3{grid-template-columns:repeat(2,1fr)}
+  h1.title{font-size:28px}
+  .wrap{padding:20px 14px 60px}
+}
+.card{
+  background:var(--paper-warm);
+  border:1px solid rgba(28,22,17,.12);
+  border-radius:10px;
+  padding:12px 10px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .2s;
+  position:relative;
+}
+.card:hover{background:#F5EBD1; transform:translateY(-1px); box-shadow:0 4px 10px rgba(28,22,17,.08)}
+.card .target{font-family:'Noto Nastaliq Urdu', serif; font-size:30px; direction:rtl; line-height:1.6; color:var(--ink); display:block}
+.card .tr{display:block; margin-top:4px}
+.card .src{font-family:'Noto Serif Kannada', serif; color:var(--ink-soft); font-size:14px; margin-top:4px}
+.card.new::after{
+  content:"⚡"; position:absolute; top:4px; right:6px; font-size:11px; color:var(--sindoor);
+}
+.card .hint{
+  display:none;
+  margin-top:8px; padding-top:8px;
+  border-top:1px dashed rgba(28,22,17,.2);
+  font-size:13px; color:var(--ink-soft);
+  text-align:left;
+}
+.card.open .hint{display:block}
+.tap-note{font-size:12.5px; color:var(--ink-faded); font-style:italic; margin:6px 0 10px}
+table.cmp{
+  width:100%; border-collapse:collapse; margin:12px 0;
+  background:var(--paper-warm);
+  border-radius:8px; overflow:hidden;
+  font-size:15px;
+}
+table.cmp th, table.cmp td{
+  padding:8px 10px; border-bottom:1px solid rgba(28,22,17,.1);
+  text-align:left; vertical-align:top;
+}
+table.cmp th{background:#EAE0C4; color:var(--ink-soft); font-weight:600; font-size:13.5px}
+table.cmp .ur{font-size:22px}
+.video{margin:14px 0 10px}
+.video-frame{position:relative; padding-bottom:56.25%; height:0; border-radius:10px; overflow:hidden; background:#000}
+.video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+.video-caption{font-size:13px; color:var(--ink-faded); margin-top:6px; text-align:center}
+.video-caption a{color:var(--sindoor); text-decoration:none; border-bottom:1px dotted var(--sindoor)}
+.family{
+  background:rgba(184,128,45,.08);
+  border:1px solid rgba(184,128,45,.3);
+  border-radius:12px;
+  padding:14px;
+  margin:14px 0;
+}
+.family h4{margin-top:0; color:var(--ochre)}
+.nav-btns{
+  display:flex; justify-content:space-between;
+  margin-top:34px; padding-top:18px;
+  border-top:1px solid rgba(28,22,17,.14);
+}
+.nav-btns button{
+  font-family:inherit; font-size:14px;
+  border:1px solid rgba(28,22,17,.2);
+  background:var(--paper-warm);
+  color:var(--ink);
+  padding:8px 14px; border-radius:8px; cursor:pointer;
+}
+.nav-btns button:hover{background:var(--paper-deep)}
+.nav-btns button:disabled{opacity:.35; cursor:not-allowed}
+ul.clean{padding-left:20px}
+ul.clean li{margin:6px 0}
+.passage{
+  background:var(--paper-warm);
+  border:1px solid rgba(28,22,17,.12);
+  border-radius:10px;
+  padding:14px 16px;
+  margin:14px 0;
+}
+.passage .ur{font-size:26px; line-height:2.3}
+.passage .tr{margin:6px 0}
+.passage .gloss{color:var(--ink-soft); font-size:15px}
+.writer{
+  border:1px solid rgba(28,22,17,.12);
+  background:var(--paper-warm);
+  border-radius:10px;
+  padding:14px 16px; margin:12px 0;
+}
+.writer .name{font-family:'Fraunces', serif; font-weight:600; font-size:18px; color:var(--ink)}
+.writer .name .ur{font-size:22px; margin-right:6px}
+.writer .bridge{margin-top:6px; color:var(--ink-soft); font-size:14.5px}
+footer{
+  margin-top:60px;
+  padding-top:20px;
+  border-top:1px solid rgba(28,22,17,.14);
+  text-align:center;
+  color:var(--ink-faded);
+  font-size:13.5px;
+  font-family:'Fraunces', serif;
+}
+footer a{color:var(--sindoor); text-decoration:none}
+kbd{font-family:'JetBrains Mono', monospace; font-size:12px; background:#EAE0C4; border:1px solid rgba(28,22,17,.15); border-radius:4px; padding:1px 5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="brand">ಭಾಷಾಸೇತು · BHASHASETU</div>
+  <h1 class="title">ಕನ್ನಡದಿಂದ <span class="ur">اُردُو</span> ಕಲಿಯಿರಿ</h1>
+  <div class="subtitle">ದ್ರಾವಿಡದಿಂದ ಇಂಡೋ-ಆರ್ಯನ್ — ಲಿಪಿ ಬೇರೆ, ಮಾತು ಹತ್ತಿರ · ಸುಮಾರು ೧೫೦ ಗಂಟೆ</div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-stage="0" class="active">೦೦ · ಪರಿಚಯ</button>
+  <button data-stage="1">೦೧ · ಸ್ವರ</button>
+  <button data-stage="2">೦೨ · ವ್ಯಂಜನ</button>
+  <button data-stage="3">೦೩ · ಸಂಯೋಜನೆ</button>
+  <button data-stage="4">೦೪ · ಪದಗಳು</button>
+  <button data-stage="5">೦೫ · ವಾಕ್ಯ</button>
+  <button data-stage="6">೦೬ · ಓದು</button>
+  <button data-stage="7">೦೭ · ಪದಕ್ಷೇತ್ರ</button>
+  <button data-stage="8">೦೮ · ಬಳಕೆ</button>
+  <button data-stage="9">೦೯ · ಸಾಹಿತ್ಯ</button>
+</nav>
+
+<section class="stage active" id="stage-00">
+  <h2><span class="kn">ಪರಿಚಯ</span> — ಬಲ್ಲದ್ದು, ಹೊಸದು</h2>
+
+  <p>ಬಾಲ್ಯದಲ್ಲಿ <strong>"ಕನ್ನಡ ಕಲಿ"</strong> ಮತ್ತು <strong>"ಬಾರಹ"</strong> ಹೇಳಿಕೊಂಡು ಅಕ್ಷರಮಾಲೆಯಲ್ಲಿ ಕಾಲಿಟ್ಟಿದ್ದೀರಿ — ಅ ಆ ಇ ಈ, ಕ ಖ ಗ ಘ. ಅದೇ ಶಿಸ್ತಿನಲ್ಲಿ ಈಗ <span class="ur big">اُردُو</span> ಕಲಿಯೋಣ. ಒಂದು ಆಶ್ಚರ್ಯದ ಸಂಗತಿ: ಉರ್ದುವಿನ ೪೬ ಧ್ವನಿಗಳಲ್ಲಿ <strong>೪೧ ಧ್ವನಿಗಳು ನಿಮ್ಮ ನಾಲಿಗೆಗೆ ಈಗಾಗಲೇ ಗೊತ್ತು</strong>. ಹೊಸದು ಕೇವಲ ಐದು — ق (q), خ (x), غ (ɣ), ز (z), ف (f). ಲಿಪಿ ಮಾತ್ರ ಪೂರ್ತಿ ಹೊಸತು; ಬಲದಿಂದ ಎಡಕ್ಕೆ ಹರಿಯುತ್ತದೆ.</p>
+
+  <p>ವಾಕ್ಯ-ರಚನೆಯಲ್ಲಿ ಇಬ್ಬರೂ ಒಂದೇ ದಾರಿ ಹಿಡಿಯುತ್ತಾರೆ. ಕನ್ನಡದಲ್ಲಿ <em>"ನಾನು ಪುಸ್ತಕ ಓದುತ್ತೇನೆ"</em> — ಕರ್ತೃ, ಕರ್ಮ, ಕ್ರಿಯಾಪದ. ಉರ್ದುವಿನಲ್ಲೂ ಅದೇ ಕ್ರಮ: <span class="ur">میں کتاب پڑھتا ہوں</span> <span class="tr">(maĩ kitāb paṛhtā hū̃)</span> — "ನಾನು ಪುಸ್ತಕ ಓದುತ್ತೇನೆ". ಎರಡೂ ಭಾಷೆಗಳು <em>ಹಿಂಬಂಧ</em>ಗಳನ್ನೇ ಬಳಸುತ್ತವೆ (ಪ್ರಿಪೊಸಿಷನ್ ಅಲ್ಲ) — ನಿಮ್ಮ ಮನಸ್ಸು ಈಗಾಗಲೇ ಈ ಚೌಕಟ್ಟಿನಲ್ಲಿಯೇ ಯೋಚಿಸುತ್ತದೆ.</p>
+
+  <p>ಹೈದರಾಬಾದ್-ಕರ್ನಾಟಕ, ಬೀದರ್, ಗುಲ್ಬರ್ಗಾ — ಈ ಕಡೆಯ ಕನ್ನಡದಲ್ಲಿ ದಖನಿ ಉರ್ದುವಿನ ಬಳುವಳಿಗಳೇ ಹೆಚ್ಚು. <em>ಹುಷಾರ್, ತಯಾರ್, ಖಾಲಿ, ಜವಾಬ್, ದವಾ, ತಾರೀಖು, ಕಾಗದ</em> — ಇವೆಲ್ಲ ನಿಮಗೆ ಉರ್ದುವಿನಲ್ಲಿ ಮತ್ತೆ ಸಿಗುತ್ತವೆ. ಅಂದರೆ ಸುಮಾರು ಶೇ. <strong>೭೨ರಷ್ಟು ಶಬ್ದಕೋಶ</strong> ಕೇಳಿದ ಮಾತ್ರಕ್ಕೆ ತಿಳಿಯುತ್ತದೆ.</p>
+
+  <h3>ಆರು ಮೂಲತತ್ತ್ವಗಳು — ಅನುಕೂಲ ಮತ್ತು ಸವಾಲು</h3>
+
+  <div class="aside">
+    <span class="tag">೧ · ಧ್ವನಿ</span>
+    ಕನ್ನಡದ ಮಹಾಪ್ರಾಣಗಳು (ಖ, ಘ, ಛ, ಝ, ಠ, ಢ, ಥ, ಧ, ಫ, ಭ) ಉರ್ದುವಿನಲ್ಲೂ ಇವೆ — ಆದರೆ ಎರಡೆರಡು ಅಕ್ಷರಗಳಿಂದ (ದೋ-ಚಶ್ಮಿ ھ). ಉದಾ: ಕ = <span class="ur">ک</span>, ಖ = <span class="ur">کھ</span>; ಗ = <span class="ur">گ</span>, ಘ = <span class="ur">گھ</span>. ನಿಮ್ಮ ನಾಲಿಗೆಗೆ ಈ ವ್ಯತ್ಯಾಸ ಸಹಜ — ಕನ್ನಡಿಗರಿಗೆ ಇದು ಬಲ.
+  </div>
+
+  <div class="aside">
+    <span class="tag">೨ · ಲಿಪಿ</span>
+    ಕನ್ನಡ <em>ಅಬುಗಿಡಾ</em> (ಸ್ವರ-ವ್ಯಂಜನ ಒಗ್ಗೂಡಿದ) — <span class="ur">اردو</span> <em>ಅಬ್ಜದ್</em> (ಬಹುಮಟ್ಟಿಗೆ ವ್ಯಂಜನ ಲಿಪಿ; ಸ್ವರಗಳು ಗುರುತು ಅಥವಾ ಊಹೆ). ಕನ್ನಡದ "ಕ" ಹೇಳಿದರೆ "ಕ+ಅ" ಒಟ್ಟಿಗೆ; ಉರ್ದುವಿನಲ್ಲಿ <span class="ur">ک</span> ಬರಿ "k" — ಸ್ವರ ಬೇಕಾದರೆ <em>ಹರಕತ್</em> (ಜಬರ್, ಜೇರ್, ಪೇಶ್) ಸೇರಿಸಬೇಕು.
+  </div>
+
+  <div class="aside">
+    <span class="tag">೩ · ಕ್ರಮ</span>
+    ಬಲದಿಂದ ಎಡಕ್ಕೆ (RTL). ಕನ್ನಡ ಎಡದಿಂದ ಬಲಕ್ಕೆ. ಪುಟ ತಿರುಗಿಸುವ ದಿಕ್ಕೂ ತಿರುಗುತ್ತದೆ — ಉರ್ದು ಪುಸ್ತಕದ "ಮೊದಲ ಪುಟ" ನಿಮ್ಮ ದೃಷ್ಟಿಗೆ "ಕೊನೆಯ ಪುಟ".
+  </div>
+
+  <div class="aside">
+    <span class="tag">೪ · ವಾಕ್ಯಕ್ರಮ</span>
+    SOV (ಕರ್ತೃ-ಕರ್ಮ-ಕ್ರಿಯೆ) — ಎರಡೂ ಒಂದೇ. "ನಾನು ನೀರು ಕುಡಿಯುತ್ತೇನೆ" = <span class="ur">میں پانی پیتا ہوں</span>. ಪದಪದಕ್ಕೆ ಹೊಂದಿ ಕೂರುತ್ತದೆ.
+  </div>
+
+  <div class="aside">
+    <span class="tag">೫ · ಹಿಂಬಂಧ</span>
+    ಕನ್ನಡದ <em>-ಅನ್ನು, -ಗೆ, -ಇಂದ, -ಅಲ್ಲಿ</em> → ಉರ್ದುವಿನ <em>-ko, -ko, -se, -mẽ</em>. ಎರಡೂ ಪದದ ಹಿಂದೆಯೇ ಅಂಟುತ್ತವೆ, ಮುಂದೆ ಅಲ್ಲ. "ಮನೆಗೆ" = <span class="ur">گھر کو</span> (ghar ko).
+  </div>
+
+  <div class="aside">
+    <span class="tag">೬ · ಲಿಂಗ-ಭೇದ</span>
+    ಕನ್ನಡದ ಕ್ರಿಯಾಪದ <em>ವ್ಯಕ್ತಿ</em>ಗೆ ತಕ್ಕಂತೆ ಬದಲಾಗುತ್ತದೆ (ಮಾಡುತ್ತಾನೆ / ಮಾಡುತ್ತಾಳೆ). ಉರ್ದು ಕ್ರಿಯಾಪದ <em>ಲಿಂಗ</em>ಕ್ಕೆ ತಕ್ಕಂತೆ ಬದಲಾಗುತ್ತದೆ: <span class="ur">کرتا ہوں</span> (ಗಂಡು) / <span class="ur">کرتی ہوں</span> (ಹೆಣ್ಣು). ಇದು ಕನ್ನಡಿಗರಿಗೆ ಹೊಸ ಅಭ್ಯಾಸ.
+  </div>
+
+  <h3>ದಖನಿ ಕೊಂಡಿ — ನಿಮ್ಮ ಕಿಸೆಯಲ್ಲೇ ಇರುವ ಉರ್ದು</h3>
+  <p>ಹೈದರಾಬಾದ್-ಕರ್ನಾಟಕದ ಕನ್ನಡದಲ್ಲಿ ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿರುವ ಪದಗಳು — ಇವು ನೇರವಾಗಿ ಉರ್ದುವಿನವು:</p>
+  <table class="cmp">
+    <tr><th>ಕನ್ನಡದಲ್ಲಿ ಕೇಳಿದ್ದು</th><th>ಉರ್ದು ಮೂಲ</th><th>ಅರ್ಥ</th></tr>
+    <tr><td>ಖಾಲಿ</td><td><span class="ur">خالی</span> <span class="tr">(khālī)</span></td><td>ಏನೂ ಇಲ್ಲದ</td></tr>
+    <tr><td>ಜವಾಬು</td><td><span class="ur">جواب</span> <span class="tr">(javāb)</span></td><td>ಉತ್ತರ</td></tr>
+    <tr><td>ಹುಷಾರು</td><td><span class="ur">ہوشیار</span> <span class="tr">(hoshiyār)</span></td><td>ಎಚ್ಚರ</td></tr>
+    <tr><td>ತಾರೀಖು</td><td><span class="ur">تاریخ</span> <span class="tr">(tārīkh)</span></td><td>ದಿನಾಂಕ</td></tr>
+    <tr><td>ಕಾಗದ</td><td><span class="ur">کاغذ</span> <span class="tr">(kāghaz)</span></td><td>ಪತ್ರ / ಕಾಗದ</td></tr>
+    <tr><td>ದವಾ</td><td><span class="ur">دوا</span> <span class="tr">(davā)</span></td><td>ಔಷಧ</td></tr>
+  </table>
+</section>
+<section class="stage" id="stage-01">
+  <h2><span class="kn">ಸ್ವರ</span> — ಹರಕತ್ ಎಂಬ ಒಗಟು</h2>
+
+  <p>ಕನ್ನಡದ ಸ್ವರಗಳು ಅಕ್ಷರಗಳು — ಸ್ವತಂತ್ರ. ಉರ್ದುವಿನ ಸ್ವರಗಳು ಬಹುತೇಕ <strong>ಹರಕತ್</strong> ಎಂಬ ಸಣ್ಣ ಗುರುತುಗಳು. ಅಕ್ಷರದ ಮೇಲೆ/ಕೆಳಗೆ ಬರುವ ಈ ಗುರುತುಗಳು ಬಹುಪಾಲು ಪಠ್ಯಗಳಲ್ಲಿ ಕಾಣಿಸುವುದಿಲ್ಲ — ಓದುಗ ಊಹಿಸಬೇಕು. ಮಗುವಿನ ಪುಸ್ತಕ, ಕುರಾನ್, ಶಬ್ದಕೋಶಗಳಲ್ಲಿ ಮಾತ್ರ ಹರಕತ್ ತೋರುತ್ತವೆ.</p>
+
+  <div class="aside">
+    <span class="tag">ಮುಖ್ಯ ಒಳನೋಟ</span>
+    ಕನ್ನಡದ ಒಂದು ಅಕ್ಷರ = ವ್ಯಂಜನ + ಸ್ವರ (ಉದಾ: "ಕ" = k+a). ಉರ್ದುವಿನ ಒಂದು ಅಕ್ಷರ = ಬರೀ ವ್ಯಂಜನ (<span class="ur">ک</span> = k). ಸ್ವರ ಬೇಕಾದರೆ ಮೇಲೆ-ಕೆಳಗೆ ಗುರುತು ಸೇರಿಸಬೇಕು. ಇದು <em>ಅಬುಗಿಡಾ</em> ಮತ್ತು <em>ಅಬ್ಜದ್</em>ಗಳ ಮೂಲಭೇದ.
+  </div>
+
+  <h3>'ಅ' ಪರಿವಾರ — ಹ್ರಸ್ವ / ದೀರ್ಘ</h3>
+  <p class="tap-note">ಕಾರ್ಡ್ ಮೇಲೆ ಬೆರಳಿಡಿ — ಹೆಚ್ಚಿನ ವಿವರ ತೆರೆಯುತ್ತದೆ.</p>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">اَ</span><span class="tr">a (zabar)</span><span class="src">= ಅ (ಹ್ರಸ್ವ)</span><div class="hint">ಉದಾ: <span class="ur">اَب</span> (ab) = "ಈಗ". ಗುರುತು ಅಕ್ಷರದ ಮೇಲೆ.</div></div>
+    <div class="card"><span class="target">آ</span><span class="tr">ā (madd)</span><span class="src">= ಆ (ದೀರ್ಘ)</span><div class="hint">ಅಲಿಫ್ ಮೇಲೆ ಸಣ್ಣ "~" — <span class="ur">آم</span> (ām) = "ಮಾವಿನ ಹಣ್ಣು".</div></div>
+  </div>
+
+  <h3>'ಇ' ಪರಿವಾರ</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">اِ</span><span class="tr">i (zer)</span><span class="src">= ಇ (ಹ್ರಸ್ವ)</span><div class="hint">ಅಕ್ಷರದ ಕೆಳಗೆ ಗೆರೆ. <span class="ur">اِس</span> (is) = "ಇದು".</div></div>
+    <div class="card"><span class="target">ای</span><span class="tr">ī</span><span class="src">= ಈ (ದೀರ್ಘ)</span><div class="hint">ಅಲಿಫ್ + ಯೇ. <span class="ur">ایک</span> (ek) = "ಒಂದು". ಕೆಲವೊಮ್ಮೆ "ē" ಆಗಿಯೂ ಕೇಳುತ್ತದೆ.</div></div>
+  </div>
+
+  <h3>'ಉ' ಪರಿವಾರ</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">اُ</span><span class="tr">u (pesh)</span><span class="src">= ಉ (ಹ್ರಸ್ವ)</span><div class="hint">ಅಕ್ಷರದ ಮೇಲೆ ಸಣ್ಣ ಲೂಪ್. <span class="ur">اُس</span> (us) = "ಅದು".</div></div>
+    <div class="card"><span class="target">او</span><span class="tr">ū / o</span><span class="src">= ಊ / ಒ</span><div class="hint">ಅಲಿಫ್ + ವಾವ್. ಒಂದೇ ಚಿಹ್ನೆ — ಎರಡು ಶಬ್ದ: <span class="ur">دودھ</span> (dūdh) = "ಹಾಲು", <span class="ur">وہ</span> (vo) = "ಅವನು".</div></div>
+  </div>
+
+  <h3>'ಎ' ಪರಿವಾರ</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">ے</span><span class="tr">e</span><span class="src">= ಎ / ಏ</span><div class="hint">ಪದದ ಕೊನೆಯಲ್ಲಿ. <span class="ur">میرے</span> (mere) = "ನನ್ನ".</div></div>
+    <div class="card"><span class="target">اَے</span><span class="tr">ai</span><span class="src">= ಐ</span><div class="hint">ಜಬರ್ + ಯೇ. <span class="ur">ہے</span> (hai) = "ಇದ್ದಾನೆ / ಇದೆ".</div></div>
+  </div>
+
+  <h3>'ಒ' ಪರಿವಾರ</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">او</span><span class="tr">o</span><span class="src">= ಒ / ಓ</span><div class="hint">ವಾವ್ ಬಳಸಿ. <span class="ur">وہ</span> (vo) = "ಅವನು / ಅವಳು".</div></div>
+    <div class="card"><span class="target">اَو</span><span class="tr">au</span><span class="src">= ಔ</span><div class="hint">ಜಬರ್ + ವಾವ್. <span class="ur">اَور</span> (aur) = "ಮತ್ತು".</div></div>
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ</span>
+    ಕನ್ನಡದಲ್ಲಿ ಹ್ರಸ್ವ-ದೀರ್ಘ ಭೇದ ಲಿಪಿಯಲ್ಲೇ ಸ್ಪಷ್ಟ (ಇ/ಈ, ಉ/ಊ). ಉರ್ದುವಿನಲ್ಲಿ ಈ ಭೇದ <em>ಉಚ್ಚಾರಣೆಯಲ್ಲಿ</em>ಯೇ ಮಾತ್ರ — ಲಿಪಿ ಸಹಕರಿಸುವುದಿಲ್ಲ. <span class="ur">کتاب</span> ಎಂದರೆ "kitāb" — ಇಲ್ಲಿ "i" ಹ್ರಸ್ವ, "ā" ದೀರ್ಘ, ಆದರೆ ಲಿಪಿಯಲ್ಲಿ "i"ಗೆ ಗುರುತೇ ಇಲ್ಲ!
+  </div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+urdu+alphabets+pronunciation+vowels" title="Urdu vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ಉರ್ದು ಸ್ವರ ಮತ್ತು ಹರಕತ್‌ಗಳ ಉಚ್ಚಾರಣೆ · <a href="https://www.youtube.com/results?search_query=learn+urdu+alphabets+pronunciation+vowels" target="_blank" rel="noopener">ಹೆಚ್ಚು ಹುಡುಕಿ ↗</a></div>
+  </div>
+</section>
+<section class="stage" id="stage-02">
+  <h2><span class="kn">ವ್ಯಂಜನ</span> — ವರ್ಗ-ಕೋಷ್ಟಕದ ಕನ್ನಡಿ</h2>
+
+  <p>ಕನ್ನಡದ ಐದು ವರ್ಗಗಳು (ಕ, ಚ, ಟ, ತ, ಪ) ಮತ್ತು ಅದರೊಳಗಿನ ಅಲ್ಪಪ್ರಾಣ–ಮಹಾಪ್ರಾಣ–ಅನುನಾಸಿಕ — ಈ ರಚನೆಯೇ ಉರ್ದುವಿನಲ್ಲೂ ಇದೆ. ಆದರೆ ಉರ್ದು ಅಕ್ಷರಗಳನ್ನು <em>ಉಚ್ಚಾರಣಾ ಸ್ಥಾನ</em>ದ ಪ್ರಕಾರ ಜೋಡಿಸುವುದಿಲ್ಲ — ಅಕಾರದ ವರ್ಣಮಾಲೆಯ ಪ್ರಕಾರ ಜೋಡಿಸುತ್ತದೆ. ನಾವು ಇಲ್ಲಿ ಕನ್ನಡದ ವರ್ಗ-ಕ್ರಮದಲ್ಲೇ ನೋಡೋಣ — ನಿಮಗೆ ಗೊತ್ತಿರುವ ಚೌಕಟ್ಟು.</p>
+
+  <p class="tap-note">⚡ ಗುರುತು ಇರುವ ಅಕ್ಷರಗಳು ಕನ್ನಡದಲ್ಲಿ ಇಲ್ಲದ ಹೊಸ ಧ್ವನಿಗಳು.</p>
+
+  <h3>ಕ-ವರ್ಗ (ಕಂಠ್ಯ)</h3>
+  <div class="grid cols-4">
+    <div class="card"><span class="target">ک</span><span class="tr">ka</span><span class="src">= ಕ</span><div class="hint">ಅಲ್ಪಪ್ರಾಣ. <span class="ur">کتاب</span> = ಕಿತಾಬ್ = ಪುಸ್ತಕ.</div></div>
+    <div class="card"><span class="target">کھ</span><span class="tr">kha</span><span class="src">= ಖ</span><div class="hint">ಮಹಾಪ್ರಾಣ (ದೋ-ಚಶ್ಮಿ <span class="ur">ھ</span> ಸೇರಿಸಿ).</div></div>
+    <div class="card"><span class="target">گ</span><span class="tr">ga</span><span class="src">= ಗ</span><div class="hint"><span class="ur">گھر</span> = ghar = ಮನೆ.</div></div>
+    <div class="card"><span class="target">گھ</span><span class="tr">gha</span><span class="src">= ಘ</span><div class="hint">ಮಹಾಪ್ರಾಣ. <span class="ur">گھنٹہ</span> = ghanṭā = ಗಂಟೆ.</div></div>
+    <div class="card new"><span class="target">ق</span><span class="tr">qa</span><span class="src">= ಹೊಸ ಧ್ವನಿ</span><div class="hint">ಗಂಟಲಿನ ಆಳದಿಂದ "ಕ". <span class="ur">قلم</span> = qalam = ಲೇಖನಿ.</div></div>
+    <div class="card new"><span class="target">خ</span><span class="tr">xa</span><span class="src">= ಹೊಸ ಧ್ವನಿ</span><div class="hint">ಗಂಟಲಿನ ಘರ್ಷಣಾ ಧ್ವನಿ. <span class="ur">خوب</span> = khūb = ಚೆನ್ನಾಗಿ.</div></div>
+    <div class="card new"><span class="target">غ</span><span class="tr">ɣa</span><span class="src">= ಹೊಸ ಧ್ವನಿ</span><div class="hint">"ಖ"ವಿನ ಘೋಷ ರೂಪ. <span class="ur">غم</span> = ɣam = ದುಃಖ.</div></div>
+    <div class="card"><span class="target">ں / ن</span><span class="tr">ṅa/na</span><span class="src">= ಙ / ನ</span><div class="hint">ಅನುನಾಸಿಕ — ಸ್ಥಾನಕ್ಕೆ ತಕ್ಕಂತೆ.</div></div>
+  </div>
+
+  <h3>ಚ-ವರ್ಗ (ತಾಲವ್ಯ)</h3>
+  <div class="grid cols-4">
+    <div class="card"><span class="target">چ</span><span class="tr">ca</span><span class="src">= ಚ</span></div>
+    <div class="card"><span class="target">چھ</span><span class="tr">cha</span><span class="src">= ಛ</span></div>
+    <div class="card"><span class="target">ج</span><span class="tr">ja</span><span class="src">= ಜ</span></div>
+    <div class="card"><span class="target">جھ</span><span class="tr">jha</span><span class="src">= ಝ</span></div>
+    <div class="card"><span class="target">ش</span><span class="tr">sha</span><span class="src">= ಶ</span></div>
+    <div class="card"><span class="target">ی</span><span class="tr">ya</span><span class="src">= ಯ</span></div>
+  </div>
+
+  <h3>ಟ-ವರ್ಗ (ಮೂರ್ಧನ್ಯ)</h3>
+  <div class="grid cols-4">
+    <div class="card"><span class="target">ٹ</span><span class="tr">ṭa</span><span class="src">= ಟ</span><div class="hint">ಅಕ್ಷರದ ಮೇಲೆ ಸಣ್ಣ "ط" — ಮೂರ್ಧನ್ಯ ಸೂಚಕ.</div></div>
+    <div class="card"><span class="target">ٹھ</span><span class="tr">ṭha</span><span class="src">= ಠ</span></div>
+    <div class="card"><span class="target">ڈ</span><span class="tr">ḍa</span><span class="src">= ಡ</span></div>
+    <div class="card"><span class="target">ڈھ</span><span class="tr">ḍha</span><span class="src">= ಢ</span></div>
+    <div class="card"><span class="target">ڑ</span><span class="tr">ṛa</span><span class="src">= ಳ (ಹತ್ತಿರ)</span><div class="hint">ಕನ್ನಡದ ಳಕ್ಕೆ ತುಂಬಾ ಹತ್ತಿರದ ಧ್ವನಿ.</div></div>
+    <div class="card"><span class="target">ن</span><span class="tr">ṇa</span><span class="src">= ಣ</span></div>
+    <div class="card"><span class="target">ر</span><span class="tr">ra</span><span class="src">= ರ</span></div>
+  </div>
+
+  <h3>ತ-ವರ್ಗ (ದಂತ್ಯ)</h3>
+  <div class="grid cols-4">
+    <div class="card"><span class="target">ت</span><span class="tr">ta</span><span class="src">= ತ</span></div>
+    <div class="card"><span class="target">تھ</span><span class="tr">tha</span><span class="src">= ಥ</span></div>
+    <div class="card"><span class="target">د</span><span class="tr">da</span><span class="src">= ದ</span></div>
+    <div class="card"><span class="target">دھ</span><span class="tr">dha</span><span class="src">= ಧ</span></div>
+    <div class="card"><span class="target">ن</span><span class="tr">na</span><span class="src">= ನ</span></div>
+    <div class="card"><span class="target">ل</span><span class="tr">la</span><span class="src">= ಲ</span></div>
+    <div class="card"><span class="target">س / ث / ص</span><span class="tr">sa</span><span class="src">= ಸ (ಮೂರು ಅಕ್ಷರ!)</span><div class="hint">ಒಂದೇ ಧ್ವನಿ — ಅರಬಿ ಮೂಲ ಬೇರೆ ಬೇರೆಯದರಿಂದ ಮೂರು ಅಕ್ಷರ.</div></div>
+    <div class="card new"><span class="target">ز / ذ / ض / ظ</span><span class="tr">za</span><span class="src">= ಹೊಸ ಧ್ವನಿ (ನಾಲ್ಕು ಅಕ್ಷರ!)</span><div class="hint">ಕನ್ನಡದಲ್ಲಿಲ್ಲ. "ಜ"ಕ್ಕಿಂತ ಮೃದು — ಇಂಗ್ಲಿಷ್ "zoo"ನ "z".</div></div>
+  </div>
+
+  <h3>ಪ-ವರ್ಗ (ಓಷ್ಠ್ಯ)</h3>
+  <div class="grid cols-4">
+    <div class="card"><span class="target">پ</span><span class="tr">pa</span><span class="src">= ಪ</span></div>
+    <div class="card"><span class="target">پھ</span><span class="tr">pha</span><span class="src">= ಫ (ಭಾರತೀಯ)</span></div>
+    <div class="card"><span class="target">ب</span><span class="tr">ba</span><span class="src">= ಬ</span></div>
+    <div class="card"><span class="target">بھ</span><span class="tr">bha</span><span class="src">= ಭ</span></div>
+    <div class="card"><span class="target">م</span><span class="tr">ma</span><span class="src">= ಮ</span></div>
+    <div class="card"><span class="target">و</span><span class="tr">va/wa</span><span class="src">= ವ</span></div>
+    <div class="card new"><span class="target">ف</span><span class="tr">fa</span><span class="src">= ಹೊಸ ಧ್ವನಿ</span><div class="hint">ಇಂಗ್ಲಿಷ್ "f" — ಹಲ್ಲು ಮತ್ತು ಕೆಳತುಟಿಯ ಘರ್ಷಣೆ. <span class="ur">فقیر</span> = faqīr.</div></div>
+  </div>
+
+  <h3>ಊಷ್ಮ / ಅಂತಸ್ಥ</h3>
+  <div class="grid cols-4">
+    <div class="card"><span class="target">ہ / ح</span><span class="tr">ha</span><span class="src">= ಹ</span></div>
+    <div class="card"><span class="target">ع</span><span class="tr">'a</span><span class="src">= ಧ್ವನಿ ಇಲ್ಲ (ಬಹುಪಾಲು)</span><div class="hint">ಕಂಠ ಸ್ತಂಭ — ಬರಿಯ "ಅ" ಇದ್ದಂತೆ ಓದುತ್ತಾರೆ.</div></div>
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — ಮಹಾಪ್ರಾಣದ ಬಳುವಳಿ</span>
+    ಮಹಾಪ್ರಾಣ (ಖ, ಘ, ಛ, ಝ, ಠ, ಢ, ಥ, ಧ, ಫ, ಭ) ಕನ್ನಡ ಮತ್ತು ಉರ್ದು — ಎರಡೂ ಸಂಸ್ಕೃತದಿಂದ ಪಡೆದಿರುವ ಬಳುವಳಿ. ಅರಬಿ-ಪರ್ಶಿಯನ್ ಭಾಷೆಗಳಲ್ಲಿ ಇಲ್ಲ — ಆದ್ದರಿಂದ ಉರ್ದು ಲಿಪಿ <span class="ur">ھ</span>ವನ್ನು ಜೋಡಿಸಿ "ಎರಡು-ಕಣ್ಣಿನ ಹೇ" (ದೋ-ಚಶ್ಮಿ) ಎಂಬ ವಿಶೇಷ ಚಿಹ್ನೆ ಹುಟ್ಟುಹಾಕಿತು.
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — ನಾಲ್ಕು "ಜ"ಗಳು</span>
+    ಕನ್ನಡಿಗನಿಗೆ "ಜ" ಒಂದೇ. ಉರ್ದುವಿನಲ್ಲಿ <span class="ur">ز ذ ض ظ</span> — ನಾಲ್ಕು ಅಕ್ಷರ, ಒಂದೇ ಧ್ವನಿ! ಅರಬಿಯಲ್ಲಿ ಇವು ಬೇರೆ ಬೇರೆ; ಉರ್ದುವಿನಲ್ಲಿ ಒಂದಾದವು. ಬರೆಯುವಾಗ ಯಾವ ಅಕ್ಷರವೆಂದು <em>ಪದದ ಮೂಲ</em>ವೇ ಹೇಳಬೇಕು.
+  </div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+urdu+huroof+pronunciation" title="Urdu consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ಉರ್ದು ಹುರೂಫ್ (ವ್ಯಂಜನ) ಉಚ್ಚಾರಣೆ · <a href="https://www.youtube.com/results?search_query=learn+urdu+huroof+pronunciation" target="_blank" rel="noopener">ಹೆಚ್ಚು ಹುಡುಕಿ ↗</a></div>
+  </div>
+</section>
+<section class="stage" id="stage-03">
+  <h2><span class="kn">ಸಂಯೋಜನೆ</span> — ಸ್ವರ-ಚಿಹ್ನೆ ಮತ್ತು ಅಕ್ಷರ-ಆಕಾರ</h2>
+
+  <p>ಕನ್ನಡದಲ್ಲಿ ಸ್ವರ-ಚಿಹ್ನೆಗಳು ವ್ಯಂಜನದ ಜೊತೆ ಗಟ್ಟಿಯಾಗಿ ಅಂಟಿಕೊಳ್ಳುತ್ತವೆ (ಕಾ, ಕಿ, ಕೀ, ಕು). ಉರ್ದುವಿನಲ್ಲಿ <em>ಎರಡು</em> ವ್ಯವಸ್ಥೆ ಇವೆ — ಸಣ್ಣ ಹರಕತ್ (ಮೇಲೆ/ಕೆಳಗೆ) ಅಥವಾ ದೊಡ್ಡ ಸ್ವರಾಕ್ಷರ (<span class="ur">ا و ی</span>).</p>
+
+  <h3>ಸ್ವರ-ಚಿಹ್ನೆಗಳ ಹೋಲಿಕೆ</h3>
+  <table class="cmp">
+    <tr><th>ಸ್ವರ</th><th>ಕನ್ನಡ (ಕ ಮೇಲೆ)</th><th>ಉರ್ದು (ک ಮೇಲೆ)</th><th>ಟಿಪ್ಪಣಿ</th></tr>
+    <tr><td>ಅ</td><td>ಕ</td><td class="ur">کَ</td><td>ಜಬರ್ — ಮೇಲ್ಗೆರೆ</td></tr>
+    <tr><td>ಆ</td><td>ಕಾ</td><td class="ur">کا</td><td>ಅಲಿಫ್ ಸೇರಿಸಿ</td></tr>
+    <tr><td>ಇ</td><td>ಕಿ</td><td class="ur">کِ</td><td>ಜೇರ್ — ಕೆಳಗೆರೆ</td></tr>
+    <tr><td>ಈ</td><td>ಕೀ</td><td class="ur">کی</td><td>ಯೇ ಸೇರಿಸಿ</td></tr>
+    <tr><td>ಉ</td><td>ಕು</td><td class="ur">کُ</td><td>ಪೇಶ್ — ಮೇಲಿನ ಲೂಪ್</td></tr>
+    <tr><td>ಊ</td><td>ಕೂ</td><td class="ur">کو</td><td>ವಾವ್ ಸೇರಿಸಿ</td></tr>
+    <tr><td>ಏ</td><td>ಕೇ</td><td class="ur">کے</td><td>ಬಡೀ ಯೇ</td></tr>
+    <tr><td>ಐ</td><td>ಕೈ</td><td class="ur">کَے</td><td>ಜಬರ್ + ಬಡೀ ಯೇ</td></tr>
+    <tr><td>ಓ</td><td>ಕೋ</td><td class="ur">کو</td><td>ವಾವ್ ಸೇರಿಸಿ</td></tr>
+    <tr><td>ಔ</td><td>ಕೌ</td><td class="ur">کَو</td><td>ಜಬರ್ + ವಾವ್</td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — ಅಕ್ಷರದ ನಾಲ್ಕು ಮುಖ</span>
+    ಕನ್ನಡದಲ್ಲಿ "ಕ" ಎಲ್ಲಿದ್ದರೂ "ಕ" — ಒಂದೇ ಆಕಾರ. ಉರ್ದುವಿನಲ್ಲಿ <span class="ur">ک</span> ನಾಲ್ಕು ಆಕಾರಗಳಲ್ಲಿ ಬರುತ್ತದೆ: <em>ಏಕಾಂಗಿ, ಆದಿ, ಮಧ್ಯ, ಅಂತ್ಯ</em>. ಹೀಗೆ <span class="ur">ک</span> → <span class="ur">کـ</span> → <span class="ur">ـکـ</span> → <span class="ur">ـک</span>. ಅಕ್ಷರಗಳು ಕೈಬರೆಹದಲ್ಲಿ ಪರಸ್ಪರ ಅಂಟಿಕೊಂಡು ಹರಿಯುತ್ತವೆ.
+  </div>
+
+  <h3>ಸಂಯುಕ್ತಾಕ್ಷರ — ಕನ್ನಡದ ಹಲಂತ vs ಉರ್ದುವಿನ ಸುಕೂನ್</h3>
+  <p>ಕನ್ನಡದಲ್ಲಿ ಅಕ್ಷರದ ಕೆಳಗೆ <strong>್</strong> (ವಿರಾಮ/ಹಲಂತ) ಹಾಕಿ ಮುಂದಿನ ಅಕ್ಷರಕ್ಕೆ ಜೋಡಿಸುತ್ತೇವೆ — "ಸ್ತ್ರೀ" = ಸ್+ತ್+ರೀ. ಉರ್ದುವಿನಲ್ಲಿ <strong>ಸುಕೂನ್</strong> (<span class="ur">ْ</span>) ಅಕ್ಷರದ ಮೇಲೆ ಬಂದರೆ "ಸ್ವರವಿಲ್ಲ" ಎಂದರ್ಥ — ಆದರೆ ಇದನ್ನೂ ಬಹುಪಾಲು ಬರೆಯುವುದಿಲ್ಲ.</p>
+
+  <table class="cmp">
+    <tr><th>ಪದ</th><th>ಕನ್ನಡ</th><th>ಉರ್ದು</th><th>ವಿಭಜನೆ</th></tr>
+    <tr><td>ಪುಸ್ತಕ</td><td>ಪುಸ್ತಕ</td><td class="ur">پُستَک</td><td>ಪ್+ಉ / ಸ್+ತ್+ಅ / ಕ್+ಅ</td></tr>
+    <tr><td>ಸ್ಕೂಲ್</td><td>ಸ್ಕೂಲು</td><td class="ur">اسکول</td><td>ಎದುರಿಗೆ "اسکول" — ಆದಿಯಲ್ಲಿ ಅಲಿಫ್ ಬೇಕು</td></tr>
+    <tr><td>ವಕ್ತ್</td><td>ವಕ್ತ್</td><td class="ur">وَقت</td><td>ವ್+ಅ / ಕ್ / ತ್ — ಸ್ವರಗಳಿಲ್ಲ!</td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — ಪದದ ಆರಂಭ</span>
+    ಉರ್ದುವಿನಲ್ಲಿ ಪದ ಸ್ವರದಿಂದ ಆರಂಭವಾಗುವಂತಿಲ್ಲ — ಮೊದಲು <span class="ur">ا</span> (ಅಲಿಫ್) ಇಡಬೇಕು, ಅದು "ಸ್ವರ-ಆಸರೆ"ಯಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ. ಆದ್ದರಿಂದ "ಇಸ್" = <span class="ur">اِس</span>, "ಉಸ್" = <span class="ur">اُس</span>, "ಅಬ್" = <span class="ur">اَب</span> — ಎಲ್ಲವೂ ಅಲಿಫಿನಿಂದಲೇ ಶುರು.
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — ನುಕ್ತಾ</span>
+    ಒಂದೇ ಅಕ್ಷರಕ್ಕೆ ಚುಕ್ಕೆ (<em>ನುಕ್ತಾ</em>) ಹಾಕಿದರೆ ಧ್ವನಿ ಬದಲಾಗುತ್ತದೆ: <span class="ur">ب</span> (b) → <span class="ur">پ</span> (p), <span class="ur">ج</span> (j) → <span class="ur">چ</span> (c), <span class="ur">ک</span> (k) → <span class="ur">گ</span> (g). ಕನ್ನಡದಲ್ಲಿ ಇಂಥ ಚುಕ್ಕೆ-ಆಟ ಇಲ್ಲ — ಪ್ರತಿ ಧ್ವನಿಗೂ ಪ್ರತ್ಯೇಕ ಅಕ್ಷರ.
+  </div>
+</section>
+<section class="stage" id="stage-04">
+  <h2><span class="kn">ಪದಗಳು</span> — ಸುಮಾರು ೫೦ ಮೂಲ ಪದಗಳು</h2>
+
+  <p>ಇಲ್ಲಿ ಕೊಟ್ಟಿರುವ ಪದಗಳಲ್ಲಿ <em>ತತ್ಸಮ</em> ಗುರುತು ಇರುವವು ಸಂಸ್ಕೃತದಿಂದ ಇಳಿದವು — ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಸಮಾನ. <em>ತದ್ಭವ</em> ಎಂದರೆ ಬದಲಾದ ಪ್ರಾಕೃತ ರೂಪ. <em>ಪರ್ಸೋ-ಅರಬಿ</em> ಎಂದರೆ ಅರಬಿ/ಪರ್ಶಿಯನ್ ಮೂಲ — ಇವುಗಳು ದಖನಿ ಕನ್ನಡದಲ್ಲೂ ಬಂದಿವೆ.</p>
+
+  <h3>ಸರ್ವನಾಮ</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">میں</span><span class="tr">maĩ</span><span class="src">= ನಾನು</span></div>
+    <div class="card"><span class="target">تُو</span><span class="tr">tū</span><span class="src">= ನೀ (ಅತ್ಯಂತ ಆಪ್ತ)</span></div>
+    <div class="card"><span class="target">تم</span><span class="tr">tum</span><span class="src">= ನೀನು (ಸಾಮಾನ್ಯ)</span></div>
+    <div class="card"><span class="target">آپ</span><span class="tr">āp</span><span class="src">= ನೀವು (ಗೌರವ)</span><div class="hint">ಕನ್ನಡದ ನೀ/ನೀನು/ನೀವು — ಎರಡು ಮಟ್ಟ. ಉರ್ದುವಿನಲ್ಲಿ ಮೂರು ಮಟ್ಟ.</div></div>
+    <div class="card"><span class="target">وہ</span><span class="tr">vo</span><span class="src">= ಅವನು / ಅವಳು / ಅದು</span><div class="hint">ಒಂದೇ ಪದ — ಲಿಂಗವಿಲ್ಲ ಸರ್ವನಾಮದಲ್ಲಿ.</div></div>
+    <div class="card"><span class="target">یہ</span><span class="tr">ye</span><span class="src">= ಇವನು / ಇವಳು / ಇದು</span></div>
+    <div class="card"><span class="target">ہم</span><span class="tr">ham</span><span class="src">= ನಾವು</span></div>
+  </div>
+
+  <h3>ಮೂಲ ನಾಮಪದ</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">کتاب</span><span class="tr">kitāb</span><span class="src">= ಪುಸ್ತಕ · ಪರ್ಸೋ-ಅರಬಿ</span></div>
+    <div class="card"><span class="target">وقت</span><span class="tr">vaqt</span><span class="src">= ಸಮಯ · ಪರ್ಸೋ-ಅರಬಿ</span></div>
+    <div class="card"><span class="target">دن</span><span class="tr">din</span><span class="src">= ದಿನ · ತತ್ಸಮ</span><div class="hint">ಕನ್ನಡ "ದಿನ" = ಉರ್ದು "din" — ಅಚ್ಚರಿ ಇಲ್ಲ.</div></div>
+    <div class="card"><span class="target">رات</span><span class="tr">rāt</span><span class="src">= ರಾತ್ರಿ · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">گھر</span><span class="tr">ghar</span><span class="src">= ಮನೆ · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">پانی</span><span class="tr">pānī</span><span class="src">= ನೀರು · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">دودھ</span><span class="tr">dūdh</span><span class="src">= ಹಾಲು · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">کھانا</span><span class="tr">khānā</span><span class="src">= ಊಟ / ತಿನ್ನು</span></div>
+    <div class="card"><span class="target">چائے</span><span class="tr">cāy</span><span class="src">= ಚಹಾ</span></div>
+    <div class="card"><span class="target">نام</span><span class="tr">nām</span><span class="src">= ಹೆಸರು · ತತ್ಸಮ</span></div>
+    <div class="card"><span class="target">کام</span><span class="tr">kām</span><span class="src">= ಕೆಲಸ · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">شہر</span><span class="tr">shahr</span><span class="src">= ನಗರ · ಪರ್ಸೋ-ಅರಬಿ</span></div>
+    <div class="card"><span class="target">گاؤں</span><span class="tr">gāõ</span><span class="src">= ಹಳ್ಳಿ · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">دوست</span><span class="tr">dost</span><span class="src">= ಗೆಳೆಯ · ಪರ್ಸಿಯನ್</span></div>
+    <div class="card"><span class="target">زبان</span><span class="tr">zabān</span><span class="src">= ಭಾಷೆ / ನಾಲಿಗೆ · ಪರ್ಸಿಯನ್</span></div>
+  </div>
+
+  <h3>ಕ್ರಿಯಾಪದ (ಮೂಲ ರೂಪ)</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">کرنا</span><span class="tr">karnā</span><span class="src">= ಮಾಡು</span></div>
+    <div class="card"><span class="target">جانا</span><span class="tr">jānā</span><span class="src">= ಹೋಗು</span></div>
+    <div class="card"><span class="target">آنا</span><span class="tr">ānā</span><span class="src">= ಬಾ</span></div>
+    <div class="card"><span class="target">کھانا</span><span class="tr">khānā</span><span class="src">= ತಿನ್ನು</span></div>
+    <div class="card"><span class="target">پینا</span><span class="tr">pīnā</span><span class="src">= ಕುಡಿ</span></div>
+    <div class="card"><span class="target">دیکھنا</span><span class="tr">dekhnā</span><span class="src">= ನೋಡು</span></div>
+    <div class="card"><span class="target">سننا</span><span class="tr">sunnā</span><span class="src">= ಕೇಳು</span></div>
+    <div class="card"><span class="target">بولنا</span><span class="tr">bolnā</span><span class="src">= ಮಾತಾಡು / ನುಡಿ</span></div>
+    <div class="card"><span class="target">سونا</span><span class="tr">sonā</span><span class="src">= ಮಲಗು</span></div>
+    <div class="card"><span class="target">پڑھنا</span><span class="tr">paṛhnā</span><span class="src">= ಓದು</span></div>
+    <div class="card"><span class="target">لکھنا</span><span class="tr">likhnā</span><span class="src">= ಬರೆ</span></div>
+    <div class="card"><span class="target">ہونا</span><span class="tr">honā</span><span class="src">= ಆಗು / ಇರು</span></div>
+  </div>
+
+  <h3>ಸಂಖ್ಯೆ</h3>
+  <div class="grid cols-5">
+    <div class="card"><span class="target">ایک</span><span class="tr">ek</span><span class="src">= ಒಂದು</span></div>
+    <div class="card"><span class="target">دو</span><span class="tr">do</span><span class="src">= ಎರಡು</span></div>
+    <div class="card"><span class="target">تین</span><span class="tr">tīn</span><span class="src">= ಮೂರು</span></div>
+    <div class="card"><span class="target">چار</span><span class="tr">cār</span><span class="src">= ನಾಲ್ಕು</span></div>
+    <div class="card"><span class="target">پانچ</span><span class="tr">pā̃c</span><span class="src">= ಐದು</span></div>
+    <div class="card"><span class="target">چھ</span><span class="tr">che</span><span class="src">= ಆರು</span></div>
+    <div class="card"><span class="target">سات</span><span class="tr">sāt</span><span class="src">= ಏಳು</span></div>
+    <div class="card"><span class="target">آٹھ</span><span class="tr">āṭh</span><span class="src">= ಎಂಟು</span></div>
+    <div class="card"><span class="target">نو</span><span class="tr">nau</span><span class="src">= ಒಂಬತ್ತು</span></div>
+    <div class="card"><span class="target">دس</span><span class="tr">das</span><span class="src">= ಹತ್ತು</span></div>
+  </div>
+
+  <h3>ಸಂಬಂಧಿಕರು</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">ابّا / والد</span><span class="tr">abbā / vālid</span><span class="src">= ಅಪ್ಪ / ತಂದೆ</span></div>
+    <div class="card"><span class="target">اَمّاں / والدہ</span><span class="tr">ammā̃ / vālida</span><span class="src">= ಅಮ್ಮ / ತಾಯಿ</span></div>
+    <div class="card"><span class="target">بھائی</span><span class="tr">bhāī</span><span class="src">= ಅಣ್ಣ / ತಮ್ಮ</span></div>
+    <div class="card"><span class="target">بہن</span><span class="tr">bahan</span><span class="src">= ಅಕ್ಕ / ತಂಗಿ</span></div>
+    <div class="card"><span class="target">ماما</span><span class="tr">māmā</span><span class="src">= ಮಾವ (ತಾಯಿಯ ಸೋದರ)</span></div>
+    <div class="card"><span class="target">چاچا</span><span class="tr">cācā</span><span class="src">= ಚಿಕ್ಕಪ್ಪ</span></div>
+    <div class="card"><span class="target">بیٹا / بیٹی</span><span class="tr">beṭā / beṭī</span><span class="src">= ಮಗ / ಮಗಳು</span></div>
+    <div class="card"><span class="target">بیوی / شوہر</span><span class="tr">bīvī / shauhar</span><span class="src">= ಹೆಂಡತಿ / ಗಂಡ</span></div>
+  </div>
+
+  <h3>ಸಮಯ</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">آج</span><span class="tr">āj</span><span class="src">= ಇಂದು</span></div>
+    <div class="card"><span class="target">کل</span><span class="tr">kal</span><span class="src">= ನಿನ್ನೆ / ನಾಳೆ</span><div class="hint">ಎರಡೂ ಒಂದೇ ಪದ! ಸಂದರ್ಭದಿಂದ ನಿರ್ಧಾರ.</div></div>
+    <div class="card"><span class="target">پرسوں</span><span class="tr">parsõ</span><span class="src">= ಮೊನ್ನೆ / ನಾಡಿದ್ದು</span></div>
+    <div class="card"><span class="target">ابھی</span><span class="tr">abhī</span><span class="src">= ಈಗ</span></div>
+    <div class="card"><span class="target">صبح</span><span class="tr">subah</span><span class="src">= ಬೆಳಿಗ್ಗೆ</span></div>
+    <div class="card"><span class="target">شام</span><span class="tr">shām</span><span class="src">= ಸಂಜೆ</span></div>
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — ಒಂದೇ ಪದ, ಎರಡು ಕಾಲ</span>
+    ಉರ್ದು <span class="ur">کل</span> (kal) ಎಂದರೆ <em>ನಿನ್ನೆ</em> ಮತ್ತು <em>ನಾಳೆ</em> — ಎರಡೂ! ಕಾಲ-ಸೂಚಕ ಕ್ರಿಯಾಪದವೇ ಯಾವ "ಕಲ್" ಎಂದು ಹೇಳುತ್ತದೆ. ಕನ್ನಡದಲ್ಲಿ "ನಿನ್ನೆ" ಮತ್ತು "ನಾಳೆ" ಎಂದೇ ಬೇರ್ಪಡಿಸಿದ್ದೇವೆ — ಆ ಅಸ್ಪಷ್ಟತೆಯೇ ಇಲ್ಲ!
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — ಮಾಮಾ ಎಂದರೆ ಮಾವ</span>
+    ಕನ್ನಡದ "ಮಾವ" (ತಾಯಿಯ ಸಹೋದರ) = ಉರ್ದು <span class="ur">ماما</span> (māmā). ಶಬ್ದ ಒಂದೇ, ಅರ್ಥ ಒಂದೇ — ಇದು ಪ್ರಾಕೃತ ಪದದ ಹಂಚಿಕೆ. ಆದರೆ ಕನ್ನಡ "ಚಿಕ್ಕಪ್ಪ" → ಉರ್ದು <span class="ur">چاچا</span> (cācā) — ಇದೂ ತದ್ಭವ.
+  </div>
+</section>
+<section class="stage" id="stage-05">
+  <h2><span class="kn">ವಾಕ್ಯ</span> — ಕ್ರಮ, ಕ್ರಿಯಾರೂಪ, ಪ್ರಶ್ನೆ</h2>
+
+  <h3>ವಾಕ್ಯ ಕ್ರಮ — SOV, ಒಂದೇ ತರಹ</h3>
+  <table class="cmp">
+    <tr><th>ಕನ್ನಡ</th><th>ಉರ್ದು</th><th>ಪದಪದಕ್ಕೆ</th></tr>
+    <tr><td>ನಾನು ಪುಸ್ತಕ ಓದುತ್ತೇನೆ.</td><td class="ur">میں کتاب پڑھتا ہوں۔</td><td>ನಾನು / ಪುಸ್ತಕ / ಓದುತ್ತೇನೆ</td></tr>
+    <tr><td>ಅವನು ಮನೆಗೆ ಹೋಗುತ್ತಾನೆ.</td><td class="ur">وہ گھر جاتا ہے۔</td><td>ಅವನು / ಮನೆ / ಹೋಗುತ್ತಾನೆ</td></tr>
+    <tr><td>ಅಮ್ಮ ನೀರು ಕುಡಿಯುತ್ತಾರೆ.</td><td class="ur">اَمّاں پانی پیتی ہیں۔</td><td>ಅಮ್ಮ / ನೀರು / ಕುಡಿಯುತ್ತಾರೆ</td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಗಮನಿಸಿ — ದಾಶ್ (۔)</span>
+    ಉರ್ದು ಪೂರ್ಣವಿರಾಮ <span class="ur">۔</span> (ಸಣ್ಣ ಅಡ್ಡಗೆರೆ, ಕೆಳಮಟ್ಟದಲ್ಲಿ). ಕನ್ನಡ ಪೂರ್ಣವಿರಾಮ (.) ಯಂತೆಯೇ ಕೆಲಸ; ಆದರೆ ಬಲದಿಂದ ಎಡಕ್ಕೆ ಬರೆದಿರುವುದರಿಂದ ಕಣ್ಣಿಗೆ ಅಸಹಜ ಕಾಣಬಹುದು.
+  </div>
+
+  <h3>"ಮಾಡು" ಕ್ರಿಯಾಪದ — ವರ್ತಮಾನ ಕಾಲ</h3>
+  <table class="cmp">
+    <tr><th>ವ್ಯಕ್ತಿ</th><th>ಕನ್ನಡ</th><th>ಉರ್ದು (ಗಂಡು)</th><th>ಉರ್ದು (ಹೆಣ್ಣು)</th></tr>
+    <tr><td>ನಾನು</td><td>ಮಾಡುತ್ತೇನೆ (māḍuttēne)</td><td class="ur">کرتا ہوں</td><td class="ur">کرتی ہوں</td></tr>
+    <tr><td>ನೀನು</td><td>ಮಾಡುತ್ತೀಯ (māḍuttīya)</td><td class="ur">کرتا ہے</td><td class="ur">کرتی ہے</td></tr>
+    <tr><td>ನೀವು</td><td>ಮಾಡುತ್ತೀರಿ (māḍuttīri)</td><td class="ur">کرتے ہیں</td><td class="ur">کرتی ہیں</td></tr>
+    <tr><td>ಅವನು</td><td>ಮಾಡುತ್ತಾನೆ (māḍuttāne)</td><td class="ur">کرتا ہے</td><td>—</td></tr>
+    <tr><td>ಅವಳು</td><td>ಮಾಡುತ್ತಾಳೆ (māḍuttāḷe)</td><td>—</td><td class="ur">کرتی ہے</td></tr>
+    <tr><td>ಅದು</td><td>ಮಾಡುತ್ತದೆ (māḍuttade)</td><td class="ur">کرتا ہے</td><td class="ur">کرتی ہے</td></tr>
+    <tr><td>ನಾವು</td><td>ಮಾಡುತ್ತೇವೆ (māḍuttēve)</td><td class="ur">کرتے ہیں</td><td class="ur">کرتی ہیں</td></tr>
+    <tr><td>ಅವರು</td><td>ಮಾಡುತ್ತಾರೆ (māḍuttāre)</td><td class="ur">کرتے ہیں</td><td class="ur">کرتی ہیں</td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — ಲಿಂಗದ ಬದಲಾವಣೆ</span>
+    ಕನ್ನಡದ ಕ್ರಿಯಾಪದ "ವ್ಯಕ್ತಿ" ನೋಡುತ್ತದೆ (ಮಾಡುತ್ತಾನೆ vs ಮಾಡುತ್ತಾಳೆ — ಇಬ್ಬರೂ "ಅವ"ರೇ, ಆದರೆ ಗಂಡು/ಹೆಣ್ಣು ಬೇರೆ). ಉರ್ದುವಿನಲ್ಲಿ <em>ನಾನು</em> ಹೇಳಿದರೂ ಗಂಡಾದರೆ <span class="ur">کرتا ہوں</span>, ಹೆಣ್ಣಾದರೆ <span class="ur">کرتی ہوں</span>! ಮಾತನಾಡುವವರ ಲಿಂಗವೇ ಕ್ರಿಯಾಪದವನ್ನು ಬದಲಿಸುತ್ತದೆ. ಇದು ಕನ್ನಡಿಗರಿಗೆ ಹೊಸ ಅಭ್ಯಾಸ.
+  </div>
+
+  <h3>ಹಿಂಬಂಧಗಳು / ವಿಭಕ್ತಿ</h3>
+  <table class="cmp">
+    <tr><th>ಕೆಲಸ</th><th>ಕನ್ನಡ</th><th>ಉರ್ದು</th><th>ಉದಾಹರಣೆ</th></tr>
+    <tr><td>ಕರ್ಮ</td><td>-ಅನ್ನು</td><td>-ko <span class="ur">کو</span></td><td class="ur">مجھ کو — ನನ್ನನ್ನು</td></tr>
+    <tr><td>ಸಂಪ್ರದಾನ (ಗೆ)</td><td>-ಗೆ</td><td>-ko <span class="ur">کو</span></td><td class="ur">گھر کو — ಮನೆಗೆ</td></tr>
+    <tr><td>ಅಧಿಕರಣ</td><td>-ಅಲ್ಲಿ</td><td>-mẽ <span class="ur">میں</span></td><td class="ur">گھر میں — ಮನೆಯಲ್ಲಿ</td></tr>
+    <tr><td>ಅಪಾದಾನ</td><td>-ಇಂದ</td><td>-se <span class="ur">سے</span></td><td class="ur">گھر سے — ಮನೆಯಿಂದ</td></tr>
+    <tr><td>ಸಂಬಂಧ</td><td>-ಅ</td><td>-kā/kī/ke <span class="ur">کا/کی/کے</span></td><td class="ur">راما کی کتاب — ರಾಮನ ಪುಸ್ತಕ</td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — ಸಂಬಂಧ ಲಿಂಗ ನೋಡುತ್ತದೆ</span>
+    ಕನ್ನಡದ "-ಅ" ಎಲ್ಲರಿಗೂ ಒಂದೇ: ರಾಮನ, ಸೀತೆಯ, ಮಗುವಿನ. ಉರ್ದುವಿನಲ್ಲಿ <span class="ur">کا</span>, <span class="ur">کی</span>, <span class="ur">کے</span> — ಯಾರ ಬಗ್ಗೆ ಎನ್ನುವುದಲ್ಲ, <em>ಯಾವ ವಸ್ತು</em> (ಲಿಂಗ ಮತ್ತು ವಚನ) ಎಂಬುದಕ್ಕೆ ತಕ್ಕಂತೆ ಬದಲಾಗುತ್ತದೆ.
+  </div>
+
+  <h3>ನಿಷೇಧ</h3>
+  <table class="cmp">
+    <tr><th>ಕನ್ನಡ</th><th>ಉರ್ದು</th></tr>
+    <tr><td>ನಾನು ಹೋಗುವುದಿಲ್ಲ.</td><td class="ur">میں نہیں جاتا۔ <span class="tr">(maĩ nahī̃ jātā)</span></td></tr>
+    <tr><td>ನೀರು ಇಲ್ಲ.</td><td class="ur">پانی نہیں ہے۔ <span class="tr">(pānī nahī̃ hai)</span></td></tr>
+    <tr><td>ಮಾತಾಡಬೇಡ.</td><td class="ur">مت بولو۔ <span class="tr">(mat bolo)</span></td></tr>
+  </table>
+
+  <h3>ಪ್ರಶ್ನೆಪದಗಳು</h3>
+  <table class="cmp">
+    <tr><th>ಕನ್ನಡ</th><th>ಉರ್ದು</th></tr>
+    <tr><td>ಏನು?</td><td class="ur">کیا؟ <span class="tr">(kyā)</span></td></tr>
+    <tr><td>ಯಾರು?</td><td class="ur">کون؟ <span class="tr">(kaun)</span></td></tr>
+    <tr><td>ಎಲ್ಲಿ?</td><td class="ur">کہاں؟ <span class="tr">(kahā̃)</span></td></tr>
+    <tr><td>ಯಾವಾಗ?</td><td class="ur">کب؟ <span class="tr">(kab)</span></td></tr>
+    <tr><td>ಏಕೆ?</td><td class="ur">کیوں؟ <span class="tr">(kyõ)</span></td></tr>
+    <tr><td>ಹೇಗೆ?</td><td class="ur">کیسے؟ <span class="tr">(kaise)</span></td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಗಮನಿಸಿ — ಪ್ರಶ್ನೆ ಚಿಹ್ನೆ</span>
+    ಉರ್ದು ಪ್ರಶ್ನೆ ಚಿಹ್ನೆ <span class="ur">؟</span> — ಕನ್ನಡದ "?" ನ ಕನ್ನಡಿ ಬಿಂಬ. ಬಲದಿಂದ ಎಡಕ್ಕೆ ಬರೆಯುವುದರಿಂದ ವಿರುದ್ಧ ದಿಕ್ಕಿಗೆ ತಿರುಗಿದೆ.
+  </div>
+
+  <h3>ಉದಾಹರಣ ವಾಕ್ಯಗಳು</h3>
+  <table class="cmp">
+    <tr><th>ಕನ್ನಡ</th><th>ಉರ್ದು</th></tr>
+    <tr><td>ನಿಮ್ಮ ಹೆಸರೇನು?</td><td class="ur">آپ کا نام کیا ہے؟ <span class="tr">(āp kā nām kyā hai)</span></td></tr>
+    <tr><td>ನನ್ನ ಹೆಸರು ರಾಮ.</td><td class="ur">میرا نام رام ہے۔ <span class="tr">(merā nām rām hai)</span></td></tr>
+    <tr><td>ನೀವು ಎಲ್ಲಿಯವರು?</td><td class="ur">آپ کہاں سے ہیں؟ <span class="tr">(āp kahā̃ se haĩ)</span></td></tr>
+    <tr><td>ನಾನು ಬೆಂಗಳೂರಿನವನು.</td><td class="ur">میں بنگلور سے ہوں۔ <span class="tr">(maĩ bangalōr se hū̃)</span></td></tr>
+    <tr><td>ನನಗೆ ಉರ್ದು ಬರುತ್ತದೆ.</td><td class="ur">مجھ کو اردو آتی ہے۔ <span class="tr">(mujh ko urdū ātī hai)</span></td></tr>
+  </table>
+</section>
+<section class="stage" id="stage-06">
+  <h2><span class="kn">ಓದು</span> — ಮೂರು ಪಠ್ಯಗಳು</h2>
+
+  <p>ಪ್ರತಿ ಪಠ್ಯಕ್ಕೂ ಮೂರು ಪದರ: <em>ಉರ್ದು ಪಠ್ಯ</em>, <em>ಲಿಪ್ಯಂತರ</em>, <em>ಕನ್ನಡ ಅರ್ಥ</em>. ಉರ್ದುವನ್ನು ಬಲದಿಂದ ಎಡಕ್ಕೆ ಓದಿ — ಆದರೆ ಪದ-ಕ್ರಮ ಕನ್ನಡದಂತೆಯೇ.</p>
+
+  <h3>ಪಠ್ಯ ೧ — ಪರಿಚಯ</h3>
+  <div class="passage">
+    <div class="ur">میرا نام آصف ہے۔ میں بیدر سے ہوں۔ میں طالبِ علم ہوں۔ مجھ کو کتابیں پڑھنا پسند ہے۔ میری ماں اردو بولتی ہیں اور میرا باپ کنڑ بولتا ہے۔</div>
+    <div class="tr">merā nām Āsif hai. maĩ Bīdar se hū̃. maĩ tālib-e-'ilm hū̃. mujh ko kitābẽ paṛhnā pasand hai. merī mā̃ Urdū boltī haĩ aur merā bāp Kannaḍ boltā hai.</div>
+    <div class="gloss">ನನ್ನ ಹೆಸರು ಆಸಿಫ್. ನಾನು ಬೀದರಿನವನು. ನಾನು ವಿದ್ಯಾರ್ಥಿ. ನನಗೆ ಪುಸ್ತಕಗಳನ್ನು ಓದುವುದು ಇಷ್ಟ. ನನ್ನ ಅಮ್ಮ ಉರ್ದು ಮಾತಾಡುತ್ತಾರೆ, ನನ್ನ ಅಪ್ಪ ಕನ್ನಡ ಮಾತಾಡುತ್ತಾರೆ.</div>
+  </div>
+
+  <h3>ಪಠ್ಯ ೨ — ಒಂದು ದಿನ</h3>
+  <div class="passage">
+    <div class="ur">صبح میں جلدی اٹھتا ہوں۔ چائے پیتا ہوں اور اخبار پڑھتا ہوں۔ پھر کام پر جاتا ہوں۔ دوپہر کو گھر میں کھانا کھاتا ہوں۔ شام کو دوستوں سے ملتا ہوں۔ رات کو سوتا ہوں۔</div>
+    <div class="tr">subah maĩ jaldī uṭhtā hū̃. cāy pītā hū̃ aur akhbār paṛhtā hū̃. phir kām par jātā hū̃. dopahar ko ghar mẽ khānā khātā hū̃. shām ko dostõ se miltā hū̃. rāt ko sotā hū̃.</div>
+    <div class="gloss">ಬೆಳಿಗ್ಗೆ ನಾನು ಬೇಗನೆ ಏಳುತ್ತೇನೆ. ಚಹಾ ಕುಡಿಯುತ್ತೇನೆ, ಪತ್ರಿಕೆ ಓದುತ್ತೇನೆ. ಆಮೇಲೆ ಕೆಲಸಕ್ಕೆ ಹೋಗುತ್ತೇನೆ. ಮಧ್ಯಾಹ್ನ ಮನೆಯಲ್ಲಿ ಊಟ ಮಾಡುತ್ತೇನೆ. ಸಂಜೆ ಗೆಳೆಯರನ್ನು ಭೇಟಿಯಾಗುತ್ತೇನೆ. ರಾತ್ರಿ ಮಲಗುತ್ತೇನೆ.</div>
+  </div>
+
+  <h3>ಪಠ್ಯ ೩ — ಸಂಭಾಷಣೆ (ಇಬ್ಬರು ಗೆಳೆಯರು)</h3>
+  <div class="passage">
+    <div class="ur">
+      ــ السلام علیکم! آپ کیسے ہیں؟<br>
+      ــ وعلیکم السلام۔ میں ٹھیک ہوں، شکریہ۔ آپ؟<br>
+      ــ میں بھی ٹھیک ہوں۔ آپ کہاں جا رہے ہیں؟<br>
+      ــ میں بازار جا رہا ہوں۔ کچھ چاہیے؟<br>
+      ــ ہاں، تھوڑا دودھ لے آئیے۔<br>
+      ــ ضرور۔ ابھی لاتا ہوں۔
+    </div>
+    <div class="tr">
+      — assalāmu alaikum! āp kaise haĩ?<br>
+      — va-alaikum assalām. maĩ ṭhīk hū̃, shukriya. āp?<br>
+      — maĩ bhī ṭhīk hū̃. āp kahā̃ jā rahe haĩ?<br>
+      — maĩ bāzār jā rahā hū̃. kuch cāhiye?<br>
+      — hā̃, thoṛā dūdh le āiye.<br>
+      — zarūr. abhī lātā hū̃.
+    </div>
+    <div class="gloss">
+      — ನಮಸ್ಕಾರ! ಹೇಗಿದ್ದೀರಿ?<br>
+      — ನಮಸ್ಕಾರ. ನಾನು ಚೆನ್ನಾಗಿದ್ದೇನೆ, ಧನ್ಯವಾದಗಳು. ನೀವು?<br>
+      — ನಾನೂ ಚೆನ್ನಾಗಿದ್ದೇನೆ. ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತಿದ್ದೀರಿ?<br>
+      — ನಾನು ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುತ್ತಿದ್ದೇನೆ. ಏನಾದರೂ ಬೇಕೇ?<br>
+      — ಹೌದು, ಸ್ವಲ್ಪ ಹಾಲು ತನ್ನಿ.<br>
+      — ಖಂಡಿತ. ಈಗಲೇ ತರುತ್ತೇನೆ.
+    </div>
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಗಮನಿಸಿ — "ಜಾ ರಹಾ ಹೂಂ"</span>
+    <span class="ur">جا رہا ہوں</span> = "ಹೋಗುತ್ತಿದ್ದೇನೆ" (ಈ ಕ್ಷಣದಲ್ಲಿ). ಕನ್ನಡದ "ಹೋಗುತ್ತಿದ್ದೇನೆ" = ಹೋಗುತ್ತ + ಇದ್ದೇನೆ. ಉರ್ದುವಿನಲ್ಲಿ "ಜಾ" (ಹೋಗು) + "ರಹಾ" (ಇದ್ದು) + "ಹೂಂ" (ಇದ್ದೇನೆ) — ಒಂದೇ ರಚನೆ!
+  </div>
+</section>
+<section class="stage" id="stage-07">
+  <h2><span class="kn">ಪದಕ್ಷೇತ್ರ</span> — ಭಾಷೆಗಳು ಅರ್ಥವನ್ನು ಹೇಗೆ ಕತ್ತರಿಸುತ್ತವೆ</h2>
+
+  <p>ಒಂದೇ ವಾಸ್ತವ — ಎರಡು ಭಾಷೆ ಬೇರೆ ಬೇರೆ ರೇಖೆ ಎಳೆದಿವೆ. ಕುಟುಂಬ, ಕಾಲ, ದೇಹ, ಚಲನೆ — ಈ ಕ್ಷೇತ್ರಗಳಲ್ಲಿ ಎಲ್ಲಿ ಒಂದೇ, ಎಲ್ಲಿ ಬೇರೆ ಎಂದು ನೋಡೋಣ.</p>
+
+  <h3>ಸಂಬಂಧಿಕ ಕ್ಷೇತ್ರ</h3>
+  <p>ಕನ್ನಡದಲ್ಲಿ <em>ಅಣ್ಣ</em> ಮತ್ತು <em>ತಮ್ಮ</em> ಬೇರೆ — ವಯಸ್ಸಿಗೆ ತಕ್ಕಂತೆ. ಉರ್ದುವಿನಲ್ಲಿ <span class="ur">بھائی</span> (bhāī) ಎಂದೇ ಒಂದೇ ಪದ — ವಯಸ್ಸಿನ ವ್ಯತ್ಯಾಸ ಹೇಳಲು <span class="ur">بڑے بھائی</span> (baṛe bhāī = ದೊಡ್ಡ ಅಣ್ಣ), <span class="ur">چھوٹے بھائی</span> (choṭe bhāī = ಚಿಕ್ಕ ತಮ್ಮ) ಎಂದು ಬಳಸಬೇಕು.</p>
+
+  <table class="cmp">
+    <tr><th>ಕನ್ನಡ</th><th>ಉರ್ದು</th><th>ಗಮನ</th></tr>
+    <tr><td>ಅಣ್ಣ</td><td class="ur">بڑے بھائی</td><td>ಉರ್ದುವಿನಲ್ಲಿ ಎರಡು ಪದ ಬೇಕು</td></tr>
+    <tr><td>ತಮ್ಮ</td><td class="ur">چھوٹے بھائی</td><td>ಅದೇ ಕಾರಣ</td></tr>
+    <tr><td>ಮಾವ (ತಾಯಿ ಸೋದರ)</td><td class="ur">ماما</td><td>ಎರಡೂ ಒಂದೇ</td></tr>
+    <tr><td>ಚಿಕ್ಕಪ್ಪ (ತಂದೆ ಸೋದರ)</td><td class="ur">چاچا</td><td>ಕನ್ನಡ-ಉರ್ದು ಎರಡೂ ತಾಯಿ/ತಂದೆ ಕಡೆ ಬೇರ್ಪಡಿಸುತ್ತವೆ</td></tr>
+    <tr><td>ದೊಡ್ಡಪ್ಪ</td><td class="ur">تایا</td><td>ತಂದೆಯ ಅಣ್ಣ</td></tr>
+    <tr><td>ಅತ್ತೆ (ತಂದೆ ಸೋದರಿ)</td><td class="ur">پھوپھی</td><td>phūphī</td></tr>
+    <tr><td>ಚಿಕ್ಕಮ್ಮ (ತಾಯಿ ಸೋದರಿ)</td><td class="ur">خالہ</td><td>khālā</td></tr>
+  </table>
+
+  <h3>ಕಾಲ</h3>
+  <p>"ಕಲ್" ಎಂಬುದು ನಿನ್ನೆ ಮತ್ತು ನಾಳೆ ಎರಡೂ — ಇದು ಮೊದಲೇ ನೋಡಿದ್ದೇವೆ. ಆದರೆ ಉರ್ದು ದಿನದ ಭಾಗಗಳನ್ನು ಹೇಗೆ ಕತ್ತರಿಸುತ್ತದೆ ನೋಡಿ:</p>
+  <table class="cmp">
+    <tr><th>ಕನ್ನಡ</th><th>ಉರ್ದು</th><th>ಟಿಪ್ಪಣಿ</th></tr>
+    <tr><td>ಬೆಳಿಗ್ಗೆ</td><td class="ur">صبح (subah)</td><td>ಸೂರ್ಯೋದಯದಿಂದ</td></tr>
+    <tr><td>ಮಧ್ಯಾಹ್ನ</td><td class="ur">دوپہر (dopahar)</td><td>ಅಕ್ಷರಶಃ "ಎರಡು ಪಹರೆ"</td></tr>
+    <tr><td>ಸಾಯಂಕಾಲ</td><td class="ur">شام (shām)</td><td>ಸೂರ್ಯಾಸ್ತದ ಸಮಯ</td></tr>
+    <tr><td>ರಾತ್ರಿ</td><td class="ur">رات (rāt)</td><td>ಒಂದೇ ಮೂಲ — ಸಂಸ್ಕೃತ</td></tr>
+  </table>
+
+  <h3>ದೇಹ</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">سر</span><span class="tr">sar</span><span class="src">= ತಲೆ · ಪರ್ಸಿಯನ್</span></div>
+    <div class="card"><span class="target">آنکھ</span><span class="tr">ā̃kh</span><span class="src">= ಕಣ್ಣು · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">کان</span><span class="tr">kān</span><span class="src">= ಕಿವಿ · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">ناک</span><span class="tr">nāk</span><span class="src">= ಮೂಗು · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">منہ</span><span class="tr">mũh</span><span class="src">= ಬಾಯಿ · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">ہاتھ</span><span class="tr">hāth</span><span class="src">= ಕೈ · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">پاؤں</span><span class="tr">pāõ</span><span class="src">= ಕಾಲು · ತದ್ಭವ</span></div>
+    <div class="card"><span class="target">دل</span><span class="tr">dil</span><span class="src">= ಹೃದಯ / ಮನಸ್ಸು · ಪರ್ಸಿಯನ್</span><div class="hint">ಉರ್ದು ಕಾವ್ಯದ ಕೀಲಿ ಪದ — ಹೃದಯ ಮತ್ತು ಮನಸ್ಸು ಒಂದೇ!</div></div>
+  </div>
+
+  <h3>ಚಲನೆ</h3>
+  <table class="cmp">
+    <tr><th>ಕನ್ನಡ</th><th>ಉರ್ದು</th></tr>
+    <tr><td>ಬಾ (ಇಲ್ಲಿಗೆ)</td><td class="ur">آؤ / آئیے (āo / āiye)</td></tr>
+    <tr><td>ಹೋಗು</td><td class="ur">جاؤ / جائیے (jāo / jāiye)</td></tr>
+    <tr><td>ನಡೆ</td><td class="ur">چلو (calo)</td></tr>
+    <tr><td>ಓಡು</td><td class="ur">دوڑو (dauṛo)</td></tr>
+    <tr><td>ಏಳು</td><td class="ur">اٹھو (uṭho)</td></tr>
+    <tr><td>ಕೂಡು</td><td class="ur">بیٹھو (baiṭho)</td></tr>
+  </table>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — "ದಿಲ್"</span>
+    ಕನ್ನಡ "ಹೃದಯ" (ಅಂಗ) ಮತ್ತು "ಮನಸ್ಸು" (ಭಾವ) ಬೇರೆ ಬೇರೆ. ಉರ್ದು <span class="ur">دل</span> (dil) ಎರಡೂ. ಆದ್ದರಿಂದಲೇ "ದಿಲ್ ತೂಟಾ" (ಹೃದಯ ಒಡೆಯಿತು) ಎನ್ನುವಾಗ ಅಂಗವಲ್ಲ, ಭಾವನೆ ಎಂದು ಅರ್ಥೈಸುತ್ತೇವೆ. ಉರ್ದು ಕಾವ್ಯದಲ್ಲಿ "ದಿಲ್" ಎಂಬ ಪದ ಸಾವಿರ ಬಾರಿ ಬರುತ್ತದೆ.
+  </div>
+</section>
+<section class="stage" id="stage-08">
+  <h2><span class="kn">ಬಳಕೆ</span> — ಮರ್ಯಾದೆ, ಪದ್ಧತಿ, ಸಂಭಾಷಣೆ</h2>
+
+  <h3>ಮೂರು ಮಟ್ಟದ ಗೌರವ</h3>
+  <p>ಕನ್ನಡದಲ್ಲಿ ಎರಡು ಮಟ್ಟ: <em>ನೀನು</em> (ಆಪ್ತ) ಮತ್ತು <em>ನೀವು</em> (ಗೌರವ). ಉರ್ದುವಿನಲ್ಲಿ ಮೂರು: <span class="ur">تُو</span> (tū — ದೇವರೊಂದಿಗೆ, ಅತ್ಯಂತ ಆಪ್ತ, ಅಥವಾ ಅಪಹಾಸ್ಯ!), <span class="ur">تم</span> (tum — ಸಾಮಾನ್ಯ ನೀನು), <span class="ur">آپ</span> (āp — ಮರ್ಯಾದಾಪೂರ್ಣ ನೀವು).</p>
+
+  <div class="aside">
+    <span class="tag">ಎಚ್ಚರಿಕೆ — ತೂ ನ ಬಳಸಿ</span>
+    <span class="ur">تُو</span> (tū) ಕನ್ನಡದ "ನೀ"ಗೆ ಸಮ — ಆದರೆ ಉರ್ದುವಿನಲ್ಲಿ ಇದು ಅಪರಿಚಿತರಿಗೆ ಬಳಸಿದರೆ <em>ಅವಮಾನ</em>. ದೇವರ ಜೊತೆ, ಅಥವಾ ಪ್ರೇಮಿಯ ಜೊತೆ ಶಾಯರಿಯಲ್ಲಿ ಮಾತ್ರ ಚೆನ್ನ. ಬೇರೆಯವರಿಗೆ ಯಾವಾಗಲೂ <span class="ur">آپ</span> ಬಳಸಿ — ಹಿರಿಯರು, ಚಿಕ್ಕವರು, ಸಹೋದ್ಯೋಗಿ — ಯಾರಿಗೆ ಬೇಕಾದರೂ.
+  </div>
+
+  <h3>ನಮಸ್ಕಾರ ಮತ್ತು ವಿದಾಯ</h3>
+  <table class="cmp">
+    <tr><th>ಕನ್ನಡ</th><th>ಉರ್ದು</th><th>ಅರ್ಥ</th></tr>
+    <tr><td>ನಮಸ್ಕಾರ</td><td class="ur">السلام علیکم</td><td>ಶಾಂತಿ ನಿಮ್ಮ ಮೇಲಿರಲಿ (ಮುಸ್ಲಿಂ ಶೈಲಿ)</td></tr>
+    <tr><td>ನಮಸ್ಕಾರಕ್ಕೆ ಉತ್ತರ</td><td class="ur">وعلیکم السلام</td><td>ನಿಮ್ಮ ಮೇಲೂ ಶಾಂತಿ</td></tr>
+    <tr><td>ನಮಸ್ಕಾರ (ಸಾಮಾನ್ಯ)</td><td class="ur">آداب</td><td>ಆದಾಬ್ — ಎಲ್ಲಾ ಧರ್ಮಕ್ಕೂ</td></tr>
+    <tr><td>ಧನ್ಯವಾದಗಳು</td><td class="ur">شکریہ</td><td>ಶುಕ್ರಿಯಾ</td></tr>
+    <tr><td>ದಯವಿಟ್ಟು</td><td class="ur">مہربانی</td><td>ಮೆಹರ್‌ಬಾನೀ</td></tr>
+    <tr><td>ಕ್ಷಮಿಸಿ</td><td class="ur">معاف کیجیے</td><td>ಮಾಫ್ ಕೀಜಿಯೇ</td></tr>
+    <tr><td>ಹೋಗಿ ಬನ್ನಿ</td><td class="ur">خدا حافظ</td><td>ಖುದಾ ಹಾಫಿಜ್ — ಅಕ್ಷರಶಃ "ಭಗವಂತ ರಕ್ಷಿಸಲಿ"</td></tr>
+  </table>
+
+  <h3>ಊಟದ ಸಂಭಾಷಣೆ</h3>
+  <p>ಕನ್ನಡದಲ್ಲಿ "ಊಟ ಆಯ್ತಾ?" ಎಂದು ಕೇಳುವುದು ಪ್ರೀತಿ, ಗಮನ. ಉರ್ದುವಿನಲ್ಲೂ ಅದೇ: <span class="ur">کھانا کھایا؟</span> (khānā khāyā?) — "ಊಟ ಆಯ್ತಾ?". ಇದು ಕೇವಲ ಪ್ರಶ್ನೆಯಲ್ಲ — ಆಪ್ತ ಭಾವದ ನಮಸ್ಕಾರ.</p>
+
+  <h3>ಅಪರಿಚಿತರನ್ನು ಕರೆಯುವುದು</h3>
+  <table class="cmp">
+    <tr><th>ಯಾರನ್ನು</th><th>ಉರ್ದು</th><th>ಕನ್ನಡದ ಸರಿಗಟ್ಟು</th></tr>
+    <tr><td>ಹಿರಿಯ ಗಂಡಸು</td><td class="ur">بھائی صاحب (bhāī sāhab)</td><td>ಅಣ್ಣಾವ್ರೇ / ಸಾಹೇಬ್ರೇ</td></tr>
+    <tr><td>ಹಿರಿಯ ಹೆಂಗಸು</td><td class="ur">آپا / باجی (āpā / bājī)</td><td>ಅಕ್ಕಾ</td></tr>
+    <tr><td>ಚಿಕ್ಕವರು</td><td class="ur">بیٹا / بیٹی (beṭā / beṭī)</td><td>ಮಗು / ಕಂದ</td></tr>
+    <tr><td>ಅತ್ಯಂತ ಹಿರಿಯರು</td><td class="ur">انکل / آنٹی (aṅkal / āṇṭī)</td><td>ಅಂಕಲ್ / ಆಂಟಿ</td></tr>
+  </table>
+
+  <h3>ಮೃದು ಪದಗಳು — ಸಂಕೋಚ ಕರಗಿಸಲು</h3>
+  <div class="grid cols-2">
+    <div class="card"><span class="target">ذرا</span><span class="tr">zarā</span><span class="src">= ಸ್ವಲ್ಪ / ಚೂರು</span><div class="hint">"ಜರಾ ಪಾನೀ ದೀಜಿಯೇ" = ಸ್ವಲ್ಪ ನೀರು ಕೊಡಿ. ಕೋರಿಕೆಗೆ ಮೃದುತ್ವ.</div></div>
+    <div class="card"><span class="target">مہربانی کر کے</span><span class="tr">mehrabānī kar ke</span><span class="src">= ದಯಮಾಡಿ</span></div>
+    <div class="card"><span class="target">اگر ممکن ہو</span><span class="tr">agar mumkin ho</span><span class="src">= ಸಾಧ್ಯವಾದರೆ</span></div>
+    <div class="card"><span class="target">جی</span><span class="tr">jī</span><span class="src">= ಹೌದು (ಮರ್ಯಾದೆ ಸೇರಿಸುವ ಪದ)</span><div class="hint">"ಜೀ ಹಾಂ" = "ಹೌದು"ಗೆ ಗೌರವ. ಹೆಸರಿನ ಹಿಂದೆ ಹಾಕಿದರೆ ಮರ್ಯಾದೆ: "ರಾಮ್ ಜೀ".</div></div>
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಅಹಾ ಕ್ಷಣ — "ಜೀ"</span>
+    ಕನ್ನಡದಲ್ಲಿ "ಹೌದು" ಹೇಳಲು "ಹೌದು", ಗೌರವಕ್ಕೆ "ಹೌದ್ರೀ" ಎಂದು ಬದಲಿಸುತ್ತೇವೆ. ಉರ್ದುವಿನಲ್ಲಿ <span class="ur">جی</span> (jī) ಎಂಬ ಪದವೇ ಹಾಗೆ — ಒಂಟಿ ಅಕ್ಷರದಲ್ಲಿ ಗೌರವ. "ಹಾಂ" (ಹೌದು) → "ಜೀ ಹಾಂ" (ಹೌದ್ರೀ), "ನಹೀಂ" (ಇಲ್ಲ) → "ಜೀ ನಹೀಂ" (ಇಲ್ಲಾರೀ).
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಸಂಸ್ಕೃತಿಯ ಗುಟ್ಟು</span>
+    ಉರ್ದು ಕೇವಲ ಭಾಷೆಯಲ್ಲ — ಅದೊಂದು <em>ತೆಹ್ಜೀಬ್</em> (ಸಂಸ್ಕೃತಿ, ಸಭ್ಯತೆ). ಲಕ್ನೌ-ಹೈದರಾಬಾದ್-ದೆಹಲಿಗಳ ಉರ್ದು ಮಾತಿನಲ್ಲಿ ಮರ್ಯಾದಾ ಶಬ್ದಗಳ ಸುರಿಮಳೆ. ಕನ್ನಡದ "ಬಂದ್ರಾ?" ಎಂಬುದು ಉರ್ದುವಿನಲ್ಲಿ <span class="ur">تشریف لائے؟</span> (tashrīf lāe?) — "ತಮ್ಮ ಮರ್ಯಾದೆಯನ್ನು ಹೊತ್ತುತಂದಿರಾ?" ಎಂಬ ಅರ್ಥ!
+  </div>
+</section>
+<section class="stage" id="stage-09">
+  <h2><span class="kn">ಸಾಹಿತ್ಯ</span> — ಏಳುನೂರು ವರ್ಷಗಳ ಪ್ರವಾಹ</h2>
+
+  <p>ಉರ್ದು ಸಾಹಿತ್ಯದ ಮೂಲ ದಕ್ಷಿಣದಲ್ಲಿಯೇ — ದಖನಿ ಉರ್ದು. ಬಹಮನಿ ರಾಜ್ಯ, ಬಿಜಾಪುರ, ಗೋಲ್ಕೊಂಡಾದಲ್ಲಿ ಹೂಬಿಟ್ಟ ಭಾಷೆ ಆಮೇಲೆ ದೆಹಲಿ-ಲಕ್ನೌ ತಲುಪಿತು. ಗಝಲ್, ನಜ್ಮ್, ಮರ್ಸಿಯಾ, ಮಸ್ನವಿ — ಇವು ಉರ್ದುವಿನ ಕಾವ್ಯಪ್ರಕಾರಗಳು.</p>
+
+  <div class="writer">
+    <div class="name"><span class="ur">میر تقی میر</span> · ಮೀರ್ ತಕೀ ಮೀರ್ (೧೭೨೩–೧೮೧೦)</div>
+    <div>ಉರ್ದು ಗಝಲ್‌ಗೆ ಅಡಿಪಾಯ ಹಾಕಿದ ಕವಿ. "ಖುದಾ-ಎ-ಸುಖನ್" (ಭಾಷಾ ದೇವತೆ) ಎಂದು ಕರೆಯುತ್ತಾರೆ.</div>
+    <div class="bridge">ಕನ್ನಡದ <strong>ಪಂಪ</strong>ನಂತೆ — ತನ್ನ ಭಾಷೆಯ ಸಾಹಿತ್ಯಕ್ಕೆ ಶಾಸ್ತ್ರೀಯ ಆಕಾರ ಕೊಟ್ಟವನು. ಇಬ್ಬರೂ ತಮ್ಮ ಭಾಷೆಯ "ಆದಿಕವಿ"ಗಳು.</div>
+  </div>
+
+  <div class="writer">
+    <div class="name"><span class="ur">مرزا غالب</span> · ಮಿರ್ಜಾ ಗಾಲಿಬ್ (೧೭೯೭–೧೮೬೯)</div>
+    <div>ಗಝಲ್‌ನ ಪರಮೋಚ್ಚ ಸಾಧಕ. ದೆಹಲಿಯ ಕೊನೆಯ ಮೊಘಲ್ ದರ್ಬಾರಿನ ಕವಿ. ತತ್ತ್ವ, ಪ್ರೇಮ, ವಿರಹ, ಹಾಸ್ಯ — ಎಲ್ಲವನ್ನೂ ಎರಡೇ ಸಾಲುಗಳಲ್ಲಿ ಹಿಡಿದಿಟ್ಟವನು.</div>
+    <div class="bridge">ಕನ್ನಡದ <strong>ದ.ರಾ. ಬೇಂದ್ರೆ</strong>ಯವರಂತೆ — ಪದಗಳ ಸಂಗೀತ, ಒಳಗೊಳಗೇ ಹರಿಯುವ ಭಾವದ ಲಯ, ತೋರಿದ ಸರಳತೆಯಲ್ಲಿ ಅಡಗಿದ ಆಳ. "ಹಾಗ್ಹೇಳಾದ್ರಾ?" ಎನಿಸುವ ಮುಗುಳ್ನಗೆ ಇಬ್ಬರಲ್ಲೂ.</div>
+  </div>
+
+  <div class="writer">
+    <div class="name"><span class="ur">علّامہ اقبال</span> · ಅಲ್ಲಾಮಾ ಇಕ್ಬಾಲ್ (೧೮೭೭–೧೯೩೮)</div>
+    <div>ತತ್ತ್ವಶಾಸ್ತ್ರಜ್ಞ-ಕವಿ. "ಸಾರೇ ಜಹಾಂ ಸೇ ಅಚ್ಛಾ" ಇವನ ಗೀತ. ಸ್ವಾಭಿಮಾನ, ಆಧ್ಯಾತ್ಮಿಕ ಜಾಗೃತಿ, ವಿಶಾಲ ಮಾನವತೆ — ಇವಿಷ್ಟಕ್ಕೂ ಸೇತುವೆ.</div>
+    <div class="bridge">ಕನ್ನಡದ <strong>ಕುವೆಂಪು</strong>ರಂತೆ — ವಿಶ್ವಮಾನವತೆಯ ಕನಸು, ನಾಡಿನ ಮೇಲಿನ ಪ್ರೀತಿ, ಆಧ್ಯಾತ್ಮ-ಸಾಮಾಜಿಕ ಚಿಂತನೆಯ ಮೇಳೈಕೆ. ಇಬ್ಬರೂ ತಮ್ಮ ಭಾಷೆಯ "ರಾಷ್ಟ್ರಕವಿ"ಗಳು.</div>
+  </div>
+
+  <div class="writer">
+    <div class="name"><span class="ur">فیض احمد فیض</span> · ಫೈಜ್ ಅಹ್ಮದ್ ಫೈಜ್ (೧೯೧೧–೧೯೮೪)</div>
+    <div>ಕ್ರಾಂತಿಕಾರಿ ರೊಮಾಂಟಿಕ್. ಪ್ರೇಮ ಮತ್ತು ಪ್ರತಿರೋಧವನ್ನು ಒಂದೇ ಉಸಿರಿನಲ್ಲಿ ಬೆಸೆದವನು. "ಹಮ್ ದೇಖೇಂಗೆ" — ನ್ಯಾಯಕ್ಕಾಗಿ ಹೋರಾಡುವವರ ಗೀತ.</div>
+    <div class="bridge">ಕನ್ನಡದ <strong>ಕುವೆಂಪು</strong> ಅಥವಾ ತದನಂತರ <strong>ಸಿದ್ಧಲಿಂಗಯ್ಯ</strong>ನವರಂತೆ — ಕಾವ್ಯವನ್ನು ಪ್ರತಿರೋಧದ ಆಯುಧವಾಗಿಸಿದರು. ಸೌಂದರ್ಯ ಮತ್ತು ಹೋರಾಟ ಬೇರೆಯಲ್ಲ ಎಂಬ ನಂಬಿಕೆ.</div>
+  </div>
+
+  <div class="writer">
+    <div class="name"><span class="ur">سعادت حسن منٹو</span> · ಸಆದತ್ ಹಸನ್ ಮಂಟೋ (೧೯೧೨–೧೯೫೫)</div>
+    <div>ಕಥೆಗಾರ. ವಿಭಜನೆ, ಲೈಂಗಿಕತೆ, ಅಧಿಕಾರ — ಯಾವುದೂ ಮುಚ್ಚಿಡದೆ ಬರೆದವನು. ಅಶ್ಲೀಲತೆಯ ಆರೋಪ ಎದುರಿಸಿದರೂ ಕಚಾ ಸತ್ಯ ಬಿಡಲಿಲ್ಲ.</div>
+    <div class="bridge">ಕನ್ನಡದ <strong>ಯು.ಆರ್. ಅನಂತಮೂರ್ತಿ</strong>ಯವರಂತೆ — ಸಮಾಜದ ಕಳಂಕಗಳನ್ನು ನೇರವಾಗಿ ತೋರುವ ಧೈರ್ಯ. "ಸಂಸ್ಕಾರ" ಮತ್ತು ಮಂಟೋನ "ಟೋಬಾ ಟೇಕ್ ಸಿಂಗ್" ಎರಡೂ — ವಿಮರ್ಶೆಯನ್ನು ಕಾಲ್ಪನಿಕತೆಯ ಮೂಲಕ ಹೊಮ್ಮಿಸುತ್ತವೆ.</div>
+  </div>
+
+  <div class="writer">
+    <div class="name"><span class="ur">اسمٰعیل میرٹھی / اسماعیل</span> · ಇಸ್ಮತ್ ಚುಗ್ತಾಯಿ (೧೯೧೫–೧೯೯೧)</div>
+    <div>ಮಹಿಳಾ ಕಥೆಗಾರ್ತಿ. "ಲಿಹಾಫ್" ಕಥೆಯಿಂದ ತಳಮಳ. ಮಹಿಳೆಯ ಆಂತರ್ಯ, ಕಾಮ, ಸಾಮಾಜಿಕ ಒತ್ತಡ — ಎಲ್ಲವನ್ನೂ ಧ್ವನಿಸಿದರು.</div>
+    <div class="bridge">ಕನ್ನಡದ <strong>ವೈದೇಹಿ</strong> ಅಥವಾ <strong>ಸಾರಾ ಅಬೂಬಕರ್</strong>ರಂತೆ — ಹೆಣ್ಣಿನ ಕಣ್ಣಿನಿಂದ ಸಮಾಜವನ್ನು ಬರೆದವರು. ಸಾರಾ ಅವರಂತೆ ಚುಗ್ತಾಯಿಯೂ ಮುಸ್ಲಿಂ ಹೆಣ್ಣುಮಕ್ಕಳ ಬದುಕನ್ನು ಮೊದಲ ಬಾರಿ ಪ್ರಧಾನ ಸಾಹಿತ್ಯಕ್ಕೆ ಒಯ್ದವರು.</div>
+  </div>
+
+  <div class="writer">
+    <div class="name"><span class="ur">مخدوم محی الدین</span> · ಮಖ್ದೂಮ್ ಮೊಹಿಯುದ್ದೀನ್ (೧೯೦೮–೧೯೬೯)</div>
+    <div>ಹೈದರಾಬಾದಿನ ಕವಿ-ಹೋರಾಟಗಾರ. ತೆಲಂಗಾಣ ರೈತ ಚಳವಳಿಯ ಧ್ವನಿ. ಕನ್ನಡ-ಉರ್ದು ಗಡಿಯಲ್ಲಿ ನಿಂತವನು.</div>
+    <div class="bridge">ಕನ್ನಡದ <strong>ಚನ್ನವೀರ ಕಣವಿ</strong> ಅಥವಾ ದಲಿತ-ಬಂಡಾಯ ಕವಿಗಳಂತೆ — ಹಾಡು ಮತ್ತು ಹೋರಾಟ ಒಂದೇ. ನಮ್ಮ ಬೀದರ್-ಗುಲ್ಬರ್ಗಾ-ಹೈದರಾಬಾದ್ ಕಾಂಗ್ರೆಸ್‌ನ ನೆಲವೇ ಇವರ ನೆಲ.</div>
+  </div>
+
+  <div class="aside">
+    <span class="tag">ಕೊನೆಯ ಮಾತು</span>
+    ಗಝಲ್ ಎಂದರೆ ಕೇವಲ ಹಾಡಲ್ಲ — ಅದೊಂದು <em>ರಚನಾ-ನಿಷ್ಠೆ</em>. ಪ್ರತಿ ಎರಡು ಸಾಲು (ಶೇರ್) ತಾನೇ ಸ್ವತಂತ್ರ; ಆದರೆ ಎಲ್ಲ ಶೇರ್‌ಗಳಿಗೂ ಒಂದೇ ಕಾಫಿಯಾ (ಅಂತ್ಯಪ್ರಾಸ) ಮತ್ತು ರದೀಫ್ (ಪುನರಾವೃತ್ತಿ). ಕನ್ನಡದ <em>ವಚನ</em>ಗಳಲ್ಲೂ ಹೀಗೇ — ಪ್ರತಿ ವಚನ ತಾನೇ ಪೂರ್ಣ, ಆದರೆ "ಕೂಡಲಸಂಗಮದೇವಾ" ಎಂಬ ಅಂಕಿತ ಎಲ್ಲವನ್ನೂ ಬೆಸೆಯುತ್ತದೆ. ಬಸವಣ್ಣ-ಗಾಲಿಬ್ — ಸಾವಿರ ವರ್ಷದಂತರವಿದ್ದರೂ, ಕಾವ್ಯಕ್ರಮದಲ್ಲಿ ಸೋದರರು.
+  </div>
+
+  <p style="text-align:center; color:var(--sindoor); font-family:'Fraunces', serif; margin-top:30px; font-size:18px;">✦ ಹೊಸ ಭಾಷೆ, ಹಳೆಯ ಬಂಧ ✦</p>
+</section>
+
+<div class="nav-btns">
+  <button id="prev">← ಹಿಂದೆ</button>
+  <button id="next">ಮುಂದೆ →</button>
+</div>
+
+<footer>
+  made by Nil · using Claude
+</footer>
+</div>
+
+<script>
+(function(){
+  const tabs = document.querySelectorAll('#tabs button');
+  const stages = document.querySelectorAll('section.stage');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  let current = 0;
+
+  function show(i){
+    if(i < 0) i = 0;
+    if(i >= stages.length) i = stages.length - 1;
+    current = i;
+    tabs.forEach((t, idx) => t.classList.toggle('active', idx === i));
+    stages.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    prev.disabled = (i === 0);
+    next.disabled = (i === stages.length - 1);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  tabs.forEach((t, idx) => t.addEventListener('click', () => show(idx)));
+  prev.addEventListener('click', () => show(current - 1));
+  next.addEventListener('click', () => show(current + 1));
+
+  document.addEventListener('click', function(e){
+    const card = e.target.closest('.card');
+    if(card && card.querySelector('.hint')) card.classList.toggle('open');
+  });
+
+  show(0);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="தமிழ் பேசுபவர்களுக்கான கன்னடம் — உயிர் மெய் எழுத்துக்களின் வழியில்." />
+<title>ಕನ್ನಡ ಕಲಿಯೋಣ — தமிழிலிருந்து கன்னடம்</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Tamil:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Tamil', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .kan { font-family: 'Noto Serif Kannada', serif; }
+  .ta { font-family: 'Noto Serif Tamil', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: ""; display: block; width: 60px; height: 2px;
+    background: var(--sindoor); margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--sindoor); margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Tamil', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15; margin: 0 0 6px; color: var(--ink);
+  }
+  h1.title .kan { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded); font-weight: 400;
+    margin: 14px auto 0; max-width: 560px; line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--sindoor);
+  }
+
+  nav.stages {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex; gap: 0;
+    overflow-x: auto; scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px; max-width: 780px; margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0; background: transparent;
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--ink-faded); cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--sindoor);
+    display: block; margin-bottom: 2px; letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--sindoor); margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Tamil', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2; margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Tamil', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft); line-height: 1.65;
+    margin: 10px 0 0; padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Tamil', serif;
+    font-weight: 600; font-size: 21px;
+    margin: 36px 0 12px; color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; color: var(--sindoor);
+    margin-right: 10px; font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px; margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center; cursor: pointer;
+    transition: all 0.18s; min-height: 100px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    user-select: none; position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep); border-color: var(--ochre);
+    transform: translateY(-1px); box-shadow: var(--shadow); outline: none;
+  }
+  .map-cell .ta-g {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 24px; font-weight: 500;
+    color: var(--ink-faded); line-height: 1;
+  }
+  .map-cell .arrow { font-size: 10px; color: var(--ochre); margin: 4px 0; }
+  .map-cell .kan-g {
+    font-family: 'Noto Serif Kannada', serif;
+    font-size: 30px; font-weight: 500;
+    color: var(--ink); line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--sindoor);
+    margin-top: 4px; letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 11px; color: var(--ink-faded);
+    margin-top: 2px; opacity: 0; max-height: 0;
+    overflow: hidden; transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 80px; margin-top: 4px; }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--ink-faded);
+    margin: 24px 0 8px; padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .kan { font-family: 'Noto Serif Kannada', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .ta-eq { font-family: 'Noto Serif Tamil', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+
+  .sentence {
+    margin: 16px 0; padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .kan { font-family: 'Noto Serif Kannada', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .ta-gloss { font-family: 'Noto Serif Tamil', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 8px; padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px; align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Tamil', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .kan { font-family: 'Noto Serif Kannada', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .ta-eq { font-family: 'Noto Serif Tamil', serif; font-size: 15px; color: var(--ink-soft); }
+
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+
+  .vachana {
+    margin: 24px 0; padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px; border: 1px solid var(--rule);
+  }
+  .vachana::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .vachana .kan { font-size: 18px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; }
+  .vachana .ta-gloss { font-family: 'Noto Serif Tamil', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .vachana .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .aside {
+    margin: 18px 0; padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px; color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, tamil);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 18px; font-weight: 600; color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Tamil', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .kan { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .kan-g { font-size: 26px; }
+    .map-cell .ta-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 70px 1fr; gap: 6px; }
+    .conjug-row .ta-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 400px) {
+    .wrap { padding: 0 14px; }
+    body { font-size: 16px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+    .stage-tab { padding: 11px 7px 9px; font-size: 11px; }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">ஒரு அடிப்படை நூல் · ಪ್ರಾಥಮಿಕ ಪುಸ್ತಕ</div>
+    <h1 class="title">
+      <span class="kan">ಕನ್ನಡ ಕಲಿಯೋಣ</span>
+      தமிழிலிருந்து கன்னடம்
+    </h1>
+    <p class="subtitle">உயிர் மெய் எழுத்துக்களின் முறையில் — ஒரே நேரத்தில் ஒரே புதிய விஷயம், வடிவம் முதலில் பொருள் பிறகு, பட்டியல் அல்ல அமைப்பு — தமிழ் அறிந்ததன் மேல் கன்னடம்.</p>
+    <div class="byline">பத்து படிகள் <span class="sep">·</span> கைபேசிக்கு ஏற்றது <span class="sep">·</span> பூஜ்ஜியத்திலிருந்து</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">00</span>அறிமுகம்</button>
+    <button class="stage-tab" data-stage="1"><span class="num">01</span>உயிர்</button>
+    <button class="stage-tab" data-stage="2"><span class="num">02</span>மெய்</button>
+    <button class="stage-tab" data-stage="3"><span class="num">03</span>சேர்க்கை</button>
+    <button class="stage-tab" data-stage="4"><span class="num">04</span>சொற்கள்</button>
+    <button class="stage-tab" data-stage="5"><span class="num">05</span>வாக்கியம்</button>
+    <button class="stage-tab" data-stage="6"><span class="num">06</span>வாசிப்பு</button>
+    <button class="stage-tab" data-stage="7"><span class="num">07</span>சொல்வெளி</button>
+    <button class="stage-tab" data-stage="8"><span class="num">08</span>பயன்பாடு</button>
+    <button class="stage-tab" data-stage="9"><span class="num">09</span>இலக்கியம்</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" id="stage-00" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · அறிமுகம்</div>
+    <h2 class="stage-title">இந்தப் பாடம் ஏன் வேறுபட்டது</h2>
+    <p class="stage-lede">நீ தமிழ் அறிவாய். அதாவது கன்னடம் கற்பதற்கு ஆங்கிலம் பேசுவோரைப் போல் பூஜ்ஜியத்திலிருந்து ஆரம்பிக்க வேண்டியதில்லை — தமிழும் கன்னடமும் ஒரே திராவிட அம்மையின் பிள்ளைகள். ஒலிகளில் ~70% பகிரப்பட்டவை, இலக்கண எலும்புக்கூடு ஒன்றே, சொற்களில் ~59% உறவினர்.</p>
+  </div>
+  <div class="stage-body">
+
+    <p>உன் சிறுவயதில் நீ கற்ற முதல் நூல் — <strong>உயிர் மெய் எழுத்துக்கள்</strong>. அதன் வழி இதுதான்: <strong>ஒரே நேரத்தில் ஒரே புதிய விஷயம்</strong>, கற்பிக்காததை எடுத்துக்காட்டில் பயன்படுத்தக்கூடாது. இந்தப் பாடம் அதே வழியை பின்பற்றுகிறது — ஆனால் ஒரு பெரிய சலுகையுடன்: கன்னடமும் தமிழும் ஒரே திராவிட மூலத்திலிருந்து வந்தவை, இரண்டும் பிராஹ்மி வம்சாவளி, இரண்டும் <em>அபுகிதா</em> (எழுத்தில் உள்ளார்ந்த 'அ', உயிர்க்குறிகளால் மாறும்), இரண்டும் SOV.</p>
+
+    <p>ஒரே வாக்கியத்தில் பார்: தமிழ் — <span class="ta">நான் சோறு சாப்பிடுகிறேன்</span>. கன்னடம் — <span class="kan">ನಾನು ಅನ್ನ ತಿನ್ನುತ್ತೇನೆ</span> (nānu anna tinnuttēne). <em>நான் → ನಾನು, சோறு/அன்ன → ಅನ್ನ, சாப்பிடு → ತಿನ್ನು</em>. எழுத்து வடிவம் மட்டும் புதிது — சொல்ஒழுங்கும் வினைமுடிவும் உனக்கு முன்பே தெரிந்தது.</p>
+
+    <h3><span class="num">¶</span>தமிழ் → கன்னடம்: எங்கே ஒற்றுமை, எங்கே வேறுபாடு</h3>
+
+    <ol class="principles">
+      <li><strong>ஒலிகள் — பெரும்பாலும் ஒன்றே.</strong> தமிழின் <span class="ta">க ங ச ஞ ட ண த ந ப ம ய ர ல வ ழ ள ற ன</span> — இவை அனைத்தும் கன்னடத்தில் உள்ளன. மூர்த்தன்ய, தந்தய, ஓஷ்ட்ய — உன் நாக்கு முன்பே பழகியுள்ளது. 30 ஒலிகள் நேரடி பகிர்வு.</li>
+      <li><strong>எழுத்து — வேறு வடிவம், ஒரே விதி.</strong> தமிழ் <span class="ta">க் + அ = க</span> போலவே கன்னடத்தில் <span class="kan">ಕ್ + ಅ = ಕ</span>. தமிழ் புள்ளி (்) = கன்னட விராமம் (್). வடிவங்கள் புதிது, விதி அதே.</li>
+      <li><strong>இலக்கணம் — எலும்புக்கூடு ஒன்றே.</strong> இரண்டும் SOV, இரண்டும் பின்-இடைச்சொற்கள் (வேற்றுமை உருபுகள்) — முன்னிடைச்சொற்கள் இல்லை. தமிழில் <span class="ta">வீட்டுக்கு</span> = கன்னடத்தில் <span class="kan">ಮನೆಗೆ</span> (maneg-e). பின்னொட்டு சிந்தனை உனக்குத் தெரிந்ததே.</li>
+      <li><strong>சொற்கள் — திராவிட உறவுகள் ஏராளம்.</strong> <span class="ta">தலை</span>/<span class="kan">ತಲೆ</span> (tale), <span class="ta">கை</span>/<span class="kan">ಕೈ</span> (kai), <span class="ta">கண்</span>/<span class="kan">ಕಣ್ಣು</span> (kaṇṇu), <span class="ta">பால்</span>/<span class="kan">ಹಾಲು</span> (hālu — ஆதி 'ப' → கன்னட 'ஹ'). 61/104 சொற்கள் உறவினர்கள்.</li>
+      <li><strong>நாங்கள் இரண்டு — தமிழும் கன்னடமும் பிரித்துக்காட்டும்.</strong> தமிழில் <span class="ta">நாம்</span> (கேட்பவர் உள்ளடக்கம்) vs <span class="ta">நாங்கள்</span> (கேட்பவர் தவிர). கன்னடத்திலும் அதே — <span class="kan">ನಾವು</span> (nāvu) என்ற பொதுச்சொல் இருப்பினும் பேச்சில் இந்த உள்ளடக்க/விலக்கு வேறுபாடு வாழ்கிறது. ஆங்கிலம் இதை இழந்தது; நீ இரண்டையும் வைத்திருக்கிறாய்.</li>
+      <li><strong>புதிதாக உள்ள ஒலிகள் — மகாப்ராணம் மற்றும் கோசம்.</strong> தமிழில் இல்லாத <span class="kan">ಖ ಘ ಛ ಝ ಠ ಢ ಥ ಧ ಫ ಭ</span> (க² க³ ச² ஜ ட² ட³ த² த³ ப² ப³) — வடமொழித் தத்ஸம சொற்களில் வரும். <span class="kan">ಭಾಷೆ</span> (bhāṣe = பாஷை), <span class="kan">ಧನ್ಯವಾದ</span> (dhanyavāda = நன்றி). இரண்டாம் படியில் இவற்றை ⚡ குறியோடு அடையாளமிடுவோம்.</li>
+    </ol>
+
+    <div class="aside"><strong>பகிர்ந்த பொக்கிஷம்: <span class="kan">ಳ</span> = <span class="ta">ள</span>.</strong> மூர்த்தன்ய 'ள' — நாக்கு பின்னால் வளைத்து உச்சரிக்கும் ஒலி. சம்ஸ்கிருதம், வட இந்திய மொழிகள் எல்லாம் இதை இழந்தன. தமிழ், மலையாளம், கன்னடம், தெலுங்கு மட்டும் காப்பாற்றின. <span class="ta">ஆள்</span>/<span class="kan">ಆಳು</span> (āḷu = ஆள்/வேலைக்காரர்) — 3000 ஆண்டுகள் பழைய சகோதரர்கள்.</div>
+
+    <div class="aside"><strong>வழிமுறை.</strong> ஒவ்வொரு படியிலும் கன்னட எழுத்து/சொல்/வாக்கியத்தின் அருகில் தமிழ் சமான்யம் வைக்கப்பட்டுள்ளது. தமிழ் தெரிந்தால், கன்னடம் புதிய வடிவமே — புதிய கருத்து அல்ல.</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">மேலே <strong>உயிர்</strong> தாவலைத் தட்டு, தொடங்கு.</p>
+  </div>
+</section>
+<section class="stage" id="stage-01" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ஒலி</div>
+    <h2 class="stage-title">உயிர் எழுத்துக்கள் — <span class="kan">ಸ್ವರಗಳು</span></h2>
+    <p class="stage-lede">தமிழில் 12 உயிர்கள். கன்னடத்தில் 13 (சம்ஸ்கிருத ஋ சேர்ந்துள்ளது). குறில்/நெடில் இரட்டை, எ/ஏ, ஒ/ஓ வேறுபாடு — தமிழில் உள்ளவை கன்னடத்திலும் அதே. குடும்பங்களாகப் பார்.</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+kannada+vowels+swaragalu+pronunciation" title="Kannada vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">கன்னட உயிர்களின் உச்சரிப்பு <a href="https://www.youtube.com/results?search_query=learn+kannada+vowels+swaragalu+pronunciation" target="_blank" rel="noopener">மேலும் தேடு ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>படிக்கும் முறை.</strong> ஒவ்வொரு அட்டையைத் தட்டினால் ஒரு உதாரணச் சொல் தெரியும். தமிழ் எழுத்து மேலே, கன்னடம் கீழே — கண் முதலில் தமிழைப் பார்க்கும், பின் கன்னட வடிவம் மனதில் பதியும்.</div>
+
+    <div class="group-label">குறில் / நெடில் இரட்டை — 'அ' குடும்பம்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಅಮ್ಮ (amma) = அம்மா — தாய்"><div class="ta-g">அ</div><div class="arrow">↓</div><div class="kan-g">ಅ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಆನೆ (āne) = ஆனை — யானை"><div class="ta-g">ஆ</div><div class="arrow">↓</div><div class="kan-g">ಆ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'இ' குடும்பம்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಇರು (iru) = இரு — இருக்க"><div class="ta-g">இ</div><div class="arrow">↓</div><div class="kan-g">ಇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಈಗ (īga) = இப்போது"><div class="ta-g">ஈ</div><div class="arrow">↓</div><div class="kan-g">ಈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'உ' குடும்பம்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಉಪ್ಪು (uppu) = உப்பு — ஒரே சொல்!"><div class="ta-g">உ</div><div class="arrow">↓</div><div class="kan-g">ಉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಊಟ (ūṭa) = உணவு / சாப்பாடு"><div class="ta-g">ஊ</div><div class="arrow">↓</div><div class="kan-g">ಊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ಋ — சம்ஸ்கிருதத்திலிருந்து இரவல் (தமிழில் இல்லை)</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಋಷಿ (ṛṣi) = ரிஷி. தமிழில் 'ரி' என எழுதுவோம்."><div class="ta-g">— (ரி)</div><div class="arrow">↓</div><div class="kan-g">ಋ</div><div class="label">ṛ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'எ' குடும்பம் — குறில்/நெடில் தமிழில் போலவே</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಎಲೆ (ele) = இலை"><div class="ta-g">எ</div><div class="arrow">↓</div><div class="kan-g">ಎ</div><div class="label">e (குறில்)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಏಳು (ēḷu) = ஏழு / எழுந்திரு"><div class="ta-g">ஏ</div><div class="arrow">↓</div><div class="kan-g">ಏ</div><div class="label">ē (நெடில்)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಐದು (aidu) = ஐந்து — திராவிட உறவு!"><div class="ta-g">ஐ</div><div class="arrow">↓</div><div class="kan-g">ಐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ஒ' குடும்பம்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಒಂದು (ondu) = ஒன்று"><div class="ta-g">ஒ</div><div class="arrow">↓</div><div class="kan-g">ಒ</div><div class="label">o (குறில்)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಓಡು (ōḍu) = ஓடு — ஒரே சொல்!"><div class="ta-g">ஓ</div><div class="arrow">↓</div><div class="kan-g">ಓ</div><div class="label">ō (நெடில்)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಔಷಧ (auṣadha) = ஔஷதம் — ஒரே சம்ஸ்கிருத சொல்"><div class="ta-g">ஔ</div><div class="arrow">↓</div><div class="kan-g">ಔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>தமிழ் அதிர்ஷ்டம்.</strong> உலகம் முழுவதும் குறில்/நெடில் எ-ஏ, ஒ-ஓ வேறுபாட்டை எழுத்தில் பிரிக்கும் மொழிகள் அரிது. தமிழிலும் கன்னடத்திலும் <em>எ/ஏ</em>, <em>ஒ/ஓ</em> தனித்தனி எழுத்துக்கள். வடமொழி (இந்தி/பெங்காலி/சம்ஸ்கிருதம்) இந்த இரட்டையை இழந்தது — நாம் வைத்துள்ளோம்.</div>
+
+    <div class="group-label">அனுஸ்வாரம் & விசர்கம் — சம்ஸ்கிருத சொற்களில்</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಹಂಸ (haṃsa) = அன்னம். தமிழில் 'ம்' என எழுதுவோம்."><div class="ta-g">அம்</div><div class="arrow">↓</div><div class="kan-g">ಅಂ</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ದುಃಖ (duḥkha) = துக்கம்"><div class="ta-g">அஃ</div><div class="arrow">↓</div><div class="kan-g">ಅಃ</div><div class="label">aḥ</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">1.1</span>பயிற்சி</h3>
+    <ul class="clean">
+      <li>ஒவ்வொரு ஜோடியையும் சத்தமாக 20 முறை சொல் — அ-ஆ, இ-ஈ, உ-ஊ — ஆனால் கன்னட வடிவத்தைப் பார்த்து.</li>
+      <li>காகிதத்தில் ஒவ்வொரு கன்னட உயிரையும் 5 முறை வரை. கை கண்ணுக்குக் கற்பிக்கும்.</li>
+      <li>ஒவ்வொரு கன்னட உயிரையும் 1 வினாடியில் அடையாளம் காணும் வரை, 2ஆம் படிக்குச் செல்லாதே.</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-02" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ஒலி (தொடர்ச்சி)</div>
+    <h2 class="stage-title">மெய் எழுத்துக்கள் — <span class="kan">ವ್ಯಂಜನಗಳು</span></h2>
+    <p class="stage-lede">தமிழில் 18 மெய். கன்னடத்தில் 34 — ஏனெனில் ஒவ்வொரு வர்க்கத்திலும் 4 மெய் (குறுகிய/மகாப்ராண/கோஷ/கோஷ-மகாப்ராண). தமிழ் ஒவ்வொரு வர்க்கத்திற்கும் 1 எழுத்து மட்டும் பயன்படுத்தும். ⚡ புதிய ஒலிகளைக் குறித்துள்ளோம்.</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+kannada+consonants+vyanjanagalu+pronunciation" title="Kannada consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">கன்னட மெய் ஒலிகளின் உச்சரிப்பு <a href="https://www.youtube.com/results?search_query=learn+kannada+consonants+vyanjanagalu+pronunciation" target="_blank" rel="noopener">மேலும் ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>⚡ அடையாளத்தின் அர்த்தம்.</strong> தமிழில் <span class="ta">க</span> என்ற ஒரு எழுத்தே சூழ்நிலைக்கேற்ப 'க', 'க²' (மகாப்ராண), 'க³' (கோஷ), 'க³²' (கோஷ-மகாப்ராண) — நான்காக ஒலிக்கும். கன்னடம் நான்கையும் <em>தனித்தனி</em> எழுத்தாக எழுதுகிறது: <span class="kan">ಕ ಖ ಗ ಘ</span>. ⚡ குறியுடையவை — உச்சரிப்பில் புதிதாய் கவனம் செலுத்த வேண்டியவை (தமிழில் எழுத்து இல்லாதவை).</div>
+
+    <h3><span class="num">2.1</span>கண்ட்ய வர்கம் (க-வர்கம்) — நாக்கின் பின்பகுதி</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಕಮಲ (kamala) = கமலம் — தாமரை"><div class="ta-g">க</div><div class="arrow">↓</div><div class="kan-g">ಕ</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಖಗ (khaga) = பறவை. தமிழில் 'க' என எழுதுவோம் — கன்னடம் 'க²' என்று தனியாகக் காட்டும்."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಖ</div><div class="label">kha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಗಗನ (gagana) = ககனம் — ஆகாயம். கோஷ 'க'."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಗ</div><div class="label">ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಘಟ (ghaṭa) = கடம் — குடம். கோஷ-மகாப்ராணம்."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಘ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ங-க்கு சமானம். அரிது — புனையாக்கல் அடக்கத்தில் வரும்."><div class="ta-g">ங</div><div class="arrow">↓</div><div class="kan-g">ಙ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.2</span>தாலவ்ய வர்கம் (ச-வர்கம்)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಚಂದ್ರ (candra) = சந்திரன்"><div class="ta-g">ச</div><div class="arrow">↓</div><div class="kan-g">ಚ</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಛತ್ರ (chatra) = கொடை / குடை"><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಛ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಜಲ (jala) = ஜலம் — நீர். கோஷ 'ச'."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಜ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಝರಿ (jhari) = ஜரி — அருவி."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಝ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஞ-க்கு சமானம்."><div class="ta-g">ஞ</div><div class="arrow">↓</div><div class="kan-g">ಞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.3</span>மூர்த்தன்ய வர்கம் (ட-வர்கம்) — நாக்கு பின்வளைத்து</h3>
+    <p>தமிழில் <span class="ta">ட ண</span> — இவை திராவிடத்தின் தனிச்சிறப்பு. கன்னடமும் அதே நாக்கு நிலையில் உச்சரிக்கும். ஆங்கிலம் பேசுவோருக்குக் கடினமானவை — உனக்கு அல்ல.</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಟೊಮ್ಯಾಟೊ = தக்காளி"><div class="ta-g">ட</div><div class="arrow">↓</div><div class="kan-g">ಟ</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ மகாப்ராண 'ட'."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಠ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಡಂಬ (ḍamba) = கோஷ 'ட'. தமிழில் 'ட' சொல்லின் நடுவில் கோஷமாகும் — கன்னடம் தனிச் சின்னத்தில் காட்டும்."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಡ</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ அரிது."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಢ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಹಣ (haṇa) = பணம். ண-க்கு சமானம்."><div class="ta-g">ண</div><div class="arrow">↓</div><div class="kan-g">ಣ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.4</span>தந்தய வர்கம் (த-வர்கம்) — நாக்கு முனை பற்களுக்குப் பின்</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ತಾರೆ (tāre) = தாரை — நட்சத்திரம்"><div class="ta-g">த</div><div class="arrow">↓</div><div class="kan-g">ತ</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ மகாப்ராண 'த'."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಥ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ದಿನ (dina) = தினம் — ஒரே சொல்! கோஷ 'த'."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ದ</div><div class="label">da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಧನ್ಯವಾದ (dhanyavāda) = நன்றி."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಧ</div><div class="label">dha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ನಾನು (nānu) = நான்"><div class="ta-g">ந</div><div class="arrow">↓</div><div class="kan-g">ನ</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.5</span>ஓஷ்ட்ய வர்கம் (ப-வர்கம்)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಪುಸ್ತಕ (pustaka) = புத்தகம்"><div class="ta-g">ப</div><div class="arrow">↓</div><div class="kan-g">ಪ</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಫಲ (phala) = பழம் (தத்ஸம)."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಫ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಬಾ (bā) = வா. கோஷ 'ப'."><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಬ</div><div class="label">ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಭಾಷೆ (bhāṣe) = பாஷை — ஒரே சொல்!"><div class="ta-g">⚡</div><div class="arrow">↓</div><div class="kan-g">ಭ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಮನೆ (mane) = வீடு"><div class="ta-g">ம</div><div class="arrow">↓</div><div class="kan-g">ಮ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.6</span>அந்தஸ்த, ஊஷ்ம & சிறப்பு</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಯಾರು (yāru) = யார்?"><div class="ta-g">ய</div><div class="arrow">↓</div><div class="kan-g">ಯ</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ರಾಜ (rāja) = ராஜா"><div class="ta-g">ர</div><div class="arrow">↓</div><div class="kan-g">ರ</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಲತಾ (latā) = கொடி"><div class="ta-g">ல</div><div class="arrow">↓</div><div class="kan-g">ಲ</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ವನ (vana) = வனம். தமிழ் வ-க்கு சமம்."><div class="ta-g">வ</div><div class="arrow">↓</div><div class="kan-g">ವ</div><div class="label">va</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಶಾಲೆ (śāle) = பள்ளி. மென்மையான 'ஸ்'."><div class="ta-g">ஶ/ஷ</div><div class="arrow">↓</div><div class="kan-g">ಶ</div><div class="label">śa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="⚡ ಷಷ್ಠ (ṣaṣṭha) = ஷஷ்ட — மூர்த்தன்ய 'ஷ'."><div class="ta-g">ஷ</div><div class="arrow">↓</div><div class="kan-g">ಷ</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಸಮಯ (samaya) = சமயம்"><div class="ta-g">ஸ</div><div class="arrow">↓</div><div class="kan-g">ಸ</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಹಾಲು (hālu) = பால். கன்னடம் 'ப'-வை 'ஹ'-ஆக மாற்றியது!"><div class="ta-g">ஹ</div><div class="arrow">↓</div><div class="kan-g">ಹ</div><div class="label">ha</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.7</span>திராவிட சகோதரர்கள்: <span class="kan">ಳ</span> = <span class="ta">ள</span></h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಹಾಳು (hāḷu) = கெட்டுப்போனது. ಆಳು (āḷu) = ஆள். மூர்த்தன்ய ள — நீயும் நாங்களும் பகிர்ந்த பொக்கிஷம்." style="grid-column: span 2; border-color: var(--leaf);">
+        <div class="ta-g" style="color: var(--leaf);">ள</div>
+        <div class="arrow">↓</div>
+        <div class="kan-g" style="color: var(--leaf);">ಳ</div>
+        <div class="label">ḷa — மூர்த்தன்ய ள</div>
+        <div class="hint" style="opacity:1; max-height: 80px;">தமிழிலும் கன்னடத்திலும் ஒன்றே. வடமொழி இழந்தது — நாம் இருவரும் காப்பாற்றினோம்.</div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>தமிழின் தனிச்சொத்து: <span class="ta">ழ</span> & <span class="ta">ற</span> & <span class="ta">ன</span>.</strong> இவை <em>கன்னடத்தில் கிடையாது</em>. பழந்தமிழ் இவற்றைக் காப்பாற்றியது; கன்னடம் இழந்தது. தமிழ் <span class="ta">பழம்</span> → கன்னடம் <span class="kan">ಹಣ್ಣು</span> (haṇṇu — ழ இழந்து ண). தமிழ் <span class="ta">ஆறு</span> → கன்னடம் <span class="kan">ಆರು</span> (āru — ற → ர). தமிழ் <span class="ta">நான்</span> → கன்னடம் <span class="kan">ನಾನು</span> (ன → ந).</div>
+
+    <div class="aside"><strong>இலக்கிய ஜாலம்: 'ப' → 'ஹ'.</strong> கன்னடத்தில் சொல்முதல் தமிழ் 'ப' பெரும்பாலும் 'ஹ'-ஆக மாறியது — <span class="ta">பால்</span>/<span class="kan">ಹಾಲು</span>, <span class="ta">பூ</span>/<span class="kan">ಹೂವು</span>, <span class="ta">பல்</span>/<span class="kan">ಹಲ್ಲು</span>, <span class="ta">பணம்</span>/<span class="kan">ಹಣ</span>, <span class="ta">பத்து</span>/<span class="kan">ಹತ್ತು</span>. இதை நினைவில் வைத்தால் நூற்றுக்கணக்கான சொற்களை உடனடியாக அடையாளம் காண முடியும்.</div>
+  </div>
+</section>
+<section class="stage" id="stage-03" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · சேர்க்கை</div>
+    <h2 class="stage-title">உயிர்மெய் & கூட்டெழுத்து — <span class="kan">ಕಾಗುಣಿತ ಮತ್ತು ಒತ್ತಕ್ಷರ</span></h2>
+    <p class="stage-lede">தமிழில் <span class="ta">க் + அ = க</span>, <span class="ta">க் + ஆ = கா</span> — புள்ளி அகற்றி, உயிர்க்குறி சேர்க்கிறாய். கன்னடத்தில் ஒரே விதி: <span class="kan">ಕ್ + ಅ = ಕ</span>, <span class="kan">ಕ್ + ಆ = ಕಾ</span>. வடிவம் புதிது, விதி அதே.</p>
+  </div>
+  <div class="stage-body">
+
+    <p>முதலில் கவனி: கன்னடம் உள்ளார்ந்த 'அ' வைத்திருக்கிறது (எந்தக் குறியும் இல்லாதபோது). தமிழ் அதை புள்ளி (்) மூலம் நீக்கும்; கன்னடம் விராமம் (್) மூலம் நீக்கும். ஒரே கருத்து.</p>
+
+    <div class="aside"><strong>உயிர் மெய் எழுத்துக்களின் புத்திசாலித்தனம்.</strong> இந்த 11 குறிகள், 34 மெய் எழுத்துக்களில் ஒரே மாதிரியாக உட்காரும். 11 × 34 = 374 உயிர்மெய் எழுத்துக்கள் — 11 குறிகளின் விலையில்! பாவாணர் சொல்வது போல், கற்கும் அளவு சிறியது, கிடைக்கும் பலன் பெரியது.</p>
+
+    <h3><span class="num">3.1</span>ಕ-வின் குணிதம் — தமிழ் ↔ கன்னடம் அருகருகே</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>உயிர்</th><th>தமிழ்</th><th>கன்னடம்</th><th>உச்சரிப்பு</th></tr>
+        <tr><td>அ</td><td class="ta g">க</td><td><span class="kan g">ಕ</span></td><td class="mono">ka</td></tr>
+        <tr><td>ஆ</td><td class="ta g">கா</td><td><span class="kan g">ಕಾ</span></td><td class="mono">kā</td></tr>
+        <tr><td>இ</td><td class="ta g">கி</td><td><span class="kan g">ಕಿ</span></td><td class="mono">ki</td></tr>
+        <tr><td>ஈ</td><td class="ta g">கீ</td><td><span class="kan g">ಕೀ</span></td><td class="mono">kī</td></tr>
+        <tr><td>உ</td><td class="ta g">கு</td><td><span class="kan g">ಕು</span></td><td class="mono">ku</td></tr>
+        <tr><td>ஊ</td><td class="ta g">கூ</td><td><span class="kan g">ಕೂ</span></td><td class="mono">kū</td></tr>
+        <tr><td>எ</td><td class="ta g">கெ</td><td><span class="kan g">ಕೆ</span></td><td class="mono">ke</td></tr>
+        <tr><td>ஏ</td><td class="ta g">கே</td><td><span class="kan g">ಕೇ</span></td><td class="mono">kē</td></tr>
+        <tr><td>ஐ</td><td class="ta g">கை</td><td><span class="kan g">ಕೈ</span></td><td class="mono">kai</td></tr>
+        <tr><td>ஒ</td><td class="ta g">கொ</td><td><span class="kan g">ಕೊ</span></td><td class="mono">ko</td></tr>
+        <tr><td>ஓ</td><td class="ta g">கோ</td><td><span class="kan g">ಕೋ</span></td><td class="mono">kō</td></tr>
+        <tr><td>ஔ</td><td class="ta g">கௌ</td><td><span class="kan g">ಕೌ</span></td><td class="mono">kau</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>ஒரு சிறு கவனம்.</strong> தமிழில் <span class="ta">கெ/கே</span> — ெ/ே குறிகள் எழுத்துக்கு <em>முன்</em> வைக்கப்படும். கன்னடத்தில் <span class="kan">ಕೆ/ಕೇ</span> — குறிகள் எழுத்துக்கு <em>மேல்</em> வைக்கப்படும். கண் பழகும், கை பழகும்.</div>
+
+    <h3><span class="num">3.2</span>விராமம் (ಹಲಂತ್) — மெய் மட்டும்</h3>
+    <p>தமிழ் <span class="ta">க்</span> = <span class="ta">க</span> + புள்ளி. கன்னடம் <span class="kan">ಕ್</span> = <span class="kan">ಕ</span> + ್ (விராமம்). சொல்முடிவில் அதிகம், கூட்டெழுத்துக்களில் உள்ளமர்ந்து.</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>தமிழ்</th><th>கன்னடம்</th><th>பொருள்</th></tr>
+        <tr><td class="ta g">நான்</td><td><span class="kan g">ನಾನ್</span> → <span class="kan g">ನಾನು</span></td><td>நான் (கன்னடம் முடிவில் 'உ' சேர்க்கும்)</td></tr>
+        <tr><td class="ta g">சோறு</td><td><span class="kan g">ಅನ್ನ</span></td><td>சோறு / அன்னம்</td></tr>
+        <tr><td class="ta g">பத்</td><td><span class="kan g">ಹತ್</span> → <span class="kan g">ಹತ್ತು</span></td><td>பத்து</td></tr>
+      </table>
+    </div>
+
+    <h3><span class="num">3.3</span>கூட்டெழுத்து (ஒத்து) — கீழெழுத்து முறை</h3>
+    <p>தமிழில் <span class="ta">க்க</span> என்பது இரண்டு எழுத்தாக எழுதப்படும் (க் + க). கன்னடத்தில் அதே ஒலி <span class="kan">ಕ್ಕ</span> — இரண்டாம் எழுத்து சிறியதாய்க் <em>கீழே</em> அமரும். இதை 'ஒத்து' (<span class="kan">ಒತ್ತು</span>) என்பர்.</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>பிரிப்பு</th><th>கன்னடம்</th><th>தமிழ்</th><th>உச்சரிப்பு</th></tr>
+        <tr><td class="mono">k + ka</td><td><span class="kan g">ಕ್ಕ</span></td><td class="ta g">க்க</td><td class="mono">kka</td></tr>
+        <tr><td class="mono">n + na</td><td><span class="kan g">ನ್ನ</span></td><td class="ta g">ன்ன</td><td class="mono">nna</td></tr>
+        <tr><td class="mono">t + ta</td><td><span class="kan g">ತ್ತ</span></td><td class="ta g">த்த</td><td class="mono">tta</td></tr>
+        <tr><td class="mono">p + pa</td><td><span class="kan g">ಪ್ಪ</span></td><td class="ta g">ப்ப</td><td class="mono">ppa</td></tr>
+        <tr><td class="mono">k + ṣa</td><td><span class="kan g">ಕ್ಷ</span></td><td class="ta g">க்ஷ</td><td class="mono">kṣa</td></tr>
+        <tr><td class="mono">j + ña</td><td><span class="kan g">ಜ್ಞ</span></td><td class="ta g">ஜ்ஞ</td><td class="mono">jña</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>தமிழ் இடை-தெளிவு.</strong> தமிழ் ஒவ்வொரு மெய்யையும் தனியாகப் புள்ளியிட்டு எழுதுகிறது — <span class="ta">க்க</span>. கன்னடம் இடத்தைச் சேமித்து ஒரே எழுத்தாக அமுக்குகிறது — <span class="kan">ಕ್ಕ</span>. படிக்கும்போது "ஒத்து" (கீழ் எழுத்து) எது என்று கவனி — அதைத் தமிழில் "புள்ளி + எழுத்து" என மனதில் பிரித்துக் கொள்.</div>
+
+    <h3><span class="num">3.4</span>பயிற்சி</h3>
+    <ul class="clean">
+      <li><span class="ta">மனை</span> என்ற தமிழ்ச் சொல்லைக் கன்னடத்தில் எழுதி பார் → <span class="kan">ಮನೆ</span>.</li>
+      <li><span class="ta">அம்மா</span> → <span class="kan">ಅಮ್ಮ</span> (இரண்டு 'ம' கீழெழுத்தாய்).</li>
+      <li><span class="ta">புத்தகம்</span> → <span class="kan">ಪುಸ್ತಕ</span> (ஸ் + த ஒத்து).</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-04" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · சொற்கள்</div>
+    <h2 class="stage-title">அடிப்படைச் சொற்கள் — <span class="kan">ಮೂಲ ಪದಗಳು</span></h2>
+    <p class="stage-lede">50+ சொற்கள். பெரும்பாலும் திராவிட உறவினர்கள் — உடனே அடையாளம். சில தத்ஸம (சம்ஸ்கிருத இரவல்) — இரு மொழிகளிலும் ஒரே வடிவம். ஒவ்வொன்றிலும்: கன்னடம் | தமிழ் சமம் | உச்சரிப்பு | குறிப்பு.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">4.1</span>பிரதிபெயர்கள் — <span class="kan">ಸರ್ವನಾಮಗಳು</span></h3>
+    <div class="words">
+      <div class="word"><div class="kan">ನಾನು</div><div class="ta-eq">நான்</div><div class="trans">nānu</div><div class="note">திராவிட உறவு — ன → ந மாற்றம் மட்டும்.</div></div>
+      <div class="word"><div class="kan">ನೀನು</div><div class="ta-eq">நீ</div><div class="trans">nīnu</div><div class="note">நெருக்கம் / தனிமை — தமிழ் 'நீ' போலவே.</div></div>
+      <div class="word"><div class="kan">ನೀವು</div><div class="ta-eq">நீங்கள்</div><div class="trans">nīvu</div><div class="note">மரியாதை / பன்மை. தமிழ் 3 நிலை, கன்னடம் 2 நிலை.</div></div>
+      <div class="word"><div class="kan">ಅವನು</div><div class="ta-eq">அவன்</div><div class="trans">avanu</div><div class="note">ஆண்பால் 'அவன்' — ஒரே சொல்.</div></div>
+      <div class="word"><div class="kan">ಅವಳು</div><div class="ta-eq">அவள்</div><div class="trans">avaḷu</div><div class="note">பெண்பால் — ள ஒற்றுமை கவனி.</div></div>
+      <div class="word"><div class="kan">ಅದು</div><div class="ta-eq">அது</div><div class="trans">adu</div><div class="note">அஃறிணை — அப்படியே!</div></div>
+      <div class="word"><div class="kan">ಇದು</div><div class="ta-eq">இது</div><div class="trans">idu</div><div class="note">சுட்டு — அப்படியே!</div></div>
+      <div class="word"><div class="kan">ನಾವು</div><div class="ta-eq">நாம் / நாங்கள்</div><div class="trans">nāvu</div><div class="note">கன்னடம் இரண்டுக்கும் ஒரே சொல்; சூழ்நிலை வேறுபடுத்தும்.</div></div>
+      <div class="word"><div class="kan">ಅವರು</div><div class="ta-eq">அவர்கள் / அவர்</div><div class="trans">avaru</div><div class="note">பன்மை + மரியாதை.</div></div>
+    </div>
+
+    <div class="aside"><strong>'நாம்' vs 'நாங்கள்' — திராவிடப் பொக்கிஷம்.</strong> தமிழ் <em>உள்ளடக்கிய 'நாம்'</em> (நீயும் நானும்) என <em>விலக்கிய 'நாங்கள்'</em> (நான்கள், நீ அல்ல) — பிரிக்கிறது. கன்னடம் <span class="kan">ನಾವು</span> என்ற ஒரே சொல்லைப் பயன்படுத்தினாலும், பேச்சில் பழங்கன்னடத்தில் <em>ನಾಂ</em> (உள்ளடக்கம்) vs <em>ಎಮ್</em> (விலக்கம்) வேறுபாடு இருந்தது. தமிழ் அதை இன்றும் காப்பாற்றியுள்ளது — நீ இரண்டையும் வைத்திருக்கிறாய், ஒரு சலுகை.</div>
+
+    <h3><span class="num">4.2</span>பெயர்ச்சொற்கள் — <span class="kan">ನಾಮಪದಗಳು</span></h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಮನೆ</div><div class="ta-eq">மனை / வீடு</div><div class="trans">mane</div><div class="note">திராவிட உறவு — தமிழ் 'மனை' (வீட்டுவளவு) அதே வேர்.</div></div>
+      <div class="word"><div class="kan">ನೀರು</div><div class="ta-eq">நீர்</div><div class="trans">nīru</div><div class="note">திராவிட உறவு — ஒரே சொல்.</div></div>
+      <div class="word"><div class="kan">ಊಟ</div><div class="ta-eq">ஊண் / சாப்பாடு</div><div class="trans">ūṭa</div><div class="note">திராவிட உறவு — 'ஊண்' என்ற சொல்லின் அதே வேர்.</div></div>
+      <div class="word"><div class="kan">ಹೆಸರು</div><div class="ta-eq">பெயர்</div><div class="trans">hesaru</div><div class="note">ப → ஹ மாற்றம்! தமிழ் 'பெசர்' (பழந்தமிழ்) → கன்னடம் 'ஹெஸரு'.</div></div>
+      <div class="word"><div class="kan">ಪುಸ್ತಕ</div><div class="ta-eq">புத்தகம்</div><div class="trans">pustaka</div><div class="note">தத்ஸம (சம்ஸ்கிருதம்) — இரு மொழிகளிலும் ஒன்றே.</div></div>
+      <div class="word"><div class="kan">ಶಾಲೆ</div><div class="ta-eq">பள்ளி / சாலை</div><div class="trans">śāle</div><div class="note">தத்ஸம — தமிழில் 'பாடசாலை'யிலும் இதே மூலம்.</div></div>
+      <div class="word"><div class="kan">ಹಣ</div><div class="ta-eq">பணம்</div><div class="trans">haṇa</div><div class="note">ப → ஹ, ம → —. அடையாளம் காண எளிது.</div></div>
+      <div class="word"><div class="kan">ದಾರಿ</div><div class="ta-eq">தாரி / வழி</div><div class="trans">dāri</div><div class="note">திராவிட உறவு — 'தாரி' (பழந்தமிழ்) இதே வேர்.</div></div>
+      <div class="word"><div class="kan">ಸಮಯ</div><div class="ta-eq">சமயம்</div><div class="trans">samaya</div><div class="note">தத்ஸம — ஒரே சொல்.</div></div>
+      <div class="word"><div class="kan">ದಿನ</div><div class="ta-eq">தினம்</div><div class="trans">dina</div><div class="note">தத்ஸம — ஒரே சொல்.</div></div>
+      <div class="word"><div class="kan">ಹಾಲು</div><div class="ta-eq">பால்</div><div class="trans">hālu</div><div class="note">ப → ஹ. திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಅನ್ನ</div><div class="ta-eq">அன்னம் / சோறு</div><div class="trans">anna</div><div class="note">தத்ஸம — 'அன்ன'த்தின் சம்ஸ்கிருத வேர்.</div></div>
+      <div class="word"><div class="kan">ಹಣ್ಣು</div><div class="ta-eq">பழம்</div><div class="trans">haṇṇu</div><div class="note">ப → ஹ, ழ → ண்ண. திராவிட உறவு (பழம்-க்குக் கன்னடத் தொடர்பு).</div></div>
+      <div class="word"><div class="kan">ಮರ</div><div class="ta-eq">மரம்</div><div class="trans">mara</div><div class="note">திராவிட உறவு — ம் இல்லாதது மட்டுமே.</div></div>
+      <div class="word"><div class="kan">ಸೂರ್ಯ</div><div class="ta-eq">சூரியன்</div><div class="trans">sūrya</div><div class="note">தத்ஸம — ஒரே சொல்.</div></div>
+      <div class="word"><div class="kan">ಮಳೆ</div><div class="ta-eq">மழை</div><div class="trans">maḷe</div><div class="note">ழ → ள மாற்றம். திராவிட உறவு — நேரடி.</div></div>
+      <div class="word"><div class="kan">ಭೂಮಿ</div><div class="ta-eq">பூமி</div><div class="trans">bhūmi</div><div class="note">தத்ஸம — ஒரே சொல்.</div></div>
+      <div class="word"><div class="kan">ಹೂವು</div><div class="ta-eq">பூ</div><div class="trans">hūvu</div><div class="note">ப → ஹ. திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಮಗು</div><div class="ta-eq">மகு / பிள்ளை</div><div class="trans">magu</div><div class="note">திராவிட உறவு — தமிழ் 'மகன்/மகள்' அதே வேர்.</div></div>
+      <div class="word"><div class="kan">ಮನುಷ್ಯ</div><div class="ta-eq">மனிதன்</div><div class="trans">manuṣya</div><div class="note">தத்ஸம — 'மனு' வேர்.</div></div>
+    </div>
+
+    <h3><span class="num">4.3</span>வினைச்சொற்கள் (வேர்) — <span class="kan">ಕ್ರಿಯಾಪದಗಳು</span></h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಇರು</div><div class="ta-eq">இரு</div><div class="trans">iru</div><div class="note">ஒரே வேர்!</div></div>
+      <div class="word"><div class="kan">ಮಾಡು</div><div class="ta-eq">செய் / மாடு</div><div class="trans">māḍu</div><div class="note">கன்னட 'மாடு' = செய். தமிழில் அரிது — 'செய்' பயன்படுகிறது.</div></div>
+      <div class="word"><div class="kan">ಹೋಗು</div><div class="ta-eq">போ / போகு</div><div class="trans">hōgu</div><div class="note">ப → ஹ! 'போகு' → 'ஹோகு'.</div></div>
+      <div class="word"><div class="kan">ಬಾ</div><div class="ta-eq">வா</div><div class="trans">bā</div><div class="note">வ → ப (கோஷ). திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ತಿನ್ನು</div><div class="ta-eq">தின் / சாப்பிடு</div><div class="trans">tinnu</div><div class="note">'தின்' = ஒரே வேர்!</div></div>
+      <div class="word"><div class="kan">ಕುಡಿ</div><div class="ta-eq">குடி</div><div class="trans">kuḍi</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ನೋಡು</div><div class="ta-eq">நோக்கு / பார்</div><div class="trans">nōḍu</div><div class="note">'நோக்கு' இதே வேர்; பேச்சில் தமிழ் 'பார்' அதிகம்.</div></div>
+      <div class="word"><div class="kan">ಕೇಳು</div><div class="ta-eq">கேள்</div><div class="trans">kēḷu</div><div class="note">ள, ஏ — எல்லாம் ஒன்றே!</div></div>
+      <div class="word"><div class="kan">ಓದು</div><div class="ta-eq">ஓது / படி</div><div class="trans">ōdu</div><div class="note">'ஓது' (வேதம்) அதே வேர்.</div></div>
+      <div class="word"><div class="kan">ಬರೆ</div><div class="ta-eq">எழுது / வரை</div><div class="trans">bare</div><div class="note">'வரை' (வரைதல்) — கோஷ 'வ' → 'ப'.</div></div>
+      <div class="word"><div class="kan">ಹೇಳು</div><div class="ta-eq">சொல் / பகர்</div><div class="trans">hēḷu</div><div class="note">திராவிட 'பேசு' வேர் — 'ப → ஹ' முறையில்.</div></div>
+      <div class="word"><div class="kan">ನಡೆ</div><div class="ta-eq">நட</div><div class="trans">naḍe</div><div class="note">ஒரே வேர்!</div></div>
+      <div class="word"><div class="kan">ಓಡು</div><div class="ta-eq">ஓடு</div><div class="trans">ōḍu</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ಕೊಡು</div><div class="ta-eq">கொடு</div><div class="trans">koḍu</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ತೆಗೆದುಕೊ</div><div class="ta-eq">எடு / எடுத்துக்கொள்</div><div class="trans">tegedukoḷḷu</div><div class="note">'தெகெ' = எடு + கொள் (பிரதிபலிப்பு).</div></div>
+      <div class="word"><div class="kan">ಗೊತ್ತು</div><div class="ta-eq">தெரியும்</div><div class="trans">gottu</div><div class="note">"எனக்குத் தெரியும்" = 'நனகே ಗೊತ್ತು' (நனகெ கொத்து).</div></div>
+      <div class="word"><div class="kan">ಬೇಕು</div><div class="ta-eq">வேண்டும்</div><div class="trans">bēku</div><div class="note">'வேணும்' (பேச்சுத் தமிழ்) — கோஷ வ → ப.</div></div>
+      <div class="word"><div class="kan">ಮಲಗು</div><div class="ta-eq">படு / உறங்கு</div><div class="trans">malagu</div><div class="note">திராவிட வேர் — பழந்தமிழ் 'மலகு'.</div></div>
+      <div class="word"><div class="kan">ಕುಳಿತುಕೊ</div><div class="ta-eq">உட்கார்</div><div class="trans">kuḷitukoḷḷu</div><div class="note">'குள்' = அடங்கு; ள பகிர்ந்தது.</div></div>
+      <div class="word"><div class="kan">ನಿಲ್ಲು</div><div class="ta-eq">நில்</div><div class="trans">nillu</div><div class="note">ஒரே வேர்!</div></div>
+    </div>
+
+    <h3><span class="num">4.4</span>எண்கள் — <span class="kan">ಸಂಖ್ಯೆಗಳು</span></h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಒಂದು</div><div class="ta-eq">ஒன்று</div><div class="trans">ondu</div><div class="note">திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಎರಡು</div><div class="ta-eq">இரண்டு</div><div class="trans">eraḍu</div><div class="note">இ → எ; ண → ட. திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಮೂರು</div><div class="ta-eq">மூன்று</div><div class="trans">mūru</div><div class="note">ன் → —. திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ನಾಲ್ಕು</div><div class="ta-eq">நான்கு</div><div class="trans">nālku</div><div class="note">திராவிட உறவு!</div></div>
+      <div class="word"><div class="kan">ಐದು</div><div class="ta-eq">ஐந்து</div><div class="trans">aidu</div><div class="note">ந → —. திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಆರು</div><div class="ta-eq">ஆறு</div><div class="trans">āru</div><div class="note">ற → ர. திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಏಳು</div><div class="ta-eq">ஏழு</div><div class="trans">ēḷu</div><div class="note">ழ → ள. திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಎಂಟು</div><div class="ta-eq">எட்டு</div><div class="trans">eṇṭu</div><div class="note">ட் → ண்ட. திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಒಂಬತ್ತು</div><div class="ta-eq">ஒன்பது</div><div class="trans">ombattu</div><div class="note">திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಹತ್ತು</div><div class="ta-eq">பத்து</div><div class="trans">hattu</div><div class="note">ப → ஹ! திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಇಪ್ಪತ್ತು</div><div class="ta-eq">இருபது</div><div class="trans">ippattu</div><div class="note">திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ಐವತ್ತು</div><div class="ta-eq">ஐம்பது</div><div class="trans">aivattu</div><div class="note">திராவிட உறவு.</div></div>
+      <div class="word"><div class="kan">ನೂರು</div><div class="ta-eq">நூறு</div><div class="trans">nūru</div><div class="note">ற → ர. திராவிட உறவு.</div></div>
+    </div>
+
+    <div class="aside"><strong>எண்கள் — திராவிட ரத்தம்.</strong> 1 முதல் 10 வரை ஒரு எண் கூட சம்ஸ்கிருதத்திலிருந்து வரவில்லை! ஒன்று/ಒಂದು, இரண்டு/ಎರಡು, மூன்று/ಮೂರು... இவை எல்லாம் தூய திராவிடம். இந்தியில் எண்கள் முற்றிலும் வேறு (ஏக், தோ, தீன்) — ஏனெனில் சம்ஸ்கிருத வேர். நம் இரு மொழிகளும் ஒரே தாயிடமிருந்து.</div>
+
+    <h3><span class="num">4.5</span>உறவினர்கள் — <span class="kan">ಸಂಬಂಧಗಳು</span></h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಅಪ್ಪ</div><div class="ta-eq">அப்பா</div><div class="trans">appa</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ಅಮ್ಮ</div><div class="ta-eq">அம்மா</div><div class="trans">amma</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ಅಣ್ಣ</div><div class="ta-eq">அண்ணா / அண்ணன்</div><div class="trans">aṇṇa</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ತಮ್ಮ</div><div class="ta-eq">தம்பி</div><div class="trans">tamma</div><div class="note">'தம்' வேர் இரண்டிலும்.</div></div>
+      <div class="word"><div class="kan">ಅಕ್ಕ</div><div class="ta-eq">அக்கா</div><div class="trans">akka</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ತಂಗಿ</div><div class="ta-eq">தங்கை</div><div class="trans">taṅgi</div><div class="note">ஒரே வேர்.</div></div>
+      <div class="word"><div class="kan">ಅಜ್ಜ</div><div class="ta-eq">தாத்தா</div><div class="trans">ajja</div><div class="note">வேறு வேர் — கன்னட 'அஜ்ஜ' வடக்கத்திய பெரியோர் அழைப்பு.</div></div>
+      <div class="word"><div class="kan">ಅಜ್ಜಿ</div><div class="ta-eq">பாட்டி</div><div class="trans">ajji</div><div class="note">வேறு வேர். தமிழ் 'அய்யை' / 'ஆத்தா' (கிராமத்தில்) ஒத்தது.</div></div>
+      <div class="word"><div class="kan">ಮಾವ</div><div class="ta-eq">மாமா</div><div class="trans">māva</div><div class="note">ஒரே வேர்!</div></div>
+      <div class="word"><div class="kan">ಅತ್ತೆ</div><div class="ta-eq">அத்தை</div><div class="trans">atte</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ಚಿಕ್ಕಪ್ಪ</div><div class="ta-eq">சித்தப்பா</div><div class="trans">cikkappa</div><div class="note">'சிக்க' = சிறிய. தமிழ் 'சிற்ற + அப்பா'.</div></div>
+      <div class="word"><div class="kan">ದೊಡ್ಡಪ್ಪ</div><div class="ta-eq">பெரியப்பா</div><div class="trans">doḍḍappa</div><div class="note">'தொட்ட' = பெரிய. தமிழ் 'பெரிய + அப்பா'.</div></div>
+    </div>
+
+    <div class="aside"><strong>உறவுச்சொற்களின் விரிவு.</strong> தமிழ், கன்னடம், மலையாளம் — மூன்றிலும் தந்தை வழி / தாய் வழி மாமா/அத்தை வேறுபடுத்தப்படும். <span class="ta">சித்தப்பா / பெரியப்பா</span> = <span class="kan">ಚಿಕ್ಕಪ್ಪ / ದೊಡ್ಡಪ್ಪ</span>. வட இந்திய மொழிகள் இந்த உளவியலை இழந்துவிட்டன — ஒரே 'சச்சா' போதும். திராவிடம் உறவின் நுட்பத்தை காப்பாற்றியுள்ளது.</div>
+
+    <h3><span class="num">4.6</span>உடல் — <span class="kan">ದೇಹ</span></h3>
+    <div class="words">
+      <div class="word"><div class="kan">ತಲೆ</div><div class="ta-eq">தலை</div><div class="trans">tale</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ಕಣ್ಣು</div><div class="ta-eq">கண்</div><div class="trans">kaṇṇu</div><div class="note">ஒரே வேர்!</div></div>
+      <div class="word"><div class="kan">ಕಿವಿ</div><div class="ta-eq">காது</div><div class="trans">kivi</div><div class="note">வேறு வேர் — திராவிட 'கெவி' vs 'காது'.</div></div>
+      <div class="word"><div class="kan">ಮೂಗು</div><div class="ta-eq">மூக்கு</div><div class="trans">mūgu</div><div class="note">திராவிட உறவு — க்கு → கு.</div></div>
+      <div class="word"><div class="kan">ಬಾಯಿ</div><div class="ta-eq">வாய்</div><div class="trans">bāyi</div><div class="note">வ → ப. ஒரே வேர்!</div></div>
+      <div class="word"><div class="kan">ಕೈ</div><div class="ta-eq">கை</div><div class="trans">kai</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ಕಾಲು</div><div class="ta-eq">கால்</div><div class="trans">kālu</div><div class="note">ஒரே வேர்!</div></div>
+      <div class="word"><div class="kan">ಹೊಟ್ಟೆ</div><div class="ta-eq">வயிறு</div><div class="trans">hoṭṭe</div><div class="note">வேறு வேர் — தமிழ் 'வயிறு' vs கன்னட 'ஹொட்டெ'.</div></div>
+    </div>
+
+    <h3><span class="num">4.7</span>காலம் — <span class="kan">ಕಾಲ</span></h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಇಂದು</div><div class="ta-eq">இன்று</div><div class="trans">indu</div><div class="note">ஒரே சொல்!</div></div>
+      <div class="word"><div class="kan">ನಾಳೆ</div><div class="ta-eq">நாளை</div><div class="trans">nāḷe</div><div class="note">ஒரே சொல் — ள பகிர்வு!</div></div>
+      <div class="word"><div class="kan">ನಿನ್ನೆ</div><div class="ta-eq">நேற்று</div><div class="trans">ninne</div><div class="note">வேறு வடிவம். கன்னடம் 'நெந்நெ' (பழம்); தமிழ் 'நேற்று'.</div></div>
+      <div class="word"><div class="kan">ಈಗ</div><div class="ta-eq">இப்போது</div><div class="trans">īga</div><div class="note">வேறு வேர். ஆனால் தமிழ் 'ஈகு' (பழம்) சம்பந்தம் உண்டு.</div></div>
+      <div class="word"><div class="kan">ಬೆಳಿಗ್ಗೆ</div><div class="ta-eq">காலை / வெளுப்பு</div><div class="trans">beḷigge</div><div class="note">'வெள்' (வெள்ளை/பகல்) வேர் — வ → ப.</div></div>
+      <div class="word"><div class="kan">ಸಂಜೆ</div><div class="ta-eq">மாலை / சாயங்காலம்</div><div class="trans">sañje</div><div class="note">'சந்தை / சாயம்' வேர், தத்ஸம.</div></div>
+      <div class="word"><div class="kan">ರಾತ್ರಿ</div><div class="ta-eq">இரவு / ராத்திரி</div><div class="trans">rātri</div><div class="note">தத்ஸம — ஒரே சொல்.</div></div>
+      <div class="word"><div class="kan">ಮೊದಲು</div><div class="ta-eq">முதல்</div><div class="trans">modalu</div><div class="note">ஒரே வேர்!</div></div>
+      <div class="word"><div class="kan">ನಂತರ</div><div class="ta-eq">பிறகு / நந்தரம்</div><div class="trans">nantara</div><div class="note">தத்ஸம — 'நந்தரம்' தமிழிலும் உள்ளது.</div></div>
+    </div>
+
+  </div>
+</section>
+<section class="stage" id="stage-05" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · இலக்கணம்</div>
+    <h2 class="stage-title">வாக்கியம் — <span class="kan">ವಾಕ್ಯಗಳು</span></h2>
+    <p class="stage-lede">கன்னட வாக்கியம் = தமிழ் வாக்கியத்தின் கண்ணாடிப் பிரதிபிம்பம். SOV, பின்னொட்டு (உருபு), வினைப்பாகுபாடு — அமைப்பு ஒன்றே. வினைமுடிவுகள் மட்டும் புதிய எழுத்தில்.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">5.1</span>சொல் ஒழுங்கு — SOV</h3>
+    <div class="sentence">
+      <div class="kan">ನಾನು ಅನ್ನ ತಿನ್ನುತ್ತೇನೆ.</div>
+      <div class="trans">nānu anna tinnuttēne</div>
+      <div class="ta-gloss">நான் சோறு சாப்பிடுகிறேன்.</div>
+      <div class="literal">நான் / சோறு / தின்-கிற-ஏன்</div>
+    </div>
+    <div class="sentence">
+      <div class="kan">ಅವಳು ಪುಸ್ತಕ ಓದುತ್ತಾಳೆ.</div>
+      <div class="trans">avaḷu pustaka ōduttāḷe</div>
+      <div class="ta-gloss">அவள் புத்தகம் படிக்கிறாள்.</div>
+      <div class="literal">அவள் / புத்தகம் / ஓது-கிற-ஆள்</div>
+    </div>
+
+    <div class="aside"><strong>மாயை இல்லை.</strong> தமிழ் செய்த எல்லாவற்றையும் கன்னடம் அதே வரிசையில் செய்கிறது — எழுவாய், செயப்படுபொருள், வினை. முதலில் யார்-என்ன, கடைசியில் செய்கை. ஆங்கிலம்/இந்தி பேசுவோர் SOV-க்கு மனதை மாற்ற வேண்டியிருக்கும் — உனக்கு அது தேவையில்லை.</div>
+
+    <h3><span class="num">5.2</span>வினை வேற்றுமை — <span class="kan">ಮಾಡು</span> (செய்) நிகழ்காலம்</h3>
+    <p>தமிழ் செய்-கிற-ஏன், கன்னடம் ಮಾಡು-ತ್ತ-ಏನೆ. இடைப் பாகம் காலத்தைக் குறிக்கிறது (கிற/ த்த), இறுதிப் பாகம் ஆள்/பால் காட்டுகிறது (ஏன்/ஏனெ).</p>
+
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">நான்</div><div class="kan">ಮಾಡುತ್ತೇನೆ</div><div class="ta-eq">செய்கிறேன்</div></div>
+      <div class="conjug-row"><div class="pron">நீ</div><div class="kan">ಮಾಡುತ್ತೀಯ</div><div class="ta-eq">செய்கிறாய்</div></div>
+      <div class="conjug-row"><div class="pron">நீங்கள்</div><div class="kan">ಮಾಡುತ್ತೀರಿ</div><div class="ta-eq">செய்கிறீர்கள்</div></div>
+      <div class="conjug-row"><div class="pron">அவன்</div><div class="kan">ಮಾಡುತ್ತಾನೆ</div><div class="ta-eq">செய்கிறான்</div></div>
+      <div class="conjug-row"><div class="pron">அவள்</div><div class="kan">ಮಾಡುತ್ತಾಳೆ</div><div class="ta-eq">செய்கிறாள்</div></div>
+      <div class="conjug-row"><div class="pron">அது</div><div class="kan">ಮಾಡುತ್ತದೆ</div><div class="ta-eq">செய்கிறது</div></div>
+      <div class="conjug-row"><div class="pron">நாம்/நாங்கள்</div><div class="kan">ಮಾಡುತ್ತೇವೆ</div><div class="ta-eq">செய்கிறோம்</div></div>
+      <div class="conjug-row"><div class="pron">அவர்கள்</div><div class="kan">ಮಾಡುತ್ತಾರೆ</div><div class="ta-eq">செய்கிறார்கள்</div></div>
+    </div>
+
+    <div class="aside"><strong>உடனடிப் பார்வை.</strong> முடிவுகள் கிட்டத்தட்ட ஒன்றே: தமிழ் '-ஏன் / -ஆய் / -ஆன் / -ஆள் / -அது / -ஓம் / -ஈர்கள் / -ஆர்கள்'. கன்னடம் '-ēne / -īya / -āne / -āḷe / -ade / -ēve / -īri / -āre'. திராவிட எலும்புக்கூடு ஒன்றே — தோல் மட்டும் வேறு.</div>
+
+    <h3><span class="num">5.3</span>வேற்றுமை உருபுகள்</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>வேற்றுமை</th><th>தமிழ்</th><th>கன்னடம்</th><th>எடுத்துக்காட்டு</th></tr>
+        <tr><td>எழுவாய் (1)</td><td>—</td><td>—</td><td class="kan g">ಮನೆ</td></tr>
+        <tr><td>செயப்படு (2)</td><td>-ஐ</td><td>-ಅನ್ನು (-annu)</td><td class="kan g">ಮನೆಯನ್ನು</td></tr>
+        <tr><td>கருவி (3)</td><td>-ஆல்</td><td>-ಇಂದ (-inda)</td><td class="kan g">ಮನೆಯಿಂದ</td></tr>
+        <tr><td>கொடை (4)</td><td>-க்கு</td><td>-ಗೆ (-ge)</td><td class="kan g">ಮನೆಗೆ</td></tr>
+        <tr><td>நீங்கல் (5)</td><td>-இலிருந்து</td><td>-ಇಂದ (-inda)</td><td class="kan g">ಮನೆಯಿಂದ</td></tr>
+        <tr><td>சொந்தம் (6)</td><td>-இன் / -உடைய</td><td>-ಅ (-a)</td><td class="kan g">ಮನೆಯ</td></tr>
+        <tr><td>இட (7)</td><td>-இல்</td><td>-ಅಲ್ಲಿ (-alli)</td><td class="kan g">ಮನೆಯಲ್ಲಿ</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>எட்டாவது வேற்றுமை — விளி.</strong> தமிழில் <span class="ta">அப்பா!</span> (விளி) — உருபு சேர்ப்பின்றியே. கன்னடத்திலும் <span class="kan">ಅಪ್ಪಾ!</span> — அதே. 'ஏ' / 'ஓ' என்ற சேர்ப்பு இரண்டிலும் — <span class="ta">ராமனே!</span> / <span class="kan">ರಾಮನೇ!</span>. எட்டு வேற்றுமைகளும் இரு மொழிகளிலும் ஒரே கருத்துருவில்.</div>
+
+    <h3><span class="num">5.4</span>மறுப்பு</h3>
+    <div class="sentence">
+      <div class="kan">ನಾನು ಮಾಡುವುದಿಲ್ಲ.</div>
+      <div class="trans">nānu māḍuvudilla</div>
+      <div class="ta-gloss">நான் செய்யவில்லை / செய்யமாட்டேன்.</div>
+      <div class="literal">'ಇಲ್ಲ' (illa) = இல்லை</div>
+    </div>
+    <div class="sentence">
+      <div class="kan">ಅವನು ಇಲ್ಲ.</div>
+      <div class="trans">avanu illa</div>
+      <div class="ta-gloss">அவன் இல்லை.</div>
+    </div>
+
+    <div class="aside"><strong>'இல்' என்ற சொல் — திராவிட ஒற்றுமை.</strong> தமிழில் 'இல்லை', கன்னடத்தில் <span class="kan">ಇಲ್ಲ</span>, மலையாளத்தில் 'ഇല്ല' — ஒரே வேர். ஆம்/இல்லை இரண்டுக்கும் ஒரே அடிப்படை சொல் குடும்பம். ஹிந்தி 'நஹீ' வடமொழியிலிருந்து — முற்றிலும் வேறு.</div>
+
+    <h3><span class="num">5.5</span>கேள்விச்சொற்கள்</h3>
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">என்ன?</div><div class="kan">ಏನು</div><div class="ta-eq">ஏது / என்ன</div></div>
+      <div class="conjug-row"><div class="pron">யார்?</div><div class="kan">ಯಾರು</div><div class="ta-eq">யார்</div></div>
+      <div class="conjug-row"><div class="pron">எங்கே?</div><div class="kan">ಎಲ್ಲಿ</div><div class="ta-eq">எல்லி / எங்கே</div></div>
+      <div class="conjug-row"><div class="pron">எப்போது?</div><div class="kan">ಯಾವಾಗ</div><div class="ta-eq">யாவாக</div></div>
+      <div class="conjug-row"><div class="pron">ஏன்?</div><div class="kan">ಏಕೆ</div><div class="ta-eq">ஏனெனில் வேர்</div></div>
+      <div class="conjug-row"><div class="pron">எப்படி?</div><div class="kan">ಹೇಗೆ</div><div class="ta-eq">எவ்வாறு</div></div>
+      <div class="conjug-row"><div class="pron">எத்தனை?</div><div class="kan">ಎಷ್ಟು</div><div class="ta-eq">எஷ்டு / எவ்வளவு</div></div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ನಿಮ್ಮ ಹೆಸರು ಏನು?</div>
+      <div class="trans">nimma hesaru ēnu?</div>
+      <div class="ta-gloss">உங்கள் பெயர் என்ன?</div>
+      <div class="literal">'ஹெஸரு' = பெயர் (ப → ஹ)</div>
+    </div>
+
+    <h3><span class="num">5.6</span>ஆம் / இல்லை</h3>
+    <p><span class="kan">ಹೌದು</span> (haudu) = ஆம். <span class="kan">ಇಲ್ಲ</span> (illa) = இல்லை. தமிழ் 'ஆமாம்'-க்குக் கன்னடம் 'ஹௌது' — நேரான சம்பந்தம் இல்லை, ஆனால் 'ஹௌ' = 'அப்படிதான்' என்ற கருத்து.</p>
+  </div>
+</section>
+<section class="stage" id="stage-06" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · வாசிப்பு</div>
+    <h2 class="stage-title">படிப்போம் — <span class="kan">ಓದೋಣ</span></h2>
+    <p class="stage-lede">மூன்று படிப்படியான பத்திகள். கன்னட மூலம், உச்சரிப்பு, தமிழ் பொருள். ஒரே வாக்கியத்தைப் படி — மூன்று முறை: எழுத்தாக, உச்சரிப்பாக, பொருளாக.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">6.1</span>முதல் பத்தி — சுய அறிமுகம்</h3>
+    <div class="sentence">
+      <div class="kan">ನಮಸ್ಕಾರ. ನನ್ನ ಹೆಸರು ರಾಮ. ನಾನು ಬೆಂಗಳೂರಿನಲ್ಲಿ ಇದ್ದೇನೆ. ನಾನು ವಿದ್ಯಾರ್ಥಿ. ನಾನು ಕನ್ನಡ ಕಲಿಯುತ್ತೇನೆ.</div>
+      <div class="trans">namaskāra. nanna hesaru rāma. nānu beṅgaḷūrinalli iddēne. nānu vidyārthi. nānu kannaḍa kaliyuttēne.</div>
+      <div class="ta-gloss">வணக்கம். என் பெயர் ராமன். நான் பெங்களூரில் இருக்கிறேன். நான் மாணவன். நான் கன்னடம் கற்கிறேன்.</div>
+      <div class="literal">'ನನ್ನ' (nanna) = என் · 'ಇದ್ದೇನೆ' (iddēne) = இருக்கிறேன் · 'ಕಲಿಯುತ್ತೇನೆ' (kaliyuttēne) = கற்கிறேன்</div>
+    </div>
+
+    <h3><span class="num">6.2</span>இரண்டாம் பத்தி — ஒரு நாள்</h3>
+    <div class="sentence">
+      <div class="kan">ಬೆಳಿಗ್ಗೆ ನಾನು ಬೇಗ ಏಳುತ್ತೇನೆ. ಹಾಲು ಕುಡಿಯುತ್ತೇನೆ, ಪತ್ರಿಕೆ ಓದುತ್ತೇನೆ. ಆಮೇಲೆ ಶಾಲೆಗೆ ಹೋಗುತ್ತೇನೆ. ಮಧ್ಯಾಹ್ನ ಊಟ ಮಾಡುತ್ತೇನೆ. ಸಂಜೆ ಮನೆಗೆ ಬಂದು ಅಮ್ಮನ ಜೊತೆ ಮಾತನಾಡುತ್ತೇನೆ. ರಾತ್ರಿ ಮಲಗುತ್ತೇನೆ.</div>
+      <div class="trans">beḷigge nānu bēga ēḷuttēne. hālu kuḍiyuttēne, patrike ōduttēne. āmēle śālege hōguttēne. madhyāhna ūṭa māḍuttēne. sañje manege bandu ammana jote mātanāḍuttēne. rātri malaguttēne.</div>
+      <div class="ta-gloss">காலையில் நான் சீக்கிரம் எழுகிறேன். பால் குடிக்கிறேன், பத்திரிகை படிக்கிறேன். பின் பள்ளிக்கு செல்கிறேன். நண்பகல் சாப்பிடுகிறேன். மாலை வீட்டுக்கு வந்து அம்மாவுடன் பேசுகிறேன். இரவில் படுக்கிறேன்.</div>
+      <div class="literal">'ಬೇಗ' (bēga) = வேகமாக / சீக்கிரம் · 'ಆಮೇಲೆ' (āmēle) = பிறகு · 'ಜೊತೆ' (jote) = உடன்</div>
+    </div>
+
+    <h3><span class="num">6.3</span>மூன்றாம் பத்தி — இருவர் உரையாடல்</h3>
+    <div class="sentence">
+      <div class="kan">— ನಮಸ್ಕಾರ! ಹೇಗಿದ್ದೀರಿ?<br/>
+— ಚೆನ್ನಾಗಿದ್ದೇನೆ, ನೀವು ಹೇಗಿದ್ದೀರಿ?<br/>
+— ನಾನೂ ಚೆನ್ನಾಗಿದ್ದೇನೆ. ಊಟ ಆಯ್ತಾ?<br/>
+— ಹೌದು, ಆಯ್ತು. ನಿಮ್ಮ ಊರು ಯಾವುದು?<br/>
+— ನನ್ನ ಊರು ಮೈಸೂರು. ನಿಮ್ಮದು?<br/>
+— ನನ್ನದು ಮಧುರೈ. ನಾನು ತಮಿಳಿನವನು, ಕನ್ನಡ ಕಲಿಯುತ್ತೇನೆ.<br/>
+— ಬಹಳ ಚೆನ್ನಾಗಿದೆ! ಎರಡೂ ಭಾಷೆಗಳು ಸೋದರಿಯರು.</div>
+      <div class="trans">— namaskāra! hēgiddīri?<br/>— chennāgiddēne, nīvu hēgiddīri?<br/>— nānū chennāgiddēne. ūṭa āytā?<br/>— haudu, āytu. nimma ūru yāvudu?<br/>— nanna ūru maisūru. nimmadu?<br/>— nannadu madhurai. nānu tamiḷinavanu, kannaḍa kaliyuttēne.<br/>— bahaḷa chennāgide! eraḍū bhāṣegaḷu sōdariyaru.</div>
+      <div class="ta-gloss">— வணக்கம்! எப்படி இருக்கிறீர்கள்?<br/>— நலமாக இருக்கிறேன், நீங்கள் எப்படி?<br/>— நானும் நலமாக இருக்கிறேன். சாப்பிட்டாச்சா?<br/>— ஆம், ஆச்சு. உங்கள் ஊர் எது?<br/>— என் ஊர் மைசூர். உங்களுடையது?<br/>— என்னுடையது மதுரை. நான் தமிழன், கன்னடம் கற்கிறேன்.<br/>— மிக நன்று! இரண்டும் சகோதரி மொழிகள்.</div>
+      <div class="literal">'ಊಟ ಆಯ್ತಾ?' — சொற்பட உணவைக் குறிக்கவில்லை; அன்பின் நலன்விசாரிப்பு. 'ಆಯ್ತು' = ஆச்சு/முடிந்தது.</div>
+    </div>
+
+    <div class="aside"><strong>'ஊட ஆய்தா?' — தென்னிந்திய ஹலோ.</strong> இது உண்மையில் 'சாப்பிட்டாயா?' என்ற கேள்வி அல்ல. 'எப்படி இருக்கிறாய்?' என்ற அன்பான விசாரிப்பு. பதில்: ஆம் / இல்லை என்ன சொன்னாலும் <span class="kan">ಆಯ್ತು</span> (ஆய்து = ஆச்சு) போதும். தமிழில் 'சாப்பிட்டியா?' என்று அம்மா கேட்பது போல — உண்மை உணவல்ல, பாசம்.</div>
+  </div>
+</section>
+<section class="stage" id="stage-07" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · சொல்வெளி</div>
+    <h2 class="stage-title">பொருட்களை எப்படி வெட்டுகின்றன — <span class="kan">ಅರ್ಥಕ್ಷೇತ್ರ</span></h2>
+    <p class="stage-lede">மொழிகள் உலகை வேறு விதமாகப் பிரிக்கின்றன. தமிழும் கன்னடமும் பெரும்பாலும் ஒரே வெட்டு — திராவிட உள்ளூற்றம் — ஆனால் சில நுட்ப வேறுபாடுகள் உள்ளன.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">7.1</span>நெருக்கம்-தூரம்: <em>இ-</em> vs <em>அ-</em></h3>
+    <p>தமிழ், கன்னடம் இரண்டும் சுட்டுவினையில் இ-/அ-/உ- மூன்றும் பகிர்கின்றன. தமிழ் 'இது/அது/உது' = கன்னடம் <span class="kan">ಇದು / ಅದು / ಅದು</span> (கன்னடம் உ-ஐ தனியாகக் கொள்ளாது, 'அது' பயன்படுத்தும்).</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>தமிழ்</th><th>கன்னடம்</th><th>பொருள்</th></tr>
+        <tr><td class="ta g">இது / இவன் / இங்கே / இப்போது</td><td><span class="kan g">ಇದು / ಇವನು / ಇಲ್ಲಿ / ಈಗ</span></td><td>அருகில்</td></tr>
+        <tr><td class="ta g">அது / அவன் / அங்கே / அப்போது</td><td><span class="kan g">ಅದು / ಅವನು / ಅಲ್ಲಿ / ಆಗ</span></td><td>தூரம்</td></tr>
+      </table>
+    </div>
+
+    <h3><span class="num">7.2</span>உறவுகளின் நுட்பம்</h3>
+    <p>இரண்டு மொழிகளிலும் தாய்வழி / தந்தைவழி பிரிப்பு, மூத்த / இளைய பிரிப்பு — திராவிட பாரம்பரியம். <span class="ta">மாமா</span> (தாய் சகோதரன்) = <span class="kan">ಮಾವ</span>. <span class="ta">சித்தப்பா</span> = <span class="kan">ಚಿಕ್ಕಪ್ಪ</span>. <span class="ta">பெரியப்பா</span> = <span class="kan">ದೊಡ್ಡಪ್ಪ</span>.</p>
+
+    <div class="aside"><strong>வடமொழிகளில் இழந்த நுட்பம்.</strong> இந்தியில் 'அம்மா' பக்கத்து 'மாமா'க்கு எல்லோருக்கும் ஒரே 'மாமா' — தாய்வழி/தந்தைவழி பிரிப்பில்லை. திராவிட மொழிகள் குடும்ப நுட்பத்தை எழுத்தில் வைத்திருக்கின்றன. <span class="ta">மாமா</span>/<span class="kan">ಮಾವ</span> (தாய் சகோதரன்), <span class="ta">சித்தப்பா</span>/<span class="kan">ಚಿಕ್ಕಪ್ಪ</span> (தந்தையின் இளைய சகோதரன்) — ஒரே சொல்லாக குழம்பாது.</div>
+
+    <h3><span class="num">7.3</span>காலம்: 'நேற்று' vs 'நாளை' — குழப்பம் இல்லை</h3>
+    <p>சில வடமொழிகளில் 'கல்' (இந்தி) என்ற ஒரே சொல் 'நேற்று'க்கும் 'நாளை'க்கும் இரண்டுக்கும் வேலை செய்கிறது — சூழ்நிலை பிரிக்க வேண்டும். தமிழ் அழகாகப் பிரிக்கிறது (நேற்று / நாளை); கன்னடமும் அதையே செய்கிறது (<span class="kan">ನಿನ್ನೆ / ನಾಳೆ</span>). குழப்பம் இல்லை.</p>
+
+    <h3><span class="num">7.4</span>இயக்கம்: போ / வா</h3>
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">போ</div><div class="kan">ಹೋಗು</div><div class="ta-eq">போ / போகு (ப → ஹ)</div></div>
+      <div class="conjug-row"><div class="pron">வா</div><div class="kan">ಬಾ</div><div class="ta-eq">வா (வ → ப)</div></div>
+      <div class="conjug-row"><div class="pron">நட</div><div class="kan">ನಡೆ</div><div class="ta-eq">நட</div></div>
+      <div class="conjug-row"><div class="pron">ஓடு</div><div class="kan">ಓಡು</div><div class="ta-eq">ஓடு</div></div>
+      <div class="conjug-row"><div class="pron">நில்</div><div class="kan">ನಿಲ್ಲು</div><div class="ta-eq">நில்</div></div>
+    </div>
+
+    <h3><span class="num">7.5</span>உடல் — பல சொற்கள் ஒரே வேர்</h3>
+    <p>தலை/<span class="kan">ತಲೆ</span>, கண்/<span class="kan">ಕಣ್ಣು</span>, கை/<span class="kan">ಕೈ</span>, கால்/<span class="kan">ಕಾಲು</span>, மூக்கு/<span class="kan">ಮೂಗು</span> — எல்லாம் திராவிட ஒற்றுமை. ஆனால் 'வாய்' → <span class="kan">ಬಾಯಿ</span> (வ → ப), 'வயிறு' ≠ <span class="kan">ಹೊಟ್ಟೆ</span> — சில வேர்கள் வேறு.</p>
+
+    <h3><span class="num">7.6</span>சாதாரண ஒலி மாற்றம் — மனதில் பதிவு செய்</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>தமிழ்</th><th>கன்னடம்</th><th>விதி</th></tr>
+        <tr><td>ப-</td><td>ಹ-</td><td>சொல்முதல் ப → ஹ</td></tr>
+        <tr><td>-ம் முடிவு</td><td>-ಅ / -ಎ</td><td>'-ம்' நீக்கம் (மரம் → ಮರ)</td></tr>
+        <tr><td>ற</td><td>ರ</td><td>கன்னடத்தில் ற இல்லை</td></tr>
+        <tr><td>ழ</td><td>ಳ / ಣ</td><td>ழ இழந்து ள/ண</td></tr>
+        <tr><td>ன</td><td>ನ</td><td>ன → ந</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>ஒரு விதி, நூற்றுக்கணக்கான சொற்கள்.</strong> சொல்முதல் 'ப' → 'ஹ' என்ற ஒரே விதியை நினைவில் வைத்தால்: பால்→ಹಾಲು, பூ→ಹೂವು, பல்→ಹಲ್ಲು, பணம்→ಹಣ, பத்து→ಹತ್ತು, பெயர்→ಹೆಸರು, பழம்→ಹಣ್ಣು, பால்→ಹಾಲು — உடனடியாகக் கண்டுபிடி. இது நிகழ்ந்தது கி.பி. 9-10ஆம் நூற்றாண்டில்; பழங்கன்னடத்தில் 'ப' அப்படியே இருந்தது.</div>
+  </div>
+</section>
+<section class="stage" id="stage-08" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · பயன்பாடு</div>
+    <h2 class="stage-title">மரியாதை & நடைமுறை — <span class="kan">ವ್ಯವಹಾರ</span></h2>
+    <p class="stage-lede">கன்னடத்தில் மரியாதை இரண்டு நிலை — <span class="kan">ನೀನು / ನೀವು</span>. தமிழில் மூன்று — நீ / நீங்கள் / தாங்கள். கன்னடம் 'தாங்கள்' மரியாதையை 'நீவு'-விலேயே உள்ளடக்கும்.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">8.1</span>மரியாதை நிலைகள்</h3>
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">நெருக்கம்</div><div class="kan">ನೀನು</div><div class="ta-eq">நீ (குடும்பம், நண்பர்)</div></div>
+      <div class="conjug-row"><div class="pron">மரியாதை</div><div class="kan">ನೀವು</div><div class="ta-eq">நீங்கள் / தாங்கள்</div></div>
+      <div class="conjug-row"><div class="pron">மூன்றாம்</div><div class="kan">ಅವನು / ಅವಳು</div><div class="ta-eq">அவன் / அவள்</div></div>
+      <div class="conjug-row"><div class="pron">மரியாதை 3</div><div class="kan">ಅವರು</div><div class="ta-eq">அவர் / அவர்கள்</div></div>
+    </div>
+
+    <h3><span class="num">8.2</span>அன்றாடச் சொற்றொடர்கள்</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ನಮಸ್ಕಾರ</div><div class="ta-eq">வணக்கம்</div><div class="trans">namaskāra</div><div class="note">சம்ஸ்கிருத வேர் — இருமொழியிலும் முறையான வணக்கம்.</div></div>
+      <div class="word"><div class="kan">ಧನ್ಯವಾದಗಳು</div><div class="ta-eq">நன்றி / தன்யவாதம்</div><div class="trans">dhanyavādagaḷu</div><div class="note">தத்ஸம. -ಗಳು (-gaḷu) = பன்மை.</div></div>
+      <div class="word"><div class="kan">ಕ್ಷಮಿಸಿ</div><div class="ta-eq">மன்னிக்கவும் / க்ஷமிக்கவும்</div><div class="trans">kṣamisi</div><div class="note">தத்ஸம — 'க்ஷமா' வேர்.</div></div>
+      <div class="word"><div class="kan">ಪರವಾಗಿಲ್ಲ</div><div class="ta-eq">பரவாயில்லை</div><div class="trans">paravāgilla</div><div class="note">ஒரே வெளியீடு! 'பரவாய் + இல்லை' → 'ಪರವಾಗಿ + ಇಲ್ಲ'.</div></div>
+      <div class="word"><div class="kan">ಹೇಗಿದ್ದೀರಿ?</div><div class="ta-eq">எப்படி இருக்கிறீர்கள்?</div><div class="trans">hēgiddīri?</div><div class="note">'ஹேகெ' (எப்படி) + 'இத்தீரி' (இருக்கிறீர்கள்).</div></div>
+      <div class="word"><div class="kan">ಚೆನ್ನಾಗಿದ್ದೇನೆ</div><div class="ta-eq">நலமாக இருக்கிறேன்</div><div class="trans">chennāgiddēne</div><div class="note">'செந்ன' = நல்ல. திராவிட 'செவ்' (சிவப்பு/நல்ல) வேர்.</div></div>
+      <div class="word"><div class="kan">ಸ್ವಲ್ಪ</div><div class="ta-eq">சற்று / கொஞ்சம்</div><div class="trans">svalpa</div><div class="note">தத்ஸம ('ஸ்வல்ப'). பெங்களூர் வாழ்வின் பாதி இதில் உள்ளது!</div></div>
+      <div class="word"><div class="kan">ಬೇಕು</div><div class="ta-eq">வேண்டும்</div><div class="trans">bēku</div><div class="note">'வேணும்' பேச்சுத்தமிழ் — கோஷ 'வ' → 'ப'.</div></div>
+      <div class="word"><div class="kan">ಬೇಡ</div><div class="ta-eq">வேண்டாம்</div><div class="trans">bēḍa</div><div class="note">'வேண்டாம்' — 'ம்' இல்லாத வடிவம்.</div></div>
+      <div class="word"><div class="kan">ಗೊತ್ತಿಲ್ಲ</div><div class="ta-eq">தெரியாது</div><div class="trans">gottilla</div><div class="note">'கொத்து' (தெரியும்) + 'இல்ல'.</div></div>
+      <div class="word"><div class="kan">ಹೌದು</div><div class="ta-eq">ஆம் / ஆமாம்</div><div class="trans">haudu</div><div class="note">'அப்படிதான்' என்ற உறுதிப்படுத்தல்.</div></div>
+      <div class="word"><div class="kan">ಇಲ್ಲ</div><div class="ta-eq">இல்லை</div><div class="trans">illa</div><div class="note">திராவிட ஒற்றுமை — ஒரே வேர்!</div></div>
+      <div class="word"><div class="kan">ಊಟ ಆಯ್ತಾ?</div><div class="ta-eq">சாப்பிட்டாச்சா?</div><div class="trans">ūṭa āytā?</div><div class="note">பசி பற்றிய உண்மையான கேள்வி அல்ல — அன்பின் 'எப்படி இருக்கிறாய்?'</div></div>
+    </div>
+
+    <h3><span class="num">8.3</span>மென்மையாக்கி — <span class="kan">ಸ್ವಲ್ಪ</span></h3>
+    <p><span class="kan">ಸ್ವಲ್ಪ</span> (ஸ்வல்ப) = 'கொஞ்சம்' — எந்த கோரிக்கையையும் மென்மையாக்கும். தமிழில் 'கொஞ்சம்' / 'சற்று' அதே பணியைச் செய்கிறது: "கொஞ்சம் தள்ளுங்கள்" = <span class="kan">ಸ್ವಲ್ಪ ಅಡ್ಜಸ್ಟ್ ಮಾಡಿ</span>. கன்னடத்தில் கட்டளை 'மாடி' (செய்யுங்கள்) — 'ஸ்வல்ப' கேலி அல்ல, பெங்களூர் வாழ்வின் இயந்திரம்.</p>
+
+    <h3><span class="num">8.4</span>தெரியாத பெரியோர் அழைப்பு</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>தமிழ்</th><th>கன்னடம்</th><th>யாருக்கு?</th></tr>
+        <tr><td class="ta g">அண்ணா</td><td><span class="kan g">ಅಣ್ಣ</span></td><td>வயதான ஆண்</td></tr>
+        <tr><td class="ta g">அக்கா</td><td><span class="kan g">ಅಕ್ಕ</span></td><td>வயதான பெண்</td></tr>
+        <tr><td class="ta g">தாத்தா</td><td><span class="kan g">ಅಜ್ಜ</span></td><td>முதியவர் ஆண்</td></tr>
+        <tr><td class="ta g">பாட்டி</td><td><span class="kan g">ಅಜ್ಜಿ</span></td><td>முதியவர் பெண்</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>உறவுக்கு வரம்பில்லை.</strong> தமிழிலும் கன்னடத்திலும் தெருவில் தெரியாதவரை கூட <span class="ta">அண்ணா!</span> / <span class="kan">ಅಣ್ಣ!</span> என அழைக்கிறோம். இது திராவிட கலாச்சாரம் — சமூகமே குடும்பம். வடமொழிகளில் 'பையா' (சகோதரன்) அதே பணி செய்கிறது — ஆனால் அதற்கு திராவிட ஆழம் இல்லை.</div>
+
+    <h3><span class="num">8.5</span>கட்டளையும் பணிவும்</h3>
+    <div class="sentence">
+      <div class="kan">ಬಾ. / ಬನ್ನಿ.</div>
+      <div class="trans">bā / banni</div>
+      <div class="ta-gloss">வா. / வாருங்கள்.</div>
+      <div class="literal">'ಬಾ' = நெருக்கம். 'ಬನ್ನಿ' (banni) = மரியாதை — தமிழ் 'வாருங்கள்' போல்.</div>
+    </div>
+    <div class="sentence">
+      <div class="kan">ಕೂತುಕೊಳ್ಳಿ. / ಕುಳಿತುಕೊಳ್ಳಿ.</div>
+      <div class="trans">kūtukoḷḷi / kuḷitukoḷḷi</div>
+      <div class="ta-gloss">உட்காருங்கள்.</div>
+    </div>
+    <div class="sentence">
+      <div class="kan">ಸ್ವಲ್ಪ ನೀರು ಕೊಡಿ.</div>
+      <div class="trans">svalpa nīru koḍi</div>
+      <div class="ta-gloss">கொஞ்சம் தண்ணீர் கொடுங்கள்.</div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-09" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · இலக்கியம்</div>
+    <h2 class="stage-title">இலக்கியப் பாலம் — <span class="kan">ಸಾಹಿತ್ಯ</span></h2>
+    <p class="stage-lede">கன்னட இலக்கியம் 1400 ஆண்டு பாரம்பரியம். தமிழுக்கு 2500 ஆண்டு. இரண்டும் சம்ஸ்கிருதத்தோடு உரையாடியும் தனி வழி நடந்தவை. உன் தமிழ் இலக்கிய நினைவுகள் வழியாக கன்னட எழுத்தாளர்களை அறி.</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="vachana">
+      <div class="kan">ಕಳಬೇಡ, ಕೊಲಬೇಡ, ಹುಸಿಯ ನುಡಿಯಲು ಬೇಡ<br/>
+ಮುನಿಯಬೇಡ, ಅನ್ಯರಿಗೆ ಅಸಹ್ಯ ಪಡಬೇಡ<br/>
+ತನ್ನ ಬಣ್ಣಿಸಬೇಡ, ಇದಿರ ಹಳಿಯಲು ಬೇಡ<br/>
+ಇದೇ ಅಂತರಂಗಶುದ್ಧಿ, ಇದೇ ಬಹಿರಂಗಶುದ್ಧಿ<br/>
+ಇದೇ ನಮ್ಮ ಕೂಡಲಸಂಗಮದೇವರನೊಲಿಸುವ ಪರಿ.</div>
+      <div class="ta-gloss">திருடாதே, கொல்லாதே, பொய் சொல்லாதே<br/>
+கோபப்படாதே, பிறரை இகழாதே<br/>
+தன்னைப் புகழாதே, எதிரியை நிந்திக்காதே<br/>
+இதுவே உள்ளத் தூய்மை, இதுவே வெளித் தூய்மை<br/>
+இதுவே நம் கூடலசங்கமதேவரை மகிழ்விக்கும் வழி.</div>
+      <div class="attrib">— பஸவண்ணா · 12ஆம் நூற்றாண்டு · வசனம்</div>
+    </div>
+
+    <div class="aside"><strong>வசனம் = திருக்குறள் ஆத்மா.</strong> பஸவண்ணா எழுதிய வசனங்கள் — சாதி/சடங்கை மறுத்து, எல்லோருக்கும் புரியும் கன்னடத்தில். திருவள்ளுவரின் குறள் 1500 ஆண்டுகள் முன் அதே வேலையைத் தமிழில் செய்தது — அற/பொருள்/இன்பம் குறுகிய வடிவில், எல்லோருக்கும். இருவரும் சமூகத்துக்கு வெளியே நின்று சாதாரணருக்கான தத்துவம் கொடுத்தவர்கள்.</div>
+
+    <h3><span class="num">9.1</span>கன்னட எழுத்தாளர்கள் — தமிழ் பாலம்</h3>
+
+    <div class="words">
+      <div class="word"><div class="kan">ಬಸವಣ್ಣ (பஸவண்ணா)</div><div class="ta-eq">↔ திருவள்ளுவர் / சித்தர்கள்</div><div class="trans">12th c · Vachana</div><div class="note">சாதி-மறுப்பு, பொதுமக்கள் மொழியில் நெறி — குறள் & சித்தர் பாடல்களின் கன்னட ஆவி. 'கூடலசங்கம' என்பது அவரது இலக்கத்துடையார்.</div></div>
+
+      <div class="word"><div class="kan">ಅಕ್ಕ ಮಹಾದೇವಿ (அக்க மகாதேவி)</div><div class="ta-eq">↔ ஆண்டாள் / காரைக்கால் அம்மையார்</div><div class="trans">12th c · Vachana</div><div class="note">பெண் பக்தி கவி — அனைத்தையும் துறந்து சிவனுக்கு உரிமை கொண்டவள். ஆண்டாள் வைஷ்ணவம்; அக்க சைவம் — ஆனால் ஆண் ஆதிக்கத்தை வென்ற பெண் குரல் ஒன்றே.</div></div>
+
+      <div class="word"><div class="kan">ಕುವೆಂಪು (குவெம்பு)</div><div class="ta-eq">↔ பாரதியார்</div><div class="trans">1904–1994 · ராஷ்ட்ரகவி</div><div class="note">தேசிய கவி, மொழி பெருமை, சம்ஸ்கிருதத்தை விட்டுத் தாய்மொழியில் எழுதியவர். பாரதி 'தமிழ் வாழ்க!' என்றது போல, குவெம்பு 'ஜய பாரத ஜனனிய தனுஜாதே' என்றார்.</div></div>
+
+      <div class="word"><div class="kan">ದ.ರಾ. ಬೇಂದ್ರೆ (பேந்த்ரே)</div><div class="ta-eq">↔ பாரதிதாசன்</div><div class="trans">1896–1981 · பாடலிசை கவிதை</div><div class="note">கன்னடத்தின் சிறந்த பாடலாசிரியர் — சொல் பாடலாய் வெளிப்படும். பாரதிதாசன் தமிழில் செய்த மொழிஇசைப் புரட்சி, பேந்த்ரே கன்னடத்தில். 'நாகு தந்த ஹூவு' (சிரிப்பு வழங்கிய மலர்) போன்ற வரிகள் இசையாய் இருக்கும்.</div></div>
+
+      <div class="word"><div class="kan">ಕುಮಾರವ್ಯಾಸ / ಕಂಬಾರ (கம்பார)</div><div class="ta-eq">↔ கம்பன் / நாட்டார் கவிஞர்</div><div class="trans">நவீன கம்பார</div><div class="note">கன்னட கம்பார நாட்டார் வழக்கை நவீனக் கவிதையில் கொண்டு வந்தவர் — கம்பனின் காவிய கற்பனை & செய்யுளாற்றல் போல. பழங்கன்னடத்தில் 'குமாரவ்யாஸர்' மகாபாரதத்தை கன்னடக் காவியமாக்கியவர், கம்பன் ராமாயணத்தைச் செய்தது போல்.</div></div>
+
+      <div class="word"><div class="kan">ಯು.ಆರ್. ಅನಂತಮೂರ್ತಿ (அனந்தமூர்த்தி)</div><div class="ta-eq">↔ புதுமைப்பித்தன் / ஜெயகாந்தன்</div><div class="trans">1932–2014 · நாவல்</div><div class="note">'ஸம்ஸ்கார' நாவல் நவீன இந்தியாவின் தார்மீக நெருக்கடியை அம்பலமாக்கியது — புதுமைப்பித்தன் 'மகாமசானம்' தமிழில் செய்த சமூக சோதனை போலவே உரம் கொண்டது.</div></div>
+
+      <div class="word"><div class="kan">ಶಿವರಾಮ ಕಾರಂತ (கராந்த்)</div><div class="ta-eq">↔ அகிலன் / ஜெயகாந்தன்</div><div class="trans">1902–1997 · நாவல்</div><div class="note">கடலோர கர்நாடகாவின் நாவலாசிரியர் — ஒவ்வொரு சாலையும் நடந்து, நாட்டுப்புறக் கலையில் (யக்ஷகானம்) ஆழமான ஈடுபாடு. அகிலன் தமிழ்நாட்டு கிராமத்தைப் பதிவு செய்தது போல.</div></div>
+
+      <div class="word"><div class="kan">ಗಿರೀಶ್ ಕಾರ್ನಾಡ್ (கார்னாட்)</div><div class="ta-eq">↔ இந்திரா பார்த்தசாரதி</div><div class="trans">1938–2019 · நாடகம்</div><div class="note">'யயாதி', 'துக்ளக்', 'ஹயவதன' — புராணங்களை நவீனமாக்கியவர். தமிழில் இந்திரா பார்த்தசாரதி 'ராமானுஜர்' நாடகம் போல, அரசியல் & தத்துவம் கலந்த மேடை.</div></div>
+    </div>
+
+    <div class="aside"><strong>இரு மொழிகள், ஒரு பூமிக்குரியவை.</strong> தமிழ்நாடு & கர்நாடகா — காவேரி பகிர்கின்றன; கலாச்சாரம், வழிபாடு, உணவு பகிர்கின்றன. பஸவண்ணா, பாரதியார், அக்க, ஆண்டாள் — இவர்களெல்லாம் அதே தென்னிந்திய மண்ணில் தோன்றியவர்கள். இந்த பாடத்தை முடிக்கும் போது நீ கன்னடத்தை 'அந்நிய மொழி' என்று பார்க்க மாட்டாய் — 'சகோதரியின் இல்லம்' என்று பார்ப்பாய்.</div>
+
+    <h3><span class="num">9.2</span>முடிவுரை</h3>
+    <p>தமிழ் & கன்னடம் — இரு மொழிகள், ஒரே அம்மை. 2500 ஆண்டுகள் தனியாக வளர்ந்து, இன்னும் எலும்புக்கூடு, இரத்தம், சுவாசம் பகிர்கின்றன. இந்த 10 படிகளை முடித்த பிறகு, கன்னட எழுத்துகள் இனி அந்நியம் அல்ல. வாசி, பேசு, கேள் — நாளுக்கு 15 நிமிடம் போதும். <span class="kan">ಕನ್ನಡ ನಿಮ್ಮದೂ ಆಗಲಿ!</span> — கன்னடம் உன்னுடையதாகவும் ஆகட்டும்!</p>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn">← முன்</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">பின் →</button>
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="kan">ಕನ್ನಡ ಕಲಿಯೋಣ</span>
+    உயிர் மெய் வழியில் ஒரு அடிப்படை நூல் · அக்கறையுடன் செய்யப்பட்டது · 2026<br/>
+    ஒரே நேரத்தில் ஒரே புதிய விஷயம் · வடிவம் முதல் பொருள் பின் · பட்டியல் அல்ல அமைப்பு<br/>
+    <span style="display:inline-block;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sindoor);">made by Nil <span class="sep">·</span> using Claude</span>
+  </div>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.stage-tab');
+  const sections = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const scrollWrap = document.getElementById('stageScroll');
+  const total = sections.length;
+  let current = 0;
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function show(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+    sections.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.toggle('done', i < current);
+      d.classList.toggle('current', i === current);
+    });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    nextBtn.textContent = current === total - 1 ? 'முடிவு' : 'பின் →';
+    prevBtn.textContent = '← முன்';
+
+    const activeTab = tabs[current];
+    if (activeTab && scrollWrap) {
+      const tabLeft = activeTab.offsetLeft;
+      const tabWidth = activeTab.offsetWidth;
+      const wrapWidth = scrollWrap.clientWidth;
+      scrollWrap.scrollTo({ left: tabLeft - wrapWidth / 2 + tabWidth / 2, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+  });
+
+  document.querySelectorAll('.map-cell').forEach(card => {
+    const hint = card.querySelector('.hint');
+    const hintText = card.dataset.hint;
+    if (hintText && hint && !hint.textContent.trim()) hint.textContent = hintText;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+      }
+    });
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="kn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ಕನ್ನಡದಿಂದ ತೆಲುಗು — ಭಾಷಾಸೇತು</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&family=Fraunces:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{lang:kn}
+body{
+  font-family:'Noto Serif Kannada',serif;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.7;
+  font-size:17px;
+  position:relative;
+  min-height:100vh;
+  background-image:
+    radial-gradient(1200px 600px at 10% -10%, rgba(184,128,45,.10), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(168,48,36,.08), transparent 55%),
+    radial-gradient(700px 500px at 50% 120%, rgba(31,77,74,.07), transparent 60%);
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.10 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode:multiply;
+}
+.wrap{max-width:860px;margin:0 auto;padding:24px 20px 80px;position:relative;z-index:2}
+header.top{padding:28px 0 18px;border-bottom:1px solid rgba(107,91,72,.25)}
+.eyebrow{font-family:'Fraunces',serif;color:var(--sindoor);letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+h1.title{font-family:'Fraunces',serif;font-weight:600;font-size:34px;margin:6px 0 4px;color:var(--ink)}
+h1.title .te{font-family:'Noto Serif Telugu',serif;color:var(--teal)}
+.sub{color:var(--ink-faded);font-size:15px;margin:0}
+nav.tabs{
+  position:sticky;top:0;z-index:10;
+  background:linear-gradient(to bottom,var(--paper) 85%, rgba(244,236,218,.85));
+  padding:10px 0;margin:0 -20px;padding-inline:20px;
+  border-bottom:1px solid rgba(107,91,72,.2);
+  display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;
+}
+nav.tabs button{
+  flex:0 0 auto;background:transparent;border:1px solid rgba(107,91,72,.25);
+  color:var(--ink-soft);font-family:inherit;font-size:13.5px;
+  padding:7px 11px;border-radius:999px;cursor:pointer;white-space:nowrap;
+  transition:all .2s;
+}
+nav.tabs button:hover{background:var(--paper-warm)}
+nav.tabs button.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+section.stage{display:none;padding:22px 0 12px;animation:fade .3s ease}
+section.stage.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+h2.stage-title{font-family:'Fraunces',serif;font-weight:600;font-size:26px;margin:6px 0 2px;color:var(--ink)}
+h2.stage-title .num{color:var(--ochre);margin-right:10px;font-variant-numeric:tabular-nums}
+h3{font-family:'Fraunces',serif;font-weight:600;font-size:19px;margin:26px 0 8px;color:var(--ink-soft)}
+h4{font-weight:600;margin:18px 0 6px;color:var(--ink-soft);font-size:16px}
+p{margin:10px 0}
+.te{font-family:'Noto Serif Telugu',serif}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.9em;color:var(--ink-faded)}
+.aside{
+  background:var(--paper-warm);
+  border-left:3px solid var(--sindoor);
+  padding:12px 14px;margin:16px 0;border-radius:0 8px 8px 0;
+  font-size:15.5px;color:var(--ink-soft);
+}
+.aside b{color:var(--sindoor)}
+.note{background:rgba(31,77,74,.08);border-left:3px solid var(--teal);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:15px}
+.grid{display:grid;gap:10px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g5{grid-template-columns:repeat(5,1fr)}
+.card{
+  background:var(--paper-warm);border:1px solid rgba(107,91,72,.22);
+  border-radius:10px;padding:12px 10px;text-align:center;cursor:pointer;
+  transition:transform .15s, box-shadow .2s;position:relative;
+}
+.card:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(28,22,17,.08)}
+.card .big{font-family:'Noto Serif Telugu',serif;font-size:34px;color:var(--ink);line-height:1.1;display:block}
+.card .kn{font-size:20px;color:var(--ink-faded);display:block;margin-top:3px}
+.card .tr{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ochre);display:block;margin-top:4px}
+.card .hint{display:none;font-size:13px;color:var(--ink-soft);margin-top:8px;padding-top:8px;border-top:1px dashed rgba(107,91,72,.3)}
+.card.open .hint{display:block}
+.card.new::after{content:"⚡";position:absolute;top:4px;right:6px;font-size:12px}
+.family{margin:16px 0 10px}
+.family .flabel{font-family:'Fraunces',serif;color:var(--teal);font-size:15px;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+th,td{padding:8px 10px;border-bottom:1px solid rgba(107,91,72,.2);text-align:left;vertical-align:top}
+th{font-family:'Fraunces',serif;font-weight:600;color:var(--ink-soft);background:var(--paper-warm)}
+td .te{font-size:19px}
+td.kn{color:var(--ink-faded)}
+.video{margin:14px 0}
+.video-frame{position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;border:1px solid rgba(107,91,72,.25)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-caption{font-size:14px;color:var(--ink-faded);margin-top:6px;text-align:center}
+.video-caption a{color:var(--sindoor);text-decoration:none;border-bottom:1px dotted}
+.vocab{display:grid;grid-template-columns:1fr 1fr 1fr 2fr;gap:6px 12px;padding:10px 12px;background:var(--paper-warm);border-radius:8px;margin:6px 0;align-items:center;font-size:15px}
+.vocab .te{font-size:20px;color:var(--ink)}
+.vocab .kn{color:var(--ink-soft)}
+.vocab .tr{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ochre)}
+.vocab .tag{font-size:12px;color:var(--teal);font-style:italic}
+.passage{background:var(--paper-warm);border:1px solid rgba(107,91,72,.2);border-radius:10px;padding:14px 16px;margin:14px 0}
+.passage .te{font-size:19px;line-height:1.9;display:block;margin-bottom:6px}
+.passage .tr{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ochre);display:block;margin-bottom:6px}
+.passage .gl{color:var(--ink-soft);font-size:15px;display:block;padding-top:6px;border-top:1px dashed rgba(107,91,72,.3)}
+.navbtns{display:flex;justify-content:space-between;gap:10px;margin:28px 0 10px}
+.navbtns button{
+  background:var(--ink);color:var(--paper);border:0;padding:10px 16px;border-radius:8px;
+  font-family:inherit;font-size:15px;cursor:pointer;
+}
+.navbtns button:disabled{opacity:.35;cursor:not-allowed}
+footer{margin-top:40px;padding-top:18px;border-top:1px solid rgba(107,91,72,.25);color:var(--ink-faded);font-size:13px;text-align:center}
+.litbridge{border:1px solid rgba(107,91,72,.22);border-radius:10px;padding:12px 14px;margin:10px 0;background:var(--paper-warm)}
+.litbridge .names{font-family:'Fraunces',serif;font-size:17px;color:var(--ink)}
+.litbridge .names .te{color:var(--teal)}
+@media (max-width:520px){
+  body{font-size:16px}
+  .wrap{padding:16px 14px 60px}
+  h1.title{font-size:26px}
+  h2.stage-title{font-size:22px}
+  .g5{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(3,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .vocab{grid-template-columns:1fr 1fr;font-size:14px}
+  .vocab .tag{grid-column:1/-1}
+  .card .big{font-size:28px}
+  nav.tabs{margin:0 -14px;padding-inline:14px}
+}
+@media (max-width:380px){
+  body{font-size:15px}
+  .g4,.g5{grid-template-columns:repeat(2,1fr)}
+  h1.title{font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<div class="eyebrow">ಭಾಷಾಸೇತು · bhashasetu</div>
+<h1 class="title">ಕನ್ನಡದಿಂದ <span class="te">తెలుగు</span></h1>
+<p class="sub">ಹತ್ತು ಹಂತಗಳಲ್ಲಿ ಸೋದರ ಭಾಷೆಯ ಕಲಿಕೆ — ಲಿಪಿಯಿಂದ ಸಾಹಿತ್ಯದವರೆಗೆ</p>
+</header>
+
+<nav class="tabs" id="tabs">
+<button data-s="0" class="active">೦೦ · ಪರಿಚಯ</button>
+<button data-s="1">೦೧ · ಸ್ವರ</button>
+<button data-s="2">೦೨ · ವ್ಯಂಜನ</button>
+<button data-s="3">೦೩ · ಸಂಯೋಜನೆ</button>
+<button data-s="4">೦೪ · ಪದಗಳು</button>
+<button data-s="5">೦೫ · ವಾಕ್ಯ</button>
+<button data-s="6">೦೬ · ಓದು</button>
+<button data-s="7">೦೭ · ಪದಕ್ಷೇತ್ರ</button>
+<button data-s="8">೦೮ · ಬಳಕೆ</button>
+<button data-s="9">೦೯ · ಸಾಹಿತ್ಯ</button>
+</nav>
+
+<section class="stage active" id="stage-0">
+<h2 class="stage-title"><span class="num">೦೦</span>ಪರಿಚಯ</h2>
+<p>ಬಾಲ್ಯದಲ್ಲಿ <b>ಕನ್ನಡ ಕಲಿ</b> ಮತ್ತು <b>ಬಾರಹ</b> ಪುಸ್ತಕಗಳಲ್ಲಿ "ಅ ಆ ಇ ಈ" ಅಕ್ಷರಮಾಲೆಯನ್ನು ಕಲಿತ ನಿಮಗೆ, ತೆಲುಗು ಕಲಿಯುವುದು ಹೊಸ ಭಾಷೆಯನ್ನು ಶುರು ಮಾಡುವುದಲ್ಲ — ಈಗಾಗಲೇ ತಿಳಿದಿರುವ ಭಾಷೆಯನ್ನು ಇನ್ನೊಂದು ಮುಖದಿಂದ ನೋಡುವಂತಿದೆ. ಕನ್ನಡ ಮತ್ತು ತೆಲುಗು — ಎರಡೂ ದ್ರಾವಿಡ ಕುಟುಂಬದ ಒಡಹುಟ್ಟಿದ ಸಹೋದರಿಯರು. ಎರಡೂ ಲಿಪಿಗಳೂ ಕದಂಬ-ಚಾಳುಕ್ಯ ಲಿಪಿಯ ಒಂದೇ ಬುಡದಿಂದ ಬೆಳೆದು ಬಂದವು.</p>
+<p>೪೭ ಧ್ವನಿಗಳಲ್ಲಿ <b>೪೬ ಸಮಾನ</b> — ಅಂದರೆ ಸುಮಾರು <b>೯೮%</b> ಧ್ವನಿಗಳು ಈಗಾಗಲೇ ನಿಮ್ಮ ಬಾಯಿಗೆ ಗೊತ್ತು. ಶಬ್ದಕೋಶದಲ್ಲಿ <b>~೮೯%</b> ಹೋಲಿಕೆ. ವಾಕ್ಯ ರಚನೆ — ಎರಡೂ <b>ಕರ್ತೃ-ಕರ್ಮ-ಕ್ರಿಯಾ</b> (SOV): "ನಾನು ನೀರು ಕುಡಿಯುತ್ತೇನೆ" = <span class="te">నేను నీళ్ళు తాగుతాను</span>. ಅದೇ ಕ್ರಮ, ಅದೇ ಭಾವ.</p>
+<div class="aside"><b>ಅಹಾ!</b> ಕನ್ನಡ ಮತ್ತು ತೆಲುಗು ಲಿಪಿ ಒಂದೇ ಮೂಲದಿಂದ ಬಂದಿವೆ — ಅನೇಕ ಅಕ್ಷರಗಳು ಬಹುತೇಕ ಒಂದೇ ರೀತಿ ಕಾಣುತ್ತವೆ. ಇದು ಅತ್ಯಂತ ಸುಲಭ script transition.</div>
+<h3>೬ ಅನುಕೂಲ ಮತ್ತು ಸವಾಲುಗಳು</h3>
+<p><b>೧.</b> <b>ಅಬುಗಿಡಾ ಲಿಪಿಯ ಪರಿಕಲ್ಪನೆ ಗೊತ್ತಿದೆ.</b> "ಕ" ನಲ್ಲಿರುವ ಅಂತರ್ಗತ 'ಅ' ಸ್ವರ, ಕಾ/ಕಿ/ಕೀ ಎಂದು ಸ್ವರಚಿಹ್ನೆ ಸೇರಿಸುವ ವಿಧಾನ — ತೆಲುಗಿನಲ್ಲಿಯೂ ಅದೇ: క/కా/కి/కీ. ಹೊಸತು ಇಲ್ಲ, ಕೇವಲ ಆಕಾರದ ಬದಲಾವಣೆ.</p>
+<p><b>೨.</b> <b>೪೬/೪೭ ಧ್ವನಿಗಳು ಹಂಚಿಕೆ.</b> ಕನ್ನಡದ ಮೂರ್ಧನ್ಯ "ಳ" ತೆಲುಗಿನಲ್ಲಿಯೂ "ళ" ಆಗಿದೆ — ತಮಿಳು, ಮಲಯಾಳಂ ಬಿಟ್ಟರೆ ಬೇರೆ ಭಾಷೆಗಳಲ್ಲಿ ಇಲ್ಲದ ಈ ಧ್ವನಿ ಎರಡೂ ಸೋದರಿಯರಲ್ಲಿ ಸಮಾನ. ಹೊಸದಾಗಿ ಕಲಿಯಬೇಕಾದ್ದು ಒಂದೇ: <span class="te">ఋ</span> (ɾi).</p>
+<p><b>೩.</b> <b>ಒಂದೇ ವಾಕ್ಯ ಕ್ರಮ (SOV).</b> "ಅವನು ಪುಸ್ತಕ ಓದುತ್ತಾನೆ" = <span class="te">అతడు పుస్తకం చదువుతాడు</span>. ಕ್ರಿಯಾಪದ ಅಂತ್ಯದಲ್ಲಿ, ಕರ್ಮ ಮಧ್ಯದಲ್ಲಿ — ಅಚ್ಚುಕಟ್ಟಾಗಿ ಒಂದೇ.</p>
+<p><b>೪.</b> <b>ವಿಭಕ್ತಿ ಪ್ರತ್ಯಯಗಳು (postposition).</b> ಕನ್ನಡ "ಮನೆಗೆ" = ತೆಲುಗು "ఇంటికి". "-ಗೆ" ↔ "-కి/-కు" — ಪ್ರತ್ಯಯವನ್ನು ಪದದ ಹಿಂದೆ ಸೇರಿಸುವ ಚಿಂತನೆ ಒಂದೇ.</p>
+<p><b>೫.</b> <b>~೮೯% ಶಬ್ದಕೋಶ ಹೋಲಿಕೆ.</b> ನೀರು/<span class="te">నీరు</span>, ಕಣ್ಣು/<span class="te">కన్ను</span>, ಕಾಲು/<span class="te">కాలు</span>, ತಲೆ/<span class="te">తల</span> — ದ್ರಾವಿಡ ಮೂಲ ಪದಗಳು ಹುಬ್ಬೆತ್ತುವಷ್ಟು ಹತ್ತಿರ. ಅಮ್ಮ/<span class="te">అమ్మ</span> — ಅಕ್ಷರಶಃ ಒಂದೇ.</p>
+<p><b>೬.</b> <b>ಸಂಸ್ಕೃತ ತತ್ಸಮ ಪದಗಳು ನೇರ ಸೇತುವೆ.</b> ಪುಸ್ತಕ/<span class="te">పుస్తకం</span>, ಸಮಯ/<span class="te">సమయం</span>, ಭೂಮಿ/<span class="te">భూమి</span>, ಸೂರ್ಯ/<span class="te">సూర్యుడు</span> — ತತ್ಸಮ ಪದಗಳ ಕೋಟಿ ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಹಂಚಿದೆ. ಸವಾಲು: ತೆಲುಗಿನಲ್ಲಿ ಪುಲ್ಲಿಂಗ ಪದಗಳಿಗೆ "-ಡು" ಪ್ರತ್ಯಯ (సూర్యుడు) — ಕನ್ನಡದಲ್ಲಿ ಇಲ್ಲ.</p>
+<div class="note">ಈ ಕೋರ್ಸಿನಲ್ಲಿ ಎಡಕ್ಕೆ ಕನ್ನಡ, ಬಲಕ್ಕೆ <span class="te">తెలుగు</span>. ಯಾವ ಅಕ್ಷರ/ಪದ ಕಾರ್ಡನ್ನೂ ಒತ್ತಿ — ಸೂಚನೆ ತೆರೆಯುತ್ತದೆ.</div>
+</section>
+<section class="stage" id="stage-1">
+<h2 class="stage-title"><span class="num">೦೧</span>ಸ್ವರಗಳು</h2>
+<p>ತೆಲುಗು ಸ್ವರಗಳನ್ನು ತೆಲುಗಿನಲ್ಲಿ <b>అచ్చులు</b> ಎನ್ನುತ್ತಾರೆ — ಕನ್ನಡದಲ್ಲಿ "ಸ್ವರ". ಕ್ರಮ ಒಂದೇ: ಹ್ರಸ್ವ-ದೀರ್ಘ ಜೋಡಿಗಳಾಗಿ. ಕುಟುಂಬಗಳಾಗಿ ನೋಡೋಣ.</p>
+
+<div class="family"><div class="flabel">'ಅ' ಕುಟುಂಬ — ಹ್ರಸ್ವ ಮತ್ತು ದೀರ್ಘ</div>
+<div class="grid g2">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">అ</span><span class="kn">ಅ</span><span class="tr">a</span><div class="hint">ಹ್ರಸ್ವ "ಅ" — ಅಮ್ಮ/<span class="te">అమ్మ</span>. ಬಾಯಿ ತೆರೆದ ಸ್ವರ, ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಒಂದೇ.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఆ</span><span class="kn">ಆ</span><span class="tr">aː</span><div class="hint">ದೀರ್ಘ "ಆ" — ಆಕಾಶ/<span class="te">ఆకాశం</span>. ಎರಡು ಮಾತ್ರೆ ಉದ್ದ.</div></div>
+</div></div>
+
+<div class="family"><div class="flabel">'ಇ' ಕುಟುಂಬ</div>
+<div class="grid g2">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఇ</span><span class="kn">ಇ</span><span class="tr">i</span><div class="hint">ಇದು/<span class="te">ఇది</span> — ಅಕ್ಷರ ಆಕಾರ ಬೇರೆ, ಧ್ವನಿ ಒಂದೇ.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఈ</span><span class="kn">ಈ</span><span class="tr">iː</span><div class="hint">ಈ ಕ್ಷಣ/<span class="te">ఈ క్షణం</span>.</div></div>
+</div></div>
+
+<div class="family"><div class="flabel">'ಉ' ಕುಟುಂಬ</div>
+<div class="grid g2">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఉ</span><span class="kn">ಉ</span><span class="tr">u</span><div class="hint">ಉಪ್ಪು/<span class="te">ఉప్పు</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఊ</span><span class="kn">ಊ</span><span class="tr">uː</span><div class="hint">ಊಟ/<span class="te">భోజనం</span> (ಈ ಪದ ತತ್ಸಮ).</div></div>
+</div></div>
+
+<div class="family"><div class="flabel">'ಎ' ಕುಟುಂಬ — ಹ್ರಸ್ವ/ದೀರ್ಘ ಭೇದ ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಇದೆ</div>
+<div class="grid g2">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఎ</span><span class="kn">ಎ</span><span class="tr">e</span><div class="hint">ಎಲ್ಲಿ/<span class="te">ఎక్కడ</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఏ</span><span class="kn">ಏ</span><span class="tr">eː</span><div class="hint">ಏನು/<span class="te">ఏమిటి</span>.</div></div>
+</div></div>
+
+<div class="family"><div class="flabel">'ಒ' ಕುಟುಂಬ</div>
+<div class="grid g2">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఒ</span><span class="kn">ಒ</span><span class="tr">o</span><div class="hint">ಒಂದು/<span class="te">ఒకటి</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఓ</span><span class="kn">ಓ</span><span class="tr">oː</span><div class="hint">ಓದು/<span class="te">చదువు</span>.</div></div>
+</div></div>
+
+<div class="family"><div class="flabel">ದ್ವಿಸ್ವರ ಮತ್ತು ಹೊಸ ಸ್ವರ</div>
+<div class="grid g3">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఐ</span><span class="kn">ಐ</span><span class="tr">ai</span><div class="hint">ಐದು/<span class="te">ఐదు</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఔ</span><span class="kn">ಔ</span><span class="tr">au</span><div class="hint">ಔಷಧ/<span class="te">ఔషధం</span>.</div></div>
+<div class="card new" onclick="this.classList.toggle('open')"><span class="big te">ఋ</span><span class="kn">—</span><span class="tr">ɾi</span><div class="hint">ಕನ್ನಡದ "ಋ" ಗೆ ಸಮ — ಬಹುತೇಕ ಸಂಸ್ಕೃತ ತತ್ಸಮ ಪದಗಳಲ್ಲಿ ಮಾತ್ರ (ఋషి, కృష్ణ). ಇದು ನಿಜವಾಗಿ ಹೊಸದೇನಲ್ಲ.</div></div>
+</div></div>
+
+<div class="aside"><b>ಗಮನಿಸಿ:</b> ಕನ್ನಡದಂತೆ ತೆಲುಗಿನಲ್ಲಿಯೂ ಹ್ರಸ್ವ ಎ/ಒ ಮತ್ತು ದೀರ್ಘ ಏ/ಓ ಬೇರೆಬೇರೆ ಅಕ್ಷರಗಳು. ಹಿಂದಿ/ಬಂಗಾಳಿಯಲ್ಲಿ ಈ ಭೇದ ಇಲ್ಲ — ಆದರೆ ನಮ್ಮ ದಕ್ಷಿಣದ ಸೋದರಿಯರಿಗೆ ಇದು ಅಮೂಲ್ಯ ಪರಂಪರೆ. "ಕೆಲಸ" ಬೇರೆ, "ಕೇಳು" ಬೇರೆ.</div>
+
+<div class="video">
+<div class="video-frame"><iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+vowels+achulu+pronunciation" title="Telugu vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<div class="video-caption">ತೆಲುಗು ಸ್ವರಗಳ ಉಚ್ಚಾರ — <a href="https://www.youtube.com/results?search_query=learn+telugu+vowels+achulu+pronunciation" target="_blank" rel="noopener">ಇನ್ನಷ್ಟು ಹುಡುಕಿ ↗</a></div>
+</div>
+</section>
+<section class="stage" id="stage-2">
+<h2 class="stage-title"><span class="num">೦೨</span>ವ್ಯಂಜನಗಳು</h2>
+<p>ತೆಲುಗಿನಲ್ಲಿ ವ್ಯಂಜನವನ್ನು <b>హల్లు</b> ಎನ್ನುತ್ತಾರೆ. ಐದು ವರ್ಗಗಳು — ಕವರ್ಗ, ಚವರ್ಗ, ಟವರ್ಗ, ತವರ್ಗ, ಪವರ್ಗ — ಕನ್ನಡದ ಅದೇ ಕ್ರಮ. ಈಗಾಗಲೇ ತಿಳಿದಿರುವ ರಚನೆ.</p>
+
+<div class="family"><div class="flabel">ಕವರ್ಗ (ಕಂಠ್ಯ)</div>
+<div class="grid g5">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">క</span><span class="kn">ಕ</span><span class="tr">ka</span><div class="hint">కన్ను = ಕಣ್ಣು.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఖ</span><span class="kn">ಖ</span><span class="tr">kha</span><div class="hint">ಖಡ್ಗ/<span class="te">ఖడ్గం</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">గ</span><span class="kn">ಗ</span><span class="tr">ga</span><div class="hint">ಗಾಳಿ/<span class="te">గాలి</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఘ</span><span class="kn">ಘ</span><span class="tr">gha</span><div class="hint">ಘಂಟೆ/<span class="te">గంట</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఙ</span><span class="kn">ಙ</span><span class="tr">ṅa</span><div class="hint">ಅನುನಾಸಿಕ — ಸ್ವತಂತ್ರ ಬಳಕೆ ವಿರಳ.</div></div>
+</div></div>
+
+<div class="family"><div class="flabel">ಚವರ್ಗ (ತಾಲವ್ಯ)</div>
+<div class="grid g5">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">చ</span><span class="kn">ಚ</span><span class="tr">ca</span><div class="hint">చదువు = ಓದು.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఛ</span><span class="kn">ಛ</span><span class="tr">cha</span><div class="hint">ಛಾಯೆ/<span class="te">ఛాయ</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">జ</span><span class="kn">ಜ</span><span class="tr">ja</span><div class="hint">ಜನ/<span class="te">జనం</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఝ</span><span class="kn">ಝ</span><span class="tr">jha</span><div class="hint">ಝರಿ/<span class="te">ఝరి</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఞ</span><span class="kn">ಞ</span><span class="tr">ña</span><div class="hint">ಅನುನಾಸಿಕ.</div></div>
+</div></div>
+
+<div class="family"><div class="flabel">ಟವರ್ಗ (ಮೂರ್ಧನ್ಯ)</div>
+<div class="grid g5">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ట</span><span class="kn">ಟ</span><span class="tr">ṭa</span><div class="hint">ನಾಲಿಗೆ ಮೇಲ್ಮಡಿಕೆಗೆ — ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಇದೆ.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఠ</span><span class="kn">ಠ</span><span class="tr">ṭha</span><div class="hint">ಠಕ್ಕ/<span class="te">ఠక్కు</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">డ</span><span class="kn">ಡ</span><span class="tr">ḍa</span><div class="hint">ಡಬ್ಬ/<span class="te">డబ్బా</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఢ</span><span class="kn">ಢ</span><span class="tr">ḍha</span><div class="hint">ಢಾಲ.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ణ</span><span class="kn">ಣ</span><span class="tr">ṇa</span><div class="hint">ಗಣ/<span class="te">గణం</span>.</div></div>
+</div></div>
+
+<div class="family"><div class="flabel">ತವರ್ಗ (ದಂತ್ಯ)</div>
+<div class="grid g5">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">త</span><span class="kn">ತ</span><span class="tr">ta</span><div class="hint">తల = ತಲೆ.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">థ</span><span class="kn">ಥ</span><span class="tr">tha</span><div class="hint">ಕಥೆ/<span class="te">కథ</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ద</span><span class="kn">ದ</span><span class="tr">da</span><div class="hint">ದಿನ/<span class="te">దినం</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ధ</span><span class="kn">ಧ</span><span class="tr">dha</span><div class="hint">ಧನ್ಯವಾದ/<span class="te">ధన్యవాదాలు</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">న</span><span class="kn">ನ</span><span class="tr">na</span><div class="hint">ನಾನು/<span class="te">నేను</span>.</div></div>
+</div></div>
+
+<div class="family"><div class="flabel">ಪವರ್ಗ (ಓಷ್ಠ್ಯ)</div>
+<div class="grid g5">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ప</span><span class="kn">ಪ</span><span class="tr">pa</span><div class="hint">ಪಾಲು/<span class="te">పాలు</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఫ</span><span class="kn">ಫ</span><span class="tr">pha</span><div class="hint">ಫಲ/<span class="te">ఫలం</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">బ</span><span class="kn">ಬ</span><span class="tr">ba</span><div class="hint">ಬೇಕು — ಕನ್ನಡದ್ದು; ತೆಲುಗು <span class="te">కావాలి</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">భ</span><span class="kn">ಭ</span><span class="tr">bha</span><div class="hint">ಭೂಮಿ/<span class="te">భూమి</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">మ</span><span class="kn">ಮ</span><span class="tr">ma</span><div class="hint">ಮಾವ/<span class="te">మామ</span>.</div></div>
+</div></div>
+
+<div class="family"><div class="flabel">ಅಂತಸ್ಥ ಮತ್ತು ಊಷ್ಮ</div>
+<div class="grid g5">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">య</span><span class="kn">ಯ</span><span class="tr">ya</span><div class="hint">ಯಾರು/<span class="te">ఎవరు</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ర</span><span class="kn">ರ</span><span class="tr">ra</span><div class="hint">ರಾತ್ರಿ/<span class="te">రాత్రి</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ల</span><span class="kn">ಲ</span><span class="tr">la</span><div class="hint">ಲಿಪಿ/<span class="te">లిపి</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">వ</span><span class="kn">ವ</span><span class="tr">va</span><div class="hint">ವನ/<span class="te">వనం</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">శ</span><span class="kn">ಶ</span><span class="tr">śa</span><div class="hint">ಶಾಂತಿ/<span class="te">శాంతి</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ష</span><span class="kn">ಷ</span><span class="tr">ṣa</span><div class="hint">ಷಟ್/<span class="te">షట్</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">స</span><span class="kn">ಸ</span><span class="tr">sa</span><div class="hint">ಸಮಯ/<span class="te">సమయం</span>.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">హ</span><span class="kn">ಹ</span><span class="tr">ha</span><div class="hint">ಹಾಲು — ಕನ್ನಡದ್ದು; ತೆಲುಗು <span class="te">పాలు</span>. ಆದರೆ ತೆಲುಗಿನಲ್ಲಿ హ ಇದೆ (హరి).</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ళ</span><span class="kn">ಳ</span><span class="tr">ḷa</span><div class="hint">ಮೂರ್ಧನ್ಯ ಪಾರ್ಶ್ವಿಕ — ತಮಿಳು, ಮಲಯಾಳಂ, ಕನ್ನಡ ಮತ್ತು ತೆಲುಗು ಮಾತ್ರ ಹಂಚಿಕೊಂಡ ವಿಶೇಷ ಧ್ವನಿ!</div></div>
+</div></div>
+
+<div class="aside"><b>ಅಹಾ!</b> ಕನ್ನಡದ <b>ಳ</b> ಮತ್ತು ತೆಲುಗಿನ <b>ళ</b> — ಇದು ಒಂದೇ ಮೂರ್ಧನ್ಯ ಪಾರ್ಶ್ವಿಕ ಧ್ವನಿ. ಹಿಂದಿ, ಬಂಗಾಳಿ, ಸಂಸ್ಕೃತದಲ್ಲಿ ಈ ಧ್ವನಿ ಇಲ್ಲ. ದ್ರಾವಿಡ ಕುಟುಂಬದ ಹೆಮ್ಮೆ — ಎರಡೂ ಸೋದರಿಯರಿಗೆ ಸಾಮಾನ್ಯ.</div>
+
+<div class="video">
+<div class="video-frame"><iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+consonants+hallulu+pronunciation" title="Telugu consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<div class="video-caption">ತೆಲುಗು ವ್ಯಂಜನಗಳ ಉಚ್ಚಾರ — <a href="https://www.youtube.com/results?search_query=learn+telugu+consonants+hallulu+pronunciation" target="_blank" rel="noopener">ಇನ್ನಷ್ಟು ಹುಡುಕಿ ↗</a></div>
+</div>
+</section>
+<section class="stage" id="stage-3">
+<h2 class="stage-title"><span class="num">೦೩</span>ಸಂಯೋಜನೆ</h2>
+<p>ಕನ್ನಡದಂತೆ ತೆಲುಗಿನಲ್ಲಿಯೂ ಸ್ವರ-ಚಿಹ್ನೆ (ಗುಣಿತಾಕ್ಷರ) ಮತ್ತು ಒತ್ತಕ್ಷರಗಳಿವೆ. ವಿರಾಮ (ಹಲ್ಲು) ಚಿಹ್ನೆ ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ "್" ಆಗಿ ಕಾಣುತ್ತದೆ.</p>
+
+<h3>ಗುಣಿತಾಕ್ಷರ — "ಕ" ಸ್ತಂಭ</h3>
+<table>
+<thead><tr><th>ಸ್ವರ</th><th>ಕನ್ನಡ</th><th>ತೆಲುಗು</th><th>ಉಚ್ಚಾರ</th></tr></thead>
+<tbody>
+<tr><td>ಅ</td><td class="kn">ಕ</td><td><span class="te">క</span></td><td class="mono">ka</td></tr>
+<tr><td>ಆ</td><td class="kn">ಕಾ</td><td><span class="te">కా</span></td><td class="mono">kaː</td></tr>
+<tr><td>ಇ</td><td class="kn">ಕಿ</td><td><span class="te">కి</span></td><td class="mono">ki</td></tr>
+<tr><td>ಈ</td><td class="kn">ಕೀ</td><td><span class="te">కీ</span></td><td class="mono">kiː</td></tr>
+<tr><td>ಉ</td><td class="kn">ಕು</td><td><span class="te">కు</span></td><td class="mono">ku</td></tr>
+<tr><td>ಊ</td><td class="kn">ಕೂ</td><td><span class="te">కూ</span></td><td class="mono">kuː</td></tr>
+<tr><td>ಎ</td><td class="kn">ಕೆ</td><td><span class="te">కె</span></td><td class="mono">ke</td></tr>
+<tr><td>ಏ</td><td class="kn">ಕೇ</td><td><span class="te">కే</span></td><td class="mono">keː</td></tr>
+<tr><td>ಐ</td><td class="kn">ಕೈ</td><td><span class="te">కై</span></td><td class="mono">kai</td></tr>
+<tr><td>ಒ</td><td class="kn">ಕೊ</td><td><span class="te">కొ</span></td><td class="mono">ko</td></tr>
+<tr><td>ಓ</td><td class="kn">ಕೋ</td><td><span class="te">కో</span></td><td class="mono">koː</td></tr>
+<tr><td>ಔ</td><td class="kn">ಕೌ</td><td><span class="te">కౌ</span></td><td class="mono">kau</td></tr>
+</tbody>
+</table>
+
+<div class="aside"><b>ಒಂದೇ ತರ್ಕ!</b> ಕನ್ನಡದ "ಕ → ಕಾ" (ಆಕಾರ ಸೇರ್ಪಡೆ) ಮತ್ತು ತೆಲುಗಿನ "<span class="te">క → కా</span>" (ಕಾಕು ಸೇರ್ಪಡೆ) — ಕಾರ್ಯ ಒಂದೇ, ಆಕಾರ ಬೇರೆ. ೧೨ ಸ್ವರಚಿಹ್ನೆಗಳನ್ನು ಕಲಿತರೆ ಎಲ್ಲಾ ೩೪ ವ್ಯಂಜನಗಳಿಗೂ ಅನ್ವಯ — ಹೀಗೆ ೪೦೦+ ಅಕ್ಷರಗಳು ಸಿಕ್ಕಂತೆ!</div>
+
+<h3>ಒತ್ತಕ್ಷರ (ಸಂಯುಕ್ತಾಕ್ಷರ)</h3>
+<p>ಕನ್ನಡದಲ್ಲಿ ಒತ್ತಕ್ಷರವನ್ನು ಅಕ್ಷರದ ಕೆಳಗೆ ಬರೆಯುತ್ತೇವೆ. ತೆಲುಗಿನಲ್ಲಿಯೂ ಹಾಗೆಯೇ — <b>వత్తు</b> (ವತ್ತು) ಎಂದು ಕರೆಯುತ್ತಾರೆ. ಆಕಾರವೂ ಹತ್ತಿರ.</p>
+<table>
+<thead><tr><th>ಕನ್ನಡ</th><th>ತೆಲುಗು</th><th>ವಿಭಜನೆ</th><th>ಅರ್ಥ</th></tr></thead>
+<tbody>
+<tr><td class="kn">ಪುಸ್ತಕ</td><td><span class="te">పుస్తకం</span></td><td class="mono">ప + ు + స + ్ + త + క + ం</td><td>ಪುಸ್ತಕ</td></tr>
+<tr><td class="kn">ಕೃಷ್ಣ</td><td><span class="te">కృష్ణ</span></td><td class="mono">క + ృ + ష + ్ + ణ</td><td>ಕೃಷ್ಣ</td></tr>
+<tr><td class="kn">ಅಮ್ಮ</td><td><span class="te">అమ్మ</span></td><td class="mono">అ + మ + ్ + మ</td><td>ಅಮ್ಮ</td></tr>
+<tr><td class="kn">ಅಕ್ಕ</td><td><span class="te">అక్క</span></td><td class="mono">అ + క + ్ + క</td><td>ಅಕ್ಕ</td></tr>
+</tbody>
+</table>
+
+<div class="note">ತೆಲುಗಿನ ಅನುಸ್ವಾರ "ం" = ಕನ್ನಡದ "ಂ". ಪದಾಂತ್ಯದ "-ಂ" ಧ್ವನಿ ತೆಲುಗಿನಲ್ಲಿ ಪುಂಸ್ತಸಮ/ನಪುಂಸಕ ನಾಮಪದಗಳಲ್ಲಿ ಸಾಮಾನ್ಯ: ಪುಸ್ತಕಂ, ಸಮಯಂ, ಭೋಜನಂ.</div>
+</section>
+<section class="stage" id="stage-4">
+<h2 class="stage-title"><span class="num">೦೪</span>ಪದಗಳು</h2>
+<p>ಶಬ್ದಕೋಶ ಹೋಲಿಕೆ ~೮೯%. ಕೆಳಗಿನ ಹೆಚ್ಚಿನ ಪದಗಳನ್ನು ನೋಡಿದ ಕೂಡಲೇ ಅರ್ಥ ಹೊಳೆಯುತ್ತದೆ.</p>
+
+<h3>ಸರ್ವನಾಮ</h3>
+<div class="vocab"><span class="te">నేను</span><span class="kn">ನಾನು</span><span class="tr">nēnu</span><span class="tag">ಕನ್ನಡ "ನಾನು" ↔ ತೆಲುಗು "ನೇನು" — ಮೂಲ ಒಂದೇ</span></div>
+<div class="vocab"><span class="te">అతడు</span><span class="kn">ಅವನು</span><span class="tr">ataḍu</span><span class="tag">ತೆಲುಗಿನ ಪುಲ್ಲಿಂಗ "-ಡು" ಪ್ರತ್ಯಯ ಗಮನಿಸಿ</span></div>
+<div class="vocab"><span class="te">ఆమె</span><span class="kn">ಅವಳು</span><span class="tr">āme</span><span class="tag">ಸ್ತ್ರೀಲಿಂಗ</span></div>
+<div class="vocab"><span class="te">అది</span><span class="kn">ಅದು</span><span class="tr">adi</span><span class="tag">ಅಕ್ಷರಶಃ ಒಂದೇ ಉಚ್ಚಾರ</span></div>
+<div class="vocab"><span class="te">ఇది</span><span class="kn">ಇದು</span><span class="tr">idi</span><span class="tag">ಇದೂ ಒಂದೇ</span></div>
+
+<h3>ಮೂಲ ನಾಮಪದಗಳು</h3>
+<div class="vocab"><span class="te">నీరు</span><span class="kn">ನೀರು</span><span class="tr">nīru</span><span class="tag">ದ್ರಾವಿಡ ಮೂಲ — ನಿಖರವಾಗಿ ಒಂದೇ</span></div>
+<div class="vocab"><span class="te">పుస్తకం</span><span class="kn">ಪುಸ್ತಕ</span><span class="tr">pustakaṃ</span><span class="tag">ತತ್ಸಮ — ಅಂತ್ಯದ "-ಂ" ವ್ಯತ್ಯಾಸ ಮಾತ್ರ</span></div>
+<div class="vocab"><span class="te">సమయం</span><span class="kn">ಸಮಯ</span><span class="tr">samayaṃ</span><span class="tag">ತತ್ಸಮ</span></div>
+<div class="vocab"><span class="te">దినం / రోజు</span><span class="kn">ದಿನ</span><span class="tr">dinaṃ / rōju</span><span class="tag">ತತ್ಸಮ + ದೇಶ್ಯ ಎರಡೂ ಇದೆ</span></div>
+<div class="vocab"><span class="te">పాలు</span><span class="kn">ಹಾಲು</span><span class="tr">pālu</span><span class="tag">ದ್ರಾವಿಡ — ಕನ್ನಡ "ಹ" ↔ ತೆಲುಗು "ప"</span></div>
+<div class="vocab"><span class="te">సూర్యుడు</span><span class="kn">ಸೂರ್ಯ</span><span class="tr">sūryuḍu</span><span class="tag">ತತ್ಸಮ + ಪುಲ್ಲಿಂಗ "-ಡು"</span></div>
+<div class="vocab"><span class="te">భూమి</span><span class="kn">ಭೂಮಿ</span><span class="tr">bhūmi</span><span class="tag">ತತ್ಸಮ — ಸಂಪೂರ್ಣ ಒಂದೇ</span></div>
+<div class="vocab"><span class="te">పేరు</span><span class="kn">ಹೆಸರು</span><span class="tr">pēru</span><span class="tag">ದ್ರಾವಿಡ — ಕನ್ನಡ "ಹ" ↔ ತೆಲುಗು "ప"</span></div>
+<div class="vocab"><span class="te">దారి</span><span class="kn">ದಾರಿ</span><span class="tr">dāri</span><span class="tag">ನಿಖರ ಒಂದೇ</span></div>
+<div class="vocab"><span class="te">రాత్రి</span><span class="kn">ರಾತ್ರಿ</span><span class="tr">rātri</span><span class="tag">ತತ್ಸಮ</span></div>
+<div class="vocab"><span class="te">పువ్వు</span><span class="kn">ಹೂವು</span><span class="tr">puvvu</span><span class="tag">ದ್ರಾವಿಡ — ಹ↔ప ಶೃಂಖಲೆ</span></div>
+
+<div class="aside"><b>ಅಹಾ — "ಹ" ↔ "ప" ನಿಯಮ:</b> ಕನ್ನಡದಲ್ಲಿ "ಹ" ಯಿಂದ ಶುರುವಾಗುವ ಅನೇಕ ದ್ರಾವಿಡ ಪದಗಳು ತೆಲುಗಿನಲ್ಲಿ "ప" ಯಾಗಿ ಬರುತ್ತವೆ — ಹಾಲು/పాలు, ಹೂವು/పువ్వు, ಹೆಸರು/పేరు, ಹಳ್ಳ/పల్లె. ಕಾರಣ: ಮೂಲ ಹಳೆಗನ್ನಡದ "ಪ" ಕ್ರಮೇಣ "ಹ" ಆಗಿ ಬದಲಾಯಿತು (ಹ-ಕಾರಾದೇಶ). ತೆಲುಗು ಹಳೆಯ ಸ್ಥಿತಿ ಉಳಿಸಿಕೊಂಡಿದೆ!</div>
+
+<h3>ಕ್ರಿಯಾಪದಗಳು (ಮೂಲ ರೂಪ)</h3>
+<div class="vocab"><span class="te">ఉండు</span><span class="kn">ಇರು</span><span class="tr">uṇḍu</span><span class="tag">ಇರುವುದು</span></div>
+<div class="vocab"><span class="te">పోవు</span><span class="kn">ಹೋಗು</span><span class="tr">pōvu</span><span class="tag">ಮೂಲ ಒಂದೇ — ಹ↔ప</span></div>
+<div class="vocab"><span class="te">రా</span><span class="kn">ಬಾ</span><span class="tr">rā</span><span class="tag">ಬೇರೆ ಧಾತು, ಆದರೆ ಎರಡೂ ಒಂದಕ್ಷರ</span></div>
+<div class="vocab"><span class="te">తిను</span><span class="kn">ತಿನ್ನು</span><span class="tr">tinu</span><span class="tag">ದ್ರಾವಿಡ — ಬಹುತೇಕ ಒಂದೇ</span></div>
+<div class="vocab"><span class="te">చూడు</span><span class="kn">ನೋಡು</span><span class="tr">cūḍu</span><span class="tag">"ಚೂ↔ನೋ" — ಸೋದರ ಧಾತು</span></div>
+<div class="vocab"><span class="te">చదువు</span><span class="kn">ಓದು</span><span class="tr">caduvu</span><span class="tag">ಬೇರೆ ಧಾತು</span></div>
+<div class="vocab"><span class="te">కావాలి</span><span class="kn">ಬೇಕು</span><span class="tr">kāvāli</span><span class="tag">"ಆಗಬೇಕು" ಎಂಬ ಅರ್ಥ</span></div>
+<div class="vocab"><span class="te">తెలుసు</span><span class="kn">ಗೊತ್ತು</span><span class="tr">telusu</span><span class="tag">ದ್ರಾವಿಡ — "ತಿಳಿ" ಸಂಬಂಧಿ</span></div>
+<div class="vocab"><span class="te">నడచు</span><span class="kn">ನಡೆ</span><span class="tr">naḍacu</span><span class="tag">ಒಂದೇ ಧಾತು</span></div>
+<div class="vocab"><span class="te">నిలుచు</span><span class="kn">ನಿಲ್ಲು</span><span class="tr">nilucu</span><span class="tag">ಒಂದೇ ಧಾತು</span></div>
+<div class="vocab"><span class="te">ఇవ్వు</span><span class="kn">ಕೊಡು</span><span class="tr">ivvu</span><span class="tag">ಬೇರೆ ಧಾತು</span></div>
+<div class="vocab"><span class="te">చెప్పు</span><span class="kn">ಹೇಳು</span><span class="tr">ceppu</span><span class="tag">ಬೇರೆ ಧಾತು</span></div>
+
+<h3>ಸಂಖ್ಯೆ</h3>
+<div class="grid g3">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఒకటి</span><span class="kn">ಒಂದು</span><span class="tr">okaṭi</span><div class="hint">ಒಕ್ಕಟಿ ↔ ಒಂದು — ಮೂಲ ಒಂದೇ</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">రెండు</span><span class="kn">ಎರಡು</span><span class="tr">reṇḍu</span><div class="hint">ನಿಖರವಾಗಿ ಸೋದರಿ ಪದ</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">మూడు</span><span class="kn">ಮೂರು</span><span class="tr">mūḍu</span><div class="hint">ಮೂರು ↔ ಮೂಡು — ರ/ಡ ಪರ್ಯಾಯ</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">నాలుగు</span><span class="kn">ನಾಲ್ಕು</span><span class="tr">nālugu</span><div class="hint">ನಾಲ್ಕು ↔ ನಾಲುಗು</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఐదు</span><span class="kn">ಐದು</span><span class="tr">aidu</span><div class="hint">ನಿಖರ ಒಂದೇ!</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">పది</span><span class="kn">ಹತ್ತು</span><span class="tr">padi</span><div class="hint">ಹ↔ಪ ನಿಯಮ ಅನ್ವಯ</div></div>
+</div>
+
+<h3>ಸಂಬಂಧ</h3>
+<div class="vocab"><span class="te">నాన్న</span><span class="kn">ಅಪ್ಪ</span><span class="tr">nānna</span><span class="tag">ಬೇರೆ ಪದ — "ನಾನ್ನ" ಮಗುವಿನ ಭಾಷೆ</span></div>
+<div class="vocab"><span class="te">అమ్మ</span><span class="kn">ಅಮ್ಮ</span><span class="tr">amma</span><span class="tag">ಅಕ್ಷರಶಃ ಒಂದೇ!</span></div>
+<div class="vocab"><span class="te">అన్న</span><span class="kn">ಅಣ್ಣ</span><span class="tr">anna</span><span class="tag">ಣ↔ನ ಮಾತ್ರ ವ್ಯತ್ಯಾಸ</span></div>
+<div class="vocab"><span class="te">అక్క</span><span class="kn">ಅಕ್ಕ</span><span class="tr">akka</span><span class="tag">ಒಂದೇ</span></div>
+<div class="vocab"><span class="te">మామ</span><span class="kn">ಮಾವ</span><span class="tr">māma</span><span class="tag">ಸೋದರ ಪದ</span></div>
+<div class="vocab"><span class="te">అత్త</span><span class="kn">ಅತ್ತೆ</span><span class="tr">atta</span><span class="tag">ಒಂದೇ</span></div>
+
+<h3>ದೇಹ</h3>
+<div class="vocab"><span class="te">తల</span><span class="kn">ತಲೆ</span><span class="tr">tala</span><span class="tag">ದ್ರಾವಿಡ — "ಎ" ಬಿದ್ದಿದೆ</span></div>
+<div class="vocab"><span class="te">కన్ను</span><span class="kn">ಕಣ್ಣು</span><span class="tr">kannu</span><span class="tag">ಕಣ್↔ಕನ್ ಮಾತ್ರ</span></div>
+<div class="vocab"><span class="te">చేయి</span><span class="kn">ಕೈ</span><span class="tr">cēyi</span><span class="tag">ಮೂಲ "ಕೈ" ↔ "ಚೇಯಿ"</span></div>
+<div class="vocab"><span class="te">కాలు</span><span class="kn">ಕಾಲು</span><span class="tr">kālu</span><span class="tag">ನಿಖರ ಒಂದೇ</span></div>
+<div class="vocab"><span class="te">ముక్కు</span><span class="kn">ಮೂಗು</span><span class="tr">mukku</span><span class="tag">ಸೋದರ ಪದ</span></div>
+
+<h3>ಕಾಲ</h3>
+<div class="vocab"><span class="te">ఈరోజు</span><span class="kn">ಇಂದು</span><span class="tr">īrōju</span><span class="tag">"ಈ ರೋಜು" = ಈ ದಿನ</span></div>
+<div class="vocab"><span class="te">రేపు</span><span class="kn">ನಾಳೆ</span><span class="tr">rēpu</span><span class="tag">ಬೇರೆ ಪದ</span></div>
+<div class="vocab"><span class="te">నిన్న</span><span class="kn">ನಿನ್ನೆ</span><span class="tr">ninna</span><span class="tag">ಒಂದೇ!</span></div>
+<div class="vocab"><span class="te">ఇప్పుడు</span><span class="kn">ಈಗ</span><span class="tr">ippuḍu</span><span class="tag">ಬೇರೆ ರೂಪ</span></div>
+
+<div class="aside"><b>ದ್ರಾವಿಡ ಮೂಲ ಪದಗಳ ಗುಚ್ಛ:</b> ನೀರು/<span class="te">నీరు</span>, ಕಣ್ಣು/<span class="te">కన్ను</span>, ಕಾಲು/<span class="te">కాలు</span>, ತಲೆ/<span class="te">తల</span>, ಅಮ್ಮ/<span class="te">అమ్మ</span>, ಅಕ್ಕ/<span class="te">అక్క</span>, ಐದು/<span class="te">ఐదు</span>, ನಿನ್ನೆ/<span class="te">నిన్న</span> — ಎಂಟು ಪದಗಳು ಬಹುತೇಕ ಒಂದೇ. ೮೯% ಶಬ್ದಕೋಶ ಹೋಲಿಕೆಯ ಪ್ರತ್ಯಕ್ಷ ಸಾಕ್ಷಿ.</div>
+</section>
+<section class="stage" id="stage-5">
+<h2 class="stage-title"><span class="num">೦೫</span>ವಾಕ್ಯ ರಚನೆ</h2>
+<p>ಎರಡೂ ಭಾಷೆಗಳ ವಾಕ್ಯ ಕ್ರಮ SOV — ಕರ್ತೃ-ಕರ್ಮ-ಕ್ರಿಯೆ. ಉದಾಹರಣೆ:</p>
+<div class="passage">
+<span class="kn" style="font-size:18px">ನಾನು ಪುಸ್ತಕವನ್ನು ಓದುತ್ತೇನೆ.</span>
+<span class="te">నేను పుస్తకం చదువుతాను.</span>
+<span class="tr">nēnu pustakaṃ caduvutānu</span>
+<span class="gl">ಪ್ರತಿಯೊಂದೂ ಪದ ಸ್ಥಾನ ನಿಖರವಾಗಿ ಒಂದೇ — ಅನುವಾದ ಮಾಡಲು ಪದ ಬದಲಾಯಿಸಿ ಸಾಕು.</span>
+</div>
+
+<h3>ಕ್ರಿಯಾ ರೂಪ — "చేయు" (ಮಾಡು)</h3>
+<table>
+<thead><tr><th>ವ್ಯಕ್ತಿ</th><th>ಕನ್ನಡ</th><th>ತೆಲುಗು</th></tr></thead>
+<tbody>
+<tr><td>ನಾನು (1ಉ)</td><td>ಮಾಡುತ್ತೇನೆ</td><td><span class="te">చేస్తాను</span> <span class="tr">cēstānu</span></td></tr>
+<tr><td>ನೀನು (2ಉ)</td><td>ಮಾಡುತ್ತೀಯ</td><td><span class="te">చేస్తావు</span> <span class="tr">cēstāvu</span></td></tr>
+<tr><td>ಅವನು (3ಉಪು)</td><td>ಮಾಡುತ್ತಾನೆ</td><td><span class="te">చేస్తాడు</span> <span class="tr">cēstāḍu</span></td></tr>
+<tr><td>ಅವಳು (3ಉಸ್ತ್ರೀ)</td><td>ಮಾಡುತ್ತಾಳೆ</td><td><span class="te">చేస్తుంది</span> <span class="tr">cēstundi</span></td></tr>
+<tr><td>ನಾವು (1ಬ)</td><td>ಮಾಡುತ್ತೇವೆ</td><td><span class="te">చేస్తాము</span> <span class="tr">cēstāmu</span></td></tr>
+<tr><td>ನೀವು (2ಆದರ)</td><td>ಮಾಡುತ್ತೀರಿ</td><td><span class="te">చేస్తారు</span> <span class="tr">cēstāru</span></td></tr>
+<tr><td>ಅವರು (3ಬ)</td><td>ಮಾಡುತ್ತಾರೆ</td><td><span class="te">చేస్తారు</span> <span class="tr">cēstāru</span></td></tr>
+</tbody>
+</table>
+
+<div class="aside"><b>ಅಹಾ — ಕ್ರಿಯಾಪದ ಲಿಂಗಭೇದ!</b> ಕನ್ನಡದಲ್ಲಿ "ಮಾಡುತ್ತಾನೆ/ಮಾಡುತ್ತಾಳೆ/ಮಾಡುತ್ತದೆ" — ಪುಲ್ಲಿಂಗ/ಸ್ತ್ರೀಲಿಂಗ/ನಪುಂಸಕ ಮೂರೂ ಬೇರೆ. ತೆಲುಗಿನಲ್ಲಿಯೂ ಅದೇ: <span class="te">చేస్తాడు/చేస్తుంది/చేస్తుంది</span>. ಆದರೆ ಸ್ತ್ರೀಲಿಂಗ ಮತ್ತು ನಪುಂಸಕ ಏಕರೂಪ — ಇದನ್ನು "ಮಹತ್ತರ/ಅಮಹತ್ತರ" ಭೇದ ಎನ್ನುತ್ತಾರೆ. ಇದು ದ್ರಾವಿಡ ವ್ಯಾಕರಣದ ಪ್ರಾಚೀನ ಲಕ್ಷಣ.</div>
+
+<h3>ವಿಭಕ್ತಿ ಪ್ರತ್ಯಯ</h3>
+<table>
+<thead><tr><th>ವಿಭಕ್ತಿ</th><th>ಕನ್ನಡ</th><th>ತೆಲುಗು</th><th>ಉದಾಹರಣೆ</th></tr></thead>
+<tbody>
+<tr><td>ಪ್ರಥಮಾ</td><td>—</td><td>—</td><td>ರಾಮ / <span class="te">రాముడు</span></td></tr>
+<tr><td>ದ್ವಿತೀಯಾ</td><td>-ಅನ್ನು</td><td>-ని/-ను</td><td>ರಾಮನನ್ನು / <span class="te">రాముడిని</span></td></tr>
+<tr><td>ಚತುರ್ಥಿ</td><td>-ಗೆ</td><td>-కి/-కు</td><td>ರಾಮನಿಗೆ / <span class="te">రాముడికి</span></td></tr>
+<tr><td>ಪಂಚಮಿ</td><td>-ಇಂದ</td><td>-నుండి</td><td>ಮನೆಯಿಂದ / <span class="te">ఇంటినుండి</span></td></tr>
+<tr><td>ಷಷ್ಠಿ</td><td>-ಅ</td><td>-యొక్క</td><td>ರಾಮನ / <span class="te">రాముడియొక్క</span></td></tr>
+<tr><td>ಸಪ್ತಮಿ</td><td>-ಅಲ್ಲಿ</td><td>-లో</td><td>ಮನೆಯಲ್ಲಿ / <span class="te">ఇంట్లో</span></td></tr>
+</tbody>
+</table>
+
+<h3>ಪ್ರಶ್ನಾರ್ಥಕ ಪದಗಳು</h3>
+<div class="grid g3">
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఏమిటి</span><span class="kn">ಏನು</span><span class="tr">ēmiṭi</span><div class="hint">"ಇದು ಏನು?" = <span class="te">ఇది ఏమిటి?</span></div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఎవరు</span><span class="kn">ಯಾರು</span><span class="tr">evaru</span><div class="hint">ಎ-ಮೂಲ — ಎ/ಇ/ಉ ಸರ್ವನಾಮ ಮೂಲಗಳು ದ್ರಾವಿಡದ್ದು.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఎక్కడ</span><span class="kn">ಎಲ್ಲಿ</span><span class="tr">ekkaḍa</span><div class="hint">ಎರಡೂ "ಎ" ಮೂಲ.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఎప్పుడు</span><span class="kn">ಯಾವಾಗ</span><span class="tr">eppuḍu</span><div class="hint">ಕಾಲ ಪ್ರಶ್ನೆ.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఎందుకు</span><span class="kn">ಏಕೆ</span><span class="tr">enduku</span><div class="hint">ಕಾರಣ ಪ್ರಶ್ನೆ.</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><span class="big te">ఎలా</span><span class="kn">ಹೇಗೆ</span><span class="tr">elā</span><div class="hint">ರೀತಿ ಪ್ರಶ್ನೆ.</div></div>
+</div>
+
+<div class="aside"><b>"ಎ"-ಮೂಲ ಪ್ರಶ್ನಾರ್ಥಕಗಳು:</b> ಕನ್ನಡ ಏನು/ಎಲ್ಲಿ/ಏಕೆ — ತೆಲುಗು <span class="te">ఏమిటి/ఎక్కడ/ఎందుకు</span>. ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಪ್ರಶ್ನಾರ್ಥಕ "ಎ"-ಯಿಂದ ಆರಂಭ. ದ್ರಾವಿಡ ಮೂಲ ತರ್ಕ.</div>
+
+<h3>ನಿಷೇಧ</h3>
+<div class="passage">
+<span class="te">నాకు తెలియదు.</span>
+<span class="tr">nāku teliyadu</span>
+<span class="gl">ಕನ್ನಡ: ನನಗೆ ಗೊತ್ತಿಲ್ಲ. ("-ಅದು" = "-ಇಲ್ಲ" ನಿಷೇಧ ಪ್ರತ್ಯಯ.)</span>
+</div>
+<div class="passage">
+<span class="te">నేను రాను.</span>
+<span class="tr">nēnu rānu</span>
+<span class="gl">ಕನ್ನಡ: ನಾನು ಬರುವುದಿಲ್ಲ. (ಧಾತುವಿಗೆ "-ನು" ಸೇರಿ ನಿಷೇಧ.)</span>
+</div>
+</section>
+<section class="stage" id="stage-6">
+<h2 class="stage-title"><span class="num">೦೬</span>ಓದು</h2>
+<p>ಮೂರು ಪಾಠಗಳು — ಮೊದಲು ನಿಧಾನವಾಗಿ, ಶಬ್ದಶಃ ಓದಿ. ನಂತರ ಲಿಪ್ಯಂತರ ಕಡೆಗಣಿಸಿ ಕೇವಲ ತೆಲುಗು ಅಕ್ಷರಗಳನ್ನೇ ನೋಡಿ.</p>
+
+<h3>೧. ಸ್ವ-ಪರಿಚಯ</h3>
+<div class="passage">
+<span class="te">నా పేరు రవి. నేను బెంగళూరులో ఉంటాను. నాకు తెలుగు నేర్చుకోవడం ఇష్టం. మా అమ్మ పేరు సీత. మేము కన్నడ మాట్లాడతాము.</span>
+<span class="tr">nā pēru ravi. nēnu beṅgaḷūrulō uṇṭānu. nāku telugu nērcukōvaḍaṃ iṣṭaṃ. mā amma pēru sīta. mēmu kannaḍa māṭlāḍatāmu.</span>
+<span class="gl">ನನ್ನ ಹೆಸರು ರವಿ. ನಾನು ಬೆಂಗಳೂರಿನಲ್ಲಿ ಇರುತ್ತೇನೆ. ನನಗೆ ತೆಲುಗು ಕಲಿಯುವುದು ಇಷ್ಟ. ನಮ್ಮ ಅಮ್ಮನ ಹೆಸರು ಸೀತ. ನಾವು ಕನ್ನಡ ಮಾತಾಡುತ್ತೇವೆ.</span>
+</div>
+
+<h3>೨. ದಿನಚರಿ</h3>
+<div class="passage">
+<span class="te">నేను ప్రతిరోజు ఉదయం ఆరు గంటలకు లేస్తాను. ముఖం కడుక్కొని కాఫీ తాగుతాను. తరువాత పుస్తకం చదువుతాను. మధ్యాహ్నం భోజనం చేస్తాను. సాయంత్రం అమ్మతో మాట్లాడతాను. రాత్రి తొమ్మిది గంటలకు నిద్రపోతాను.</span>
+<span class="tr">nēnu pratirōju udayaṃ āru gaṇṭalaku lēstānu. mukhaṃ kaḍukkoni kāphī tāgutānu. taruvāta pustakaṃ caduvutānu. madhyāhnaṃ bhōjanaṃ cēstānu. sāyantraṃ ammatō māṭlāḍatānu. rātri tommidi gaṇṭalaku nidrapōtānu.</span>
+<span class="gl">ನಾನು ಪ್ರತಿದಿನ ಬೆಳಿಗ್ಗೆ ಆರು ಗಂಟೆಗೆ ಏಳುತ್ತೇನೆ. ಮುಖ ತೊಳೆದು ಕಾಫಿ ಕುಡಿಯುತ್ತೇನೆ. ಆನಂತರ ಪುಸ್ತಕ ಓದುತ್ತೇನೆ. ಮಧ್ಯಾಹ್ನ ಊಟ ಮಾಡುತ್ತೇನೆ. ಸಂಜೆ ಅಮ್ಮನೊಂದಿಗೆ ಮಾತಾಡುತ್ತೇನೆ. ರಾತ್ರಿ ಒಂಬತ್ತು ಗಂಟೆಗೆ ಮಲಗುತ್ತೇನೆ.</span>
+</div>
+
+<h3>೩. ಸಂವಾದ</h3>
+<div class="passage">
+<span class="te">రవి: నమస్కారం! మీ పేరు ఏమిటి?</span>
+<span class="tr">ravi: namaskāraṃ! mī pēru ēmiṭi?</span>
+<span class="gl">ರವಿ: ನಮಸ್ಕಾರ! ನಿಮ್ಮ ಹೆಸರು ಏನು?</span>
+</div>
+<div class="passage">
+<span class="te">ప్రియ: నా పేరు ప్రియ. మీరు ఎక్కడి నుండి వచ్చారు?</span>
+<span class="tr">priya: nā pēru priya. mīru ekkaḍi nuṇḍi vaccāru?</span>
+<span class="gl">ಪ್ರಿಯ: ನನ್ನ ಹೆಸರು ಪ್ರಿಯ. ನೀವು ಎಲ್ಲಿಂದ ಬಂದಿರಿ?</span>
+</div>
+<div class="passage">
+<span class="te">రవి: నేను మైసూరు నుండి వచ్చాను. తెలుగు నేర్చుకుంటున్నాను.</span>
+<span class="tr">ravi: nēnu maisūru nuṇḍi vaccānu. telugu nērcukuṇṭunnānu.</span>
+<span class="gl">ರವಿ: ನಾನು ಮೈಸೂರಿನಿಂದ ಬಂದೆ. ತೆಲುಗು ಕಲಿಯುತ್ತಿದ್ದೇನೆ.</span>
+</div>
+<div class="passage">
+<span class="te">ప్రియ: చాలా బాగుంది! తెలుగు కష్టమా?</span>
+<span class="tr">priya: cālā bāguṃdi! telugu kaṣṭamā?</span>
+<span class="gl">ಪ್ರಿಯ: ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ! ತೆಲುಗು ಕಷ್ಟವಾ?</span>
+</div>
+<div class="passage">
+<span class="te">రవి: కాదు, కన్నడ తెలుగు చాలా దగ్గరగా ఉంటాయి.</span>
+<span class="tr">ravi: kādu, kannaḍa telugu cālā daggaragā uṇṭāyi.</span>
+<span class="gl">ರವಿ: ಇಲ್ಲ, ಕನ್ನಡ ಮತ್ತು ತೆಲುಗು ತುಂಬಾ ಹತ್ತಿರ ಇವೆ.</span>
+</div>
+<div class="passage">
+<span class="te">ప్రియ: నిజమే! ధన్యవాదాలు.</span>
+<span class="tr">priya: nijamē! dhanyavādālu.</span>
+<span class="gl">ಪ್ರಿಯ: ನಿಜ! ಧನ್ಯವಾದಗಳು.</span>
+</div>
+
+<div class="aside"><b>ಗಮನಿಸಿ:</b> ಮೇಲಿನ ಸಂವಾದದಲ್ಲಿ "ಚಾಲಾ" (<span class="te">చాలా</span>) = ಕನ್ನಡ "ಚಾಲಾ/ತುಂಬಾ". ಬಾಗುಂಡಿ (<span class="te">బాగుంది</span>) = "ಬಾಗಿದೆ/ಚೆನ್ನಾಗಿದೆ". ನಿಜಮೇ (<span class="te">నిజమే</span>) = "ನಿಜವೇ". ಸಂಸ್ಕೃತ ಮತ್ತು ದ್ರಾವಿಡ ಮೂಲಗಳು ಒಂದೇ ಆಗಿರುವುದರಿಂದ ಅರ್ಥ ತಕ್ಷಣ ಹೊಳೆಯುತ್ತದೆ.</div>
+</section>
+<section class="stage" id="stage-7">
+<h2 class="stage-title"><span class="num">೦೭</span>ಪದಕ್ಷೇತ್ರ</h2>
+<p>ಒಂದೇ ಪರಿಕಲ್ಪನೆಯನ್ನು ಎರಡೂ ಭಾಷೆಗಳು ಹೇಗೆ ವಿಭಜಿಸುತ್ತವೆ ಎಂದು ನೋಡೋಣ.</p>
+
+<h3>ಬಂಧುತ್ವ — ವಯಸ್ಸಿನ ಆಧಾರದ ಮೇಲೆ</h3>
+<p>ಕನ್ನಡ ಮತ್ತು ತೆಲುಗು ಎರಡೂ ದ್ರಾವಿಡ ಕುಟುಂಬ ಕ್ರಮವನ್ನು ಅನುಸರಿಸುತ್ತವೆ — ಹಿರಿಯ/ಕಿರಿಯ, ತಾಯಿ ಕಡೆ/ತಂದೆ ಕಡೆ ಎಂಬ ಭೇದ ಎರಡರಲ್ಲೂ ಇದೆ.</p>
+<table>
+<thead><tr><th>ಸಂಬಂಧ</th><th>ಕನ್ನಡ</th><th>ತೆಲುಗು</th></tr></thead>
+<tbody>
+<tr><td>ಹಿರಿಯ ಅಣ್ಣ</td><td>ಅಣ್ಣ</td><td><span class="te">అన్న</span></td></tr>
+<tr><td>ಕಿರಿಯ ತಮ್ಮ</td><td>ತಮ್ಮ</td><td><span class="te">తమ్ముడు</span></td></tr>
+<tr><td>ಹಿರಿಯ ಅಕ್ಕ</td><td>ಅಕ್ಕ</td><td><span class="te">అక్క</span></td></tr>
+<tr><td>ಕಿರಿಯ ತಂಗಿ</td><td>ತಂಗಿ</td><td><span class="te">చెల్లి</span></td></tr>
+<tr><td>ಮಾವ (ತಾಯಿ ಕಡೆ)</td><td>ಮಾವ</td><td><span class="te">మామ</span></td></tr>
+<tr><td>ಅತ್ತೆ</td><td>ಅತ್ತೆ</td><td><span class="te">అత్త</span></td></tr>
+</tbody>
+</table>
+
+<div class="aside"><b>ಅಹಾ!</b> ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಮೂರು ಲಿಂಗ — ಪುಲ್ಲಿಂಗ/ಸ್ತ್ರೀಲಿಂಗ/ನಪುಂಸಕಲಿಂಗ — ಕ್ರಿಯಾಪದದಲ್ಲಿ ಲಿಂಗಭೇದ. "ತಮ್ಮ" ಕನ್ನಡದಲ್ಲಿ ಸರಳ, ತೆಲುಗಿನಲ್ಲಿ <span class="te">తమ్ముడు</span> — ಪುಲ್ಲಿಂಗ "-ಡು" ಸೇರಿಸಿದೆ.</div>
+
+<h3>ಕಾಲ — ಒಂದೇ ರೀತಿಯ ವಿಭಜನೆ</h3>
+<table>
+<thead><tr><th>ಅರ್ಥ</th><th>ಕನ್ನಡ</th><th>ತೆಲುಗು</th></tr></thead>
+<tbody>
+<tr><td>ಇಂದು</td><td>ಇಂದು</td><td><span class="te">ఈరోజు</span></td></tr>
+<tr><td>ನಿನ್ನೆ</td><td>ನಿನ್ನೆ</td><td><span class="te">నిన్న</span></td></tr>
+<tr><td>ನಾಳೆ</td><td>ನಾಳೆ</td><td><span class="te">రేపు</span></td></tr>
+<tr><td>ಈಗ</td><td>ಈಗ</td><td><span class="te">ఇప్పుడు</span></td></tr>
+<tr><td>ಬೆಳಿಗ್ಗೆ</td><td>ಬೆಳಿಗ್ಗೆ</td><td><span class="te">ఉదయం</span></td></tr>
+<tr><td>ಸಂಜೆ</td><td>ಸಂಜೆ</td><td><span class="te">సాయంత్రం</span></td></tr>
+<tr><td>ರಾತ್ರಿ</td><td>ರಾತ್ರಿ</td><td><span class="te">రాత్రి</span></td></tr>
+</tbody>
+</table>
+
+<div class="note">ಕನ್ನಡ ಮತ್ತು ತೆಲುಗು ಎರಡೂ "ನಾಳೆ/ನಿನ್ನೆ" ಗೆ ಬೇರೆಬೇರೆ ಪದಗಳನ್ನು ಬಳಸುತ್ತವೆ — ಬಂಗಾಳಿಯ "ಕಾಲ್" ನಂತೆ ಒಂದೇ ಪದ ಎರಡು ಕಡೆ ಕೆಲಸ ಮಾಡುವುದಿಲ್ಲ.</div>
+
+<h3>ಚಲನೆ — ಕ್ರಿಯಾಪದಗಳು</h3>
+<table>
+<thead><tr><th>ಅರ್ಥ</th><th>ಕನ್ನಡ</th><th>ತೆಲುಗು</th></tr></thead>
+<tbody>
+<tr><td>ಹೋಗು</td><td>ಹೋಗು</td><td><span class="te">పోవు / వెళ్ళు</span></td></tr>
+<tr><td>ಬಾ</td><td>ಬಾ</td><td><span class="te">రా</span></td></tr>
+<tr><td>ನಡೆ</td><td>ನಡೆ</td><td><span class="te">నడచు</span></td></tr>
+<tr><td>ನಿಲ್ಲು</td><td>ನಿಲ್ಲು</td><td><span class="te">నిలుచు</span></td></tr>
+<tr><td>ಕೂರು</td><td>ಕುಳಿತುಕೋ</td><td><span class="te">కూర్చో</span></td></tr>
+<tr><td>ಏಳು</td><td>ಏಳು</td><td><span class="te">లేచు</span></td></tr>
+</tbody>
+</table>
+
+<div class="aside"><b>ತತ್ಸಮ ಆಳ:</b> ಸಂಸ್ಕೃತ ಮೂಲದ ಪದಗಳನ್ನು ಎರಡೂ ಭಾಷೆಗಳು ಆಳವಾಗಿ ಹೀರಿಕೊಂಡಿವೆ — ಸಮಯ, ಪುಸ್ತಕ, ಭೂಮಿ, ಸೂರ್ಯ, ಶಾಂತಿ, ನಮಸ್ಕಾರ, ಧನ್ಯವಾದ, ಪ್ರೇಮ, ಜ್ಞಾನ. ಅನೇಕ ತತ್ಸಮ ಪದಗಳು ತೆಲುಗಿನಲ್ಲಿ "-ಂ" ಅನುಸ್ವಾರದೊಂದಿಗೆ ಬರುತ್ತವೆ: ಸಮಯಂ, ಪುಸ್ತಕಂ, ಭೋಜನಂ.</div>
+</section>
+<section class="stage" id="stage-8">
+<h2 class="stage-title"><span class="num">೦೮</span>ಬಳಕೆ</h2>
+<p>ಭಾಷೆ ಬಾಯಿಗೆ ಬರಲು ಕೇವಲ ಪದಗಳು ಸಾಲದು — ಸಂದರ್ಭ, ಮರ್ಯಾದೆ, ಸಂಬೋಧನೆ ಎಲ್ಲ ಬೇಕು.</p>
+
+<h3>ಸಾಮಾನ್ಯ ನುಡಿಗಟ್ಟುಗಳು</h3>
+<div class="vocab"><span class="te">నమస్కారం</span><span class="kn">ನಮಸ್ಕಾರ</span><span class="tr">namaskāraṃ</span><span class="tag">ತತ್ಸಮ — ಸಂಪೂರ್ಣ ಒಂದೇ</span></div>
+<div class="vocab"><span class="te">ధన్యవాదాలు</span><span class="kn">ಧನ್ಯವಾದಗಳು</span><span class="tr">dhanyavādālu</span><span class="tag">ತೆಲುಗು ಬಹುವಚನ "-ಆಲು"</span></div>
+<div class="vocab"><span class="te">కావాలి</span><span class="kn">ಬೇಕು</span><span class="tr">kāvāli</span><span class="tag">"ಆಗಬೇಕು" ಅರ್ಥ</span></div>
+<div class="vocab"><span class="te">తెలియదు</span><span class="kn">ಗೊತ್ತಿಲ್ಲ</span><span class="tr">teliyadu</span><span class="tag">"ತಿಳಿಯದು" ಮೂಲ</span></div>
+
+<h3>ಊಟದ ಬಗ್ಗೆ — ಸಾರ್ವತ್ರಿಕ ಸೌಹಾರ್ದ</h3>
+<div class="passage">
+<span class="te">భోజనం అయిందా?</span>
+<span class="tr">bhōjanaṃ ayindā?</span>
+<span class="gl">ಕನ್ನಡ: "ಊಟ ಆಯಿತಾ?" ಎಂದೇ ಕೇಳುತ್ತೇವೆ. ಇದು ಕೇವಲ ಪ್ರಶ್ನೆ ಅಲ್ಲ — ಇದು ವಾತ್ಸಲ್ಯದ ಅಭಿವ್ಯಕ್ತಿ. ದಕ್ಷಿಣ ಭಾರತದ ಸಾಮಾನ್ಯ ಉಪಚಾರ.</span>
+</div>
+
+<div class="aside"><b>ಸಂಸ್ಕೃತಿಯ ಸೇತುವೆ:</b> "ಊಟ ಆಯಿತಾ?" ಎಂದು ಕೇಳುವುದು ಕನ್ನಡಿಗ/ತೆಲುಗಿಗ ಇಬ್ಬರಿಗೂ ಸಾಮಾನ್ಯ. ಅದು ಪಶ್ಚಿಮದ "how are you?" ಅಲ್ಲ — ಅದು "ನಿಮ್ಮ ಕಾಳಜಿ ನನಗಿದೆ" ಎಂಬ ಭಾವ. ಎರಡೂ ಭಾಷಿಕರು ಇದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುತ್ತಾರೆ.</div>
+
+<h3>ಮೃದುಕಾರಕ ಪದ — "కొంచెం"</h3>
+<div class="passage">
+<span class="te">కొంచెం నీళ్ళు ఇవ్వండి.</span>
+<span class="tr">koñceṃ nīḷḷu ivvaṇḍi.</span>
+<span class="gl">ಕನ್ನಡ: "ಸ್ವಲ್ಪ ನೀರು ಕೊಡಿ." ("ಕೊಂಚೆಂ" = "ಸ್ವಲ್ಪ" — ವಿನಂತಿಯನ್ನು ಮೃದುಗೊಳಿಸುತ್ತದೆ. "ಇವ್ವಂಡಿ" = ಆದರಾರ್ಥಕ "ಕೊಡಿ".)</span>
+</div>
+
+<h3>ಗೌರವಾರ್ಥಕ — "-ಅಂಡಿ"</h3>
+<p>ಕನ್ನಡದ "-ಇರಿ" (ಮಾಡಿ, ಬನ್ನಿ) ಗೆ ಸಮ ತೆಲುಗಿನಲ್ಲಿ "-ಅಂಡಿ". ಗಮನಿಸಿ:</p>
+<table>
+<thead><tr><th>ಅರ್ಥ</th><th>ಕನ್ನಡ (ಸಹಜ)</th><th>ಕನ್ನಡ (ಆದರ)</th><th>ತೆಲುಗು (ಸಹಜ)</th><th>ತೆಲುಗು (ಆದರ)</th></tr></thead>
+<tbody>
+<tr><td>ಬಾ</td><td>ಬಾ</td><td>ಬನ್ನಿ</td><td><span class="te">రా</span></td><td><span class="te">రండి</span></td></tr>
+<tr><td>ಹೇಳು</td><td>ಹೇಳು</td><td>ಹೇಳಿ</td><td><span class="te">చెప్పు</span></td><td><span class="te">చెప్పండి</span></td></tr>
+<tr><td>ಮಾಡು</td><td>ಮಾಡು</td><td>ಮಾಡಿ</td><td><span class="te">చేయి</span></td><td><span class="te">చేయండి</span></td></tr>
+</tbody>
+</table>
+
+<h3>ಅಪರಿಚಿತರೊಂದಿಗೆ ಸಂಬೋಧನೆ</h3>
+<div class="vocab"><span class="te">అన్నా</span><span class="kn">ಅಣ್ಣಾ</span><span class="tr">annā</span><span class="tag">ಹಿರಿಯ ಪುರುಷ ಅಪರಿಚಿತರಿಗೆ — ಎರಡೂ ಭಾಷೆಗಳಲ್ಲಿ ಒಂದೇ!</span></div>
+<div class="vocab"><span class="te">అక్కా</span><span class="kn">ಅಕ್ಕಾ</span><span class="tr">akkā</span><span class="tag">ಹಿರಿಯ ಸ್ತ್ರೀ ಅಪರಿಚಿತರಿಗೆ</span></div>
+
+<div class="aside"><b>ಸಂಬಂಧದ ಭಾಷೆ:</b> ಕನ್ನಡದಲ್ಲಿ ಅಂಗಡಿಯವನಿಗೆ "ಅಣ್ಣಾ", ಆಟೋದವನಿಗೆ "ಅಣ್ಣಾ" — ತೆಲುಗಿನಲ್ಲಿಯೂ ಅದೇ "ಅನ್ನಾ!". ಅಪರಿಚಿತರನ್ನು ಕುಟುಂಬದ ಸದಸ್ಯರಂತೆ ಸಂಬೋಧಿಸುವ ಈ ಸಂಸ್ಕೃತಿ ದಕ್ಷಿಣ ಭಾರತದ ಹೃದಯ.</div>
+</section>
+<section class="stage" id="stage-9">
+<h2 class="stage-title"><span class="num">೦೯</span>ಸಾಹಿತ್ಯ</h2>
+<p>ತೆಲುಗು ಸಾಹಿತ್ಯ ಸುಮಾರು ೧೦೦೦ ವರ್ಷಗಳಷ್ಟು ಹಳೆಯದು. ನನ್ನಯ (೧೧ನೇ ಶತಮಾನ) ನಿಂದ ಆರಂಭಗೊಂಡು — ಕನ್ನಡದ ಪಂಪ (೧೦ನೇ ಶತಮಾನ) ನಂತೆಯೇ — ಮಹಾಭಾರತ ಅನುವಾದದೊಂದಿಗೆ ಶುರುವಾಗುತ್ತದೆ.</p>
+
+<div class="litbridge">
+<div class="names"><span class="te">నన్నయ</span> ↔ ಪಂಪ</div>
+<p>ತೆಲುಗಿನ ಆದಿಕವಿ ನನ್ನಯ "ಆಂಧ್ರ ಮಹಾಭಾರತ"ಮ್ ಶುರು ಮಾಡಿದಂತೆ, ಕನ್ನಡದ ಆದಿಕವಿ ಪಂಪ "ವಿಕ್ರಮಾರ್ಜುನ ವಿಜಯ" ಬರೆದ. ಇಬ್ಬರೂ ಭಾರತವನ್ನು ಜನಭಾಷೆಗೆ ತಂದ ಮೊದಲ ಕವಿಗಳು.</p>
+</div>
+
+<div class="litbridge">
+<div class="names"><span class="te">వేమన</span> ↔ ಬಸವಣ್ಣ</div>
+<p>ಹದಿನೇಳನೆಯ ಶತಮಾನದ ವೇಮನ ಆಚಾರ-ವಿರೋಧಿ ಆಟವೆಲದಿ ಪದ್ಯಗಳನ್ನು ಜನಸಾಮಾನ್ಯ ಭಾಷೆಯಲ್ಲಿ ಬರೆದಿದ್ದು — ಬಸವಣ್ಣನವರ ವಚನಗಳ ತತ್ವಕ್ಕೆ ನೇರ ಪ್ರತಿಧ್ವನಿ. ಇಬ್ಬರೂ ಕರ್ಮಕಾಂಡ-ವಿರೋಧಿ, ಸಮಾನತೆಯ ಕಹಳೆ.</p>
+</div>
+
+<div class="litbridge">
+<div class="names">ಗುರಜಾಡ ಅಪ್ಪಾರಾವು ↔ ಕುಮಾರವ್ಯಾಸ</div>
+<p>ಗುರಜಾಡ ಆಧುನಿಕ ತೆಲುಗಿನ ಪಿತಾಮಹ — ಅವರ "ಮುತ್ಯಾಲ ಸರಂ"ಮ್ ಮತ್ತು "ಕನ್ಯಾಶುಲ್ಕಂ" ಭಾಷೆಗೆ ಜನಸಾಮಾನ್ಯರ ಧ್ವನಿ ನೀಡಿದವು. ಕನ್ನಡದಲ್ಲಿ ಕುಮಾರವ್ಯಾಸ "ಗದುಗಿನ ಭಾರತ"ವನ್ನು ಜನರ ಕನ್ನಡದಲ್ಲಿ ಬರೆದಂತೆ.</p>
+</div>
+
+<div class="litbridge">
+<div class="names"><span class="te">విశ్వనాథ సత్యనారాయణ</span> ↔ ಕುವೆಂಪು</div>
+<p>ವಿಶ್ವನಾಥ ಸತ್ಯನಾರಾಯಣ ಅವರ "ವೇಯಿ ಪಡಗಲು" ಪ್ರಾಂತೀಯ ಸಂಸ್ಕೃತಿಯ ಮಹಾಕಾವ್ಯ — ಮೊದಲ ತೆಲುಗು ಜ್ಞಾನಪೀಠ ಪ್ರಶಸ್ತಿ. ಕನ್ನಡದ ಕುವೆಂಪು ಅವರ "ಶ್ರೀ ರಾಮಾಯಣ ದರ್ಶನಂ" ಅಂತಹುದೇ — ಮಹಾಕಾವ್ಯ ಮೌಲ್ಯ, ಮೊದಲ ಕನ್ನಡ ಜ್ಞಾನಪೀಠ.</p>
+</div>
+
+<div class="litbridge">
+<div class="names"><span class="te">శ్రీ శ్రీ</span> ↔ ಬೇಂದ್ರೆ</div>
+<p>ಶ್ರೀ ಶ್ರೀ ಅವರ "ಮಹಾಪ್ರಸ್ಥಾನಂ" ಕ್ರಾಂತಿಕಾರಿ ಕವಿತೆಯ ಹೊಸ ಅಲೆ — ಸಂಪ್ರದಾಯ ಭಂಜನೆ. ಕನ್ನಡದ ಬೇಂದ್ರೆಯ ನವೋದಯ ಕಾವ್ಯ ಅಂತಹುದೇ ಲಯಾತ್ಮಕ ಕ್ರಾಂತಿ — ಭಾಷೆಯ ಸಂಗೀತವನ್ನು ಮುಕ್ತಗೊಳಿಸಿದ ಕವಿಗಳು.</p>
+</div>
+
+<div class="litbridge">
+<div class="names"><span class="te">విశ్వనాథ</span> ↔ ಕಾರಂತ</div>
+<p>ವಿಶ್ವನಾಥ ಸತ್ಯನಾರಾಯಣ ಹೇಗೆ ಆಂಧ್ರ ಪ್ರಾಂತ್ಯದ ಪ್ರಾದೇಶಿಕ ಬದುಕನ್ನು ಕಾದಂಬರಿಗಳಲ್ಲಿ ಬಂಧಿಸಿದರೋ, ಹಾಗೆಯೇ ಶಿವರಾಮ ಕಾರಂತ "ಮರಳಿ ಮಣ್ಣಿಗೆ", "ಚೋಮನ ದುಡಿ"ಯಲ್ಲಿ ಕರಾವಳಿಯ ಜೀವನವನ್ನು — ಇಬ್ಬರೂ ಪ್ರಾದೇಶಿಕ ಮಹಾಕಾವ್ಯ ಕಾದಂಬರಿಕಾರರು.</p>
+</div>
+
+<div class="aside"><b>ಅಹಾ — ವಚನ ↔ ಪದ್ಯ:</b> ವಚನ ಸಂಪ್ರದಾಯ (ಕನ್ನಡ) ಮತ್ತು ವೇಮನ ಆಟವೆಲದಿ ಪದ್ಯ (ತೆಲುಗು) — ಎರಡೂ ಜನಸಾಮಾನ್ಯರ ಭಾಷೆಯಲ್ಲಿ ತತ್ವಚಿಂತನೆ. ಸಂಸ್ಕೃತದ ಛಂದಸ್ಸು ಬಿಟ್ಟು, ಮಾತುಗಾರಿಕೆಯ ಲಯ. ಇಬ್ಬರೂ ಸಾಮಾಜಿಕ ಚಿಂತಕರು.</p>
+</div>
+
+<h3>ಒಂದು ಚಿಕ್ಕ ಸಾಹಿತ್ಯ ತುಣುಕು — ವೇಮನ</h3>
+<div class="passage">
+<span class="te">ఉప్పు కప్పురంబు ఒక్క పోలికనుండు<br>చూడ చూడ రుచుల జాడ వేరు<br>పురుషులందు పుణ్య పురుషులు వేరయా<br>విశ్వదాభిరామ వినుర వేమ.</span>
+<span class="tr">uppu kappuraṃbu okka pōlikanuṇḍu<br>cūḍa cūḍa rucula jāḍa vēru<br>puruṣulandu puṇya puruṣulu vērayā<br>viśvadābhirāma vinura vēma</span>
+<span class="gl">ಉಪ್ಪು ಮತ್ತು ಕರ್ಪೂರ ನೋಡಲು ಒಂದೇ ರೀತಿ ಕಾಣುತ್ತವೆ — ಆದರೆ ರುಚಿಯ ದಾರಿ ಬೇರೆಬೇರೆ. ಹಾಗೆಯೇ ಪುರುಷರಲ್ಲಿಯೂ ಪುಣ್ಯಪುರುಷರು ಬೇರೆಯೇ — ಎಂದು ವೇಮನ ಹೇಳುತ್ತಾನೆ. ಬಸವಣ್ಣನವರ "ಕಳಬೇಡ, ಕೊಲಬೇಡ" ವಚನದ ನೇರ ಸಂಗಾತಿ.</span>
+</div>
+</section>
+
+<div class="navbtns">
+<button id="prev">← ಹಿಂದೆ</button>
+<button id="next">ಮುಂದೆ →</button>
+</div>
+
+<footer>made by Nil · using Claude</footer>
+</div>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('#tabs button');
+  var stages=document.querySelectorAll('section.stage');
+  var prev=document.getElementById('prev');
+  var next=document.getElementById('next');
+  var cur=0;
+  function go(n){
+    cur=Math.max(0,Math.min(stages.length-1,n));
+    tabs.forEach(function(t,i){t.classList.toggle('active',i===cur);});
+    stages.forEach(function(s,i){s.classList.toggle('active',i===cur);});
+    prev.disabled=(cur===0);
+    next.disabled=(cur===stages.length-1);
+    var active=document.querySelector('#tabs button.active');
+    if(active && active.scrollIntoView){active.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  tabs.forEach(function(t,i){t.addEventListener('click',function(){go(i);});});
+  prev.addEventListener('click',function(){go(cur-1);});
+  next.addEventListener('click',function(){go(cur+1);});
+  go(0);
+})();
+</script>
+</body>
+</html>

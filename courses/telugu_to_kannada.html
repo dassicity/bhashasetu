@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="తెలుగు నుండి కన్నడ — సోదరి భాషల వంతెన." />
+<title>ಕನ್ನಡ ಕಲಿಯೋಣ — తెలుగు నుండి కన్నడ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Telugu:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Telugu', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .kan { font-family: 'Noto Serif Kannada', serif; }
+  .te { font-family: 'Noto Serif Telugu', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  /* masthead */
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Telugu', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.2;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .kan { font-weight: 500; display: block; font-size: 0.65em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  /* nav */
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  /* stages */
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Telugu', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.25;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Telugu', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Telugu', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  /* map grid */
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .te-g {
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .kan-g {
+    font-family: 'Noto Serif Kannada', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .flag {
+    position: absolute;
+    top: 4px; right: 6px;
+    font-size: 11px;
+    color: var(--sindoor);
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 4px; }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  /* word card */
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .kan { font-family: 'Noto Serif Kannada', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .te-eq { font-family: 'Noto Serif Telugu', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+
+  /* sentence */
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .kan { font-family: 'Noto Serif Kannada', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .te-gloss { font-family: 'Noto Serif Telugu', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  /* conjugation */
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Telugu', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .kan { font-family: 'Noto Serif Kannada', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .te-eq { font-family: 'Noto Serif Telugu', serif; font-size: 15px; color: var(--ink-soft); }
+
+  /* guni table */
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g-te { font-family: 'Noto Serif Telugu', serif; font-size: 20px; line-height: 1; color: var(--ink-faded); }
+  table.guni .g-kan { font-family: 'Noto Serif Kannada', serif; font-size: 22px; line-height: 1; color: var(--ink); }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+
+  /* vachana */
+  .vachana {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .vachana::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .vachana .kan { font-size: 18px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; }
+  .vachana .te-gloss { font-family: 'Noto Serif Telugu', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .vachana .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* aside */
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  /* principles */
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, telugu);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  /* passage */
+  .passage {
+    margin: 22px 0;
+    padding: 18px 20px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .passage h4 { margin: 0 0 12px; font-family: 'Noto Serif Telugu', serif; font-weight: 600; font-size: 16px; color: var(--sindoor); letter-spacing: 0.02em; }
+  .passage .line { padding: 10px 0; border-bottom: 1px dotted var(--rule); }
+  .passage .line:last-child { border-bottom: 0; }
+  .passage .kan { font-family: 'Noto Serif Kannada', serif; font-size: 19px; line-height: 1.5; margin-bottom: 4px; }
+  .passage .trans { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--sindoor); margin-bottom: 3px; }
+  .passage .te-gloss { font-family: 'Noto Serif Telugu', serif; font-size: 15px; color: var(--ink-soft); }
+
+  /* video */
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Telugu', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  /* progress */
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .kan { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+
+  /* bridge card */
+  .bridge {
+    margin: 14px 0;
+    padding: 14px 16px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 3px;
+  }
+  .bridge .name { font-family: 'Noto Serif Kannada', serif; font-weight: 600; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .bridge .era { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--sindoor); letter-spacing: 0.08em; margin-bottom: 8px; }
+  .bridge .note { font-family: 'Noto Serif Telugu', serif; font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
+  .bridge .link { font-family: 'Noto Serif Telugu', serif; font-size: 14px; color: var(--teal); margin-top: 6px; font-style: italic; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .kan-g { font-size: 26px; }
+    .map-cell .te-g { font-size: 22px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .te-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 400px) {
+    .wrap { padding: 0 14px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    body { font-size: 16px; }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">ఒక ప్రాథమిక పుస్తకం · ಪ್ರಾಥಮಿಕ ಪುಸ್ತಕ</div>
+    <h1 class="title">
+      <span class="kan">ಕನ್ನಡ ಕಲಿಯೋಣ</span>
+      తెలుగు నుండి కన్నడ నేర్చుకుందాం
+    </h1>
+    <p class="subtitle">అచ్చులు-హల్లుల పద్ధతిలో — ఒక్కసారి ఒకే కొత్త విషయం, రూపం ముందు అర్థం తర్వాత, పట్టిక కాదు వ్యవస్థ — తెలుగుకు తెలిసినదాని మీద కన్నడ.</p>
+    <div class="byline">పది దశలు <span class="sep">·</span> మొబైల్-స్నేహపూర్వకం <span class="sep">·</span> శూన్యం నుండి</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">00</span>పరిచయం</button>
+    <button class="stage-tab" data-stage="1"><span class="num">01</span>అచ్చులు</button>
+    <button class="stage-tab" data-stage="2"><span class="num">02</span>హల్లులు</button>
+    <button class="stage-tab" data-stage="3"><span class="num">03</span>సంయోజనం</button>
+    <button class="stage-tab" data-stage="4"><span class="num">04</span>పదాలు</button>
+    <button class="stage-tab" data-stage="5"><span class="num">05</span>వాక్యాలు</button>
+    <button class="stage-tab" data-stage="6"><span class="num">06</span>చదవడం</button>
+    <button class="stage-tab" data-stage="7"><span class="num">07</span>పదక్షేత్రం</button>
+    <button class="stage-tab" data-stage="8"><span class="num">08</span>వాడుక</button>
+    <button class="stage-tab" data-stage="9"><span class="num">09</span>సాహిత్యం</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" id="stage-00" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · పరిచయం</div>
+    <h2 class="stage-title">ఎందుకు ఈ జత సులువు</h2>
+    <p class="stage-lede">మీకు తెలుగు వచ్చు. అంటే కన్నడ నేర్చుకోవడానికి మీరు ఇంగ్లీష్-వారి లాగా శూన్యం నుండి మొదలు పెట్టవలసిన అవసరం లేదు — మీరు 46/47 ధ్వనులు, వ్యాకరణ అస్థిపంజరం, మరియు ఒక పెద్ద శబ్దకోశం ఇప్పటికే తెలిసినవారే.</p>
+  </div>
+  <div class="stage-body">
+
+    <p>చిన్నప్పుడు మీరు <strong>అచ్చులు-హల్లులు</strong> నేర్చుకున్నారు — అ, ఆ, ఇ, ఈ... ఆ తర్వాత క, ఖ, గ, ఘ, ఙ. ఆ క్రమం మీ శరీరంలో ఉంది. కన్నడ కూడా అదే క్రమంలో నేర్పుతుంది — <span class="kan">ಅ, ಆ, ಇ, ಈ... ಕ, ಖ, ಗ, ಘ, ಙ</span>. కొత్త భాష కాదు — కొత్త చేతిరాత మాత్రమే.</p>
+
+    <p>మీ భాష మరియు కన్నడ — రెండూ ద్రావిడ కుటుంబం. రెండు లిపులూ ఒకే మూలం నుండి వచ్చినవి — <strong>కదంబ-చాళుక్య లిపి</strong>, తర్వాత అది తెలుగు-కన్నడ లిపిగా విడిపోయి, చివరకు రెండు వేర్వేరు లిపులుగా మారింది. అందుకే <span class="kan">ಕ</span> మరియు క చూస్తే — కొద్దిగా తేడాతో ఒకే ఆకారం. ಖ మరియు ఖ — దాదాపు జంటలు.</p>
+
+    <p>ఒక ఉదాహరణ వాక్యం చూడండి — రెండూ SOV (కర్త-కర్మ-క్రియ):<br>
+    తెలుగు: <strong>నేను అన్నం తింటాను.</strong><br>
+    కన్నడ: <strong class="kan">ನಾನು ಅನ್ನ ತಿನ್ನುತ್ತೇನೆ.</strong><br>
+    పద క్రమం ఒకటే. పదాలు కూడా దాదాపు ఒకటే (నేను ↔ ನಾನು, అన్నం ↔ ಅನ್ನ, తింటాను ↔ ತಿನ್ನುತ್ತೇನೆ). ఇది అనువాదం కాదు — ఒకే వాక్యాన్ని రెండు లిపులలో వ్రాసినట్టు అనిపిస్తుంది.</p>
+
+    <h3><span class="num">¶</span>తెలుగు → కన్నడ: ఎక్కడ పోలిక, ఎక్కడ తేడా</h3>
+
+    <ol class="principles">
+      <li><strong>ధ్వనులు — దాదాపు అన్నీ ఒకటే.</strong> వర్గాక్షరాలు (క-ఖ-గ-ఘ-ఙ, చ-ఛ-జ-ఝ-ఞ, ట-ఠ-డ-ఢ-ణ, త-థ-ద-ధ-న, ప-ఫ-బ-భ-మ) కన్నడలో ఖచ్చితంగా అదే క్రమంలో ఉన్నాయి. అల్పప్రాణ/మహాప్రాణ, ఘోష/అఘోష — మీ నోరు ఇప్పటికే అన్ని ధ్వనులూ పలుకగలదు. 47లో 46 ధ్వనులు ఉమ్మడి.</li>
+      <li><strong>లిపి — రూపాలు వేర్వేరు, నియమం ఒకటే.</strong> రెండూ అబుగిడా — ప్రతి హల్లులో ఒక అంతర్గత 'అ' ఉంటుంది, అచ్చు గుర్తులతో మారుతుంది. మీరు కొత్త ఆకారాలు మాత్రమే నేర్చుకోవాలి — నియమం కొత్తది కాదు. క → కా → కి → కీ అని తెలుగులో ఎలా వస్తుందో, <span class="kan">ಕ → ಕಾ → ಕಿ → ಕೀ</span> అని కన్నడలో అలాగే.</li>
+      <li><strong>వ్యాకరణం — అస్థిపంజరం 1:1.</strong> రెండూ SOV, రెండూ అనుప్రత్యయాలు వాడతాయి (ప్రతీయాత్మక విభక్తులు కాదు). తెలుగులో -కి (షష్ఠి), కన్నడలో -ಗೆ. తెలుగులో -లో (సప్తమి), కన్నడలో -ಅಲ್ಲಿ. ఒక్కో విభక్తికి ఒక్కో ప్రత్యయం — ఒకే ఆలోచనా పద్ధతి.</li>
+      <li><strong>శబ్దకోశం — 65% ఉమ్మడి.</strong> దినం/<span class="kan">ದಿನ</span>, సమయం/<span class="kan">ಸಮಯ</span>, పుస్తకం/<span class="kan">ಪುಸ್ತಕ</span>, నీరు/<span class="kan">ನೀರು</span>, అమ్మ/<span class="kan">ಅಮ್ಮ</span>, అక్క/<span class="kan">ಅಕ್ಕ</span> — తత్సమ శబ్దాలు మరియు ద్రావిడ మూల పదాలు రెండు భాషలలోనూ దాదాపు ఒకటే. 100+ పదాలు మీకు వెంటనే తెలుస్తాయి.</li>
+      <li><strong>హ్రస్వ/దీర్ఘ ఎ, ఒ — రెండు భాషలలోనూ ఉన్నాయి.</strong> తెలుగు ఎ/ఏ, ఒ/ఓ తేడాను లిపిలో చూపిస్తుంది. కన్నడ కూడా అలాగే — <span class="kan">ಎ/ಏ, ಒ/ಓ</span>. ఉత్తర భారత లిపులలో ఈ భేదం లేదు — తెలుగు, కన్నడ, తమిళం, మలయాళం మాత్రమే దీన్ని రక్షించాయి.</li>
+      <li><strong>ఒకే ఒక్క కొత్త అక్షరం: <span class="kan">ಋ</span>.</strong> ఇది నిజానికి కొత్త ధ్వని కాదు — తెలుగులో ఋ ఉంది, కానీ <em>స్వరంగా స్వతంత్ర అక్షరంగా</em> ఇప్పుడు వాడుక తక్కువ. కన్నడలో ఋషి (<span class="kan">ಋಷಿ</span>) లాంటి సంస్కృత పదాలలో ఉపయోగిస్తారు. మరో చిన్న విషయం: తెలుగులో ళ ఉంది, కన్నడలో <span class="kan">ಳ</span> — ఇది ఒకే మూర్ధన్య ల. తమిళంతో సహా ద్రావిడ భాషలన్నీ దీన్ని ఉంచుకున్నాయి.</li>
+    </ol>
+
+    <div class="aside"><strong>పద్ధతి.</strong> ప్రతి దశలో కన్నడ అక్షరం/పదం/వాక్యం పక్కన తెలుగు సమానార్థక పదం ఉంటుంది. తెలుగు తెలిస్తే, కన్నడ అనేది కొత్త రూపం మాత్రమే — కొత్త భావన కాదు.</div>
+
+    <div class="aside"><strong>సహోదర భాషలు.</strong> తెలుగు, కన్నడ, తమిళం, మలయాళం — నాలుగూ ద్రావిడ కుటుంబంలో ఒకే తల్లి నుండి పుట్టినవి. కానీ తెలుగు మరియు కన్నడ <em>ఒకే చోటుకి</em> చెందినవి (దక్షిణ-మధ్య ద్రావిడ శాఖలు సరిహద్దు పంచుకుంటాయి). అందుకే భౌగోళిక పొరుగు పొలిమేర మాత్రమే కాదు — భాషా పొరుగు కూడా.</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">పైన <strong>అచ్చులు</strong> ట్యాబ్ నొక్కండి, మొదలు పెట్టండి.</p>
+  </div>
+</section>
+<section class="stage" id="stage-01" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ధ్వనులు</div>
+    <h2 class="stage-title">అచ్చులు — <span class="kan">ಸ್ವರಗಳು</span></h2>
+    <p class="stage-lede">తెలుగులో మీకు 16 అచ్చులు తెలుసు. కన్నడలో కూడా దాదాపు అదే — 13 ప్రధాన అచ్చులు. ధ్వనులు దాదాపు ఒకటే — కేవలం ఆకారాలు కొత్తవి. ప్రతి తెలుగు అక్షరం పక్కన దాని కన్నడ జంటను గుర్తించండి.</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+kannada+vowels+swaragalu+pronunciation" title="Kannada vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">కన్నడ అచ్చుల ఉచ్చారణ <a href="https://www.youtube.com/results?search_query=learn+kannada+vowels+swaragalu+pronunciation" target="_blank" rel="noopener">మరిన్ని ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>చదివే విధానం.</strong> ప్రతి కార్డును నొక్కితే ఒక ఉదాహరణ పదం కనిపిస్తుంది. తెలుగు అక్షరం పైన, కన్నడ కింద — కళ్ళు తెలుగును గుర్తిస్తాయి, ఆ తర్వాత కన్నడ రూపం జ్ఞాపకంలోకి వస్తుంది.</div>
+
+    <div class="group-label">హ్రస్వ / దీర్ఘ జంట — 'అ' కుటుంబం</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಅಮ್ಮ (amma) = అమ్మ — అచ్చం తెలుగు పదం"><div class="te-g">అ</div><div class="arrow">↓</div><div class="kan-g">ಅ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಆನೆ (āne) = ఏనుగు"><div class="te-g">ఆ</div><div class="arrow">↓</div><div class="kan-g">ಆ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ఇ' కుటుంబం</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಇರು (iru) = ఉండు"><div class="te-g">ఇ</div><div class="arrow">↓</div><div class="kan-g">ಇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಈಗ (īga) = ఇప్పుడు"><div class="te-g">ఈ</div><div class="arrow">↓</div><div class="kan-g">ಈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ఉ' కుటుంబం</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಉಪ್ಪು (uppu) = ఉప్పు — ఒకే పదం!"><div class="te-g">ఉ</div><div class="arrow">↓</div><div class="kan-g">ಉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಊಟ (ūṭa) = భోజనం / అన్నం"><div class="te-g">ఊ</div><div class="arrow">↓</div><div class="kan-g">ಊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ఋ — సంస్కృత వారసత్వం <span style="color:var(--sindoor);">⚡</span></div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಋಷಿ (ṛṣi) = ఋషి — ఒకే సంస్కృత పదం!"><div class="te-g">ఋ</div><div class="arrow">↓</div><div class="kan-g">ಋ</div><div class="label">ṛ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>ఆశ్చర్యకరం.</strong> తెలుగులో ఋ ఉంది (ఋషి, ఋతువు, కృష్ణ), కానీ స్వతంత్ర అక్షరంగా అరుదు. కన్నడలో కూడా ఇదే — ఎక్కువగా సంస్కృత తత్సమ పదాలలో కనిపిస్తుంది. అంటే ఇది కొత్త ధ్వని కాదు — కొత్త రూపం మాత్రమే.</div>
+
+    <div class="group-label">'ఎ' కుటుంబం — హ్రస్వ/దీర్ఘ రెండు భాషలలోనూ ఉన్నాయి</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಎಲೆ (ele) = ఆకు"><div class="te-g">ఎ</div><div class="arrow">↓</div><div class="kan-g">ಎ</div><div class="label">e (హ్రస్వ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಏಳು (ēḷu) = ఏడు / లే"><div class="te-g">ఏ</div><div class="arrow">↓</div><div class="kan-g">ಏ</div><div class="label">ē (దీర్ఘ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಐದು (aidu) = ఐదు — అచ్చం అదే!"><div class="te-g">ఐ</div><div class="arrow">↓</div><div class="kan-g">ಐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ఒ' కుటుంబం</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಒಂದು (ondu) = ఒకటి"><div class="te-g">ఒ</div><div class="arrow">↓</div><div class="kan-g">ಒ</div><div class="label">o (హ్రస్వ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಓಡು (ōḍu) = పరుగెత్తు"><div class="te-g">ఓ</div><div class="arrow">↓</div><div class="kan-g">ಓ</div><div class="label">ō (దీర్ఘ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಔಷಧ (auṣadha) = ఔషధం — ఒకే పదం!"><div class="te-g">ఔ</div><div class="arrow">↓</div><div class="kan-g">ಔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>ద్రావిడ భాషల సంపద.</strong> తెలుగు, కన్నడ, తమిళం, మలయాళం — ఈ నాలుగు భాషలు మాత్రమే హ్రస్వ/దీర్ఘ ఎ, ఒ (ಎ/ಏ, ಒ/ಓ) తేడాను లిపిలో ఉంచుకున్నాయి. హిందీ, బెంగాలీ లాంటి భాషలు ఈ భేదాన్ని పోగొట్టుకున్నాయి. మీరు ఇప్పటికే ఈ తేడాను తెలుగులో ఉచ్చరిస్తున్నారు — కన్నడ కూడా అలాగే.</div>
+
+    <div class="group-label">అనుస్వారం మరియు విసర్గ — తెలుగులాగే</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಹಂಸ (haṃsa) = హంస"><div class="te-g">అం</div><div class="arrow">↓</div><div class="kan-g">ಅಂ</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ದುಃಖ (duḥkha) = దుఃఖం"><div class="te-g">అః</div><div class="arrow">↓</div><div class="kan-g">ಅಃ</div><div class="label">aḥ</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">1.1</span>అభ్యాసం</h3>
+    <ul class="clean">
+      <li>ప్రతి జంటను 20 సార్లు గట్టిగా పలకండి: అ-ఆ, ఇ-ఈ, ఉ-ఊ — కానీ కన్నడ అక్షరాన్ని చూస్తూ.</li>
+      <li>కాగితం మీద ప్రతి కన్నడ అచ్చును 5 సార్లు వ్రాయండి. చేయి కన్నును నేర్పుతుంది.</li>
+      <li>ప్రతి కన్నడ అచ్చును 1 సెకనులో గుర్తించగలిగే వరకు, 2వ దశకు వెళ్ళకండి.</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-02" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ధ్వనులు (కొనసాగింపు)</div>
+    <h2 class="stage-title">హల్లులు — <span class="kan">ವ್ಯಂಜನಗಳು</span></h2>
+    <p class="stage-lede">మీరు పాఠశాలలో నేర్చుకున్న వర్గక్రమం — క-ఖ-గ-ఘ-ఙ, చ-ఛ-జ-ఝ-ఞ... — కన్నడలో ఖచ్చితంగా అదే క్రమంలో ఉంది. మీ మెదడుకు ఈ క్రమం తెలుసు. కేవలం ఆకారాలు కొత్తవి.</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+kannada+consonants+vyanjanagalu+pronunciation" title="Kannada consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">కన్నడ హల్లుల ఉచ్చారణ <a href="https://www.youtube.com/results?search_query=learn+kannada+consonants+vyanjanagalu+pronunciation" target="_blank" rel="noopener">మరిన్ని ↗</a></div>
+    </div>
+
+    <h3><span class="num">2.1</span>కంఠ్య వర్గం (క-వర్గం) — నాలుక మూలం అంగిలి వెనుక</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಕಮಲ (kamala) = కమలం"><div class="te-g">క</div><div class="arrow">↓</div><div class="kan-g">ಕ</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಖಗ (khaga) = ఖగం — పక్షి"><div class="te-g">ఖ</div><div class="arrow">↓</div><div class="kan-g">ಖ</div><div class="label">kha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಗಗನ (gagana) = గగనం — ఆకాశం"><div class="te-g">గ</div><div class="arrow">↓</div><div class="kan-g">ಗ</div><div class="label">ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಘಟ (ghaṭa) = ఘటం — కుండ"><div class="te-g">ఘ</div><div class="arrow">↓</div><div class="kan-g">ಘ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="తెలుగు ఙ లాగే, అరుదు"><div class="te-g">ఙ</div><div class="arrow">↓</div><div class="kan-g">ಙ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.2</span>తాలవ్య వర్గం (చ-వర్గం)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಚಂದ್ರ (candra) = చంద్ర"><div class="te-g">చ</div><div class="arrow">↓</div><div class="kan-g">ಚ</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಛತ್ರ (chatra) = ఛత్రం — గొడుగు"><div class="te-g">ఛ</div><div class="arrow">↓</div><div class="kan-g">ಛ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಜಲ (jala) = జలం — నీరు"><div class="te-g">జ</div><div class="arrow">↓</div><div class="kan-g">ಜ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಝರಿ (jhari) = సెలయేరు"><div class="te-g">ఝ</div><div class="arrow">↓</div><div class="kan-g">ಝ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="అరుదు, యుక్తాక్షరంలో"><div class="te-g">ఞ</div><div class="arrow">↓</div><div class="kan-g">ಞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.3</span>మూర్ధన్య వర్గం (ట-వర్గం) — నాలుక వెనక్కి వంగి</h3>
+    <p>తెలుగులో ట-ఠ-డ-ఢ-ణ ఎలా ఉన్నాయో, కన్నడలో కూడా అలాగే. ఈ ధ్వనులు ఇంగ్లీష్-వారికి కష్టం — మీకు కాదు.</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಟೊಮ್ಯಾಟೊ = టమాట"><div class="te-g">ట</div><div class="arrow">↓</div><div class="kan-g">ಟ</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఎక్కువగా తత్సమ పదాలలో"><div class="te-g">ఠ</div><div class="arrow">↓</div><div class="kan-g">ಠ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಡಂಬ (ḍamba) = దంభం"><div class="te-g">డ</div><div class="arrow">↓</div><div class="kan-g">ಡ</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="అరుదు"><div class="te-g">ఢ</div><div class="arrow">↓</div><div class="kan-g">ಢ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಹಣ (haṇa) = డబ్బు"><div class="te-g">ణ</div><div class="arrow">↓</div><div class="kan-g">ಣ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.4</span>దంత్య వర్గం (త-వర్గం) — నాలుక చివర పళ్ళ వెనుక</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ತಾರೆ (tāre) = తార"><div class="te-g">త</div><div class="arrow">↓</div><div class="kan-g">ತ</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಥಟ್ (thaṭ) = థ-ధ్వని"><div class="te-g">థ</div><div class="arrow">↓</div><div class="kan-g">ಥ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ದಿನ (dina) = దినం — అదే పదం!"><div class="te-g">ద</div><div class="arrow">↓</div><div class="kan-g">ದ</div><div class="label">da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಧನ (dhana) = ధనం"><div class="te-g">ధ</div><div class="arrow">↓</div><div class="kan-g">ಧ</div><div class="label">dha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ನಾನು (nānu) = నేను"><div class="te-g">న</div><div class="arrow">↓</div><div class="kan-g">ನ</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.5</span>ఓష్ఠ్య వర్గం (ప-వర్గం)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಪುಸ್ತಕ (pustaka) = పుస్తకం"><div class="te-g">ప</div><div class="arrow">↓</div><div class="kan-g">ಪ</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಫಲ (phala) = ఫలం"><div class="te-g">ఫ</div><div class="arrow">↓</div><div class="kan-g">ಫ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಬಾ (bā) = రా"><div class="te-g">బ</div><div class="arrow">↓</div><div class="kan-g">ಬ</div><div class="label">ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಭಾಷೆ (bhāṣe) = భాష — గుర్తుపట్టారా?"><div class="te-g">భ</div><div class="arrow">↓</div><div class="kan-g">ಭ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಮನೆ (mane) = ఇల్లు"><div class="te-g">మ</div><div class="arrow">↓</div><div class="kan-g">ಮ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.6</span>అంతస్థ మరియు ఊష్మ</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಯಾರು (yāru) = ఎవరు"><div class="te-g">య</div><div class="arrow">↓</div><div class="kan-g">ಯ</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ರಾಜ (rāja) = రాజు"><div class="te-g">ర</div><div class="arrow">↓</div><div class="kan-g">ರ</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಲತೆ (late) = తీగ"><div class="te-g">ల</div><div class="arrow">↓</div><div class="kan-g">ಲ</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ವನ (vana) = వనం — అడవి"><div class="te-g">వ</div><div class="arrow">↓</div><div class="kan-g">ವ</div><div class="label">va</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಶಾಲೆ (śāle) = పాఠశాల"><div class="te-g">శ</div><div class="arrow">↓</div><div class="kan-g">ಶ</div><div class="label">śa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಷಟ್ (ṣaṭ) = ఆరు"><div class="te-g">ష</div><div class="arrow">↓</div><div class="kan-g">ಷ</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಸಮಯ (samaya) = సమయం"><div class="te-g">స</div><div class="arrow">↓</div><div class="kan-g">ಸ</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಹಾಲು (hālu) = పాలు"><div class="te-g">హ</div><div class="arrow">↓</div><div class="kan-g">ಹ</div><div class="label">ha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಮಳೆ (maḷe) = వర్షం — తెలుగు ళ = కన్నడ ಳ"><div class="te-g">ళ</div><div class="arrow">↓</div><div class="kan-g">ಳ</div><div class="label">ḷa</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>పెద్ద ఆశ్చర్యం: <span class="kan">ಳ</span> = ళ.</strong> ఉత్తర భారత భాషలు ఈ మూర్ధన్య ల ధ్వనిని కోల్పోయాయి. తెలుగు, కన్నడ, తమిళం, మలయాళం — ద్రావిడ భాషలన్నీ దీన్ని ఉంచుకున్నాయి. మీకు మళ్ళీ (<span class="kan">ಮಳೆ</span>), పళ్ళు (<span class="kan">ಹಲ್ಲು</span>) లాంటి పదాలలో ఈ ధ్వని తెలుసు. ఇంగ్లీష్-వారికి ఇది మూడు నెలలు పట్టే ధ్వని — మీకు ఒక్క క్షణం కూడా పట్టదు.</div>
+
+    <div class="aside"><strong>వర్ణమాల యుక్తి.</strong> తెలుగు అచ్చులు-హల్లులు పద్ధతి ప్రకారం మీకు 34 హల్లులు తెలుసు. అన్నీ కన్నడలో ఉన్నాయి, అదే క్రమంలో, అదే వర్గీకరణతో. మీరు నేర్చుకోవాల్సింది: <em>కొత్త భాష కాదు, కొత్త చేతిరాత</em>.</div>
+
+    <h3><span class="num">2.7</span>అభ్యాసం</h3>
+    <ul class="clean">
+      <li>ప్రతి వర్గాన్ని (క-ఖ-గ-ఘ-ఙ) తెలుగులో చెప్పండి, వెంటనే కన్నడలో చూస్తూ చెప్పండి.</li>
+      <li>ఒకే ధ్వని రెండు రూపాలలో — ఈ అనుబంధాన్ని మీ మెదడు త్వరగా బంధిస్తుంది.</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-03" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · కూర్పు</div>
+    <h2 class="stage-title">సంయోజనం — అచ్చు గుర్తులు, హల్లు, ఒత్తులు</h2>
+    <p class="stage-lede">తెలుగు హల్లుకు అచ్చు గుర్తులు పెట్టడం మీకు తెలుసు — క + ా = కా, క + ి = కి. కన్నడలో కూడా అదే నియమం — <span class="kan">ಕ + ಾ = ಕಾ, ಕ + ಿ = ಕಿ</span>. గుర్తుల ఆకారాలు మాత్రమే వేర్వేరు.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">3.1</span>'క' తో అన్ని అచ్చు గుర్తులు — పక్కపక్కన</h3>
+    <div class="guni-wrap">
+    <table class="guni">
+      <tr>
+        <th>అచ్చు</th>
+        <th>తెలుగు</th>
+        <th>కన్నడ</th>
+        <th>ఉచ్చారణ</th>
+      </tr>
+      <tr><td>అ (అంతర్గత)</td><td class="g-te">క</td><td class="g-kan">ಕ</td><td class="mono">ka</td></tr>
+      <tr><td>ఆ</td><td class="g-te">కా</td><td class="g-kan">ಕಾ</td><td class="mono">kā</td></tr>
+      <tr><td>ఇ</td><td class="g-te">కి</td><td class="g-kan">ಕಿ</td><td class="mono">ki</td></tr>
+      <tr><td>ఈ</td><td class="g-te">కీ</td><td class="g-kan">ಕೀ</td><td class="mono">kī</td></tr>
+      <tr><td>ఉ</td><td class="g-te">కు</td><td class="g-kan">ಕು</td><td class="mono">ku</td></tr>
+      <tr><td>ఊ</td><td class="g-te">కూ</td><td class="g-kan">ಕೂ</td><td class="mono">kū</td></tr>
+      <tr><td>ఎ</td><td class="g-te">కె</td><td class="g-kan">ಕೆ</td><td class="mono">ke</td></tr>
+      <tr><td>ఏ</td><td class="g-te">కే</td><td class="g-kan">ಕೇ</td><td class="mono">kē</td></tr>
+      <tr><td>ఐ</td><td class="g-te">కై</td><td class="g-kan">ಕೈ</td><td class="mono">kai</td></tr>
+      <tr><td>ఒ</td><td class="g-te">కొ</td><td class="g-kan">ಕೊ</td><td class="mono">ko</td></tr>
+      <tr><td>ఓ</td><td class="g-te">కో</td><td class="g-kan">ಕೋ</td><td class="mono">kō</td></tr>
+      <tr><td>ఔ</td><td class="g-te">కౌ</td><td class="g-kan">ಕೌ</td><td class="mono">kau</td></tr>
+    </table>
+    </div>
+
+    <div class="aside"><strong>పెద్ద లాభం.</strong> ఈ 11 గుర్తులు కన్నడలోని అన్ని 34 హల్లుల మీద ఖచ్చితంగా అదే విధంగా పనిచేస్తాయి. 11 × 34 = 374 అక్షరాలు — 11 గుర్తుల ధరకి! మీరు చేయాల్సింది: ఈ 11 గుర్తుల ఆకారాలను గుర్తు పెట్టుకోవడం.</div>
+
+    <h3><span class="num">3.2</span>హలంత్ / విరామం — హల్లును అచ్చు లేకుండా చేయడం</h3>
+    <p>తెలుగులో హల్లుకు కింద '్' (పుల్లి / హలంత్) పెడితే ఆ హల్లు అచ్చు లేకుండా అవుతుంది — క్ + త = క్త. కన్నడలో సరిగ్గా అదే గుర్తు: <span class="kan">್</span>. <span class="kan">ಕ್ + ತ = ಕ್ತ</span>.</p>
+
+    <div class="words">
+      <div class="word">
+        <div class="te-eq">రక్త</div>
+        <div class="kan">ರಕ್ತ</div>
+        <div class="trans">rakta</div>
+        <div class="meaning">రక్తం — రెండు భాషలలో ఒకే సంస్కృత పదం</div>
+      </div>
+      <div class="word">
+        <div class="te-eq">పుస్తకం</div>
+        <div class="kan">ಪುಸ್ತಕ</div>
+        <div class="trans">pustaka</div>
+        <div class="meaning">పుస్తకం — అదే పదం, చివరి విభక్తి తేడా</div>
+      </div>
+      <div class="word">
+        <div class="te-eq">కన్య</div>
+        <div class="kan">ಕನ್ಯಾ</div>
+        <div class="trans">kanyā</div>
+        <div class="meaning">కన్య — ఒత్తు సూత్రం అదే</div>
+      </div>
+    </div>
+
+    <h3><span class="num">3.3</span>ఒత్తులు (సంయుక్తాక్షరాలు) — సమాంతర విశ్లేషణ</h3>
+    <p>తెలుగులో క్ + ష = క్ష. కన్నడలో <span class="kan">ಕ್ + ಷ = ಕ್ಷ</span>. సూత్రం ఒకటే — మొదటి హల్లుకు హలంత్, తర్వాత రెండవ హల్లు.</p>
+
+    <div class="words">
+      <div class="word">
+        <div class="te-eq">క్షేత్ర</div>
+        <div class="kan">ಕ್ಷೇತ್ರ</div>
+        <div class="trans">kṣētra</div>
+        <div class="note">క్ష = ಕ್ಷ · త్ర = ತ್ರ — రెండు ఒత్తులూ ఒకే నిర్మాణం</div>
+      </div>
+      <div class="word">
+        <div class="te-eq">జ్ఞానం</div>
+        <div class="kan">ಜ್ಞಾನ</div>
+        <div class="trans">jñāna</div>
+        <div class="note">జ్ + ఞ = జ్ఞ = ಜ್ಞ</div>
+      </div>
+      <div class="word">
+        <div class="te-eq">స్వర్గ</div>
+        <div class="kan">ಸ್ವರ್ಗ</div>
+        <div class="trans">svarga</div>
+        <div class="note">స్వ = ಸ್ವ · ర్గ = ರ್ಗ</div>
+      </div>
+      <div class="word">
+        <div class="te-eq">ఆత్మ</div>
+        <div class="kan">ಆತ್ಮ</div>
+        <div class="trans">ātma</div>
+        <div class="note">త్మ = ತ್ಮ — సంస్కృత తత్సమం</div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>తెలుగు ఒత్తులు vs కన్నడ ఒత్తులు.</strong> తెలుగులో హల్లు <em>కింద</em> చిన్న ఒత్తు గుర్తు పెడతారు (క + ్ + ర → క్ర). కన్నడలో ఒత్తు హల్లు <em>కింద-పక్కన</em> ప్రత్యేక ఆకారంగా వస్తుంది (<span class="kan">ಕ್ರ</span>). ఫలితం ఒకటే, రాసే పద్ధతి కొంచెం వేరు. నిజానికి కన్నడ ఒత్తులు తెలుగు ఒత్తుల కన్నా స్పష్టంగా కనిపిస్తాయి.</div>
+
+    <h3><span class="num">3.4</span>ఉదాహరణ పదాల విశ్లేషణ</h3>
+    <div class="words">
+      <div class="word">
+        <div class="te-eq">నమస్కారం</div>
+        <div class="kan">ನಮಸ್ಕಾರ</div>
+        <div class="trans">namaskāra</div>
+        <div class="meaning">న + మ + స్ + కా + ర — రెండు భాషలలో ఒకే విధానం</div>
+      </div>
+      <div class="word">
+        <div class="te-eq">విద్య</div>
+        <div class="kan">ವಿದ್ಯಾ</div>
+        <div class="trans">vidyā</div>
+        <div class="meaning">వి + ద్ + య — ద్య ఒత్తు ఒకే సూత్రం</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-04" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · పదజాలం</div>
+    <h2 class="stage-title">మూల పదాలు — <span class="kan">ಮೂಲ ಪದಗಳು</span></h2>
+    <p class="stage-lede">ప్రతి కన్నడ పదం పక్కన తెలుగు సమానార్థక పదం ఉంది. మీరు చూడగలిగేది: ఎక్కువ పదాలు దాదాపు ఒకటే. 65% పదజాలం ఉమ్మడి.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">4.1</span>సర్వనామాలు — <span class="kan">ಸರ್ವನಾಮಗಳು</span></h3>
+    <div class="words">
+      <div class="word"><div class="te-eq">నేను</div><div class="kan">ನಾನು</div><div class="trans">nānu</div><div class="note">ద్రావిడ మూలం — నేను ↔ ನಾನು, దగ్గరి బంధువులు</div></div>
+      <div class="word"><div class="te-eq">నీవు / నువ్వు</div><div class="kan">ನೀನು</div><div class="trans">nīnu</div><div class="note">ద్రావిడ మూలం, స్నేహితుడితో</div></div>
+      <div class="word"><div class="te-eq">మీరు</div><div class="kan">ನೀವು</div><div class="trans">nīvu</div><div class="note">గౌరవ రూపం / బహువచనం</div></div>
+      <div class="word"><div class="te-eq">అతడు</div><div class="kan">ಅವನು</div><div class="trans">avanu</div><div class="note">పురుష</div></div>
+      <div class="word"><div class="te-eq">ఆమె</div><div class="kan">ಅವಳು</div><div class="trans">avaḷu</div><div class="note">స్త్రీ — తెలుగు ళ = కన్నడ ಳ</div></div>
+      <div class="word"><div class="te-eq">అది</div><div class="kan">ಅದು</div><div class="trans">adu</div><div class="note">నపుంసక / దూర వస్తువు</div></div>
+      <div class="word"><div class="te-eq">ఇది</div><div class="kan">ಇದು</div><div class="trans">idu</div><div class="note">దగ్గరి వస్తువు</div></div>
+      <div class="word"><div class="te-eq">మేము</div><div class="kan">ನಾವು</div><div class="trans">nāvu</div><div class="note">'మేము' (exclusive) మరియు 'మనం' (inclusive) — కన్నడలో ನಾವು ఒక్కటే రెండు అర్థాలకూ</div></div>
+      <div class="word"><div class="te-eq">వారు</div><div class="kan">ಅವರು</div><div class="trans">avaru</div><div class="note">బహువచనం / గౌరవ</div></div>
+    </div>
+
+    <div class="aside"><strong>అచ్చం తెలుగే.</strong> నేను-నీవు-మీరు → <span class="kan">ನಾನು-ನೀನು-ನೀವು</span>. మూడు సర్వనామాలలో మూడూ ధ్వని పరంగా కూడా దాదాపు ఒకటే. ఇది అనుకోకుండా జరిగింది కాదు — రెండూ ద్రావిడ కుటుంబం, అదే మూల పదాలు.</div>
+
+    <h3><span class="num">4.2</span>ముఖ్య నామవాచకాలు</h3>
+    <div class="words">
+      <div class="word"><div class="te-eq">ఇల్లు</div><div class="kan">ಮನೆ</div><div class="trans">mane</div><div class="note">ద్రావిడ — తెలుగులో 'మనసు' కి సంబంధం లేదు, కన్నడలో ఇల్లు</div></div>
+      <div class="word"><div class="te-eq">నీరు</div><div class="kan">ನೀರು</div><div class="trans">nīru</div><div class="note">అచ్చం అదే పదం!</div></div>
+      <div class="word"><div class="te-eq">అన్నం / భోజనం</div><div class="kan">ಊಟ</div><div class="trans">ūṭa</div><div class="note">ద్రావిడ — 'ఊట' ధ్వని, భోజనం అనే అర్థం</div></div>
+      <div class="word"><div class="te-eq">పేరు</div><div class="kan">ಹೆಸರು</div><div class="trans">hesaru</div><div class="note">ద్రావిడ — తెలుగు 'పేరు' కన్నడలో 'ಹೆಸರು'</div></div>
+      <div class="word"><div class="te-eq">పుస్తకం</div><div class="kan">ಪುಸ್ತಕ</div><div class="trans">pustaka</div><div class="note">సంస్కృత తత్సమం — ఒకే పదం</div></div>
+      <div class="word"><div class="te-eq">పాఠశాల / బడి</div><div class="kan">ಶಾಲೆ</div><div class="trans">śāle</div><div class="note">తత్సమం — 'శాల' మీద ఆధారపడి</div></div>
+      <div class="word"><div class="te-eq">డబ్బు</div><div class="kan">ಹಣ</div><div class="trans">haṇa</div><div class="note">ద్రావిడ మూల పదం</div></div>
+      <div class="word"><div class="te-eq">దారి</div><div class="kan">ದಾರಿ</div><div class="trans">dāri</div><div class="note">అచ్చం అదే పదం!</div></div>
+      <div class="word"><div class="te-eq">సమయం</div><div class="kan">ಸಮಯ</div><div class="trans">samaya</div><div class="note">తత్సమం — చివరి 'ం' తేడా మాత్రమే</div></div>
+      <div class="word"><div class="te-eq">దినం / రోజు</div><div class="kan">ದಿನ</div><div class="trans">dina</div><div class="note">తత్సమం — అదే పదం</div></div>
+      <div class="word"><div class="te-eq">పాలు</div><div class="kan">ಹಾಲು</div><div class="trans">hālu</div><div class="note">ద్రావిడ — తెలుగు 'ప' కన్నడలో 'హ' గా మారుతుంది తరచుగా</div></div>
+      <div class="word"><div class="te-eq">అన్నం</div><div class="kan">ಅನ್ನ</div><div class="trans">anna</div><div class="note">తత్సమం — ఆహారం అనే అర్థం</div></div>
+      <div class="word"><div class="te-eq">పండు</div><div class="kan">ಹಣ್ಣು</div><div class="trans">haṇṇu</div><div class="note">ద్రావిడ — మళ్ళీ ప → హ మార్పు</div></div>
+      <div class="word"><div class="te-eq">చెట్టు</div><div class="kan">ಮರ</div><div class="trans">mara</div><div class="note">ద్రావిడ — తెలుగులో 'మ్రాను' (పురాతన) సంబంధ పదం</div></div>
+      <div class="word"><div class="te-eq">సూర్యుడు</div><div class="kan">ಸೂರ್ಯ</div><div class="trans">sūrya</div><div class="note">తత్సమం — తెలుగులో 'డు' విభక్తి, కన్నడలో లేదు</div></div>
+      <div class="word"><div class="te-eq">వర్షం</div><div class="kan">ಮಳೆ</div><div class="trans">maḷe</div><div class="note">ద్రావిడ — తెలుగు 'మళ్ళీ' కి సంబంధం లేదు, వర్షం అని</div></div>
+      <div class="word"><div class="te-eq">భూమి</div><div class="kan">ಭೂಮಿ</div><div class="trans">bhūmi</div><div class="note">తత్సమం — అచ్చం ఒకే పదం</div></div>
+      <div class="word"><div class="te-eq">పువ్వు</div><div class="kan">ಹೂವು</div><div class="trans">hūvu</div><div class="note">ద్రావిడ — ప → హ, పువ్వు → ಹೂವು</div></div>
+      <div class="word"><div class="te-eq">పిల్ల / శిశువు</div><div class="kan">ಮಗು</div><div class="trans">magu</div><div class="note">ద్రావిడ — తెలుగులో 'మగ' కి సంబంధం</div></div>
+      <div class="word"><div class="te-eq">మనిషి</div><div class="kan">ಮನುಷ್ಯ</div><div class="trans">manuṣya</div><div class="note">తత్సమం — మనిషి ↔ ಮನುಷ್ಯ</div></div>
+    </div>
+
+    <div class="aside"><strong>ప → హ సూత్రం.</strong> తెలుగు 'ప'తో మొదలయ్యే చాలా ద్రావిడ పదాలు కన్నడలో 'హ'తో మొదలవుతాయి: పాలు → <span class="kan">ಹಾಲು</span>, పువ్వు → <span class="kan">ಹೂವು</span>, పండు → <span class="kan">ಹಣ್ಣು</span>, పాము → <span class="kan">ಹಾವು</span>, పది → <span class="kan">ಹತ್ತು</span>. ఇది ఒక చారిత్రిక ధ్వని మార్పు — 10-12వ శతాబ్దంలో కన్నడలో జరిగింది. ఈ ఒక్క నియమం తెలిస్తే, 50+ పదాలు మీకు తెలుసు!</div>
+
+    <h3><span class="num">4.3</span>ముఖ్య క్రియలు</h3>
+    <div class="words">
+      <div class="word"><div class="te-eq">ఉండు</div><div class="kan">ಇರು</div><div class="trans">iru</div><div class="note">ద్రావిడ — 'ఉండు' మరియు 'ఇరు' ఒకే మూలం</div></div>
+      <div class="word"><div class="te-eq">చేయు</div><div class="kan">ಮಾಡು</div><div class="trans">māḍu</div><div class="note">ద్రావిడ — తెలుగులో 'మాడు' లేదు, కన్నడ పదం</div></div>
+      <div class="word"><div class="te-eq">పోవు</div><div class="kan">ಹೋಗು</div><div class="trans">hōgu</div><div class="note">ద్రావిడ — ప → హ (పోవు → ಹೋಗು)</div></div>
+      <div class="word"><div class="te-eq">రా</div><div class="kan">ಬಾ</div><div class="trans">bā</div><div class="note">ద్రావిడ — 'రా' vs 'ಬಾ' తేడా</div></div>
+      <div class="word"><div class="te-eq">తిను</div><div class="kan">ತಿನ್ನು</div><div class="trans">tinnu</div><div class="note">అచ్చం అదే పదం!</div></div>
+      <div class="word"><div class="te-eq">తాగు</div><div class="kan">ಕುಡಿ</div><div class="trans">kuḍi</div><div class="note">ద్రావిడ — తెలుగులో 'కుడుచు' (పాత) సంబంధం</div></div>
+      <div class="word"><div class="te-eq">చూడు</div><div class="kan">ನೋಡು</div><div class="trans">nōḍu</div><div class="note">ద్రావిడ — రెండు వేరు మూలాలు</div></div>
+      <div class="word"><div class="te-eq">విను / అడుగు</div><div class="kan">ಕೇಳು</div><div class="trans">kēḷu</div><div class="note">ద్రావిడ — ఒకే క్రియ 'వినడం' మరియు 'అడగడం' రెండూ</div></div>
+      <div class="word"><div class="te-eq">చదువు</div><div class="kan">ಓದು</div><div class="trans">ōdu</div><div class="note">ద్రావిడ — 'ఓదు' ధ్వని</div></div>
+      <div class="word"><div class="te-eq">వ్రాయు</div><div class="kan">ಬರೆ</div><div class="trans">bare</div><div class="note">ద్రావిడ — 'వ్రాయు' vs 'ಬರೆ' తేడా</div></div>
+      <div class="word"><div class="te-eq">చెప్పు</div><div class="kan">ಹೇಳು</div><div class="trans">hēḷu</div><div class="note">ద్రావిడ — ళ ధ్వని ఉంది</div></div>
+      <div class="word"><div class="te-eq">నడచు</div><div class="kan">ನಡೆ</div><div class="trans">naḍe</div><div class="note">అచ్చం ఒకే మూలం — నడ / ನಡೆ</div></div>
+      <div class="word"><div class="te-eq">పరుగెత్తు</div><div class="kan">ಓಡು</div><div class="trans">ōḍu</div><div class="note">ద్రావిడ — తెలుగులో 'ఓడు' అర్థం వేరు (ఓడిపోవు)</div></div>
+      <div class="word"><div class="te-eq">ఇవ్వు</div><div class="kan">ಕೊಡು</div><div class="trans">koḍu</div><div class="note">ద్రావిడ — వేరు మూలాలు</div></div>
+      <div class="word"><div class="te-eq">తీసుకొను</div><div class="kan">ತೆಗೆದುಕೊ</div><div class="trans">tegedukoḷḷu</div><div class="note">ద్రావిడ — 'తెగెదు' తీయడం + 'కొళ్ళు' తీసుకోవడం</div></div>
+      <div class="word"><div class="te-eq">తెలుసు</div><div class="kan">ಗೊತ್ತು</div><div class="trans">gottu</div><div class="note">ద్రావిడ — 'తెలుసు' vs 'గొత్తు' తేడా</div></div>
+      <div class="word"><div class="te-eq">కావాలి</div><div class="kan">ಬೇಕು</div><div class="trans">bēku</div><div class="note">ద్రావిడ — ముఖ్యమైన రోజువారీ క్రియ</div></div>
+      <div class="word"><div class="te-eq">పడుకొను / నిద్రపో</div><div class="kan">ಮಲಗು</div><div class="trans">malagu</div><div class="note">ద్రావిడ</div></div>
+      <div class="word"><div class="te-eq">కూర్చొను</div><div class="kan">ಕುಳಿತುಕೊ</div><div class="trans">kuḷitukoḷḷu</div><div class="note">ద్రావిడ — ళ ధ్వని ఉంది</div></div>
+      <div class="word"><div class="te-eq">నిలుచు</div><div class="kan">ನಿಲ್ಲು</div><div class="trans">nillu</div><div class="note">దగ్గరి బంధువులు — నిలుచు ↔ ನಿಲ್ಲು</div></div>
+    </div>
+
+    <h3><span class="num">4.4</span>సంఖ్యలు — <span class="kan">ಸಂಖ್ಯೆಗಳು</span></h3>
+    <div class="words">
+      <div class="word"><div class="te-eq">ఒకటి</div><div class="kan">ಒಂದು</div><div class="trans">ondu</div></div>
+      <div class="word"><div class="te-eq">రెండు</div><div class="kan">ಎರಡು</div><div class="trans">eraḍu</div></div>
+      <div class="word"><div class="te-eq">మూడు</div><div class="kan">ಮೂರು</div><div class="trans">mūru</div></div>
+      <div class="word"><div class="te-eq">నాలుగు</div><div class="kan">ನಾಲ್ಕು</div><div class="trans">nālku</div></div>
+      <div class="word"><div class="te-eq">ఐదు</div><div class="kan">ಐದು</div><div class="trans">aidu</div><div class="note">ఒకే పదం!</div></div>
+      <div class="word"><div class="te-eq">ఆరు</div><div class="kan">ಆರು</div><div class="trans">āru</div><div class="note">ఒకే పదం!</div></div>
+      <div class="word"><div class="te-eq">ఏడు</div><div class="kan">ಏಳು</div><div class="trans">ēḷu</div><div class="note">తెలుగు 'డ' = కన్నడ 'ళ'</div></div>
+      <div class="word"><div class="te-eq">ఎనిమిది</div><div class="kan">ಎಂಟು</div><div class="trans">eṇṭu</div></div>
+      <div class="word"><div class="te-eq">తొమ్మిది</div><div class="kan">ಒಂಬತ್ತು</div><div class="trans">ombattu</div></div>
+      <div class="word"><div class="te-eq">పది</div><div class="kan">ಹತ್ತು</div><div class="trans">hattu</div><div class="note">ప → హ సూత్రం (పది → ಹತ್ತು)</div></div>
+      <div class="word"><div class="te-eq">ఇరవై</div><div class="kan">ಇಪ್ಪತ್ತು</div><div class="trans">ippattu</div></div>
+      <div class="word"><div class="te-eq">యాభై</div><div class="kan">ಐವತ್ತು</div><div class="trans">aivattu</div></div>
+      <div class="word"><div class="te-eq">వంద / నూరు</div><div class="kan">ನೂರು</div><div class="trans">nūru</div><div class="note">ద్రావిడ — 'నూరు' ఒకే పదం</div></div>
+    </div>
+
+    <div class="aside"><strong>సంఖ్యలలో నియమం.</strong> ఐదు-ఆరు-ఏడు — మూడు వరుస సంఖ్యలు తెలుగు మరియు కన్నడలో దాదాపు ఒకటే. పది → ಹತ್ತು లో ప → హ సూత్రం. ఏడు → ಏಳು లో 'డ' → 'ళ' మార్పు. ఈ రెండు సూత్రాలు తెలిస్తే, సంఖ్యలు మీకు ఉచితంగా వస్తాయి.</div>
+  </div>
+</section>
+<section class="stage" id="stage-05" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · వ్యాకరణం</div>
+    <h2 class="stage-title">వాక్యాలు — <span class="kan">ವಾಕ್ಯಗಳು</span></h2>
+    <p class="stage-lede">తెలుగు వాక్యం ఎలా కట్టుకుంటారో, కన్నడలో కూడా అదే విధానం. కర్త → కర్మ → క్రియ. విభక్తులు క్రియకు ముందు. ప్రశ్నకు -ఆ. నిషేధానికి ప్రత్యేక రూపం. ఒక్కొక్కటి చూద్దాం.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">5.1</span>పద క్రమం — SOV, రెండు భాషలలోనూ</h3>
+
+    <div class="sentence">
+      <div class="kan">ನಾನು ಅನ್ನ ತಿನ್ನುತ್ತೇನೆ.</div>
+      <div class="trans">nānu anna tinnuttēne</div>
+      <div class="te-gloss">నేను అన్నం తింటున్నాను.</div>
+      <div class="literal">నేను (కర్త) | అన్నం (కర్మ) | తింటున్నాను (క్రియ)</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಅವನು ಪುಸ್ತಕ ಓದುತ್ತಾನೆ.</div>
+      <div class="trans">avanu pustaka ōduttāne</div>
+      <div class="te-gloss">అతడు పుస్తకం చదువుతున్నాడు.</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತೀರಿ?</div>
+      <div class="trans">nīvu elli-ge hōguttīri?</div>
+      <div class="te-gloss">మీరు ఎక్కడికి వెళ్తున్నారు?</div>
+    </div>
+
+    <div class="aside"><strong>1:1 అస్థిపంజరం.</strong> పై వాక్యాలలో పద క్రమం, క్రియా రూపాల నిర్మాణం, ప్రశ్నార్థకం — అన్నీ తెలుగులో ఎలా ఉంటాయో అలాగే. అనువాదం చేస్తున్నట్లు అనిపించదు — ఒకే వాక్యాన్ని రెండు లిపులలో రాస్తున్నట్లు అనిపిస్తుంది.</div>
+
+    <h3><span class="num">5.2</span>క్రియా రూపాలు — <span class="kan">ಮಾಡು</span> (చేయు) వర్తమానకాలం</h3>
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">నేను</div><div class="kan">ಮಾಡುತ್ತೇನೆ</div><div class="te-eq">చేస్తాను (cēstānu)</div></div>
+      <div class="conjug-row"><div class="pron">నీవు</div><div class="kan">ಮಾಡುತ್ತೀಯ</div><div class="te-eq">చేస్తావు (cēstāvu)</div></div>
+      <div class="conjug-row"><div class="pron">అతడు</div><div class="kan">ಮಾಡುತ್ತಾನೆ</div><div class="te-eq">చేస్తాడు (cēstāḍu)</div></div>
+      <div class="conjug-row"><div class="pron">ఆమె</div><div class="kan">ಮಾಡುತ್ತಾಳೆ</div><div class="te-eq">చేస్తుంది (cēstundi)</div></div>
+      <div class="conjug-row"><div class="pron">అది</div><div class="kan">ಮಾಡುತ್ತದೆ</div><div class="te-eq">చేస్తుంది (cēstundi)</div></div>
+      <div class="conjug-row"><div class="pron">మేము</div><div class="kan">ಮಾಡುತ್ತೇವೆ</div><div class="te-eq">చేస్తాము (cēstāmu)</div></div>
+      <div class="conjug-row"><div class="pron">మీరు</div><div class="kan">ಮಾಡುತ್ತೀರಿ</div><div class="te-eq">చేస్తారు (cēstāru)</div></div>
+      <div class="conjug-row"><div class="pron">వారు</div><div class="kan">ಮಾಡುತ್ತಾರೆ</div><div class="te-eq">చేస్తారు (cēstāru)</div></div>
+    </div>
+
+    <div class="aside"><strong>ఆశ్చర్యకరమైన పోలిక.</strong> రెండు భాషలలోనూ క్రియకు వ్యక్తి + లింగం + వచనం కలిసి చేర్చబడతాయి. తెలుగు -తాను/-తావు/-తాడు vs కన్నడ -ತ್ತೇನೆ/-ತ್ತೀಯ/-ತ್ತಾನೆ — ధ్వనులు వేర్వేరు, కానీ <em>నిర్మాణం ఖచ్చితంగా ఒకే విధంగా</em> ఉంది. కన్నడలో 3వ పురుషలో స్త్రీ/పురుష తేడా (ಮಾಡುತ್ತಾನೆ vs ಮಾಡುತ್ತಾಳೆ) తెలుగులోని 'చేస్తాడు / చేస్తుంది' కి సమానం.</div>
+
+    <h3><span class="num">5.3</span>విభక్తి ప్రత్యయాలు — <span class="kan">ವಿಭಕ್ತಿ ಪ್ರತ್ಯಯಗಳು</span></h3>
+
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">ప్రథమా</div><div class="kan">— (ಏನೂ ಇಲ್ಲ)</div><div class="te-eq">— (ప్రత్యయం లేదు)</div></div>
+      <div class="conjug-row"><div class="pron">ద్వితీయా</div><div class="kan">-ಅನ್ನು (annu)</div><div class="te-eq">-ని/-ను (-ni/-nu)</div></div>
+      <div class="conjug-row"><div class="pron">తృతీయా</div><div class="kan">-ಇಂದ (inda)</div><div class="te-eq">-చేత / -తో</div></div>
+      <div class="conjug-row"><div class="pron">చతుర్థీ</div><div class="kan">-ಗೆ (ge)</div><div class="te-eq">-కి/-కు (-ki/-ku)</div></div>
+      <div class="conjug-row"><div class="pron">పంచమీ</div><div class="kan">-ಇಂದ (inda)</div><div class="te-eq">-నుండి (-nuṇḍi)</div></div>
+      <div class="conjug-row"><div class="pron">షష్ఠీ</div><div class="kan">-ಅ (a)</div><div class="te-eq">-యొక్క (-yokkā)</div></div>
+      <div class="conjug-row"><div class="pron">సప్తమీ</div><div class="kan">-ಅಲ್ಲಿ (alli)</div><div class="te-eq">-లో (-lō)</div></div>
+    </div>
+
+    <div class="aside"><strong>ఆలోచన ఒకటే.</strong> తెలుగులో 'ఇంటికి' = ఇల్లు + కి. కన్నడలో 'ಮನೆಗೆ' = <span class="kan">ಮನೆ + ಗೆ</span>. ప్రత్యయాన్ని పదం చివర చేర్చడం — ఒకే పద్ధతి. కన్నడలో -ಗೆ అన్నది తెలుగు -కి/-కు కి ఖచ్చితంగా సమానం.</div>
+
+    <h3><span class="num">5.4</span>ఉదాహరణ వాక్యాలు</h3>
+
+    <div class="sentence">
+      <div class="kan">ನಾನು ಮನೆಗೆ ಹೋಗುತ್ತೇನೆ.</div>
+      <div class="trans">nānu mane-ge hōguttēne</div>
+      <div class="te-gloss">నేను ఇంటికి వెళ్తున్నాను.</div>
+      <div class="literal">నేను | ఇంటి-కి | వెళ్తున్నాను</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಅವಳು ಶಾಲೆಯಲ್ಲಿ ಓದುತ್ತಾಳೆ.</div>
+      <div class="trans">avaḷu śāle-yalli ōduttāḷe</div>
+      <div class="te-gloss">ఆమె పాఠశాలలో చదువుతోంది.</div>
+      <div class="literal">ఆమె | పాఠశాల-లో | చదువుతోంది</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ನನಗೆ ನೀರು ಬೇಕು.</div>
+      <div class="trans">nanage nīru bēku</div>
+      <div class="te-gloss">నాకు నీరు కావాలి.</div>
+      <div class="literal">నాకు | నీరు | కావాలి — విభక్తి 1:1</div>
+    </div>
+
+    <h3><span class="num">5.5</span>నిషేధం — <span class="kan">ನಿಷೇಧ</span></h3>
+
+    <div class="sentence">
+      <div class="kan">ನಾನು ತಿನ್ನುವುದಿಲ್ಲ.</div>
+      <div class="trans">nānu tinnuvudilla</div>
+      <div class="te-gloss">నేను తినను.</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಅವನು ಬರುವುದಿಲ್ಲ.</div>
+      <div class="trans">avanu baruvudilla</div>
+      <div class="te-gloss">అతడు రాడు.</div>
+    </div>
+
+    <div class="aside"><strong>నిషేధ ప్రత్యయం.</strong> తెలుగులో క్రియకు చివర ప్రత్యేక ప్రతిపద రూపం ('తినను', 'రాడు'). కన్నడలో క్రియకు -ವುದಿಲ್ಲ చేర్చుతారు. రెండూ ఒకే ఆలోచనా విధానం — క్రియకు ప్రత్యయం జోడించి నిషేధం.</div>
+
+    <h3><span class="num">5.6</span>ప్రశ్నలు — <span class="kan">ಪ್ರಶ್ನೆಗಳು</span></h3>
+
+    <div class="words">
+      <div class="word"><div class="te-eq">ఏమిటి</div><div class="kan">ಏನು</div><div class="trans">ēnu</div></div>
+      <div class="word"><div class="te-eq">ఎవరు</div><div class="kan">ಯಾರು</div><div class="trans">yāru</div></div>
+      <div class="word"><div class="te-eq">ఎక్కడ</div><div class="kan">ಎಲ್ಲಿ</div><div class="trans">elli</div></div>
+      <div class="word"><div class="te-eq">ఎప్పుడు</div><div class="kan">ಯಾವಾಗ</div><div class="trans">yāvāga</div></div>
+      <div class="word"><div class="te-eq">ఎందుకు</div><div class="kan">ಏಕೆ</div><div class="trans">ēke</div></div>
+      <div class="word"><div class="te-eq">ఎలా</div><div class="kan">ಹೇಗೆ</div><div class="trans">hēge</div></div>
+      <div class="word"><div class="te-eq">ఎంత</div><div class="kan">ಎಷ್ಟು</div><div class="trans">eṣṭu</div></div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ನಿಮ್ಮ ಹೆಸರು ಏನು?</div>
+      <div class="trans">nimma hesaru ēnu?</div>
+      <div class="te-gloss">మీ పేరు ఏమిటి?</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ನೀವು ಎಲ್ಲಿಂದ ಬಂದಿದ್ದೀರಿ?</div>
+      <div class="trans">nīvu ellinda bandiddīri?</div>
+      <div class="te-gloss">మీరు ఎక్కడి నుండి వచ్చారు?</div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-06" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · చదవడం</div>
+    <h2 class="stage-title">మూడు చిన్న పాఠాలు</h2>
+    <p class="stage-lede">ఇప్పటి వరకు నేర్చుకున్న అచ్చులు, హల్లులు, పదాలు, వాక్య నిర్మాణం — అన్నీ ఇక్కడ కలిసిపోతాయి. మీరే చదవండి. ప్రతి వాక్యానికి ఉచ్చారణ మరియు తెలుగు అనువాదం ఇవ్వబడ్డాయి.</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="passage">
+      <h4>1. స్వీయ-పరిచయం</h4>
+      <div class="line">
+        <div class="kan">ನಮಸ್ಕಾರ. ನನ್ನ ಹೆಸರು ರವಿ.</div>
+        <div class="trans">namaskāra. nanna hesaru ravi.</div>
+        <div class="te-gloss">నమస్కారం. నా పేరు రవి.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ನಾನು ಬೆಂಗಳೂರಿನಲ್ಲಿ ಇರುತ್ತೇನೆ.</div>
+        <div class="trans">nānu beṅgaḷūrinalli iruttēne.</div>
+        <div class="te-gloss">నేను బెంగళూరులో ఉంటాను.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ನಾನು ಕನ್ನಡ ಕಲಿಯುತ್ತಿದ್ದೇನೆ.</div>
+        <div class="trans">nānu kannaḍa kaliyuttiddēne.</div>
+        <div class="te-gloss">నేను కన్నడ నేర్చుకుంటున్నాను.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ನನಗೆ ತೆಲುಗು ಗೊತ್ತು.</div>
+        <div class="trans">nanage telugu gottu.</div>
+        <div class="te-gloss">నాకు తెలుగు తెలుసు.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ಇದು ನನ್ನ ಮೊದಲ ಪಾಠ.</div>
+        <div class="trans">idu nanna modala pāṭha.</div>
+        <div class="te-gloss">ఇది నా మొదటి పాఠం.</div>
+      </div>
+    </div>
+
+    <div class="passage">
+      <h4>2. ఒక రోజు</h4>
+      <div class="line">
+        <div class="kan">ಬೆಳಿಗ್ಗೆ ನಾನು ಆರು ಗಂಟೆಗೆ ಏಳುತ್ತೇನೆ.</div>
+        <div class="trans">beḷigge nānu āru gaṇṭe-ge ēḷuttēne.</div>
+        <div class="te-gloss">ఉదయం నేను ఆరు గంటలకు లేస్తాను.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ನಾನು ಹಾಲು ಕುಡಿಯುತ್ತೇನೆ ಮತ್ತು ಸುದ್ದಿ ಓದುತ್ತೇನೆ.</div>
+        <div class="trans">nānu hālu kuḍiyuttēne mattu suddi ōduttēne.</div>
+        <div class="te-gloss">నేను పాలు తాగుతాను మరియు వార్తలు చదువుతాను.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ಎಂಟು ಗಂಟೆಗೆ ನಾನು ಶಾಲೆಗೆ ಹೋಗುತ್ತೇನೆ.</div>
+        <div class="trans">eṇṭu gaṇṭe-ge nānu śāle-ge hōguttēne.</div>
+        <div class="te-gloss">ఎనిమిది గంటలకు నేను పాఠశాలకు వెళ్తాను.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ಮಧ್ಯಾಹ್ನ ನಾನು ಮನೆಯಲ್ಲಿ ಊಟ ಮಾಡುತ್ತೇನೆ.</div>
+        <div class="trans">madhyāhna nānu mane-yalli ūṭa māḍuttēne.</div>
+        <div class="te-gloss">మధ్యాహ్నం నేను ఇంట్లో భోజనం చేస్తాను.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ಸಂಜೆ ನಾನು ಸ್ನೇಹಿತರೊಂದಿಗೆ ಆಟ ಆಡುತ್ತೇನೆ.</div>
+        <div class="trans">sañje nānu snēhitaroṁdige āṭa āḍuttēne.</div>
+        <div class="te-gloss">సాయంత్రం నేను స్నేహితులతో ఆట ఆడుతాను.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ರಾತ್ರಿ ಹತ್ತು ಗಂಟೆಗೆ ನಾನು ಮಲಗುತ್ತೇನೆ.</div>
+        <div class="trans">rātri hattu gaṇṭe-ge nānu malaguttēne.</div>
+        <div class="te-gloss">రాత్రి పది గంటలకు నేను పడుకుంటాను.</div>
+      </div>
+    </div>
+
+    <div class="passage">
+      <h4>3. సంభాషణ — ఇద్దరి మధ్య</h4>
+      <div class="line">
+        <div class="kan">ಅ: ನಮಸ್ಕಾರ. ಹೇಗಿದ್ದೀರಿ?</div>
+        <div class="trans">a: namaskāra. hēgiddīri?</div>
+        <div class="te-gloss">అ: నమస్కారం. మీరు ఎలా ఉన్నారు?</div>
+      </div>
+      <div class="line">
+        <div class="kan">ಬ: ನಾನು ಚೆನ್ನಾಗಿದ್ದೇನೆ. ನೀವು ಹೇಗಿದ್ದೀರಿ?</div>
+        <div class="trans">ba: nānu chennāgiddēne. nīvu hēgiddīri?</div>
+        <div class="te-gloss">బ: నేను బాగున్నాను. మీరు ఎలా ఉన్నారు?</div>
+      </div>
+      <div class="line">
+        <div class="kan">ಅ: ನನಗೂ ಚೆನ್ನಾಗಿದೆ. ಊಟ ಆಯ್ತಾ?</div>
+        <div class="trans">a: nanagū chennāgide. ūṭa āytā?</div>
+        <div class="te-gloss">అ: నాకు కూడా బాగుంది. భోజనం అయిందా?</div>
+      </div>
+      <div class="line">
+        <div class="kan">ಬ: ಆಯ್ತು. ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತೀರಿ?</div>
+        <div class="trans">ba: āytu. nīvu elli-ge hōguttīri?</div>
+        <div class="te-gloss">బ: అయింది. మీరు ఎక్కడికి వెళ్తున్నారు?</div>
+      </div>
+      <div class="line">
+        <div class="kan">ಅ: ನಾನು ಅಂಗಡಿಗೆ ಹೋಗುತ್ತೇನೆ. ಹಣ್ಣು ಬೇಕು.</div>
+        <div class="trans">a: nānu aṅgaḍi-ge hōguttēne. haṇṇu bēku.</div>
+        <div class="te-gloss">అ: నేను దుకాణానికి వెళ్తున్నాను. పండ్లు కావాలి.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ಬ: ಸರಿ, ನಾನೂ ಬರುತ್ತೇನೆ.</div>
+        <div class="trans">ba: sari, nānū baruttēne.</div>
+        <div class="te-gloss">బ: సరే, నేను కూడా వస్తాను.</div>
+      </div>
+      <div class="line">
+        <div class="kan">ಅ: ಬನ್ನಿ, ಹೋಗೋಣ.</div>
+        <div class="trans">a: banni, hōgōṇa.</div>
+        <div class="te-gloss">అ: రండి, వెళ్దాం.</div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>మీరు గమనించారా?</strong> పై మూడు పాఠాలలో మీకు తెలియని పదం దాదాపు లేదు. పద క్రమం, క్రియా రూపాలు, విభక్తులు — అన్నీ తెలుగులో ఎలా ఉంటాయో అలాగే. ఇది భాష మార్పు కాదు — లిపి మార్పు. 80 గంటల కోర్సు అనిపించదు — 20 గంటలు సరిపోతాయి.</div>
+  </div>
+</section>
+<section class="stage" id="stage-07" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · పదక్షేత్రం</div>
+    <h2 class="stage-title">సెమాంటిక్ రంగాలు — బంధుత్వం, కాలం, శరీరం, కదలిక</h2>
+    <p class="stage-lede">ప్రతి భాష ప్రపంచాన్ని తన విధంగా కోస్తుంది. తెలుగు మరియు కన్నడ — రెండూ ఒకే సంస్కృతి కనుక దాదాపు ఒకే విధంగా కోస్తాయి. కొన్ని సూక్ష్మ తేడాలు మాత్రం ఉన్నాయి.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">7.1</span>బంధుత్వం — <span class="kan">ಕುಟುಂಬ</span></h3>
+    <div class="words">
+      <div class="word"><div class="te-eq">నాన్న</div><div class="kan">ಅಪ್ಪ</div><div class="trans">appa</div><div class="note">ద్రావిడ — తెలుగులో 'అప్ప' కూడా ఉంది</div></div>
+      <div class="word"><div class="te-eq">అమ్మ</div><div class="kan">ಅಮ್ಮ</div><div class="trans">amma</div><div class="note">ఒకే పదం!</div></div>
+      <div class="word"><div class="te-eq">అన్న</div><div class="kan">ಅಣ್ಣ</div><div class="trans">aṇṇa</div><div class="note">ఒకే పదం! (కన్నడలో మూర్ధన్య ణ)</div></div>
+      <div class="word"><div class="te-eq">తమ్ముడు</div><div class="kan">ತಮ್ಮ</div><div class="trans">tamma</div><div class="note">తెలుగు 'తమ్ము' కన్నడలో 'తమ్మ'</div></div>
+      <div class="word"><div class="te-eq">అక్క</div><div class="kan">ಅಕ್ಕ</div><div class="trans">akka</div><div class="note">ఒకే పదం!</div></div>
+      <div class="word"><div class="te-eq">చెల్లి</div><div class="kan">ತಂಗಿ</div><div class="trans">taṅgi</div><div class="note">వేర్వేరు పదాలు — తెలుగు 'చెల్లి' vs కన్నడ 'తంగి'</div></div>
+      <div class="word"><div class="te-eq">తాత</div><div class="kan">ಅಜ್ಜ</div><div class="trans">ajja</div><div class="note">ద్రావిడ — వేరు పదాలు</div></div>
+      <div class="word"><div class="te-eq">నానమ్మ</div><div class="kan">ಅಜ್ಜಿ</div><div class="trans">ajji</div><div class="note">'అజ్జ' స్త్రీ రూపం</div></div>
+      <div class="word"><div class="te-eq">మామ</div><div class="kan">ಮಾವ</div><div class="trans">māva</div><div class="note">దగ్గరి పదం — మాతృ సోదరుడు / అత్తామామ</div></div>
+      <div class="word"><div class="te-eq">అత్త</div><div class="kan">ಅತ್ತೆ</div><div class="trans">atte</div><div class="note">దగ్గరి పదం — పితృ సోదరి / అత్తగారు</div></div>
+      <div class="word"><div class="te-eq">చిన్నాన్న</div><div class="kan">ಚಿಕ್ಕಪ್ಪ</div><div class="trans">cikkappa</div><div class="note">తండ్రి తమ్ముడు — చిన్న + అప్ప</div></div>
+      <div class="word"><div class="te-eq">పెద్దనాన్న</div><div class="kan">ದೊಡ್ಡಪ್ಪ</div><div class="trans">doḍḍappa</div><div class="note">తండ్రి అన్న — దొడ్డ + అప్ప</div></div>
+    </div>
+
+    <div class="aside"><strong>బంధుత్వ ఆలోచన ఒకటే.</strong> ఉత్తర భారత భాషలలో 'uncle' ఒక్కటే పదం ఉంటుంది. తెలుగు మరియు కన్నడ రెండూ ఖచ్చితంగా <em>తల్లివైపు vs తండ్రివైపు</em>, <em>పెద్ద vs చిన్న</em> అని తేడా చేస్తాయి. మామ (తల్లి తమ్ముడు / అత్త భర్త) vs చిన్నాన్న (తండ్రి తమ్ముడు) — ఈ భేదం తెలుగులో ఉంది, కన్నడలో కూడా ఉంది, పదం రూపం ఒకటే.</div>
+
+    <h3><span class="num">7.2</span>కాలం — <span class="kan">ಸಮಯ</span></h3>
+    <div class="words">
+      <div class="word"><div class="te-eq">ఈ రోజు</div><div class="kan">ಇಂದು</div><div class="trans">indu</div><div class="note">తత్సమం — 'ఇంతు' సంస్కృతం</div></div>
+      <div class="word"><div class="te-eq">రేపు</div><div class="kan">ನಾಳೆ</div><div class="trans">nāḷe</div><div class="note">ద్రావిడ — ళ ధ్వని</div></div>
+      <div class="word"><div class="te-eq">నిన్న</div><div class="kan">ನಿನ್ನೆ</div><div class="trans">ninne</div><div class="note">ఒకే పదం — తెలుగు 'నిన్న' = కన్నడ 'నిన్నె'</div></div>
+      <div class="word"><div class="te-eq">ఇప్పుడు</div><div class="kan">ಈಗ</div><div class="trans">īga</div><div class="note">ద్రావిడ — వేరు మూలాలు</div></div>
+      <div class="word"><div class="te-eq">ఉదయం</div><div class="kan">ಬೆಳಿಗ್ಗೆ</div><div class="trans">beḷigge</div><div class="note">ద్రావిడ — 'వెలుగు' సంబంధ మూలం</div></div>
+      <div class="word"><div class="te-eq">సాయంత్రం</div><div class="kan">ಸಂಜೆ</div><div class="trans">sañje</div><div class="note">సంధ్య సంబంధం</div></div>
+      <div class="word"><div class="te-eq">రాత్రి</div><div class="kan">ರಾತ್ರಿ</div><div class="trans">rātri</div><div class="note">తత్సమం — ఒకే పదం</div></div>
+      <div class="word"><div class="te-eq">ముందు</div><div class="kan">ಮೊದಲು</div><div class="trans">modalu</div><div class="note">'మొదలు' = తెలుగు 'మొదలు' (ఆరంభం) — కాలపరంగా 'ముందు'</div></div>
+      <div class="word"><div class="te-eq">తర్వాత</div><div class="kan">ನಂತರ</div><div class="trans">nantara</div><div class="note">తత్సమం — అనంతరం</div></div>
+    </div>
+
+    <div class="aside"><strong>సూక్ష్మ తేడా: 'మొదలు'.</strong> తెలుగులో 'మొదలు' అంటే 'ఆరంభం' (పని మొదలు పెట్టు). కన్నడలో <span class="kan">ಮೊದಲು</span> అంటే 'ముందు / పూర్వం' (కాలపరంగా). ఒకే మూలం, రెండు వేర్వేరు పరిణామాలు. ఇలాంటి తప్పుడు మిత్రులు (false friends) కొన్ని మాత్రమే ఉన్నాయి — జాగ్రత్త.</div>
+
+    <h3><span class="num">7.3</span>శరీరం — <span class="kan">ಶರೀರ</span></h3>
+    <div class="words">
+      <div class="word"><div class="te-eq">తల</div><div class="kan">ತಲೆ</div><div class="trans">tale</div><div class="note">ఒకే పదం!</div></div>
+      <div class="word"><div class="te-eq">కన్ను</div><div class="kan">ಕಣ್ಣು</div><div class="trans">kaṇṇu</div><div class="note">ఒకే పదం!</div></div>
+      <div class="word"><div class="te-eq">చెవి</div><div class="kan">ಕಿವಿ</div><div class="trans">kivi</div><div class="note">ద్రావిడ — వేరు పదాలు</div></div>
+      <div class="word"><div class="te-eq">ముక్కు</div><div class="kan">ಮೂಗು</div><div class="trans">mūgu</div><div class="note">వేరు పదాలు</div></div>
+      <div class="word"><div class="te-eq">నోరు</div><div class="kan">ಬಾಯಿ</div><div class="trans">bāyi</div><div class="note">వేరు పదాలు</div></div>
+      <div class="word"><div class="te-eq">చేయి</div><div class="kan">ಕೈ</div><div class="trans">kai</div><div class="note">ద్రావిడ — 'చేయి' మరియు 'కై' ఒకే మూలం (చె → కె)</div></div>
+      <div class="word"><div class="te-eq">కాలు</div><div class="kan">ಕಾಲು</div><div class="trans">kālu</div><div class="note">ఒకే పదం!</div></div>
+      <div class="word"><div class="te-eq">కడుపు</div><div class="kan">ಹೊಟ್ಟೆ</div><div class="trans">hoṭṭe</div><div class="note">వేరు పదాలు</div></div>
+    </div>
+
+    <h3><span class="num">7.4</span>కదలిక క్రియలు</h3>
+    <p>తెలుగులో 'వెళ్ళు / రా / నడచు / పరుగెత్తు'. కన్నడలో <span class="kan">ಹೋಗು / ಬಾ / ನಡೆ / ಓಡು</span>. నిర్మాణం ఒకటే — ప్రతి కదలికకు ప్రత్యేక క్రియ.</p>
+
+    <div class="words">
+      <div class="word"><div class="te-eq">పోవు / వెళ్ళు</div><div class="kan">ಹೋಗು</div><div class="trans">hōgu</div></div>
+      <div class="word"><div class="te-eq">రా</div><div class="kan">ಬಾ</div><div class="trans">bā</div></div>
+      <div class="word"><div class="te-eq">నడచు</div><div class="kan">ನಡೆ</div><div class="trans">naḍe</div><div class="note">ఒకే మూలం</div></div>
+      <div class="word"><div class="te-eq">పరుగెత్తు</div><div class="kan">ಓಡು</div><div class="trans">ōḍu</div><div class="note">తెలుగులో 'ఓడు' అర్థం వేరు (ఓడిపోవు) — false friend!</div></div>
+    </div>
+
+    <div class="aside"><strong>మేము / మనం — ఒక ముఖ్య తేడా.</strong> తెలుగులో 'మేము' (మీరు కాకుండా నేను + ఇతరులు) మరియు 'మనం' (నేను + మీరు) అని రెండు వేర్వేరు సర్వనామాలు. కన్నడలో <span class="kan">ನಾವು</span> ఒక్కటే రెండు అర్థాలకూ. అంటే — కన్నడలో ఈ భేదం లుప్తమైంది. తెలుగులో ఇది ఉంది, ఇది మీ భాషకు ప్రత్యేక సంపద.</div>
+  </div>
+</section>
+<section class="stage" id="stage-08" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · వాడుక</div>
+    <h2 class="stage-title">మర్యాద, పదబంధాలు, సంస్కారాలు</h2>
+    <p class="stage-lede">పదజాలం మాత్రమే భాష కాదు — ఎక్కడ ఏ పదం వాడాలి అనేది ముఖ్యం. తెలుగు-కన్నడ రెండూ ఒకే సంస్కృతి కనుక మర్యాద విధానాలు దాదాపు ఒకటే.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">8.1</span>మర్యాద స్థాయిలు</h3>
+    <p>తెలుగులో 'నువ్వు / మీరు' రెండు స్థాయిలు. కన్నడలో కూడా <span class="kan">ನೀನು / ನೀವು</span> — రెండు స్థాయిలు. క్రియ కూడా తదనుగుణంగా మారుతుంది.</p>
+
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">స్నేహితుడు</div><div class="kan">ನೀನು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತೀಯ?</div><div class="te-eq">నువ్వు ఎక్కడికి వెళ్తున్నావు?</div></div>
+      <div class="conjug-row"><div class="pron">పెద్దలు</div><div class="kan">ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತೀರಿ?</div><div class="te-eq">మీరు ఎక్కడికి వెళ్తున్నారు?</div></div>
+    </div>
+
+    <h3><span class="num">8.2</span>నిత్య పదబంధాలు</h3>
+    <div class="words">
+      <div class="word"><div class="te-eq">నమస్కారం</div><div class="kan">ನಮಸ್ಕಾರ</div><div class="trans">namaskāra</div><div class="note">అధికారిక శుభాకాంక్ష — ఒకే పదం</div></div>
+      <div class="word"><div class="te-eq">ధన్యవాదాలు</div><div class="kan">ಧನ್ಯವಾದಗಳು</div><div class="trans">dhanyavādagaḷu</div><div class="note">-గళు బహువచన ప్రత్యయం</div></div>
+      <div class="word"><div class="te-eq">క్షమించండి</div><div class="kan">ಕ್ಷಮಿಸಿ</div><div class="trans">kṣamisi</div><div class="note">ఒకే సంస్కృత మూలం</div></div>
+      <div class="word"><div class="te-eq">పర్వాలేదు</div><div class="kan">ಪರವಾಗಿಲ್ಲ</div><div class="trans">paravāgilla</div><div class="note">'పరవాగి' కాదు = ఫర్వా లేదు</div></div>
+      <div class="word"><div class="te-eq">మీరు ఎలా ఉన్నారు?</div><div class="kan">ಹೇಗಿದ್ದೀರಿ?</div><div class="trans">hēgiddīri?</div></div>
+      <div class="word"><div class="te-eq">నేను బాగున్నాను</div><div class="kan">ಚೆನ್ನಾಗಿದ್ದೇನೆ</div><div class="trans">chennāgiddēne</div><div class="note">'చెన్నాగి' = బాగా</div></div>
+      <div class="word"><div class="te-eq">కొంచెం / కొద్దిగా</div><div class="kan">ಸ್ವಲ್ಪ</div><div class="trans">svalpa</div><div class="note">సంస్కృతం 'స్వల్ప' — తెలుగులో కూడా వాడుక</div></div>
+      <div class="word"><div class="te-eq">కావాలి</div><div class="kan">ಬೇಕು</div><div class="trans">bēku</div></div>
+      <div class="word"><div class="te-eq">వద్దు</div><div class="kan">ಬೇಡ</div><div class="trans">bēḍa</div><div class="note">'బేకు' వ్యతిరేకం</div></div>
+      <div class="word"><div class="te-eq">తెలియదు</div><div class="kan">ಗೊತ್ತಿಲ್ಲ</div><div class="trans">gottilla</div><div class="note">'గొత్తు' (తెలియడం) + 'ఇల్ల' (లేదు)</div></div>
+      <div class="word"><div class="te-eq">అవును</div><div class="kan">ಹೌದು</div><div class="trans">haudu</div></div>
+      <div class="word"><div class="te-eq">కాదు</div><div class="kan">ಇಲ್ಲ</div><div class="trans">illa</div></div>
+    </div>
+
+    <h3><span class="num">8.3</span>సార్వత్రిక దక్షిణ భారత శుభాకాంక్ష</h3>
+    <div class="sentence">
+      <div class="kan">ಊಟ ಆಯ್ತಾ?</div>
+      <div class="trans">ūṭa āytā?</div>
+      <div class="te-gloss">భోజనం అయిందా?</div>
+      <div class="literal">జవాబు: ಆಯ್ತು (āytu) = అయింది</div>
+    </div>
+
+    <div class="aside"><strong>ఇది ఆహారం గురించి ప్రశ్న కాదు.</strong> తెలుగు-కన్నడ-తమిళ-మలయాళ సంస్కృతులలో "భోజనం అయిందా?" అనేది "ఎలా ఉన్నారు?" లాంటి ప్రేమపూర్వక శుభాకాంక్ష. మీరు నిజంగా తిన్నారా లేదా అనేది ముఖ్యం కాదు — జవాబు "ఆయితు" (అయింది) అనే చెప్పాలి. ఈ సంప్రదాయం తెలుగులో "భోజనం అయిందా?", కన్నడలో "<span class="kan">ಊಟ ಆಯ್ತಾ?</span>" — ఒకే ప్రేమ, ఒకే సంస్కారం.</div>
+
+    <h3><span class="num">8.4</span>బంగళూరు యొక్క సగం పదం: <span class="kan">ಸ್ವಲ್ಪ</span></h3>
+    <p>బంగళూరులో ఒక నానుడి ఉంది — "స్వల్ప అడ్జస్ట్ మాడి" (కొంచెం సర్దుబాటు చేయండి). ఈ ఒక్క <span class="kan">ಸ್ವಲ್ಪ</span> పదం ఏ అభ్యర్థనను అయినా మృదువు చేస్తుంది. తెలుగులో 'కొంచెం' ఎలా వాడతారో — "కొంచెం నీరు ఇవ్వండి" — కన్నడలో కూడా అలాగే: "<span class="kan">ಸ್ವಲ್ಪ ನೀರು ಕೊಡಿ</span>".</p>
+
+    <h3><span class="num">8.5</span>అపరిచితులను పిలిచే పదాలు</h3>
+    <p>తెలుగులో అపరిచితులను "అన్నయ్యా / అక్కయ్యా / తాతయ్యా / అమ్మమ్మా" అని పిలవడం సంస్కారం. కన్నడలో కూడా అదే:</p>
+    <div class="words">
+      <div class="word"><div class="te-eq">అన్నయ్యా (పెద్ద మగవాడు)</div><div class="kan">ಅಣ್ಣ</div><div class="trans">aṇṇa</div></div>
+      <div class="word"><div class="te-eq">అక్కయ్యా (పెద్ద స్త్రీ)</div><div class="kan">ಅಕ್ಕ</div><div class="trans">akka</div></div>
+      <div class="word"><div class="te-eq">తాతయ్యా (వృద్ధుడు)</div><div class="kan">ಅಜ್ಜ</div><div class="trans">ajja</div></div>
+      <div class="word"><div class="te-eq">అమ్మమ్మా (వృద్ధురాలు)</div><div class="kan">ಅಜ್ಜಿ</div><div class="trans">ajji</div></div>
+    </div>
+
+    <div class="aside"><strong>కుటుంబం-వలె సమాజం.</strong> ఉత్తర భారతంలో "భాయి / దీదీ" అని పిలుస్తారు — ఒకే పదం అందరికీ. దక్షిణ భారతంలో ప్రతి వయసుకు, ప్రతి సంబంధానికి ప్రత్యేక పదం ఉంది. తెలుగు-కన్నడ రెండూ ఈ సూక్ష్మతను ఉంచుకున్నాయి. సమాజమంతా ఒక పెద్ద కుటుంబం — భాష దాన్ని ప్రతిబింబిస్తుంది.</div>
+  </div>
+</section>
+<section class="stage" id="stage-09" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · సాహిత్యం</div>
+    <h2 class="stage-title">కన్నడ సాహిత్యం — తెలుగు వారసత్వంతో వంతెనలు</h2>
+    <p class="stage-lede">1400 సంవత్సరాల కన్నడ సాహిత్యం. 1000+ సంవత్సరాల తెలుగు సాహిత్యం. రెండు కొలమానాలూ దగ్గరగా నడిచాయి — జైన, వీరశైవ, భక్తి, ఆధునిక — ప్రతి యుగంలోనూ పోలిక ఉంది.</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">9.1</span>వచనం — బసవణ్ణ</h3>
+
+    <div class="vachana">
+      <div class="kan">
+        ಕಳಬೇಡ, ಕೊಲಬೇಡ, ಹುಸಿಯ ನುಡಿಯಲು ಬೇಡ<br>
+        ಮುನಿಯಬೇಡ, ಅನ್ಯರಿಗೆ ಅಸಹ್ಯ ಪಡಬೇಡ<br>
+        ತನ್ನ ಬಣ್ಣಿಸಬೇಡ, ಇದಿರ ಹಳಿಯಲು ಬೇಡ<br>
+        ಇದೇ ಅಂತರಂಗಶುದ್ಧಿ, ಇದೇ ಬಹಿರಂಗಶುದ್ಧಿ<br>
+        ಇದೇ ನಮ್ಮ ಕೂಡಲಸಂಗಮದೇವರನೊಲಿಸುವ ಪರಿ.
+      </div>
+      <div class="te-gloss">
+        దొంగిలించకు, చంపకు, అబద్ధం చెప్పకు —<br>
+        కోపించకు, ఇతరుల మీద అసహ్యం పడకు —<br>
+        నిన్ను నీవు పొగుడుకోకు, ఎదుటివారిని నిందించకు —<br>
+        ఇదే అంతరంగ శుద్ధి, ఇదే బహిరంగ శుద్ధి —<br>
+        ఇదే మన కూడలసంగమదేవుణ్ణి మెప్పించే మార్గం.
+      </div>
+      <div class="attrib">— ಬಸವಣ್ಣ · 12వ శతాబ్దం</div>
+    </div>
+
+    <h3><span class="num">9.2</span>సాహిత్య వంతెనలు — తెలుగు ↔ కన్నడ</h3>
+
+    <div class="bridge">
+      <div class="name">ಬಸವಣ್ಣ · బసవణ్ణ</div>
+      <div class="era">12వ శతాబ్దం · వచనం</div>
+      <div class="note">శరణ ఉద్యమ నాయకుడు, కుల-ఆచార తిరస్కారం, సామాన్యుల భాషలో తత్వం.</div>
+      <div class="link">తెలుగు వంతెన: <strong>వేమన</strong> — పిట్టలాంటి తత్వ పద్యాలు, ఆచార విరోధం, సామాన్యుల కోసం. బసవణ్ణ వచనం, వేమన పద్యం — రెండూ 'ఆటవెలది' లాగా సంక్షిప్తం, తీవ్రం.</div>
+    </div>
+
+    <div class="bridge">
+      <div class="name">ಅಕ್ಕ ಮಹಾದೇವಿ · అక్క మహాదేవి</div>
+      <div class="era">12వ శతాబ్దం · వచనం</div>
+      <div class="note">వివాహాన్ని, రాజసభను తిరస్కరించింది. తీవ్ర భక్తి కవిత్వం. భారతీయ సాహిత్యంలో మొదటి తీవ్ర స్త్రీ కంఠస్వరాలలో ఒకరు.</div>
+      <div class="link">తెలుగు వంతెన: <strong>మొల్ల, తరిగొండ వెంగమాంబ</strong> — స్త్రీ భక్తికవయిత్రుల వారసత్వం, అక్కతో సమాంతర పథం.</div>
+    </div>
+
+    <div class="bridge">
+      <div class="name">ಪಂಪ · పంప</div>
+      <div class="era">10వ శతాబ్దం · మహాకావ్యం</div>
+      <div class="note">ఆదికవి — కన్నడ సాహిత్యంలో మొదటి మహాకవి. 'విక్రమార్జున విజయం', 'ఆదిపురాణం' — దేశి మరియు మార్గ శైలుల మేళవింపు.</div>
+      <div class="link">తెలుగు వంతెన: <strong>నన్నయ</strong> — తెలుగులో ఆదికవి, మహాభారత అనువాదం ఆరంభించిన వారు. పంప మరియు నన్నయ ఇద్దరూ సంస్కృత మహాకావ్య సంప్రదాయాన్ని దేశీ భాషలోకి తెచ్చారు — దాదాపు ఒకే యుగంలో.</div>
+    </div>
+
+    <div class="bridge">
+      <div class="name">ಕುವೆಂಪು · కువెంపు</div>
+      <div class="era">1904-1994 · కవిత్వం, నవల</div>
+      <div class="note">రాష్ట్రకవి. 'శ్రీ రామాయణ దర్శనం' — ఆధునిక రామాయణ పునర్వ్యాఖ్యానం. సంస్కృతంపై కాకుండా కన్నడలోనే రాయాలని పట్టుదల పట్టారు.</div>
+      <div class="link">తెలుగు వంతెన: <strong>విశ్వనాథ సత్యనారాయణ</strong> — 'రామాయణ కల్పవృక్షం', జ్ఞానపీఠ గ్రహీత, సంప్రదాయ-ఆధునిక మేళవింపు. కువెంపు, విశ్వనాథ — ఇద్దరూ ఆధునిక కాలంలో సంప్రదాయ మహాకావ్యాన్ని పునర్సృష్టించారు.</div>
+    </div>
+
+    <div class="bridge">
+      <div class="name">ಬೇಂದ್ರೆ · బేంద్రే (ద. రా. బేంద్రే)</div>
+      <div class="era">1896-1981 · గేయ కవిత్వం</div>
+      <div class="note">కన్నడ గేయ కవిత్వానికి అగ్రస్థానం. భాషే పాటలా వినిపించే కవి — పాటలాంటి భాష.</div>
+      <div class="link">తెలుగు వంతెన: <strong>శ్రీశ్రీ</strong> — మహాప్రస్థానం, ఆధునిక తెలుగు కవిత్వ విప్లవం. బేంద్రేలో గీతిక, శ్రీశ్రీలో ప్రతిధ్వని — ఇద్దరూ భాషలో కొత్త లయను తెచ్చారు.</div>
+    </div>
+
+    <div class="bridge">
+      <div class="name">ಶಿವರಾಮ ಕಾರಂತ · శివరామ కారంత</div>
+      <div class="era">1902-1997 · నవల, యక్షగాన పరిశోధన</div>
+      <div class="note">కోస్తా కర్ణాటక నవలాకారుడు. ప్రతి దారిలో నడిచాడు. జానపద కళలతో లోతైన పరిచయం.</div>
+      <div class="link">తెలుగు వంతెన: <strong>కొడవటిగంటి కుటుంబరావు</strong> — 'చదువు', 'నేను', ఆధునిక సామాజిక నవల. కారంత మరియు కుటుంబరావు — ఇద్దరూ జానపదం నుండి ఆధునిక నవల వరకు విస్తారమైన వ్యాప్తి.</div>
+    </div>
+
+    <div class="bridge">
+      <div class="name">ಅನಂತಮೂರ್ತಿ · అనంతమూర్తి (యు. ఆర్.)</div>
+      <div class="era">1932-2014 · నవల</div>
+      <div class="note">'సంస్కార' — ఆధునికమవుతున్న భారతదేశంలో నైతిక సంక్షోభం. సాహసవంతుడు, కఠినుడు.</div>
+      <div class="link">తెలుగు వంతెన: <strong>రావూరి భరద్వాజ, కాళీపట్నం రామారావు</strong> — మధ్యతరగతి సామాజిక సంక్షోభాన్ని విశదీకరించిన ఆధునిక తెలుగు నవలాకారులు. సంస్కారలోని ప్రాణేశాచార్య సంకటం కారా మాస్టారు కథల నైతిక దీక్షకు సమానం.</div>
+    </div>
+
+    <div class="bridge">
+      <div class="name">ಗಿರೀಶ್ ಕಾರ್ನಾಡ್ · గిరీష్ కార్నాడ్</div>
+      <div class="era">1938-2019 · నాటకం</div>
+      <div class="note">నాటకకర్త. పురాణాలను ఆధునికంగా మార్చాడు — యయాతి, తుగ్లక్, హయవదన.</div>
+      <div class="link">తెలుగు వంతెన: <strong>గుఱజాడ అప్పారావు, ఆత్రేయ</strong> — సామాజిక చైతన్య నాటకం, ఆధునిక తెలుగు నాటకానికి పునాది. కార్నాడ్ పురాణ-ఆధునిక మేళవింపు, గుఱజాడ సామాజిక కెన్యాస్ — వేర్వేరు దారులు, ఒకే ఆధునిక సాహస యజ్ఞం.</div>
+    </div>
+
+    <div class="aside"><strong>రెండు భాషల సమాంతర చరిత్ర.</strong> కన్నడలో 10వ శతాబ్దంలో పంప — తెలుగులో 11వ శతాబ్దంలో నన్నయ. కన్నడలో 12వ శతాబ్దంలో బసవణ్ణ-వచనం — తెలుగులో 15వ శతాబ్దంలో వేమన-పద్యం. 20వ శతాబ్దంలో కువెంపు-విశ్వనాథ, బేంద్రే-శ్రీశ్రీ, కారంత-కుటుంబరావు. ఒకే సంస్కృతిలో రెండు కొలమానాలు — ఒకటి వింటే, మరొకటి చదవవచ్చు.</div>
+
+    <div class="aside"><strong>జ్ఞానపీఠ పరిశీలన.</strong> కన్నడకు 8 జ్ఞానపీఠ అవార్డులు — భారత భాషలలో అత్యధికం. తెలుగుకు 3. కానీ దక్షిణ భారత భాషలలో సాహిత్య స్థాయి, విస్తృతి, ఆధునికత — అన్నింటిలోనూ తెలుగు-కన్నడ దగ్గర-దగ్గర నడిచాయి. ఒక భాష చదివితే, మరొకటి తక్కువ శ్రమతో పట్టుబడుతుంది.</div>
+
+    <h3><span class="num">9.3</span>ముగింపు</h3>
+    <p>తెలుగు-కన్నడ — ఇవి రెండు భాషలు కాదు. ఒకే భాషా తల్లి ఇద్దరు కూతుళ్ళు. లిపి వేర్వేరు, ఆచారం ఒకటే. పదాలు వేర్వేరు, ఆలోచన ఒకటే. మీరు ఇప్పటికే సగం భాష తెలిసినవారు — మిగతా సగం కొంచెం సాధనతో వస్తుంది.</p>
+
+    <p style="text-align: center; margin-top: 40px; font-style: italic; color: var(--ink-faded);"><span class="kan">ಕಲಿಯುವುದು ಒಂದು ಹಬ್ಬ.</span><br>నేర్చుకోవడం అనేది ఒక పండుగ.</p>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn" disabled>← వెనుకటి</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">తరువాతి →</button>
+</div>
+
+</div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="kan">ಧನ್ಯವಾದಗಳು</span>
+    <div>తెలుగు ↔ కన్నడ · సోదరి లిపులు, సోదరి వ్యాకరణాలు</div>
+    <div class="credit" style="margin-top:10px;">made by Nil · using Claude</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const tabs = document.querySelectorAll('.stage-tab');
+  const sections = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const stageScroll = document.getElementById('stageScroll');
+  const total = sections.length;
+  let current = 0;
+
+  // build dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' current' : '');
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= total) return;
+    current = idx;
+    tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+    sections.forEach((s, i) => s.classList.toggle('active', i === idx));
+    dots.forEach((d, i) => {
+      d.classList.remove('current', 'done');
+      if (i < idx) d.classList.add('done');
+      else if (i === idx) d.classList.add('current');
+    });
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === total - 1;
+    // scroll active tab into view
+    const activeTab = tabs[idx];
+    if (activeTab && stageScroll) {
+      const tabLeft = activeTab.offsetLeft;
+      const tabWidth = activeTab.offsetWidth;
+      const scrollLeft = tabLeft - (stageScroll.clientWidth / 2) + (tabWidth / 2);
+      stageScroll.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((t, i) => t.addEventListener('click', () => goTo(i)));
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  // tap-to-expand map cells
+  document.addEventListener('click', (e) => {
+    const cell = e.target.closest('.map-cell');
+    if (!cell) return;
+    const hint = cell.querySelector('.hint');
+    const hintText = cell.getAttribute('data-hint');
+    if (hint && hintText && !hint.textContent) hint.textContent = hintText;
+    cell.classList.toggle('expanded');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.classList && e.target.classList.contains('map-cell') && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      e.target.click();
+    }
+    if (e.key === 'ArrowLeft' && !prevBtn.disabled) goTo(current - 1);
+    if (e.key === 'ArrowRight' && !nextBtn.disabled) goTo(current + 1);
+  });
+})();
+</script>
+
+</body>
+</html>

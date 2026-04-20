@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="kn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ಕನ್ನಡದಿಂದ ಹಿಂದಿಗೆ — ಭಾಷಾಸೇತು</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Noto+Serif+Kannada:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Serif Kannada',serif;
+  color:var(--ink); background:var(--paper);
+  font-size:17px; line-height:1.7;
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(184,128,45,.10), transparent 55%),
+    radial-gradient(ellipse at 80% 90%, rgba(168,48,36,.07), transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(31,77,74,.04), transparent 60%);
+  min-height:100vh; position:relative;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.085  0 0 0 0 0.067  0 0 0 0.055 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity:.55; mix-blend-mode:multiply;
+}
+.wrap{max-width:820px; margin:0 auto; padding:28px 22px 80px; position:relative; z-index:1}
+header.top{text-align:center; padding:28px 0 8px; border-bottom:1px solid rgba(107,91,72,.25); margin-bottom:8px}
+header.top .kicker{font-family:'Fraunces',serif; font-style:italic; color:var(--ink-faded); letter-spacing:.04em; font-size:14px}
+header.top h1{font-family:'Noto Serif Kannada',serif; font-weight:700; font-size:32px; margin:4px 0 2px; color:var(--ink)}
+header.top h1 .arrow{font-family:'Fraunces',serif; color:var(--ochre); margin:0 10px; font-weight:400}
+header.top h1 .hi{font-family:'Noto Serif Devanagari',serif}
+header.top .sub{color:var(--ink-soft); font-size:15px}
+nav.tabs{position:sticky; top:0; background:rgba(244,236,218,.94); backdrop-filter:blur(8px); z-index:10;
+  padding:10px 0; margin:6px -22px 18px; border-bottom:1px solid rgba(107,91,72,.25);
+  overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch}
+nav.tabs .inner{padding:0 22px}
+nav.tabs a{display:inline-block; padding:6px 12px; margin-right:4px; text-decoration:none;
+  color:var(--ink-soft); border:1px solid transparent; border-radius:14px; font-size:14px}
+nav.tabs a.active{color:var(--sindoor); border-color:rgba(168,48,36,.30); background:rgba(168,48,36,.06)}
+section.stage{padding:30px 0 14px; border-bottom:1px dashed rgba(107,91,72,.25); scroll-margin-top:60px}
+section.stage h2{font-family:'Fraunces',serif; font-weight:600; font-size:26px; margin:0 0 4px; color:var(--ink)}
+section.stage h2 .num{color:var(--ochre); font-style:italic; margin-right:10px}
+section.stage h2 .kn{font-family:'Noto Serif Kannada',serif}
+section.stage .lead{color:var(--ink-soft); font-style:italic; margin:0 0 20px; font-family:'Fraunces',serif; font-size:16px}
+h3{font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:var(--teal); margin:22px 0 10px}
+h3 .kn{font-family:'Noto Serif Kannada',serif}
+p{margin:0 0 14px}
+.hi{font-family:'Noto Serif Devanagari',serif}
+.kn{font-family:'Noto Serif Kannada',serif}
+.mono{font-family:'JetBrains Mono',monospace; font-size:.86em; color:var(--ink-faded)}
+.aside{background:rgba(184,128,45,.10); border-left:3px solid var(--ochre);
+  padding:14px 16px; margin:18px 0; border-radius:0 8px 8px 0; font-size:15.5px}
+.aside b{color:var(--sindoor)}
+.aha{background:rgba(31,77,74,.08); border-left:3px solid var(--teal)}
+.warn{background:rgba(168,48,36,.09); border-left:3px solid var(--sindoor)}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:10px; margin:10px 0 16px}
+.card{background:var(--paper-warm); border:1px solid rgba(107,91,72,.2); border-radius:10px;
+  padding:12px 10px; text-align:center; cursor:pointer; transition:.15s; position:relative}
+.card:hover{background:var(--paper-deep); border-color:var(--ochre)}
+.card .big{font-size:34px; line-height:1; display:block; margin-bottom:6px}
+.card .big.hi{font-family:'Noto Serif Devanagari',serif; color:var(--sindoor)}
+.card .big.kn{font-family:'Noto Serif Kannada',serif; color:var(--ink)}
+.card .tr{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-faded)}
+.card .hint{display:none; margin-top:8px; font-size:13.5px; color:var(--ink-soft); line-height:1.5}
+.card.open .hint{display:block}
+.card .flag{position:absolute; top:4px; right:6px; font-size:11px; color:var(--sindoor)}
+.family{background:var(--paper-warm); border:1px solid rgba(107,91,72,.2); border-radius:12px;
+  padding:14px 16px; margin:14px 0}
+.family .label{font-family:'Fraunces',serif; font-style:italic; color:var(--ochre); font-size:15px; margin-bottom:8px}
+table{width:100%; border-collapse:collapse; margin:12px 0 18px; font-size:15px}
+th,td{padding:8px 10px; text-align:left; border-bottom:1px solid rgba(107,91,72,.2); vertical-align:top}
+th{font-family:'Fraunces',serif; font-weight:600; color:var(--teal); font-size:14px}
+td.hi{font-family:'Noto Serif Devanagari',serif; color:var(--sindoor); font-size:18px}
+td.kn{font-family:'Noto Serif Kannada',serif; font-size:17px}
+td.mono{font-family:'JetBrains Mono',monospace; font-size:13px}
+.video{margin:16px 0 20px}
+.video-frame{position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; border:1px solid rgba(107,91,72,.25)}
+.video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+.video-caption{font-size:14px; color:var(--ink-faded); margin-top:6px; font-style:italic}
+.video-caption a{color:var(--teal)}
+.passage{background:var(--paper-warm); border:1px solid rgba(107,91,72,.2); border-radius:12px; padding:16px 18px; margin:14px 0}
+.passage .hi{font-size:19px; line-height:2; color:var(--sindoor)}
+.passage .tr{font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--ink-faded); margin:8px 0}
+.passage .gloss{font-size:15.5px; color:var(--ink-soft); border-top:1px dashed rgba(107,91,72,.3); padding-top:10px; margin-top:10px}
+.wordrow{display:grid; grid-template-columns:1.2fr 1fr 1fr 2fr; gap:8px; padding:8px 6px; border-bottom:1px solid rgba(107,91,72,.15); align-items:center; font-size:15px}
+.wordrow .hi{font-size:19px; color:var(--sindoor)}
+.wordrow .tr{font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--ink-faded)}
+.wordrow .tag{display:inline-block; font-size:11px; padding:2px 6px; border-radius:8px; background:rgba(31,77,74,.12); color:var(--teal); margin-left:6px}
+.wordrow .tag.new{background:rgba(168,48,36,.14); color:var(--sindoor)}
+.navbtns{display:flex; justify-content:space-between; margin:22px 0 0; gap:12px}
+.navbtns a{flex:1; padding:10px 14px; border:1px solid rgba(107,91,72,.3); border-radius:10px;
+  text-decoration:none; color:var(--ink-soft); background:var(--paper-warm); text-align:center; font-size:14px}
+.navbtns a:hover{border-color:var(--ochre); color:var(--ink)}
+footer{text-align:center; padding:30px 0 10px; color:var(--ink-faded); font-style:italic; font-family:'Fraunces',serif; font-size:14px}
+@media (max-width:520px){
+  body{font-size:16px}
+  .wrap{padding:18px 14px 60px}
+  header.top h1{font-size:26px}
+  section.stage h2{font-size:22px}
+  .wordrow{grid-template-columns:1fr 1fr; row-gap:4px}
+  .wordrow .tr, .wordrow .note{grid-column:span 2}
+  nav.tabs{margin-left:-14px; margin-right:-14px}
+  nav.tabs .inner{padding:0 14px}
+}
+@media (max-width:400px){
+  body{font-size:15.5px}
+  .card .big{font-size:30px}
+  header.top h1{font-size:23px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="kicker">ಭಾಷಾಸೇತು · bhāṣāsetu</div>
+  <h1><span class="kn">ಕನ್ನಡ</span><span class="arrow">→</span><span class="hi">हिन्दी</span></h1>
+  <div class="sub">ಕನ್ನಡಿಗರಿಗೆ ಹಿಂದಿ ಕಲಿಕೆ — ಹತ್ತು ಹೆಜ್ಜೆಗಳಲ್ಲಿ</div>
+</header>
+
+<nav class="tabs"><div class="inner">
+  <a href="#stage-00" class="active">೦೦ · ಪರಿಚಯ</a>
+  <a href="#stage-01">೦೧ · ಸ್ವರ</a>
+  <a href="#stage-02">೦೨ · ವ್ಯಂಜನ</a>
+  <a href="#stage-03">೦೩ · ಸಂಯೋಜನೆ</a>
+  <a href="#stage-04">೦೪ · ಪದಗಳು</a>
+  <a href="#stage-05">೦೫ · ವಾಕ್ಯ</a>
+  <a href="#stage-06">೦೬ · ಓದು</a>
+  <a href="#stage-07">೦೭ · ಪದಕ್ಷೇತ್ರ</a>
+  <a href="#stage-08">೦೮ · ಬಳಕೆ</a>
+  <a href="#stage-09">೦೯ · ಸಾಹಿತ್ಯ</a>
+</div></nav>
+
+<section class="stage" id="stage-00">
+<h2><span class="num">೦೦</span><span class="kn">ಪರಿಚಯ</span></h2>
+<p class="lead">ನೀವು ಈಗಾಗಲೇ ತಿಳಿದಿರುವುದೇನು, ಹೊಸದಾಗಿ ಕಲಿಯಬೇಕಾದದ್ದೇನು</p>
+
+<p>ಬಾಲ್ಯದಲ್ಲಿ <b>ಕನ್ನಡ ಕಲಿ</b> ಹಾಗೂ <b>ಬಾರಹ</b> ಕಲಿತಾಗ ನಾವು ಅಕ್ಷರಗಳನ್ನು ಕಲಿತದ್ದು ಕೇವಲ ಆಕಾರಗಳಾಗಿ ಅಲ್ಲ — ಒಂದು <i>ವ್ಯವಸ್ಥೆ</i>ಯಾಗಿ. ಪ್ರತಿ ವ್ಯಂಜನಕ್ಕೆ ಒಳಗಿನ 'ಅ' ಸ್ವರವಿದೆ, ಬೇರೆ ಸ್ವರ ಬೇಕಾದಾಗ ಗುಣಿತಾಕ್ಷರ ಹಾಕುತ್ತೇವೆ, ಹಲ್ಲಂತು ಹಾಕಿದರೆ ಸ್ವರ ಹೋಗುತ್ತದೆ — ಇದೇ <i>ಅಬುಗಿದಾ</i>. ಹಿಂದಿಯ ದೇವನಾಗರಿಯೂ ಇದೇ ತತ್ವದ ಮೇಲೆ ನಿಂತಿದೆ. ಆಕಾರಗಳು ಬೇರೆ, ನಿಯಮಗಳು ಒಂದೇ.</p>
+
+<p>ಇದೊಂದು <b>ದ್ರಾವಿಡ → ಇಂಡೋ-ಆರ್ಯ</b> ಸೇತುವೆ. ಎರಡೂ ಕುಟುಂಬ ಬೇರೆ, ಆದರೂ ಶಬ್ದಕೋಶದಲ್ಲಿ ಸುಮಾರು <b>೭೮%</b> ಹೋಲಿಕೆ — ಸಂಸ್ಕೃತದ ಸಾಮಾನ್ಯ ನೆಲೆಯಿಂದ. ಫೋನೆಮ್‌ಗಳ ಪೈಕಿ <b>೪೪ರಲ್ಲಿ ೪೩</b> ಈಗಾಗಲೇ ನಿಮ್ಮ ಬಾಯಿಗೆ ಗೊತ್ತು. ಕೇವಲ ಒಂದು ಹೊಸ ಶಬ್ದ — <span class="hi">ऋ</span> — ಅಷ್ಟೇ.</p>
+
+<p>ವಾಕ್ಯ ರಚನೆ ಅಕ್ಷರಶಃ ಒಂದೇ. ಕನ್ನಡದಲ್ಲಿ <span class="kn"><b>ನಾನು ಪುಸ್ತಕ ಓದುತ್ತೇನೆ</b></span> — ಹಿಂದಿಯಲ್ಲಿ <span class="hi"><b>मैं किताब पढ़ता हूँ</b></span>. ಕರ್ತೃ–ಕರ್ಮ–ಕ್ರಿಯೆ (SOV) ಅದೇ ಕ್ರಮ. ಪರಸರ್ಗಗಳು (postpositions) ಎರಡೂ ಕಡೆಯೂ ಇವೆ — ಕನ್ನಡದ <span class="kn">-ಅನ್ನು, -ಗೆ, -ಇಂದ</span> ಹಿಂದಿಯ <span class="hi">-को, -से, -में</span> ಗೆ ನೇರವಾಗಿ ಮ್ಯಾಪ್ ಆಗುತ್ತವೆ.</p>
+
+<h3><span class="kn">ಆರು ಅನುಕೂಲ ಮತ್ತು ಎಚ್ಚರಿಕೆ</span></h3>
+
+<div class="aside"><b>೧. ಎರಡೂ ಅಬುಗಿದಾ.</b> ಕನ್ನಡದ <span class="kn">ಕ + ಿ = ಕಿ</span> ಎಂಬ ತರ್ಕವೇ ಹಿಂದಿಯಲ್ಲಿ <span class="hi">क + ि = कि</span>. ಒಳಗಿನ 'ಅ' ಸ್ವರ, ಗುಣಿತಾಕ್ಷರ, ವಿರಾಮ (ಹಲ್ಲಂತು) — ಮೂರೂ ತತ್ವ ಅದೇ. ಕೇವಲ ಆಕಾರಗಳನ್ನು ಕಲಿಯಬೇಕು.</div>
+
+<div class="aside"><b>೨. ೪೪ರಲ್ಲಿ ೪೩ ಶಬ್ದಗಳು ಪರಿಚಿತ.</b> ಕವರ್ಗ, ಚವರ್ಗ, ಟವರ್ಗ, ತವರ್ಗ, ಪವರ್ಗ — ಐದೂ ವರ್ಗ ಒಂದೇ ಕ್ರಮದಲ್ಲಿ. ಮೂರ್ಧನ್ಯ <span class="kn">ಟ ಠ ಡ ಢ ಣ</span> ಮತ್ತು ದಂತ್ಯ <span class="kn">ತ ಥ ದ ಧ ನ</span> ಭೇದ — ಇದು ದಕ್ಷಿಣ ಭಾರತೀಯರ ವಿಶೇಷ ಉಚ್ಚಾರಣಾ ಕೌಶಲ. ಉತ್ತರದವರಿಗೆ ಕಷ್ಟ, ನಿಮಗೆ ಸುಲಭ.</div>
+
+<div class="aside"><b>೩. SOV ಕ್ರಮ ಒಂದೇ.</b> <span class="kn">ಅವನು ಅನ್ನ ತಿನ್ನುತ್ತಾನೆ</span> = <span class="hi">वह चावल खाता है</span>. ಕನ್ನಡಿಗ ಹಿಂದಿಯನ್ನು ಯೋಚಿಸಿದಂತೆ ಜೋಡಿಸಬಹುದು — ಇಂಗ್ಲಿಷ್‌ನಂತೆ ಮೆದುಳು ತಿರುಗಿಸಬೇಕಿಲ್ಲ.</div>
+
+<div class="aside"><b>೪. ಪರಸರ್ಗಗಳು, ಪ್ರಿಪೋಸಿಷನ್‌ಗಳಲ್ಲ.</b> ಕನ್ನಡದ <span class="kn">ಮನೆಗೆ</span> = ಹಿಂದಿಯ <span class="hi">घर को</span>. ವಿಭಕ್ತಿ ಪ್ರತ್ಯಯ ಪದದ ಕೊನೆಗೇ ಬರುತ್ತದೆ, ಮುಂದೆ ಅಲ್ಲ. ಕಲಿಯುವಾಗ ಹೊಸ ಮಾನಸಿಕ ಮಾದರಿ ಬೇಕಿಲ್ಲ.</div>
+
+<div class="aside warn"><b>೫. ಒಂದು ಹೊಸ ಶಬ್ದ: <span class="hi">ऋ</span>.</b> ಸಂಸ್ಕೃತದಿಂದ ಬಂದ ಈ ಸ್ವರ ಕನ್ನಡ ಅಕ್ಷರಮಾಲೆಯಲ್ಲಿ <span class="kn">ಋ</span> ಎಂದು ಇದ್ದರೂ ದೈನಂದಿನ ಉಚ್ಚಾರಣೆಯಲ್ಲಿ 'ರಿ' ಎಂದಾಗಿಬಿಡುತ್ತದೆ. ಹಿಂದಿಯಲ್ಲಿ ಇದು <span class="hi">ऋषि</span> (ಋಷಿ), <span class="hi">कृषि</span> (ಕೃಷಿ) ಹೀಗೆ ಜೀವಂತ. ಹೊಸದೆಂದು ಭಯಪಡಬೇಕಿಲ್ಲ — ಬರಿ ಬೆರೆಸಬೇಕಿಲ್ಲ.</div>
+
+<div class="aside warn"><b>೬. ಬೇರೆ ಲಿಪಿ ಕುಟುಂಬ.</b> ಕನ್ನಡ ದಕ್ಷಿಣ ಬ್ರಾಹ್ಮಿಯಿಂದ, ದೇವನಾಗರಿ ಉತ್ತರ ಬ್ರಾಹ್ಮಿಯಿಂದ. ಕನ್ನಡದ ಅಕ್ಷರಗಳು ದುಂಡಾಗಿವೆ; ದೇವನಾಗರಿಯ ಅಕ್ಷರಗಳ ಮೇಲೆ ನೇರ ಗೆರೆ (ಶಿರೋರೇಖಾ) ಇದೆ. ಆದರೆ ಎರಡೂ ಬ್ರಾಹ್ಮಿ ಮೂಲ — ಕ್ರಮ, ತರ್ಕ, ಆತ್ಮ ಒಂದೇ.</div>
+
+<div class="aside aha"><b>ಅಹಾ!</b> ಕನ್ನಡದಲ್ಲಿ <span class="kn"><b>ನಾಳೆ</b></span> ಮತ್ತು <span class="kn"><b>ನಿನ್ನೆ</b></span> ಎರಡು ಬೇರೆ ಪದ. ಹಿಂದಿಯಲ್ಲಿ ಎರಡೂ <span class="hi"><b>कल</b></span> (ಕಲ್) — ಒಂದೇ ಪದ! ಸಂಜೆ ಮಾತಾಡುತ್ತಿದ್ದರೆ 'ಬರುವ ಕಲ್', ಬೆಳಿಗ್ಗೆ ಮಾತಾಡುತ್ತಿದ್ದರೆ 'ಹೋದ ಕಲ್' — ಸಂದರ್ಭದಿಂದಲೇ ತಿಳಿಯಬೇಕು.</div>
+
+<div class="navbtns"><a href="#stage-00">· ·</a><a href="#stage-01">ಸ್ವರ →</a></div>
+</section>
+<section class="stage" id="stage-01">
+<h2><span class="num">೦೧</span><span class="kn">ಸ್ವರಗಳು</span></h2>
+<p class="lead">ಕನ್ನಡದ ಸ್ವರ → ಹಿಂದಿಯ ಸ್ವರ — ಕುಟುಂಬದ ಕ್ರಮದಲ್ಲಿ</p>
+
+<p>ಹಿಂದಿಯಲ್ಲಿ ೧೧ ಸ್ವರಗಳು, ಕನ್ನಡದಲ್ಲಿ ೧೩. ಹೆಚ್ಚುವರಿ ಎಂದರೆ ಕನ್ನಡದ <span class="kn">ಎ/ಏ</span>, <span class="kn">ಒ/ಓ</span> — ಹ್ರಸ್ವ/ದೀರ್ಘ ಭೇದ. ಹಿಂದಿಯಲ್ಲಿ ಇವು ಯಾವಾಗಲೂ ದೀರ್ಘ. ಪ್ರತಿ ಸ್ವರದ ಮೇಲೆ ಟ್ಯಾಪ್ ಮಾಡಿದರೆ ಸಹಾಯ ಸಿಗುತ್ತದೆ.</p>
+
+<div class="family"><div class="label">'ಅ' ಪರಿವಾರ — ಹ್ರಸ್ವ ಮತ್ತು ದೀರ್ಘ</div>
+<div class="grid">
+  <div class="card"><span class="big hi">अ</span><div class="tr">a</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಅ</span>. <span class="hi">अब</span> (ab) = ಈಗ. ಒಳಗಿನ ಸ್ವರ.</div></div>
+  <div class="card"><span class="big hi">आ</span><div class="tr">ā</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಆ</span>. <span class="hi">आम</span> (ām) = ಮಾವಿನ ಹಣ್ಣು.</div></div>
+</div></div>
+
+<div class="family"><div class="label">'ಇ' ಪರಿವಾರ — ಹ್ರಸ್ವ ಮತ್ತು ದೀರ್ಘ</div>
+<div class="grid">
+  <div class="card"><span class="big hi">इ</span><div class="tr">i</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಇ</span>. <span class="hi">इधर</span> (idhar) = ಇಲ್ಲಿ.</div></div>
+  <div class="card"><span class="big hi">ई</span><div class="tr">ī</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಈ</span>. <span class="hi">ईद</span> (īd) = ಈದ್ ಹಬ್ಬ.</div></div>
+</div></div>
+
+<div class="family"><div class="label">'ಉ' ಪರಿವಾರ — ಹ್ರಸ್ವ ಮತ್ತು ದೀರ್ಘ</div>
+<div class="grid">
+  <div class="card"><span class="big hi">उ</span><div class="tr">u</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಉ</span>. <span class="hi">उठ</span> (uṭh) = ಏಳು.</div></div>
+  <div class="card"><span class="big hi">ऊ</span><div class="tr">ū</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಊ</span>. <span class="hi">ऊन</span> (ūn) = ಉಣ್ಣೆ.</div></div>
+</div></div>
+
+<div class="family"><div class="label">'ಋ' ಪರಿವಾರ — ಸಂಸ್ಕೃತ ಶೇಷ</div>
+<div class="grid">
+  <div class="card"><span class="flag">⚡ ಹೊಸ</span><span class="big hi">ऋ</span><div class="tr">ṛi</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಋ</span> ಅಕ್ಷರಮಾಲೆಯಲ್ಲಿದ್ದರೂ ಬಳಕೆ ಕಮ್ಮಿ. ಹಿಂದಿಯಲ್ಲಿ <span class="hi">ऋतु</span> (ṛitu = ಋತು), <span class="hi">कृषि</span> (kṛṣi = ಕೃಷಿ) — 'ರಿ' ಮಾದರಿ ಉಚ್ಚಾರ.</div></div>
+</div></div>
+
+<div class="family"><div class="label">'ಏ' ಪರಿವಾರ — ಎಚ್ಚರ: ಹಿಂದಿಯಲ್ಲಿ ಒಂದೇ</div>
+<div class="grid">
+  <div class="card"><span class="big hi">ए</span><div class="tr">e</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಏ</span>. <span class="hi">एक</span> (ek) = ಒಂದು. ಹ್ರಸ್ವ 'ಎ' ಹಿಂದಿಯಲ್ಲಿಲ್ಲ.</div></div>
+  <div class="card"><span class="big hi">ऐ</span><div class="tr">ai</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಐ</span>. <span class="hi">ऐसा</span> (aisā) = ಹೀಗೆ.</div></div>
+</div></div>
+
+<div class="family"><div class="label">'ಓ' ಪರಿವಾರ — ಹಿಂದಿಯಲ್ಲಿ ಯಾವಾಗಲೂ ದೀರ್ಘ</div>
+<div class="grid">
+  <div class="card"><span class="big hi">ओ</span><div class="tr">o</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಓ</span>. <span class="hi">ओर</span> (or) = ಕಡೆ.</div></div>
+  <div class="card"><span class="big hi">औ</span><div class="tr">au</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಔ</span>. <span class="hi">और</span> (aur) = ಮತ್ತು.</div></div>
+</div></div>
+
+<div class="aside aha"><b>ಅಹಾ! ಏ/ಓ ವಿಲೀನ.</b> ಕನ್ನಡ <span class="kn">ಎ</span>/<span class="kn">ಏ</span> ಮತ್ತು <span class="kn">ಒ</span>/<span class="kn">ಓ</span> ಎಂಬ ಹ್ರಸ್ವ-ದೀರ್ಘ ಭೇದ ಮಾಡುತ್ತದೆ — <span class="kn">ಎಲೆ</span> (ಪತ್ರ) ಮತ್ತು <span class="kn">ಏಳು</span> (೭) ಬೇರೆ. ಹಿಂದಿಯ ಲಿಪಿಯಲ್ಲಿ ಈ ಭೇದವೇ ಇಲ್ಲ — ಎಲ್ಲವೂ ದೀರ್ಘ ಏ, ಓ. ಕಿವಿಗೆ ಸುಲಭ, ಆದರೆ ಬರೆಯುವಾಗ 'ಹ್ರಸ್ವ' ಎಂದೂ ಆಲೋಚಿಸಬೇಡಿ.</div>
+
+<h3><span class="kn">ಉಚ್ಚಾರಣಾ ವಿಡಿಯೋ</span></h3>
+<div class="video">
+  <div class="video-frame">
+    <iframe src="https://www.youtube.com/embed?listType=search&list=learn+hindi+vowels+swar+pronunciation" title="Hindi vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+  </div>
+  <div class="video-caption">ಹಿಂದಿ ಸ್ವರಗಳ ಉಚ್ಚಾರಣೆ ಕೇಳಿ · <a href="https://www.youtube.com/results?search_query=learn+hindi+vowels+swar+pronunciation" target="_blank" rel="noopener">ಇನ್ನಷ್ಟು ಹುಡುಕಿ ↗</a></div>
+</div>
+
+<div class="navbtns"><a href="#stage-00">← ಪರಿಚಯ</a><a href="#stage-02">ವ್ಯಂಜನ →</a></div>
+</section>
+<section class="stage" id="stage-02">
+<h2><span class="num">೦೨</span><span class="kn">ವ್ಯಂಜನಗಳು</span></h2>
+<p class="lead">ಐದು ವರ್ಗ — ಅದೇ ಕ್ರಮ, ಬೇರೆ ಆಕಾರ</p>
+
+<p>ಕನ್ನಡ ಅಕ್ಷರಮಾಲೆಯ ಕ್ರಮ ಯಾವ ರೀತಿಯಲ್ಲಿ <span class="kn">ಕ ಖ ಗ ಘ ಙ</span> ಎಂದು ಹೋಗುತ್ತದೋ, ದೇವನಾಗರಿಯೂ ಅದೇ ಕ್ರಮದಲ್ಲಿ <span class="hi">क ख ग घ ङ</span> ಎಂದು ಹೋಗುತ್ತದೆ. ಪಾಣಿನಿಯ ವ್ಯಾಕರಣ ಎರಡೂ ಲಿಪಿಗಳನ್ನೂ ಒಂದೇ ಅಸ್ಥಿಪಂಜರದಲ್ಲಿ ಕೂರಿಸಿದೆ.</p>
+
+<h3><span class="kn">ಕವರ್ಗ — ಕಂಠ್ಯ</span></h3>
+<div class="grid">
+  <div class="card"><span class="big hi">क</span><div class="tr">ka</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಕ</span>. <span class="hi">कल</span> = ನಿನ್ನೆ/ನಾಳೆ.</div></div>
+  <div class="card"><span class="big hi">ख</span><div class="tr">kha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಖ</span>. <span class="hi">खाना</span> = ತಿನ್ನು/ಊಟ.</div></div>
+  <div class="card"><span class="big hi">ग</span><div class="tr">ga</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಗ</span>. <span class="hi">गाना</span> = ಹಾಡು.</div></div>
+  <div class="card"><span class="big hi">घ</span><div class="tr">gha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಘ</span>. <span class="hi">घर</span> = ಮನೆ.</div></div>
+  <div class="card"><span class="big hi">ङ</span><div class="tr">ṅa</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಙ</span>. ಸಂಯುಕ್ತಾಕ್ಷರದಲ್ಲಷ್ಟೆ ಕಾಣಿಸುತ್ತದೆ.</div></div>
+</div>
+
+<h3><span class="kn">ಚವರ್ಗ — ತಾಲವ್ಯ</span></h3>
+<div class="grid">
+  <div class="card"><span class="big hi">च</span><div class="tr">ca</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಚ</span>. <span class="hi">चार</span> = ನಾಲ್ಕು.</div></div>
+  <div class="card"><span class="big hi">छ</span><div class="tr">cha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಛ</span>. <span class="hi">छह</span> = ಆರು.</div></div>
+  <div class="card"><span class="big hi">ज</span><div class="tr">ja</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಜ</span>. <span class="hi">जल</span> = ನೀರು.</div></div>
+  <div class="card"><span class="big hi">झ</span><div class="tr">jha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಝ</span>. <span class="hi">झूठ</span> = ಸುಳ್ಳು.</div></div>
+  <div class="card"><span class="big hi">ञ</span><div class="tr">ña</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಞ</span>. ಸಂಯುಕ್ತಾಕ್ಷರದಲ್ಲಷ್ಟೆ.</div></div>
+</div>
+
+<h3><span class="kn">ಟವರ್ಗ — ಮೂರ್ಧನ್ಯ</span></h3>
+<div class="grid">
+  <div class="card"><span class="big hi">ट</span><div class="tr">ṭa</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಟ</span>. <span class="hi">टमाटर</span> = ಟೊಮೇಟೊ.</div></div>
+  <div class="card"><span class="big hi">ठ</span><div class="tr">ṭha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಠ</span>. <span class="hi">ठीक</span> = ಸರಿ.</div></div>
+  <div class="card"><span class="big hi">ड</span><div class="tr">ḍa</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಡ</span>. <span class="hi">डर</span> = ಭಯ.</div></div>
+  <div class="card"><span class="big hi">ढ</span><div class="tr">ḍha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಢ</span>. <span class="hi">ढोल</span> = ಡೋಲು.</div></div>
+  <div class="card"><span class="big hi">ण</span><div class="tr">ṇa</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಣ</span>. <span class="hi">गुण</span> = ಗುಣ.</div></div>
+</div>
+
+<h3><span class="kn">ತವರ್ಗ — ದಂತ್ಯ</span></h3>
+<div class="grid">
+  <div class="card"><span class="big hi">त</span><div class="tr">ta</div><div class="hint">ಕನ್ನಡದ <span class="kn">ತ</span>. <span class="hi">तीन</span> = ಮೂರು.</div></div>
+  <div class="card"><span class="big hi">थ</span><div class="tr">tha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಥ</span>. <span class="hi">थाली</span> = ತಟ್ಟೆ.</div></div>
+  <div class="card"><span class="big hi">द</span><div class="tr">da</div><div class="hint">ಕನ್ನಡದ <span class="kn">ದ</span>. <span class="hi">दिन</span> = ದಿನ.</div></div>
+  <div class="card"><span class="big hi">ध</span><div class="tr">dha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಧ</span>. <span class="hi">धन</span> = ಧನ/ಹಣ.</div></div>
+  <div class="card"><span class="big hi">न</span><div class="tr">na</div><div class="hint">ಕನ್ನಡದ <span class="kn">ನ</span>. <span class="hi">नाम</span> = ಹೆಸರು.</div></div>
+</div>
+
+<h3><span class="kn">ಪವರ್ಗ — ಓಷ್ಠ್ಯ</span></h3>
+<div class="grid">
+  <div class="card"><span class="big hi">प</span><div class="tr">pa</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಪ</span>. <span class="hi">पानी</span> = ನೀರು.</div></div>
+  <div class="card"><span class="big hi">फ</span><div class="tr">pha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಫ</span>. <span class="hi">फल</span> = ಹಣ್ಣು.</div></div>
+  <div class="card"><span class="big hi">ब</span><div class="tr">ba</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಬ</span>. <span class="hi">बच्चा</span> = ಮಗು.</div></div>
+  <div class="card"><span class="big hi">भ</span><div class="tr">bha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಭ</span>. <span class="hi">भाई</span> = ಅಣ್ಣ.</div></div>
+  <div class="card"><span class="big hi">म</span><div class="tr">ma</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಮ</span>. <span class="hi">माँ</span> = ಅಮ್ಮ.</div></div>
+</div>
+
+<h3><span class="kn">ಅಂತಃಸ್ಥ ಮತ್ತು ಊಷ್ಮ</span></h3>
+<div class="grid">
+  <div class="card"><span class="big hi">य</span><div class="tr">ya</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಯ</span>.</div></div>
+  <div class="card"><span class="big hi">र</span><div class="tr">ra</div><div class="hint">ಕನ್ನಡದ <span class="kn">ರ</span>.</div></div>
+  <div class="card"><span class="big hi">ल</span><div class="tr">la</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಲ</span>.</div></div>
+  <div class="card"><span class="big hi">व</span><div class="tr">va</div><div class="hint">ಕನ್ನಡದ <span class="kn">ವ</span>.</div></div>
+  <div class="card"><span class="big hi">श</span><div class="tr">śa</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಶ</span>. <span class="hi">शाम</span> = ಸಂಜೆ.</div></div>
+  <div class="card"><span class="big hi">ष</span><div class="tr">ṣa</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಷ</span>.</div></div>
+  <div class="card"><span class="big hi">स</span><div class="tr">sa</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಸ</span>.</div></div>
+  <div class="card"><span class="big hi">ह</span><div class="tr">ha</div><div class="hint">ಕನ್ನಡದ <span class="kn">ಹ</span>.</div></div>
+</div>
+
+<h3><span class="kn">ನುಕ್ತಾ — ಹೊಸ ಪರಿಕಲ್ಪನೆ</span></h3>
+<div class="grid">
+  <div class="card"><span class="flag">⚡ ಹೊಸ</span><span class="big hi">क़</span><div class="tr">qa</div><div class="hint">ಪರ್ಷಿಯನ್/ಅರೇಬಿಕ್ ಶಬ್ದಗಳಿಗೆ. <span class="hi">क़लम</span> = ಲೇಖನಿ.</div></div>
+  <div class="card"><span class="flag">⚡ ಹೊಸ</span><span class="big hi">ख़</span><div class="tr">ḵẖa</div><div class="hint">ಗಂಟಲಿನ 'ಖ'. <span class="hi">ख़ुश</span> = ಸಂತೋಷ.</div></div>
+  <div class="card"><span class="flag">⚡ ಹೊಸ</span><span class="big hi">ग़</span><div class="tr">ġa</div><div class="hint">ಗಂಟಲಿನ 'ಗ'. <span class="hi">ग़ज़ल</span> = ಗಜಲ್.</div></div>
+  <div class="card"><span class="flag">⚡ ಹೊಸ</span><span class="big hi">ज़</span><div class="tr">za</div><div class="hint">'ಜ'ಗಿಂತ ಗುನುಗಿನ ಶಬ್ದ. <span class="hi">ज़िन्दगी</span> = ಜೀವನ.</div></div>
+  <div class="card"><span class="flag">⚡ ಹೊಸ</span><span class="big hi">फ़</span><div class="tr">fa</div><div class="hint">ಇಂಗ್ಲಿಷಿನ 'f'. <span class="hi">फ़ोन</span> = ಫೋನ್.</div></div>
+  <div class="card"><span class="flag">⚡ ಹೊಸ</span><span class="big hi">ड़</span><div class="tr">ṛa</div><div class="hint">ನಾಲಿಗೆ ಮೇಲ್ಮೇಲೆ ಒಗೆಯುವ ಶಬ್ದ. <span class="hi">पढ़ना</span> = ಓದು.</div></div>
+</div>
+
+<div class="aside warn"><b>ನುಕ್ತಾ — ಹೊಸ ಚುಕ್ಕಿ.</b> ಅಕ್ಷರದ ಕೆಳಗಿನ ಒಂದು ಚುಕ್ಕಿ (ಬಿಂದಿಯಾ ಅಲ್ಲ — ಕೆಳಗೆ!) ಪರ್ಷಿಯನ್/ಅರೇಬಿಕ್ ಮೂಲದ ಶಬ್ದಗಳಿಗೆ. ಕನ್ನಡದಲ್ಲಿ ಇಂಥ ವ್ಯವಸ್ಥೆ ಇಲ್ಲ. ಉರ್ದು-ಹಿಂದಿಯ ಇತಿಹಾಸ ಸೂಚಿಸುವ ಸಣ್ಣ ಗುರುತು. ಇಂದಿನ ಆಡುಭಾಷೆಯಲ್ಲಿ ಅನೇಕರು ಈ ಚುಕ್ಕಿ ಬಿಡುತ್ತಾರೆ — <span class="hi">फ़ोन</span> ಬದಲಿಗೆ <span class="hi">फोन</span>.</div>
+
+<h3><span class="kn">ಉಚ್ಚಾರಣಾ ವಿಡಿಯೋ</span></h3>
+<div class="video">
+  <div class="video-frame">
+    <iframe src="https://www.youtube.com/embed?listType=search&list=learn+hindi+consonants+vyanjan+pronunciation" title="Hindi consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+  </div>
+  <div class="video-caption">ಹಿಂದಿ ವ್ಯಂಜನಗಳ ಉಚ್ಚಾರಣೆ ಕೇಳಿ · <a href="https://www.youtube.com/results?search_query=learn+hindi+consonants+vyanjan+pronunciation" target="_blank" rel="noopener">ಇನ್ನಷ್ಟು ಹುಡುಕಿ ↗</a></div>
+</div>
+
+<div class="navbtns"><a href="#stage-01">← ಸ್ವರ</a><a href="#stage-03">ಸಂಯೋಜನೆ →</a></div>
+</section>
+<section class="stage" id="stage-03">
+<h2><span class="num">೦೩</span><span class="kn">ಸಂಯೋಜನೆ</span></h2>
+<p class="lead">ಗುಣಿತಾಕ್ಷರ, ಹಲ್ಲಂತು, ಒತ್ತಕ್ಷರ</p>
+
+<p>ಕನ್ನಡದಲ್ಲಿ ನೀವು ಕಲಿತ <b>೧೦ ಗುಣಿತ ಚಿಹ್ನೆಗಳು</b> ೩೪ ವ್ಯಂಜನಗಳಿಗೆ ಹೇಗೆ ಅನ್ವಯ ಆಗುತ್ತವೋ, ಹಾಗೇ ದೇವನಾಗರಿಯಲ್ಲಿಯೂ ೧೦ ಮಾತ್ರಾ ಚಿಹ್ನೆಗಳು ಪ್ರತಿ ವ್ಯಂಜನಕ್ಕೆ ಅದೇ ರೀತಿ ಅಂಟುತ್ತವೆ. <b>ಒಂದು ಪ್ರಜ್ಞೆ, ಎರಡು ಲಿಪಿ</b>.</p>
+
+<h3><span class="kn">ಗುಣಿತಾಕ್ಷರ ಕೋಷ್ಟಕ — 'ಕ' ಮೂಲಕ</span></h3>
+<table>
+<tr><th>ಸ್ವರ</th><th>ಕನ್ನಡ</th><th>ಹಿಂದಿ</th><th>ಉಚ್ಚಾರ</th></tr>
+<tr><td>ಅ</td><td class="kn">ಕ</td><td class="hi">क</td><td class="mono">ka</td></tr>
+<tr><td>ಆ</td><td class="kn">ಕಾ</td><td class="hi">का</td><td class="mono">kā</td></tr>
+<tr><td>ಇ</td><td class="kn">ಕಿ</td><td class="hi">कि</td><td class="mono">ki</td></tr>
+<tr><td>ಈ</td><td class="kn">ಕೀ</td><td class="hi">की</td><td class="mono">kī</td></tr>
+<tr><td>ಉ</td><td class="kn">ಕು</td><td class="hi">कु</td><td class="mono">ku</td></tr>
+<tr><td>ಊ</td><td class="kn">ಕೂ</td><td class="hi">कू</td><td class="mono">kū</td></tr>
+<tr><td>ಏ</td><td class="kn">ಕೆ/ಕೇ</td><td class="hi">के</td><td class="mono">ke</td></tr>
+<tr><td>ಐ</td><td class="kn">ಕೈ</td><td class="hi">कै</td><td class="mono">kai</td></tr>
+<tr><td>ಓ</td><td class="kn">ಕೊ/ಕೋ</td><td class="hi">को</td><td class="mono">ko</td></tr>
+<tr><td>ಔ</td><td class="kn">ಕೌ</td><td class="hi">कौ</td><td class="mono">kau</td></tr>
+</table>
+
+<div class="aside"><b>ಇ-ಕಾರ ಎಡಕ್ಕೆ!</b> ಹಿಂದಿಯಲ್ಲಿ <span class="hi">कि</span> ನಲ್ಲಿ 'ಇ' ಚಿಹ್ನೆ ಅಕ್ಷರದ <b>ಎಡಕ್ಕೆ</b> ಕಾಣಿಸುತ್ತದೆ, ಆದರೆ ಉಚ್ಚಾರ ನಂತರ — 'ಕಿ'. ಕನ್ನಡದಲ್ಲಿ <span class="kn">ಕಿ</span> ಯಲ್ಲಿ ಚಿಹ್ನೆ ಬಲಕ್ಕೆ/ಮೇಲೆ. ಲಿಪಿ ಬೇರೆ, ಕಿವಿಗೆ ಒಂದೇ.</div>
+
+<h3><span class="kn">ಹಲ್ಲಂತು ಮತ್ತು ವಿರಾಮ</span></h3>
+<p>ಕನ್ನಡದಲ್ಲಿ ಒಳಗಿನ 'ಅ' ಸ್ವರವನ್ನು ತೆಗೆಯಲು <b>ಹಲ್ಲಂತು</b> <span class="kn">( ್ )</span> ಬಳಸುತ್ತೇವೆ: <span class="kn">ಕ್</span>. ಹಿಂದಿಯಲ್ಲಿ ಇದಕ್ಕೇ <b>ಹಲಂತ್/ವಿರಾಮ</b> <span class="hi">( ् )</span>: <span class="hi">क्</span>. ಇವೆರಡೂ ಒಂದೇ ಕೆಲಸ — ಸಂಸ್ಕೃತ 'ವಿರಾಮ'ದಿಂದ ಬಂದವು.</p>
+
+<h3><span class="kn">ಒತ್ತಕ್ಷರ / ಸಂಯುಕ್ತಾಕ್ಷರ</span></h3>
+<p>ಕನ್ನಡದಲ್ಲಿ ಎರಡನೆಯ ವ್ಯಂಜನ ಕೆಳಗೆ ಒತ್ತಾಗಿ ಕೂರುತ್ತದೆ: <span class="kn">ಕ್ಯ</span> = ಕ್ + ಯ. ಹಿಂದಿಯಲ್ಲಿ ಎರಡೂ ಪಕ್ಕಪಕ್ಕ ಜೋಡಿಯಾಗುತ್ತವೆ: <span class="hi">क्य</span> = ಕ್ + ಯ. ಕೆಳಗೆ ಇಲ್ಲ, ಪಕ್ಕಕ್ಕೆ.</p>
+
+<table>
+<tr><th>ಸಂಯೋಜನೆ</th><th>ಕನ್ನಡ</th><th>ಹಿಂದಿ</th><th>ಉದಾಹರಣೆ</th></tr>
+<tr><td>ಕ್ + ಯ</td><td class="kn">ಕ್ಯ</td><td class="hi">क्य</td><td class="hi">क्या — <span class="kn">ಏನು</span></td></tr>
+<tr><td>ಸ್ + ವ</td><td class="kn">ಸ್ವ</td><td class="hi">स्व</td><td class="hi">स्वयं — <span class="kn">ಸ್ವತಃ</span></td></tr>
+<tr><td>ದ್ + ಯ</td><td class="kn">ದ್ಯ</td><td class="hi">द्य</td><td class="hi">विद्या — <span class="kn">ವಿದ್ಯೆ</span></td></tr>
+<tr><td>ತ್ + ರ</td><td class="kn">ತ್ರ</td><td class="hi">त्र</td><td class="hi">पत्र — <span class="kn">ಪತ್ರ</span></td></tr>
+<tr><td>ಕ್ + ಷ</td><td class="kn">ಕ್ಷ</td><td class="hi">क्ष</td><td class="hi">शिक्षा — <span class="kn">ಶಿಕ್ಷಣ</span></td></tr>
+<tr><td>ಜ್ + ಞ</td><td class="kn">ಜ್ಞ</td><td class="hi">ज्ञ</td><td class="hi">ज्ञान — <span class="kn">ಜ್ಞಾನ</span></td></tr>
+</table>
+
+<div class="aside aha"><b>'ರ' ದ ವಿಶೇಷತೆ.</b> ಹಿಂದಿಯಲ್ಲಿ 'ರ' ಎಂಬ ಅಂತಃಸ್ಥ ಇತರ ಅಕ್ಷರಗಳೊಂದಿಗೆ ಸೇರಿದಾಗ ಎರಡು ವಿಶೇಷ ರೂಪ ತಳೆಯುತ್ತದೆ. 'ರ' ಮೊದಲು ಬಂದರೆ <b>ರೇಫ</b> ಮುಂದಿನ ಅಕ್ಷರದ ಮೇಲೆ ಕೊಕ್ಕೆಯಾಗಿ: <span class="hi">धर्म</span> (ಧರ್ಮ). 'ರ' ನಂತರ ಬಂದರೆ ಕೆಳಗೆ ತ್ರಿಕೋಣ: <span class="hi">प्रेम</span> (ಪ್ರೇಮ). ಕನ್ನಡದ <span class="kn">ಧರ್ಮ</span>, <span class="kn">ಪ್ರೇಮ</span> ಕ್ಕೆ ನೇರ ಸಮಾನ.</div>
+
+<h3><span class="kn">ಶಿರೋರೇಖೆ</span></h3>
+<p>ದೇವನಾಗರಿಯ ಪ್ರತಿ ಅಕ್ಷರದ ಮೇಲೆ ಒಂದು ನೇರ ಗೆರೆ — ಇದನ್ನು <b>ಶಿರೋರೇಖೆ</b> ಎನ್ನುತ್ತಾರೆ. ಕನ್ನಡದ ದುಂಡುದುಂಡಾದ ಆಕಾರಗಳಿಗೆ ಹೋಲಿಸಿದರೆ ದೇವನಾಗರಿಯ ಅಕ್ಷರಗಳು ಒಂದು ತಂತಿಯಿಂದ ನೇತುಹಾಕಿದ ಬಟ್ಟೆಯಂತೆ ಕಾಣಿಸುತ್ತವೆ. ಬರೆಯುವಾಗ ಮೊದಲು ಕೆಳಗಿನ ಭಾಗ, ನಂತರ ಮೇಲಿನ ಗೆರೆ.</p>
+
+<div class="aside warn"><b>ಸ್ವರಲೋಪ (ಶ್ವಾ ಡಿಲೀಷನ್).</b> ಹಿಂದಿಯಲ್ಲಿ ಪದದ ಕೊನೆಯ ಒಳಗಿನ 'ಅ' ಸ್ವರ ಬಹುತೇಕ ಸಮಯದಲ್ಲಿ <b>ಉಚ್ಚಾರ ಆಗುವುದಿಲ್ಲ</b>. <span class="hi">नाम</span> ಅನ್ನು 'ನಾಮ' ಅಲ್ಲ, 'ನಾಮ್' ಎಂದು ಓದಿ. <span class="hi">घर</span> = 'ಘರ್', <span class="hi">राम</span> = 'ರಾಮ್'. ಕನ್ನಡದಲ್ಲಿ 'ರಾಮ' ಎಂದೇ ಹೇಳುತ್ತೇವೆ — ಹಿಂದಿಯಲ್ಲಿ ಬರೆಯುವಾಗ ಸ್ವರ ಇದೆ, ಹೇಳುವಾಗ ಇಲ್ಲ. ಇದು ಅಭ್ಯಾಸದಿಂದ ಬರುತ್ತದೆ.</div>
+
+<div class="navbtns"><a href="#stage-02">← ವ್ಯಂಜನ</a><a href="#stage-04">ಪದಗಳು →</a></div>
+</section>
+<section class="stage" id="stage-04">
+<h2><span class="num">೦೪</span><span class="kn">ಪದಗಳು</span></h2>
+<p class="lead">ಸುಮಾರು ೫೦ ಮೂಲ ಪದಗಳು — ಕನ್ನಡ ಸಮಾನಾರ್ಥಕಗಳೊಂದಿಗೆ</p>
+
+<h3><span class="kn">ಸರ್ವನಾಮ</span></h3>
+<div class="wordrow"><span class="hi">मैं</span><span class="tr">maĩ</span><span class="kn">ನಾನು</span><span>ಏಕವಚನ ಕರ್ತೃ</span></div>
+<div class="wordrow"><span class="hi">तू</span><span class="tr">tū</span><span class="kn">ನೀನು (ಆತ್ಮೀಯ)</span><span>ಬಹಳ ಆಪ್ತ ಅಥವಾ ದೇವರಿಗೆ ಮಾತ್ರ</span></div>
+<div class="wordrow"><span class="hi">तुम</span><span class="tr">tum</span><span class="kn">ನೀನು</span><span>ಸಾಮಾನ್ಯ ಬಳಕೆ <span class="tag">ಸಮಾನ</span></span></div>
+<div class="wordrow"><span class="hi">आप</span><span class="tr">āp</span><span class="kn">ನೀವು</span><span>ಗೌರವ <span class="tag">ಸಮಾನ</span></span></div>
+<div class="wordrow"><span class="hi">वह</span><span class="tr">vah</span><span class="kn">ಅವನು/ಅವಳು/ಅದು</span><span>ದೂರದ ವ್ಯಕ್ತಿ</span></div>
+<div class="wordrow"><span class="hi">यह</span><span class="tr">yah</span><span class="kn">ಇದು/ಇವನು</span><span>ಹತ್ತಿರದ ವ್ಯಕ್ತಿ</span></div>
+<div class="wordrow"><span class="hi">हम</span><span class="tr">ham</span><span class="kn">ನಾವು</span><span>ಬಹುವಚನ</span></div>
+<div class="wordrow"><span class="hi">वे</span><span class="tr">ve</span><span class="kn">ಅವರು</span><span>ಬಹುವಚನ / ಗೌರವ</span></div>
+
+<h3><span class="kn">ಮೂಲ ನಾಮಪದಗಳು</span></h3>
+<div class="wordrow"><span class="hi">घर</span><span class="tr">ghar</span><span class="kn">ಮನೆ</span><span><span class="tag">ತದ್ಭವ</span> ಸಂಸ್ಕೃತ 'ಗೃಹ'ದಿಂದ</span></div>
+<div class="wordrow"><span class="hi">पानी</span><span class="tr">pānī</span><span class="kn">ನೀರು</span><span><span class="tag">ತದ್ಭವ</span> ಸಂಸ್ಕೃತ 'ಪಾನೀಯ'</span></div>
+<div class="wordrow"><span class="hi">नाम</span><span class="tr">nām</span><span class="kn">ಹೆಸರು</span><span><span class="tag">ತತ್ಸಮ</span> ಎರಡು ಭಾಷೆಯಲ್ಲೂ ಒಂದೇ</span></div>
+<div class="wordrow"><span class="hi">पुस्तक / किताब</span><span class="tr">pustak/kitāb</span><span class="kn">ಪುಸ್ತಕ</span><span><span class="tag">ತತ್ಸಮ</span> ಸಂಸ್ಕೃತ+ಉರ್ದು</span></div>
+<div class="wordrow"><span class="hi">स्कूल / विद्यालय</span><span class="tr">skūl/vidyālay</span><span class="kn">ಶಾಲೆ</span><span><span class="tag">ಮಿಶ್ರ</span> ಆಂಗ್ಲ+ಸಂಸ್ಕೃತ</span></div>
+<div class="wordrow"><span class="hi">पैसा</span><span class="tr">paisā</span><span class="kn">ಹಣ</span><span><span class="tag new">ಹೊಸ</span> ಪರ್ಷಿಯನ್ ಮೂಲ</span></div>
+<div class="wordrow"><span class="hi">समय / वक़्त</span><span class="tr">samay/vaqt</span><span class="kn">ಸಮಯ</span><span><span class="tag">ತತ್ಸಮ</span></span></div>
+<div class="wordrow"><span class="hi">दिन</span><span class="tr">din</span><span class="kn">ದಿನ</span><span><span class="tag">ತತ್ಸಮ</span> ಅಕ್ಷರಶಃ ಒಂದೇ</span></div>
+<div class="wordrow"><span class="hi">दूध</span><span class="tr">dūdh</span><span class="kn">ಹಾಲು</span><span><span class="tag">ತದ್ಭವ</span> ಸಂಸ್ಕೃತ 'ದುಗ್ಧ'</span></div>
+<div class="wordrow"><span class="hi">सूर्य / सूरज</span><span class="tr">sūrya/sūraj</span><span class="kn">ಸೂರ್ಯ</span><span><span class="tag">ತತ್ಸಮ</span></span></div>
+<div class="wordrow"><span class="hi">भूमि / ज़मीन</span><span class="tr">bhūmi/zamīn</span><span class="kn">ಭೂಮಿ</span><span><span class="tag">ತತ್ಸಮ</span></span></div>
+<div class="wordrow"><span class="hi">अन्न / चावल</span><span class="tr">anna/cāval</span><span class="kn">ಅನ್ನ</span><span><span class="tag">ತತ್ಸಮ</span></span></div>
+<div class="wordrow"><span class="hi">रात / रात्रि</span><span class="tr">rāt/rātri</span><span class="kn">ರಾತ್ರಿ</span><span><span class="tag">ತತ್ಸಮ</span></span></div>
+
+<div class="aside aha"><b>ತತ್ಸಮ ಸೇತುವೆ.</b> <span class="hi">नाम, दिन, समय, सूर्य, भूमि, अन्न, रात्रि, पुस्तक, विद्या, ज्ञान</span> — ಈ ಹತ್ತು ಪದಗಳನ್ನು ನೀವು ಈಗಾಗಲೇ ತಿಳಿದಿದ್ದೀರಿ. ಸಂಸ್ಕೃತ ಮೂಲದ ತತ್ಸಮ ಪದಗಳು ಕನ್ನಡ ಹಾಗೂ ಹಿಂದಿ ಎರಡೂ ಕಡೆ <b>ಹುಬ್ಬುಳಿಸದೆ</b> ಸೇರುತ್ತವೆ. ಎರಡು ಭಾಷೆಗಳ ನಡುವಿನ ಸೇತುವೆಯ ಕಲ್ಲುಗಳು ಇವು.</div>
+
+<h3><span class="kn">ಮೂಲ ಕ್ರಿಯಾಪದಗಳು</span></h3>
+<div class="wordrow"><span class="hi">होना</span><span class="tr">honā</span><span class="kn">ಇರು / ಆಗು</span><span>ಅಸ್ತಿತ್ವ</span></div>
+<div class="wordrow"><span class="hi">करना</span><span class="tr">karnā</span><span class="kn">ಮಾಡು</span><span>ಸಾಮಾನ್ಯ ಕ್ರಿಯೆ</span></div>
+<div class="wordrow"><span class="hi">जाना</span><span class="tr">jānā</span><span class="kn">ಹೋಗು</span><span>ಚಲನೆ</span></div>
+<div class="wordrow"><span class="hi">आना</span><span class="tr">ānā</span><span class="kn">ಬಾ</span><span>ಚಲನೆ</span></div>
+<div class="wordrow"><span class="hi">खाना</span><span class="tr">khānā</span><span class="kn">ತಿನ್ನು</span><span>ನಾಮಪದವಾಗಿಯೂ 'ಊಟ'</span></div>
+<div class="wordrow"><span class="hi">पीना</span><span class="tr">pīnā</span><span class="kn">ಕುಡಿ</span><span></span></div>
+<div class="wordrow"><span class="hi">देखना</span><span class="tr">dekhnā</span><span class="kn">ನೋಡು</span><span></span></div>
+<div class="wordrow"><span class="hi">पढ़ना</span><span class="tr">paṛhnā</span><span class="kn">ಓದು</span><span>ड़ ಗಮನಿಸಿ</span></div>
+<div class="wordrow"><span class="hi">लिखना</span><span class="tr">likhnā</span><span class="kn">ಬರೆ</span><span></span></div>
+<div class="wordrow"><span class="hi">बोलना</span><span class="tr">bolnā</span><span class="kn">ಹೇಳು / ಮಾತಾಡು</span><span></span></div>
+
+<h3><span class="kn">ಸಂಖ್ಯೆಗಳು</span></h3>
+<div class="wordrow"><span class="hi">एक</span><span class="tr">ek</span><span class="kn">ಒಂದು</span><span></span></div>
+<div class="wordrow"><span class="hi">दो</span><span class="tr">do</span><span class="kn">ಎರಡು</span><span></span></div>
+<div class="wordrow"><span class="hi">तीन</span><span class="tr">tīn</span><span class="kn">ಮೂರು</span><span></span></div>
+<div class="wordrow"><span class="hi">चार</span><span class="tr">cār</span><span class="kn">ನಾಲ್ಕು</span><span></span></div>
+<div class="wordrow"><span class="hi">पाँच</span><span class="tr">pā̃c</span><span class="kn">ಐದು</span><span>ँ = ಚಂದ್ರಬಿಂದು (ಅನುನಾಸಿಕ)</span></div>
+<div class="wordrow"><span class="hi">छह</span><span class="tr">chah</span><span class="kn">ಆರು</span><span></span></div>
+<div class="wordrow"><span class="hi">सात</span><span class="tr">sāt</span><span class="kn">ಏಳು</span><span></span></div>
+<div class="wordrow"><span class="hi">आठ</span><span class="tr">āṭh</span><span class="kn">ಎಂಟು</span><span></span></div>
+<div class="wordrow"><span class="hi">नौ</span><span class="tr">nau</span><span class="kn">ಒಂಬತ್ತು</span><span></span></div>
+<div class="wordrow"><span class="hi">दस</span><span class="tr">das</span><span class="kn">ಹತ್ತು</span><span></span></div>
+<div class="wordrow"><span class="hi">सौ</span><span class="tr">sau</span><span class="kn">ನೂರು</span><span></span></div>
+
+<h3><span class="kn">ಸಂಬಂಧಗಳು</span></h3>
+<div class="wordrow"><span class="hi">पिता / पापा</span><span class="tr">pitā/pāpā</span><span class="kn">ಅಪ್ಪ</span><span></span></div>
+<div class="wordrow"><span class="hi">माँ / माता</span><span class="tr">mā̃/mātā</span><span class="kn">ಅಮ್ಮ</span><span></span></div>
+<div class="wordrow"><span class="hi">भाई / भैया</span><span class="tr">bhāī/bhaiyā</span><span class="kn">ಅಣ್ಣ / ತಮ್ಮ</span><span>ವಯೋಭೇದವಿಲ್ಲ</span></div>
+<div class="wordrow"><span class="hi">बहन / दीदी</span><span class="tr">bahan/dīdī</span><span class="kn">ಅಕ್ಕ / ತಂಗಿ</span><span>ವಯೋಭೇದವಿಲ್ಲ</span></div>
+<div class="wordrow"><span class="hi">दादा / नाना</span><span class="tr">dādā/nānā</span><span class="kn">ಅಜ್ಜ (ತಂದೆಕಡೆ/ತಾಯಿಕಡೆ)</span><span>ಹಿಂದಿ ಭೇದ ಮಾಡುತ್ತದೆ!</span></div>
+<div class="wordrow"><span class="hi">दादी / नानी</span><span class="tr">dādī/nānī</span><span class="kn">ಅಜ್ಜಿ (ತಂದೆಕಡೆ/ತಾಯಿಕಡೆ)</span><span></span></div>
+<div class="wordrow"><span class="hi">मामा</span><span class="tr">māmā</span><span class="kn">ಮಾವ (ತಾಯಿಯ ಸಹೋದರ)</span><span></span></div>
+<div class="wordrow"><span class="hi">चाचा</span><span class="tr">cācā</span><span class="kn">ಚಿಕ್ಕಪ್ಪ</span><span></span></div>
+<div class="wordrow"><span class="hi">ताऊ</span><span class="tr">tāū</span><span class="kn">ದೊಡ್ಡಪ್ಪ</span><span></span></div>
+
+<h3><span class="kn">ಶರೀರದ ಭಾಗಗಳು</span></h3>
+<div class="wordrow"><span class="hi">सिर</span><span class="tr">sir</span><span class="kn">ತಲೆ</span><span></span></div>
+<div class="wordrow"><span class="hi">आँख</span><span class="tr">ā̃kh</span><span class="kn">ಕಣ್ಣು</span><span></span></div>
+<div class="wordrow"><span class="hi">कान</span><span class="tr">kān</span><span class="kn">ಕಿವಿ</span><span></span></div>
+<div class="wordrow"><span class="hi">हाथ</span><span class="tr">hāth</span><span class="kn">ಕೈ</span><span></span></div>
+<div class="wordrow"><span class="hi">पैर</span><span class="tr">pair</span><span class="kn">ಕಾಲು</span><span></span></div>
+<div class="wordrow"><span class="hi">पेट</span><span class="tr">peṭ</span><span class="kn">ಹೊಟ್ಟೆ</span><span></span></div>
+
+<h3><span class="kn">ಕಾಲ</span></h3>
+<div class="wordrow"><span class="hi">आज</span><span class="tr">āj</span><span class="kn">ಇಂದು</span><span></span></div>
+<div class="wordrow"><span class="hi">कल</span><span class="tr">kal</span><span class="kn">ನಾಳೆ ಅಥವಾ ನಿನ್ನೆ</span><span>⚠ ಸಂದರ್ಭದಿಂದ ತಿಳಿಯಿರಿ</span></div>
+<div class="wordrow"><span class="hi">अब / अभी</span><span class="tr">ab/abhī</span><span class="kn">ಈಗ</span><span></span></div>
+<div class="wordrow"><span class="hi">सुबह</span><span class="tr">subah</span><span class="kn">ಬೆಳಿಗ್ಗೆ</span><span></span></div>
+<div class="wordrow"><span class="hi">शाम</span><span class="tr">śām</span><span class="kn">ಸಂಜೆ</span><span></span></div>
+<div class="wordrow"><span class="hi">रात</span><span class="tr">rāt</span><span class="kn">ರಾತ್ರಿ</span><span></span></div>
+
+<div class="aside aha"><b>ಎರಡೂ ಕಡೆ ಕೆಲಸ ಮಾಡುವ 'कल'.</b> ಕನ್ನಡದಲ್ಲಿ <span class="kn">ನಾಳೆ</span> ಮತ್ತು <span class="kn">ನಿನ್ನೆ</span> ಬೇರೆ ಬೇರೆ. ಹಿಂದಿಯಲ್ಲಿ ಎರಡಕ್ಕೂ <span class="hi"><b>कल</b></span>. ಕ್ರಿಯಾಪದದ ಕಾಲ ನೋಡಿ ತೀರ್ಮಾನಿಸಬೇಕು — <span class="hi">कल आऊँगा</span> (ನಾಳೆ ಬರುತ್ತೇನೆ) vs <span class="hi">कल आया था</span> (ನಿನ್ನೆ ಬಂದಿದ್ದೆ). ಇದನ್ನು ಸಂಸ್ಕೃತದಿಂದ ಬಂದ 'ಕಾಲ' ಎಂಬ ಶಬ್ದದ ಸಾಮಾನ್ಯ ಅರ್ಥದ ಪಳೆಯುಳಿಕೆ ಎಂದು ಭಾವಿಸಬಹುದು.</div>
+
+<div class="navbtns"><a href="#stage-03">← ಸಂಯೋಜನೆ</a><a href="#stage-05">ವಾಕ್ಯ →</a></div>
+</section>
+<section class="stage" id="stage-05">
+<h2><span class="num">೦೫</span><span class="kn">ವಾಕ್ಯ</span></h2>
+<p class="lead">ಪದಕ್ರಮ, ಕ್ರಿಯಾಪದ ರೂಪ, ನಕಾರ, ಪ್ರಶ್ನೆ</p>
+
+<h3><span class="kn">ಪದಕ್ರಮ — SOV</span></h3>
+<p>ಎರಡೂ ಭಾಷೆಯಲ್ಲಿ: <b>ಕರ್ತೃ → ಕರ್ಮ → ಕ್ರಿಯೆ</b>.</p>
+<div class="passage">
+  <div class="hi">मैं चावल खाता हूँ।</div>
+  <div class="tr">maĩ cāval khātā hū̃.</div>
+  <div class="gloss"><span class="kn">ನಾನು ಅನ್ನ ತಿನ್ನುತ್ತೇನೆ.</span> — ನಾನು(ಕರ್ತೃ) ಅನ್ನ(ಕರ್ಮ) ತಿನ್ನುತ್ತೇನೆ(ಕ್ರಿಯೆ).</div>
+</div>
+
+<h3><span class="kn">ವಿಭಕ್ತಿ ಪ್ರತ್ಯಯ / ಪರಸರ್ಗ</span></h3>
+<table>
+<tr><th>ವಿಭಕ್ತಿ</th><th>ಕನ್ನಡ</th><th>ಹಿಂದಿ</th><th>ಉದಾಹರಣೆ</th></tr>
+<tr><td>ಪ್ರಥಮಾ</td><td class="kn">—</td><td class="hi">—</td><td class="hi">राम आया — <span class="kn">ರಾಮ ಬಂದ</span></td></tr>
+<tr><td>ದ್ವಿತೀಯಾ</td><td class="kn">-ಅನ್ನು</td><td class="hi">-को</td><td class="hi">राम को देखा — <span class="kn">ರಾಮನನ್ನು ನೋಡಿದೆ</span></td></tr>
+<tr><td>ಚತುರ್ಥೀ</td><td class="kn">-ಗೆ</td><td class="hi">-को</td><td class="hi">राम को दिया — <span class="kn">ರಾಮನಿಗೆ ಕೊಟ್ಟೆ</span></td></tr>
+<tr><td>ಪಂಚಮೀ</td><td class="kn">-ಇಂದ</td><td class="hi">-से</td><td class="hi">घर से — <span class="kn">ಮನೆಯಿಂದ</span></td></tr>
+<tr><td>ಷಷ್ಠೀ</td><td class="kn">-ಅ</td><td class="hi">-का/की/के</td><td class="hi">राम का घर — <span class="kn">ರಾಮನ ಮನೆ</span></td></tr>
+<tr><td>ಸಪ್ತಮೀ</td><td class="kn">-ಅಲ್ಲಿ</td><td class="hi">-में</td><td class="hi">घर में — <span class="kn">ಮನೆಯಲ್ಲಿ</span></td></tr>
+</table>
+
+<div class="aside"><b>-ko ನ ದ್ವಿಮುಖ.</b> ಕನ್ನಡದ <span class="kn">-ಅನ್ನು</span> (ಕರ್ಮ) ಮತ್ತು <span class="kn">-ಗೆ</span> (ಉಪಕರ್ಮ) — ಎರಡೂ ಬೇರೆ. ಹಿಂದಿಯಲ್ಲಿ ಎರಡಕ್ಕೂ <span class="hi">-को</span>. <span class="hi">मैंने राम को देखा</span> = ರಾಮನನ್ನು ನೋಡಿದೆ. <span class="hi">मैंने राम को दिया</span> = ರಾಮನಿಗೆ ಕೊಟ್ಟೆ. ಸಂದರ್ಭದಿಂದ ತಿಳಿಯಬೇಕು.</div>
+
+<h3><span class="kn">ಕ್ರಿಯಾಪದ ಪ್ರಸ್ತುತ ಕಾಲ — 'ಮಾಡು / करना'</span></h3>
+<table>
+<tr><th>ವ್ಯಕ್ತಿ</th><th>ಕನ್ನಡ</th><th>ಹಿಂದಿ</th></tr>
+<tr><td>೧ ಏ.ವ.</td><td class="kn">ಮಾಡುತ್ತೇನೆ</td><td class="hi">करता/करती हूँ</td></tr>
+<tr><td>೨ ಏ.ವ. (ಆಪ್ತ)</td><td class="kn">ಮಾಡುತ್ತೀಯ</td><td class="hi">करता/करती है (तू)</td></tr>
+<tr><td>೨ ಸಮಾನ</td><td class="kn">ಮಾಡುತ್ತೀಯ</td><td class="hi">करते/करती हो (तुम)</td></tr>
+<tr><td>೩ ಏ.ವ. ಪು.</td><td class="kn">ಮಾಡುತ್ತಾನೆ</td><td class="hi">करता है</td></tr>
+<tr><td>೩ ಏ.ವ. ಸ್ತ್ರೀ</td><td class="kn">ಮಾಡುತ್ತಾಳೆ</td><td class="hi">करती है</td></tr>
+<tr><td>೩ ಏ.ವ. ನಪುಂ.</td><td class="kn">ಮಾಡುತ್ತದೆ</td><td class="hi">करता/करती है</td></tr>
+<tr><td>೧ ಬಹು.</td><td class="kn">ಮಾಡುತ್ತೇವೆ</td><td class="hi">करते/करती हैं</td></tr>
+<tr><td>೨ ಗೌರವ</td><td class="kn">ಮಾಡುತ್ತೀರಿ</td><td class="hi">करते/करती हैं (आप)</td></tr>
+<tr><td>೩ ಬಹು.</td><td class="kn">ಮಾಡುತ್ತಾರೆ</td><td class="hi">करते/करती हैं</td></tr>
+</table>
+
+<div class="aside warn"><b>ಹಿಂದಿ ಕ್ರಿಯಾಪದ ಲಿಂಗ ತೋರಿಸುತ್ತದೆ.</b> ಕನ್ನಡದಲ್ಲಿ 'ಅವನು ಮಾಡುತ್ತಾನೆ' vs 'ಅವಳು ಮಾಡುತ್ತಾಳೆ' ಎಂಬ ಭೇದ ಕ್ರಿಯಾಪದದಲ್ಲೇ ಇದೆ. ಹಿಂದಿಯಲ್ಲಿ ಕೂಡ — ಆದರೆ <b>ಎಲ್ಲ ಕಾಲಕ್ಕೂ</b>: <span class="hi">करता</span> (ಪು.) vs <span class="hi">करती</span> (ಸ್ತ್ರೀ). ನಾನು ಸ್ತ್ರೀ ಆದರೆ <span class="hi">मैं करती हूँ</span> ಎಂದೇ ಹೇಳಬೇಕು — ಗಂಡಸರ ರೂಪವನ್ನು ಬಳಸಿದರೆ ತಪ್ಪು!</div>
+
+<h3><span class="kn">ಸಹಾಯಕ ಕ್ರಿಯಾಪದ 'ಇರು / होना'</span></h3>
+<div class="wordrow"><span class="hi">मैं हूँ</span><span class="tr">maĩ hū̃</span><span class="kn">ನಾನಿದ್ದೇನೆ</span><span></span></div>
+<div class="wordrow"><span class="hi">तुम हो</span><span class="tr">tum ho</span><span class="kn">ನೀವಿದ್ದೀರಿ</span><span></span></div>
+<div class="wordrow"><span class="hi">वह है</span><span class="tr">vah hai</span><span class="kn">ಅವನು/ಅವಳು ಇದ್ದಾನೆ/ಳೆ</span><span></span></div>
+<div class="wordrow"><span class="hi">हम हैं</span><span class="tr">ham hãi</span><span class="kn">ನಾವಿದ್ದೇವೆ</span><span></span></div>
+<div class="wordrow"><span class="hi">आप हैं</span><span class="tr">āp hãi</span><span class="kn">ನೀವಿದ್ದೀರಿ (ಗೌರವ)</span><span></span></div>
+<div class="wordrow"><span class="hi">वे हैं</span><span class="tr">ve hãi</span><span class="kn">ಅವರು ಇದ್ದಾರೆ</span><span></span></div>
+
+<h3><span class="kn">ನಕಾರಾತ್ಮಕ ವಾಕ್ಯ</span></h3>
+<div class="passage">
+  <div class="hi">मैं नहीं जाता।</div>
+  <div class="tr">maĩ nahī̃ jātā.</div>
+  <div class="gloss"><span class="kn">ನಾನು ಹೋಗುವುದಿಲ್ಲ.</span> — <span class="hi">नहीं</span> (ನಹೀಂ) ಕ್ರಿಯಾಪದದ ಮುಂದೆ ಬರುತ್ತದೆ, ಕನ್ನಡದ '-ಇಲ್ಲ' ಕೊನೆಗೆ ಸೇರುವಂತಲ್ಲ.</div>
+</div>
+<div class="passage">
+  <div class="hi">यह मेरा नहीं है।</div>
+  <div class="tr">yah merā nahī̃ hai.</div>
+  <div class="gloss"><span class="kn">ಇದು ನನ್ನದಲ್ಲ.</span></div>
+</div>
+
+<h3><span class="kn">ಪ್ರಶ್ನಾರ್ಥಕಗಳು</span></h3>
+<div class="wordrow"><span class="hi">क्या</span><span class="tr">kyā</span><span class="kn">ಏನು</span><span>ವಸ್ತು</span></div>
+<div class="wordrow"><span class="hi">कौन</span><span class="tr">kaun</span><span class="kn">ಯಾರು</span><span>ವ್ಯಕ್ತಿ</span></div>
+<div class="wordrow"><span class="hi">कहाँ</span><span class="tr">kahā̃</span><span class="kn">ಎಲ್ಲಿ</span><span>ಸ್ಥಳ</span></div>
+<div class="wordrow"><span class="hi">कब</span><span class="tr">kab</span><span class="kn">ಯಾವಾಗ</span><span>ಕಾಲ</span></div>
+<div class="wordrow"><span class="hi">क्यों</span><span class="tr">kyõ</span><span class="kn">ಏಕೆ</span><span>ಕಾರಣ</span></div>
+<div class="wordrow"><span class="hi">कैसे</span><span class="tr">kaise</span><span class="kn">ಹೇಗೆ</span><span>ಪ್ರಕಾರ</span></div>
+<div class="wordrow"><span class="hi">कितना</span><span class="tr">kitnā</span><span class="kn">ಎಷ್ಟು</span><span>ಪ್ರಮಾಣ</span></div>
+
+<div class="aside aha"><b>'ಕ' ಸ್ವರದ ಮಾಂತ್ರಿಕತೆ.</b> ಕನ್ನಡದಲ್ಲಿ ಎಲ್ಲ ಪ್ರಶ್ನಾರ್ಥಕಗಳೂ '<b>ಎ</b>' ಅಥವಾ '<b>ಯಾ</b>' ದಿಂದ ಪ್ರಾರಂಭವಾಗುತ್ತವೆ. ಹಿಂದಿಯಲ್ಲಿ ಎಲ್ಲವೂ '<b>क</b>' ದಿಂದ. ಇದು ಪ್ರೋಟೋ-ಇಂಡೋ-ಆರ್ಯನ್ 'k' ಮೂಲ — ಲ್ಯಾಟಿನ್ 'qu-', ಆಂಗ್ಲದ 'wh-' ಎಲ್ಲಾ ಇದೇ. ದ್ರಾವಿಡ ಕುಟುಂಬ ಬೇರೆ ಮೂಲದಿಂದ.</div>
+
+<div class="navbtns"><a href="#stage-04">← ಪದಗಳು</a><a href="#stage-06">ಓದು →</a></div>
+</section>
+<section class="stage" id="stage-06">
+<h2><span class="num">೦೬</span><span class="kn">ಓದು</span></h2>
+<p class="lead">ಮೂರು ಸಣ್ಣ ಪಾಠ — ಕ್ರಮವಾಗಿ ಕಷ್ಟಕಟ್ಟುತ್ತ ಹೋಗುತ್ತವೆ</p>
+
+<h3><span class="kn">೧ · ಸ್ವಯಂ ಪರಿಚಯ</span></h3>
+<div class="passage">
+<div class="hi">नमस्ते। मेरा नाम आशा है। मैं बेंगलुरु से हूँ। मैं हिन्दी सीख रही हूँ। मुझे पढ़ना बहुत पसंद है।</div>
+<div class="tr">namaste. merā nām āśā hai. maĩ beṅgaluru se hū̃. maĩ hindī sīkh rahī hū̃. mujhe paṛhnā bahut pasand hai.</div>
+<div class="gloss"><span class="kn">ನಮಸ್ಕಾರ. ನನ್ನ ಹೆಸರು ಆಶಾ. ನಾನು ಬೆಂಗಳೂರಿನಿಂದ ಬಂದಿದ್ದೇನೆ. ನಾನು ಹಿಂದಿ ಕಲಿಯುತ್ತಿದ್ದೇನೆ. ನನಗೆ ಓದುವುದು ತುಂಬಾ ಇಷ್ಟ.</span><br>
+<b>ಗಮನಿಸಿ:</b> <span class="hi">सीख रही हूँ</span> = ಕಲಿಯುತ್ತಿದ್ದೇನೆ (ಸ್ತ್ರೀ). <span class="hi">मुझे ... पसंद है</span> = ನನಗೆ ... ಇಷ್ಟ — ಕನ್ನಡದ 'ನನಗೆ ಇಷ್ಟ' ಕ್ಕೆ ನೇರ ಹೋಲಿಕೆ.</div>
+</div>
+
+<h3><span class="kn">೨ · ದಿನಚರಿ</span></h3>
+<div class="passage">
+<div class="hi">मैं सुबह छह बजे उठता हूँ। फिर चाय पीता हूँ और अख़बार पढ़ता हूँ। आठ बजे नाश्ता करता हूँ। दस बजे काम पर जाता हूँ। शाम को घर आता हूँ और परिवार के साथ खाना खाता हूँ।</div>
+<div class="tr">maĩ subah chah baje uṭhtā hū̃. phir cāy pītā hū̃ aur aḵẖbār paṛhtā hū̃. āṭh baje nāśtā kartā hū̃. das baje kām par jātā hū̃. śām ko ghar ātā hū̃ aur parivār ke sāth khānā khātā hū̃.</div>
+<div class="gloss"><span class="kn">ನಾನು ಬೆಳಿಗ್ಗೆ ಆರು ಗಂಟೆಗೆ ಏಳುತ್ತೇನೆ. ಅನಂತರ ಚಹಾ ಕುಡಿದು ಪತ್ರಿಕೆ ಓದುತ್ತೇನೆ. ಎಂಟು ಗಂಟೆಗೆ ಉಪಹಾರ ಮಾಡುತ್ತೇನೆ. ಹತ್ತು ಗಂಟೆಗೆ ಕೆಲಸಕ್ಕೆ ಹೋಗುತ್ತೇನೆ. ಸಂಜೆ ಮನೆಗೆ ಬಂದು ಮನೆಯವರೊಂದಿಗೆ ಊಟ ಮಾಡುತ್ತೇನೆ.</span><br>
+<b>ಗಮನಿಸಿ:</b> <span class="hi">बजे</span> = ಗಂಟೆಗೆ. <span class="hi">पर</span> = ಮೇಲೆ/ಕಡೆ (<span class="kn">ಕೆಲಸದ ಮೇಲೆ</span> ಎಂಬ ಪರಸರ್ಗ). <span class="hi">के साथ</span> = ಜೊತೆ.</div>
+</div>
+
+<h3><span class="kn">೩ · ಎರಡು ಜನರ ಸಂಭಾಷಣೆ</span></h3>
+<div class="passage">
+<div class="hi">
+<b>राजू:</b> नमस्ते भैया! आप कैसे हैं?<br>
+<b>शामू:</b> नमस्ते। मैं ठीक हूँ, आप सुनाइए।<br>
+<b>राजू:</b> मैं भी ठीक हूँ। आप कहाँ जा रहे हैं?<br>
+<b>शामू:</b> बाज़ार जा रहा हूँ। कुछ सब्ज़ी लेनी है।<br>
+<b>राजू:</b> अच्छा! मुझे भी दूध चाहिए। साथ चलूँ?<br>
+<b>शामू:</b> ज़रूर, चलिए।
+</div>
+<div class="tr">rājū: namaste bhaiyā! āp kaise hãi? / śāmū: namaste. maĩ ṭhīk hū̃, āp sunāiye. / rājū: maĩ bhī ṭhīk hū̃. āp kahā̃ jā rahe hãi? / śāmū: bāzār jā rahā hū̃. kuch sabzī lenī hai. / rājū: acchā! mujhe bhī dūdh cāhiye. sāth calū̃? / śāmū: zarūr, caliye.</div>
+<div class="gloss"><span class="kn"><b>ರಾಜು:</b> ನಮಸ್ಕಾರ ಅಣ್ಣ! ನೀವು ಹೇಗಿದ್ದೀರಿ?<br>
+<b>ಶ್ಯಾಮು:</b> ನಮಸ್ಕಾರ. ನಾನು ಚೆನ್ನಾಗಿದ್ದೇನೆ, ನೀವು ಹೇಳಿ.<br>
+<b>ರಾಜು:</b> ನಾನೂ ಚೆನ್ನಾಗಿದ್ದೇನೆ. ನೀವು ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತಿದ್ದೀರಿ?<br>
+<b>ಶ್ಯಾಮು:</b> ಮಾರುಕಟ್ಟೆಗೆ ಹೋಗುತ್ತಿದ್ದೇನೆ. ಸ್ವಲ್ಪ ತರಕಾರಿ ತರಬೇಕು.<br>
+<b>ರಾಜು:</b> ಒಳ್ಳೆಯದು! ನನಗೂ ಹಾಲು ಬೇಕು. ಜೊತೆ ಬರಲೇ?<br>
+<b>ಶ್ಯಾಮು:</b> ಖಂಡಿತ, ಬನ್ನಿ.</span><br>
+<b>ಗಮನಿಸಿ:</b> <span class="hi">आप सुनाइए</span> — ಅಕ್ಷರಶಃ 'ನೀವು ಕೇಳಿಸಿ' — 'ನಿಮ್ಮ ವಿಷಯ ಹೇಳಿ' ಎಂಬ ಅರ್ಥ. <span class="hi">चलूँ?</span> = ಬರಲೇ? (ಏಕವಚನ ಉದ್ದೇಶ). <span class="hi">ज़रूर</span> = ಖಂಡಿತ.</div>
+</div>
+
+<div class="aside aha"><b>ಸೇರ್ಪಡಕ ಕ್ರಿಯಾಪದ.</b> ಹಿಂದಿಯ <span class="hi">जा रहा हूँ</span> (ಜಾ ರಹಾ ಹೂಂ) = ಹೋಗುತ್ತಿದ್ದೇನೆ. <span class="hi">रहना</span> = ಇರು — ಇದು ಕನ್ನಡದ ಸಾಂತತ್ಯ '-ತ್ತ ಇದ್ದೇನೆ' ಗೆ ನೇರ ಸಮಾನ. 'ಹೋಗುತ್ತ <b>ಇದ್ದೇನೆ</b>' = 'ಜಾ <b>ರಹಾ ಹೂಂ</b>'. ಮೂಲ ರೂಪಕ ಒಂದೇ!</div>
+
+<div class="navbtns"><a href="#stage-05">← ವಾಕ್ಯ</a><a href="#stage-07">ಪದಕ್ಷೇತ್ರ →</a></div>
+</section>
+<section class="stage" id="stage-07">
+<h2><span class="num">೦೭</span><span class="kn">ಪದಕ್ಷೇತ್ರ</span></h2>
+<p class="lead">ಸಂಬಂಧ, ಕಾಲ, ಶರೀರ, ಚಲನೆ — ಎರಡು ಭಾಷೆ ಹೇಗೆ ಬೇರೆ ಬೇರೆಯಾಗಿ ಕತ್ತರಿಸುತ್ತವೆ</p>
+
+<h3><span class="kn">ಸಂಬಂಧಗಳ ಸೂಕ್ಷ್ಮತೆ</span></h3>
+<p>ಕನ್ನಡ <span class="kn">ಅಜ್ಜ</span> ಎಂಬ ಒಂದೇ ಪದದಲ್ಲಿ ತಂದೆಯ ಕಡೆಯ ಅಜ್ಜ ಮತ್ತು ತಾಯಿಯ ಕಡೆಯ ಅಜ್ಜ ಇಬ್ಬರನ್ನೂ ಒಳಗೊಳ್ಳುತ್ತದೆ. ಹಿಂದಿಯಲ್ಲಿ ಈ ಭೇದ ಇದೆ — <span class="hi">दादा</span> (ತಂದೆಯ ಕಡೆ) vs <span class="hi">नाना</span> (ತಾಯಿಯ ಕಡೆ). ಅದೇ ಹಾಗೆ <span class="hi">दादी/नानी</span>.</p>
+
+<p>ಆದರೆ ಬೇರೆ ಕಡೆ ಹಿಂದಿ ಒಂದುಗೂಡಿಸುತ್ತದೆ: <span class="hi">भाई</span> = ಅಣ್ಣ ಅಥವಾ ತಮ್ಮ — ವಯೋಭೇದವಿಲ್ಲ! ಕನ್ನಡ <span class="kn">ಅಣ್ಣ/ತಮ್ಮ</span> ಎಂದು ಭೇದ ಮಾಡುತ್ತದೆ. <span class="hi">बहन</span> = ಅಕ್ಕ ಅಥವಾ ತಂಗಿ.</p>
+
+<div class="aside"><b>ಕನ್ನಡದ ವಯೋಭೇದ vs ಹಿಂದಿಯ ಮೂಲಭೇದ.</b> ಕನ್ನಡ 'ಯಾರು ಹಿರಿಯ' ಎಂಬುದಕ್ಕೆ ಮಹತ್ವ ಕೊಡುತ್ತದೆ. ಹಿಂದಿ 'ಯಾವ ಕಡೆಯ ಸಂಬಂಧ' (ತಂದೆ/ತಾಯಿ) ಎಂಬುದಕ್ಕೆ. ಎರಡೂ ತಂತಮ್ಮ ಕೌಟುಂಬಿಕ ವ್ಯವಸ್ಥೆಯ ಕನ್ನಡಿ.</div>
+
+<h3><span class="kn">ಕಾಲದ ಕಲ್ಪನೆ</span></h3>
+<table>
+<tr><th>ಅರ್ಥ</th><th>ಕನ್ನಡ</th><th>ಹಿಂದಿ</th></tr>
+<tr><td>ಇಂದು</td><td class="kn">ಇಂದು / ಇವತ್ತು</td><td class="hi">आज</td></tr>
+<tr><td>ನಾಳೆ</td><td class="kn">ನಾಳೆ</td><td class="hi">कल</td></tr>
+<tr><td>ನಿನ್ನೆ</td><td class="kn">ನಿನ್ನೆ</td><td class="hi">कल</td></tr>
+<tr><td>ಮೊನ್ನೆ</td><td class="kn">ಮೊನ್ನೆ</td><td class="hi">परसों (ಎರಡೂ ಕಡೆ!)</td></tr>
+<tr><td>ನಾಡಿದ್ದು</td><td class="kn">ನಾಡಿದ್ದು</td><td class="hi">परसों</td></tr>
+</table>
+
+<p><span class="hi">परसों</span> (ಪರಸೋಂ) ಕೂಡ <span class="hi">कल</span> ನಂತೆ ಎರಡೂ ಕಡೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ — ಮೊನ್ನೆ ಮತ್ತು ನಾಡಿದ್ದು ಎರಡೂ!</p>
+
+<h3><span class="kn">ಚಲನೆಯ ಸೂಕ್ಷ್ಮತೆ</span></h3>
+<div class="wordrow"><span class="hi">जाना</span><span class="tr">jānā</span><span class="kn">ಹೋಗು</span><span></span></div>
+<div class="wordrow"><span class="hi">आना</span><span class="tr">ānā</span><span class="kn">ಬಾ</span><span></span></div>
+<div class="wordrow"><span class="hi">निकलना</span><span class="tr">nikalnā</span><span class="kn">ಹೊರಡು</span><span></span></div>
+<div class="wordrow"><span class="hi">पहुँचना</span><span class="tr">pahũcnā</span><span class="kn">ತಲುಪು</span><span></span></div>
+<div class="wordrow"><span class="hi">लौटना</span><span class="tr">lauṭnā</span><span class="kn">ಹಿಂದಿರುಗು</span><span></span></div>
+<div class="wordrow"><span class="hi">भागना</span><span class="tr">bhāgnā</span><span class="kn">ಓಡು</span><span></span></div>
+
+<h3><span class="kn">ಶರೀರದ ಆಡುನುಡಿ</span></h3>
+<p>ಕನ್ನಡದಲ್ಲಿ <span class="kn">ಹೊಟ್ಟೆ ಉರಿಯುತ್ತೆ</span> (ಹಸಿವಾಗಿದೆ), <span class="kn">ತಲೆ ಕೆಡುತ್ತಿದೆ</span> (ಕಿರಿಕಿರಿ) ಇತ್ಯಾದಿ ಶರೀರ-ಆಧಾರಿತ ನುಡಿಗಟ್ಟುಗಳಿವೆ. ಹಿಂದಿಯಲ್ಲಿಯೂ ಶ್ರೀಮಂತ ಸಂಗ್ರಹ:</p>
+<div class="wordrow"><span class="hi">सिर दर्द</span><span class="tr">sir dard</span><span class="kn">ತಲೆನೋವು</span><span></span></div>
+<div class="wordrow"><span class="hi">दिल टूटना</span><span class="tr">dil ṭūṭnā</span><span class="kn">ಮನಸ್ಸು ಮುರಿಯು</span><span></span></div>
+<div class="wordrow"><span class="hi">आँख खुलना</span><span class="tr">ā̃kh khulnā</span><span class="kn">ಕಣ್ಣು ತೆರೆಯು (ತಿಳಿಯು)</span><span></span></div>
+<div class="wordrow"><span class="hi">हाथ लगाना</span><span class="tr">hāth lagānā</span><span class="kn">ಕೈ ಹಾಕು</span><span></span></div>
+
+<h3><span class="kn">ಆಹಾರ ಕ್ಷೇತ್ರ</span></h3>
+<div class="wordrow"><span class="hi">चावल</span><span class="tr">cāval</span><span class="kn">ಅಕ್ಕಿ</span><span></span></div>
+<div class="wordrow"><span class="hi">रोटी</span><span class="tr">roṭī</span><span class="kn">ರೊಟ್ಟಿ</span><span></span></div>
+<div class="wordrow"><span class="hi">दाल</span><span class="tr">dāl</span><span class="kn">ಬೇಳೆ</span><span></span></div>
+<div class="wordrow"><span class="hi">सब्ज़ी</span><span class="tr">sabzī</span><span class="kn">ತರಕಾರಿ / ಪಲ್ಯ</span><span></span></div>
+<div class="wordrow"><span class="hi">दही</span><span class="tr">dahī</span><span class="kn">ಮೊಸರು</span><span></span></div>
+<div class="wordrow"><span class="hi">घी</span><span class="tr">ghī</span><span class="kn">ತುಪ್ಪ</span><span></span></div>
+<div class="wordrow"><span class="hi">चीनी</span><span class="tr">cīnī</span><span class="kn">ಸಕ್ಕರೆ</span><span></span></div>
+<div class="wordrow"><span class="hi">नमक</span><span class="tr">namak</span><span class="kn">ಉಪ್ಪು</span><span></span></div>
+
+<div class="aside aha"><b>ಹಿಂದಿಯ ದ್ರಾವಿಡ ಎರವಲು.</b> <span class="hi">दही, रोटी</span> ನಂತಹ ಪದಗಳು ಪ್ರಾಕೃತ ಮೂಲಕ ಸಂಸ್ಕೃತಕ್ಕೆ, ನಂತರ ದ್ರಾವಿಡ ಭಾಷೆಗಳಿಗೂ ಹಂಚಿಹೋಗಿವೆ. <span class="kn">ಮೊಸರು</span> ಕನ್ನಡದ ಅಪ್ಪಟ ಪದ, ಆದರೆ <span class="kn">ರೊಟ್ಟಿ</span> ಉತ್ತರದಿಂದ ಬಂದದ್ದು. ಅಡಿಗೆ ಮನೆಯ ಪದಗಳು ವ್ಯಾಪಾರಿಗಳ ಹಾದಿಯಲ್ಲಿ ಹರಿದವು.</div>
+
+<div class="navbtns"><a href="#stage-06">← ಓದು</a><a href="#stage-08">ಬಳಕೆ →</a></div>
+</section>
+<section class="stage" id="stage-08">
+<h2><span class="num">೦೮</span><span class="kn">ಬಳಕೆ</span></h2>
+<p class="lead">ಗೌರವ, ಸಂದರ್ಭ, ಮಾತಿನ ಮಾರ್ದವ</p>
+
+<h3><span class="kn">ಗೌರವದ ಮೂರು ಹಂತ</span></h3>
+<p>ಕನ್ನಡದಲ್ಲಿ ಎರಡು ಹಂತ: <span class="kn">ನೀನು</span> (ಸಮಾನ) ಮತ್ತು <span class="kn">ನೀವು</span> (ಗೌರವ). ಹಿಂದಿಯಲ್ಲಿ ಮೂರು:</p>
+<table>
+<tr><th>ಹಂತ</th><th>ಹಿಂದಿ</th><th>ಕನ್ನಡ ಸಮಾನ</th><th>ಸಂದರ್ಭ</th></tr>
+<tr><td>ಆತ್ಮೀಯ</td><td class="hi">तू</td><td class="kn">(ಇಲ್ಲ)</td><td>ಬಹಳ ಹತ್ತಿರ / ದೇವರಿಗೆ / ಮಗುವಿಗೆ / ಜಗಳಕ್ಕೆ</td></tr>
+<tr><td>ಸಮಾನ</td><td class="hi">तुम</td><td class="kn">ನೀನು</td><td>ಸ್ನೇಹಿತರು, ಕಿರಿಯರು</td></tr>
+<tr><td>ಗೌರವ</td><td class="hi">आप</td><td class="kn">ನೀವು</td><td>ಹಿರಿಯರು, ಪರಿಚಯವಿಲ್ಲದವರು</td></tr>
+</table>
+
+<div class="aside warn"><b>तू ಬಳಸಬೇಡಿ!</b> ಹಿಂದಿಯ <span class="hi">तू</span> ಅನ್ನು ಅಪರಿಚಿತರಿಗೆ ಬಳಸಿದರೆ ಅವಮಾನ. ಕೇವಲ ಬಹಳ ಹತ್ತಿರದವರಿಗೆ ಅಥವಾ ಪ್ರಾರ್ಥನೆಯಲ್ಲಿ ದೇವರಿಗೆ. ಸುರಕ್ಷಿತ ಆಯ್ಕೆ — ಯಾವಾಗಲೂ <span class="hi">आप</span>.</div>
+
+<h3><span class="kn">ಸಾಮಾನ್ಯ ನುಡಿಗಳು</span></h3>
+<div class="wordrow"><span class="hi">नमस्ते / नमस्कार</span><span class="tr">namaste</span><span class="kn">ನಮಸ್ಕಾರ</span><span>ಸಾಮಾನ್ಯ</span></div>
+<div class="wordrow"><span class="hi">धन्यवाद</span><span class="tr">dhanyavād</span><span class="kn">ಧನ್ಯವಾದ</span><span>ಔಪಚಾರಿಕ</span></div>
+<div class="wordrow"><span class="hi">शुक्रिया</span><span class="tr">śukriyā</span><span class="kn">ಧನ್ಯವಾದ</span><span>ಉರ್ದು, ಪ್ರೀತಿಯ</span></div>
+<div class="wordrow"><span class="hi">माफ़ कीजिए</span><span class="tr">māf kījiye</span><span class="kn">ಕ್ಷಮಿಸಿ</span><span></span></div>
+<div class="wordrow"><span class="hi">आप कैसे हैं?</span><span class="tr">āp kaise hãi?</span><span class="kn">ಹೇಗಿದ್ದೀರಿ?</span><span></span></div>
+<div class="wordrow"><span class="hi">मैं ठीक हूँ</span><span class="tr">maĩ ṭhīk hū̃</span><span class="kn">ಚೆನ್ನಾಗಿದ್ದೇನೆ</span><span></span></div>
+<div class="wordrow"><span class="hi">फिर मिलेंगे</span><span class="tr">phir milẽge</span><span class="kn">ಮತ್ತೆ ಸಿಗೋಣ</span><span></span></div>
+
+<h3><span class="kn">'ಊಟ ಆಯ್ತಾ?' — ಭೋಜನ ಸ್ವಾಗತ</span></h3>
+<p>ಕನ್ನಡ-ತೆಲುಗು-ತಮಿಳಿನ ಸಂಸ್ಕೃತಿಯಲ್ಲಿ <span class="kn">ಊಟ ಆಯ್ತಾ?</span> ಸ್ವಾಗತದ ರೀತಿಯ ಮಾತು. ಹಿಂದಿಯಲ್ಲಿಯೂ <span class="hi">खाना खाया?</span> (ಖಾನಾ ಖಾಯಾ?) ಇದೆ — ಆದರೆ ಉತ್ತರ ಭಾರತದಲ್ಲಿ ಅಷ್ಟು ಸಾರ್ವತ್ರಿಕ ಸ್ವಾಗತವಲ್ಲ. ಊಟದ ಸಮಯಕ್ಕೆ ಹತ್ತಿರ ಇದ್ದಾಗ ಕೇಳುವ ಸ್ನೇಹದ ಪ್ರಶ್ನೆ.</p>
+
+<h3><span class="kn">ಮೃದುಕಾರಕ — 'ಜ಼ರಾ'</span></h3>
+<p>ಕನ್ನಡದಲ್ಲಿ ವಿನಂತಿ ಸೌಮ್ಯಗೊಳಿಸಲು 'ಸ್ವಲ್ಪ', 'ಒಂದ್ ನಿಮಿಷ' ಹಾಕುತ್ತೇವೆ. ಹಿಂದಿಯಲ್ಲಿ <span class="hi"><b>ज़रा</b></span> (ಜ಼ರಾ) ಈ ಕೆಲಸ ಮಾಡುತ್ತದೆ:</p>
+<div class="passage">
+<div class="hi">ज़रा सुनिए। <span style="font-size:14px;color:var(--ink-faded)">(ಜ಼ರಾ ಸುನಿಯೇ)</span></div>
+<div class="gloss"><span class="kn">ಸ್ವಲ್ಪ ಕೇಳಿ / ಒಂದ್ ಕ್ಷಣ ಕೇಳಿ</span> — <span class="hi">ज़रा</span> ಇಲ್ಲದೆ ಹೇಳಿದರೆ ಆದೇಶದಂತೆ ಕೇಳಿಸಬಹುದು.</div>
+</div>
+
+<h3><span class="kn">ಅಪರಿಚಿತರನ್ನು ಸಂಬೋಧಿಸುವುದು</span></h3>
+<div class="wordrow"><span class="hi">भैया / भाई साहब</span><span class="tr">bhaiyā/bhāī sāhab</span><span class="kn">ಅಣ್ಣ / ಅಯ್ಯಾ</span><span>ಅಪರಿಚಿತ ಪುರುಷ</span></div>
+<div class="wordrow"><span class="hi">दीदी / बहनजी</span><span class="tr">dīdī/bahanjī</span><span class="kn">ಅಕ್ಕ / ಅಮ್ಮಾ</span><span>ಅಪರಿಚಿತ ಸ್ತ್ರೀ</span></div>
+<div class="wordrow"><span class="hi">अंकल / बाबा</span><span class="tr">ankal/bābā</span><span class="kn">ಅಜ್ಜ</span><span>ವಯಸ್ಸಾದ ಪುರುಷ</span></div>
+<div class="wordrow"><span class="hi">आंटी / अम्माजी</span><span class="tr">āntī/ammājī</span><span class="kn">ಅಜ್ಜಿ</span><span>ವಯಸ್ಸಾದ ಸ್ತ್ರೀ</span></div>
+
+<div class="aside aha"><b>ಸಂಬಂಧ-ಕೇಂದ್ರಿತ ಸಮಾಜ.</b> ದಕ್ಷಿಣದಲ್ಲೂ ಉತ್ತರದಲ್ಲೂ, ಅಪರಿಚಿತನನ್ನು 'ಕುಟುಂಬದ ಸದಸ್ಯ'ನಂತೆ ಸಂಬೋಧಿಸುವುದು ಸಾಮಾನ್ಯ. ಕನ್ನಡದ <span class="kn">ಅಣ್ಣಾ, ಅಮ್ಮಾ</span> ಉತ್ತರದಲ್ಲಿ <span class="hi">भैया, दीदी</span> ಆಗಿ ಬದಲಾಗುತ್ತದೆ. ಪದಗಳು ಬೇರೆ, ಮನಃಸ್ಥಿತಿ ಒಂದೇ.</div>
+
+<h3><span class="kn">ವಿನಂತಿಯ ರೂಪಗಳು</span></h3>
+<table>
+<tr><th>ಆದೇಶ (ಸಮಾನ)</th><th>ವಿನಂತಿ (ಗೌರವ)</th><th>ಅರ್ಥ</th></tr>
+<tr><td class="hi">सुन</td><td class="hi">सुनिए</td><td class="kn">ಕೇಳು / ಕೇಳಿ</td></tr>
+<tr><td class="hi">आ</td><td class="hi">आइए</td><td class="kn">ಬಾ / ಬನ್ನಿ</td></tr>
+<tr><td class="hi">बैठ</td><td class="hi">बैठिए</td><td class="kn">ಕೂಡು / ಕುಳಿತುಕೊಳ್ಳಿ</td></tr>
+<tr><td class="hi">बताओ</td><td class="hi">बताइए</td><td class="kn">ಹೇಳು / ಹೇಳಿ</td></tr>
+</table>
+
+<div class="navbtns"><a href="#stage-07">← ಪದಕ್ಷೇತ್ರ</a><a href="#stage-09">ಸಾಹಿತ್ಯ →</a></div>
+</section>
+<section class="stage" id="stage-09">
+<h2><span class="num">೦೯</span><span class="kn">ಸಾಹಿತ್ಯ</span></h2>
+<p class="lead">ಹಿಂದಿಯ ಸಾಹಿತ್ಯ ಪರಂಪರೆ — ಕನ್ನಡದ ಮೂಲಕ</p>
+
+<p>ಹಿಂದಿ ಸಾಹಿತ್ಯದ ಬೇರು ಎಂಟು ನೂರು ವರ್ಷಗಳಷ್ಟು ಹಳೆಯದು — ಅಮೀರ್ ಖುಸ್ರೌನಿಂದ ಪ್ರಾರಂಭಿಸಿ, ಭಕ್ತಿ ಯುಗ, ಆಧುನಿಕತೆ ಎಲ್ಲವನ್ನೂ ಒಳಗೊಂಡು. ಕನ್ನಡಿಗರಿಗೆ ಪರಿಚಿತ ಲೇಖಕರೊಂದಿಗೆ ಕೆಲವು ಕನ್ನಿಕಾಗೋಪುರ ಸೇತುವೆಗಳು:</p>
+
+<h3><span class="kn">ಕಬೀರ್ (೧೫ನೇ ಶತಮಾನ)</span></h3>
+<p><span class="hi"><b>कबीर</b></span> ಉತ್ತರದ ನೇಕಾರ-ಕವಿ. ಹಿಂದೂ ಮತ್ತು ಇಸ್ಲಾಮಿನ ಕರ್ಮಕಾಂಡ ಎರಡನ್ನೂ ಕಿತ್ತೊಗೆದು, ಜನಸಾಮಾನ್ಯರ ಆಡುಭಾಷೆಯಲ್ಲಿ ಆಧ್ಯಾತ್ಮ ಹೇಳಿದ. ದೋಹಾ, ಭಜನ್ ಪ್ರಕಾರಗಳ ಮೂಲಪುರುಷ.</p>
+<div class="aside aha"><b>ಸೇತುವೆ — ಕಬೀರ್ ↔ <span class="kn">ಬಸವಣ್ಣ</span>.</b> ಬಸವಣ್ಣನ ವಚನಗಳಂತೆ ಕಬೀರನ ದೋಹೆಗಳೂ ಕರ್ಮಕಾಂಡ ವಿರೋಧಿ, ನೇರ ದೈವಿಕ ಸಂವಾದ, ವ್ಯವಸ್ಥಿತ ಧರ್ಮಕ್ಕೆ ಸವಾಲು. <span class="kn">'ಕಲ್ಲನಾಗರ ಕಂಡರೆ ಹಾಲೆರೆಯೆಂಬರು'</span> — ಬಸವಣ್ಣನ ಈ ಸಾಲು ಕಬೀರನ <span class="hi">'पत्थर पूजे हरि मिले, तो मैं पूजूँ पहाड़'</span> ಕ್ಕೆ ಅಕ್ಷರಶಃ ಪ್ರತಿಧ್ವನಿ.</div>
+
+<h3><span class="kn">ಪ್ರೇಮಚಂದ (೧೮೮೦-೧೯೩೬)</span></h3>
+<p><span class="hi"><b>प्रेमचंद</b></span> — ಹಿಂದಿ-ಉರ್ದು ಕಥಾಸಾಹಿತ್ಯದ ಪಿತಾಮಹ. <span class="hi">गोदान</span>, <span class="hi">निर्मला</span>, <span class="hi">कफ़न</span> ಮುಂತಾದ ಕಥೆಗಳಲ್ಲಿ ಗ್ರಾಮೀಣ ಬಡತನ, ಜಾತಿ, ಮಹಿಳೆಯರ ಸ್ಥಿತಿ — ಸಾಮಾಜಿಕ ವಾಸ್ತವಿಕತೆ.</p>
+<div class="aside aha"><b>ಸೇತುವೆ — ಪ್ರೇಮಚಂದ ↔ <span class="kn">ಶಿವರಾಮ ಕಾರಂತ</span> ಮತ್ತು ಯು.ಆರ್. ಅನಂತಮೂರ್ತಿ.</b> ಕಾರಂತರ <span class="kn">'ಚೋಮನ ದುಡಿ'</span> ಹಾಗೂ ಅನಂತಮೂರ್ತಿಯ <span class="kn">'ಸಂಸ್ಕಾರ'</span> ಎರಡೂ ಪ್ರೇಮಚಂದನ 'ಗೋದಾನ'ದ ಹಾಗೆಯೇ — ಜಾತಿ ವಿಮರ್ಶೆ, ನೈತಿಕ ಸಂಕೀರ್ಣತೆ, ಗ್ರಾಮದ ಬಡ ಮನುಷ್ಯನ ಅಂತರಂಗ. ಸಾಮಾಜಿಕ ವಾಸ್ತವಿಕತೆಯ ಒಂದೇ ತಾಳದ ಉತ್ತರ-ದಕ್ಷಿಣ ನಾದ.</div>
+
+<h3><span class="kn">ನಿರಾಲಾ (೧೮೯೬-೧೯೬೧)</span></h3>
+<p><span class="hi"><b>सूर्यकान्त त्रिपाठी 'निराला'</b></span> — ಛಾಯಾವಾದದ ಮಹಾಸ್ತಂಭ. ಸಂಸ್ಕೃತ ಛಂದಸ್ಸನ್ನು ಮುರಿದು ಮುಕ್ತ ಛಂದಸ್ಸಿಗೆ ದಾರಿ ಮಾಡಿಕೊಟ್ಟವನು. <span class="hi">'सरोज स्मृति'</span> ಅವನ ಮಗಳಿಗೆ ಬರೆದ ಶೋಕಗೀತೆ.</p>
+<div class="aside aha"><b>ಸೇತುವೆ — ನಿರಾಲಾ ↔ <span class="kn">ದ.ರಾ. ಬೇಂದ್ರೆ</span> ಮತ್ತು ಕುವೆಂಪು.</b> ಬೇಂದ್ರೆಯ ಭಾವಗೀತೆಗಳಲ್ಲಿನ ಜಾನಪದ ಧ್ವನಿ, ಕುವೆಂಪುರ ಮುಕ್ತ ಛಂದದ ಧೈರ್ಯ — ನಿರಾಲಾನಂತೆಯೇ ಸಾಂಪ್ರದಾಯಿಕ ಅಳತೆಗೋಲುಗಳನ್ನು ಮುರಿದ ಆಧುನಿಕ ಮನಃಸ್ಥಿತಿ. ಭಾಷಾಭಿಮಾನ, ಸ್ವಾತಂತ್ರ್ಯದ ಆವೇಶ — ಎಲ್ಲಾ ಒಂದೇ.</div>
+
+<h3><span class="kn">ತುಲಸೀದಾಸ (೧೬ನೇ ಶತಮಾನ)</span></h3>
+<p><span class="hi"><b>तुलसीदास</b></span> — <span class="hi">रामचरितमानस</span> ದ ಕರ್ತೃ. ವಾಲ್ಮೀಕಿಯ ರಾಮಾಯಣವನ್ನು ಅವಧಿ ಭಾಷೆಯಲ್ಲಿ ಪುನರ್ ಕಥನ ಮಾಡಿ, ರಾಮಭಕ್ತಿಯನ್ನು ಜನಸಾಮಾನ್ಯರಿಗೆ ತಲುಪಿಸಿದ.</p>
+<div class="aside aha"><b>ಸೇತುವೆ — ತುಲಸೀದಾಸ ↔ <span class="kn">ಕುಮಾರವ್ಯಾಸ</span>.</b> ಕುಮಾರವ್ಯಾಸನ <span class="kn">'ಕರ್ಣಾಟಭಾರತಕಥಾಮಂಜರಿ'</span> ಮಹಾಭಾರತವನ್ನು ಕನ್ನಡದ ಷಟ್ಪದಿಯಲ್ಲಿ ಹೇಳಿದಂತೆ, ತುಲಸೀದಾಸ ರಾಮಾಯಣವನ್ನು ಅವಧಿಯ ಚೌಪಾಯಿ-ದೋಹೆಯಲ್ಲಿ ಹಾಡಿದ. ಸಂಸ್ಕೃತದ ಗ್ರಂಥಗಳನ್ನು 'ಊರ ಮಾತು'ಗೆ ಇಳಿಸಿದ ಒಂದೇ ಪ್ರವೃತ್ತಿ.</div>
+
+<h3><span class="kn">ಮಹಾದೇವಿ ವರ್ಮಾ (೧೯೦೭-೧೯೮೭)</span></h3>
+<p><span class="hi"><b>महादेवी वर्मा</b></span> — ಛಾಯಾವಾದದ 'ಮೀರಾ' ಎಂದು ಕರೆಸಿಕೊಳ್ಳುವವಳು. ಆಧ್ಯಾತ್ಮಿಕ ವಿರಹ-ಭಾವ, ಸ್ತ್ರೀ ಸ್ವರದ ಒಳಶೋಧನೆ.</p>
+<div class="aside aha"><b>ಸೇತುವೆ — ಮಹಾದೇವಿ ವರ್ಮಾ ↔ <span class="kn">ಅಕ್ಕಮಹಾದೇವಿ</span>.</b> ಎಂಟು ಶತಮಾನದ ಅಂತರ, ಎರಡು ಭಾಷೆ, ಆದರೆ ಒಂದೇ ಅನುಭವ — 'ಚೆನ್ನಮಲ್ಲಿಕಾರ್ಜುನ'ನಿಗಾಗಿ ಅಕ್ಕ ಹಾಡಿದಂತೆಯೇ, ಮಹಾದೇವಿ ವರ್ಮಾ ತನ್ನ 'ಅಜ್ಞಾತ ಪ್ರಿಯ'ನಿಗಾಗಿ ಹಾಡುತ್ತಾಳೆ. ಎರಡೂ ಹೆಸರಲ್ಲಿ 'ಮಹಾದೇವಿ' ಇರುವುದು ಕಾಕತಾಳೀಯ — ಅಥವಾ ಅಲ್ಲವೇ?</div>
+
+<h3><span class="kn">ಆಧುನಿಕ ಧ್ವನಿಗಳು</span></h3>
+<p>ಸೂರ್ಯಕಾಂತ ತ್ರಿಪಾಠಿ 'ನಿರಾಲಾ' ಮಾತ್ರವಲ್ಲ — <span class="hi">जयशंकर प्रसाद</span> (ಕಾಮಾಯನೀ), <span class="hi">अज्ञेय</span> (ಪ್ರಯೋಗವಾದ), <span class="hi">मुक्तिबोध</span> (ಮಾರ್ಕ್ಸ್‌ವಾದಿ ದೃಷ್ಟಿಕೋನ), <span class="hi">कृष्णा सोबती</span> (ಸ್ತ್ರೀ ಅನುಭವ), <span class="hi">मन्नू भंडारी</span> ಇವರೆಲ್ಲರೂ ಹಿಂದಿಯ ಆಧುನಿಕ ಶೃಂಗ.</p>
+
+<p class="lead">ಕಲಿಕೆ ಶಬ್ದಕೋಶದಿಂದ ಆರಂಭವಾಗಿ ಸಾಹಿತ್ಯದಲ್ಲಿ ಮುಗಿಯುತ್ತದೆ. ಒಂದು ಭಾಷೆಯ ಆಳವಾದ ಅರ್ಥ ಅದರ ಕವಿಗಳಲ್ಲಿದೆ. ನಿಮ್ಮ ಪ್ರಯಾಣ ಇಲ್ಲಿಂದ ಮುಂದಕ್ಕೆ.</p>
+
+<div class="navbtns"><a href="#stage-08">← ಬಳಕೆ</a><a href="#stage-00">ಮೊದಲಿಗೆ ↺</a></div>
+</section>
+
+<footer>made by Nil · using Claude</footer>
+
+</div>
+<script>
+(function(){
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('click', function(){ c.classList.toggle('open'); });
+  });
+  var tabs = document.querySelectorAll('nav.tabs a');
+  var sections = document.querySelectorAll('section.stage');
+  function setActive(id){
+    tabs.forEach(function(t){
+      if(t.getAttribute('href') === '#'+id) t.classList.add('active');
+      else t.classList.remove('active');
+    });
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) setActive(e.target.id);
+    });
+  }, {rootMargin: '-40% 0px -55% 0px', threshold: 0});
+  sections.forEach(function(s){ io.observe(s); });
+})();
+</script>
+</body>
+</html>

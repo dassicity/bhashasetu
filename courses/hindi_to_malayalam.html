@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="हिन्दी से मलयालम सीखने का प्रथम-सिद्धांत पाठ्यक्रम — वर्णमाला की पद्धति से।" />
+<title>മലയാളം പഠിക്കാം — हिन्दी से मलयालम</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Devanagari', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .ml { font-family: 'Noto Serif Malayalam', serif; }
+  .hi { font-family: 'Noto Serif Devanagari', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .ml { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .hi-g {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .ml-g {
+    font-family: 'Noto Serif Malayalam', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 4px; }
+  .map-cell.new::after {
+    content: "⚡";
+    position: absolute; top: 4px; right: 6px;
+    font-size: 10px; color: var(--sindoor);
+  }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .ml { font-family: 'Noto Serif Malayalam', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+  .word .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1px 6px;
+    border-radius: 2px;
+    background: var(--paper-deep);
+    color: var(--sindoor);
+    margin-left: 6px;
+  }
+
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .ml { font-family: 'Noto Serif Malayalam', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Devanagari', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .ml { font-family: 'Noto Serif Malayalam', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 15px; color: var(--ink-soft); }
+  .conjug-row.head { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--sindoor); text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid var(--rule-strong); }
+
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+  table.guni .ml-cell { font-family: 'Noto Serif Malayalam', serif; }
+  table.guni .hi-cell { font-family: 'Noto Serif Devanagari', serif; }
+
+  .passage {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .passage::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .passage .ml { font-family: 'Noto Serif Malayalam', serif; font-size: 19px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; }
+  .passage .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); line-height: 1.7; margin-bottom: 12px; }
+  .passage .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .passage .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, devanagari);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Devanagari', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .ml { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .ml-g { font-size: 26px; }
+    .map-cell .hi-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .hi-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 400px) {
+    .wrap { padding: 0 14px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">एक प्राइमर · ഒരു പ്രാഥമിക പുസ്തകം</div>
+    <h1 class="title">
+      <span class="ml">മലയാളം പഠിക്കാം</span>
+      हिन्दी से मलयालम सीखें
+    </h1>
+    <p class="subtitle">वर्णमाला और बारहखड़ी की पद्धति से — एक बार में एक ही नई चीज़, रूप पहले अर्थ बाद में, सूची नहीं व्यवस्था — हिन्दी जो जानती है उसी पर खड़ी मलयालम की नींव।</p>
+    <div class="byline">दस चरण <span class="sep">·</span> मोबाइल-सुलभ <span class="sep">·</span> पूर्ण शून्य से</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">००</span>भूमिका</button>
+    <button class="stage-tab" data-stage="1"><span class="num">०१</span>स्वर</button>
+    <button class="stage-tab" data-stage="2"><span class="num">०२</span>व्यंजन</button>
+    <button class="stage-tab" data-stage="3"><span class="num">०३</span>संयोजन</button>
+    <button class="stage-tab" data-stage="4"><span class="num">०४</span>मूल शब्द</button>
+    <button class="stage-tab" data-stage="5"><span class="num">०५</span>वाक्य</button>
+    <button class="stage-tab" data-stage="6"><span class="num">०६</span>पाठ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">०७</span>शब्द-क्षेत्र</button>
+    <button class="stage-tab" data-stage="8"><span class="num">०८</span>प्रयोग</button>
+    <button class="stage-tab" data-stage="9"><span class="num">०९</span>साहित्य</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" id="stage-00" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · भूमिका</div>
+    <h2 class="stage-title">यह पाठ क्यों अलग है</h2>
+    <p class="stage-lede">आप हिन्दी जानते हैं। इसका मतलब है कि मलयालम सीखने के लिए आपको अंग्रेज़ी-भाषियों की तरह शून्य से शुरू नहीं करना पड़ेगा — ४८ में से ४४ ध्वनियाँ, व्याकरण का कंकाल, और शब्दभंडार का एक तिहाई हिस्सा आप पहले से ही पहचानते हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>बचपन में आपने <strong>वर्णमाला</strong> और <strong>बारहखड़ी</strong> पढ़ी थी — क, का, कि, की, कु, कू... यही वह नींव है जिस पर यह पाठ्यक्रम खड़ा है। मलयालम लिपि भी एक अबुगिदा है — हर व्यंजन में एक अंतर्निहित 'अ' छुपा है, और स्वर-चिह्न लगाकर उसे बदला जाता है। ठीक वही नियम, बस अक्षरों के आकार गोल और घुमावदार हैं।</p>
+
+    <p>एक उदाहरण देखिए। हिन्दी में आप कहते हैं <strong>"मैं पानी पीता हूँ।"</strong> मलयालम में यही वाक्य बनेगा <span class="ml">"ഞാൻ വെള്ളം കുടിക്കുന്നു"</span> (<span class="mono">ñān veḷḷaṃ kuḍikkunnu</span>) — अर्थात <em>मैं · पानी · पीता-हूँ</em>। शब्द-क्रम बिलकुल वही: कर्ता-कर्म-क्रिया। दोनों भाषाएँ परसर्ग (postposition) का प्रयोग करती हैं, अंग्रेज़ी की तरह preposition नहीं। यानी आप पहले से ही "मलयालम की तरह सोचते" हैं।</p>
+
+    <p>तो फिर चुनौती क्या है? मलयालम द्रविड़ कुल की है, हिन्दी इन्दो-आर्य की। वंश अलग हैं, पर दोनों भारतीय उपमहाद्वीप की संतान हैं — सहस्राब्दियों से एक-दूसरे से संस्कृत के पुल से जुड़ी। <strong>लगभग ३३% शब्दावली साझा है</strong>, और तत्सम शब्द तो हू-ब-हू मिलते हैं: समय = <span class="ml">സമയം</span>, दिन = <span class="ml">ദിനം</span>, भूमि = <span class="ml">ഭൂമി</span>, सूर्य = <span class="ml">സൂര്യൻ</span>।</p>
+
+    <h3><span class="num">¶</span>हिन्दी → मलयालम: क्या मिलता है, क्या अलग है</h3>
+
+    <ol class="principles">
+      <li><strong>ध्वनि — लगभग पूरी की पूरी एक।</strong> वर्गीय व्यंजन (क-ख-ग-घ-ङ, च-छ-ज-झ-ञ, ट-ठ-ड-ढ-ण, त-थ-द-ध-न, प-फ-ब-भ-म) मलयालम में हूबहू उसी क्रम में हैं — <span class="ml">ക-ഖ-ഗ-ഘ-ങ</span>। अल्पप्राण/महाप्राण, घोष/अघोष — सब आपकी ज़ुबान पहले से जानती है।</li>
+      <li><strong>लिपि — आकार अलग, नियम एक।</strong> देवनागरी और मलयालम दोनों अबुगिदा हैं। जैसे हिन्दी में 'क' + 'ा' = 'का', वैसे ही मलयालम में <span class="ml">ക</span> + <span class="ml">ാ</span> = <span class="ml">കാ</span>। बारहखड़ी का सिद्धांत वही — बस हलंत ् की जगह चन्द्रक्कला ് आती है।</li>
+      <li><strong>व्याकरण — लिंग का बोझ उतर जाता है।</strong> हिन्दी में "लड़का जाता है" बनाम "लड़की जाती है" — क्रिया लिंग बदलती है। मलयालम <em>लिंग-भेद नहीं करती</em>। <span class="ml">ഞാൻ പോകുന്നു</span> (ñān pōkunnu) = "मैं जाता/जाती हूँ" — एक ही रूप। यह भार हल्का होता है।</li>
+      <li><strong>शब्द-क्रम — बिलकुल वही।</strong> दोनों SOV हैं। "राम ने रोटी खाई" = <span class="ml">രാമൻ റൊട്ടി കഴിച്ചു</span> (रामन् रॊट्टि कऴिच्चु)। परसर्ग, विशेषण-संज्ञा का क्रम, प्रश्नवाचक शब्द का स्थान — सब परिचित।</li>
+      <li><strong>शब्दभंडार — संस्कृत का सेतु।</strong> पुस्तक = <span class="ml">പുസ്തകം</span>, समय = <span class="ml">സമയം</span>, नमस्कार = <span class="ml">നമസ്കാരം</span>, धन्यवाद से मिलता-जुलता <span class="ml">നന്ദി</span> (नन्दी)। १००+ तत्सम शब्द तुरंत पहचान में आ जाएँगे।</li>
+      <li><strong>सच में नई ४ ध्वनियाँ: <span class="ml">ഴ</span>, <span class="ml">ള</span>, दीर्घ ए <span class="ml">ഏ</span>, दीर्घ ओ <span class="ml">ഓ</span>।</strong> <span class="ml">ഴ</span> (ऴ) मूर्धन्य संघर्षी है — कान ने पहले कभी नहीं सुना। <span class="ml">ള</span> (ळ) मूर्धन्य 'ल' — हिन्दी ने खो दिया, मलयालम ने रखा। और 'ए/ओ' के छोटे-बड़े रूप मलयालम में अलग-अलग लिखे जाते हैं, हिन्दी में नहीं।</li>
+    </ol>
+
+    <div class="aside"><strong>पद्धति।</strong> हर चरण में मलयालम अक्षर/शब्द/वाक्य के साथ हिन्दी समतुल्य रखा गया है। आप हिन्दी पहचानते हैं, तो मलयालम सिर्फ़ नया चेहरा है — नई अवधारणा नहीं।</div>
+
+    <div class="aside"><strong>"खाना खाया?" का अहसास।</strong> जैसे उत्तर भारत में परिचित मिलने पर पूछा जाता है "खाना खाया?", वैसे ही केरल में <span class="ml">"ചോറുണ്ടോ?"</span> (चोऱुण्डो? = "चावल है?") पूछा जाता है। भोजन ही स्नेह की भाषा है — दोनों संस्कृतियों में।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ऊपर <strong>स्वर</strong> टैब पर टैप करें, शुरू करें।</p>
+  </div>
+</section>
+<section class="stage" id="stage-01" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ध्वनि</div>
+    <h2 class="stage-title">स्वर — <span class="ml">സ്വരങ്ങൾ</span></h2>
+    <p class="stage-lede">हिन्दी में आप ११ स्वर पहचानते हैं। मलयालम में १३ हैं — दो अतिरिक्त हैं दीर्घ <span class="ml">ഏ</span> और दीर्घ <span class="ml">ഓ</span>। ध्वनियाँ लगभग वही — सिर्फ़ आकार नया। हर हिन्दी स्वर के साथ उसका मलयालम जुड़वा पहचानें।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+malayalam+vowels+swarangal+pronunciation" title="Malayalam vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">मलयालम स्वरों का उच्चारण <a href="https://www.youtube.com/results?search_query=learn+malayalam+vowels+swarangal+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>पढ़ने का तरीक़ा।</strong> हर कार्ड पर टैप करें — एक उदाहरण शब्द दिखेगा। हिन्दी अक्षर ऊपर, मलयालम नीचे — आँख पहले हिन्दी पहचानेगी, फिर मलयालम रूप स्मृति में बैठेगा।</div>
+
+    <div class="group-label">ह्रस्व / दीर्घ जोड़ा — 'अ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="അമ്മ (amma) = अम्मा — माँ"><div class="hi-g">अ</div><div class="arrow">↓</div><div class="ml-g">അ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ആന (āna) = हाथी"><div class="hi-g">आ</div><div class="arrow">↓</div><div class="ml-g">ആ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'इ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഇല (ila) = पत्ता"><div class="hi-g">इ</div><div class="arrow">↓</div><div class="ml-g">ഇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഈച്ച (īcca) = मक्खी"><div class="hi-g">ई</div><div class="arrow">↓</div><div class="ml-g">ഈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'उ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഉപ്പ് (upp) = नमक"><div class="hi-g">उ</div><div class="arrow">↓</div><div class="ml-g">ഉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഊണ് (ūṇ) = भोजन / दोपहर का खाना"><div class="hi-g">ऊ</div><div class="arrow">↓</div><div class="ml-g">ഊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ऋ — संस्कृत की विरासत</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഋഷി (ṛṣi) = ऋषि — एक ही संस्कृत शब्द!"><div class="hi-g">ऋ</div><div class="arrow">↓</div><div class="ml-g">ഋ</div><div class="label">ṛ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ए' परिवार — यहाँ हिन्दी और मलयालम में फ़र्क़ है</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="എലി (eli) = चूहा — ह्रस्व 'ए'"><div class="hi-g">ए</div><div class="arrow">↓</div><div class="ml-g">എ</div><div class="label">e (ह्रस्व)</div><div class="hint"></div></div>
+      <div class="map-cell new" tabindex="0" data-hint="ഏഴ് (ēḻ) = सात — दीर्घ 'ए', हिन्दी में नहीं"><div class="hi-g">ए (दीर्घ)</div><div class="arrow">↓</div><div class="ml-g">ഏ</div><div class="label">ē (दीर्घ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഐരാവതം (airāvataṃ) = ऐरावत — इंद्र का हाथी"><div class="hi-g">ऐ</div><div class="arrow">↓</div><div class="ml-g">ഐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी से अहम फ़र्क़।</strong> मलयालम में 'ए' और 'ओ' के ह्रस्व-दीर्घ रूप अलग-अलग अक्षरों से लिखे जाते हैं — <span class="ml">എ</span> (ह्रस्व) बनाम <span class="ml">ഏ</span> (दीर्घ)। हिन्दी में यह भेद लिपि में नहीं है, लेकिन बोलने में है — "बेला" और "बेचारा" के 'ए' अलग हैं। मलयालम यह अंतर लिख देती है। यह द्रविड़ परंपरा की विशेषता है, तमिल भी ऐसा ही करती है।</div>
+
+    <div class="group-label">'ओ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഒന്ന് (onn) = एक"><div class="hi-g">ओ</div><div class="arrow">↓</div><div class="ml-g">ഒ</div><div class="label">o (ह्रस्व)</div><div class="hint"></div></div>
+      <div class="map-cell new" tabindex="0" data-hint="ഓടുക (ōḍuka) = दौड़ना — दीर्घ 'ओ', हिन्दी में नहीं"><div class="hi-g">ओ (दीर्घ)</div><div class="arrow">↓</div><div class="ml-g">ഓ</div><div class="label">ō (दीर्घ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഔഷധം (auṣadhaṃ) = औषधि — एक ही शब्द!"><div class="hi-g">औ</div><div class="arrow">↓</div><div class="ml-g">ഔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">अनुस्वार और विसर्ग — हिन्दी की तरह ही</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ഹംസം (haṃsaṃ) = हंस — राजहंस"><div class="hi-g">अं</div><div class="arrow">↓</div><div class="ml-g">അം</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ദുഃഖം (duḥkhaṃ) = दुःख"><div class="hi-g">अः</div><div class="arrow">↓</div><div class="ml-g">അഃ</div><div class="label">aḥ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>संस्कृत का पुल।</strong> अनुस्वार (ं) और विसर्ग (ः) दोनों लिपियों में हैं और एक ही काम करते हैं। इसलिए "हंस", "वंश", "अंग", "दुःख" जैसे सैकड़ों शब्द दोनों भाषाओं में लगभग एक-से दिखते हैं। मलयालम में शब्दांत अक्सर अनुस्वार 'ं' से होता है जहाँ हिन्दी में नहीं होता — जैसे हिन्दी "समय", मलयालम <span class="ml">സമയം</span> (समयं)।</div>
+
+    <h3><span class="num">१.१</span>अभ्यास</h3>
+    <ul class="clean">
+      <li>हर जोड़े को ज़ोर से २० बार बोलें: अ-आ, इ-ई, उ-ऊ — लेकिन नज़र मलयालम अक्षर पर हो।</li>
+      <li>कागज़ पर हर मलयालम स्वर ५ बार लिखें। हाथ आँख को सिखाता है।</li>
+      <li><span class="ml">എ-ഏ</span> और <span class="ml">ഒ-ഓ</span> के फ़र्क़ को ध्यान से सुनें — यह नया है।</li>
+      <li>जब तक हर मलयालम स्वर १ सेकंड में पहचान न लें, चरण २ पर न जाएँ।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-02" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ध्वनि (आगे)</div>
+    <h2 class="stage-title">व्यंजन — <span class="ml">വ്യഞ്ജനങ്ങൾ</span></h2>
+    <p class="stage-lede">वर्णमाला का वर्ग-क्रम आपकी हड्डियों में है। क-ख-ग-घ-ङ, च-छ-ज-झ-ञ, ट-ठ-ड-ढ-ण, त-थ-द-ध-न, प-फ-ब-भ-म — बिलकुल इसी क्रम में मलयालम व्यंजन सजे हैं। सिर्फ़ चेहरा नया।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+malayalam+consonants+vyanjanangal+pronunciation" title="Malayalam consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">मलयालम व्यंजनों का उच्चारण <a href="https://www.youtube.com/results?search_query=learn+malayalam+consonants+vyanjanangal+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>पाणिनि की सौग़ात।</strong> वर्ग-क्रम — कण्ठ्य से शुरू, मूर्धा से ओष्ठ्य तक — संस्कृत व्याकरणियों की देन है। दोनों लिपियाँ यह वैज्ञानिक क्रम निभाती हैं। ⚡ के निशान वाले अक्षर नए हैं।</div>
+
+    <div class="group-label">कण्ठ्य वर्ग — क-वर्ग</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="കണ്ണ് (kaṇṇ) = आँख"><div class="hi-g">क</div><div class="arrow">↓</div><div class="ml-g">ക</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഖനി (khani) = खान — एक ही तत्सम शब्द"><div class="hi-g">ख</div><div class="arrow">↓</div><div class="ml-g">ഖ</div><div class="label">kha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഗംഗ (gaṃga) = गंगा"><div class="hi-g">ग</div><div class="arrow">↓</div><div class="ml-g">ഗ</div><div class="label">ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഘടം (ghaṭaṃ) = घड़ा"><div class="hi-g">घ</div><div class="arrow">↓</div><div class="ml-g">ഘ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ങ — अनुनासिक, जैसे 'रंग' का ङ"><div class="hi-g">ङ</div><div class="arrow">↓</div><div class="ml-g">ങ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">तालव्य वर्ग — च-वर्ग</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ചായ (cāya) = चाय!"><div class="hi-g">च</div><div class="arrow">↓</div><div class="ml-g">ച</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഛത്രം (chatraṃ) = छाता / छत्र"><div class="hi-g">छ</div><div class="arrow">↓</div><div class="ml-g">ഛ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ജലം (jalaṃ) = जल"><div class="hi-g">ज</div><div class="arrow">↓</div><div class="ml-g">ജ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഝരി (jhari) = झरना"><div class="hi-g">झ</div><div class="arrow">↓</div><div class="ml-g">ഝ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഞാൻ (ñān) = मैं — यह शब्द याद रखें!"><div class="hi-g">ञ</div><div class="arrow">↓</div><div class="ml-g">ഞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">मूर्धन्य वर्ग — ट-वर्ग</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ടാക്സി (ṭāksi) = टैक्सी"><div class="hi-g">ट</div><div class="arrow">↓</div><div class="ml-g">ട</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഠ — मूर्धन्य महाप्राण"><div class="hi-g">ठ</div><div class="arrow">↓</div><div class="ml-g">ഠ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഡോക്ടർ (ḍōkṭar) = डॉक्टर"><div class="hi-g">ड</div><div class="arrow">↓</div><div class="ml-g">ഡ</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഢ — मूर्धन्य महाप्राण घोष"><div class="hi-g">ढ</div><div class="arrow">↓</div><div class="ml-g">ഢ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ണ — मूर्धन्य 'ण'। 'കണ്ണ്' (kaṇṇ) = आँख"><div class="hi-g">ण</div><div class="arrow">↓</div><div class="ml-g">ണ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">दन्त्य वर्ग — त-वर्ग</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="തല (tala) = सिर"><div class="hi-g">त</div><div class="arrow">↓</div><div class="ml-g">ത</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഥാലി (thāli) = थाली"><div class="hi-g">थ</div><div class="arrow">↓</div><div class="ml-g">ഥ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ദിനം (dinaṃ) = दिन"><div class="hi-g">द</div><div class="arrow">↓</div><div class="ml-g">ദ</div><div class="label">da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ധനം (dhanaṃ) = धन"><div class="hi-g">ध</div><div class="arrow">↓</div><div class="ml-g">ധ</div><div class="label">dha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="നദി (nadi) = नदी"><div class="hi-g">न</div><div class="arrow">↓</div><div class="ml-g">ന</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ओष्ठ्य वर्ग — प-वर्ग</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="പാൽ (pāl) = दूध"><div class="hi-g">प</div><div class="arrow">↓</div><div class="ml-g">പ</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഫലം (phalaṃ) = फल"><div class="hi-g">फ</div><div class="arrow">↓</div><div class="ml-g">ഫ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ബസ് (bas) = बस"><div class="hi-g">ब</div><div class="arrow">↓</div><div class="ml-g">ബ</div><div class="label">ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഭൂമി (bhūmi) = भूमि"><div class="hi-g">भ</div><div class="arrow">↓</div><div class="ml-g">ഭ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="മഴ (maḻa) = बारिश"><div class="hi-g">म</div><div class="arrow">↓</div><div class="ml-g">മ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">अन्तःस्थ — य-र-ल-व</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="യമുന (yamuna) = यमुना"><div class="hi-g">य</div><div class="arrow">↓</div><div class="ml-g">യ</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="രാമൻ (rāmaṉ) = राम"><div class="hi-g">र</div><div class="arrow">↓</div><div class="ml-g">ര</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ലത (lata) = लता"><div class="hi-g">ल</div><div class="arrow">↓</div><div class="ml-g">ല</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="വെള്ളം (veḷḷaṃ) = पानी"><div class="hi-g">व</div><div class="arrow">↓</div><div class="ml-g">വ</div><div class="label">va</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ऊष्म — श-ष-स-ह</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ശിവൻ (śivaṉ) = शिव"><div class="hi-g">श</div><div class="arrow">↓</div><div class="ml-g">ശ</div><div class="label">śa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഷഡ്ജം (ṣaḍjaṃ) = षड्ज — संगीत का स्वर"><div class="hi-g">ष</div><div class="arrow">↓</div><div class="ml-g">ഷ</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="സമയം (samayaṃ) = समय"><div class="hi-g">स</div><div class="arrow">↓</div><div class="ml-g">സ</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ഹംസം (haṃsaṃ) = हंस"><div class="hi-g">ह</div><div class="arrow">↓</div><div class="ml-g">ഹ</div><div class="label">ha</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">⚡ विशेष द्रविड़ व्यंजन — हिन्दी में नहीं</div>
+    <div class="map-grid">
+      <div class="map-cell new" tabindex="0" data-hint="ള — मूर्धन्य 'ळ'। वेदों में था, हिन्दी ने खो दिया। वेള്ളं (veḷḷaṃ) = पानी।"><div class="hi-g">—</div><div class="arrow">↓</div><div class="ml-g">ള</div><div class="label">ḷa</div><div class="hint"></div></div>
+      <div class="map-cell new" tabindex="0" data-hint="ഴ — मूर्धन्य संघर्षी। कोई भी हिन्दी ध्वनि इसके क़रीब नहीं। മഴ (maḻa) = बारिश।"><div class="hi-g">—</div><div class="arrow">↓</div><div class="ml-g">ഴ</div><div class="label">ḻa</div><div class="hint"></div></div>
+      <div class="map-cell new" tabindex="0" data-hint="റ — द्विगुण 'र'। कठोर, जोर से लुढ़कता हुआ। മരം (maraṃ) में नहीं, പറ (paṟa) में।"><div class="hi-g">—</div><div class="arrow">↓</div><div class="ml-g">റ</div><div class="label">ṟa</div><div class="hint"></div></div>
+      <div class="map-cell new" tabindex="0" data-hint="ഩ — दन्त्य 'न' का विशेष रूप (आधुनिक मलयालम में കുറിച്ച് കുറ്റം)।"><div class="hi-g">—</div><div class="arrow">↓</div><div class="ml-g">ഩ</div><div class="label">ṉa</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>तीन हज़ार साल पुरानी आवाज़।</strong> <span class="ml">ഴ</span> (ऴ) वह ध्वनि है जो केवल मलयालम और तमिल में बची है। जीभ को मूर्धा की ओर घुमाकर, छुए बिना, एक सरसराहट पैदा करनी है — अंग्रेज़ी के 'r' और हिन्दी 'ड़' के बीच की कोई चीज़। "मलयाऴम्" शब्द में ही वह ध्वनि है — भाषा का नाम ख़ुद उस अक्षर से बना है जो और किसी भाषा में नहीं।</div>
+
+    <div class="aside"><strong>चिल्लु व्यंजन — एक नई अवधारणा।</strong> जब व्यंजन शब्द के अंत में बिना स्वर के आता है, मलयालम एक विशेष रूप बनाती है जिसे <em>चिल्लु</em> कहते हैं। जैसे <span class="ml">ൻ</span> (न्), <span class="ml">ർ</span> (र्), <span class="ml">ൽ</span> (ल्), <span class="ml">ൾ</span> (ळ्), <span class="ml">ൺ</span> (ण्)। हिन्दी में 'हलंत्' लगाकर यही काम होता है (जैसे 'राम्'), लेकिन मलयालम ने इन अक्षरों के अलग, पूरे रूप बना लिए हैं। <span class="ml">അവൻ</span> (avaṉ) = "वह" में अंतिम <span class="ml">ൻ</span> चिल्लु है।</div>
+
+    <h3><span class="num">२.१</span>अभ्यास</h3>
+    <ul class="clean">
+      <li>वर्ग-क्रम में पूरा मलयालम व्यंजन सेट ज़ोर से पढ़ें — ക-ഖ-ഗ-ഘ-ങ, ച-ഛ-ജ-ഝ-ഞ... जैसे बचपन में क-ख-ग पढ़ा था।</li>
+      <li>⚡ वाले अक्षरों पर विशेष ध्यान — <span class="ml">ള</span>, <span class="ml">ഴ</span>, <span class="ml">റ</span> — इन्हें रोज़ दस बार बोलें।</li>
+      <li>हर मलयालम व्यंजन कागज़ पर ५ बार लिखें। गोल आकार धीरे-धीरे हाथ में बैठेगा।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-03" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · संरचना</div>
+    <h2 class="stage-title">संयोजन — बारहखड़ी और संयुक्ताक्षर</h2>
+    <p class="stage-lede">अबुगिदा का जादू: दस स्वर-चिह्न, ३४ व्यंजन — कुल ३४० अक्षर बिना नए नियम सीखे। हिन्दी बारहखड़ी का सिद्धांत मलयालम में हूबहू वही है, केवल चिह्न अलग।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">३.१</span>'क' की बारहखड़ी — दोनों लिपियों में</h3>
+
+    <p>हिन्दी में आप क, का, कि, की, कु, कू, के, कै, को, कौ जानते हैं। मलयालम में यही पैटर्न — <span class="ml">ക</span> में स्वर-चिह्न जोड़ते जाएँ।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead>
+          <tr><th>स्वर</th><th>हिन्दी</th><th>मलयालम</th><th>उच्चारण</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>अ (अंतर्निहित)</td><td class="g hi-cell">क</td><td class="g ml-cell">ക</td><td><span class="mono">ka</span></td></tr>
+          <tr><td>आ</td><td class="g hi-cell">का</td><td class="g ml-cell">കാ</td><td><span class="mono">kā</span></td></tr>
+          <tr><td>इ</td><td class="g hi-cell">कि</td><td class="g ml-cell">കി</td><td><span class="mono">ki</span></td></tr>
+          <tr><td>ई</td><td class="g hi-cell">की</td><td class="g ml-cell">കീ</td><td><span class="mono">kī</span></td></tr>
+          <tr><td>उ</td><td class="g hi-cell">कु</td><td class="g ml-cell">കു</td><td><span class="mono">ku</span></td></tr>
+          <tr><td>ऊ</td><td class="g hi-cell">कू</td><td class="g ml-cell">കൂ</td><td><span class="mono">kū</span></td></tr>
+          <tr><td>ए</td><td class="g hi-cell">के</td><td class="g ml-cell">കെ</td><td><span class="mono">ke</span></td></tr>
+          <tr><td>ए (दीर्घ)</td><td class="g hi-cell">—</td><td class="g ml-cell">കേ</td><td><span class="mono">kē</span></td></tr>
+          <tr><td>ऐ</td><td class="g hi-cell">कै</td><td class="g ml-cell">കൈ</td><td><span class="mono">kai</span></td></tr>
+          <tr><td>ओ</td><td class="g hi-cell">को</td><td class="g ml-cell">കൊ</td><td><span class="mono">ko</span></td></tr>
+          <tr><td>ओ (दीर्घ)</td><td class="g hi-cell">—</td><td class="g ml-cell">കോ</td><td><span class="mono">kō</span></td></tr>
+          <tr><td>औ</td><td class="g hi-cell">कौ</td><td class="g ml-cell">കൌ</td><td><span class="mono">kau</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>विद्यासागर का जादू मलयालम में भी।</strong> ये १० स्वर-चिह्न ३४ व्यंजनों पर हूबहू वैसे ही बैठते हैं। १० × ३४ = ३४० अक्षर — केवल १० चिह्न सीखकर! जैसे हिन्दी में 'का-कि-की' सीखा, वैसे ही <span class="ml">കാ-കി-കീ</span>, <span class="ml">പാ-പി-പീ</span>, <span class="ml">മാ-മി-മീ</span> — एक नियम, सैकड़ों अक्षर।</div>
+
+    <h3><span class="num">३.२</span>स्वर-चिह्नों की स्थिति</h3>
+
+    <p>हिन्दी में स्वर-चिह्न कभी ऊपर (कि), कभी नीचे (कु), कभी दाएँ (का), कभी बाएँ (के)। मलयालम में भी वही विविधता:</p>
+
+    <ul class="clean">
+      <li><strong>दाएँ:</strong> <span class="ml">കാ</span> (का), <span class="ml">കൊ</span> (को), <span class="ml">കോ</span> (को दीर्घ) — ाे ैाे</li>
+      <li><strong>ऊपर:</strong> <span class="ml">കി</span> (कि), <span class="ml">കീ</span> (की) — ि ी</li>
+      <li><strong>नीचे:</strong> <span class="ml">കു</span> (कु), <span class="ml">കൂ</span> (कू) — ु ू</li>
+      <li><strong>बाएँ:</strong> <span class="ml">കെ</span> (के), <span class="ml">കേ</span> (के दीर्घ), <span class="ml">കൈ</span> (कै)</li>
+      <li><strong>दोनों तरफ़:</strong> <span class="ml">കൊ</span>, <span class="ml">കോ</span> — जैसे हिन्दी 'कौ' में दो भाग।</li>
+    </ul>
+
+    <h3><span class="num">३.३</span>हलंत और चन्द्रक्कला</h3>
+
+    <p>हिन्दी में जब व्यंजन की अंतर्निहित 'अ' हटानी हो, तो नीचे <strong>हलंत ् </strong> लगाते हैं। मलयालम में इसे <strong>चन्द्रक्कला ് </strong> कहते हैं — वही काम, अलग नाम।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>हिन्दी</th><th>मलयालम</th><th>अर्थ</th></tr></thead>
+        <tbody>
+          <tr><td class="g hi-cell">राम्</td><td class="g ml-cell">രാം</td><td>राम (नाम)</td></tr>
+          <tr><td class="g hi-cell">पाल्</td><td class="g ml-cell">പാൽ</td><td>दूध</td></tr>
+          <tr><td class="g hi-cell">कार्</td><td class="g ml-cell">കാർ</td><td>कार / गाड़ी</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>चिल्लु का रहस्य।</strong> हिन्दी में 'राम्' लिखने के लिए 'म' पर हलंत लगाते हैं। मलयालम के पास एक ख़ास चीज़ है — "चिल्लु" रूप। 'म्' के लिए कोई चिल्लु नहीं (वहाँ अनुस्वार ं का उपयोग होता है), लेकिन 'न्', 'र्', 'ल्', 'ळ्', 'ण्' के लिए अलग ठोस रूप हैं: <span class="ml">ൻ ർ ൽ ൾ ൺ</span>। देखें — <span class="ml">അവൻ</span> (avaṉ = "वह") शब्द के अंत में <span class="ml">ൻ</span> एक पूरा अक्षर है, चन्द्रक्कला नहीं।</div>
+
+    <h3><span class="num">३.४</span>संयुक्ताक्षर</h3>
+
+    <p>जब दो व्यंजन बिना स्वर के मिलते हैं, हिन्दी उन्हें जोड़कर रूप बदलती है: क्+त = क्त, द्+ध = द्ध। मलयालम यही खेल खेलती है — बस गोल आकार में:</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>विग्रह</th><th>हिन्दी</th><th>मलयालम</th><th>अर्थ</th></tr></thead>
+        <tbody>
+          <tr><td>प् + त</td><td class="g hi-cell">प्त</td><td class="g ml-cell">പ്ത</td><td>जैसे "सप्त"</td></tr>
+          <tr><td>स् + त</td><td class="g hi-cell">स्त</td><td class="g ml-cell">സ്ത</td><td>जैसे "वस्तु"</td></tr>
+          <tr><td>क् + क</td><td class="g hi-cell">क्क</td><td class="g ml-cell">ക്ക</td><td>जैसे <span class="ml">ദുക്ക</span> (दुख)</td></tr>
+          <tr><td>ल् + ल</td><td class="g hi-cell">ल्ल</td><td class="g ml-cell">ല്ല</td><td>जैसे <span class="ml">എല്ലാം</span> (सब)</td></tr>
+          <tr><td>ळ् + ळ</td><td class="g hi-cell">—</td><td class="g ml-cell">ള്ള</td><td>जैसे <span class="ml">വെള്ളം</span> (पानी)</td></tr>
+          <tr><td>न् + न</td><td class="g hi-cell">न्न</td><td class="g ml-cell">ന്ന</td><td>जैसे <span class="ml">ഇന്ന്</span> (आज)</td></tr>
+          <tr><td>म् + म</td><td class="g hi-cell">म्म</td><td class="g ml-cell">മ്മ</td><td>जैसे <span class="ml">അമ്മ</span> (माँ)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>द्विगुण व्यंजन का प्रेम।</strong> मलयालम में दोहरे व्यंजन (क्क, त्त, ल्ल, न्न, म्म) बहुत आम हैं — <span class="ml">അമ്മ</span> (माँ), <span class="ml">ഇന്ന്</span> (आज), <span class="ml">എല്ലാം</span> (सब कुछ)। यह द्रविड़ परंपरा है — ध्वनि को रुककर, ज़ोर देकर बोलना। हिन्दी 'अम्मा' में भी यही है, पर मलयालम में यह रोज़मर्रा का नियम है।</div>
+
+    <h3><span class="num">३.५</span>अभ्यास</h3>
+    <ul class="clean">
+      <li>'क' से शुरू करके पूरी बारहखड़ी बनाएँ — हिन्दी और मलयालम दोनों में, साथ-साथ।</li>
+      <li>फिर 'प', 'म', 'त' की बारहखड़ी लिखें — एक ही पैटर्न, तीन व्यंजन।</li>
+      <li>द्विगुण व्यंजनों पर ध्यान — <span class="ml">ക്ക, ത്ത, ല്ല, ന്ന, മ്മ</span> — ये बार-बार दिखेंगे।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-04" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · शब्दभंडार</div>
+    <h2 class="stage-title">मूल शब्द — ~५० शब्दों की नींव</h2>
+    <p class="stage-lede">संस्कृत की विरासत से ~३३% शब्द साझा हैं। तत्सम शब्द हूबहू मिलते हैं, द्रविड़ मूल के शब्द बिलकुल नए। हर कार्ड में: मलयालम रूप, हिन्दी समतुल्य, उच्चारण, और पृष्ठभूमि।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">४.१</span>सर्वनाम</h3>
+    <div class="words">
+      <div class="word"><div class="ml">ഞാൻ</div><div class="hi-eq">मैं</div><div class="trans">ñān</div><div class="note">यह याद रखें — पहली बार मिलते समय यही कहेंगे। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">നീ</div><div class="hi-eq">तू / तुम</div><div class="trans">nī</div><div class="note">अनौपचारिक। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">നിങ്ങൾ</div><div class="hi-eq">आप (सम्मान)</div><div class="trans">niṅṅaḷ</div><div class="note">औपचारिक 'तुम लोग' भी इसी से। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">അവൻ</div><div class="hi-eq">वह (पुरुष)</div><div class="trans">avaṉ</div><div class="note">अंत में चिल्लु <span class="ml">ൻ</span>। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">അവൾ</div><div class="hi-eq">वह (स्त्री)</div><div class="trans">avaḷ</div><div class="note">अंत में चिल्लु <span class="ml">ൾ</span> — मूर्धन्य ळ। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">അത്</div><div class="hi-eq">वह (वस्तु)</div><div class="trans">at</div><div class="note">तृतीय पुरुष नपुंसक। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">ഇത്</div><div class="hi-eq">यह</div><div class="trans">it</div><div class="note">पास की वस्तु। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">ഞങ്ങൾ</div><div class="hi-eq">हम (बिना सुनने वाले के)</div><div class="trans">ñaṅṅaḷ</div><div class="note">अपवर्जी — सुनने वाला शामिल नहीं। <span class="tag">exclusive</span></div></div>
+      <div class="word"><div class="ml">നമ്മൾ</div><div class="hi-eq">हम (सहित सुनने वाला)</div><div class="trans">nammaḷ</div><div class="note">समावेशी — "आप और मैं"। <span class="tag">inclusive</span></div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी में जो नहीं: समावेशी बनाम अपवर्जी "हम"।</strong> हिन्दी का "हम" दोनों मतलब हो सकता है। मलयालम दो अलग शब्द रखती है — <span class="ml">ഞങ്ങൾ</span> (ñaṅṅaḷ) = "हम (तुम्हें छोड़कर)" और <span class="ml">നമ്മൾ</span> (nammaḷ) = "हम (तुम्हें मिलाकर)"। जब कोई केरली "നമ്മൾ" कहता है, वह आपको साथ ले रहा है; "ഞങ്ങൾ" कहता है, तो बाहर रख रहा है। एक शब्द में पूरी सामाजिक भूमिका।</div>
+
+    <h3><span class="num">४.२</span>मूल संज्ञा</h3>
+    <div class="words">
+      <div class="word"><div class="ml">വെള്ളം</div><div class="hi-eq">पानी</div><div class="trans">veḷḷaṃ</div><div class="note">द्विगुण <span class="ml">ള്ള</span> — मूर्धन्य ळ। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">സമയം</div><div class="hi-eq">समय</div><div class="trans">samayaṃ</div><div class="note">हूबहू संस्कृत। <span class="tag">तत्सम</span></div></div>
+      <div class="word"><div class="ml">ദിനം</div><div class="hi-eq">दिन</div><div class="trans">dinaṃ</div><div class="note">हूबहू संस्कृत। <span class="tag">तत्सम</span></div></div>
+      <div class="word"><div class="ml">പാൽ</div><div class="hi-eq">दूध</div><div class="trans">pāl</div><div class="note">चिल्लु <span class="ml">ൽ</span> — तमिल में भी यही। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">മരം</div><div class="hi-eq">पेड़</div><div class="trans">maraṃ</div><div class="note">तमिल मरम् से संगम। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">മഴ</div><div class="hi-eq">बारिश</div><div class="trans">maḻa</div><div class="note">वह "ऴ" जो किसी और भाषा में नहीं। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">പൂവ്</div><div class="hi-eq">फूल</div><div class="trans">pūv</div><div class="note">अंत में चन्द्रक्कला। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">ഭൂമി</div><div class="hi-eq">भूमि</div><div class="trans">bhūmi</div><div class="note">संस्कृत से बिना बदले। <span class="tag">तत्सम</span></div></div>
+      <div class="word"><div class="ml">സൂര്യൻ</div><div class="hi-eq">सूर्य</div><div class="trans">sūryaṉ</div><div class="note">अंत में चिल्लु <span class="ml">ൻ</span> जोड़कर पुल्लिंग। <span class="tag">तत्सम</span></div></div>
+      <div class="word"><div class="ml">പേര്</div><div class="hi-eq">नाम</div><div class="trans">pēr</div><div class="note">तमिल "पेयर्" से रिश्ता। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">രാത്രി</div><div class="hi-eq">रात / रात्रि</div><div class="trans">rātri</div><div class="note">हूबहू संस्कृत। <span class="tag">तत्सम</span></div></div>
+      <div class="word"><div class="ml">പുസ്തകം</div><div class="hi-eq">पुस्तक</div><div class="trans">pustakaṃ</div><div class="note">अंत में 'म्' जोड़कर मलयालम रूप। <span class="tag">तत्सम</span></div></div>
+      <div class="word"><div class="ml">നാട്</div><div class="hi-eq">देश / जगह</div><div class="trans">nāḍ</div><div class="note">"नाडु" — तमिलनाडु, कर्नाटक का "नाडु"। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">വീട്</div><div class="hi-eq">घर</div><div class="trans">vīḍ</div><div class="note">शुद्ध द्रविड़ — हिन्दी "घर" से पूरा अलग। <span class="tag">द्रविड़</span></div></div>
+    </div>
+
+    <div class="aside"><strong>संस्कृत का पुल — ३३% साझा शब्दावली।</strong> <span class="ml">ഭൂമി</span> = भूमि, <span class="ml">സമയം</span> = समय, <span class="ml">ദിനം</span> = दिन, <span class="ml">രാത്രി</span> = रात्रि, <span class="ml">പുസ്തകം</span> = पुस्तक, <span class="ml">സൂര്യൻ</span> = सूर्य, <span class="ml">നമസ്കാരം</span> = नमस्कार, <span class="ml">ധനം</span> = धन। पढ़िए — आपको महसूस होगा कि आप "मलयालम" नहीं पढ़ रहे, आप <em>संस्कृत का दक्षिणी रूप</em> पढ़ रहे हैं। यही वह पुल है जिस पर खड़े होकर बाक़ी द्रविड़ शब्द सीखना आसान है।</div>
+
+    <h3><span class="num">४.३</span>मूल क्रियाएँ (शब्दकोश-रूप)</h3>
+    <p>मलयालम क्रिया का शब्दकोश-रूप <strong>-उक</strong> से समाप्त होता है, जैसे हिन्दी में <strong>-ना</strong> से (जाना, खाना)।</p>
+    <div class="words">
+      <div class="word"><div class="ml">പോവുക</div><div class="hi-eq">जाना</div><div class="trans">pōvuka</div><div class="note">शब्दांत 'उक' = हिन्दी 'ना'। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">വരിക</div><div class="hi-eq">आना</div><div class="trans">varika</div><div class="note">द्रविड़ मूल। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">തിന്നുക</div><div class="hi-eq">खाना</div><div class="trans">tinnuka</div><div class="note">द्विगुण न्न। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">കുടിക്കുക</div><div class="hi-eq">पीना</div><div class="trans">kuḍikkuka</div><div class="note">तमिल "कुडि" से। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">നോക്കുക</div><div class="hi-eq">देखना</div><div class="trans">nōkkuka</div><div class="note">तमिल "नोक्कु"। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">കേൾക്കുക</div><div class="hi-eq">सुनना</div><div class="trans">kēḷkkuka</div><div class="note">चिल्लु <span class="ml">ൾ</span> भीतर। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">നടക്കുക</div><div class="hi-eq">चलना</div><div class="trans">naḍakkuka</div><div class="note">शब्दांत 'कुक' = क्रिया चिह्न। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">ഓടുക</div><div class="hi-eq">दौड़ना</div><div class="trans">ōḍuka</div><div class="note">दीर्घ 'ओ' से शुरू। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">കൊടുക്കുക</div><div class="hi-eq">देना</div><div class="trans">koḍukkuka</div><div class="note">ह्रस्व 'ओ'। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">വേണം</div><div class="hi-eq">चाहिए</div><div class="trans">vēṇaṃ</div><div class="note">"मुझे चाहिए" के लिए — संज्ञा-जैसी क्रिया। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">നിൽക്കുക</div><div class="hi-eq">खड़ा होना / रुकना</div><div class="trans">nilkkuka</div><div class="note">चिल्लु <span class="ml">ൽ</span>। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">ഇരിക്കുക</div><div class="hi-eq">होना / बैठना</div><div class="trans">irikkuka</div><div class="note">'है' के लिए भी यही — बहुआयामी। <span class="tag">द्रविड़</span></div></div>
+    </div>
+
+    <div class="aside"><strong>क्रिया-अंत: हिन्दी का "-ना", मलयालम का "-उक"।</strong> हिन्दी कहती है जा<strong>ना</strong>, खा<strong>ना</strong>, पी<strong>ना</strong>। मलयालम कहती है <span class="ml">പോവു<strong>ക</strong></span> (पोवु<strong>क</strong>), <span class="ml">തിന്നു<strong>ക</strong></span> (तिन्नु<strong>क</strong>), <span class="ml">കുടിക്കു<strong>ക</strong></span> (कुडिक्कु<strong>क</strong>)। सिद्धांत एक है: मूल क्रिया + एक अंत-चिह्न। शब्दकोश में क्रिया ढूँढ़ते समय यह याद रखें — <span class="ml">ഉക</span> हटाएँ, मूल मिलेगा।</div>
+
+    <h3><span class="num">४.४</span>संख्या</h3>
+    <div class="words">
+      <div class="word"><div class="ml">ഒന്ന്</div><div class="hi-eq">एक</div><div class="trans">onn</div><div class="note">द्विगुण न्न्। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">രണ്ട്</div><div class="hi-eq">दो</div><div class="trans">raṇṭ</div><div class="note">मूर्धन्य ण्ट्। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">മൂന്ന്</div><div class="hi-eq">तीन</div><div class="trans">mūnn</div><div class="note"><span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">നാല്</div><div class="hi-eq">चार</div><div class="trans">nāl</div><div class="note"><span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">അഞ്ച്</div><div class="hi-eq">पाँच</div><div class="trans">añc</div><div class="note"><span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">പത്ത്</div><div class="hi-eq">दस</div><div class="trans">patt</div><div class="note">द्विगुण त्त्। <span class="tag">द्रविड़</span></div></div>
+    </div>
+
+    <h3><span class="num">४.५</span>रिश्तेदार</h3>
+    <div class="words">
+      <div class="word"><div class="ml">അച്ഛൻ</div><div class="hi-eq">पिता / पिताजी</div><div class="trans">acchaṉ</div><div class="note">संबोधन — "अच्छा"। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">അമ്മ</div><div class="hi-eq">माँ / अम्मा</div><div class="trans">amma</div><div class="note">हिन्दी में भी "अम्मा" है — दो परिवारों का एक शब्द। <span class="tag">साझा</span></div></div>
+      <div class="word"><div class="ml">മാമൻ</div><div class="hi-eq">मामा (माँ का भाई)</div><div class="trans">māmaṉ</div><div class="note">हिन्दी "मामा" से हूबहू! <span class="tag">साझा</span></div></div>
+      <div class="word"><div class="ml">ചേട്ടൻ</div><div class="hi-eq">बड़ा भाई</div><div class="trans">cēṭṭaṉ</div><div class="note">अजनबी बड़े पुरुष के लिए भी। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">ചേച്ചി</div><div class="hi-eq">बड़ी बहन</div><div class="trans">cēcci</div><div class="note">अजनबी बड़ी स्त्री के लिए भी। <span class="tag">द्रविड़</span></div></div>
+    </div>
+
+    <h3><span class="num">४.६</span>शरीर</h3>
+    <div class="words">
+      <div class="word"><div class="ml">തല</div><div class="hi-eq">सिर</div><div class="trans">tala</div><div class="note"><span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">കണ്ണ്</div><div class="hi-eq">आँख</div><div class="trans">kaṇṇ</div><div class="note">मूर्धन्य ण्ण्। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">കൈ</div><div class="hi-eq">हाथ</div><div class="trans">kai</div><div class="note">तमिल में भी "कै"। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">കാൽ</div><div class="hi-eq">पैर</div><div class="trans">kāl</div><div class="note">चिल्लु <span class="ml">ൽ</span>। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">മൂക്ക്</div><div class="hi-eq">नाक</div><div class="trans">mūkk</div><div class="note">द्विगुण क्क्। <span class="tag">द्रविड़</span></div></div>
+    </div>
+
+    <h3><span class="num">४.७</span>समय</h3>
+    <div class="words">
+      <div class="word"><div class="ml">ഇന്ന്</div><div class="hi-eq">आज</div><div class="trans">inn</div><div class="note"><span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">ഇന്നലെ</div><div class="hi-eq">कल (बीता)</div><div class="trans">innale</div><div class="note">हिन्दी "कल" दोनों अर्थों में — मलयालम अलग करती है! <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">നാളെ</div><div class="hi-eq">कल (आने वाला)</div><div class="trans">nāḷe</div><div class="note">चिल्लु नहीं, ळ + ए। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">ഇപ്പോൾ</div><div class="hi-eq">अभी</div><div class="trans">ippōḷ</div><div class="note">अंत में चिल्लु ൾ। <span class="tag">द्रविड़</span></div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी का "कल" दोधारी, मलयालम का नहीं।</strong> हिन्दी में "कल" कभी बीता हुआ, कभी आने वाला — संदर्भ बताता है कौन-सा। मलयालम इसे कभी गड़बड़ नहीं होने देती: <span class="ml">ഇന്നലെ</span> (innale) = बीता हुआ कल, <span class="ml">നാളെ</span> (nāḷe) = आने वाला कल। दो शब्द, दो दिशाएँ, शून्य भ्रम। (तमिल, कन्नड़ भी ऐसा ही करते हैं।)</div>
+
+    <h3><span class="num">४.८</span>अभिवादन व धन्यवाद</h3>
+    <div class="words">
+      <div class="word"><div class="ml">നമസ്കാരം</div><div class="hi-eq">नमस्कार</div><div class="trans">namaskāraṃ</div><div class="note">हूबहू संस्कृत! <span class="tag">तत्सम</span></div></div>
+      <div class="word"><div class="ml">നന്ദി</div><div class="hi-eq">धन्यवाद</div><div class="trans">nandi</div><div class="note">हिन्दी "नंदी" (शिव का बैल) से नहीं — "धन्य" की द्रविड़ छाया। <span class="tag">द्रविड़</span></div></div>
+      <div class="word"><div class="ml">ക്ഷമിക്കണം</div><div class="hi-eq">क्षमा करें</div><div class="trans">kṣamikkaṇaṃ</div><div class="note">संस्कृत "क्षमा" + द्रविड़ क्रिया। <span class="tag">मिश्रित</span></div></div>
+      <div class="word"><div class="ml">സുഖമാണോ?</div><div class="hi-eq">कुशल हैं? / ठीक हैं?</div><div class="trans">sukhamāṇō?</div><div class="note">"सुखम्" + "आणो?" = "सुख है क्या?"। <span class="tag">मिश्रित</span></div></div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-05" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · वाक्य</div>
+    <h2 class="stage-title">वाक्य बनाना</h2>
+    <p class="stage-lede">शब्द-क्रम बिलकुल हिन्दी वाला — कर्ता, कर्म, क्रिया (SOV)। क्रिया-रूप हिन्दी से सरल: लिंग नहीं, व्यक्ति भेद नहीं। एक ही रूप "मैं करता हूँ / वह करती है / वे करते हैं" सब के लिए।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">५.१</span>मूल वाक्य — "होना"</h3>
+
+    <div class="sentence">
+      <div class="ml">ഞാൻ രാമൻ ആണ്.</div>
+      <div class="trans">ñān rāmaṉ āṇ.</div>
+      <div class="hi-gloss">मैं राम हूँ।</div>
+      <div class="literal">शाब्दिक: मैं · राम · हूँ</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">അവൾ വിദ്യാർത്ഥി ആണ്.</div>
+      <div class="trans">avaḷ vidyārtthi āṇ.</div>
+      <div class="hi-gloss">वह (स्त्री) विद्यार्थी है।</div>
+      <div class="literal">शाब्दिक: वह-स्त्री · विद्यार्थी · है</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">ഇത് പുസ്തകം ആണ്.</div>
+      <div class="trans">it pustakaṃ āṇ.</div>
+      <div class="hi-gloss">यह पुस्तक है।</div>
+      <div class="literal">शाब्दिक: यह · पुस्तक · है</div>
+    </div>
+
+    <div class="aside"><strong>"है" का मलयालम — <span class="ml">ആണ്</span> (āṇ)।</strong> हिन्दी "है / हूँ / हो / हैं" — व्यक्ति और वचन के अनुसार बदलता है। मलयालम में सब के लिए एक ही: <span class="ml">ആണ്</span> (āṇ)। "मैं राम हूँ" = <span class="ml">ഞാൻ രാമൻ ആണ്</span>; "वे छात्र हैं" = <span class="ml">അവർ വിദ്യാർത്ഥികൾ ആണ്</span>। एक शब्द, सभी उपयोग।</div>
+
+    <h3><span class="num">५.२</span>क्रिया-संयोजन — "करना" (वर्तमान काल)</h3>
+
+    <p>यहाँ मलयालम का सबसे सुंदर तोहफ़ा: क्रिया <em>व्यक्ति या लिंग से नहीं बदलती</em>। "चेय्युक" (करना) का वर्तमान रूप <span class="ml">ചെയ്യുന്നു</span> (ceyyunnu) — सब सर्वनामों के लिए एक ही।</p>
+
+    <div class="conjug">
+      <div class="conjug-row head"><div>सर्वनाम</div><div>मलयालम</div><div>हिन्दी समतुल्य</div></div>
+      <div class="conjug-row"><div class="pron">मैं</div><div class="ml">ഞാൻ ചെയ്യുന്നു</div><div class="hi-eq">करता/करती हूँ</div></div>
+      <div class="conjug-row"><div class="pron">तू</div><div class="ml">നീ ചെയ്യുന്നു</div><div class="hi-eq">करता/करती है</div></div>
+      <div class="conjug-row"><div class="pron">आप</div><div class="ml">നിങ്ങൾ ചെയ്യുന്നു</div><div class="hi-eq">करते/करती हो</div></div>
+      <div class="conjug-row"><div class="pron">वह (पु)</div><div class="ml">അവൻ ചെയ്യുന്നു</div><div class="hi-eq">करता है</div></div>
+      <div class="conjug-row"><div class="pron">वह (स्त्री)</div><div class="ml">അവൾ ചെയ്യുന്നു</div><div class="hi-eq">करती है</div></div>
+      <div class="conjug-row"><div class="pron">हम</div><div class="ml">ഞങ്ങൾ ചെയ്യുന്നു</div><div class="hi-eq">करते/करती हैं</div></div>
+      <div class="conjug-row"><div class="pron">वे</div><div class="ml">അവർ ചെയ്യുന്നു</div><div class="hi-eq">करते/करती हैं</div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी में जो है, मलयालम में जो नहीं।</strong> हिन्दी क्रिया बताती है — "कौन कर रहा है" (लिंग, व्यक्ति, वचन): "करता है" बनाम "करती है" बनाम "करते हैं"। मलयालम क्रिया तटस्थ है — लिंग और व्यक्ति को <em>सर्वनाम</em> संभालता है, क्रिया नहीं। जो हिन्दी-भाषी क्रिया-अंत के साथ जूझता है, उसे मलयालम राहत देती है।</div>
+
+    <h3><span class="num">५.३</span>काल — वर्तमान, भूत, भविष्य</h3>
+
+    <p>मलयालम की क्रिया के काल के तीन चिह्न हैं: वर्तमान <span class="ml">-ഉന്നു</span> (-unnu), भूत अलग-अलग (क्रिया के अनुसार), भविष्य <span class="ml">-ഉം</span> (-uṃ)।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>काल</th><th>मलयालम</th><th>उच्चारण</th><th>हिन्दी</th></tr></thead>
+        <tbody>
+          <tr><td>वर्तमान</td><td class="g ml-cell">ഞാൻ പോകുന്നു</td><td>ñān pōkunnu</td><td class="hi-cell">मैं जाता/जाती हूँ</td></tr>
+          <tr><td>भूत</td><td class="g ml-cell">ഞാൻ പോയി</td><td>ñān pōyi</td><td class="hi-cell">मैं गया/गई</td></tr>
+          <tr><td>भविष्य</td><td class="g ml-cell">ഞാൻ പോകും</td><td>ñān pōkuṃ</td><td class="hi-cell">मैं जाऊँगा/जाऊँगी</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3><span class="num">५.४</span>अधिक उदाहरण वाक्य</h3>
+
+    <div class="sentence">
+      <div class="ml">ഞാൻ വെള്ളം കുടിക്കുന്നു.</div>
+      <div class="trans">ñān veḷḷaṃ kuḍikkunnu.</div>
+      <div class="hi-gloss">मैं पानी पीता/पीती हूँ।</div>
+      <div class="literal">शाब्दिक: मैं · पानी · पीता-हूँ</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">അവൻ പുസ്തകം വായിക്കുന്നു.</div>
+      <div class="trans">avaṉ pustakaṃ vāyikkunnu.</div>
+      <div class="hi-gloss">वह पुस्तक पढ़ रहा है।</div>
+      <div class="literal">शाब्दिक: वह · पुस्तक · पढ़ता-है</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">അമ്മ ചായ ഉണ്ടാക്കുന്നു.</div>
+      <div class="trans">amma cāya uṇṭākkunnu.</div>
+      <div class="hi-gloss">माँ चाय बनाती है।</div>
+      <div class="literal">शाब्दिक: माँ · चाय · बनाती-है</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">ഞങ്ങൾ നാളെ പോകും.</div>
+      <div class="trans">ñaṅṅaḷ nāḷe pōkuṃ.</div>
+      <div class="hi-gloss">हम कल (आने वाला) जाएँगे।</div>
+      <div class="literal">शाब्दिक: हम · कल · जाएँगे</div>
+    </div>
+
+    <h3><span class="num">५.५</span>नकार — "नहीं"</h3>
+
+    <p>हिन्दी में क्रिया से पहले "नहीं" आता है। मलयालम में क्रिया के <em>अंत</em> में नकार जुड़ता है — <span class="ml">-ഇല്ല</span> (-illa)।</p>
+
+    <div class="sentence">
+      <div class="ml">ഞാൻ പോകുന്നില്ല.</div>
+      <div class="trans">ñān pōkunnilla.</div>
+      <div class="hi-gloss">मैं नहीं जाता।</div>
+      <div class="literal">पोकुन्नु (जाता-हूँ) + इल्ल (नहीं) = पोकुन्निल्ल</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">അവൾ വരുന്നില്ല.</div>
+      <div class="trans">avaḷ varunnilla.</div>
+      <div class="hi-gloss">वह (स्त्री) नहीं आ रही।</div>
+      <div class="literal">शाब्दिक: वह-स्त्री · नहीं-आ-रही</div>
+    </div>
+
+    <div class="aside"><strong>चिपकने वाली भाषा (agglutinative)।</strong> द्रविड़ भाषाएँ नकार, काल, सम्मान, प्रश्न — सब एक शब्द में चिपका देती हैं। हिन्दी में "मैं नहीं जाऊँगा" = चार शब्द। मलयालम में <span class="ml">ഞാൻ പോകില്ല</span> (ñān pōkilla) = दो शब्द — "पोकि" (जा) + "ल्ल" (नहीं)। शब्द लंबा, वाक्य छोटा। यही द्रविड़ चरित्र है।</div>
+
+    <h3><span class="num">५.६</span>प्रश्न बनाना</h3>
+
+    <p>दो तरीक़े: (१) क्रिया के अंत में <span class="ml">-ഓ</span> (-ō) जोड़ें — "क्या...?" (२) प्रश्नवाचक शब्द से शुरू करें।</p>
+
+    <div class="sentence">
+      <div class="ml">നിങ്ങൾ ചോറ് കഴിച്ചോ?</div>
+      <div class="trans">niṅṅaḷ cōṟ kaḻiccō?</div>
+      <div class="hi-gloss">क्या आपने खाना खाया?</div>
+      <div class="literal">आप · चावल · खाया-क्या</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">നിങ്ങളുടെ പേര് എന്ത്?</div>
+      <div class="trans">niṅṅaḷuḍe pēr ent?</div>
+      <div class="hi-gloss">आपका नाम क्या है?</div>
+      <div class="literal">आपका · नाम · क्या</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">അവൻ എവിടെ ആണ്?</div>
+      <div class="trans">avaṉ eviḍe āṇ?</div>
+      <div class="hi-gloss">वह कहाँ है?</div>
+      <div class="literal">वह · कहाँ · है</div>
+    </div>
+
+    <h3><span class="num">५.७</span>प्रश्नवाचक शब्द</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>हिन्दी</th><th>मलयालम</th><th>उच्चारण</th></tr></thead>
+        <tbody>
+          <tr><td class="g hi-cell">क्या</td><td class="g ml-cell">എന്ത്</td><td>ent</td></tr>
+          <tr><td class="g hi-cell">कौन</td><td class="g ml-cell">ആര്</td><td>ār</td></tr>
+          <tr><td class="g hi-cell">कहाँ</td><td class="g ml-cell">എവിടെ</td><td>eviḍe</td></tr>
+          <tr><td class="g hi-cell">कब</td><td class="g ml-cell">എപ്പോൾ</td><td>eppōḷ</td></tr>
+          <tr><td class="g hi-cell">क्यों</td><td class="g ml-cell">എന്തുകൊണ്ട്</td><td>entukoṇṭ</td></tr>
+          <tr><td class="g hi-cell">कैसे</td><td class="g ml-cell">എങ്ങനെ</td><td>eṅṅane</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>'ए-' का जादू।</strong> देखिए: मलयालम के प्रश्नवाचक शब्द लगभग सब 'ए' से शुरू होते हैं — <span class="ml">എന്ത്</span>, <span class="ml">എവിടെ</span>, <span class="ml">എപ്പോൾ</span>, <span class="ml">എങ്ങനെ</span>। हिन्दी में 'क' से — क्या, कौन, कहाँ, कब, कैसे। एक भाषा की ध्वनि-पहचान होती है; मलयालम की 'ए-' से, हिन्दी की 'क-' से।</div>
+
+    <h3><span class="num">५.८</span>कारक-चिह्न (postpositions)</h3>
+    <p>हिन्दी की तरह मलयालम में भी परसर्ग क्रिया से पहले, संज्ञा के बाद आते हैं।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>कारक</th><th>हिन्दी</th><th>मलयालम</th><th>उदाहरण</th></tr></thead>
+        <tbody>
+          <tr><td>कर्म</td><td>-को</td><td>-e</td><td class="ml-cell">രാമനെ (रामन् को)</td></tr>
+          <tr><td>संप्रदान</td><td>-को</td><td>-kk(u)</td><td class="ml-cell">രാമന് (रामन् के लिए)</td></tr>
+          <tr><td>अधिकरण</td><td>-में</td><td>-il</td><td class="ml-cell">വീട്ടിൽ (घर में)</td></tr>
+          <tr><td>अपादान</td><td>-से</td><td>-il ninnu</td><td class="ml-cell">വീട്ടിൽ നിന്ന് (घर से)</td></tr>
+          <tr><td>संबंध</td><td>-का/-की/-के</td><td>-nte/-uḍe</td><td class="ml-cell">എന്റെ (मेरा)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-06" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · पाठ</div>
+    <h2 class="stage-title">तीन श्रेणीबद्ध पाठ</h2>
+    <p class="stage-lede">अब तक सीखे शब्दों और रचनाओं से बनी हुई तीन पाठ्य-टुकड़ियाँ। पहले पूरा पाठ मलयालम में पढ़ें, फिर उच्चारण, फिर हिन्दी अर्थ देखें।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">६.१</span>आत्म-परिचय</h3>
+    <div class="passage">
+      <div class="ml">എന്റെ പേര് രമേഷ് ആണ്. ഞാൻ ഡൽഹിയിൽ നിന്ന് വരുന്നു. എനിക്ക് മലയാളം പഠിക്കണം. ഞാൻ ഒരു വിദ്യാർത്ഥി ആണ്. എന്റെ അച്ഛൻ അധ്യാപകൻ ആണ്, അമ്മ ഡോക്ടർ ആണ്.</div>
+      <div class="trans">eṉṟe pēr ramēṣ āṇ. ñān ḍalhiyil ninnu varunnu. enikku malayāḷaṃ paṭhikkaṇaṃ. ñān oru vidyārtthi āṇ. eṉṟe acchaṉ adhyāpakaṉ āṇ, amma ḍōkṭar āṇ.</div>
+      <div class="hi-gloss">मेरा नाम रमेश है। मैं दिल्ली से आता हूँ। मुझे मलयालम सीखना है। मैं एक विद्यार्थी हूँ। मेरे पिताजी अध्यापक हैं, माँ डॉक्टर हैं।</div>
+      <div class="attrib">पहला पाठ · परिचय</div>
+    </div>
+
+    <div class="aside"><strong>"मुझे चाहिए" की संरचना।</strong> <span class="ml">എനിക്ക് മലയാളം പഠിക്കണം</span> (enikku malayāḷaṃ paṭhikkaṇaṃ) का शाब्दिक अर्थ है "मुझ-को · मलयालम · सीखना-है"। हिन्दी "मुझे मलयालम सीखना है" से हूबहू वही रचना — कर्ता "मुझे" (संप्रदान-कारक), क्रिया का मूल रूप अंत में। दोनों भाषाएँ इच्छा को इसी तरह व्यक्त करती हैं।</div>
+
+    <h3><span class="num">६.२</span>एक दिन की दिनचर्या</h3>
+    <div class="passage">
+      <div class="ml">ഞാൻ രാവിലെ ആറു മണിക്ക് എഴുന്നേൽക്കുന്നു. ചായ കുടിച്ചു പത്രം വായിക്കുന്നു. പിന്നെ കുളിക്കുന്നു, പ്രാതൽ കഴിക്കുന്നു. എട്ടു മണിക്ക് ഓഫീസിലേക്ക് പോകുന്നു. വൈകുന്നേരം വീട്ടിലേക്ക് വരുന്നു. രാത്രി പത്തു മണിക്ക് ഉറങ്ങുന്നു.</div>
+      <div class="trans">ñān rāvile āṟu maṇikku eḻunnēlkkunnu. cāya kuḍiccu patraṃ vāyikkunnu. pinne kuḷikkunnu, prātal kaḻikkunnu. eṭṭu maṇikku ōphīsilēkku pōkunnu. vaikunnēraṃ vīṭṭilēkku varunnu. rātri pattu maṇikku uṟaṅṅunnu.</div>
+      <div class="hi-gloss">मैं सुबह छह बजे उठता हूँ। चाय पीकर अख़बार पढ़ता हूँ। फिर नहाता हूँ, नाश्ता करता हूँ। आठ बजे दफ़्तर जाता हूँ। शाम को घर लौटता हूँ। रात दस बजे सोता हूँ।</div>
+      <div class="attrib">दूसरा पाठ · दिनचर्या</div>
+    </div>
+
+    <div class="aside"><strong>-ഇലേക്ക് (-ilēkku) = "की ओर"।</strong> <span class="ml">വീട്ടിലേക്ക്</span> (vīṭṭilēkku) = "घर की ओर / घर को"। यह कारक-चिह्न हिन्दी की "-की ओर" के बराबर है — गति की दिशा। क्रिया "पोकुन्नु" (जाता हूँ) या "वरुन्नु" (आता हूँ) के साथ जुड़कर पूरा गतिशील वाक्य बनाता है।</div>
+
+    <h3><span class="num">६.३</span>दो लोगों की बातचीत</h3>
+    <div class="passage">
+      <div class="ml">
+        <strong>അനു:</strong> നമസ്കാരം! നിങ്ങളുടെ പേര് എന്ത്?<br/>
+        <strong>രാജു:</strong> എന്റെ പേര് രാജു. നിങ്ങൾക്ക് സുഖമാണോ?<br/>
+        <strong>അനു:</strong> സുഖമാണ്, നന്ദി. നിങ്ങൾ എവിടെ നിന്ന് വരുന്നു?<br/>
+        <strong>രാജു:</strong> ഞാൻ കൊച്ചിയിൽ നിന്ന് വരുന്നു. നിങ്ങളോ?<br/>
+        <strong>അനു:</strong> ഞാൻ മുംബൈയിൽ നിന്ന്. എനിക്ക് മലയാളം അല്പം അറിയാം.<br/>
+        <strong>രാജു:</strong> വളരെ നല്ലത്! ചോറുണ്ടോ?<br/>
+        <strong>അനു:</strong> ഉണ്ട്, നന്ദി!
+      </div>
+      <div class="trans">
+        anu: namaskāraṃ! niṅṅaḷuḍe pēr ent?<br/>
+        rāju: eṉṟe pēr rāju. niṅṅaḷkku sukhamāṇō?<br/>
+        anu: sukhamāṇ, nandi. niṅṅaḷ eviḍe ninnu varunnu?<br/>
+        rāju: ñān kocciyil ninnu varunnu. niṅṅaḷō?<br/>
+        anu: ñān muṃbaiyil ninnu. enikku malayāḷaṃ alpaṃ aṟiyāṃ.<br/>
+        rāju: vaḷare nallat! cōṟuṇṭō?<br/>
+        anu: uṇṭ, nandi!
+      </div>
+      <div class="hi-gloss">
+        <strong>अनु:</strong> नमस्कार! आपका नाम क्या है?<br/>
+        <strong>राजू:</strong> मेरा नाम राजू है। क्या आप कुशल हैं?<br/>
+        <strong>अनु:</strong> कुशल हूँ, धन्यवाद। आप कहाँ से आते हैं?<br/>
+        <strong>राजू:</strong> मैं कोच्चि से आता हूँ। और आप?<br/>
+        <strong>अनु:</strong> मैं मुंबई से। मुझे मलयालम थोड़ी आती है।<br/>
+        <strong>राजू:</strong> बहुत अच्छा! खाना खाया?<br/>
+        <strong>अनु:</strong> हाँ, धन्यवाद!
+      </div>
+      <div class="attrib">तीसरा पाठ · संवाद</div>
+    </div>
+
+    <div class="aside"><strong>"चोऱुण्डो?" — स्नेह की भाषा।</strong> <span class="ml">ചോറുണ്ടോ?</span> का शाब्दिक अर्थ है "चावल है क्या?"। लेकिन यह सिर्फ़ सवाल नहीं — यह केरल का "खाना खाया?" है। उत्तर भारत में अजनबी से भी कोई पूछ सकता है "खाना खाया?"; केरल में वही भूमिका <span class="ml">ചോറുണ്ടോ?</span> निभाता है। भोजन की चिंता करना ही स्नेह की पहली भाषा है — दोनों संस्कृतियों में।</div>
+  </div>
+</section>
+<section class="stage" id="stage-07" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · शब्द-क्षेत्र</div>
+    <h2 class="stage-title">अर्थ के खेत</h2>
+    <p class="stage-lede">दो भाषाएँ दुनिया को अलग-अलग तरीक़े से काटती हैं। यहाँ देखें कैसे रिश्तेदारी, समय, शरीर, और गति — ये चार क्षेत्र — हिन्दी और मलयालम में भिन्न रंगों में रँगे हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">७.१</span>रिश्तेदारी — एक शब्द, दस रिश्ते</h3>
+
+    <p>हिन्दी में "चाचा", "मामा", "फूफा", "मौसा" — चार शब्द, चार रिश्ते। मलयालम भी ऐसी ही बारीकी रखती है, पर उसकी धुरी थोड़ी अलग है।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>रिश्ता</th><th>हिन्दी</th><th>मलयालम</th><th>उच्चारण</th></tr></thead>
+        <tbody>
+          <tr><td>पिता</td><td class="hi-cell">पिताजी / अब्बू</td><td class="g ml-cell">അച്ഛൻ</td><td>acchaṉ</td></tr>
+          <tr><td>माँ</td><td class="hi-cell">माँ / अम्मा</td><td class="g ml-cell">അമ്മ</td><td>amma</td></tr>
+          <tr><td>पिता का भाई (बड़ा)</td><td class="hi-cell">ताऊ</td><td class="g ml-cell">വലിയച്ഛൻ</td><td>valiyacchaṉ</td></tr>
+          <tr><td>पिता का भाई (छोटा)</td><td class="hi-cell">चाचा</td><td class="g ml-cell">ചെറിയച്ഛൻ</td><td>ceṟiyacchaṉ</td></tr>
+          <tr><td>माँ का भाई</td><td class="hi-cell">मामा</td><td class="g ml-cell">മാമൻ / അമ്മാവൻ</td><td>māmaṉ / ammāvaṉ</td></tr>
+          <tr><td>माँ की बहन</td><td class="hi-cell">मौसी</td><td class="g ml-cell">ചെറിയമ്മ / വലിയമ്മ</td><td>ceṟiyamma / valiyamma</td></tr>
+          <tr><td>बड़ा भाई</td><td class="hi-cell">बड़े भैया</td><td class="g ml-cell">ചേട്ടൻ</td><td>cēṭṭaṉ</td></tr>
+          <tr><td>बड़ी बहन</td><td class="hi-cell">बड़ी दीदी</td><td class="g ml-cell">ചേച്ചി</td><td>cēcci</td></tr>
+          <tr><td>छोटा भाई</td><td class="hi-cell">छोटे भैया</td><td class="g ml-cell">അനിയൻ</td><td>aniyaṉ</td></tr>
+          <tr><td>छोटी बहन</td><td class="hi-cell">छोटी बहन</td><td class="g ml-cell">അനിയത്തി</td><td>aniyatthi</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>"बड़ा-अच्छन" और "छोटा-अच्छन"।</strong> देखिए सुंदरता — मलयालम चाचा के लिए अलग शब्द नहीं रखती, बल्कि "अच्छन" (पिता) के साथ "वलिया" (बड़ा) या "चेऱिय" (छोटा) जोड़ देती है। <span class="ml">വലിയച്ഛൻ</span> = "बड़ा पिता" (ताऊ), <span class="ml">ചെറിയച്ഛൻ</span> = "छोटा पिता" (चाचा)। यह द्रविड़ भाषाओं की रचनात्मकता है — दो शब्द मिलाकर एक नया रिश्ता बना लेना।</div>
+
+    <h3><span class="num">७.२</span>समय — कब से कब तक</h3>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>हिन्दी</th><th>मलयालम</th><th>उच्चारण</th></tr></thead>
+        <tbody>
+          <tr><td class="hi-cell">आज</td><td class="g ml-cell">ഇന്ന്</td><td>inn</td></tr>
+          <tr><td class="hi-cell">बीता कल</td><td class="g ml-cell">ഇന്നലെ</td><td>innale</td></tr>
+          <tr><td class="hi-cell">आने वाला कल</td><td class="g ml-cell">നാളെ</td><td>nāḷe</td></tr>
+          <tr><td class="hi-cell">परसों (बीता)</td><td class="g ml-cell">മിനിഞ്ഞാന്ന്</td><td>miniññānn</td></tr>
+          <tr><td class="hi-cell">परसों (आने वाला)</td><td class="g ml-cell">മറ്റന്നാൾ</td><td>maṟṟannāḷ</td></tr>
+          <tr><td class="hi-cell">सुबह</td><td class="g ml-cell">രാവിലെ</td><td>rāvile</td></tr>
+          <tr><td class="hi-cell">दोपहर</td><td class="g ml-cell">ഉച്ച</td><td>ucca</td></tr>
+          <tr><td class="hi-cell">शाम</td><td class="g ml-cell">വൈകുന്നേരം</td><td>vaikunnēraṃ</td></tr>
+          <tr><td class="hi-cell">रात</td><td class="g ml-cell">രാത്രി</td><td>rātri</td></tr>
+          <tr><td class="hi-cell">अभी</td><td class="g ml-cell">ഇപ്പോൾ</td><td>ippōḷ</td></tr>
+          <tr><td class="hi-cell">बाद में</td><td class="g ml-cell">പിന്നെ</td><td>pinne</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3><span class="num">७.३</span>शरीर — अंग-अंग</h3>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>हिन्दी</th><th>मलयालम</th><th>उच्चारण</th></tr></thead>
+        <tbody>
+          <tr><td class="hi-cell">सिर</td><td class="g ml-cell">തല</td><td>tala</td></tr>
+          <tr><td class="hi-cell">बाल</td><td class="g ml-cell">മുടി</td><td>muḍi</td></tr>
+          <tr><td class="hi-cell">आँख</td><td class="g ml-cell">കണ്ണ്</td><td>kaṇṇ</td></tr>
+          <tr><td class="hi-cell">कान</td><td class="g ml-cell">ചെവി</td><td>cevi</td></tr>
+          <tr><td class="hi-cell">नाक</td><td class="g ml-cell">മൂക്ക്</td><td>mūkk</td></tr>
+          <tr><td class="hi-cell">मुँह</td><td class="g ml-cell">വായ</td><td>vāya</td></tr>
+          <tr><td class="hi-cell">दाँत</td><td class="g ml-cell">പല്ല്</td><td>pall</td></tr>
+          <tr><td class="hi-cell">जीभ</td><td class="g ml-cell">നാവ്</td><td>nāv</td></tr>
+          <tr><td class="hi-cell">हाथ</td><td class="g ml-cell">കൈ</td><td>kai</td></tr>
+          <tr><td class="hi-cell">उंगली</td><td class="g ml-cell">വിരൽ</td><td>viral</td></tr>
+          <tr><td class="hi-cell">पैर</td><td class="g ml-cell">കാൽ</td><td>kāl</td></tr>
+          <tr><td class="hi-cell">पेट</td><td class="g ml-cell">വയറ്</td><td>vayaṟ</td></tr>
+          <tr><td class="hi-cell">मन / हृदय</td><td class="g ml-cell">മനസ്സ് / ഹൃദയം</td><td>manass / hṛdayaṃ</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3><span class="num">७.४</span>गति — आना, जाना, चलना</h3>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>हिन्दी</th><th>मलयालम</th><th>उच्चारण</th></tr></thead>
+        <tbody>
+          <tr><td class="hi-cell">आना</td><td class="g ml-cell">വരിക</td><td>varika</td></tr>
+          <tr><td class="hi-cell">जाना</td><td class="g ml-cell">പോവുക</td><td>pōvuka</td></tr>
+          <tr><td class="hi-cell">चलना</td><td class="g ml-cell">നടക്കുക</td><td>naḍakkuka</td></tr>
+          <tr><td class="hi-cell">दौड़ना</td><td class="g ml-cell">ഓടുക</td><td>ōḍuka</td></tr>
+          <tr><td class="hi-cell">उठना</td><td class="g ml-cell">എഴുന്നേൽക്കുക</td><td>eḻunnēlkkuka</td></tr>
+          <tr><td class="hi-cell">बैठना</td><td class="g ml-cell">ഇരിക്കുക</td><td>irikkuka</td></tr>
+          <tr><td class="hi-cell">सोना</td><td class="g ml-cell">ഉറങ്ങുക</td><td>uṟaṅṅuka</td></tr>
+          <tr><td class="hi-cell">गिरना</td><td class="g ml-cell">വീഴുക</td><td>vīḻuka</td></tr>
+          <tr><td class="hi-cell">चढ़ना</td><td class="g ml-cell">കയറുക</td><td>kayaṟuka</td></tr>
+          <tr><td class="hi-cell">उतरना</td><td class="g ml-cell">ഇറങ്ങുക</td><td>iṟaṅṅuka</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>"इरिक्कुक" की दोहरी ज़िम्मेदारी।</strong> <span class="ml">ഇരിക്കുക</span> का अर्थ है "बैठना" और "होना" — दोनों। "वह कुर्सी पर बैठी है" = <span class="ml">അവൾ കസേരയിൽ ഇരിക്കുന്നു</span>। "किताब मेज़ पर है" = <span class="ml">പുസ്തകം മേശയിൽ ഇരിക്കുന്നു</span>। एक ही क्रिया, दो भूमिकाएँ। हिन्दी "बैठना" और "होना" को पूरी तरह अलग रखती है।</div>
+
+    <div class="aside"><strong>ऴ वाले क्रिया।</strong> गति में <span class="ml">വീഴുക</span> (गिरना) और संज्ञा <span class="ml">മഴ</span> (बारिश) — दोनों में वही <span class="ml">ഴ</span>। जैसे बारिश ऊपर से गिरती है, वैसे ही गिरने की क्रिया — ध्वनि और अर्थ का रिश्ता। यह <span class="ml">ഴ</span> मलयालम की पहचान है।</div>
+  </div>
+</section>
+<section class="stage" id="stage-08" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · व्यवहार</div>
+    <h2 class="stage-title">प्रयोग — आदर, भाव, रीति</h2>
+    <p class="stage-lede">भाषा सिर्फ़ शब्द नहीं, रिश्ता है। हिन्दी में तीन स्तर (तू/तुम/आप), मलयालम में दो। फिर भी दोनों भाषाएँ सम्मान और अपनापन एक समान गहराई से बोलती हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">८.१</span>आदर के स्तर</h3>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>स्तर</th><th>हिन्दी</th><th>मलयालम</th><th>कब</th></tr></thead>
+        <tbody>
+          <tr><td>अनौपचारिक</td><td class="g hi-cell">तू</td><td class="g ml-cell">നീ</td><td>बच्चे, बहुत पुराने दोस्त</td></tr>
+          <tr><td>बीच का</td><td class="g hi-cell">तुम</td><td class="g ml-cell">—</td><td>मलयालम में यह स्तर नहीं</td></tr>
+          <tr><td>औपचारिक / सम्मान</td><td class="g hi-cell">आप</td><td class="g ml-cell">നിങ്ങൾ / താങ്കൾ</td><td>अजनबी, वरिष्ठ, पेशेवर</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>तीन से दो।</strong> हिन्दी "तू / तुम / आप" — तीन धार रखती है। मलयालम <span class="ml">നീ</span> (तू) और <span class="ml">നിങ്ങൾ</span> (आप) — दो। पर तुम/आप का अंतर ख़त्म नहीं होता; मलयालम इसे सर्वनाम की जगह <em>संबोधन</em> से पूरा करती है — किसी को <span class="ml">ചേട്ടാ</span> (बड़े भैया) या <span class="ml">ചേച്ചി</span> (बड़ी बहन) कहकर स्नेह और सम्मान दोनों दिए जा सकते हैं।</div>
+
+    <h3><span class="num">८.२</span>अजनबी को कैसे पुकारें</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead><tr><th>स्थिति</th><th>हिन्दी</th><th>मलयालम</th></tr></thead>
+        <tbody>
+          <tr><td>अजनबी बड़ा पुरुष</td><td class="hi-cell">भैया / सर</td><td class="g ml-cell">ചേട്ടാ (cēṭṭā)</td></tr>
+          <tr><td>अजनबी बड़ी स्त्री</td><td class="hi-cell">बहनजी / दीदी</td><td class="g ml-cell">ചേച്ചി (cēcci)</td></tr>
+          <tr><td>छोटा बच्चा</td><td class="hi-cell">बेटा / मोलू</td><td class="g ml-cell">മോനേ / മോളേ (mōnē / mōḷē)</td></tr>
+          <tr><td>बुज़ुर्ग पुरुष</td><td class="hi-cell">अंकलजी / बाबा</td><td class="g ml-cell">അപ്പൂപ്പൻ / ചേട്ടൻ</td></tr>
+          <tr><td>बुज़ुर्ग स्त्री</td><td class="hi-cell">आंटीजी / अम्माजी</td><td class="g ml-cell">അമ്മൂമ്മ / അമ്മ</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3><span class="num">८.३</span>रोज़मर्रा के वाक्यांश</h3>
+
+    <div class="sentence">
+      <div class="ml">എങ്ങനെ ഉണ്ട്?</div>
+      <div class="trans">eṅṅane uṇṭ?</div>
+      <div class="hi-gloss">कैसे हैं? / कैसा है?</div>
+      <div class="literal">शाब्दिक: कैसे · है</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">സുഖമാണ്, നന്ദി.</div>
+      <div class="trans">sukhamāṇ, nandi.</div>
+      <div class="hi-gloss">कुशल हूँ, धन्यवाद।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">ചോറുണ്ടോ?</div>
+      <div class="trans">cōṟuṇṭō?</div>
+      <div class="hi-gloss">खाना खाया?</div>
+      <div class="literal">शाब्दिक: चावल · है-क्या</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">ക്ഷമിക്കണം, എനിക്ക് മലയാളം അറിയില്ല.</div>
+      <div class="trans">kṣamikkaṇaṃ, enikku malayāḷaṃ aṟiyilla.</div>
+      <div class="hi-gloss">क्षमा करें, मुझे मलयालम नहीं आती।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">കുറച്ച് പതുക്കെ പറയൂ.</div>
+      <div class="trans">kuṟacc patukke paṟayū.</div>
+      <div class="hi-gloss">थोड़ा धीरे बोलिए।</div>
+      <div class="literal">थोड़ा · धीरे · बोलिए</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">വീണ്ടും കാണാം.</div>
+      <div class="trans">vīṇṭuṃ kāṇāṃ.</div>
+      <div class="hi-gloss">फिर मिलेंगे।</div>
+      <div class="literal">शाब्दिक: फिर · मिलेंगे (देखा जाएगा)</div>
+    </div>
+
+    <h3><span class="num">८.४</span>नरम करने वाले शब्द</h3>
+
+    <p>हिन्दी में "थोड़ा", "ज़रा", "प्लीज़" से बात नरम करते हैं। मलयालम में <span class="ml">കുറച്ച്</span> (kuṟacc = थोड़ा) और <span class="ml">ദയവായി</span> (dayavāyi = कृपया) यही काम करते हैं।</p>
+
+    <div class="sentence">
+      <div class="ml">കുറച്ച് വെള്ളം തരാമോ?</div>
+      <div class="trans">kuṟacc veḷḷaṃ tarāmō?</div>
+      <div class="hi-gloss">थोड़ा पानी दे सकते हैं?</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ml">ദയവായി ഇവിടെ ഇരിക്കൂ.</div>
+      <div class="trans">dayavāyi iviḍe irikkū.</div>
+      <div class="hi-gloss">कृपया यहाँ बैठें।</div>
+    </div>
+
+    <div class="aside"><strong>"कुऱच्च्" और "थोड़ा" — एक भावना।</strong> मलयाली <span class="ml">കുറച്ച്</span> (थोड़ा) बार-बार कहते हैं — चाय में "थोड़ी" चीनी, काम में "थोड़ी" मदद, बात को "थोड़ा" धीमे। यह वही विनम्रता है जो हिन्दी में "थोड़ा-सा", "ज़रा-सा" लाती है। माँगना हो तो आदेश की धार को "थोड़ा" से काट देना — दोनों संस्कृतियों की साझी आदत।</div>
+
+    <h3><span class="num">८.५</span>भोजन का शिष्टाचार</h3>
+
+    <p>केरल में भोजन का महत्व उत्तर भारत जैसा ही गहरा है। किसी के घर जाने पर <span class="ml">ചോറുണ്ടോ?</span> (खाना खाया?) पूछना एक रस्म है — उत्तर "हाँ" भी हो तो भी खाना देने का प्रयास चलेगा। "नहीं" कहने का मलयाली तरीक़ा भी नरम है — <span class="ml">വേണ്ട, നന്ദി</span> (vēṇṭa, nandi = "नहीं चाहिए, धन्यवाद")।</p>
+
+    <div class="aside"><strong>संबोधन की कला।</strong> केरल में दुकानदार से बात करते समय उसे <span class="ml">ചേട്ടാ</span> या <span class="ml">ചേച്ചി</span> (बड़े भैया / बड़ी बहन) कहना स्वाभाविक है — "साहब" या "मैडम" नहीं। यह बाज़ार को परिवार बना देता है — अजनबी को रिश्तेदार। हिन्दी में "भैया", "दीदी" भी वैसा ही काम करते हैं।</div>
+  </div>
+</section>
+<section class="stage" id="stage-09" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · साहित्य</div>
+    <h2 class="stage-title">साहित्य — दो भाषाओं के पुल</h2>
+    <p class="stage-lede">मलयालम साहित्य की परंपरा आठ सौ वर्ष पुरानी है। आइए इन लेखकों को उन हिन्दी लेखकों से जोड़ें जिन्हें आप जानते हैं — विषय, मिज़ाज और ऐतिहासिक भूमिका से।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">९.१</span>भाषा के पिता — एऴुत्तच्छन्</h3>
+
+    <div class="passage">
+      <div class="ml">തുഞ്ചത്ത് എഴുത്തച്ഛൻ (ഏകദേശം 16-ാം നൂറ്റാണ്ട്) — "അധ്യാത്മ രാമായണം കിളിപ്പാട്ട്".</div>
+      <div class="hi-gloss">तुञ्चत्त एऴुत्तच्छन् (लगभग १६वीं सदी) ने मलयालम को वह दिया जो तुलसीदास ने अवधी को दिया था — एक जन-रामायण। उनका <em>अध्यात्म रामायणम्</em> सामान्य मलयाली के लिए था, मंदिर के ब्राह्मण के लिए नहीं। जैसे तुलसी के "मानस" के बिना आज का हिन्दी-भाषी अधूरा है, वैसे ही एऴुत्तच्छन् के बिना मलयालम अधूरी है। इन्हें "भाषा-पिता" कहा जाता है।</div>
+      <div class="attrib">साहित्य-पुल · तुलसीदास ↔ एऴुत्तच्छन्</div>
+    </div>
+
+    <h3><span class="num">९.२</span>आधुनिक कथाकार — बशीर ↔ प्रेमचंद</h3>
+
+    <div class="passage">
+      <div class="ml">വൈക്കം മുഹമ്മദ് ബഷീർ (1908-1994) — "ബാല്യകാലസഖി", "പാത്തുമ്മായുടെ ആട്".</div>
+      <div class="hi-gloss">वैक्कम मुहम्मद बशीर — केरल के प्रेमचंद। जैसे प्रेमचंद ने उर्दू-हिन्दी को गाँव के किसान, बैल, ज़मींदार के घर में ले जाकर जीवित किया, वैसे ही बशीर ने "बेय्पोर के सुल्तान" के रूप में मलयालम को चाय की दुकान, जेल, नानी के रसोईघर में बिठाया। उनकी भाषा मोहल्ले की है — "हँसी में आँसू, आँसू में हँसी"। प्रेमचंद की "ईदगाह" का हामिद और बशीर की "बाल्यकाल-सखी" की सुहरा — दोनों बच्चे जो ग़रीबी से बड़े होकर दुनिया देखते हैं।</div>
+      <div class="attrib">साहित्य-पुल · प्रेमचंद ↔ बशीर</div>
+    </div>
+
+    <h3><span class="num">९.३</span>गाँव की महागाथा — थकऴि ↔ यशपाल</h3>
+
+    <div class="passage">
+      <div class="ml">തകഴി ശിവശങ്കരപ്പിള്ള (1912-1999) — "ചെമ്മീൻ", "കയർ".</div>
+      <div class="hi-gloss">थकऴि शिवशंकर पिळ्ळै ने मछुआरों, किसानों और छोटे लोगों का महाकाव्य लिखा। उनका "कयर्" (रस्सी) केरल के गाँव की कहानी है — पीढ़ियों तक फैली, ज़मीन, जाति, परिवर्तन की। यशपाल का "झूठा सच" जैसे विभाजन को पकड़ता है, वैसे ही थकऴि "कयर्" में समाजवाद के आगमन को पकड़ता है। दोनों ने बड़े कैनवास पर छोटे लोग रखे।</div>
+      <div class="attrib">साहित्य-पुल · यशपाल ↔ थकऴि</div>
+    </div>
+
+    <h3><span class="num">९.४</span>आधुनिकतावादी — ओ. वी. विजयन ↔ निर्मल वर्मा</h3>
+
+    <div class="passage">
+      <div class="ml">ഒ. വി. വിജയൻ (1930-2005) — "ഖസാക്കിന്റെ ഇതിഹാസം".</div>
+      <div class="hi-gloss">ओ. वी. विजयन का "खसाक् की इतिहासगाथा" (१९६९) मलयालम का "वह दिन" था जिसके बाद कुछ भी पहले जैसा नहीं रहा। जैसे निर्मल वर्मा ने हिन्दी कथा को अंदर की ओर मोड़ा — समय, स्मृति, एकाकीपन की तरफ़ — वैसे ही विजयन ने मलयालम को मिथक और आधुनिकता के बीच के तहख़ाने में उतारा। दोनों ने पाठक से धैर्य माँगा और अर्थ नहीं, अनुभव दिया।</div>
+      <div class="attrib">साहित्य-पुल · निर्मल वर्मा ↔ ओ. वी. विजयन</div>
+    </div>
+
+    <h3><span class="num">९.५</span>स्त्री-स्वर — कमला दास ↔ महादेवी / अमृता प्रीतम</h3>
+
+    <div class="passage">
+      <div class="ml">കമലാ ദാസ് / മാധവിക്കുട്ടി (1934-2009) — "എന്റെ കഥ".</div>
+      <div class="hi-gloss">कमला दास — मलयालम में "माधविक्कुट्टि" — ने शरीर, इच्छा, और असंतोष को कविता में लाया जब दोनों भाषाओं में स्त्रियाँ चुप थीं। महादेवी वर्मा की छायावादी गहराई और अमृता प्रीतम की "पिंजर" की टूटी आवाज़ — दोनों कमला दास में मिलती हैं। उनकी आत्मकथा "एन्ऱे कथा" ने केरल को हिलाया था जैसे अमृता प्रीतम ने पंजाब को।</div>
+      <div class="attrib">साहित्य-पुल · महादेवी / अमृता प्रीतम ↔ कमला दास</div>
+    </div>
+
+    <h3><span class="num">९.६</span>महाकवि — कुमारन आशान ↔ निराला</h3>
+
+    <div class="passage">
+      <div class="ml">കുമാരനാശാൻ (1873-1924) — "വീണ പൂവ്", "ചണ്ഡാല ഭിക്ഷുകി".</div>
+      <div class="hi-gloss">कुमारन आशान ने मलयालम कविता को जाति और मानवता के मंथन में उतारा — "चंडाल भिक्षुकी" अछूत स्त्री और बुद्ध के शिष्य का संवाद है। निराला की "तोड़ती पत्थर", "राम की शक्ति-पूजा" की तरह आशान की कविता भी छायावादी करुणा और सामाजिक चेतना को मिलाती है। दोनों अपनी भाषाओं में "खड़ी बोली आंदोलन" के समकालीन थे — कविता को संस्कृत-बंधन से मुक्त करने वाले।</div>
+      <div class="attrib">साहित्य-पुल · निराला ↔ कुमारन आशान</div>
+    </div>
+
+    <h3><span class="num">९.७</span>समकालीन — मुकुंदन / सेतु ↔ कृष्ण बलदेव वैद / कृष्णा सोबती</h3>
+
+    <div class="passage">
+      <div class="ml">എം. മുകുന്ദൻ (ജനനം 1942) — "മയ്യഴിപ്പുഴയുടെ തീരങ്ങളിൽ".</div>
+      <div class="hi-gloss">एम. मुकुन्दन् का "मय्यऴि नदी के किनारे" औपनिवेशिक फ्रेंच-केरल की स्मृति है। कृष्णा सोबती के "ज़िंदगीनामा" में जैसे विभाजन-पूर्व पंजाब साँस लेता है, वैसे ही मुकुन्दन् में माहे (पॉंडिचेरी के पास एक फ्रेंच-जेब) की स्मृति। जगह को ही पात्र बनाने वाले दोनों लेखक।</div>
+      <div class="attrib">साहित्य-पुल · कृष्णा सोबती ↔ मुकुन्दन्</div>
+    </div>
+
+    <div class="aside"><strong>एक और पुल।</strong> मलयालम की नई पीढ़ी — के. आर. मीरा, बेन्यामिन, सुभाष चंद्रन् — आज वैसे ही पढ़े जा रहे हैं जैसे हिन्दी में गीतांजलि श्री, मनीषा कुलश्रेष्ठ, और उदय प्रकाश। दोनों भाषाओं की समकालीन कथा एक-दूसरे का आईना है — शहरी एकाकीपन, प्रवास, धार्मिक राजनीति, और औरत की अपनी आवाज़।</div>
+
+    <h3><span class="num">९.८</span>सिनेमा का जोड़</h3>
+
+    <p>मलयालम सिनेमा — अदूर गोपालकृष्णन, जी. अरविन्दन, शाजी कृष्णन् — भारतीय समानांतर सिनेमा का वही अर्थ रखता है जो हिन्दी में सत्यजित राय के बंगाली और श्याम बेनेगल के हिन्दी सिनेमा का। मोहनलाल और ममूट्टी की अभिनय-गरिमा अमिताभ की गहराई जैसी है।</p>
+
+    <div class="passage">
+      <div class="ml">മലയാളം — സഹ്യാദ്രിയിൽ നിന്ന് കടലിലേക്ക് ഒഴുകുന്ന ഭാഷ.</div>
+      <div class="trans">malayāḷaṃ — sahyādriyil ninnu kaḍalilēkku oḻukunna bhāṣa.</div>
+      <div class="hi-gloss">मलयालम — सह्याद्रि से समुद्र की ओर बहती हुई भाषा। "मला" (पर्वत) + "आऴम्" (गहराई) = पर्वत और गहराई की भाषा। इसी भूगोल की भाषा — पर्वत-समुद्र के बीच की एक पतली, उर्वर पट्टी।</div>
+      <div class="attrib">विदाई शब्द</div>
+    </div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">यात्रा यहीं नहीं रुकती। अब पढ़ना शुरू करें — बशीर की एक कहानी, मुकुन्दन् का एक अध्याय, एम. टी. का एक पन्ना। मलयालम का द्वार खुल चुका है।</p>
+
+    <p style="text-align: center; margin-top: 24px;"><strong class="ml">നന്ദി! ശുഭയാത്ര.</strong><br/><span style="color: var(--ink-faded); font-size: 14px;">धन्यवाद! शुभ यात्रा।</span></p>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn">← पिछला</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">अगला →</button>
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="ml">മലയാളം പഠിക്കാം</span>
+    वर्णमाला की पद्धति से एक प्राइमर · यत्नपूर्वक निर्मित · २०२६<br/>
+    एक बार में एक ही नई बात · रूप पहले अर्थ बाद में · सूची नहीं व्यवस्था<br/>
+    <span style="display:inline-block;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sindoor);">made by Nil <span class="sep">·</span> using Claude</span>
+  </div>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.stage-tab');
+  const sections = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const scrollWrap = document.getElementById('stageScroll');
+  const total = sections.length;
+  let current = 0;
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function show(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+    sections.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.toggle('done', i < current);
+      d.classList.toggle('current', i === current);
+    });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    nextBtn.textContent = current === total - 1 ? 'समाप्त' : 'अगला →';
+    prevBtn.textContent = '← पिछला';
+
+    const activeTab = tabs[current];
+    if (activeTab && scrollWrap) {
+      const tabLeft = activeTab.offsetLeft;
+      const tabWidth = activeTab.offsetWidth;
+      const wrapWidth = scrollWrap.clientWidth;
+      scrollWrap.scrollTo({ left: tabLeft - wrapWidth / 2 + tabWidth / 2, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+  });
+
+  document.querySelectorAll('.map-cell').forEach(card => {
+    const hint = card.querySelector('.hint');
+    const hintText = card.dataset.hint;
+    if (hintText && hint) hint.textContent = hintText;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+      }
+    });
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

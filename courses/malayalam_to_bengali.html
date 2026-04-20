@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="ml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>മലയാളം → বাংলা · ഭാഷാസേതു</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Serif Malayalam', serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  font-size:17px;
+  background-image:
+    radial-gradient(ellipse at top left, rgba(184,128,45,0.08), transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(31,77,74,0.07), transparent 50%),
+    radial-gradient(ellipse at center, rgba(168,48,36,0.04), transparent 70%);
+  min-height:100vh;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity:0.5; pointer-events:none; z-index:1; mix-blend-mode:multiply;
+}
+.wrap{max-width:860px; margin:0 auto; padding:24px 22px 80px; position:relative; z-index:2}
+header.top{padding:22px 0 10px; border-bottom:1px solid rgba(107,91,72,0.25); margin-bottom:16px}
+header.top .eyebrow{font-family:'Fraunces',serif; font-style:italic; color:var(--ink-faded); font-size:13px; letter-spacing:0.08em; text-transform:uppercase}
+header.top h1{font-family:'Fraunces',serif; font-weight:600; font-size:30px; margin:6px 0 4px; color:var(--ink)}
+header.top h1 .target{font-family:'Noto Serif Bengali',serif; color:var(--sindoor)}
+header.top h1 .source{font-family:'Noto Serif Malayalam',serif; color:var(--teal)}
+header.top .sub{color:var(--ink-soft); font-size:15px}
+nav.tabs{
+  position:sticky; top:0; background:rgba(244,236,218,0.96);
+  backdrop-filter:blur(6px); z-index:10;
+  display:flex; overflow-x:auto; gap:4px;
+  padding:10px 0; margin:0 -22px; padding-left:22px; padding-right:22px;
+  border-bottom:1px solid rgba(107,91,72,0.2);
+  scrollbar-width:thin;
+}
+nav.tabs button{
+  flex:0 0 auto;
+  font-family:'Noto Serif Malayalam', serif;
+  font-size:14px; color:var(--ink-soft);
+  background:transparent; border:1px solid transparent;
+  padding:7px 12px; border-radius:20px; cursor:pointer;
+  white-space:nowrap;
+}
+nav.tabs button.active{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+nav.tabs button:hover:not(.active){background:rgba(107,91,72,0.12)}
+section.stage{display:none; padding:18px 0 24px; animation:fade 0.35s ease}
+section.stage.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+h2.title{font-family:'Fraunces',serif; font-weight:600; font-size:26px; color:var(--sindoor); margin:8px 0 4px}
+h2.title .num{font-family:'JetBrains Mono',monospace; color:var(--ochre); font-size:15px; margin-right:10px; letter-spacing:0.05em}
+h3{font-family:'Fraunces',serif; color:var(--teal); font-weight:600; margin-top:26px; font-size:20px}
+h4{font-family:'Noto Serif Malayalam',serif; font-weight:600; color:var(--ink-soft); margin-top:18px; font-size:16px}
+p{margin:10px 0}
+.bn{font-family:'Noto Serif Bengali',serif; color:var(--sindoor)}
+.ml{font-family:'Noto Serif Malayalam',serif; color:var(--teal)}
+.tr{font-family:'JetBrains Mono',monospace; font-size:0.82em; color:var(--ink-faded)}
+.aside{
+  background:var(--paper-warm);
+  border-left:3px solid var(--ochre);
+  padding:14px 16px; margin:18px 0; border-radius:2px;
+  box-shadow:0 1px 0 rgba(107,91,72,0.12);
+}
+.aside .label{font-family:'Fraunces',serif; font-style:italic; font-size:13px; color:var(--ochre); display:block; margin-bottom:4px; letter-spacing:0.04em; text-transform:uppercase}
+.aside.teal{border-left-color:var(--teal)} .aside.teal .label{color:var(--teal)}
+.aside.sindoor{border-left-color:var(--sindoor)} .aside.sindoor .label{color:var(--sindoor)}
+.grid{display:grid; gap:8px; grid-template-columns:repeat(auto-fill, minmax(98px,1fr)); margin:12px 0}
+.card{
+  background:var(--paper-warm);
+  border:1px solid rgba(107,91,72,0.25);
+  padding:10px 8px; border-radius:6px;
+  text-align:center; cursor:pointer;
+  transition:all 0.2s;
+  position:relative;
+}
+.card:hover{background:var(--paper-deep); transform:translateY(-1px)}
+.card .big{font-family:'Noto Serif Bengali',serif; font-size:28px; color:var(--ink); display:block; line-height:1.1}
+.card .sm{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faded); display:block; margin-top:4px}
+.card .hint{display:none; font-size:13px; color:var(--ink-soft); margin-top:6px; padding-top:6px; border-top:1px dashed rgba(107,91,72,0.3); font-family:'Noto Serif Malayalam',serif}
+.card.open .hint{display:block}
+.card.open{background:var(--paper-deep); border-color:var(--ochre)}
+.card .flag{position:absolute; top:3px; right:5px; font-size:11px; color:var(--sindoor)}
+.family{margin:14px 0 6px}
+.family .flabel{font-family:'Fraunces',serif; font-style:italic; color:var(--ink-faded); font-size:14px; margin-bottom:4px}
+table{width:100%; border-collapse:collapse; margin:12px 0; font-size:15px}
+table th, table td{padding:8px 10px; border-bottom:1px solid rgba(107,91,72,0.2); text-align:left; vertical-align:top}
+table th{font-family:'Fraunces',serif; font-weight:600; color:var(--ink-soft); background:var(--paper-warm)}
+.video{margin:18px 0}
+.video-frame{position:relative; padding-bottom:56.25%; height:0; border-radius:6px; overflow:hidden; border:1px solid rgba(107,91,72,0.3)}
+.video-frame iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0}
+.video-caption{font-size:13px; color:var(--ink-faded); margin-top:6px; font-style:italic}
+.video-caption a{color:var(--teal)}
+.nav-btns{display:flex; justify-content:space-between; margin-top:30px; padding-top:18px; border-top:1px solid rgba(107,91,72,0.2)}
+.nav-btns button{
+  font-family:'Noto Serif Malayalam',serif; font-size:15px;
+  background:var(--paper-warm); border:1px solid rgba(107,91,72,0.3);
+  padding:8px 16px; border-radius:20px; cursor:pointer; color:var(--ink-soft);
+}
+.nav-btns button:hover{background:var(--paper-deep)}
+.nav-btns button:disabled{opacity:0.35; cursor:not-allowed}
+.passage{background:var(--paper-warm); padding:14px 16px; border-radius:6px; margin:14px 0; border:1px solid rgba(107,91,72,0.2)}
+.passage .target{font-family:'Noto Serif Bengali',serif; font-size:18px; color:var(--ink); line-height:1.9}
+.passage .tr-line{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-faded); margin-top:8px; line-height:1.7}
+.passage .gloss{margin-top:10px; padding-top:10px; border-top:1px dashed rgba(107,91,72,0.3); font-size:15px; color:var(--ink-soft)}
+.passage .convo{display:block; margin:6px 0}
+.passage .spk{color:var(--ochre); font-family:'Fraunces',serif; font-style:italic; margin-right:6px}
+footer{text-align:center; color:var(--ink-faded); font-family:'Fraunces',serif; font-style:italic; padding:40px 0 10px; font-size:13px}
+@media(max-width:480px){
+  body{font-size:16px}
+  header.top h1{font-size:24px}
+  .wrap{padding:18px 16px 60px}
+  nav.tabs{margin:0 -16px; padding-left:16px; padding-right:16px}
+  .card .big{font-size:24px}
+  .grid{grid-template-columns:repeat(auto-fill, minmax(88px,1fr))}
+  h2.title{font-size:22px}
+  .passage .target{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">ഭാഷാസേതു · bhashasetu</div>
+  <h1><span class="source">മലയാളം</span> <span style="color:var(--ink-faded)">→</span> <span class="target">বাংলা</span></h1>
+  <div class="sub">ദ്രാവിഡത്തിൽ നിന്ന് ഇന്തോ-ആര്യനിലേക്ക് · ~150 മണിക്കൂർ · 41/43 ശബ്ദങ്ങൾ പങ്കിടുന്നു</div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="0" class="active">00 · പരിചയം</button>
+  <button data-tab="1">01 · സ്വരം</button>
+  <button data-tab="2">02 · വ്യഞ്ജനം</button>
+  <button data-tab="3">03 · സംയോജനം</button>
+  <button data-tab="4">04 · പദങ്ങൾ</button>
+  <button data-tab="5">05 · വാക്യം</button>
+  <button data-tab="6">06 · വായന</button>
+  <button data-tab="7">07 · പദമേഖല</button>
+  <button data-tab="8">08 · ഉപയോഗം</button>
+  <button data-tab="9">09 · സാഹിത്യം</button>
+</nav>
+
+<section class="stage active" id="stage-00">
+  <h2 class="title"><span class="num">00</span>പരിചയം</h2>
+  <p>നിങ്ങൾ ബാല്യത്തിൽ <em>സ്വരവും വ്യഞ്ജനവും</em> എന്ന അടിസ്ഥാനപാഠം കൊണ്ട് മലയാളലിപി പഠിച്ചിട്ടുണ്ട് — അ, ആ, ഇ, ഈ എന്നു തുടങ്ങി ക-വർഗം, ച-വർഗം എന്ന ക്രമത്തിൽ. ബംഗാളിയും ഇതേ തന്നെ ക്രമത്തിൽ — <span class="bn">অ, আ, ই, ঈ</span> എന്നു തുടങ്ങും. ലിപിയുടെ രൂപം മാറും, നിയമം മാറില്ല. രണ്ടും ബ്രാഹ്മീ കുടുംബത്തിലെ അബുഗിഡകളാണ് — അന്തർലീനസ്വരം 'അ', സ്വരചിഹ്നങ്ങൾ, ഹലന്ത് — എല്ലാം പരിചിതം.</p>
+
+  <p>മലയാളം ദ്രാവിഡവും ബംഗാളി ഇന്തോ-ആര്യനുമാണ്. എന്നാൽ മലയാളത്തിലെ സംസ്കൃതഭാരം വളരെ വലുതാണ് — അതാണ് പാലം. <span class="ml">സമയം</span> = <span class="bn">সময়</span>, <span class="ml">ഭൂമി</span> = <span class="bn">ভূমি</span>, <span class="ml">നമസ്കാരം</span> = <span class="bn">নমস্কার</span>. വാക്യഘടന ഒന്നുതന്നെ (SOV): <span class="ml">ഞാൻ പുസ്തകം വായിക്കുന്നു</span> = <span class="bn">আমি বই পড়ি</span> <span class="tr">(āmi boi poṛi)</span>. 43-ൽ 41 സ്വനിമങ്ങൾ (~95%) പങ്കിടുന്നു; പദസമൃദ്ധിയിൽ ~46% ഇരിപ്പുണ്ട്.</p>
+
+  <h3>ആറു തത്ത്വങ്ങൾ</h3>
+
+  <div class="aside teal"><span class="label">1 · ലിപിനിയമം സമം</span>രണ്ടും അബുഗിഡ. മലയാളത്തിലെ ക + ി = കി എന്നപോലെ ബംഗാളിയിൽ <span class="bn">ক + ি = কি</span>. ചിഹ്നങ്ങൾ വ്യത്യസ്തമെങ്കിലും യുക്തി ഒന്ന് — ഒരു പുതിയ ലിപി പഠിക്കലല്ല, പരിചിതഗണിതത്തിന് പുതിയ അക്ഷരരൂപങ്ങൾ നൽകൽ മാത്രം.</div>
+
+  <div class="aside teal"><span class="label">2 · ശബ്ദങ്ങൾ പരിചിതം</span>43-ൽ 41 സ്വനിമങ്ങൾ നിങ്ങൾക്കറിയാം. പുതിയവ രണ്ടു മാത്രം — <span class="bn">ঐ</span> (oi) ഉം <span class="bn">ঔ</span> (ou) ഉം, സംയുക്തസ്വരങ്ങൾ. ക, ച, ട, ത, പ — എല്ലാ വർഗങ്ങളും ഒരേപടി.</div>
+
+  <div class="aside sindoor"><span class="label">3 · വാക്യക്രമം ഒന്നുതന്നെ</span>രണ്ടിലും SOV — കർത്താ · കർമം · ക്രിയ. <span class="ml">അവൻ വെള്ളം കുടിക്കുന്നു</span> = <span class="bn">সে জল পান করে</span>. ഹിന്ദിയോ ഇംഗ്ലീഷോ പഠിക്കുമ്പോൾ നേരിടുന്ന വ്യതിയാനം ഇവിടെയില്ല.</div>
+
+  <div class="aside sindoor"><span class="label">4 · പിൻനിപാതവ്യവസ്ഥ</span>മലയാളത്തിൽ -ിൽ, -ിലേക്ക്, -ിനു — ബംഗാളിയിലും പിൻകാരകങ്ങൾ (postposition): <span class="bn">-এ, -কে, -থেকে, -এর</span>. പദത്തിന്റെ പിന്നിൽ കാരകം — നിങ്ങളുടെ മനസ്സ് ഇതിനകം ഇങ്ങനെ ചിന്തിക്കുന്നു.</div>
+
+  <div class="aside"><span class="label">5 · തത്സമപാലം</span>എട്ടു സംസ്കൃതമൂലപദങ്ങൾ ഉടൻ പരിചിതം: <span class="ml">സമയം</span>/<span class="bn">সময়</span>, <span class="ml">ദിനം</span>/<span class="bn">দিন</span>, <span class="ml">സൂര്യൻ</span>/<span class="bn">সূর্য</span>, <span class="ml">ഭൂമി</span>/<span class="bn">ভূমি</span>, <span class="ml">നാമം</span>/<span class="bn">নাম</span>, <span class="ml">പുസ്തകം</span>/<span class="bn">পুস্তক</span>, <span class="ml">നമസ്കാരം</span>/<span class="bn">নমস্কার</span>, <span class="ml">വൃഷ്ടി/മഴ</span>/<span class="bn">বৃষ্টি</span>. മലയാളത്തിലെ സംസ്കൃതഭാരം ഇവിടെ ഒരു ആശ്വാസമായി മാറുന്നു.</div>
+
+  <div class="aside"><span class="label">6 · വെല്ലുവിളികൾ</span>സ്വരാന്ത്യത്തിലെ 'അ' ബംഗാളി മിക്കപ്പോഴും ഉച്ചരിക്കുന്നില്ല (<span class="bn">রাম</span> = <em>രാമ്</em>, <em>രാമ</em> അല്ല — schwa-deletion). <span class="bn">ড়, ঢ়</span> — മലയാളത്തിൽ ഇല്ലാത്ത വിശേഷധ്വനികൾ. ലിംഗവ്യത്യാസം ക്രിയയിൽ ഇല്ല — മലയാളത്തിനു ലിംഗം ക്രിയയിൽ ഇല്ലാത്തതുപോലെ തന്നെ, അതിനാൽ ഇതൊരു ആശ്വാസം.</div>
+</section>
+<section class="stage" id="stage-01">
+  <h2 class="title"><span class="num">01</span>സ്വരം</h2>
+  <p>ബംഗാളിയിൽ 11 സ്വരാക്ഷരങ്ങൾ. കുടുംബമായി തരംതിരിച്ചു പഠിക്കാം — ഓരോന്നും മലയാളത്തിലെ കൂട്ടുകാരനെ നോക്കി ഓർത്തിരിക്കാം. കാർഡ് തൊട്ടാൽ മലയാളസൂചന തെളിയും.</p>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+bengali+vowels+swarabarna+pronunciation" title="Bengali vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ബംഗാളി സ്വരങ്ങളുടെ ഉച്ചാരണം · <a href="https://www.youtube.com/results?search_query=learn+bengali+vowels+swarabarna+pronunciation" target="_blank" rel="noopener">കൂടുതൽ വീഡിയോ ↗</a></div>
+  </div>
+
+  <div class="family">
+    <div class="flabel">'അ' കുടുംബം — ഹ്രസ്വവും ദീർഘവും</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">অ</span><span class="sm">a</span><div class="hint">= മലയാളം <span class="ml">അ</span>. ഹ്രസ്വം. എന്നാൽ പലപ്പോഴും 'ഒ'-ക്ക് അടുത്ത് കേൾക്കും — <span class="bn">কম</span> = <em>കൊമ്</em>.</div></div>
+      <div class="card"><span class="big bn">আ</span><span class="sm">aː</span><div class="hint">= മലയാളം <span class="ml">ആ</span>. ദീർഘം. <span class="bn">আমি</span> = <em>ആമി</em> = ഞാൻ.</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <div class="flabel">'ഇ' കുടുംബം</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">ই</span><span class="sm">i</span><div class="hint">= മലയാളം <span class="ml">ഇ</span>. <span class="bn">ইতি</span> = <em>ഇതി</em>.</div></div>
+      <div class="card"><span class="big bn">ঈ</span><span class="sm">iː</span><div class="hint">= മലയാളം <span class="ml">ഈ</span>. ദീർഘം. എഴുത്തിൽ വ്യത്യാസം കാണാം, ഉച്ചാരണത്തിൽ വ്യത്യാസം നേരിയതായി.</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <div class="flabel">'ഉ' കുടുംബം</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">উ</span><span class="sm">u</span><div class="hint">= മലയാളം <span class="ml">ഉ</span>.</div></div>
+      <div class="card"><span class="big bn">ঊ</span><span class="sm">uː</span><div class="hint">= മലയാളം <span class="ml">ഊ</span>. ദീർഘം.</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <div class="flabel">'ഋ' — സംസ്കൃതപാലം</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">ঋ</span><span class="sm">ɾi</span><div class="hint">= മലയാളം <span class="ml">ഋ</span>. സംസ്കൃതമൂലപദങ്ങളിൽ മാത്രം — <span class="bn">ঋতু</span> = <span class="ml">ഋതു</span>.</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <div class="flabel">'എ/ഒ' കുടുംബം — സംയുക്തസ്വരങ്ങളോടൊപ്പം</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">এ</span><span class="sm">e</span><div class="hint">= മലയാളം <span class="ml">എ</span>. <span class="bn">এক</span> = <em>എക്</em> = ഒന്ന്.</div></div>
+      <div class="card"><span class="big bn">ঐ</span><span class="sm">oi</span><span class="flag">⚡</span><div class="hint">പുതിയത്. സംയുക്തസ്വരം — മലയാളത്തിൽ ഇല്ല, 'ഒയ്' പോലെ. <span class="bn">ঐক্য</span> = ഐക്യം.</div></div>
+      <div class="card"><span class="big bn">ও</span><span class="sm">o</span><div class="hint">= മലയാളം <span class="ml">ഒ</span>. <span class="bn">ওটা</span> = <em>ഓട്ടാ</em> = അത്.</div></div>
+      <div class="card"><span class="big bn">ঔ</span><span class="sm">ou</span><span class="flag">⚡</span><div class="hint">പുതിയത്. സംയുക്തസ്വരം — 'ഒവ്' പോലെ. <span class="bn">ঔষধ</span> = ഔഷധം.</div></div>
+    </div>
+  </div>
+
+  <div class="aside"><span class="label">ശ്രദ്ധിക്കേണ്ടത്</span>മലയാളത്തിൽ സ്വതന്ത്ര <span class="ml">ഐ</span>, <span class="ml">ഔ</span> എന്നിവയുണ്ടെങ്കിലും ദൈനംദിനമായി അപൂർവം. ബംഗാളിയിൽ ഇവ സാധാരണയായി കാണും — <span class="bn">ঐ</span>, <span class="bn">ঔ</span> എന്നിവയെ പുതിയ സ്വനിമങ്ങളായി കണക്കാക്കുക. ഇവ രണ്ടു മാത്രമേയുള്ളൂ 43-ൽ പുതിയത്.</div>
+
+  <div class="aside sindoor"><span class="label">Schwa-നിയമം</span>മലയാളത്തിൽ വാക്കിന്റെ അന്ത്യത്തിലെ 'അ' ഉച്ചരിക്കും — <span class="ml">രാമ</span>. ബംഗാളിയിൽ <span class="bn">রাম</span> എഴുതും, ഉച്ചാരണം <em>രാമ്</em> — അവസാന 'അ' വിഴുങ്ങി. ഈ <em>schwa-deletion</em> ബംഗാളിയുടെ പ്രത്യേകത. എഴുത്തിൽ 'അ' കാണുക, ശബ്ദത്തിൽ മിക്കപ്പോഴും ഇല്ല.</div>
+
+  <div class="nav-btns"><button disabled>← മുൻപ്</button><button data-next="2">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-02">
+  <h2 class="title"><span class="num">02</span>വ്യഞ്ജനം</h2>
+  <p>വർഗക്രമം തികച്ചും ഒന്നുതന്നെ — ക-വർഗം, ച-വർഗം, ട-വർഗം, ത-വർഗം, പ-വർഗം, പിന്നെ അന്തസ്ഥകളും ഊഷ്മാവുകളും. നിങ്ങൾക്കറിയാവുന്ന പാഠശാലാഗണിതം. ⚡ ചിഹ്നം = പുതിയത്.</p>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+bengali+consonants+byanjanabarna+pronunciation" title="Bengali consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ബംഗാളി വ്യഞ്ജനങ്ങൾ · <a href="https://www.youtube.com/results?search_query=learn+bengali+consonants+byanjanabarna+pronunciation" target="_blank" rel="noopener">കൂടുതൽ വീഡിയോ ↗</a></div>
+  </div>
+
+  <div class="family"><div class="flabel">ക-വർഗം (കണ്ഠ്യം)</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">ক</span><span class="sm">ko</span><div class="hint">= <span class="ml">ക</span>. <span class="bn">কই</span> = എവിടെ.</div></div>
+      <div class="card"><span class="big bn">খ</span><span class="sm">kho</span><div class="hint">= <span class="ml">ഖ</span>.</div></div>
+      <div class="card"><span class="big bn">গ</span><span class="sm">go</span><div class="hint">= <span class="ml">ഗ</span>.</div></div>
+      <div class="card"><span class="big bn">ঘ</span><span class="sm">gho</span><div class="hint">= <span class="ml">ഘ</span>. <span class="bn">ঘর</span> = വീട്.</div></div>
+      <div class="card"><span class="big bn">ঙ</span><span class="sm">ṅo</span><div class="hint">= <span class="ml">ങ</span>.</div></div>
+    </div>
+  </div>
+
+  <div class="family"><div class="flabel">ച-വർഗം (താലവ്യം)</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">চ</span><span class="sm">co</span><div class="hint">= <span class="ml">ച</span>. എന്നാൽ 'ത്സ/ച്' എന്ന ശബ്ദം കൂടുതൽ — <span class="bn">চা</span> = ചായ.</div></div>
+      <div class="card"><span class="big bn">ছ</span><span class="sm">cho</span><div class="hint">= <span class="ml">ഛ</span>.</div></div>
+      <div class="card"><span class="big bn">জ</span><span class="sm">jo</span><div class="hint">= <span class="ml">ജ</span>. <span class="bn">জল</span> = ജലം.</div></div>
+      <div class="card"><span class="big bn">ঝ</span><span class="sm">jho</span><div class="hint">= <span class="ml">ഝ</span>.</div></div>
+      <div class="card"><span class="big bn">ঞ</span><span class="sm">ño</span><div class="hint">= <span class="ml">ഞ</span>.</div></div>
+    </div>
+  </div>
+
+  <div class="family"><div class="flabel">ട-വർഗം (മൂർദ്ധന്യം)</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">ট</span><span class="sm">ṭo</span><div class="hint">= <span class="ml">ട</span>.</div></div>
+      <div class="card"><span class="big bn">ঠ</span><span class="sm">ṭho</span><div class="hint">= <span class="ml">ഠ</span>.</div></div>
+      <div class="card"><span class="big bn">ড</span><span class="sm">ḍo</span><div class="hint">= <span class="ml">ഡ</span>.</div></div>
+      <div class="card"><span class="big bn">ঢ</span><span class="sm">ḍho</span><div class="hint">= <span class="ml">ഢ</span>.</div></div>
+      <div class="card"><span class="big bn">ণ</span><span class="sm">ṇo</span><div class="hint">= <span class="ml">ണ</span>.</div></div>
+      <div class="card"><span class="big bn">ড়</span><span class="sm">ṛo</span><span class="flag">⚡</span><div class="hint">പുതിയത്. ട-യ്ക്ക് അടിയിൽ ബിന്ദു. മലയാളത്തിൽ ഇല്ലാത്ത <em>flapped</em> ശബ്ദം — നാവു ഒന്ന് തട്ടി. <span class="bn">বাড়ি</span> = വീട് — 'ബാഡി'-യല്ല, 'ബാറി'-യോട് അടുത്ത്.</div></div>
+      <div class="card"><span class="big bn">ঢ়</span><span class="sm">ṛho</span><span class="flag">⚡</span><div class="hint">പുതിയത്. മഹാപ്രാണ flapped. <span class="bn">আষাঢ়</span>.</div></div>
+    </div>
+  </div>
+
+  <div class="family"><div class="flabel">ത-വർഗം (ദന്ത്യം)</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">ত</span><span class="sm">to</span><div class="hint">= <span class="ml">ത</span>.</div></div>
+      <div class="card"><span class="big bn">থ</span><span class="sm">tho</span><div class="hint">= <span class="ml">ഥ</span>.</div></div>
+      <div class="card"><span class="big bn">দ</span><span class="sm">do</span><div class="hint">= <span class="ml">ദ</span>.</div></div>
+      <div class="card"><span class="big bn">ধ</span><span class="sm">dho</span><div class="hint">= <span class="ml">ധ</span>.</div></div>
+      <div class="card"><span class="big bn">ন</span><span class="sm">no</span><div class="hint">= <span class="ml">ന</span>.</div></div>
+    </div>
+  </div>
+
+  <div class="family"><div class="flabel">പ-വർഗം (ഓഷ്ഠ്യം)</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">প</span><span class="sm">po</span><div class="hint">= <span class="ml">പ</span>.</div></div>
+      <div class="card"><span class="big bn">ফ</span><span class="sm">pho</span><div class="hint">= <span class="ml">ഫ</span>.</div></div>
+      <div class="card"><span class="big bn">ব</span><span class="sm">bo</span><div class="hint">= <span class="ml">ബ</span>.</div></div>
+      <div class="card"><span class="big bn">ভ</span><span class="sm">bho</span><div class="hint">= <span class="ml">ഭ</span>.</div></div>
+      <div class="card"><span class="big bn">ম</span><span class="sm">mo</span><div class="hint">= <span class="ml">മ</span>.</div></div>
+    </div>
+  </div>
+
+  <div class="family"><div class="flabel">അന്തസ്ഥ · ഊഷ്മ · മഹാപ്രാണം</div>
+    <div class="grid">
+      <div class="card"><span class="big bn">য</span><span class="sm">jo</span><div class="hint">= <span class="ml">യ</span>. ജ-യോട് അടുത്ത ഉച്ചാരണം!</div></div>
+      <div class="card"><span class="big bn">র</span><span class="sm">ro</span><div class="hint">= <span class="ml">ര</span>.</div></div>
+      <div class="card"><span class="big bn">ল</span><span class="sm">lo</span><div class="hint">= <span class="ml">ല</span>.</div></div>
+      <div class="card"><span class="big bn">শ</span><span class="sm">śo</span><div class="hint">= <span class="ml">ശ</span>. ഉച്ചരിക്കുക 'ശൊ'.</div></div>
+      <div class="card"><span class="big bn">ষ</span><span class="sm">ṣo</span><div class="hint">= <span class="ml">ഷ</span>. ബംഗാളിയിൽ ശ/ഷ/സ മൂന്നും ഒരേ 'ശ' ശബ്ദം!</div></div>
+      <div class="card"><span class="big bn">স</span><span class="sm">so</span><div class="hint">= <span class="ml">സ</span>. എന്നാൽ ഉച്ചാരണം 'ശ' പോലെ മിക്കപ്പോഴും.</div></div>
+      <div class="card"><span class="big bn">হ</span><span class="sm">ho</span><div class="hint">= <span class="ml">ഹ</span>.</div></div>
+      <div class="card"><span class="big bn">য়</span><span class="sm">yo</span><div class="hint">അന്തർസ്വര-യ — <span class="bn">আয়</span>.</div></div>
+    </div>
+  </div>
+
+  <div class="aside sindoor"><span class="label">ড়/ঢ় — ബംഗാളിയുടെ തനിമ</span>ട-യ്ക്ക് അടിയിൽ ബിന്ദു ചേർത്താൽ പുതിയ ധ്വനി. മലയാളത്തിൽ ഈ <em>flapped</em> ശബ്ദം ഇല്ല. <span class="bn">বাড়ি</span> (വീട്) 'ബാഡി'-യല്ല, ഒരു തരം 'ബാറി' — നാവു ഒന്നു തൊട്ടുപോകും. ഇത് മലയാളത്തിലെ <span class="ml">ര</span>-യ്ക്കും <span class="ml">ഡ</span>-ക്കും ഇടയിലെ ശബ്ദം.</div>
+
+  <div class="aside"><span class="label">ചില്ല് പോയി</span>മലയാളത്തിൽ <span class="ml">ൻ, ർ, ൾ, ൽ, ൺ</span> എന്നിവ സ്വതന്ത്ര 'ചില്ല്' രൂപങ്ങളായി കാണാം. ബംഗാളിയിൽ ചില്ല് ഇല്ല — സ്വരരഹിതവ്യഞ്ജനം <span class="bn">্</span> (ഹസന്ത/ഹലന്ത) ഉപയോഗിച്ച് കാണിക്കും: <span class="bn">মন্</span>. എഴുത്തിൽ ഒരു ചിഹ്നം കുറഞ്ഞു.</div>
+
+  <div class="nav-btns"><button data-next="1">← മുൻപ്</button><button data-next="3">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-03">
+  <h2 class="title"><span class="num">03</span>സംയോജനം</h2>
+  <p>അബുഗിഡയുടെ യുക്തി രണ്ടിലും ഒന്നുതന്നെ: വ്യഞ്ജനത്തോടൊപ്പം സ്വരചിഹ്നം ചേർത്ത് അക്ഷരം രൂപപ്പെടുത്തുക. ഹലന്ത് (മലയാളത്തിൽ <span class="ml">്</span> ചന്ദ്രക്കല; ബംഗാളിയിൽ <span class="bn">্</span> ഹസന്ത) കൊണ്ടു സ്വരം മായ്ക്കുന്നു.</p>
+
+  <h3>സ്വരചിഹ്നപട്ടിക (ക-യുടെ അടിസ്ഥാനത്തിൽ)</h3>
+  <table>
+    <tr><th>സ്വരം</th><th>മലയാളം</th><th>ബംഗാളി</th><th>ഉച്ചാരണം</th></tr>
+    <tr><td>അ (അന്തർലീനം)</td><td><span class="ml">ക</span></td><td><span class="bn">ক</span></td><td>ka / ko</td></tr>
+    <tr><td>ആ</td><td><span class="ml">കാ</span></td><td><span class="bn">কা</span></td><td>kā</td></tr>
+    <tr><td>ഇ</td><td><span class="ml">കി</span></td><td><span class="bn">কি</span></td><td>ki</td></tr>
+    <tr><td>ഈ</td><td><span class="ml">കീ</span></td><td><span class="bn">কী</span></td><td>kī</td></tr>
+    <tr><td>ഉ</td><td><span class="ml">കു</span></td><td><span class="bn">কু</span></td><td>ku</td></tr>
+    <tr><td>ഊ</td><td><span class="ml">കൂ</span></td><td><span class="bn">কূ</span></td><td>kū</td></tr>
+    <tr><td>എ</td><td><span class="ml">കെ</span></td><td><span class="bn">কে</span></td><td>ke</td></tr>
+    <tr><td>ഐ</td><td>—</td><td><span class="bn">কৈ</span></td><td>koi ⚡</td></tr>
+    <tr><td>ഒ</td><td><span class="ml">കൊ</span></td><td><span class="bn">কো</span></td><td>ko</td></tr>
+    <tr><td>ഔ</td><td>—</td><td><span class="bn">কৌ</span></td><td>kou ⚡</td></tr>
+    <tr><td>ഹലന്ത്</td><td><span class="ml">ക്</span></td><td><span class="bn">ক্</span></td><td>k</td></tr>
+  </table>
+
+  <div class="aside teal"><span class="label">ചിഹ്നസ്ഥാനം</span>മലയാളത്തിൽ <span class="ml">ി</span> വ്യഞ്ജനത്തിന്റെ വലത്തു — ബംഗാളിയിൽ <span class="bn">ি</span> ഇടത്തു! <span class="bn">কি</span> നോക്കുക — ഇ-ചിഹ്നം <span class="bn">ক</span>-യ്ക്കു മുന്നിൽ. എന്നാൽ ഉച്ചാരണം 'ki' — ആദ്യം k, പിന്നെ i. എഴുത്ത് കണ്ണിനെ വഞ്ചിച്ചേക്കാം.</div>
+
+  <h3>സംയുക്താക്ഷരങ്ങൾ</h3>
+  <p>രണ്ടു വ്യഞ്ജനങ്ങൾ ഹലന്തുവഴി ഒരുമിക്കുമ്പോൾ കൂട്ടക്ഷരം. മലയാളത്തിലെ <span class="ml">ക്ത, സ്ത, ന്ത</span> ബംഗാളിയിലും ഉണ്ട്: <span class="bn">ক্ত, স্ত, ন্ত</span>.</p>
+
+  <table>
+    <tr><th>സംയുക്തം</th><th>മലയാളം</th><th>ബംഗാളി</th><th>ഉദാഹരണം</th></tr>
+    <tr><td>k+t</td><td><span class="ml">ക്ത</span></td><td><span class="bn">ক্ত</span></td><td><span class="bn">ভক্ত</span> = ഭക്ത</td></tr>
+    <tr><td>s+t</td><td><span class="ml">സ്ത</span></td><td><span class="bn">স্ত</span></td><td><span class="bn">পুস্তক</span> = പുസ്തകം</td></tr>
+    <tr><td>n+t</td><td><span class="ml">ന്ത</span></td><td><span class="bn">ন্ত</span></td><td><span class="bn">অন্ত</span> = അന്തം</td></tr>
+    <tr><td>k+ṣ</td><td><span class="ml">ക്ഷ</span></td><td><span class="bn">ক্ষ</span></td><td><span class="bn">দক্ষ</span> = ദക്ഷ</td></tr>
+    <tr><td>j+ñ</td><td><span class="ml">ജ്ഞ</span></td><td><span class="bn">জ্ঞ</span></td><td><span class="bn">জ্ঞান</span> = ജ്ഞാനം</td></tr>
+    <tr><td>r+form</td><td><span class="ml">ർ (ചില്ല്)</span></td><td><span class="bn">র্</span> മേൽ</td><td><span class="bn">কর্ম</span> = കർമം</td></tr>
+  </table>
+
+  <div class="aside"><span class="label">ര-യുടെ ചലനം</span>മലയാളത്തിൽ പൂർവ-ര ചില്ല് (ർ). ബംഗാളിയിൽ പൂർവ-ര അടുത്ത വ്യഞ്ജനത്തിനു മുകളിൽ ചെറിയ <em>റഫ</em> രൂപത്തിൽ — <span class="bn">র্ম</span>. ഉത്തര-ര <em>റ-ഫൊലാ</em> വ്യഞ്ജനത്തിന് താഴെ: <span class="bn">ক্রম</span> = ക്രമം.</div>
+
+  <div class="nav-btns"><button data-next="2">← മുൻപ്</button><button data-next="4">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-04">
+  <h2 class="title"><span class="num">04</span>പദങ്ങൾ</h2>
+  <p>50-ഓളം അടിസ്ഥാനപദങ്ങൾ. ബംഗാളി വാക്ക് · ലിപ്യന്തരം · മലയാളസമാനം · കുറിപ്പ്.</p>
+
+  <h3>സർവനാമങ്ങൾ</h3>
+  <table>
+    <tr><th>ബംഗാളി</th><th>ലിപ്യന്തരം</th><th>മലയാളം</th></tr>
+    <tr><td class="bn">আমি</td><td class="tr">āmi</td><td>ഞാൻ</td></tr>
+    <tr><td class="bn">তুই</td><td class="tr">tui</td><td>നീ (അടുപ്പം)</td></tr>
+    <tr><td class="bn">তুমি</td><td class="tr">tumi</td><td>നീ (പരിചയം)</td></tr>
+    <tr><td class="bn">আপনি</td><td class="tr">āpni</td><td>താങ്കൾ (ബഹുമാനം)</td></tr>
+    <tr><td class="bn">সে</td><td class="tr">se</td><td>അവൻ/അവൾ/അത്</td></tr>
+    <tr><td class="bn">এটা</td><td class="tr">eṭā</td><td>ഇത്</td></tr>
+    <tr><td class="bn">ওটা</td><td class="tr">oṭā</td><td>അത്</td></tr>
+    <tr><td class="bn">আমরা</td><td class="tr">āmrā</td><td>ഞങ്ങൾ/നമ്മൾ</td></tr>
+    <tr><td class="bn">তারা</td><td class="tr">tārā</td><td>അവർ</td></tr>
+  </table>
+
+  <h3>നാമങ്ങൾ <small style="font-family:'Fraunces',serif; font-style:italic; color:var(--ink-faded); font-weight:400">(തത്സമം = സംസ്കൃതമൂലം · തദ്ഭവം = പ്രാകൃതമൂലം)</small></h3>
+  <table>
+    <tr><th>ബംഗാളി</th><th>ലിപ്യന്തരം</th><th>മലയാളം</th><th>കുറിപ്പ്</th></tr>
+    <tr><td class="bn">বাড়ি / ঘর</td><td class="tr">bāṛi / ghor</td><td>വീട്</td><td>തദ്ഭവം</td></tr>
+    <tr><td class="bn">জল / পানি</td><td class="tr">jol / pāni</td><td>ജലം / വെള്ളം</td><td>തത്സമം ·  സംസ്കൃതപാലം</td></tr>
+    <tr><td class="bn">ভাত / অন্ন</td><td class="tr">bhāt / onno</td><td>ചോറ് / അന്നം</td><td>തത്സമം</td></tr>
+    <tr><td class="bn">খাওয়া</td><td class="tr">khāoyā</td><td>ഭക്ഷണം</td><td>തദ്ഭവം</td></tr>
+    <tr><td class="bn">নাম</td><td class="tr">nām</td><td>പേര് / നാമം</td><td>തത്സമം</td></tr>
+    <tr><td class="bn">পুস্তক / বই</td><td class="tr">pustok / boi</td><td>പുസ്തകം</td><td>തത്സമം</td></tr>
+    <tr><td class="bn">স্কুল / পাঠশালা</td><td class="tr">skul / pāṭhśālā</td><td>വിദ്യാലയം / പാഠശാല</td><td>മിശ്രം</td></tr>
+    <tr><td class="bn">টাকা / অর্থ</td><td class="tr">ṭākā / ortho</td><td>പണം</td><td>തദ്ഭവം</td></tr>
+    <tr><td class="bn">রাস্তা / পথ</td><td class="tr">rāstā / poth</td><td>വഴി / പാത</td><td>പേർഷ്യൻ/അറബി</td></tr>
+    <tr><td class="bn">সময়</td><td class="tr">somoy</td><td>സമയം</td><td>തത്സമം ·  സംസ്കൃതപാലം</td></tr>
+    <tr><td class="bn">দিন</td><td class="tr">din</td><td>ദിനം</td><td>തത്സമം</td></tr>
+    <tr><td class="bn">দুধ</td><td class="tr">dudh</td><td>പാൽ</td><td>തദ്ഭവം</td></tr>
+    <tr><td class="bn">সূর্য</td><td class="tr">sūrjo</td><td>സൂര്യൻ</td><td>തത്സമം ·  സംസ്കൃതപാലം</td></tr>
+    <tr><td class="bn">বৃষ্টি</td><td class="tr">bṛṣṭi</td><td>മഴ / വൃഷ്ടി</td><td>തത്സമം</td></tr>
+    <tr><td class="bn">ভূমি / পৃথিবী</td><td class="tr">bhūmi</td><td>ഭൂമി</td><td>തത്സമം ·  സംസ്കൃതപാലം</td></tr>
+  </table>
+
+  <h3>ക്രിയകൾ (ധാതുരൂപം)</h3>
+  <table>
+    <tr><th>ബംഗാളി</th><th>ലിപ്യന്തരം</th><th>മലയാളം</th></tr>
+    <tr><td class="bn">থাকা / হওয়া</td><td class="tr">thākā / hoyā</td><td>ഇരിക്കുക / ആകുക</td></tr>
+    <tr><td class="bn">করা</td><td class="tr">korā</td><td>ചെയ്യുക</td></tr>
+    <tr><td class="bn">যাওয়া</td><td class="tr">jāoyā</td><td>പോവുക</td></tr>
+    <tr><td class="bn">আসা</td><td class="tr">āsā</td><td>വരിക</td></tr>
+    <tr><td class="bn">খাওয়া</td><td class="tr">khāoyā</td><td>തിന്നുക</td></tr>
+    <tr><td class="bn">পান করা</td><td class="tr">pān korā</td><td>കുടിക്കുക</td></tr>
+    <tr><td class="bn">দেখা</td><td class="tr">dekhā</td><td>നോക്കുക / കാണുക</td></tr>
+    <tr><td class="bn">শোনা</td><td class="tr">śonā</td><td>കേൾക്കുക</td></tr>
+    <tr><td class="bn">পড়া</td><td class="tr">poṛā</td><td>വായിക്കുക</td></tr>
+    <tr><td class="bn">লেখা</td><td class="tr">lekhā</td><td>എഴുതുക</td></tr>
+  </table>
+
+  <h3>സംഖ്യകൾ</h3>
+  <div class="grid">
+    <div class="card"><span class="big bn">এক</span><span class="sm">ek · 1</span><div class="hint">ഒന്ന്. <span class="ml">ഏകം</span>.</div></div>
+    <div class="card"><span class="big bn">দুই</span><span class="sm">dui · 2</span><div class="hint">രണ്ട്. <span class="ml">ദ്വി</span>.</div></div>
+    <div class="card"><span class="big bn">তিন</span><span class="sm">tin · 3</span><div class="hint">മൂന്ന്. <span class="ml">ത്രി</span>.</div></div>
+    <div class="card"><span class="big bn">চার</span><span class="sm">cār · 4</span><div class="hint">നാല്. <span class="ml">ചതുർ</span>.</div></div>
+    <div class="card"><span class="big bn">পাঁচ</span><span class="sm">pā̃c · 5</span><div class="hint">അഞ്ച്. <span class="ml">പഞ്ച</span>.</div></div>
+    <div class="card"><span class="big bn">ছয়</span><span class="sm">choy · 6</span><div class="hint">ആറ്. <span class="ml">ഷട്</span>.</div></div>
+    <div class="card"><span class="big bn">সাত</span><span class="sm">sāt · 7</span><div class="hint">ഏഴ്. <span class="ml">സപ്ത</span>.</div></div>
+    <div class="card"><span class="big bn">আট</span><span class="sm">āṭ · 8</span><div class="hint">എട്ട്. <span class="ml">അഷ്ട</span>.</div></div>
+    <div class="card"><span class="big bn">নয়</span><span class="sm">noy · 9</span><div class="hint">ഒമ്പത്. <span class="ml">നവ</span>.</div></div>
+    <div class="card"><span class="big bn">দশ</span><span class="sm">doś · 10</span><div class="hint">പത്ത്. <span class="ml">ദശ</span>.</div></div>
+    <div class="card"><span class="big bn">একশো</span><span class="sm">ekśo · 100</span><div class="hint">നൂറ്. <span class="ml">ശതം</span>.</div></div>
+  </div>
+
+  <div class="aside sindoor"><span class="label">തത്സമപാലം</span>സംഖ്യാപദങ്ങളുടെ സംസ്കൃതരൂപം (ഏകം, ദ്വി, ത്രി...) മലയാളിക്കു പരിചിതം. ബംഗാളിരൂപങ്ങൾ (এক, দুই, তিন) സംസ്കൃതത്തിൽനിന്ന് തന്നെ പരിണമിച്ചത് — ഉച്ചരിക്കുമ്പോൾ 'ഏക്, ദുഇ്, തിന്' — schwa-deletion ഓർക്കുക.</div>
+
+  <div class="nav-btns"><button data-next="3">← മുൻപ്</button><button data-next="5">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-05">
+  <h2 class="title"><span class="num">05</span>വാക്യം</h2>
+  <p>വാക്യക്രമം മലയാളംപോലെ SOV — കർത്താ, കർമം, ക്രിയ അവസാനം. ബംഗാളിയിൽ ക്രിയയിൽ ലിംഗം വെളിപ്പെടുന്നില്ല — പുരുഷനും സ്ത്രീയും ഒരേ രൂപം. ഹിന്ദിപോലെ ആശങ്കപ്പെടേണ്ടതില്ല.</p>
+
+  <h3>'ചെയ്യുക' ക്രിയയുടെ വർത്തമാനകാലം (കര്‌ — <span class="bn">করা</span>)</h3>
+  <table>
+    <tr><th>പുരുഷൻ</th><th>ബംഗാളി</th><th>ലിപ്യന്തരം</th><th>മലയാളം</th></tr>
+    <tr><td>ഉത്തമ ഏക.</td><td class="bn">আমি করি</td><td class="tr">āmi kori</td><td>ഞാൻ ചെയ്യുന്നു</td></tr>
+    <tr><td>മധ്യമ അടുപ്പം</td><td class="bn">তুই করিস</td><td class="tr">tui koris</td><td>നീ ചെയ്യുന്നു</td></tr>
+    <tr><td>മധ്യമ പരിചയം</td><td class="bn">তুমি করো</td><td class="tr">tumi koro</td><td>നീ ചെയ്യുന്നു</td></tr>
+    <tr><td>മധ്യമ ബഹുമാനം</td><td class="bn">আপনি করেন</td><td class="tr">āpni koren</td><td>താങ്കൾ ചെയ്യുന്നു</td></tr>
+    <tr><td>പ്രഥമ ഏക.</td><td class="bn">সে করে</td><td class="tr">se kore</td><td>അവൻ/അവൾ ചെയ്യുന്നു</td></tr>
+    <tr><td>ഉത്തമ ബഹു.</td><td class="bn">আমরা করি</td><td class="tr">āmrā kori</td><td>ഞങ്ങൾ ചെയ്യുന്നു</td></tr>
+    <tr><td>പ്രഥമ ബഹു.</td><td class="bn">তারা করে</td><td class="tr">tārā kore</td><td>അവർ ചെയ്യുന്നു</td></tr>
+  </table>
+
+  <div class="aside teal"><span class="label">ലിംഗം ക്രിയയിൽ ഇല്ല — ആശ്വാസം</span>ഹിന്ദിയിൽ <em>karta hai / karti hai</em> — പുരുഷലിംഗത്തിനും സ്ത്രീലിംഗത്തിനും വ്യത്യാസം. ബംഗാളിയിൽ രണ്ടും <span class="bn">করে</span>. മലയാളത്തിലും ക്രിയയ്ക്കു ലിംഗമില്ല (ചെയ്യുന്നു = എല്ലാവർക്കും). ഇത് നിങ്ങളുടെ വലിയൊരു സൗകര്യം — ഒരു രൂപം പഠിച്ചാൽ മതി.</div>
+
+  <h3>കാരകചിഹ്നങ്ങൾ (വാക്കിന് പിന്നിൽ)</h3>
+  <table>
+    <tr><th>കാരകം</th><th>ബംഗാളി</th><th>മലയാളം</th><th>ഉദാഹരണം</th></tr>
+    <tr><td>കർത്താ</td><td>—</td><td>—</td><td><span class="bn">ছেলে</span> (ആൺകുട്ടി)</td></tr>
+    <tr><td>കർമം</td><td>-কে <span class="tr">-ke</span></td><td>-യെ</td><td><span class="bn">ছেলেকে</span> = കുട്ടിയെ</td></tr>
+    <tr><td>ഉദ്ദേശ്യം</td><td>-কে <span class="tr">-ke</span></td><td>-നു/-ക്ക്</td><td><span class="bn">আমাকে</span> = എനിക്ക്</td></tr>
+    <tr><td>അധികരണം</td><td>-তে/-এ <span class="tr">-te/-e</span></td><td>-ിൽ</td><td><span class="bn">ঘরে</span> = വീട്ടിൽ</td></tr>
+    <tr><td>അപാദാനം</td><td>-থেকে <span class="tr">-theke</span></td><td>-ിൽനിന്ന്</td><td><span class="bn">ঘর থেকে</span> = വീട്ടിൽനിന്ന്</td></tr>
+    <tr><td>സംബന്ധം</td><td>-র/-এর <span class="tr">-r/-er</span></td><td>-ിന്റെ</td><td><span class="bn">আমার</span> = എന്റെ</td></tr>
+    <tr><td>കരണം</td><td>-দিয়ে <span class="tr">-diye</span></td><td>-കൊണ്ട്</td><td><span class="bn">কলম দিয়ে</span> = പേനകൊണ്ട്</td></tr>
+  </table>
+
+  <h3>ഉദാഹരണവാക്യങ്ങൾ</h3>
+  <table>
+    <tr><th>ബംഗാളി</th><th>ലിപ്യന്തരം</th><th>മലയാളം</th></tr>
+    <tr><td class="bn">আমি বই পড়ি।</td><td class="tr">āmi boi poṛi.</td><td>ഞാൻ പുസ്തകം വായിക്കുന്നു.</td></tr>
+    <tr><td class="bn">সে জল পান করে।</td><td class="tr">se jol pān kore.</td><td>അവൻ/അവൾ വെള്ളം കുടിക്കുന്നു.</td></tr>
+    <tr><td class="bn">আমরা স্কুলে যাই।</td><td class="tr">āmrā skule jāi.</td><td>ഞങ്ങൾ വിദ്യാലയത്തിൽ പോകുന്നു.</td></tr>
+    <tr><td class="bn">তুমি কী করছ?</td><td class="tr">tumi kī korcho?</td><td>നീ എന്തു ചെയ്യുന്നു?</td></tr>
+  </table>
+
+  <h3>നിഷേധവും ചോദ്യവും</h3>
+  <p>നിഷേധം: <span class="bn">না</span> ക്രിയയ്ക്കു ശേഷം — <span class="bn">আমি যাই না</span> <span class="tr">(āmi jāi nā)</span> = ഞാൻ പോകുന്നില്ല. അത്ഭുതമേയില്ല — മലയാളത്തിലും <em>-ഇല്ല</em> ക്രിയയുടെ അന്ത്യത്തിൽ. 'ആകുക/ഇരിക്കുക' നിഷേധം <span class="bn">নয়</span> <span class="tr">(noy)</span>.</p>
+  <p>ചോദ്യം: വാക്യക്രമം മാറ്റേണ്ടതില്ല — സ്വരത്തിലൂടെ, അല്ലെങ്കിൽ <span class="bn">কি</span> ചേർത്ത്: <span class="bn">তুমি কি যাবে?</span> = നീ പോകുമോ?</p>
+
+  <h3>ചോദ്യപദങ്ങൾ</h3>
+  <table>
+    <tr><th>ബംഗാളി</th><th>ലിപ്യന്തരം</th><th>മലയാളം</th></tr>
+    <tr><td class="bn">কী</td><td class="tr">kī</td><td>എന്ത്</td></tr>
+    <tr><td class="bn">কে</td><td class="tr">ke</td><td>ആര്</td></tr>
+    <tr><td class="bn">কোথায়</td><td class="tr">kothāy</td><td>എവിടെ</td></tr>
+    <tr><td class="bn">কখন</td><td class="tr">kokhon</td><td>എപ്പോൾ</td></tr>
+    <tr><td class="bn">কেন</td><td class="tr">keno</td><td>എന്തുകൊണ്ട്</td></tr>
+    <tr><td class="bn">কীভাবে</td><td class="tr">kībhābe</td><td>എങ്ങനെ</td></tr>
+    <tr><td class="bn">কত</td><td class="tr">koto</td><td>എത്ര</td></tr>
+  </table>
+
+  <div class="aside"><span class="label">ക-കുടുംബം</span>ചോദ്യപദങ്ങൾ എല്ലാം <span class="bn">ক</span>-യിൽ തുടങ്ങുന്നു — മലയാളത്തിൽ എല്ലാം 'എ'-യിൽ (എന്ത്, എവിടെ, എപ്പോൾ, എങ്ങനെ). ഒരു ധ്വനിപരിചിതത്വം — പഠനം എളുപ്പം.</div>
+
+  <div class="nav-btns"><button data-next="4">← മുൻപ്</button><button data-next="6">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-06">
+  <h2 class="title"><span class="num">06</span>വായന</h2>
+  <p>മൂന്നു പാഠങ്ങൾ — കുറേശ്ശെ വളരുന്ന സങ്കീർണത. ഓരോന്നിലും ബംഗാളിപാഠം, ലിപ്യന്തരം, മലയാളപരിഭാഷ.</p>
+
+  <h3>പാഠം 1 · സ്വയംപരിചയം</h3>
+  <div class="passage">
+    <div class="target">আমার নাম অনিতা। আমি কেরালায় থাকি। আমি একজন শিক্ষক। আমি বাংলা শিখছি। আমার ভাষা মালয়ালম।</div>
+    <div class="tr-line">āmār nām anitā. āmi keralāy thāki. āmi ekjon śikṣok. āmi bānglā śikhchi. āmār bhāṣā māloyālom.</div>
+    <div class="gloss">എന്റെ പേര് അനിത. ഞാൻ കേരളത്തിൽ താമസിക്കുന്നു. ഞാൻ ഒരു അധ്യാപികയാണ്. ഞാൻ ബംഗാളി പഠിക്കുകയാണ്. എന്റെ ഭാഷ മലയാളമാണ്.</div>
+  </div>
+
+  <h3>പാഠം 2 · ദിവസം</h3>
+  <div class="passage">
+    <div class="target">সকালে আমি ঘুম থেকে উঠি। তারপর চা পান করি। আমি বই পড়ি আর লিখি। দুপুরে ভাত খাই। সন্ধ্যায় বন্ধুদের সাথে কথা বলি। রাতে ঘুমাই।</div>
+    <div class="tr-line">sokāle āmi ghum theke uṭhi. tārpor cā pān kori. āmi boi poṛi ār likhi. duppure bhāt khāi. sondhyāy bondhuder sāthe kothā boli. rāte ghumāi.</div>
+    <div class="gloss">രാവിലെ ഞാൻ ഉറക്കമുണർന്ന് എഴുന്നേൽക്കുന്നു. ശേഷം ചായ കുടിക്കുന്നു. ഞാൻ പുസ്തകം വായിക്കുകയും എഴുതുകയും ചെയ്യുന്നു. ഉച്ചയ്ക്ക് ചോറുണ്ണുന്നു. വൈകുന്നേരം സുഹൃത്തുക്കളുമായി സംസാരിക്കുന്നു. രാത്രി ഉറങ്ങുന്നു.</div>
+  </div>
+
+  <h3>പാഠം 3 · സംഭാഷണം</h3>
+  <div class="passage">
+    <div class="target">
+      <span class="convo"><span class="spk">രാഹുൽ:</span>নমস্কার! কেমন আছেন?</span>
+      <span class="convo"><span class="spk">അനിത:</span>নমস্কার। আমি ভালো আছি। আপনি?</span>
+      <span class="convo"><span class="spk">രാഹുൽ:</span>আমিও ভালো। আপনি কোথা থেকে এসেছেন?</span>
+      <span class="convo"><span class="spk">അനിത:</span>আমি কেরালা থেকে এসেছি।</span>
+      <span class="convo"><span class="spk">രാഹുൽ:</span>বাহ্! ভাত খেয়েছেন?</span>
+      <span class="convo"><span class="spk">അനിത:</span>হ্যাঁ, খেয়েছি। ধন্যবাদ।</span>
+    </div>
+    <div class="tr-line">
+      — nomoskār! kemon āchen?<br>
+      — nomoskār. āmi bhālo āchi. āpni?<br>
+      — āmio bhālo. āpni kothā theke esechen?<br>
+      — āmi keralā theke esechi.<br>
+      — bāh! bhāt kheyechen?<br>
+      — hyā̃, kheyechi. dhonnobād.
+    </div>
+    <div class="gloss">
+      — നമസ്കാരം! സുഖമാണോ?<br>
+      — നമസ്കാരം. ഞാൻ സുഖമായിരിക്കുന്നു. താങ്കൾ?<br>
+      — ഞാനും സുഖമായി. താങ്കൾ എവിടെനിന്നാണ് വന്നത്?<br>
+      — ഞാൻ കേരളത്തിൽനിന്നാണ് വന്നത്.<br>
+      — കൊള്ളാം! ചോറുണ്ടോ?<br>
+      — അതെ, ഉണ്ടു. നന്ദി.
+    </div>
+  </div>
+
+  <div class="aside sindoor"><span class="label">'ചോറുണ്ടോ?' എന്ന സ്നേഹച്ചോദ്യം</span><span class="bn">ভাত খেয়েছ?</span> — ഇത് യഥാർത്ഥത്തിൽ ഭക്ഷണത്തെക്കുറിച്ചുള്ള ചോദ്യമല്ല; സ്നേഹാന്വേഷണമാണ്. മലയാളത്തിലും നാട്ടിൻപുറത്ത് 'ചോറുണ്ടോ?' എന്നു ചോദിക്കും. രണ്ടു സംസ്കാരങ്ങൾ — ഒരേ ഹൃദയം.</div>
+
+  <div class="nav-btns"><button data-next="5">← മുൻപ്</button><button data-next="7">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-07">
+  <h2 class="title"><span class="num">07</span>പദമേഖല</h2>
+  <p>ഓരോ ഭാഷയും ലോകത്തെ വെട്ടിനുറുക്കുന്ന രീതി വ്യത്യസ്തമാണ്. കുടുംബം, സമയം, ശരീരം, ചലനം — നോക്കാം.</p>
+
+  <h3>ബന്ധുത്വം</h3>
+  <table>
+    <tr><th>ബംഗാളി</th><th>ലിപ്യന്തരം</th><th>മലയാളം</th></tr>
+    <tr><td class="bn">বাবা</td><td class="tr">bābā</td><td>അച്ഛൻ</td></tr>
+    <tr><td class="bn">মা</td><td class="tr">mā</td><td>അമ്മ</td></tr>
+    <tr><td class="bn">দাদা</td><td class="tr">dādā</td><td>ചേട്ടൻ</td></tr>
+    <tr><td class="bn">ছোট ভাই</td><td class="tr">choṭo bhāi</td><td>അനിയൻ</td></tr>
+    <tr><td class="bn">দিদি</td><td class="tr">didi</td><td>ചേച്ചി</td></tr>
+    <tr><td class="bn">ছোট বোন</td><td class="tr">choṭo bon</td><td>അനിയത്തി</td></tr>
+    <tr><td class="bn">ঠাকুরদা / দাদু</td><td class="tr">ṭhākurdā / dādu</td><td>മുത്തച്ഛൻ / അപ്പൂപ്പൻ</td></tr>
+    <tr><td class="bn">ঠাকুমা / দিদা</td><td class="tr">ṭhākumā / didā</td><td>മുത്തശ്ശി / അമ്മൂമ്മ</td></tr>
+    <tr><td class="bn">মামা</td><td class="tr">māmā</td><td>മാമൻ (അമ്മയുടെ സഹോദരൻ)</td></tr>
+    <tr><td class="bn">কাকা / জ্যাঠা</td><td class="tr">kākā / jyāṭhā</td><td>ചെറിയച്ഛൻ / വലിയച്ഛൻ</td></tr>
+    <tr><td class="bn">পিসি / মাসি</td><td class="tr">pisi / māsi</td><td>അമ്മായി / ചെറിയമ്മ</td></tr>
+  </table>
+
+  <div class="aside teal"><span class="label">ബംഗാളി വേർതിരിക്കുന്നു</span>ബംഗാളിയിൽ അച്ഛൻവഴിയുള്ള കാക്ക (<span class="bn">কাকা</span>) വേറെ, അമ്മവഴിയുള്ള മാമൻ (<span class="bn">মামা</span>) വേറെ. മലയാളത്തിലും ഈ വ്യത്യാസം കാണാം — മാമൻ vs ചെറിയച്ഛൻ. രണ്ടു ഭാഷകളും ബന്ധുത്വത്തിൽ സൂക്ഷ്മത പാലിക്കുന്നു — ഹിന്ദിയുടെ <em>chacha/mama/mausa/foofa</em> ഭ്രമം പോലെ തന്നെ.</div>
+
+  <h3>സമയം</h3>
+  <table>
+    <tr><th>ബംഗാളി</th><th>ലിപ്യന്തരം</th><th>മലയാളം</th></tr>
+    <tr><td class="bn">আজ</td><td class="tr">āj</td><td>ഇന്ന്</td></tr>
+    <tr><td class="bn">কাল</td><td class="tr">kāl</td><td>നാളെ / ഇന്നലെ (രണ്ടും!)</td></tr>
+    <tr><td class="bn">গতকাল</td><td class="tr">gotokāl</td><td>ഇന്നലെ</td></tr>
+    <tr><td class="bn">আগামীকাল</td><td class="tr">āgāmīkāl</td><td>നാളെ</td></tr>
+    <tr><td class="bn">এখন</td><td class="tr">ekhon</td><td>ഇപ്പോൾ</td></tr>
+    <tr><td class="bn">সকাল</td><td class="tr">sokāl</td><td>പ്രഭാതം / രാവിലെ</td></tr>
+    <tr><td class="bn">দুপুর</td><td class="tr">duppur</td><td>ഉച്ച</td></tr>
+    <tr><td class="bn">সন্ধ্যা</td><td class="tr">sondhyā</td><td>സന്ധ്യ / വൈകുന്നേരം</td></tr>
+    <tr><td class="bn">রাত</td><td class="tr">rāt</td><td>രാത്രി</td></tr>
+  </table>
+
+  <div class="aside sindoor"><span class="label">'കാല്' — ഇരുഭാഗവും</span>ബംഗാളിയിൽ <span class="bn">কাল</span> നാളെയും ഇന്നലെയും അർത്ഥമാക്കും — സംവേദനം സന്ദർഭത്തിലൂടെ! 'സംസ്കൃതത്തിൽനിന്ന് കാലം' എന്ന വാക്കിന്റെ രണ്ട് ദിശയിലേക്കുള്ള യാത്ര. അവ്യക്തത ഒഴിവാക്കാൻ: <span class="bn">গতকাল</span> (കഴിഞ്ഞ കാല് = ഇന്നലെ), <span class="bn">আগামীকাল</span> (വരും കാല് = നാളെ). മലയാളത്തിൽ 'ഇന്നലെ/നാളെ' സ്പഷ്ടം.</div>
+
+  <h3>ശരീരം</h3>
+  <table>
+    <tr><th>ബംഗാളി</th><th>ലിപ്യന്തരം</th><th>മലയാളം</th></tr>
+    <tr><td class="bn">মাথা</td><td class="tr">māthā</td><td>തല</td></tr>
+    <tr><td class="bn">চোখ</td><td class="tr">cokh</td><td>കണ്ണ്</td></tr>
+    <tr><td class="bn">কান</td><td class="tr">kān</td><td>ചെവി</td></tr>
+    <tr><td class="bn">নাক</td><td class="tr">nāk</td><td>മൂക്ക്</td></tr>
+    <tr><td class="bn">মুখ</td><td class="tr">mukh</td><td>വായ / മുഖം</td></tr>
+    <tr><td class="bn">হাত</td><td class="tr">hāt</td><td>കൈ</td></tr>
+    <tr><td class="bn">পা</td><td class="tr">pā</td><td>കാൽ</td></tr>
+    <tr><td class="bn">পেট</td><td class="tr">peṭ</td><td>വയർ</td></tr>
+  </table>
+
+  <div class="aside"><span class="label">മുഖം = വായ</span>ബംഗാളിയിൽ <span class="bn">মুখ</span> മുഖവും വായയും ഒരുമിച്ച്! <span class="bn">মুখ খোলো</span> = വായ തുറക്കൂ, അല്ലെങ്കിൽ 'മുഖം കാണിക്കൂ' — സന്ദർഭം നിർണയിക്കും. സംസ്കൃതത്തിൽനിന്ന് മലയാളം 'വായ' (ദ്രാവിഡമൂലം) സ്വീകരിച്ചു; ബംഗാളി <span class="bn">মুখ</span> നിലനിർത്തി.</div>
+
+  <h3>ചലനം</h3>
+  <table>
+    <tr><th>ബംഗാളി</th><th>മലയാളം</th></tr>
+    <tr><td class="bn">যাওয়া</td><td>പോകുക</td></tr>
+    <tr><td class="bn">আসা</td><td>വരിക</td></tr>
+    <tr><td class="bn">হাঁটা</td><td>നടക്കുക</td></tr>
+    <tr><td class="bn">দৌড়ানো</td><td>ഓടുക</td></tr>
+    <tr><td class="bn">ওঠা</td><td>എഴുന്നേൽക്കുക</td></tr>
+    <tr><td class="bn">বসা</td><td>ഇരിക്കുക</td></tr>
+  </table>
+
+  <div class="nav-btns"><button data-next="6">← മുൻപ്</button><button data-next="8">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-08">
+  <h2 class="title"><span class="num">08</span>ഉപയോഗം</h2>
+  <p>മലയാളത്തിൽ രണ്ടു ബഹുമാനനിലകൾ (നീ/താങ്കൾ). ബംഗാളിയിൽ മൂന്ന് — <span class="bn">তুই/তুমি/আপনি</span>. ശ്രദ്ധാപൂർവം തിരഞ്ഞെടുക്കുക.</p>
+
+  <h3>ബഹുമാനക്രമം</h3>
+  <table>
+    <tr><th>നില</th><th>സർവനാമം</th><th>ഉദാഹരണം</th><th>ഉപയോഗം</th></tr>
+    <tr><td>അടുപ്പം</td><td class="bn">তুই</td><td class="bn">তুই কি করছিস?</td><td>വളരെ അടുത്ത സുഹൃത്ത്, കുഞ്ഞ്, ചിലപ്പോൾ ദേഷ്യം. ശ്രദ്ധ — അകന്നവരിൽ ഉപയോഗിച്ചാൽ മുഷിപ്പ്.</td></tr>
+    <tr><td>പരിചയം</td><td class="bn">তুমি</td><td class="bn">তুমি কি করছ?</td><td>സുഹൃത്തുക്കൾ, സഹപ്രവർത്തകർ, ഇളയവർ. സാധാരണ പരിചയം — മലയാളത്തിലെ 'നീ'.</td></tr>
+    <tr><td>ബഹുമാനം</td><td class="bn">আপনি</td><td class="bn">আপনি কি করছেন?</td><td>മൂത്തവർ, അപരിചിതർ, ഔദ്യോഗികം. മലയാളത്തിലെ 'താങ്കൾ'.</td></tr>
+  </table>
+
+  <h3>സാധാരണ പ്രയോഗങ്ങൾ</h3>
+  <table>
+    <tr><th>ബംഗാളി</th><th>ലിപ്യന്തരം</th><th>മലയാളം</th></tr>
+    <tr><td class="bn">নমস্কার</td><td class="tr">nomoskār</td><td>നമസ്കാരം</td></tr>
+    <tr><td class="bn">ধন্যবাদ</td><td class="tr">dhonnobād</td><td>നന്ദി</td></tr>
+    <tr><td class="bn">দুঃখিত / মাফ করবেন</td><td class="tr">duḥkhito / māph korben</td><td>ക്ഷമിക്കണം</td></tr>
+    <tr><td class="bn">কেমন আছেন?</td><td class="tr">kemon āchen?</td><td>സുഖമാണോ?</td></tr>
+    <tr><td class="bn">ভালো আছি</td><td class="tr">bhālo āchi</td><td>സുഖമായിരിക്കുന്നു</td></tr>
+    <tr><td class="bn">ভাত খেয়েছেন?</td><td class="tr">bhāt kheyechen?</td><td>ചോറുണ്ടോ? (സ്നേഹാന്വേഷണം)</td></tr>
+    <tr><td class="bn">আচ্ছা</td><td class="tr">ācchā</td><td>ശരി</td></tr>
+    <tr><td class="bn">হ্যাঁ / না</td><td class="tr">hyā̃ / nā</td><td>അതെ / അല്ല</td></tr>
+  </table>
+
+  <h3>മൃദുലകാരകം — <span class="bn">একটু</span></h3>
+  <p><span class="bn">একটু</span> <span class="tr">(ekṭu)</span> = 'ഒരൽപം'. അഭ്യർത്ഥനകളെ മയപ്പെടുത്തുന്നു. മലയാളത്തിലെ 'ഒന്നു/കൊറച്ച്' പോലെ.</p>
+  <ul>
+    <li><span class="bn">একটু শোনো</span> <span class="tr">(ekṭu śono)</span> — ഒന്നു കേൾക്കൂ</li>
+    <li><span class="bn">একটু বসো</span> <span class="tr">(ekṭu boso)</span> — ഒന്നിരിക്കൂ</li>
+    <li><span class="bn">একটু দাঁড়ান</span> <span class="tr">(ekṭu dā̃ṛān)</span> — ഒന്നു നിൽക്കൂ</li>
+  </ul>
+
+  <h3>അപരിചിതരെ സംബോധന ചെയ്യാൻ</h3>
+  <table>
+    <tr><th>ആൾ</th><th>ബംഗാളി</th><th>മലയാളം</th></tr>
+    <tr><td>മുതിർന്ന പുരുഷൻ</td><td class="bn">দাদা</td><td>ചേട്ടൻ / അണ്ണാ</td></tr>
+    <tr><td>മുതിർന്ന സ്ത്രീ</td><td class="bn">দিদি</td><td>ചേച്ചി</td></tr>
+    <tr><td>വൃദ്ധൻ</td><td class="bn">দাদু / কাকু</td><td>അപ്പൂപ്പൻ / ചേട്ടൻ</td></tr>
+    <tr><td>വൃദ്ധ</td><td class="bn">দিদা / মাসি</td><td>അമ്മൂമ്മ / അമ്മായി</td></tr>
+  </table>
+
+  <div class="aside teal"><span class="label">രക്തബന്ധം ഇല്ലാതെയും 'ദാദാ, ദീദി'</span>ബംഗാളിയിൽ തെരുവിൽ ആരെയും <span class="bn">দাদা</span> എന്നോ <span class="bn">দিদি</span> എന്നോ വിളിക്കാം. മലയാളത്തിൽ 'ചേട്ടാ, ചേച്ചീ' എന്ന് അതേപോലെ. രക്തബന്ധം ആവശ്യമില്ല — പരസ്പരബഹുമാനത്തിന്റെ പ്രകാശനം. ഇത് ഉത്തരേന്ത്യയിൽ <em>bhaiya/didi</em> എന്നതിനു സമാനം.</div>
+
+  <div class="nav-btns"><button data-next="7">← മുൻപ്</button><button data-next="9">അടുത്തത് →</button></div>
+</section>
+<section class="stage" id="stage-09">
+  <h2 class="title"><span class="num">09</span>സാഹിത്യം</h2>
+  <p>ബംഗാളി സാഹിത്യത്തിന് ആയിരം വർഷത്തിലധികം പാരമ്പര്യം. മലയാളസാഹിത്യത്തോട് പ്രത്യേകമായ ചാർച്ചകൾ — പാലങ്ങൾ — നോക്കാം.</p>
+
+  <h3>ഈശ്വര ചന്ദ്ര വിദ്യാസാഗർ (ঈശ্বরচন্দ্র বিদ্যাসাগর, 1820–1891)</h3>
+  <p>ഗദ്യരൂപപരിഷ്കരണം, വിദ്യാഭ്യാസം. <em>വർണപരിചയ്</em> — ബംഗാളി അക്ഷരമാലാപാഠം. <strong>ഈ പാഠ്യപദ്ധതി വിദ്യാസാഗരന്റെ രീതിയിലാണു കെട്ടിയത്</strong> — അടിസ്ഥാനത്തിൽനിന്നു വ്യവസ്ഥിതമായി. സാമൂഹ്യപരിഷ്കർത്താവ് കൂടി — വിധവാവിവാഹം നിയമവൽകരിച്ചു.</p>
+
+  <h3>രബീന്ദ്രനാഥ ടാഗോർ (রবীন্দ্রনাথ ঠাকুর, 1861–1941) ↔ കുമാരനാശാൻ</h3>
+  <p>ടാഗോറിന്റെ <em>ഗീതാഞ്ജലി</em>-യും (1910) കുമാരനാശാന്റെ <em>വീണപൂവും</em> (1907) ഏതാണ്ട് ഒരേ വർഷങ്ങളിൽ. രണ്ടും കാവ്യത്തിൽ ആധ്യാത്മികതയും പ്രകൃതിയും വ്യക്തിയുടെ ആത്മസംഘർഷവും കൊണ്ടുവന്നു. നോബൽ സമ്മാനജേതാവായ ടാഗോർ കേരളത്തിലും സന്ദർശിച്ചിട്ടുണ്ട്, തെക്കേ ഇന്ത്യൻ സാഹിത്യകാരന്മാരുമായി സൗഹൃദം പുലർത്തിയിരുന്നു.</p>
+
+  <h3>ജീബനാനന്ദ ദാസ് (জীবনানন্দ দাশ, 1899–1954) ↔ ഒ.വി. വിജയൻ</h3>
+  <p>ടാഗോറിനുശേഷമുള്ള ഏറ്റവും വലിയ ബംഗാളി കവി. <em>രൂപസി ബാംഗ്ലാ</em>-യിൽ ബംഗാളിന്റെ നാട്ടിൻപുറം — നദി, വെയിൽ, ചതുപ്പ്, കിളി — അവഗാഢ ഇന്ദ്രിയാനുഭവമായി. ഒ.വി. വിജയന്റെ <em>ഖസാക്കിന്റെ ഇതിഹാസ</em>-ത്തിലെ ഭൂമിശാസ്ത്രാനുഭവം ഇതിന്റെ ഗദ്യ-സഹോദരിയാണ് — സ്ഥലം ഒരു ആത്മീയാവസ്ഥയാകുന്നു.</p>
+
+  <h3>കാജി നസ്രുൽ ഇസ്ലാം (কাজী নজরুল ইসলাম, 1899–1976) ↔ വയലാർ രാമവർമ</h3>
+  <p>നസ്രുൽ 'വിപ്ലവകവി' — <em>ബിദ്രോഹി</em> (കലാപി) കൊളോണിയൽ വിരുദ്ധതയുടെ ശബ്ദം. വയലാറിന്റെ <em>'മനുഷ്യൻ മതങ്ങളെ സൃഷ്ടിച്ചു'</em> ഇതേ സാമൂഹികാവേശം. രണ്ടുപേരും ഗാനശാഖയിൽ അടിസ്ഥാനശിലകൾ — നസ്രുൽഗീതി, വയലാർഗാനം.</p>
+
+  <h3>മഹാശ്വേതാ ദേവി (মহাশ্বেতা দেবী, 1926–2016) ↔ മാധവിക്കുട്ടി / കമലാ ദാസ്</h3>
+  <p>മഹാശ്വേതാ ആദിവാസികളുടെയും പാർശ്വവൽക്കരിക്കപ്പെട്ടവരുടെയും ജീവിതം അപഹരണമില്ലാതെ എഴുതി — <em>ഹസാർ ചൗരാശിർ മാ, അരണ്യേർ അധികാർ</em>. മാധവിക്കുട്ടിയുടെ സ്ത്രീവാദം — ശരീരത്തെയും ആത്മാവിനെയും കുറിച്ചുള്ള നേർവാദം — ഇതേ നിർഭയമുദ്ര. രണ്ടുപേരും ആക്ടിവിസ്റ്റ് എഴുത്തുകാർ.</p>
+
+  <h3>ലാലൻ ഫക്കീർ (লালন ফকির, 1774–1890) ↔ പൂന്താനം</h3>
+  <p>ലാലൻ — ബൗൾ പാരമ്പര്യത്തിലെ ആത്മീയകവി, ജാതിയെയും സംഘടിതമതത്തെയും നിരാകരിച്ചു. ദിവ്യസംഗീതം സാധാരണക്കാരന്റെ ഭാഷയിൽ. പൂന്താനത്തിന്റെ <em>ജ്ഞാനപ്പാന</em> ഇതേ ആത്മാവ് — സംസ്കൃതപാണ്ഡിത്യത്തിനപ്പുറം ഭക്തിയും ലാളിത്യവും ഉയരുന്നു എന്ന പാഠം. 'നാരായണാ' പോലെ ലാലന്റെ 'മന്രേ' ഒരേ ആത്മീയബോധം.</p>
+
+  <div class="aside sindoor"><span class="label">ഒരു പങ്കിട്ട ആഗസ്ത് 7</span>ടാഗോർ അന്തരിച്ചത് 1941 ആഗസ്ത് 7-ന്. കുമാരനാശാൻ ബോട്ട് മുങ്ങിയ ദുരന്തത്തിൽ മരിച്ചത് 1924. രണ്ടു ഭാഷകളുടെയും ആധുനികതയ്ക്ക് ഈ രണ്ടു കവികളുടെ ആഴം ആസ്പദം. ടാഗോർ തിരുവനന്തപുരത്തും ശാന്തിനികേതനത്തിൽ മലയാളി വിദ്യാർത്ഥികളും — ഒരു സൗഹൃദത്തിന്റെ ചരിത്രം.</div>
+
+  <div class="aside"><span class="label">തുടക്കം എവിടെ?</span>വായനാരംഭം: ടാഗോറിന്റെ ചെറുകഥകൾ (<em>കാബൂലിവാലാ, പോസ്റ്റ്മാസ്റ്റർ</em>) — ലളിതം, അഗാധം. പിന്നെ നസ്രുൽഗീതി, പിന്നെ ജീബനാനന്ദയുടെ <em>ബനലതാ സെൻ</em>. ക്രമത്തിൽ മഹാശ്വേതയുടെ ആഴം.</div>
+
+  <div class="nav-btns"><button data-next="8">← മുൻപ്</button><button disabled>അവസാനിച്ചു</button></div>
+</section>
+
+<footer>made by Nil · using Claude</footer>
+</div>
+<script>
+(function(){
+  const tabs = document.querySelectorAll('#tabs button');
+  const stages = document.querySelectorAll('section.stage');
+  function show(n){
+    tabs.forEach(b => b.classList.toggle('active', +b.dataset.tab === n));
+    stages.forEach((s,i) => s.classList.toggle('active', i === n));
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  tabs.forEach(b => b.addEventListener('click', () => show(+b.dataset.tab)));
+  document.querySelectorAll('button[data-next]').forEach(b => {
+    b.addEventListener('click', () => show(+b.dataset.next));
+  });
+  document.querySelectorAll('.card').forEach(c => {
+    c.addEventListener('click', () => c.classList.toggle('open'));
+  });
+})();
+</script>
+</body>
+</html>

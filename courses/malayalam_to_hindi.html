@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="ml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>മലയാളം → हिन्दी · ഭാഷാസേതു</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Noto Serif Malayalam', serif;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at 20% 10%, #F7EFD9 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 90%, #EFE3C4 0%, transparent 55%),
+    var(--paper);
+  line-height:1.7;
+  font-size:17px;
+  min-height:100vh;
+  position:relative;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.5; mix-blend-mode:multiply;
+}
+.wrap{max-width:780px; margin:0 auto; padding:24px 20px 120px; position:relative; z-index:1}
+header.top{text-align:center; padding:24px 0 8px; border-bottom:1px dashed var(--ink-faded); margin-bottom:10px}
+header.top h1{
+  font-family:'Fraunces', serif; font-weight:400; font-size:28px; margin:0 0 6px;
+  letter-spacing:.5px; color:var(--ink);
+}
+header.top .sub{color:var(--ink-faded); font-size:14px}
+.target{font-family:'Noto Serif Devanagari', serif}
+.mono{font-family:'JetBrains Mono', monospace; font-size:.85em; color:var(--ink-faded)}
+nav.tabs{
+  position:sticky; top:0; z-index:10; background:var(--paper-warm);
+  border-bottom:1px solid var(--ink-faded);
+  margin:8px -20px 20px; padding:8px 12px;
+  overflow-x:auto; white-space:nowrap;
+  scrollbar-width:thin;
+}
+nav.tabs button{
+  font-family:inherit; font-size:14px; color:var(--ink-soft);
+  background:transparent; border:1px solid transparent;
+  padding:6px 10px; margin:0 2px; cursor:pointer; border-radius:6px;
+}
+nav.tabs button.active{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+section.stage{display:none; animation:fade .3s ease}
+section.stage.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+h2{
+  font-family:'Fraunces', serif; font-weight:700; font-size:26px;
+  color:var(--sindoor); margin:24px 0 6px; letter-spacing:.3px;
+}
+h2 .num{color:var(--ochre); font-family:'JetBrains Mono', monospace; font-size:18px; margin-right:8px}
+h3{font-family:'Fraunces', serif; color:var(--teal); margin:22px 0 8px; font-size:20px}
+p{margin:10px 0}
+.lede{font-size:18px; color:var(--ink-soft)}
+.aside{
+  border-left:3px solid var(--ochre);
+  background:linear-gradient(90deg, rgba(184,128,45,.08), transparent);
+  padding:10px 14px; margin:14px 0; border-radius:0 6px 6px 0;
+  font-size:15.5px;
+}
+.aside b{color:var(--sindoor)}
+.list{padding-left:0; list-style:none}
+.list li{margin:10px 0; padding-left:28px; position:relative}
+.list li::before{
+  content:counter(n); counter-increment:n;
+  position:absolute; left:0; top:0;
+  width:22px; height:22px; border-radius:50%;
+  background:var(--teal); color:var(--paper);
+  font-family:'JetBrains Mono', monospace; font-size:12px;
+  display:grid; place-items:center;
+}
+ol.list{counter-reset:n}
+.grid{display:grid; gap:8px; margin:12px 0}
+.grid.cols-2{grid-template-columns:repeat(2, 1fr)}
+.grid.cols-3{grid-template-columns:repeat(3, 1fr)}
+.grid.cols-4{grid-template-columns:repeat(4, 1fr)}
+.grid.cols-5{grid-template-columns:repeat(5, 1fr)}
+@media (max-width:520px){
+  .grid.cols-4,.grid.cols-5{grid-template-columns:repeat(3, 1fr)}
+  .grid.cols-3{grid-template-columns:repeat(2,1fr)}
+}
+.card{
+  background:var(--paper-warm); border:1px solid var(--paper-deep);
+  border-radius:8px; padding:10px; text-align:center; cursor:pointer;
+  transition:transform .15s, box-shadow .15s;
+}
+.card:hover{transform:translateY(-1px); box-shadow:0 3px 10px rgba(28,22,17,.08)}
+.card .src{font-size:26px; color:var(--ink); font-family:'Noto Serif Malayalam', serif}
+.card .arrow{color:var(--ochre); font-size:14px; margin:2px 0}
+.card .tgt{font-size:26px; font-family:'Noto Serif Devanagari', serif; color:var(--sindoor)}
+.card .hint{display:none; font-size:13px; color:var(--ink-faded); margin-top:4px; line-height:1.5}
+.card.open .hint{display:block}
+.card .tlit{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-faded)}
+.family{margin:14px 0}
+.family .flabel{
+  font-family:'Fraunces', serif; color:var(--teal); font-size:16px;
+  border-bottom:1px dotted var(--ink-faded); padding-bottom:2px; margin-bottom:8px;
+}
+table{border-collapse:collapse; width:100%; margin:12px 0; font-size:15px}
+th,td{border-bottom:1px solid var(--paper-deep); padding:8px 6px; text-align:left; vertical-align:top}
+th{font-family:'Fraunces', serif; color:var(--teal); font-weight:600; font-size:14px}
+td .target{font-size:19px}
+.video{margin:16px 0}
+.video-frame{position:relative; padding-bottom:56.25%; height:0; border-radius:8px; overflow:hidden; background:#000}
+.video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+.video-caption{font-size:13px; color:var(--ink-faded); margin-top:6px; text-align:center}
+.video-caption a{color:var(--teal)}
+.pill{
+  display:inline-block; font-size:11px; padding:2px 8px; border-radius:20px;
+  background:var(--paper-deep); color:var(--ink-soft); margin-left:6px;
+  font-family:'JetBrains Mono', monospace;
+}
+.pill.new{background:var(--sindoor); color:var(--paper)}
+.pill.tat{background:var(--teal); color:var(--paper)}
+.pill.tad{background:var(--ochre); color:var(--paper)}
+.nav-buttons{display:flex; justify-content:space-between; margin-top:30px; padding-top:16px; border-top:1px dashed var(--ink-faded)}
+.nav-buttons button{
+  font-family:inherit; font-size:15px; padding:8px 16px;
+  background:var(--ink); color:var(--paper); border:0; border-radius:6px; cursor:pointer;
+}
+.nav-buttons button:disabled{opacity:.3; cursor:not-allowed}
+footer{text-align:center; color:var(--ink-faded); font-size:13px; margin-top:40px; padding-top:16px; border-top:1px dashed var(--ink-faded)}
+.passage{
+  background:var(--paper-warm); border:1px solid var(--paper-deep);
+  border-radius:8px; padding:14px 16px; margin:14px 0;
+}
+.passage .tgt-text{font-family:'Noto Serif Devanagari', serif; font-size:19px; line-height:1.9; color:var(--ink)}
+.passage .tlit{margin:6px 0; color:var(--ink-faded); font-size:14px}
+.passage .gloss{border-top:1px dashed var(--ink-faded); padding-top:6px; font-size:15px; color:var(--ink-soft)}
+.flag{color:var(--sindoor); font-weight:700}
+.ok{color:var(--teal); font-size:13px}
+@media (max-width:420px){
+  body{font-size:16px}
+  .wrap{padding:16px 14px 100px}
+  h2{font-size:22px}
+  .card .src,.card .tgt{font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>മലയാളം → <span class="target">हिन्दी</span></h1>
+  <div class="sub">ഭാഷാസേതു · പത്ത് ഘട്ടങ്ങൾ</div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-s="0" class="active">00 · പരിചയം</button>
+  <button data-s="1">01 · സ്വരം</button>
+  <button data-s="2">02 · വ്യഞ്ജനം</button>
+  <button data-s="3">03 · സംയോജനം</button>
+  <button data-s="4">04 · പദങ്ങൾ</button>
+  <button data-s="5">05 · വാക്യം</button>
+  <button data-s="6">06 · വായന</button>
+  <button data-s="7">07 · പദമേഖല</button>
+  <button data-s="8">08 · ഉപയോഗം</button>
+  <button data-s="9">09 · സാഹിത്യം</button>
+</nav>
+
+<section id="stage-00" class="stage active">
+  <h2><span class="num">00</span>പരിചയം</h2>
+  <p class="lede">മലയാളത്തിൽ നിന്ന് <span class="target">हिन्दी</span>യിലേക്ക് — രണ്ടു ഭാഷാകുടുംബങ്ങൾ, ഒരേ ബ്രാഹ്മീ വേര്.</p>
+  <p>കുട്ടിക്കാലത്ത് '<b>സ്വരവും വ്യഞ്ജനവും</b>' പഠിച്ച ആ രീതി ഓർക്കൂ — അ, ആ, ഇ, ഈ... എന്നിട്ട് ക, ഖ, ഗ, ഘ, ങ. ഹിന്ദിയും ഇതേ ക്രമം പിന്തുടരുന്നു: अ, आ, इ, ई... क, ख, ग, घ, ङ. <b>സംസ്കൃതവ്യാകരണത്തിന്റെ അതേ വർഗ്ഗപ്പട്ടിക</b> രണ്ടു ലിപികളിലും ഒരേപോലെ ഇരിക്കുന്നു — അക്ഷരങ്ങളുടെ രൂപം മാത്രമേ മാറുന്നുള്ളൂ, ക്രമവും ഉച്ചാരണസ്ഥാനവും ഒന്നുതന്നെ.</p>
+  <p>മലയാളം ദ്രാവിഡഭാഷയും ഹിന്ദി ഇന്തോ-ആര്യൻ ഭാഷയും ആണെങ്കിലും, രണ്ടും സംസ്കൃതത്തോട് അടുപ്പമുള്ളവയാണ്. <b>44-ൽ 44 ഫോണീമുകൾ</b> (ഉച്ചാരണധ്വനികൾ) പങ്കിടുന്നു — നിങ്ങളുടെ നാവിന് മിക്കവാറും എല്ലാ ശബ്ദങ്ങളും ഇതിനകം അറിയാം. ഏകദേശം <b>42%</b> പദശേഖരം പൊതുവാണ്.</p>
+  <p>വാക്യക്രമം ഒന്നുതന്നെ — കർത്താ, കർമ്മം, ക്രിയ (SOV):<br>
+  മലയാളം: ഞാൻ പുസ്തകം വായിക്കുന്നു.<br>
+  <span class="target">हिन्दी: मैं किताब पढ़ता हूँ।</span><br>
+  <span class="mono">ñāṉ pustakam vāyikkunnu · maĩ kitāb paṛhtā hū̃</span></p>
+
+  <h3>ആറ് തത്ത്വങ്ങൾ</h3>
+  <ol class="list">
+    <li><b>ഒരേ അബുഗിഡ തത്ത്വം.</b> വ്യഞ്ജനത്തിനൊപ്പം അന്തർലീനസ്വരം 'അ' — ക = /ka/, क = /ka/. സ്വരചിഹ്നം ചേരുമ്പോഴും നിയമം ഒന്നുതന്നെ: കി ↔ <span class="target">कि</span>, കൂ ↔ <span class="target">कू</span>. ലിപിയുടെ രൂപം മാത്രം പഠിച്ചാൽ മതി.</li>
+    <li><b>വർഗ്ഗക്രമം കൃത്യം.</b> കവർഗ്ഗം, ചവർഗ്ഗം, ടവർഗ്ഗം, തവർഗ്ഗം, പവർഗ്ഗം — ഓരോ വർഗ്ഗത്തിലും അഞ്ച് അക്ഷരം. ക ഖ ഗ ഘ ങ ↔ <span class="target">क ख ग घ ङ</span>. നിങ്ങൾ കുട്ടിക്കാലത്ത് പാടിയ അതേ ഈരടി.</li>
+    <li><b>സംസ്കൃത തത്സമ പാലം.</b> നാമം ↔ <span class="target">नाम</span>, സമയം ↔ <span class="target">समय</span>, ദിനം ↔ <span class="target">दिन</span>, രാത്രി ↔ <span class="target">रात्रि</span>, ഭൂമി ↔ <span class="target">भूमि</span>, സൂര്യൻ ↔ <span class="target">सूर्य</span> — ആറ് വാക്കുകൾ അതേപടി, ഉച്ചാരണവും അർത്ഥവും ഒന്നുതന്നെ.</li>
+    <li><b>വിഭക്തി പ്രത്യയങ്ങളാണ് — ഉപസർഗ്ഗങ്ങളല്ല.</b> മലയാളത്തിൽ വീട്ടി<b>ൽ</b>, ഹിന്ദിയിൽ <span class="target">घर <b>में</b></span>. രണ്ടും നാമത്തിന് പിന്നിൽ വരുന്ന പദം — ഇംഗ്ലീഷിലെ മുൻപിൽ വരുന്ന 'in' പോലെയല്ല. <b>നിങ്ങളുടെ ചിന്താരീതി തന്നെ ഹിന്ദിയും പിന്തുടരുന്നു.</b></li>
+    <li><b>ലിംഗം — ശരിക്കും പുതിയത്. <span class="flag">⚠</span></b> മലയാളത്തിൽ ക്രിയയ്ക്ക് ലിംഗമില്ല — ഞാൻ ചെയ്യുന്നു, അവൻ ചെയ്യുന്നു, അവൾ ചെയ്യുന്നു — എല്ലാം ഒന്നുതന്നെ. ഹിന്ദിയിൽ <span class="target">मैं करता हूँ</span> (പുരുഷൻ), <span class="target">मैं करती हूँ</span> (സ്ത്രീ). <b>ക്രിയയ്ക്കും വിശേഷണത്തിനും ലിംഗം</b> ഉണ്ട് എന്നത് ദ്രാവിഡമനസ്സിന് പുതുതാണ്.</li>
+    <li><b>നുക്ത ധ്വനികൾ — പുതിയത്. <span class="flag">⚠</span></b> <span class="target">क़, ख़, ग़, ज़, फ़, ड़, ढ़</span> — പേർഷ്യൻ-അറബിക് കടമെടുപ്പുകൾ. <span class="target">ज़रा</span> ('കുറച്ച്'), <span class="target">क़िताब</span>. മലയാളത്തിൽ ഇല്ലാത്ത ശബ്ദങ്ങൾ, പക്ഷേ പരിചിതമാക്കാം.</li>
+  </ol>
+
+  <div class="aside"><b>ശ്രദ്ധിക്കുക:</b> മലയാളത്തിലെ 'ശ്വാ' (അ) എല്ലാ അക്ഷരങ്ങളിലും ഉച്ചരിക്കും — <i>രാമൻ</i> = rāma<b>n</b>. ഹിന്ദിയിൽ അവസാനത്തെ 'അ' മിക്കപ്പോഴും വിഴുങ്ങും — <span class="target">राम</span> = <i>rām</i> (രാമ്, രാമൻ അല്ല), <span class="target">कमल</span> = <i>kamal</i> (കമല്). ഇത് 'ശ്വാ-ലോപം' — ഹിന്ദി വായിക്കുമ്പോൾ ശ്രദ്ധിക്കേണ്ട ഒരേയൊരു വലിയ നിയമം.</div>
+</section>
+<section id="stage-01" class="stage">
+  <h2><span class="num">01</span>സ്വരം</h2>
+  <p>മലയാളത്തിലെ സ്വരങ്ങൾ കുടുംബങ്ങളായി തിരിച്ചാൽ ഹിന്ദി സ്വരങ്ങളും അതേ ക്രമത്തിൽ വരും. അക്ഷരത്തിൽ തട്ടൂ — ഉദാഹരണം കാണാം.</p>
+
+  <div class="family">
+    <div class="flabel">'അ' കുടുംബം — ഹ്രസ്വവും ദീർഘവും</div>
+    <div class="grid cols-2">
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">അ</div><div class="arrow">↓</div>
+        <div class="tgt target">अ</div>
+        <div class="tlit">a</div>
+        <div class="hint">അമ്മ ↔ <span class="target">अम्मा</span> · ഹ്രസ്വം, അന്തർലീനം.</div>
+      </div>
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">ആ</div><div class="arrow">↓</div>
+        <div class="tgt target">आ</div>
+        <div class="tlit">ā</div>
+        <div class="hint">ആന ↔ <span class="target">आम</span> (മാങ്ങ) · ദീർഘം, രണ്ട് മാത്ര.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="family">
+    <div class="flabel">'ഇ' കുടുംബം</div>
+    <div class="grid cols-2">
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">ഇ</div><div class="arrow">↓</div>
+        <div class="tgt target">इ</div>
+        <div class="tlit">i</div>
+        <div class="hint">ഇല ↔ <span class="target">इधर</span> (ഇങ്ങോട്ട്) · ഹ്രസ്വം.</div>
+      </div>
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">ഈ</div><div class="arrow">↓</div>
+        <div class="tgt target">ई</div>
+        <div class="tlit">ī</div>
+        <div class="hint">ഈച്ച ↔ <span class="target">ईमान</span> (വിശ്വാസം) · ദീർഘം.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="family">
+    <div class="flabel">'ഉ' കുടുംബം</div>
+    <div class="grid cols-2">
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">ഉ</div><div class="arrow">↓</div>
+        <div class="tgt target">उ</div>
+        <div class="tlit">u</div>
+        <div class="hint">ഉപ്പ് ↔ <span class="target">उम्र</span> (പ്രായം) · ഹ്രസ്വം.</div>
+      </div>
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">ഊ</div><div class="arrow">↓</div>
+        <div class="tgt target">ऊ</div>
+        <div class="tlit">ū</div>
+        <div class="hint">ഊണ് ↔ <span class="target">ऊपर</span> (മുകളിൽ) · ദീർഘം.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="family">
+    <div class="flabel">'ഋ' — ഋഷി കുടുംബം</div>
+    <div class="grid cols-2">
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">ഋ</div><div class="arrow">↓</div>
+        <div class="tgt target">ऋ</div>
+        <div class="tlit">ṛi</div>
+        <div class="hint">ഋഷി ↔ <span class="target">ऋषि</span> · തത്സമപദങ്ങളിൽ മാത്രം.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="family">
+    <div class="flabel">'എ/ഒ' കുടുംബം — <span class="flag">ശ്രദ്ധ!</span></div>
+    <p style="font-size:15px">മലയാളത്തിൽ എ/ഏ, ഒ/ഓ എന്നിങ്ങനെ ഹ്രസ്വ-ദീർഘ വ്യത്യാസമുണ്ട്. <b>ഹിന്ദിയിൽ ഈ വ്യത്യാസം ഇല്ല</b> — ഏ/ഓ എന്ന ദീർഘം മാത്രം. एक = ഏക്, ओस = ഓസ്.</p>
+    <div class="grid cols-2">
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">ഏ</div><div class="arrow">↓</div>
+        <div class="tgt target">ए</div>
+        <div class="tlit">e</div>
+        <div class="hint">ഏകൻ ↔ <span class="target">एक</span> · ഹിന്ദിയിൽ എപ്പോഴും ദീർഘം.</div>
+      </div>
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">ഐ</div><div class="arrow">↓</div>
+        <div class="tgt target">ऐ</div>
+        <div class="tlit">ai</div>
+        <div class="hint">ഐരാവതം ↔ <span class="target">ऐनक</span> (കണ്ണട) · ദ്വിസ്വരം.</div>
+      </div>
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">ഓ</div><div class="arrow">↓</div>
+        <div class="tgt target">ओ</div>
+        <div class="tlit">o</div>
+        <div class="hint">ഓണം ↔ <span class="target">ओस</span> (മഞ്ഞുതുള്ളി) · ദീർഘം.</div>
+      </div>
+      <div class="card" onclick="this.classList.toggle('open')">
+        <div class="src">ഔ</div><div class="arrow">↓</div>
+        <div class="tgt target">औ</div>
+        <div class="tlit">au</div>
+        <div class="hint">ഔഷധം ↔ <span class="target">औरत</span> (സ്ത്രീ) · ദ്വിസ്വരം.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="aside"><b>'ഏ/ഓ' ലയനം:</b> മലയാളത്തിൽ 'കെ' (ke) ↔ 'കേ' (kē), 'കൊ' (ko) ↔ 'കോ' (kō) രണ്ടും വേറെ. ഹിന്ദിയിൽ <span class="target">के</span> എപ്പോഴും 'കേ' (ദീർഘം), <span class="target">को</span> എപ്പോഴും 'കോ'. അതുകൊണ്ട് മലയാളിക്ക് <b>ദീർഘം എഴുതാൻ ഒരു ചിഹ്നം കുറവ്</b> — എന്നാൽ കേൾക്കുന്നത് എല്ലായ്പ്പോഴും ദീർഘമാണ് എന്ന് മനസ്സിലാക്കണം.</div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+hindi+vowels+swar+pronunciation" title="Hindi vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ഹിന്ദി സ്വരോച്ചാരണം കേൾക്കുക · <a href="https://www.youtube.com/results?search_query=learn+hindi+vowels+swar+pronunciation" target="_blank" rel="noopener">കൂടുതൽ തിരയുക ↗</a></div>
+  </div>
+</section>
+<section id="stage-02" class="stage">
+  <h2><span class="num">02</span>വ്യഞ്ജനം</h2>
+  <p>ഹിന്ദി വ്യഞ്ജനങ്ങൾ അഞ്ച് വർഗ്ഗങ്ങളിലായി — മലയാളത്തിലേത് പോലെ തന്നെ. ഓരോ വർഗ്ഗവും അഞ്ച് അക്ഷരം (അഘോഷം · മഹാപ്രാണം · ഘോഷം · ഘോഷമഹാപ്രാണം · അനുനാസികം).</p>
+
+  <h3>കവർഗ്ഗം — കണ്ഠ്യം</h3>
+  <div class="grid cols-5">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ക</div><div class="arrow">↓</div><div class="tgt target">क</div><div class="tlit">ka</div><div class="hint">കര ↔ <span class="target">कर</span> (ചെയ്യുക).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഖ</div><div class="arrow">↓</div><div class="tgt target">ख</div><div class="tlit">kha</div><div class="hint">ഖനി ↔ <span class="target">खाना</span> (ഭക്ഷണം).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഗ</div><div class="arrow">↓</div><div class="tgt target">ग</div><div class="tlit">ga</div><div class="hint">ഗജം ↔ <span class="target">गज</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഘ</div><div class="arrow">↓</div><div class="tgt target">घ</div><div class="tlit">gha</div><div class="hint">ഘടം ↔ <span class="target">घर</span> (വീട്).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ങ</div><div class="arrow">↓</div><div class="tgt target">ङ</div><div class="tlit">ṅa</div><div class="hint">സംയോഗത്തിൽ മാത്രം.</div></div>
+  </div>
+
+  <h3>ചവർഗ്ഗം — താലവ്യം</h3>
+  <div class="grid cols-5">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ച</div><div class="arrow">↓</div><div class="tgt target">च</div><div class="tlit">ca</div><div class="hint">ചാണ്ടി ↔ <span class="target">चार</span> (നാല്). ഹിന്ദിയിൽ ശുദ്ധ 'ച' (ചൈ പോലെ), 'ശ' ആകില്ല.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഛ</div><div class="arrow">↓</div><div class="tgt target">छ</div><div class="tlit">cha</div><div class="hint">ഛത്രം ↔ <span class="target">छह</span> (ആറ്).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ജ</div><div class="arrow">↓</div><div class="tgt target">ज</div><div class="tlit">ja</div><div class="hint">ജലം ↔ <span class="target">जल</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഝ</div><div class="arrow">↓</div><div class="tgt target">झ</div><div class="tlit">jha</div><div class="hint">ഝരി ↔ <span class="target">झर</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഞ</div><div class="arrow">↓</div><div class="tgt target">ञ</div><div class="tlit">ña</div><div class="hint">സംയോഗത്തിൽ മാത്രം.</div></div>
+  </div>
+
+  <h3>ടവർഗ്ഗം — മൂർദ്ധന്യം</h3>
+  <div class="grid cols-5">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ട</div><div class="arrow">↓</div><div class="tgt target">ट</div><div class="tlit">ṭa</div><div class="hint">കട ↔ <span class="target">टमाटर</span> (തക്കാളി).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഠ</div><div class="arrow">↓</div><div class="tgt target">ठ</div><div class="tlit">ṭha</div><div class="hint">ഠാക്കൂർ ↔ <span class="target">ठीक</span> (ശരി).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഡ</div><div class="arrow">↓</div><div class="tgt target">ड</div><div class="tlit">ḍa</div><div class="hint">ഡമരു ↔ <span class="target">डर</span> (ഭയം).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഢ</div><div class="arrow">↓</div><div class="tgt target">ढ</div><div class="tlit">ḍha</div><div class="hint">ഢോലക് ↔ <span class="target">ढोल</span> (മദ്ദളം).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ണ</div><div class="arrow">↓</div><div class="tgt target">ण</div><div class="tlit">ṇa</div><div class="hint">കണ്ണ് ↔ <span class="target">कण</span> (തരി).</div></div>
+  </div>
+
+  <h3>തവർഗ്ഗം — ദന്ത്യം</h3>
+  <div class="grid cols-5">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ത</div><div class="arrow">↓</div><div class="tgt target">त</div><div class="tlit">ta</div><div class="hint">തല ↔ <span class="target">तल</span> (അടിഭാഗം).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഥ</div><div class="arrow">↓</div><div class="tgt target">थ</div><div class="tlit">tha</div><div class="hint">രഥം ↔ <span class="target">रथ</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ദ</div><div class="arrow">↓</div><div class="tgt target">द</div><div class="tlit">da</div><div class="hint">ദാനം ↔ <span class="target">दान</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ധ</div><div class="arrow">↓</div><div class="tgt target">ध</div><div class="tlit">dha</div><div class="hint">ധനം ↔ <span class="target">धन</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ന</div><div class="arrow">↓</div><div class="tgt target">न</div><div class="tlit">na</div><div class="hint">നാമം ↔ <span class="target">नाम</span>.</div></div>
+  </div>
+
+  <h3>പവർഗ്ഗം — ഓഷ്ഠ്യം</h3>
+  <div class="grid cols-5">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">പ</div><div class="arrow">↓</div><div class="tgt target">प</div><div class="tlit">pa</div><div class="hint">പാൽ ↔ <span class="target">पानी</span> (വെള്ളം).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഫ</div><div class="arrow">↓</div><div class="tgt target">फ</div><div class="tlit">pha</div><div class="hint">ഫലം ↔ <span class="target">फल</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ബ</div><div class="arrow">↓</div><div class="tgt target">ब</div><div class="tlit">ba</div><div class="hint">ബലം ↔ <span class="target">बल</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഭ</div><div class="arrow">↓</div><div class="tgt target">भ</div><div class="tlit">bha</div><div class="hint">ഭൂമി ↔ <span class="target">भूमि</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">മ</div><div class="arrow">↓</div><div class="tgt target">म</div><div class="tlit">ma</div><div class="hint">മാതാ ↔ <span class="target">माता</span>.</div></div>
+  </div>
+
+  <h3>അന്തസ്ഥം · ഊഷ്മം</h3>
+  <div class="grid cols-4">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">യ</div><div class="arrow">↓</div><div class="tgt target">य</div><div class="tlit">ya</div><div class="hint">യമുന ↔ <span class="target">यमुना</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ര</div><div class="arrow">↓</div><div class="tgt target">र</div><div class="tlit">ra</div><div class="hint">രാമൻ ↔ <span class="target">राम</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ല</div><div class="arrow">↓</div><div class="tgt target">ल</div><div class="tlit">la</div><div class="hint">ലതാ ↔ <span class="target">लता</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">വ</div><div class="arrow">↓</div><div class="tgt target">व</div><div class="tlit">va</div><div class="hint">വനം ↔ <span class="target">वन</span>. ഹിന്ദിയിൽ /വ/~/ഭ്വ/ ഇടയിൽ.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ശ</div><div class="arrow">↓</div><div class="tgt target">श</div><div class="tlit">śa</div><div class="hint">ശാന്തി ↔ <span class="target">शांति</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഷ</div><div class="arrow">↓</div><div class="tgt target">ष</div><div class="tlit">ṣa</div><div class="hint">ഭാഷ ↔ <span class="target">भाषा</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">സ</div><div class="arrow">↓</div><div class="tgt target">स</div><div class="tlit">sa</div><div class="hint">സമയം ↔ <span class="target">समय</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ഹ</div><div class="arrow">↓</div><div class="tgt target">ह</div><div class="tlit">ha</div><div class="hint">ഹരി ↔ <span class="target">हरि</span>.</div></div>
+  </div>
+
+  <h3>നുക്ത അക്ഷരങ്ങൾ <span class="pill new">പുതിയത്</span></h3>
+  <p>അക്ഷരത്തിന് കീഴിൽ ഒരു കുത്ത് (നുക്ത) വയ്ക്കുമ്പോൾ ശബ്ദം മാറുന്നു. പേർഷ്യൻ-അറബിക്-പോർച്ചുഗീസ് വാക്കുകൾക്ക് വേണ്ടി.</p>
+  <div class="grid cols-4">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">क़</div><div class="tlit">qa</div><div class="hint">കണ്ഠീയ /q/ — <span class="target">क़िताब</span> (പുസ്തകം).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">ख़</div><div class="tlit">kha</div><div class="hint">ഘർഷ /x/ — <span class="target">ख़बर</span> (വാർത്ത).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">ग़</div><div class="tlit">gha</div><div class="hint">ഘർഷ /ɣ/ — <span class="target">ग़लत</span> (തെറ്റ്).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">ज़</div><div class="tlit">za</div><div class="hint">/z/ — <span class="target">ज़रा</span> (കുറച്ച്).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">फ़</div><div class="tlit">fa</div><div class="hint">/f/ — <span class="target">फ़ोन</span>.</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">ड़</div><div class="tlit">ṛa</div><div class="hint">ഫ്ലാപ്പ് /ɽ/ — <span class="target">पेड़</span> (മരം).</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">ढ़</div><div class="tlit">ṛha</div><div class="hint">മഹാപ്രാണ ഫ്ലാപ്പ് — <span class="target">पढ़</span> (വായിക്കുക).</div></div>
+  </div>
+
+  <div class="aside"><b>മലയാളത്തിലെ 'ഴ', 'റ്റ', 'ന്റ' — ഹിന്ദിയിൽ ഇല്ല!</b> ഴ /ɻ/ എന്ന ദ്രാവിഡശബ്ദം ഹിന്ദിയിൽ 'र/ड़' ആയി അടയ്ക്കും. നേരേ മറിച്ച്, ഹിന്ദിയിലെ <span class="target">क़/ख़/ग़/ज़</span> മലയാളത്തിൽ ഇല്ല — പുതുതായി നാവിലേക്ക് വരുത്തണം.</div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+hindi+consonants+vyanjan+pronunciation" title="Hindi consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ഹിന്ദി വ്യഞ്ജനോച്ചാരണം · <a href="https://www.youtube.com/results?search_query=learn+hindi+consonants+vyanjan+pronunciation" target="_blank" rel="noopener">കൂടുതൽ തിരയുക ↗</a></div>
+  </div>
+</section>
+<section id="stage-03" class="stage">
+  <h2><span class="num">03</span>സംയോജനം</h2>
+  <p>വ്യഞ്ജനത്തിന് അന്തർലീനമായ 'അ'. അത് നീക്കണമെങ്കിൽ — ചന്ദ്രക്കല (്). ഹിന്ദിയിലേത് ഹലന്ത് (्). ഒരേ തത്ത്വം, വ്യത്യസ്ത ചിഹ്നം.</p>
+
+  <h3>സ്വരചിഹ്നങ്ങൾ — 'ക' എന്ന വ്യഞ്ജനത്തോട് ചേർന്ന്</h3>
+  <table>
+    <tr><th>സ്വരം</th><th>മലയാളം</th><th>हिन्दी</th><th>IPA</th></tr>
+    <tr><td>അ</td><td>ക</td><td class="target">क</td><td class="mono">ka</td></tr>
+    <tr><td>ആ</td><td>കാ</td><td class="target">का</td><td class="mono">kā</td></tr>
+    <tr><td>ഇ</td><td>കി</td><td class="target">कि</td><td class="mono">ki</td></tr>
+    <tr><td>ഈ</td><td>കീ</td><td class="target">की</td><td class="mono">kī</td></tr>
+    <tr><td>ഉ</td><td>കു</td><td class="target">कु</td><td class="mono">ku</td></tr>
+    <tr><td>ഊ</td><td>കൂ</td><td class="target">कू</td><td class="mono">kū</td></tr>
+    <tr><td>ഏ</td><td>കേ</td><td class="target">के</td><td class="mono">ke</td></tr>
+    <tr><td>ഐ</td><td>കൈ</td><td class="target">कै</td><td class="mono">kai</td></tr>
+    <tr><td>ഓ</td><td>കോ</td><td class="target">को</td><td class="mono">ko</td></tr>
+    <tr><td>ഔ</td><td>കൗ</td><td class="target">कौ</td><td class="mono">kau</td></tr>
+  </table>
+
+  <div class="aside"><b>ദേവനാഗരിയിൽ ഇ-ചിഹ്നം മുൻപിൽ!</b> മലയാളത്തിൽ കി എന്നാൽ ക + ി (പിന്നിൽ). ഹിന്ദിയിലോ <span class="target">कि</span> — ഇ-ചിഹ്നം 'ക'യുടെ <b>മുൻപിൽ</b> വരും! കേൾക്കുമ്പോൾ 'ക-ഇ', എഴുതുമ്പോൾ 'ഇ-ക'. ഇത് ഓർത്തിരിക്കണം.</div>
+
+  <h3>ഹലന്ത് · ചന്ദ്രക്കല</h3>
+  <p>അന്തർലീന 'അ' നീക്കാൻ:</p>
+  <table>
+    <tr><th>ഫലം</th><th>മലയാളം</th><th>हिन्दी</th></tr>
+    <tr><td>/k/</td><td>ക്</td><td class="target">क्</td></tr>
+    <tr><td>/m/</td><td>മ്</td><td class="target">म्</td></tr>
+    <tr><td>/n/</td><td>ന്</td><td class="target">न्</td></tr>
+  </table>
+
+  <h3>സംയുക്താക്ഷരങ്ങൾ</h3>
+  <p>രണ്ട് വ്യഞ്ജനങ്ങൾ ചേരുമ്പോൾ — രണ്ടു ലിപികളിലും അതേ തത്ത്വം, പക്ഷേ രൂപം വ്യത്യാസം.</p>
+  <table>
+    <tr><th>ഘടകങ്ങൾ</th><th>മലയാളം</th><th>हिन्दी</th><th>ഉദാഹരണം</th></tr>
+    <tr><td>ക് + ഷ</td><td>ക്ഷ</td><td class="target">क्ष</td><td class="target">क्षण</td></tr>
+    <tr><td>ജ് + ഞ</td><td>ജ്ഞ</td><td class="target">ज्ञ</td><td class="target">ज्ञान</td></tr>
+    <tr><td>ത് + ര</td><td>ത്ര</td><td class="target">त्र</td><td class="target">पत्र</td></tr>
+    <tr><td>സ് + ത</td><td>സ്ത</td><td class="target">स्त</td><td class="target">नमस्ते</td></tr>
+    <tr><td>പ് + ര</td><td>പ്ര</td><td class="target">प्र</td><td class="target">प्रेम</td></tr>
+    <tr><td>ശ് + ര</td><td>ശ്ര</td><td class="target">श्र</td><td class="target">श्री</td></tr>
+  </table>
+
+  <div class="aside"><b>'ര' എന്നതിന്റെ മാജിക്:</b> ഹിന്ദിയിൽ ര് + ക = <span class="target">र्क</span> (<i>റേഫ</i> — മുകളിൽ ഒരു വക്രം). പര്‍വതം = <span class="target">पर्वत</span>. മലയാളത്തിലെ 'ർ' (ര്‍) പോലെ. രണ്ടും വായിക്കാൻ എളുപ്പം.</div>
+</section>
+<section id="stage-04" class="stage">
+  <h2><span class="num">04</span>പദങ്ങൾ</h2>
+  <p>ഓരോ വാക്കിനും നാല് വശം: ഹിന്ദി · മലയാളം · ലിപ്യന്തരണം · ഉറവിടം. <span class="pill tat">തത്സമം</span> = സംസ്കൃതം അതേപടി; <span class="pill tad">തദ്ഭവം</span> = സംസ്കൃതം രൂപം മാറി; <span class="pill new">പുതുവരവ്</span> = പേർഷ്യൻ/അറബിക്/മറ്റ്.</p>
+
+  <h3>സർവ്വനാമങ്ങൾ</h3>
+  <table>
+    <tr><th>हिन्दी</th><th>ലിപ്യന്തരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="target">मैं</td><td class="mono">maĩ</td><td>ഞാൻ</td></tr>
+    <tr><td class="target">तू</td><td class="mono">tū</td><td>നീ (അടുപ്പം)</td></tr>
+    <tr><td class="target">तुम</td><td class="mono">tum</td><td>നീ (സാധാരണം)</td></tr>
+    <tr><td class="target">आप</td><td class="mono">āp</td><td>താങ്കൾ (ബഹുമാനം)</td></tr>
+    <tr><td class="target">यह</td><td class="mono">yah</td><td>ഇത് / ഇവൻ / ഇവൾ</td></tr>
+    <tr><td class="target">वह</td><td class="mono">vah</td><td>അത് / അവൻ / അവൾ</td></tr>
+    <tr><td class="target">हम</td><td class="mono">ham</td><td>ഞങ്ങൾ / നാം</td></tr>
+    <tr><td class="target">वे</td><td class="mono">ve</td><td>അവർ</td></tr>
+  </table>
+  <div class="aside"><b>മൂന്ന് 'നീ':</b> ഹിന്ദിയിൽ <span class="target">तू</span> (അടുപ്പം/അടുത്ത ബന്ധു/ദൈവം), <span class="target">तुम</span> (സുഹൃത്ത്), <span class="target">आप</span> (മുതിർന്നവർ/അപരിചിതർ). മലയാളത്തിൽ 'നീ' ഒന്നുമാത്രം — ഹിന്ദിയിൽ ഈ മൂന്ന് തട്ടുകൾ ശരിയായി പ്രയോഗിക്കാൻ ശീലിക്കണം.</div>
+
+  <h3>നാമങ്ങൾ</h3>
+  <table>
+    <tr><th>हिन्दी</th><th>ലിപ്യന്തരണം</th><th>മലയാളം</th><th>ഉറവ്</th></tr>
+    <tr><td class="target">घर</td><td class="mono">ghar</td><td>വീട്</td><td><span class="pill tad">തദ്ഭവം</span></td></tr>
+    <tr><td class="target">पानी</td><td class="mono">pānī</td><td>വെള്ളം</td><td><span class="pill tad">തദ്ഭവം</span></td></tr>
+    <tr><td class="target">नाम</td><td class="mono">nām</td><td>നാമം · പേര്</td><td><span class="pill tat">തത്സമം</span></td></tr>
+    <tr><td class="target">पुस्तक · किताब</td><td class="mono">pustak · kitāb</td><td>പുസ്തകം</td><td><span class="pill tat">തത്സമം</span> / <span class="pill new">പു.വ.</span></td></tr>
+    <tr><td class="target">विद्यालय · स्कूल</td><td class="mono">vidyālay · skūl</td><td>വിദ്യാലയം · പള്ളിക്കൂടം</td><td><span class="pill tat">തത്സമം</span></td></tr>
+    <tr><td class="target">पैसा</td><td class="mono">paisā</td><td>പണം</td><td><span class="pill new">പു.വ.</span></td></tr>
+    <tr><td class="target">समय · वक़्त</td><td class="mono">samay · vaqt</td><td>സമയം</td><td><span class="pill tat">തത്സമം</span></td></tr>
+    <tr><td class="target">दिन</td><td class="mono">din</td><td>ദിനം</td><td><span class="pill tat">തത്സമം</span></td></tr>
+    <tr><td class="target">दूध</td><td class="mono">dūdh</td><td>പാൽ</td><td><span class="pill tad">തദ്ഭവം</span></td></tr>
+    <tr><td class="target">सूरज · सूर्य</td><td class="mono">sūraj · sūrya</td><td>സൂര്യൻ</td><td><span class="pill tat">തത്സമം</span></td></tr>
+    <tr><td class="target">भूमि · ज़मीन</td><td class="mono">bhūmi · zamīn</td><td>ഭൂമി</td><td><span class="pill tat">തത്സമം</span></td></tr>
+    <tr><td class="target">चावल · अन्न</td><td class="mono">cāval · anna</td><td>അരി · ചോറ്</td><td><span class="pill tat">തത്സമം</span></td></tr>
+    <tr><td class="target">रात · रात्रि</td><td class="mono">rāt · rātri</td><td>രാത്രി</td><td><span class="pill tat">തത്സമം</span></td></tr>
+  </table>
+
+  <div class="aside"><b>തത്സമ പാലം:</b> നാമം, സമയം, ദിനം, സൂര്യൻ, ഭൂമി, രാത്രി — ഈ ആറ് സംസ്കൃതവാക്കുകൾ ഒരേ ഉച്ചാരണത്തോടെ രണ്ടു ഭാഷകളിലും ഇരിക്കുന്നു. ഇന്തോ-ആര്യൻ ഹിന്ദിയും ദ്രാവിഡ മലയാളവും <b>സംസ്കൃതപുസ്തകത്തിന്റെ രണ്ട് അനുബന്ധങ്ങൾ</b> പോലെയാണ്.</div>
+
+  <h3>ക്രിയകൾ (ധാതു)</h3>
+  <table>
+    <tr><th>हिन्दी</th><th>ലിപ്യന്തരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="target">होना</td><td class="mono">honā</td><td>ആകുക · ഉണ്ടാവുക</td></tr>
+    <tr><td class="target">करना</td><td class="mono">karnā</td><td>ചെയ്യുക</td></tr>
+    <tr><td class="target">जाना</td><td class="mono">jānā</td><td>പോവുക</td></tr>
+    <tr><td class="target">आना</td><td class="mono">ānā</td><td>വരിക</td></tr>
+    <tr><td class="target">खाना</td><td class="mono">khānā</td><td>തിന്നുക</td></tr>
+    <tr><td class="target">पीना</td><td class="mono">pīnā</td><td>കുടിക്കുക</td></tr>
+    <tr><td class="target">देखना</td><td class="mono">dekhnā</td><td>നോക്കുക</td></tr>
+    <tr><td class="target">पढ़ना</td><td class="mono">paṛhnā</td><td>വായിക്കുക</td></tr>
+    <tr><td class="target">लिखना</td><td class="mono">likhnā</td><td>എഴുതുക</td></tr>
+    <tr><td class="target">बोलना</td><td class="mono">bolnā</td><td>പറയുക · സംസാരിക്കുക</td></tr>
+  </table>
+
+  <h3>സംഖ്യകൾ</h3>
+  <div class="grid cols-3">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">एक</div><div class="tlit">ek</div><div class="hint">ഒന്ന്</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">दो</div><div class="tlit">do</div><div class="hint">രണ്ട്</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">तीन</div><div class="tlit">tīn</div><div class="hint">മൂന്ന്</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">चार</div><div class="tlit">cār</div><div class="hint">നാല്</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">पाँच</div><div class="tlit">pā̃c</div><div class="hint">അഞ്ച്</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">छह</div><div class="tlit">chah</div><div class="hint">ആറ്</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">सात</div><div class="tlit">sāt</div><div class="hint">ഏഴ്</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">आठ</div><div class="tlit">āṭh</div><div class="hint">എട്ട്</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">नौ</div><div class="tlit">nau</div><div class="hint">ഒൻപത്</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">दस</div><div class="tlit">das</div><div class="hint">പത്ത്</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="tgt target">सौ</div><div class="tlit">sau</div><div class="hint">നൂറ്</div></div>
+  </div>
+
+  <h3>ചോദ്യപദങ്ങൾ</h3>
+  <table>
+    <tr><th>हिन्दी</th><th>ലിപ്യന്തരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="target">क्या</td><td class="mono">kyā</td><td>എന്ത്</td></tr>
+    <tr><td class="target">कौन</td><td class="mono">kaun</td><td>ആര്</td></tr>
+    <tr><td class="target">कहाँ</td><td class="mono">kahā̃</td><td>എവിടെ</td></tr>
+    <tr><td class="target">कब</td><td class="mono">kab</td><td>എപ്പോൾ</td></tr>
+    <tr><td class="target">क्यों</td><td class="mono">kyõ</td><td>എന്തുകൊണ്ട്</td></tr>
+    <tr><td class="target">कैसे</td><td class="mono">kaise</td><td>എങ്ങനെ</td></tr>
+    <tr><td class="target">कितना</td><td class="mono">kitnā</td><td>എത്ര</td></tr>
+  </table>
+</section>
+<section id="stage-05" class="stage">
+  <h2><span class="num">05</span>വാക്യം</h2>
+  <p>ഹിന്ദി വാക്യക്രമം മലയാളത്തിന്റേതുപോലെ: <b>കർത്താ → കർമ്മം → ക്രിയ</b>. വിഭക്തികൾ നാമത്തിന് പിന്നിൽ — ഇംഗ്ലീഷിന്റെ ഉപസർഗ്ഗമല്ല, നിങ്ങൾക്ക് പരിചിതമായ പ്രത്യയം.</p>
+
+  <h3>വിഭക്തി പട്ടിക</h3>
+  <table>
+    <tr><th>അർത്ഥം</th><th>മലയാളം</th><th>हिन्दी</th><th>ഉദാഹരണം</th></tr>
+    <tr><td>നാമം</td><td>—</td><td>—</td><td class="target">राम</td></tr>
+    <tr><td>കർമ്മം</td><td>-യെ</td><td>-को</td><td class="target">राम को</td></tr>
+    <tr><td>സ്ഥലം</td><td>-ഇൽ</td><td>-में</td><td class="target">घर में</td></tr>
+    <tr><td>കരണം</td><td>-കൊണ്ട്</td><td>-से</td><td class="target">हाथ से</td></tr>
+    <tr><td>അപാദാനം</td><td>-ഇൽ നിന്ന്</td><td>-से</td><td class="target">घर से</td></tr>
+    <tr><td>സംബന്ധം</td><td>-ന്റെ</td><td>-का/की/के</td><td class="target">राम का घर</td></tr>
+  </table>
+
+  <div class="aside"><b>സംബന്ധം ലിംഗം നോക്കും!</b> മലയാളത്തിൽ 'രാമന്റെ' എല്ലായ്പ്പോഴും ഒന്നുതന്നെ. ഹിന്ദിയിൽ <span class="target">राम का घर</span> (പുരുഷലിംഗം ഘർ), <span class="target">राम की किताब</span> (സ്ത്രീലിംഗം കിതാബ്), <span class="target">राम के बच്चे</span> (ബഹുവചനം). <b>ഉടമയല്ല, ഉടമസ്ഥവസ്തുവാണ് ലിംഗം തീരുമാനിക്കുന്നത്.</b></div>
+
+  <h3>ക്രിയാസംയോജനം — करना (ചെയ്യുക), വർത്തമാനകാലം</h3>
+  <table>
+    <tr><th>വ്യക്തി</th><th>हिन्दी (പു.)</th><th>हिन्दी (സ്ത്രീ.)</th><th>മലയാളം</th></tr>
+    <tr><td>ഞാൻ</td><td class="target">मैं करता हूँ</td><td class="target">मैं करती हूँ</td><td>ഞാൻ ചെയ്യുന്നു</td></tr>
+    <tr><td>നീ (തൂ)</td><td class="target">तू करता है</td><td class="target">तू करती है</td><td>നീ ചെയ്യുന്നു</td></tr>
+    <tr><td>നീ (തുമ്)</td><td class="target">तुम करते हो</td><td class="target">तुम करती हो</td><td>നീ ചെയ്യുന്നു</td></tr>
+    <tr><td>അവൻ/അവൾ</td><td class="target">वह करता है</td><td class="target">वह करती है</td><td>അവൻ/അവൾ ചെയ്യുന്നു</td></tr>
+    <tr><td>ഞങ്ങൾ</td><td class="target">हम करते हैं</td><td class="target">हम करती हैं</td><td>ഞങ്ങൾ ചെയ്യുന്നു</td></tr>
+    <tr><td>താങ്കൾ</td><td class="target">आप करते हैं</td><td class="target">आप करती हैं</td><td>താങ്കൾ ചെയ്യുന്നു</td></tr>
+    <tr><td>അവർ</td><td class="target">वे करते हैं</td><td class="target">वे करती हैं</td><td>അവർ ചെയ്യുന്നു</td></tr>
+  </table>
+
+  <div class="aside"><b>ലിംഗം ക്രിയയിലും വിശേഷണത്തിലും! <span class="flag">⚠</span></b> മലയാളത്തിൽ 'ഞാൻ ചെയ്യുന്നു' എന്നത് പുരുഷനോ സ്ത്രീയോ ഒരുപോലെ. ഹിന്ദിയിൽ പുരുഷൻ <span class="target">करता हूँ</span>, സ്ത്രീ <span class="target">करती हूँ</span> — ക്രിയയ്ക്കുതന്നെ ലിംഗം. വിശേഷണത്തിലും: <span class="target">अच्छा लड़का</span> vs <span class="target">अच्छी लड़की</span>. പുതിയ ശീലം.</div>
+
+  <h3>ഉദാഹരണവാക്യങ്ങൾ</h3>
+  <table>
+    <tr><th>हिन्दी</th><th>ലിപ്യന്തരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="target">मैं पानी पीता हूँ।</td><td class="mono">maĩ pānī pītā hū̃</td><td>ഞാൻ വെള്ളം കുടിക്കുന്നു.</td></tr>
+    <tr><td class="target">वह किताब पढ़ती है।</td><td class="mono">vah kitāb paṛhtī hai</td><td>അവൾ പുസ്തകം വായിക്കുന്നു.</td></tr>
+    <tr><td class="target">हम घर जाते हैं।</td><td class="mono">ham ghar jāte hãi</td><td>ഞങ്ങൾ വീട്ടിലേക്ക് പോകുന്നു.</td></tr>
+    <tr><td class="target">आप क्या करते हैं?</td><td class="mono">āp kyā karte hãi?</td><td>താങ്കൾ എന്ത് ചെയ്യുന്നു?</td></tr>
+  </table>
+
+  <h3>നിഷേധം · ചോദ്യം</h3>
+  <table>
+    <tr><th>തരം</th><th>हिन्दी</th><th>മലയാളം</th></tr>
+    <tr><td>നിഷേധം</td><td class="target">मैं नहीं जाता।</td><td>ഞാൻ പോകുന്നില്ല.</td></tr>
+    <tr><td>ഇല്ല (സത്താ)</td><td class="target">पैसा नहीं है।</td><td>പണം ഇല്ല.</td></tr>
+    <tr><td>അതേ/അല്ല ചോദ്യം</td><td class="target">क्या आप आते हैं?</td><td>താങ്കൾ വരുന്നുവോ?</td></tr>
+    <tr><td>എന്ത് ചോദ്യം</td><td class="target">यह क्या है?</td><td>ഇത് എന്താണ്?</td></tr>
+  </table>
+  <div class="aside"><b>ചോദ്യത്തിനൊരു 'क्या':</b> അതേ/അല്ല ചോദ്യത്തിൽ വാക്യത്തിന്റെ ആരംഭത്തിൽ <span class="target">क्या</span> വെക്കുക — 'ഉവ്വോ?' പോലെ. ഇത് മലയാളത്തിലെ '-ഓ' (വരുന്നുവോ?) ചെയ്യുന്ന ജോലി തന്നെ.</div>
+</section>
+<section id="stage-06" class="stage">
+  <h2><span class="num">06</span>വായന</h2>
+  <p>മൂന്ന് ഖണ്ഡികകൾ — ഹിന്ദി · ലിപ്യന്തരണം · മലയാള വിവർത്തനം.</p>
+
+  <h3>1. സ്വയം പരിചയം</h3>
+  <div class="passage">
+    <div class="tgt-text">मेरा नाम अनीता है। मैं केरल से हूँ। मैं हिन्दी सीखती हूँ। मेरी माँ मलयालम बोलती हैं। मुझे पढ़ना पसंद है।</div>
+    <div class="tlit mono">merā nām anītā hai · maĩ keral se hū̃ · maĩ hindī sīkhtī hū̃ · merī mā̃ malayālam boltī hãi · mujhe paṛhnā pasand hai</div>
+    <div class="gloss">എന്റെ പേര് അനിത. ഞാൻ കേരളത്തിൽ നിന്നാണ്. ഞാൻ ഹിന്ദി പഠിക്കുന്നു. എന്റെ അമ്മ മലയാളം സംസാരിക്കുന്നു. എനിക്ക് വായിക്കാൻ ഇഷ്ടമാണ്.</div>
+  </div>
+
+  <h3>2. ദിനചര്യ</h3>
+  <div class="passage">
+    <div class="tgt-text">मैं सुबह छह बजे उठता हूँ। फिर चाय पीता हूँ और अख़बार पढ़ता हूँ। आठ बजे मैं स्कूल जाता हूँ। दोपहर को खाना खाता हूँ। शाम को दोस्तों के साथ खेलता हूँ। रात को सोने से पहले किताब पढ़ता हूँ।</div>
+    <div class="tlit mono">maĩ subah chah baje uṭhtā hū̃ · phir cāy pītā hū̃ aur akhbār paṛhtā hū̃ · āṭh baje maĩ skūl jātā hū̃ · dopahar ko khānā khātā hū̃ · śām ko dostõ ke sāth kheltā hū̃ · rāt ko sone se pahle kitāb paṛhtā hū̃</div>
+    <div class="gloss">ഞാൻ രാവിലെ ആറ് മണിക്ക് എഴുന്നേൽക്കുന്നു. പിന്നെ ചായ കുടിക്കുന്നു, പത്രം വായിക്കുന്നു. എട്ട് മണിക്ക് ഞാൻ സ്കൂളിലേക്ക് പോകുന്നു. ഉച്ചയ്ക്ക് ഭക്ഷണം കഴിക്കുന്നു. വൈകുന്നേരം സുഹൃത്തുക്കളോടൊപ്പം കളിക്കുന്നു. രാത്രി ഉറങ്ങുന്നതിന് മുൻപ് പുസ്തകം വായിക്കുന്നു.</div>
+  </div>
+
+  <h3>3. രണ്ടു പേരുടെ സംഭാഷണം</h3>
+  <div class="passage">
+    <div class="tgt-text">
+      — नमस्ते! आप कैसे हैं?<br>
+      — नमस्ते! मैं ठीक हूँ, आप?<br>
+      — मैं भी ठीक हूँ। आप कहाँ जा रहे हैं?<br>
+      — मैं बाज़ार जा रहा हूँ। कुछ फल ख़रीदना है।<br>
+      — अच्छा। क्या आपके पास समय है? चाय पीते हैं।<br>
+      — ज़रूर! पास में एक अच्छी दुकान है।<br>
+      — चलिए।
+    </div>
+    <div class="tlit mono">namaste! āp kaise hãi? — namaste! maĩ ṭhīk hū̃, āp? — maĩ bhī ṭhīk hū̃ · āp kahā̃ jā rahe hãi? — maĩ bāzār jā rahā hū̃ · kuch phal kharīdnā hai · — acchā · kyā āpke pās samay hai? cāy pīte hãi · — zarūr! pās mẽ ek acchī dukān hai · — calie</div>
+    <div class="gloss">
+      — നമസ്കാരം! താങ്കൾ സുഖമാണോ?<br>
+      — നമസ്കാരം! ഞാൻ സുഖമാണ്, താങ്കളോ?<br>
+      — ഞാനും സുഖം. എവിടേക്ക് പോകുന്നു?<br>
+      — ഞാൻ ചന്തയിലേക്ക് പോവുകയാണ്. കുറച്ച് പഴങ്ങൾ വാങ്ങണം.<br>
+      — ശരി. താങ്കൾക്ക് സമയം ഉണ്ടോ? ചായ കുടിക്കാം.<br>
+      — തീർച്ചയായും! അടുത്തുതന്നെ നല്ല ഒരു കട ഉണ്ട്.<br>
+      — പോകാം.
+    </div>
+  </div>
+
+  <div class="aside"><b>'रहा/रही है' — തുടർച്ച:</b> <span class="target">जा रहा हूँ</span> = 'പോയ്ക്കൊണ്ടിരിക്കുന്നു'. മലയാളത്തിൽ 'പോയ്ക്കൊണ്ടിരിക്കുന്നു' ഒറ്റവാക്ക്. ഹിന്ദിയിൽ മൂന്ന് ഭാഗങ്ങൾ: ധാതു + रह + ഹോനാ. രൂപം വ്യത്യാസം, അർത്ഥം ഒന്ന്.</div>
+</section>
+<section id="stage-07" class="stage">
+  <h2><span class="num">07</span>പദമേഖല</h2>
+  <p>ഓരോ ഭാഷയും ലോകത്തെ വ്യത്യസ്തമായി മുറിക്കുന്നു. ചിലത് മലയാളത്തിന് വിശദം, ചിലത് ഹിന്ദിക്ക്.</p>
+
+  <h3>ബന്ധുത്വം</h3>
+  <table>
+    <tr><th>मलയാളം</th><th>हिन्दी</th><th>ലിപ്യന്തരണം</th></tr>
+    <tr><td>അച്ഛൻ</td><td class="target">पिता · पापा</td><td class="mono">pitā · pāpā</td></tr>
+    <tr><td>അമ്മ</td><td class="target">माँ · माता</td><td class="mono">mā̃ · mātā</td></tr>
+    <tr><td>ചേട്ടൻ</td><td class="target">भाई · भैया</td><td class="mono">bhāī · bhaiyā</td></tr>
+    <tr><td>ചേച്ചി</td><td class="target">बहन · दीदी</td><td class="mono">bahan · dīdī</td></tr>
+    <tr><td>അനുജൻ</td><td class="target">छोटा भाई</td><td class="mono">choṭā bhāī</td></tr>
+    <tr><td>അനുജത്തി</td><td class="target">छोटी बहन</td><td class="mono">choṭī bahan</td></tr>
+    <tr><td>മുത്തച്ഛൻ (അച്ഛന്റെ)</td><td class="target">दादा</td><td class="mono">dādā</td></tr>
+    <tr><td>മുത്തശ്ശി (അച്ഛന്റെ)</td><td class="target">दादी</td><td class="mono">dādī</td></tr>
+    <tr><td>മുത്തച്ഛൻ (അമ്മയുടെ)</td><td class="target">नाना</td><td class="mono">nānā</td></tr>
+    <tr><td>മുത്തശ്ശി (അമ്മയുടെ)</td><td class="target">नानी</td><td class="mono">nānī</td></tr>
+    <tr><td>മാമൻ (അമ്മാവൻ)</td><td class="target">मामा</td><td class="mono">māmā</td></tr>
+    <tr><td>ചിറ്റപ്പൻ</td><td class="target">चाचा</td><td class="mono">cācā</td></tr>
+    <tr><td>വലിയച്ഛൻ</td><td class="target">ताऊ · ताया</td><td class="mono">tāū · tāyā</td></tr>
+  </table>
+  <div class="aside"><b>ഹിന്ദി ബന്ധുത്വം വിശദമാണ്:</b> മലയാളത്തിൽ 'മുത്തച്ഛൻ' ഒന്നുതന്നെ — അച്ഛന്റേയോ അമ്മയുടെയോ എന്ന് സന്ദർഭം കൊണ്ട്. ഹിന്ദിയിൽ <span class="target">दादा</span> (അച്ഛന്റെ) ≠ <span class="target">नाना</span> (അമ്മയുടെ) — രണ്ടും വേർതിരിച്ച വാക്കുകൾ. അതുപോലെ <span class="target">चाचा</span> (അനിയൻ) vs <span class="target">ताऊ</span> (ജ്യേഷ്ഠൻ). ഒരിക്കൽ ഓർത്താൽ സൗകര്യം.</div>
+
+  <h3>സമയം</h3>
+  <table>
+    <tr><th>മലയാളം</th><th>हिन्दी</th><th>ലിപ്യന്തരണം</th></tr>
+    <tr><td>ഇന്ന്</td><td class="target">आज</td><td class="mono">āj</td></tr>
+    <tr><td>നാളെ / ഇന്നലെ</td><td class="target">कल</td><td class="mono">kal</td></tr>
+    <tr><td>ഇപ്പോൾ</td><td class="target">अब · अभी</td><td class="mono">ab · abhī</td></tr>
+    <tr><td>രാവിലെ</td><td class="target">सुबह</td><td class="mono">subah</td></tr>
+    <tr><td>ഉച്ച</td><td class="target">दोपहर</td><td class="mono">dopahar</td></tr>
+    <tr><td>വൈകുന്നേരം</td><td class="target">शाम</td><td class="mono">śām</td></tr>
+    <tr><td>രാത്രി</td><td class="target">रात</td><td class="mono">rāt</td></tr>
+  </table>
+
+  <div class="aside"><b>'कल' — രണ്ടു വശവും:</b> ഹിന്ദിയിൽ <span class="target">कल</span> എന്നാൽ ഇന്നലെയും നാളെയും — ഏതാണെന്ന് ക്രിയാകാലം തീരുമാനിക്കും. <span class="target">कल आया था</span> (ഇന്നലെ വന്നു), <span class="target">कल आएगा</span> (നാളെ വരും). <b>മലയാളവും 'കാലം' അതേപോലെ രണ്ട് ദിശകളെ സൂചിപ്പിക്കാറുണ്ട്</b> — 'കാലം കടന്നുപോയി', 'കാലം വരുവാനിരിക്കുന്നു'. ഭാഷാ തത്ത്വശാസ്ത്രം ഒന്നുതന്നെ.</div>
+
+  <h3>ശരീരം</h3>
+  <table>
+    <tr><th>മലയാളം</th><th>हिन्दी</th><th>ലിപ്യന്തരണം</th></tr>
+    <tr><td>തല</td><td class="target">सिर</td><td class="mono">sir</td></tr>
+    <tr><td>കണ്ണ്</td><td class="target">आँख</td><td class="mono">ā̃kh</td></tr>
+    <tr><td>ചെവി</td><td class="target">कान</td><td class="mono">kān</td></tr>
+    <tr><td>കൈ</td><td class="target">हाथ</td><td class="mono">hāth</td></tr>
+    <tr><td>കാൽ</td><td class="target">पैर</td><td class="mono">pair</td></tr>
+    <tr><td>വയർ</td><td class="target">पेट</td><td class="mono">peṭ</td></tr>
+    <tr><td>വായ</td><td class="target">मुँह</td><td class="mono">mũh</td></tr>
+  </table>
+
+  <h3>ചലനം</h3>
+  <table>
+    <tr><th>മലയാളം</th><th>हिन्दी</th></tr>
+    <tr><td>പോവുക</td><td class="target">जाना</td></tr>
+    <tr><td>വരിക</td><td class="target">आना</td></tr>
+    <tr><td>നടക്കുക</td><td class="target">चलना</td></tr>
+    <tr><td>ഓടുക</td><td class="target">दौड़ना</td></tr>
+    <tr><td>ഇരിക്കുക</td><td class="target">बैठना</td></tr>
+    <tr><td>എഴുന്നേൽക്കുക</td><td class="target">उठना</td></tr>
+  </table>
+</section>
+<section id="stage-08" class="stage">
+  <h2><span class="num">08</span>ഉപയോഗം</h2>
+
+  <h3>ബഹുമാനത്തിന്റെ മൂന്ന് തട്ടുകൾ</h3>
+  <table>
+    <tr><th>തട്ട്</th><th>സർവ്വനാമം</th><th>ക്രിയ</th><th>മലയാള തുല്യം</th></tr>
+    <tr><td>ഉയർന്ന (ബഹുമാനം)</td><td class="target">आप</td><td class="target">आप आइए</td><td>താങ്കൾ വരൂ</td></tr>
+    <tr><td>സാധാരണ</td><td class="target">तुम</td><td class="target">तुम आओ</td><td>നീ വരൂ</td></tr>
+    <tr><td>അടുപ്പം/ആത്മീയം</td><td class="target">तू</td><td class="target">तू आ</td><td>നീ വാ (അടുപ്പം)</td></tr>
+  </table>
+
+  <div class="aside"><b>മൃദുശബ്ദം <span class="target">ज़रा</span>:</b> അഭ്യർത്ഥന മയപ്പെടുത്താൻ <span class="target">ज़रा</span> ('കുറച്ച്'). <span class="target">ज़रा सुनिए</span> = 'ഒന്ന് കേൾക്കാമോ'. മലയാളത്തിലെ 'ഒന്ന്' (ഒന്ന് ഇങ്ങ് വാ) അതേ ജോലി. ഭാഷകൾ വ്യത്യസ്തം, സാമൂഹ്യശീലം ഒന്ന്.</div>
+
+  <h3>നിത്യാഭിവാദ്യങ്ങൾ</h3>
+  <table>
+    <tr><th>हिन्दी</th><th>ലിപ്യന്തരണം</th><th>മലയാളം</th></tr>
+    <tr><td class="target">नमस्ते · नमस्कार</td><td class="mono">namaste · namaskār</td><td>നമസ്കാരം</td></tr>
+    <tr><td class="target">धन्यवाद · शुक्रिया</td><td class="mono">dhanyavād · śukriyā</td><td>നന്ദി</td></tr>
+    <tr><td class="target">माफ़ कीजिए</td><td class="mono">māf kījie</td><td>ക്ഷമിക്കണം</td></tr>
+    <tr><td class="target">आप कैसे हैं?</td><td class="mono">āp kaise hãi?</td><td>താങ്കൾ സുഖമാണോ?</td></tr>
+    <tr><td class="target">मैं ठीक हूँ।</td><td class="mono">maĩ ṭhīk hū̃</td><td>ഞാൻ സുഖമാണ്.</td></tr>
+    <tr><td class="target">फिर मिलेंगे।</td><td class="mono">phir milẽge</td><td>വീണ്ടും കാണാം.</td></tr>
+    <tr><td class="target">अलविदा</td><td class="mono">alvidā</td><td>യാത്ര പറയൽ.</td></tr>
+  </table>
+
+  <h3>'ഭക്ഷണം കഴിച്ചോ?' — ഉപചാരചോദ്യം</h3>
+  <p>തെക്കേ ഇന്ത്യയിൽ 'ഊണ് കഴിച്ചോ?' നിത്യാഭിവാദ്യമാണ്. ഉത്തരേന്ത്യയിൽ <span class="target">खाना खाया?</span> എന്നത് കുറച്ചേ ഉപയോഗിക്കൂ — ബന്ധുക്കൾക്കും അടുത്ത സുഹൃത്തുക്കൾക്കുമിടയിൽ. അപരിചിതരോട് <span class="target">नमस्ते</span> മാത്രം മതി.</p>
+  <table>
+    <tr><th>സന്ദർഭം</th><th>हिन्दी പറയുക</th></tr>
+    <tr><td>അപരിചിതർ, ഔപചാരികം</td><td class="target">नमस्ते। आप कैसे हैं?</td></tr>
+    <tr><td>ബന്ധുക്കൾ, അടുപ്പം</td><td class="target">खाना खाया? सब ठीक है?</td></tr>
+    <tr><td>വിരുന്നുവീട്ടിൽ</td><td class="target">कुछ लीजिए। चाय पीजिए।</td></tr>
+  </table>
+
+  <h3>അപരിചിതരെ അഭിസംബോധന ചെയ്യൽ</h3>
+  <table>
+    <tr><th>ആര്</th><th>എന്ത് വിളിക്കണം</th><th>മലയാള തുല്യം</th></tr>
+    <tr><td>മുതിർന്ന പുരുഷൻ</td><td class="target">भैया · भाई साहब</td><td>ചേട്ടാ</td></tr>
+    <tr><td>മുതിർന്ന സ്ത്രീ</td><td class="target">दीदी · बहन जी</td><td>ചേച്ചി</td></tr>
+    <tr><td>വൃദ്ധൻ</td><td class="target">अंकल · बाबा</td><td>അച്ഛാ · മുത്തച്ഛാ</td></tr>
+    <tr><td>വൃദ്ധ</td><td class="target">आंटी · अम्मा जी</td><td>അമ്മേ · മുത്തശ്ശീ</td></tr>
+  </table>
+
+  <div class="aside"><b>'ജീ' — എല്ലാറ്റിലും ബഹുമാനം:</b> പേരിനോ ബന്ധപ്പേരിനോ പിന്നിൽ <span class="target">जी</span> ചേർത്താൽ ബഹുമാനം. <span class="target">रामजी, पिताजी, माताजी, गुरुजी</span>. മലയാളത്തിൽ 'അവർകൾ' അതേ ജോലി ചെയ്യുന്നു — 'രാമൻ അവർകൾ', 'ഗുരുനാഥൻ അവർകൾ'. ഒരേ സാമൂഹ്യബോധം, വ്യത്യസ്ത അടയാളം.</div>
+</section>
+<section id="stage-09" class="stage">
+  <h2><span class="num">09</span>സാഹിത്യം</h2>
+  <p>ഹിന്ദിക്ക് ഏകദേശം 800 വർഷത്തെ സാഹിത്യപാരമ്പര്യം — ഭക്തികാലത്തെ ദോഹകൾ മുതൽ ആധുനിക നോവൽ വരെ. മലയാള എഴുത്തുകാരുമായുള്ള അഞ്ച് പാലങ്ങൾ.</p>
+
+  <h3>കബീർ ↔ പൂന്താനം</h3>
+  <p>കബീർ (<span class="target">कबीर</span>, 15-ാം നൂറ്റാണ്ട്) നെയ്ത്തുകാരൻ-കവി. ഹിന്ദു-മുസ്ലിം ഔപചാരികതകളെ ഒരുപോലെ തള്ളിക്കളഞ്ഞ് ജനഭാഷയിൽ ദോഹകളെഴുതി. <b>പൂന്താനം</b> നമ്പൂതിരി 'ജ്ഞാനപ്പാന'യിൽ സംസ്കൃത പണ്ഡിതത്വത്തിനപ്പുറം ലളിതഭക്തിയെ ആഘോഷിക്കുന്നു — 'മനസ്സുറപ്പിച്ചാൽ മതി'. രണ്ടു പേരും <b>ശാസ്ത്ര-പാണ്ഡിത്യത്തിനെതിരെ ഹൃദയത്തിന്റെ ഭക്തി</b> ഉയർത്തിപ്പിടിച്ചവർ.</p>
+
+  <h3>പ്രേംചന്ദ് ↔ ബഷീർ</h3>
+  <p>പ്രേംചന്ദ് (<span class="target">प्रेमचंद</span>, 1880-1936) ഹിന്ദി ഗദ്യസാഹിത്യത്തിന്റെ പിതാവ്. 'ഗോദാൻ' ഗ്രാമീണ ജാതി-ദാരിദ്ര്യത്തിന്റെ നീറുന്ന ചിത്രം. <b>വൈക്കം മുഹമ്മദ് ബഷീർ</b> അതേ കാലഘട്ടത്തിൽ മലയാളത്തിൽ സാധാരണക്കാരന്റെ സംസാരഭാഷ സാഹിത്യത്തിലേക്ക് കൊണ്ടുവന്നു. <b>'ബാല്യകാലസഖി'-യിലെ മജീദ്, 'ഗോദാൻ'-ലെ ഹോരി</b> — രണ്ടു പ്രാന്തവൽക്കരിച്ചവരുടെ കഥകൾ.</p>
+
+  <h3>നിരാല ↔ കുമാരനാശാൻ</h3>
+  <p>സൂര്യകാന്ത് ത്രിപാഠി 'നിരാല' (<span class="target">निराला</span>, 1896-1961) ഛായാവാദത്തിന്റെ തീക്ഷ്ണ കവി. പാരമ്പര്യ വൃത്തങ്ങൾ ഭേദിച്ചു. <b>കുമാരനാശാൻ</b> 'വീണപൂവി'ൽ മലയാളകവിതയെ ആദ്യമായി ആധുനികതയിലേക്ക് നയിച്ചു — സമൂഹനീതിയും വ്യക്തിവേദനയും ഒന്നാക്കി. രണ്ടുപേരും <b>ആധുനിക സാമൂഹ്യബോധത്തോടെ കവിതയുടെ രൂപം പൊളിച്ചടുക്കിയവർ</b>.</p>
+
+  <h3>തുളസീദാസ് ↔ എഴുത്തച്ഛൻ</h3>
+  <p>തുളസീദാസിന്റെ '<span class="target">रामचरितमानस</span>' അവധി ഭാഷയിൽ രാമകഥയെ ജനകീയമാക്കി. <b>തുഞ്ചത്ത് എഴുത്തച്ഛൻ</b>, 'അധ്യാത്മരാമായണം കിളിപ്പാട്ടി'ലൂടെ മലയാളത്തിൽ അതേ ജോലി ചെയ്തു — സംസ്കൃത പാണ്ഡിത്യത്തിൽ നിന്ന് ജനഭാഷയിലേക്ക് രാമായണത്തെ ഇറക്കിക്കൊണ്ടുവന്നു. <b>രണ്ടു ഭാഷകളുടെയും 'പിതാക്കന്മാർ' രാമകഥയിലൂടെയാണ്</b> ആധുനിക ഗദ്യത്തിന് രൂപം നൽകിയത്.</p>
+
+  <h3>മഹാദേവി വർമ്മ ↔ കമല ദാസ്</h3>
+  <p>മഹാദേവി വർമ്മ (<span class="target">महादेवी वर्मा</span>) ഛായാവാദത്തിലെ സ്ത്രീശബ്ദം — ആത്മപീഡനം, ദർശനം, രഹസ്യാത്മകത. <b>കമല ദാസ്</b> ('മാധവിക്കുട്ടി') മലയാളത്തിലും ഇംഗ്ലീഷിലും സ്ത്രീയുടെ ആന്തരിക ലോകം, ശരീരവും ആത്മാവും തുറന്നെഴുതി. <b>രണ്ടു പേരുടെ കവിതയിലും 'ഞാൻ' എന്നത് ഒരു രാഷ്ട്രീയപ്രഖ്യാപനം</b> — സ്ത്രീയുടെ സ്വാനുഭവം സാഹിത്യത്തിന്റെ കേന്ദ്രമാകുന്നു.</p>
+
+  <div class="aside"><b>പാലം:</b> മലയാള സാഹിത്യം ഹിന്ദിയെക്കാൾ പഴയതാണ് (ഏകദേശം 1200 വർഷം) — പക്ഷേ ആധുനികകാലത്ത് <b>രണ്ടു ഭാഷകളും ഒരേ ചോദ്യങ്ങൾക്ക് ഉത്തരം കണ്ടെത്തുകയായിരുന്നു</b>: ജാതി, ദാരിദ്ര്യം, സ്ത്രീ, ദേശീയത. ഒരു ഭാഷ പഠിക്കുന്നത് മറ്റേതിലൂടെ നമ്മുടെ ഉപഭൂഖണ്ഡ സാഹിത്യ ചരിത്രം ഒന്നുകൂടി വായിക്കുക എന്നാണ്.</div>
+
+  <p class="ok">അഭിനന്ദനം — പത്ത് ഘട്ടങ്ങൾ പൂർത്തിയാക്കി. ഇനി ദിവസവും ഒരു ഹിന്ദി വാക്യം എഴുതുക. ഒരു മാസത്തിൽ വായന തെളിയും.</p>
+</section>
+
+<div class="nav-buttons">
+  <button id="prev">‹ മുൻപത്തേത്</button>
+  <button id="next">അടുത്തത് ›</button>
+</div>
+
+<footer>made by Nil · using Claude</footer>
+</div>
+<script>
+(function(){
+  const tabs = document.querySelectorAll('#tabs button');
+  const stages = document.querySelectorAll('section.stage');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  let current = 0;
+  function show(i){
+    current = Math.max(0, Math.min(stages.length-1, i));
+    tabs.forEach((t,idx)=>t.classList.toggle('active', idx===current));
+    stages.forEach((s,idx)=>s.classList.toggle('active', idx===current));
+    prev.disabled = current===0;
+    next.disabled = current===stages.length-1;
+    const active = document.querySelector('#tabs button.active');
+    if(active && active.scrollIntoView) active.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  tabs.forEach((t,idx)=>t.addEventListener('click', ()=>show(idx)));
+  prev.addEventListener('click', ()=>show(current-1));
+  next.addEventListener('click', ()=>show(current+1));
+})();
+</script>
+</body>
+</html>

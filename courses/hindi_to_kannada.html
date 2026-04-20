@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="हिन्दी से कन्नड़ सीखने का पहले-सिद्धांत पाठ्यक्रम — वर्णमाला की पद्धति में।" />
+<title>ಕನ್ನಡ ಕಲಿಯೋಣ — हिन्दी से कन्नड़</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600;700;900&family=Noto+Serif+Bengali:wght@400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Devanagari', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .kan { font-family: 'Noto Serif Kannada', serif; }
+  .dev { font-family: 'Noto Serif Devanagari', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .kan { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .dev-g {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .kan-g {
+    font-family: 'Noto Serif Kannada', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 4px; }
+  .map-cell.new::after {
+    content: "⚡";
+    position: absolute;
+    top: 4px; right: 6px;
+    font-size: 12px;
+    color: var(--sindoor);
+  }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .kan { font-family: 'Noto Serif Kannada', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .dev-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+  .word .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    background: rgba(184,128,45,0.15);
+    color: var(--ochre);
+    letter-spacing: 0.08em;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .word .tag.tat { background: rgba(31,77,74,0.12); color: var(--teal); }
+  .word .tag.drv { background: rgba(168,48,36,0.12); color: var(--sindoor); }
+
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .kan { font-family: 'Noto Serif Kannada', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .dev-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Devanagari', serif; font-size: 13px; color: var(--ink-faded); }
+  .conjug-row .kan { font-family: 'Noto Serif Kannada', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .dev-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 15px; color: var(--ink-soft); }
+
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .gk { font-family: 'Noto Serif Kannada', serif; font-size: 20px; line-height: 1; }
+  table.guni .gd { font-family: 'Noto Serif Devanagari', serif; font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+
+  .vachana {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .vachana::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .vachana .kan { font-size: 18px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; }
+  .vachana .dev-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .vachana .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, devanagari);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Devanagari', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  .passage {
+    margin: 22px 0;
+    padding: 18px 20px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .passage .kan-para { font-family: 'Noto Serif Kannada', serif; font-size: 18px; line-height: 1.85; font-weight: 500; margin-bottom: 10px; }
+  .passage .trans-para { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); line-height: 1.7; margin-bottom: 8px; }
+  .passage .dev-para { font-family: 'Noto Serif Devanagari', serif; font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
+  .passage .title-row { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--ochre); text-transform: uppercase; margin-bottom: 10px; }
+
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  .bridge {
+    margin: 14px 0;
+    padding: 14px 16px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .bridge .names {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .bridge .names .kan { font-family: 'Noto Serif Kannada', serif; }
+  .bridge .connect {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ochre);
+    margin: 0 8px;
+  }
+  .bridge .insight { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .kan { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .kan-g { font-size: 26px; }
+    .map-cell .dev-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .dev-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 380px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 14px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">एक प्राइमर · ಪ್ರಾಥಮಿಕ ಪುಸ್ತಕ</div>
+    <h1 class="title">
+      <span class="kan">ಕನ್ನಡ ಕಲಿಯೋಣ</span>
+      हिन्दी से कन्नड़ सीखें
+    </h1>
+    <p class="subtitle">वर्णमाला की पद्धति पर — एक बार में एक ही नई चीज़, रूप पहले अर्थ बाद में, सूची नहीं व्यवस्था — जो हिन्दी जानती है उसी पर कन्नड़ की नींव।</p>
+    <div class="byline">दस पड़ाव <span class="sep">·</span> मोबाइल-अनुकूल <span class="sep">·</span> पूर्ण शून्य से</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">00</span>भूमिका</button>
+    <button class="stage-tab" data-stage="1"><span class="num">01</span>स्वर</button>
+    <button class="stage-tab" data-stage="2"><span class="num">02</span>व्यंजन</button>
+    <button class="stage-tab" data-stage="3"><span class="num">03</span>संयोजन</button>
+    <button class="stage-tab" data-stage="4"><span class="num">04</span>मूल शब्द</button>
+    <button class="stage-tab" data-stage="5"><span class="num">05</span>वाक्य</button>
+    <button class="stage-tab" data-stage="6"><span class="num">06</span>पाठ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">07</span>शब्द-क्षेत्र</button>
+    <button class="stage-tab" data-stage="8"><span class="num">08</span>प्रयोग</button>
+    <button class="stage-tab" data-stage="9"><span class="num">09</span>साहित्य</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" id="stage-00" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव 00 · भूमिका</div>
+    <h2 class="stage-title">यह पाठ अलग क्यों है</h2>
+    <p class="stage-lede">आप हिन्दी जानते हैं। इसका मतलब है कि कन्नड़ सीखने के लिए आपको अंग्रेज़ी-भाषियों की तरह शून्य से शुरुआत नहीं करनी पड़ेगी — आप 91% ध्वनियाँ, व्याकरण का पूरा ढाँचा, और शब्दकोश का एक बड़ा हिस्सा पहले से ही पहचानते हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>बचपन में आपने <strong>वर्णमाला</strong> और <strong>बारहखड़ी</strong> सीखी थी। वही सिद्धांत यहाँ फिर काम आएगा। वर्णमाला की मूल चाल थी — <strong>एक समय में एक ही नई चीज़</strong>, और जो न सिखाया गया हो उसका उदाहरण नहीं। यह पाठ्यक्रम ठीक उसी पद्धति पर बना है, एक बड़े फ़ायदे के साथ: हिन्दी और कन्नड़ एक ही परिवार की न सही, पर एक ही सभ्यता की हैं — दोनों लिपियाँ ब्राह्मी से उतरी हैं, दोनों की ध्वनियाँ लगभग एक हैं, और दोनों का वाक्य-क्रम एक है।</p>
+
+    <p>देखिए — हिन्दी: <strong>मैं पानी पीता हूँ।</strong> कन्नड़: <span class="kan">ನಾನು ನೀರು ಕುಡಿಯುತ್ತೇನೆ.</span> (<span class="mono">nānu nīru kuḍiyuttēne</span>) — कर्ता, कर्म, क्रिया — ठीक उसी क्रम में। आपकी ज़ुबान का सोचने का तरीक़ा पहले से तैयार है; बस शब्दों की बारी है।</p>
+
+    <h3><span class="num">¶</span>हिन्दी → कन्नड़: कहाँ मेल, कहाँ फ़र्क़</h3>
+
+    <ol class="principles">
+      <li><strong>ध्वनियाँ — लगभग पूरी एक हैं।</strong> वर्गीय व्यंजन (क-ख-ग-घ-ङ, च-छ-ज-झ-ञ…) बिलकुल वैसे ही हैं जैसे हिन्दी में। अल्पप्राण/महाप्राण, घोष/अघोष — आपका मुँह इन सबको पहले से जानता है। 47 में से 43 ध्वनियाँ साझा हैं।</li>
+      <li><strong>लिपि — चेहरा नया, नियम वही।</strong> देवनागरी और कन्नड़ दोनों अबुगिदा हैं — हर व्यंजन में एक अंतर्निहित 'अ' है, और स्वर-चिह्न (मात्रा) लगाकर बदला जाता है। क → का/कि/की यानी <span class="kan">ಕ → ಕಾ/ಕಿ/ಕೀ</span> — एक ही सिद्धांत, दो अलग रूप।</li>
+      <li><strong>व्याकरण — वाक्य-क्रम वही।</strong> दोनों SOV हैं। 'वह किताब पढ़ता है' = <span class="kan">ಅವನು ಪುಸ್ತಕ ಓದುತ್ತಾನೆ</span> (avanu pustaka ōduttāne)। पर ध्यान दें: कन्नड़ क्रिया में तीन लिंग बताती है (पुल्लिंग/स्त्रीलिंग/नपुंसक) — हिन्दी में दो। तीसरा लिंग नया है।</li>
+      <li><strong>शब्दकोश — संस्कृत का पुल।</strong> पुस्तक/<span class="kan">ಪುಸ್ತಕ</span>, समय/<span class="kan">ಸಮಯ</span>, भूमि/<span class="kan">ಭೂಮಿ</span>, सूर्य/<span class="kan">ಸೂರ್ಯ</span>, दिन/<span class="kan">ದಿನ</span> — तत्सम शब्द दोनों में लगभग एक जैसे। तुरंत 100+ शब्द पहचान लेंगे।</li>
+      <li><strong>आदर के स्तर — ढाँचा परिचित।</strong> तू/तुम/आप (तीन) = <span class="kan">ನೀನು/ನೀವು</span> (दो)। हिन्दी में 'तू' के लिए कन्नड़ में कोई अलग रूप नहीं — <span class="kan">ನೀನು</span> = तुम, <span class="kan">ನೀವು</span> = आप।</li>
+      <li><strong>असली नई ध्वनि: <span class="kan">ಳ</span></strong> — मूर्धन्य ल। हिन्दी ने यह ध्वनि खो दी है; कन्नड़, तमिल और मलयालम ने बचा रखी है। जीभ को पीछे मोड़कर 'ल' बोलिए — तीन हज़ार साल पुरानी आवाज़, जो आपके कान पहली बार सुनेंगे।</li>
+    </ol>
+
+    <div class="aside"><strong>पद्धति।</strong> हर पड़ाव पर कन्नड़ अक्षर/शब्द/वाक्य के साथ-साथ हिन्दी समकक्ष रखा गया है। आप हिन्दी पहचानेंगे, और कन्नड़ सिर्फ़ नया चेहरा रह जाएगा — नई अवधारणा नहीं।</div>
+
+    <div class="aside"><strong>श्वा-लोप की चेतावनी।</strong> हिन्दी में 'कमल' को हम 'कमल्' बोलते हैं — अंत का 'अ' ग़ायब हो जाता है (schwa deletion)। कन्नड़ में <span class="kan">ಕಮಲ</span> को पूरा 'कमल' बोला जाता है, 'अ' साफ़ सुनाई देता है। यह छोटी-सी आदत बदलनी होगी।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ऊपर <strong>स्वर</strong> टैब पर दबाएँ, शुरू कीजिए।</p>
+  </div>
+</section>
+<section class="stage" id="stage-01" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव 01 · ध्वनि</div>
+    <h2 class="stage-title">स्वर — <span class="kan">ಸ್ವರಗಳು</span></h2>
+    <p class="stage-lede">हिन्दी में आप 11 स्वर पहचानते हैं। कन्नड़ में 13 हैं — दो अधिक, क्योंकि 'ए' और 'ओ' दोनों के ह्रस्व और दीर्घ रूप कन्नड़ लिपि अलग दिखाती है। ध्वनि लगभग वही, चेहरा नया।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+kannada+vowels+swaragalu+pronunciation" title="Kannada vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">कन्नड़ स्वरों का उच्चारण सुनें <a href="https://www.youtube.com/results?search_query=learn+kannada+vowels+swaragalu+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>पढ़ने का नियम।</strong> हर कार्ड पर टैप करें — एक उदाहरण शब्द दिखेगा। हिन्दी अक्षर ऊपर, कन्नड़ नीचे — पहले आँख हिन्दी पहचानेगी, फिर कन्नड़ रूप याददाश्त में बैठेगा।</div>
+
+    <div class="group-label">ह्रस्व / दीर्घ जोड़ा — 'अ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಅಮ್ಮ (amma) = अम्मा — माँ"><div class="dev-g">अ</div><div class="arrow">↓</div><div class="kan-g">ಅ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಆನೆ (āne) = आने — हाथी"><div class="dev-g">आ</div><div class="arrow">↓</div><div class="kan-g">ಆ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'इ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಇರು (iru) = होना / रहना"><div class="dev-g">इ</div><div class="arrow">↓</div><div class="kan-g">ಇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಈಗ (īga) = अभी / इस वक़्त"><div class="dev-g">ई</div><div class="arrow">↓</div><div class="kan-g">ಈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'उ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಉಪ್ಪು (uppu) = नमक"><div class="dev-g">उ</div><div class="arrow">↓</div><div class="kan-g">ಉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಊಟ (ūṭa) = भोजन / भात"><div class="dev-g">ऊ</div><div class="arrow">↓</div><div class="kan-g">ಊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ऋ — संस्कृत उधार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಋಷಿ (ṛṣi) = ऋषि — वही संस्कृत शब्द!"><div class="dev-g">ऋ</div><div class="arrow">↓</div><div class="kan-g">ಋ</div><div class="label">ṛ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ए' परिवार — यहाँ हिन्दी और कन्नड़ में फ़र्क़ है</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಎಲೆ (ele) = पत्ता (ह्रस्व ए)"><div class="dev-g">ए</div><div class="arrow">↓</div><div class="kan-g">ಎ</div><div class="label">e (ह्रस्व)</div><div class="hint"></div></div>
+      <div class="map-cell new" tabindex="0" data-hint="ಏಳು (ēḷu) = सात / उठो (दीर्घ ए)"><div class="dev-g">(ए)</div><div class="arrow">↓</div><div class="kan-g">ಏ</div><div class="label">ē (दीर्घ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಐದು (aidu) = पाँच"><div class="dev-g">ऐ</div><div class="arrow">↓</div><div class="kan-g">ಐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी के साथ असली फ़र्क़।</strong> कन्नड़ में 'ए' के दो रूप हैं — <span class="kan">ಎ</span> (ह्रस्व) और <span class="kan">ಏ</span> (दीर्घ)। हिन्दी की लिपि में यह फ़र्क़ नहीं लिखा जाता — पर उच्चारण में होता है। 'एक' के 'ए' और 'मेला' के 'ए' की लंबाई अलग है। कन्नड़ इस फ़र्क़ को लिखकर पक्का कर देती है।</div>
+
+    <div class="group-label">'ओ' परिवार — वही कहानी</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಒಂದು (ondu) = एक (ह्रस्व ओ)"><div class="dev-g">ओ</div><div class="arrow">↓</div><div class="kan-g">ಒ</div><div class="label">o (ह्रस्व)</div><div class="hint"></div></div>
+      <div class="map-cell new" tabindex="0" data-hint="ಓಡು (ōḍu) = दौड़ो (दीर्घ ओ)"><div class="dev-g">(ओ)</div><div class="arrow">↓</div><div class="kan-g">ಓ</div><div class="label">ō (दीर्घ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಔಷಧ (auṣadha) = औषध — वही शब्द!"><div class="dev-g">औ</div><div class="arrow">↓</div><div class="kan-g">ಔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>⚡ नया क्या है।</strong> <span class="kan">ಏ</span> (दीर्घ ए) और <span class="kan">ಓ</span> (दीर्घ ओ) — कन्नड़ की ये दो अतिरिक्त स्वर-चिह्न हिन्दी की देवनागरी में अलग से नहीं लिखे जाते। यानी हिन्दी का 'ए' कन्नड़ में दो टुकड़ों में बँट जाता है, और 'ओ' भी — इसे हम <em>ह्रस्व/दीर्घ ए-ओ विभाजन</em> कहेंगे। यही कन्नड़ सीखने का पहला नया नियम है।</div>
+
+    <div class="group-label">अनुस्वार और विसर्ग — हिन्दी जैसे ही</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಹಂಸ (haṃsa) = हंस"><div class="dev-g">अं</div><div class="arrow">↓</div><div class="kan-g">ಅಂ</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ದುಃಖ (duḥkha) = दुःख"><div class="dev-g">अः</div><div class="arrow">↓</div><div class="kan-g">ಅಃ</div><div class="label">aḥ</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">1.1</span>अभ्यास</h3>
+    <ul class="clean">
+      <li>हर जोड़ा ज़ोर से 20 बार बोलिए: अ-आ, इ-ई, उ-ऊ — पर नज़र कन्नड़ गिल्फ़ पर।</li>
+      <li>काग़ज़ पर हर कन्नड़ स्वर 5 बार लिखिए। हाथ आँख को सिखाता है।</li>
+      <li>जब तक हर कन्नड़ स्वर 1 सेकंड में पहचान न लें, पड़ाव 2 पर न जाएँ।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-02" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव 02 · ध्वनि (आगे)</div>
+    <h2 class="stage-title">व्यंजन — <span class="kan">ವ್ಯಂಜನಗಳು</span></h2>
+    <p class="stage-lede">वर्णमाला का वर्गीय क्रम आपके शरीर में बसा है — क-ख-ग-घ-ङ, च-छ-ज-झ-ञ… कन्नड़ के व्यंजन भी ठीक उसी क्रम में सजे हैं। सिर्फ़ चेहरा नया है।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+kannada+consonants+vyanjanagalu+pronunciation" title="Kannada consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">कन्नड़ व्यंजनों का उच्चारण सुनें <a href="https://www.youtube.com/results?search_query=learn+kannada+consonants+vyanjanagalu+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <h3><span class="num">2.1</span>कण्ठ्य वर्ग (कवर्ग) — जीभ की जड़ तालू के पीछे</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಕಮಲ (kamala) = कमल"><div class="dev-g">क</div><div class="arrow">↓</div><div class="kan-g">ಕ</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಖಗ (khaga) = खग — पक्षी"><div class="dev-g">ख</div><div class="arrow">↓</div><div class="kan-g">ಖ</div><div class="label">kha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಗಗನ (gagana) = गगन — आकाश"><div class="dev-g">ग</div><div class="arrow">↓</div><div class="kan-g">ಗ</div><div class="label">ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಘಟ (ghaṭa) = घट — घड़ा"><div class="dev-g">घ</div><div class="arrow">↓</div><div class="kan-g">ಘ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="हिन्दी ङ की तरह, विरल"><div class="dev-g">ङ</div><div class="arrow">↓</div><div class="kan-g">ಙ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.2</span>तालव्य वर्ग (चवर्ग)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಚಂದ್ರ (candra) = चंद्र"><div class="dev-g">च</div><div class="arrow">↓</div><div class="kan-g">ಚ</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಛತ್ರ (chatra) = छत्र"><div class="dev-g">छ</div><div class="arrow">↓</div><div class="kan-g">ಛ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಜಲ (jala) = जल"><div class="dev-g">ज</div><div class="arrow">↓</div><div class="kan-g">ಜ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಝರಿ (jhari) = झरना"><div class="dev-g">झ</div><div class="arrow">↓</div><div class="kan-g">ಝ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="विरल, संयुक्त अक्षरों में मिलेगा"><div class="dev-g">ञ</div><div class="arrow">↓</div><div class="kan-g">ಞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.3</span>मूर्धन्य वर्ग (टवर्ग) — जीभ पीछे मोड़कर</h3>
+    <p>हिन्दी में जैसे ट-ठ-ड-ढ-ण, कन्नड़ में बिलकुल वैसे ही। ये ध्वनियाँ अंग्रेज़ी-भाषियों के लिए कठिन होती हैं — आपके लिए नहीं।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಟೊಮ್ಯಾಟೊ (ṭomyāṭo) = टमाटर"><div class="dev-g">ट</div><div class="arrow">↓</div><div class="kan-g">ಟ</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="क्रिया में विरल"><div class="dev-g">ठ</div><div class="arrow">↓</div><div class="kan-g">ಠ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಡಂಬ (ḍamba) = दंभ"><div class="dev-g">ड</div><div class="arrow">↓</div><div class="kan-g">ಡ</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="विरल"><div class="dev-g">ढ</div><div class="arrow">↓</div><div class="kan-g">ಢ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಹಣ (haṇa) = धन, पैसा"><div class="dev-g">ण</div><div class="arrow">↓</div><div class="kan-g">ಣ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.4</span>दन्त्य वर्ग (तवर्ग) — जीभ की नोक दाँतों के पीछे</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ತಾರೆ (tāre) = तारा"><div class="dev-g">त</div><div class="arrow">↓</div><div class="kan-g">ತ</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="थ-ध्वनि, विरल"><div class="dev-g">थ</div><div class="arrow">↓</div><div class="kan-g">ಥ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ದಿನ (dina) = दिन — वही शब्द!"><div class="dev-g">द</div><div class="arrow">↓</div><div class="kan-g">ದ</div><div class="label">da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಧನ (dhana) = धन"><div class="dev-g">ध</div><div class="arrow">↓</div><div class="kan-g">ಧ</div><div class="label">dha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ನಾನು (nānu) = मैं"><div class="dev-g">न</div><div class="arrow">↓</div><div class="kan-g">ನ</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.5</span>ओष्ठ्य वर्ग (पवर्ग)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಪುಸ್ತಕ (pustaka) = पुस्तक"><div class="dev-g">प</div><div class="arrow">↓</div><div class="kan-g">ಪ</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಫಲ (phala) = फल"><div class="dev-g">फ</div><div class="arrow">↓</div><div class="kan-g">ಫ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಬಾ (bā) = आओ"><div class="dev-g">ब</div><div class="arrow">↓</div><div class="kan-g">ಬ</div><div class="label">ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಭಾಷೆ (bhāṣe) = भाषा — पहचाना?"><div class="dev-g">भ</div><div class="arrow">↓</div><div class="kan-g">ಭ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಮನೆ (mane) = घर"><div class="dev-g">म</div><div class="arrow">↓</div><div class="kan-g">ಮ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.6</span>अन्तःस्थ और ऊष्म व्यंजन</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ಯಾರು (yāru) = कौन"><div class="dev-g">य</div><div class="arrow">↓</div><div class="kan-g">ಯ</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ರಾತ್ರಿ (rātri) = रात्रि"><div class="dev-g">र</div><div class="arrow">↓</div><div class="kan-g">ರ</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಲತೆ (late) = लता"><div class="dev-g">ल</div><div class="arrow">↓</div><div class="kan-g">ಲ</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ವನ (vana) = वन"><div class="dev-g">व</div><div class="arrow">↓</div><div class="kan-g">ವ</div><div class="label">va</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಶಾಲೆ (śāle) = शाला"><div class="dev-g">श</div><div class="arrow">↓</div><div class="kan-g">ಶ</div><div class="label">śa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಭಾಷೆ (bhāṣe) = भाषा"><div class="dev-g">ष</div><div class="arrow">↓</div><div class="kan-g">ಷ</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಸಮಯ (samaya) = समय"><div class="dev-g">स</div><div class="arrow">↓</div><div class="kan-g">ಸ</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ಹಾಲು (hālu) = दूध"><div class="dev-g">ह</div><div class="arrow">↓</div><div class="kan-g">ಹ</div><div class="label">ha</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">2.7</span>⚡ नई ध्वनि — मूर्धन्य ल</h3>
+    <p>यह वह एकमात्र व्यंजन है जो हिन्दी में नहीं है। संस्कृत के वैदिक काल में था (<em>अग्निमीळे पुरोहितम्</em>), बाद में हिन्दी ने इसे छोड़ दिया; द्रविड़ भाषाओं ने सँभाले रखा।</p>
+    <div class="map-grid">
+      <div class="map-cell new" tabindex="0" data-hint="ಹಣ್ಣು (haṇṇu) में ण नहीं, ਲ़ जैसा ल है। जीभ पीछे मोड़कर 'ल' बोलें।"><div class="dev-g">(नहीं)</div><div class="arrow">↓</div><div class="kan-g">ಳ</div><div class="label">ḷa</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>⚡ जीभ कहाँ रखें।</strong> <span class="kan">ಳ</span> बोलते वक़्त जीभ की नोक पीछे (मूर्ध्न्य की तरफ़) मुड़ती है, जैसे 'ट' बोलते वक़्त — पर आवाज़ 'ल' जैसी रहती है। <span class="kan">ಹಾಳು</span> (hāḷu = बर्बाद) और <span class="kan">ಹಾಲು</span> (hālu = दूध) में फ़र्क़ केवल इसी ध्वनि का है। सुनकर पहचानना पहले कठिन लगेगा — अभ्यास से कान तैयार हो जाएगा।</div>
+
+    <div class="aside"><strong>द्रविड़ ↔ आर्य का पुल।</strong> हिन्दी इन्दो-आर्य भाषा है, कन्नड़ द्रविड़। फिर भी दोनों ने संस्कृत से इतना लिया कि व्यंजन-तालिका लगभग एक हो गई। यानी जब आप <span class="kan">ಭಾಷೆ</span> (bhāṣe = भाषा) पढ़ते हैं, तो आप दोनों परिवारों के संगम को पढ़ रहे हैं।</div>
+  </div>
+</section>
+<section class="stage" id="stage-03" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव 03 · संयोजन</div>
+    <h2 class="stage-title">मात्राएँ, हलन्त और संयुक्ताक्षर</h2>
+    <p class="stage-lede">देवनागरी की बारहखड़ी में आपने एक बार 12 चिह्न सीखे और 34 व्यंजनों पर लगाकर 408 अक्षर बन गए। कन्नड़ की 'कागुणित' ठीक वही चाल है — दूसरे चेहरे के साथ।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>हिन्दी की मात्रा ↔ कन्नड़ की कागुणित — एक ही सिद्धांत। व्यंजन में अन्तर्निहित 'अ' है; मात्रा लगाकर वह बदल जाती है। नीचे 'क' (<span class="kan">ಕ</span>) को ही देख लीजिए — दोनों लिपियों में।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead>
+          <tr>
+            <th>स्वर</th>
+            <th>हिन्दी</th>
+            <th>कन्नड़</th>
+            <th>लिप्यन्तरण</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>अ</td><td><span class="gd">क</span></td><td><span class="gk">ಕ</span></td><td>ka</td></tr>
+          <tr><td>आ</td><td><span class="gd">का</span></td><td><span class="gk">ಕಾ</span></td><td>kā</td></tr>
+          <tr><td>इ</td><td><span class="gd">कि</span></td><td><span class="gk">ಕಿ</span></td><td>ki</td></tr>
+          <tr><td>ई</td><td><span class="gd">की</span></td><td><span class="gk">ಕೀ</span></td><td>kī</td></tr>
+          <tr><td>उ</td><td><span class="gd">कु</span></td><td><span class="gk">ಕು</span></td><td>ku</td></tr>
+          <tr><td>ऊ</td><td><span class="gd">कू</span></td><td><span class="gk">ಕೂ</span></td><td>kū</td></tr>
+          <tr><td>ए (ह्रस्व)</td><td><span class="gd">के</span></td><td><span class="gk">ಕೆ</span></td><td>ke</td></tr>
+          <tr><td>ए (दीर्घ)</td><td>—</td><td><span class="gk">ಕೇ</span></td><td>kē</td></tr>
+          <tr><td>ऐ</td><td><span class="gd">कै</span></td><td><span class="gk">ಕೈ</span></td><td>kai</td></tr>
+          <tr><td>ओ (ह्रस्व)</td><td><span class="gd">को</span></td><td><span class="gk">ಕೊ</span></td><td>ko</td></tr>
+          <tr><td>ओ (दीर्घ)</td><td>—</td><td><span class="gk">ಕೋ</span></td><td>kō</td></tr>
+          <tr><td>औ</td><td><span class="gd">कौ</span></td><td><span class="gk">ಕೌ</span></td><td>kau</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>बारहखड़ी की पुरानी चाल।</strong> देवनागरी में आपने 12 मात्रा-चिह्न एक बार सीखे — और वे 34 व्यंजनों पर बिलकुल एक जैसे बैठते हैं। 12 × 34 = 408 अक्षर — केवल 12 चिह्नों की क़ीमत पर! कन्नड़ की कागुणित इसी आदत को 13 स्वरों तक खींच देती है। नियम पुराना, रूप नया।</div>
+
+    <h3><span class="num">3.1</span>हलन्त / विराम</h3>
+    <p>हिन्दी का हलन्त ( ् ) व्यंजन का 'अ' मिटा देता है — क् = k (बिना स्वर)। कन्नड़ का विराम ( ್ ) ठीक वही काम करता है। तुलना कीजिए:</p>
+
+    <div class="words">
+      <div class="word">
+        <div class="dev-eq">क् + त = क्त</div>
+        <div class="kan">ಕ್ + ತ = ಕ್ತ</div>
+        <div class="trans">k + ta = kta</div>
+        <div class="meaning">पहला व्यंजन बिना 'अ' के, दूसरे के साथ जुड़ जाता है।</div>
+      </div>
+      <div class="word">
+        <div class="dev-eq">भक्त</div>
+        <div class="kan">ಭಕ್ತ</div>
+        <div class="trans">bhakta</div>
+        <div class="meaning">भक्त — वही शब्द, वही तरीक़ा, दो लिपियाँ।</div>
+      </div>
+      <div class="word">
+        <div class="dev-eq">पुस्तक</div>
+        <div class="kan">ಪುಸ್ತಕ</div>
+        <div class="trans">pustaka</div>
+        <div class="meaning">'स्' का विराम '्' दिखता है ಸ್ — ठीक जैसे देवनागरी में स्।</div>
+      </div>
+      <div class="word">
+        <div class="dev-eq">विद्या</div>
+        <div class="kan">ವಿದ್ಯಾ</div>
+        <div class="trans">vidyā</div>
+        <div class="meaning">दोनों में द्+य = द्य / ದ್+ಯ = ದ್ಯ।</div>
+      </div>
+    </div>
+
+    <h3><span class="num">3.2</span>संयुक्ताक्षर — चेहरा कैसे जुड़ता है</h3>
+    <p>हिन्दी में 'क्ष, त्र, ज्ञ, क्त, प्त' जैसे संयुक्त अक्षरों में आप पहले व्यंजन को छोटा करके दूसरे के साथ जोड़ते हैं। कन्नड़ में भी वही होता है — पर कन्नड़ दूसरे व्यंजन को <em>छोटा करके नीचे</em> बिठाती है। इसे 'ओत्तक्षर' कहते हैं।</p>
+
+    <div class="words">
+      <div class="word">
+        <div class="dev-eq">नमस्कार</div>
+        <div class="kan">ನಮಸ್ಕಾರ</div>
+        <div class="trans">namaskāra</div>
+        <div class="note">ಸ್+ಕ — ಸ का विराम, फिर ಕ। देवनागरी में 'स्क' क्षैतिज, कन्नड़ में 'ಸ್ಕ' — रूप अलग, काम एक।</div>
+      </div>
+      <div class="word">
+        <div class="dev-eq">सत्य</div>
+        <div class="kan">ಸತ್ಯ</div>
+        <div class="trans">satya</div>
+        <div class="note">त्+य = त्य / ತ್+ಯ = ತ್ಯ।</div>
+      </div>
+      <div class="word">
+        <div class="dev-eq">धन्यवाद</div>
+        <div class="kan">ಧನ್ಯವಾದ</div>
+        <div class="trans">dhanyavāda</div>
+        <div class="note">'न्य' में नीचे ಯ जुड़ता है — न्+य / ನ್+ಯ।</div>
+      </div>
+      <div class="word">
+        <div class="dev-eq">प्रेम</div>
+        <div class="kan">ಪ್ರೇಮ</div>
+        <div class="trans">prēma</div>
+        <div class="note">'प्र' हिन्दी में पहले-बाद, कन्नड़ में ऊपर-नीचे। पर सिद्धांत वही।</div>
+      </div>
+      <div class="word">
+        <div class="dev-eq">कृष्ण</div>
+        <div class="kan">ಕೃಷ್ಣ</div>
+        <div class="trans">kṛṣṇa</div>
+        <div class="note">'कृ' — दोनों में ऋ-मात्रा अलग तरह से बैठती है, पर पढ़ने की तरह एक।</div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>एक नियम, दो चेहरे।</strong> देवनागरी में संयुक्त व्यंजन प्राय: आगे-पीछे (क्ष, क्त) बैठते हैं; कन्नड़ में ऊपर-नीचे (ಕ್ಷ, ಕ್ತ)। लेकिन दोनों में पहला व्यंजन 'अ-रहित' है, और दूसरा उसके साथ चिपका है। जब आप यह देख लेंगे, कोई भी कन्नड़ संयुक्ताक्षर पढ़ लेंगे।</div>
+  </div>
+</section>
+<section class="stage" id="stage-04" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव 04 · शब्दकोश</div>
+    <h2 class="stage-title">मूल शब्द — पहचान और उधार</h2>
+    <p class="stage-lede">कन्नड़ शब्दों को तीन ढेर में बाँटना आसान रहेगा — संस्कृत से आए तत्सम (हिन्दी जैसे), द्रविड़ मूल के (पूरे नए), और रोज़मर्रा के काम-काजी शब्द। संस्कृत-पुल से तुरंत 100+ शब्द मुफ़्त मिलते हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">4.1</span>सर्वनाम</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ನಾನು</div><div class="dev-eq">मैं</div><div class="trans">nānu</div></div>
+      <div class="word"><div class="kan">ನೀನು</div><div class="dev-eq">तुम</div><div class="trans">nīnu</div><div class="note">आदर के बिना — 'तू' के लिए भी इसी का इस्तेमाल।</div></div>
+      <div class="word"><div class="kan">ನೀವು</div><div class="dev-eq">आप</div><div class="trans">nīvu</div><div class="note">आदरसूचक या बहुवचन दोनों।</div></div>
+      <div class="word"><div class="kan">ಅವನು</div><div class="dev-eq">वह (पु.)</div><div class="trans">avanu</div></div>
+      <div class="word"><div class="kan">ಅವಳು</div><div class="dev-eq">वह (स्त्री.)</div><div class="trans">avaḷu</div><div class="note">⚡ मूर्धन्य ळ — ध्यान दीजिए।</div></div>
+      <div class="word"><div class="kan">ಅದು</div><div class="dev-eq">वह (वस्तु)</div><div class="trans">adu</div><div class="note">नपुंसक — कन्नड़ का तीसरा लिंग।</div></div>
+      <div class="word"><div class="kan">ಇದು</div><div class="dev-eq">यह</div><div class="trans">idu</div></div>
+      <div class="word"><div class="kan">ನಾವು</div><div class="dev-eq">हम</div><div class="trans">nāvu</div></div>
+      <div class="word"><div class="kan">ಅವರು</div><div class="dev-eq">वे / वह (आदर)</div><div class="trans">avaru</div><div class="note">आदरसूचक तीसरा पुरुष।</div></div>
+    </div>
+
+    <div class="aside"><strong>तीसरा लिंग।</strong> हिन्दी में वह = पुल्लिंग या स्त्रीलिंग। कन्नड़ तीन करती है — <span class="kan">ಅವನು</span> (पुरुष), <span class="kan">ಅವಳು</span> (स्त्री), <span class="kan">ಅದು</span> (वस्तु/जानवर)। मेज़, किताब, बच्चा (जब तक लिंग न पता हो) — सब <span class="kan">ಅದು</span>। यह आदत पकड़ने में कुछ समय लगेगा।</div>
+
+    <h3><span class="num">4.2</span>मुख्य संज्ञाएँ</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಮನೆ</div><div class="dev-eq">घर <span class="tag drv">द्रविड़</span></div><div class="trans">mane</div></div>
+      <div class="word"><div class="kan">ನೀರು</div><div class="dev-eq">पानी <span class="tag drv">द्रविड़</span></div><div class="trans">nīru</div></div>
+      <div class="word"><div class="kan">ಊಟ</div><div class="dev-eq">भोजन / भात <span class="tag drv">द्रविड़</span></div><div class="trans">ūṭa</div></div>
+      <div class="word"><div class="kan">ಹೆಸರು</div><div class="dev-eq">नाम <span class="tag drv">द्रविड़</span></div><div class="trans">hesaru</div></div>
+      <div class="word"><div class="kan">ಪುಸ್ತಕ</div><div class="dev-eq">पुस्तक <span class="tag tat">तत्सम</span></div><div class="trans">pustaka</div><div class="note">संस्कृत का वही शब्द — बिना बदले।</div></div>
+      <div class="word"><div class="kan">ಶಾಲೆ</div><div class="dev-eq">शाला / स्कूल <span class="tag tat">तत्सम</span></div><div class="trans">śāle</div></div>
+      <div class="word"><div class="kan">ಹಣ</div><div class="dev-eq">धन / पैसा <span class="tag drv">द्रविड़</span></div><div class="trans">haṇa</div></div>
+      <div class="word"><div class="kan">ದಾರಿ</div><div class="dev-eq">रास्ता <span class="tag drv">द्रविड़</span></div><div class="trans">dāri</div></div>
+      <div class="word"><div class="kan">ಸಮಯ</div><div class="dev-eq">समय <span class="tag tat">तत्सम</span></div><div class="trans">samaya</div></div>
+      <div class="word"><div class="kan">ದಿನ</div><div class="dev-eq">दिन <span class="tag tat">तत्सम</span></div><div class="trans">dina</div></div>
+      <div class="word"><div class="kan">ಹಾಲು</div><div class="dev-eq">दूध <span class="tag drv">द्रविड़</span></div><div class="trans">hālu</div></div>
+      <div class="word"><div class="kan">ಅನ್ನ</div><div class="dev-eq">अन्न / पका चावल <span class="tag tat">तत्सम</span></div><div class="trans">anna</div></div>
+      <div class="word"><div class="kan">ಹಣ್ಣು</div><div class="dev-eq">फल <span class="tag drv">द्रविड़</span></div><div class="trans">haṇṇu</div></div>
+      <div class="word"><div class="kan">ಮರ</div><div class="dev-eq">पेड़ <span class="tag drv">द्रविड़</span></div><div class="trans">mara</div></div>
+      <div class="word"><div class="kan">ಸೂರ್ಯ</div><div class="dev-eq">सूर्य <span class="tag tat">तत्सम</span></div><div class="trans">sūrya</div></div>
+      <div class="word"><div class="kan">ಮಳೆ</div><div class="dev-eq">बारिश <span class="tag drv">द्रविड़</span></div><div class="trans">maḷe</div><div class="note">⚡ ळ — हिन्दी 'बारिश' से कोई रिश्ता नहीं।</div></div>
+      <div class="word"><div class="kan">ಭೂಮಿ</div><div class="dev-eq">भूमि <span class="tag tat">तत्सम</span></div><div class="trans">bhūmi</div></div>
+      <div class="word"><div class="kan">ಹೂವು</div><div class="dev-eq">फूल <span class="tag drv">द्रविड़</span></div><div class="trans">hūvu</div></div>
+      <div class="word"><div class="kan">ಮಗು</div><div class="dev-eq">बच्चा <span class="tag drv">द्रविड़</span></div><div class="trans">magu</div></div>
+      <div class="word"><div class="kan">ಮನುಷ್ಯ</div><div class="dev-eq">मनुष्य <span class="tag tat">तत्सम</span></div><div class="trans">manuṣya</div></div>
+    </div>
+
+    <div class="aside"><strong>संस्कृत का पुल।</strong> पुस्तक/<span class="kan">ಪುಸ್ತಕ</span>, समय/<span class="kan">ಸಮಯ</span>, भूमि/<span class="kan">ಭೂಮಿ</span>, सूर्य/<span class="kan">ಸೂರ್ಯ</span>, मनुष्य/<span class="kan">ಮನುಷ್ಯ</span> — यह वही संस्कृत शब्द हैं, दो परिवारों में एक साथ जीवित। हिन्दी और कन्नड़ के बीच ऐसे तत्सम शब्द सैकड़ों में हैं। इन्हें याद करने की ज़रूरत नहीं — बस पहचानने की।</div>
+
+    <h3><span class="num">4.3</span>मुख्य क्रियाएँ (मूल रूप)</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಇರು</div><div class="dev-eq">होना / रहना</div><div class="trans">iru</div></div>
+      <div class="word"><div class="kan">ಮಾಡು</div><div class="dev-eq">करना</div><div class="trans">māḍu</div></div>
+      <div class="word"><div class="kan">ಹೋಗು</div><div class="dev-eq">जाना</div><div class="trans">hōgu</div></div>
+      <div class="word"><div class="kan">ಬಾ</div><div class="dev-eq">आना</div><div class="trans">bā</div></div>
+      <div class="word"><div class="kan">ತಿನ್ನು</div><div class="dev-eq">खाना</div><div class="trans">tinnu</div></div>
+      <div class="word"><div class="kan">ಕುಡಿ</div><div class="dev-eq">पीना</div><div class="trans">kuḍi</div></div>
+      <div class="word"><div class="kan">ನೋಡು</div><div class="dev-eq">देखना</div><div class="trans">nōḍu</div></div>
+      <div class="word"><div class="kan">ಕೇಳು</div><div class="dev-eq">सुनना / पूछना</div><div class="trans">kēḷu</div><div class="note">⚡ ळ — 'सुनना' और 'पूछना' दोनों के लिए।</div></div>
+      <div class="word"><div class="kan">ಓದು</div><div class="dev-eq">पढ़ना</div><div class="trans">ōdu</div></div>
+      <div class="word"><div class="kan">ಬರೆ</div><div class="dev-eq">लिखना</div><div class="trans">bare</div></div>
+      <div class="word"><div class="kan">ಹೇಳು</div><div class="dev-eq">कहना / बोलना</div><div class="trans">hēḷu</div></div>
+      <div class="word"><div class="kan">ನಡೆ</div><div class="dev-eq">चलना</div><div class="trans">naḍe</div></div>
+      <div class="word"><div class="kan">ಓಡು</div><div class="dev-eq">दौड़ना</div><div class="trans">ōḍu</div></div>
+      <div class="word"><div class="kan">ಕೊಡು</div><div class="dev-eq">देना</div><div class="trans">koḍu</div></div>
+      <div class="word"><div class="kan">ತೆಗೆದುಕೊ</div><div class="dev-eq">लेना</div><div class="trans">tegedukoḷḷu</div></div>
+      <div class="word"><div class="kan">ಗೊತ್ತು</div><div class="dev-eq">पता होना / जानना</div><div class="trans">gottu</div><div class="note">क्रिया की जगह अक्सर अवस्था — 'मुझे पता है'।</div></div>
+      <div class="word"><div class="kan">ಬೇಕು</div><div class="dev-eq">चाहिए</div><div class="trans">bēku</div></div>
+      <div class="word"><div class="kan">ಮಲಗು</div><div class="dev-eq">सोना / लेटना</div><div class="trans">malagu</div></div>
+      <div class="word"><div class="kan">ಕುಳಿತುಕೊ</div><div class="dev-eq">बैठना</div><div class="trans">kuḷitukoḷḷu</div></div>
+      <div class="word"><div class="kan">ನಿಲ್ಲು</div><div class="dev-eq">खड़ा होना / रुकना</div><div class="trans">nillu</div></div>
+    </div>
+
+    <h3><span class="num">4.4</span>संख्याएँ — एकदम अलग पारिवारिक कहानी</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಒಂದು</div><div class="dev-eq">एक</div><div class="trans">ondu</div></div>
+      <div class="word"><div class="kan">ಎರಡು</div><div class="dev-eq">दो</div><div class="trans">eraḍu</div></div>
+      <div class="word"><div class="kan">ಮೂರು</div><div class="dev-eq">तीन</div><div class="trans">mūru</div></div>
+      <div class="word"><div class="kan">ನಾಲ್ಕು</div><div class="dev-eq">चार</div><div class="trans">nālku</div></div>
+      <div class="word"><div class="kan">ಐದು</div><div class="dev-eq">पाँच</div><div class="trans">aidu</div></div>
+      <div class="word"><div class="kan">ಆರು</div><div class="dev-eq">छः</div><div class="trans">āru</div></div>
+      <div class="word"><div class="kan">ಏಳು</div><div class="dev-eq">सात</div><div class="trans">ēḷu</div><div class="note">⚡ ळ</div></div>
+      <div class="word"><div class="kan">ಎಂಟು</div><div class="dev-eq">आठ</div><div class="trans">eṇṭu</div></div>
+      <div class="word"><div class="kan">ಒಂಬತ್ತು</div><div class="dev-eq">नौ</div><div class="trans">ombattu</div></div>
+      <div class="word"><div class="kan">ಹತ್ತು</div><div class="dev-eq">दस</div><div class="trans">hattu</div></div>
+      <div class="word"><div class="kan">ಇಪ್ಪತ್ತು</div><div class="dev-eq">बीस</div><div class="trans">ippattu</div></div>
+      <div class="word"><div class="kan">ಐವತ್ತು</div><div class="dev-eq">पचास</div><div class="trans">aivattu</div></div>
+      <div class="word"><div class="kan">ನೂರು</div><div class="dev-eq">सौ</div><div class="trans">nūru</div></div>
+    </div>
+
+    <div class="aside"><strong>गिनती — बिना पुल के।</strong> एक/<span class="kan">ಒಂದು</span>, दो/<span class="kan">ಎರಡು</span>, तीन/<span class="kan">ಮೂರು</span> — कोई मेल नहीं! द्रविड़ भाषाओं की अपनी गिनती है, संस्कृत से उधार नहीं ली। तमिल <em>onṛu, iraṇḍu, mūnṛu</em>, मलयालम <em>onnu, raṇḍu, mūnnu</em> — सब एक परिवार, पर हिन्दी बाहर। यहाँ पुल नहीं, नदी है।</div>
+  </div>
+</section>
+<section class="stage" id="stage-05" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव 05 · वाक्य</div>
+    <h2 class="stage-title">वाक्य-रचना, क्रिया-रूप, निषेध, प्रश्न</h2>
+    <p class="stage-lede">SOV एक है — कर्ता, कर्म, क्रिया। फिर भी कन्नड़ क्रिया बहुत कुछ अपने भीतर समेट लेती है: समय, पुरुष, लिंग, वचन — सब एक ही शब्द में। यही कन्नड़ की 'समासीकरण' की कला है।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">5.1</span>बुनियादी वाक्य</h3>
+
+    <div class="sentence">
+      <div class="kan">ನಾನು ನೀರು ಕುಡಿಯುತ್ತೇನೆ.</div>
+      <div class="trans">nānu nīru kuḍiyuttēne.</div>
+      <div class="dev-gloss">मैं पानी पीता/पीती हूँ।</div>
+      <div class="literal">नान-u (मैं) | नीर-u (पानी) | कुडि-य-उत्त-एने (पी-रहा-हूँ)</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಅವಳು ಪುಸ್ತಕ ಓದುತ್ತಾಳೆ.</div>
+      <div class="trans">avaḷu pustaka ōduttāḷe.</div>
+      <div class="dev-gloss">वह (स्त्री) किताब पढ़ती है।</div>
+      <div class="literal">क्रिया के अन्त में 'आळे' — स्त्रीलिंग का निशान।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಅವನು ಮನೆಗೆ ಹೋಗುತ್ತಾನೆ.</div>
+      <div class="trans">avanu manege hōguttāne.</div>
+      <div class="dev-gloss">वह (पुरुष) घर जाता है।</div>
+      <div class="literal">मने + गे = 'घर को' (सम्प्रदान) — हिन्दी की 'को' की जगह -गे।</div>
+    </div>
+
+    <h3><span class="num">5.2</span>क्रिया-रूप तुलना — 'मोड़ु' (करना) का वर्तमान</h3>
+    <p>हिन्दी में क्रिया के साथ 'हूँ/है/हैं' जुड़ता है — दो टुकड़े। कन्नड़ में सब कुछ क्रिया के अन्त में एक ही जगह — एक टुकड़ा।</p>
+
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">मैं</div><div class="kan">ಮಾಡುತ್ತೇನೆ</div><div class="dev-eq">करता/करती हूँ</div></div>
+      <div class="conjug-row"><div class="pron">तुम</div><div class="kan">ಮಾಡುತ್ತೀಯ</div><div class="dev-eq">करता/करती हो</div></div>
+      <div class="conjug-row"><div class="pron">आप</div><div class="kan">ಮಾಡುತ್ತೀರಿ</div><div class="dev-eq">करते/करती हैं</div></div>
+      <div class="conjug-row"><div class="pron">वह (पु.)</div><div class="kan">ಮಾಡುತ್ತಾನೆ</div><div class="dev-eq">करता है</div></div>
+      <div class="conjug-row"><div class="pron">वह (स्त्री.)</div><div class="kan">ಮಾಡುತ್ತಾಳೆ</div><div class="dev-eq">करती है</div></div>
+      <div class="conjug-row"><div class="pron">वह (वस्तु)</div><div class="kan">ಮಾಡುತ್ತದೆ</div><div class="dev-eq">(नपुंसक) करता है</div></div>
+      <div class="conjug-row"><div class="pron">हम</div><div class="kan">ಮಾಡುತ್ತೇವೆ</div><div class="dev-eq">करते/करती हैं</div></div>
+      <div class="conjug-row"><div class="pron">वे</div><div class="kan">ಮಾಡುತ್ತಾರೆ</div><div class="dev-eq">करते/करती हैं</div></div>
+    </div>
+
+    <div class="aside"><strong>क्रिया में लिंग — नई चुनौती।</strong> हिन्दी में लिंग का संकेत क्रिया के तने पर आता है (करता / करती)। कन्नड़ में यह काम क्रिया का <em>अंत</em> करता है — <span class="kan">-ತಾನೆ</span> (पु.), <span class="kan">-ತಾಳೆ</span> (स्त्री.), <span class="kan">-ತದೆ</span> (नपुंसक)। पहले-पहल ध्यान रखना पड़ेगा — फिर आदत बन जाएगी।</div>
+
+    <h3><span class="num">5.3</span>कारक-चिह्न — 'को, में, से, का'</h3>
+    <p>हिन्दी में 'को, में, से, का' — अलग शब्द। कन्नड़ में ये संज्ञा के साथ जुड़ जाते हैं (प्रत्यय के रूप में)।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead>
+          <tr><th>कारक</th><th>हिन्दी</th><th>कन्नड़ प्रत्यय</th><th>उदाहरण</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>कर्ता</td><td>—</td><td>—</td><td><span class="gk">ಮನೆ</span> (घर)</td></tr>
+          <tr><td>कर्म</td><td>को</td><td>-ಅನ್ನು</td><td><span class="gk">ಮನೆಯನ್ನು</span> (घर को)</td></tr>
+          <tr><td>संप्रदान</td><td>को / के लिए</td><td>-ಗೆ</td><td><span class="gk">ಮನೆಗೆ</span> (घर को)</td></tr>
+          <tr><td>अधिकरण</td><td>में</td><td>-ಅಲ್ಲಿ</td><td><span class="gk">ಮನೆಯಲ್ಲಿ</span> (घर में)</td></tr>
+          <tr><td>अपादान</td><td>से</td><td>-ಇಂದ</td><td><span class="gk">ಮನೆಯಿಂದ</span> (घर से)</td></tr>
+          <tr><td>सम्बन्ध</td><td>का/की/के</td><td>-ಅ</td><td><span class="gk">ಮನೆಯ</span> (घर का)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>समासीकरण — जुड़ते शब्दों की कला।</strong> हिन्दी 'घर में से' = तीन शब्द। कन्नड़ <span class="kan">ಮನೆಯಿಂದ</span> = एक शब्द, तीन टुकड़े (मने+यि+इन्द) सब जुड़े हुए। कन्नड़ शब्दों को मोतियों की माला की तरह लम्बा कर देती है — यही द्रविड़ भाषाओं की असली पहचान है।</div>
+
+    <h3><span class="num">5.4</span>निषेध — 'नहीं'</h3>
+
+    <div class="sentence">
+      <div class="kan">ನಾನು ಮನೆಗೆ ಹೋಗುವುದಿಲ್ಲ.</div>
+      <div class="trans">nānu manege hōguvudilla.</div>
+      <div class="dev-gloss">मैं घर नहीं जाता/जाती।</div>
+      <div class="literal">क्रिया के अंत में '-इल्ल' लगते ही निषेध बन जाता है।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ಅದು ನಿಜವಲ್ಲ.</div>
+      <div class="trans">adu nijavalla.</div>
+      <div class="dev-gloss">वह सच नहीं है।</div>
+      <div class="literal">'अल्ल' = 'नहीं है' (होना-निषेध)।</div>
+    </div>
+
+    <h3><span class="num">5.5</span>प्रश्न-शब्द</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಏನು?</div><div class="dev-eq">क्या?</div><div class="trans">ēnu?</div></div>
+      <div class="word"><div class="kan">ಯಾರು?</div><div class="dev-eq">कौन?</div><div class="trans">yāru?</div></div>
+      <div class="word"><div class="kan">ಎಲ್ಲಿ?</div><div class="dev-eq">कहाँ?</div><div class="trans">elli?</div></div>
+      <div class="word"><div class="kan">ಯಾವಾಗ?</div><div class="dev-eq">कब?</div><div class="trans">yāvāga?</div></div>
+      <div class="word"><div class="kan">ಏಕೆ?</div><div class="dev-eq">क्यों?</div><div class="trans">ēke?</div></div>
+      <div class="word"><div class="kan">ಹೇಗೆ?</div><div class="dev-eq">कैसे?</div><div class="trans">hēge?</div></div>
+      <div class="word"><div class="kan">ಎಷ್ಟು?</div><div class="dev-eq">कितना / कितने?</div><div class="trans">eṣṭu?</div></div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ನಿನ್ನ ಹೆಸರು ಏನು?</div>
+      <div class="trans">ninna hesaru ēnu?</div>
+      <div class="dev-gloss">तुम्हारा नाम क्या है?</div>
+      <div class="literal">निन्न (तुम्हारा) | हेसरु (नाम) | एनु (क्या) — क्रिया 'है' यहाँ छुपी है।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="kan">ನೀವು ಎಲ್ಲಿಂದ ಬಂದಿದ್ದೀರಿ?</div>
+      <div class="trans">nīvu ellinda bandiddīri?</div>
+      <div class="dev-gloss">आप कहाँ से आए हैं?</div>
+      <div class="literal">एल्लि+इन्द (कहाँ+से) — कारक-चिह्न जुड़ा हुआ।</div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-06" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव 06 · पाठ</div>
+    <h2 class="stage-title">तीन पाठ — पढ़कर देखिए</h2>
+    <p class="stage-lede">पहला पाठ: आत्म-परिचय। दूसरा: दिनचर्या। तीसरा: दो लोगों का संवाद। हर पंक्ति के नीचे उच्चारण और हिन्दी अनुवाद दिया है — पर पहले केवल कन्नड़ पढ़ने की कोशिश कीजिए।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="passage">
+      <div class="title-row">पाठ एक · आत्म-परिचय</div>
+      <div class="kan-para">ನಮಸ್ಕಾರ. ನನ್ನ ಹೆಸರು ರವಿ. ನಾನು ಬೆಂಗಳೂರಿನಲ್ಲಿ ವಾಸ ಮಾಡುತ್ತೇನೆ. ನನಗೆ ಪುಸ್ತಕ ಓದಲು ಇಷ್ಟ. ನಾನು ಪ್ರತಿದಿನ ಹಾಲು ಕುಡಿಯುತ್ತೇನೆ.</div>
+      <div class="trans-para">namaskāra. nanna hesaru ravi. nānu beṅgaḷūrinalli vāsa māḍuttēne. nanage pustaka ōdalu iṣṭa. nānu pratidina hālu kuḍiyuttēne.</div>
+      <div class="dev-para">नमस्कार। मेरा नाम रवि है। मैं बेंगलूरु में रहता हूँ। मुझे किताब पढ़ना पसंद है। मैं हर रोज़ दूध पीता हूँ।</div>
+    </div>
+
+    <div class="passage">
+      <div class="title-row">पाठ दो · एक दिन</div>
+      <div class="kan-para">ಬೆಳಿಗ್ಗೆ ನಾನು ಬೇಗ ಏಳುತ್ತೇನೆ. ನಂತರ ನಾನು ಹಲ್ಲು ಉಜ್ಜಿ ಸ್ನಾನ ಮಾಡುತ್ತೇನೆ. ಅಮ್ಮ ಊಟ ಕೊಡುತ್ತಾಳೆ. ನಾನು ಶಾಲೆಗೆ ನಡೆದುಕೊಂಡು ಹೋಗುತ್ತೇನೆ. ಸಂಜೆ ಮನೆಗೆ ಹಿಂತಿರುಗುತ್ತೇನೆ. ರಾತ್ರಿ ಬೇಗ ಮಲಗುತ್ತೇನೆ.</div>
+      <div class="trans-para">beḷigge nānu bēga ēḷuttēne. nantara nānu hallu ujji snāna māḍuttēne. amma ūṭa koḍuttāḷe. nānu śālege naḍedukoṇḍu hōguttēne. sañje manege hintiruguttēne. rātri bēga malaguttēne.</div>
+      <div class="dev-para">सुबह मैं जल्दी उठता हूँ। फिर दाँत माँजकर स्नान करता हूँ। अम्मा खाना देती हैं। मैं स्कूल पैदल जाता हूँ। शाम को घर लौटता हूँ। रात को जल्दी सोता हूँ।</div>
+    </div>
+
+    <div class="aside"><strong>'कल' का टुकड़ा।</strong> हिन्दी में 'कल' आगे भी और पीछे भी — एक शब्द, दो अर्थ। कन्नड़ इन्हें अलग कर देती है: <span class="kan">ನಾಳೆ</span> (nāḷe) = आने वाला कल, <span class="kan">ನಿನ್ನೆ</span> (ninne) = बीता कल। भ्रम की कोई जगह नहीं।</div>
+
+    <div class="passage">
+      <div class="title-row">पाठ तीन · संवाद (दो मित्र)</div>
+      <div class="kan-para">ರವಿ: ನಮಸ್ಕಾರ ಮೀರಾ. ಹೇಗಿದ್ದೀರಿ?
+ಮೀರಾ: ಚೆನ್ನಾಗಿದ್ದೇನೆ. ನೀವು?
+ರವಿ: ನಾನೂ ಚೆನ್ನಾಗಿದ್ದೇನೆ. ಊಟ ಆಯ್ತಾ?
+ಮೀರಾ: ಆಯ್ತು. ನೀವು?
+ರವಿ: ಇಲ್ಲ, ಇನ್ನೂ ಇಲ್ಲ. ಸ್ವಲ್ಪ ಹೊತ್ತಿನಲ್ಲಿ ಮಾಡುತ್ತೇನೆ.
+ಮೀರಾ: ಹಾಗಾದರೆ ಬೇಗ ಊಟ ಮಾಡಿ. ನಾಳೆ ಸಿಗೋಣ.
+ರವಿ: ಆಯ್ತು, ಧನ್ಯವಾದಗಳು.</div>
+      <div class="trans-para">ravi: namaskāra mīrā. hēgiddīri?
+mīrā: chennāgiddēne. nīvu?
+ravi: nānū chennāgiddēne. ūṭa āytā?
+mīrā: āytu. nīvu?
+ravi: illa, innū illa. svalpa hottinalli māḍuttēne.
+mīrā: hāgādare bēga ūṭa māḍi. nāḷe sigōṇa.
+ravi: āytu, dhanyavādagaḷu.</div>
+      <div class="dev-para">रवि: नमस्कार मीरा। कैसी हैं आप?
+मीरा: बढ़िया हूँ। आप?
+रवि: मैं भी बढ़िया हूँ। खाना हुआ?
+मीरा: हो गया। आप?
+रवि: नहीं, अभी नहीं। थोड़ी देर में करूँगा।
+मीरा: तो जल्दी खाना खाइए। कल मिलेंगे।
+रवि: ठीक है, धन्यवाद।</div>
+    </div>
+
+    <div class="aside"><strong>"खाना हुआ?"</strong> <span class="kan">ಊಟ ಆಯ್ತಾ?</span> — असल में खाने के बारे में पूछना नहीं है। यह दक्षिण भारत का 'कैसे हैं?' है — स्नेह और चिन्ता साथ लेकर चलता। उत्तर भी बना-बनाया: <span class="kan">ಆಯ್ತು</span> (हो गया) — चाहे खाया हो या नहीं।</div>
+  </div>
+</section>
+<section class="stage" id="stage-07" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव 07 · शब्द-क्षेत्र</div>
+    <h2 class="stage-title">परिवार, समय, शरीर, गति</h2>
+    <p class="stage-lede">हर भाषा दुनिया को अपने तरीक़े से टुकड़ों में बाँटती है। रिश्तों के नाम, समय के शब्द, शरीर के अंग — यहीं पर दो भाषाओं का असली सांस्कृतिक नक़्शा दिखता है।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">7.1</span>रिश्ते — उम्र के हिसाब से अलग</h3>
+    <p>हिन्दी में 'भाई' एक शब्द — बड़ा हो या छोटा, फ़र्क़ जोड़कर बताते हैं। कन्नड़ में बड़े-छोटे के लिए अलग शब्द हैं। यह द्रविड़ भाषाओं की गहरी आदत है।</p>
+
+    <div class="words">
+      <div class="word"><div class="kan">ಅಪ್ಪ</div><div class="dev-eq">पिता / अप्पा</div><div class="trans">appa</div></div>
+      <div class="word"><div class="kan">ಅಮ್ಮ</div><div class="dev-eq">माँ / अम्मा</div><div class="trans">amma</div></div>
+      <div class="word"><div class="kan">ಅಣ್ಣ</div><div class="dev-eq">बड़ा भाई</div><div class="trans">aṇṇa</div><div class="note">अजनबी बड़े पुरुष को भी 'अण्णा' — आदर से।</div></div>
+      <div class="word"><div class="kan">ತಮ್ಮ</div><div class="dev-eq">छोटा भाई</div><div class="trans">tamma</div></div>
+      <div class="word"><div class="kan">ಅಕ್ಕ</div><div class="dev-eq">बड़ी बहन</div><div class="trans">akka</div><div class="note">अजनबी बड़ी स्त्री को भी 'अक्का'।</div></div>
+      <div class="word"><div class="kan">ತಂಗಿ</div><div class="dev-eq">छोटी बहन</div><div class="trans">taṅgi</div></div>
+      <div class="word"><div class="kan">ಅಜ್ಜ</div><div class="dev-eq">दादा / नाना</div><div class="trans">ajja</div></div>
+      <div class="word"><div class="kan">ಅಜ್ಜಿ</div><div class="dev-eq">दादी / नानी</div><div class="trans">ajji</div></div>
+      <div class="word"><div class="kan">ಮಾವ</div><div class="dev-eq">मामा / ससुर</div><div class="trans">māva</div></div>
+      <div class="word"><div class="kan">ಅತ್ತೆ</div><div class="dev-eq">बुआ / सास</div><div class="trans">atte</div></div>
+      <div class="word"><div class="kan">ಚಿಕ್ಕಪ್ಪ</div><div class="dev-eq">छोटा चाचा</div><div class="trans">cikkappa</div><div class="note">चिक्क = छोटा; अप्प = पिता तुल्य।</div></div>
+      <div class="word"><div class="kan">ದೊಡ್ಡಪ್ಪ</div><div class="dev-eq">बड़ा चाचा / ताऊ</div><div class="trans">doḍḍappa</div><div class="note">दोड्ड = बड़ा; अप्प = पिता तुल्य।</div></div>
+    </div>
+
+    <div class="aside"><strong>उम्र की दीवार।</strong> हिन्दी में 'भाई' भर कह देने से काम चलता है। कन्नड़ में चूक नहीं हो सकती — <span class="kan">ಅಣ್ಣ</span> (बड़ा) और <span class="kan">ತಮ್ಮ</span> (छोटा) अलग शब्द हैं। तमिल, तेलुगु, मलयालम सब यही करती हैं। यह केवल शब्द नहीं — यह दक्षिण भारत में उम्र के प्रति आदर का भाषाई रूप है।</div>
+
+    <h3><span class="num">7.2</span>समय</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಇಂದು</div><div class="dev-eq">आज</div><div class="trans">indu</div></div>
+      <div class="word"><div class="kan">ನಾಳೆ</div><div class="dev-eq">कल (आने वाला)</div><div class="trans">nāḷe</div></div>
+      <div class="word"><div class="kan">ನಿನ್ನೆ</div><div class="dev-eq">कल (बीता हुआ)</div><div class="trans">ninne</div></div>
+      <div class="word"><div class="kan">ಈಗ</div><div class="dev-eq">अभी</div><div class="trans">īga</div></div>
+      <div class="word"><div class="kan">ಬೆಳಿಗ್ಗೆ</div><div class="dev-eq">सुबह</div><div class="trans">beḷigge</div></div>
+      <div class="word"><div class="kan">ಸಂಜೆ</div><div class="dev-eq">शाम</div><div class="trans">sañje</div></div>
+      <div class="word"><div class="kan">ರಾತ್ರಿ</div><div class="dev-eq">रात</div><div class="trans">rātri</div></div>
+      <div class="word"><div class="kan">ಮೊದಲು</div><div class="dev-eq">पहले</div><div class="trans">modalu</div></div>
+      <div class="word"><div class="kan">ನಂತರ</div><div class="dev-eq">बाद में</div><div class="trans">nantara</div></div>
+    </div>
+
+    <div class="aside"><strong>'कल' अब दो शब्द।</strong> हिन्दी में एक ही 'कल' दो दिशाओं में काम करता है — इसे सन्दर्भ से समझना पड़ता है ('कल मिलेंगे' बनाम 'कल आया था')। कन्नड़ इसे अलग कर देती है — <span class="kan">ನಾಳೆ</span> और <span class="kan">ನಿನ್ನೆ</span>। दो शब्द, दो दिशाएँ, कोई भ्रम नहीं।</div>
+
+    <h3><span class="num">7.3</span>शरीर</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ತಲೆ</div><div class="dev-eq">सिर</div><div class="trans">tale</div></div>
+      <div class="word"><div class="kan">ಕಣ್ಣು</div><div class="dev-eq">आँख</div><div class="trans">kaṇṇu</div></div>
+      <div class="word"><div class="kan">ಕಿವಿ</div><div class="dev-eq">कान</div><div class="trans">kivi</div></div>
+      <div class="word"><div class="kan">ಮೂಗು</div><div class="dev-eq">नाक</div><div class="trans">mūgu</div></div>
+      <div class="word"><div class="kan">ಬಾಯಿ</div><div class="dev-eq">मुँह</div><div class="trans">bāyi</div></div>
+      <div class="word"><div class="kan">ಕೈ</div><div class="dev-eq">हाथ</div><div class="trans">kai</div></div>
+      <div class="word"><div class="kan">ಕಾಲು</div><div class="dev-eq">पैर</div><div class="trans">kālu</div></div>
+      <div class="word"><div class="kan">ಹೊಟ್ಟೆ</div><div class="dev-eq">पेट</div><div class="trans">hoṭṭe</div></div>
+    </div>
+
+    <h3><span class="num">7.4</span>गति और दिशा</h3>
+    <div class="words">
+      <div class="word"><div class="kan">ಹೋಗು</div><div class="dev-eq">जा</div><div class="trans">hōgu</div></div>
+      <div class="word"><div class="kan">ಬಾ</div><div class="dev-eq">आ</div><div class="trans">bā</div></div>
+      <div class="word"><div class="kan">ನಡೆ</div><div class="dev-eq">चल (पैदल)</div><div class="trans">naḍe</div></div>
+      <div class="word"><div class="kan">ಓಡು</div><div class="dev-eq">दौड़</div><div class="trans">ōḍu</div></div>
+      <div class="word"><div class="kan">ಇಲ್ಲಿ</div><div class="dev-eq">यहाँ</div><div class="trans">illi</div></div>
+      <div class="word"><div class="kan">ಅಲ್ಲಿ</div><div class="dev-eq">वहाँ</div><div class="trans">alli</div></div>
+      <div class="word"><div class="kan">ಮೇಲೆ</div><div class="dev-eq">ऊपर</div><div class="trans">mēle</div></div>
+      <div class="word"><div class="kan">ಕೆಳಗೆ</div><div class="dev-eq">नीचे</div><div class="trans">keḷage</div></div>
+      <div class="word"><div class="kan">ಒಳಗೆ</div><div class="dev-eq">अंदर</div><div class="trans">oḷage</div></div>
+      <div class="word"><div class="kan">ಹೊರಗೆ</div><div class="dev-eq">बाहर</div><div class="trans">horage</div></div>
+    </div>
+
+    <div class="aside"><strong>द्रविड़ नाटक।</strong> यहाँ दिशाओं के शब्दों में एक मज़ेदार पैटर्न देखिए — <span class="kan">ಇಲ್ಲಿ</span> (यहाँ), <span class="kan">ಅಲ್ಲಿ</span> (वहाँ), <span class="kan">ಎಲ್ಲಿ</span> (कहाँ)। 'इ-', 'अ-', 'ए-' — तीन आवाज़ें, तीन दूरियाँ। यही पैटर्न तमिल में <em>iṅgē, aṅgē, eṅgē</em>, तेलुगु में <em>ikkaḍa, akkaḍa, ekkaḍa</em>। एक सुंदर द्रविड़ चाल।</div>
+  </div>
+</section>
+<section class="stage" id="stage-08" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव 08 · प्रयोग</div>
+    <h2 class="stage-title">आदर, अभिवादन और रोज़मर्रा की रिवायत</h2>
+    <p class="stage-lede">भाषा केवल शब्द नहीं — व्यवहार है। हिन्दी में तीन स्तर (तू/तुम/आप), कन्नड़ में दो। पर कन्नड़ के दो शब्दों में ठीक वही सामाजिक संकेत छिपे हैं — कोमलता, दूरी, स्नेह, सम्मान।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">8.1</span>आदर के स्तर</h3>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <thead>
+          <tr><th>हिन्दी</th><th>कन्नड़</th><th>प्रयोग</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>तू</td><td><span class="gk">ನೀನು</span> (nīnu)</td><td>बच्चे, दोस्त (सबके लिए यही)</td></tr>
+          <tr><td>तुम</td><td><span class="gk">ನೀನು</span> (nīnu)</td><td>वही — कन्नड़ में 'तू' और 'तुम' अलग नहीं</td></tr>
+          <tr><td>आप</td><td><span class="gk">ನೀವು</span> (nīvu)</td><td>आदर, अजनबी, बड़े</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aside"><strong>तीन से दो तक।</strong> हिन्दी में तू/तुम/आप — तीन तीव्रताएँ। कन्नड़ में केवल दो — <span class="kan">ನೀನು</span> / <span class="kan">ನೀವು</span>। यानी हिन्दी का 'तू' और 'तुम' दोनों के लिए एक ही <span class="kan">ನೀನು</span>। शुरू में अजीब लगेगा — लेकिन इसमें भी एक सरलता है।</div>
+
+    <h3><span class="num">8.2</span>रोज़मर्रा के वाक्यांश</h3>
+
+    <div class="words">
+      <div class="word"><div class="kan">ನಮಸ್ಕಾರ</div><div class="dev-eq">नमस्कार</div><div class="trans">namaskāra</div><div class="note">उम्र, समय, स्थिति — सब में चलेगा।</div></div>
+      <div class="word"><div class="kan">ಧನ್ಯವಾದಗಳು</div><div class="dev-eq">धन्यवाद</div><div class="trans">dhanyavādagaḷu</div><div class="note">-ಗಳು बहुवचन का चिह्न; 'धन्यवाद' से भी अधिक आदर।</div></div>
+      <div class="word"><div class="kan">ಕ್ಷಮಿಸಿ</div><div class="dev-eq">क्षमा कीजिए / माफ़ कीजिए</div><div class="trans">kṣamisi</div></div>
+      <div class="word"><div class="kan">ಪರವಾಗಿಲ್ಲ</div><div class="dev-eq">कोई बात नहीं / ठीक है</div><div class="trans">paravāgilla</div></div>
+      <div class="word"><div class="kan">ಹೇಗಿದ್ದೀರಿ?</div><div class="dev-eq">कैसे हैं आप?</div><div class="trans">hēgiddīri?</div></div>
+      <div class="word"><div class="kan">ಚೆನ್ನಾಗಿದ್ದೇನೆ</div><div class="dev-eq">मैं ठीक हूँ / बढ़िया हूँ</div><div class="trans">chennāgiddēne</div></div>
+      <div class="word"><div class="kan">ಸ್ವಲ್ಪ</div><div class="dev-eq">ज़रा / थोड़ा</div><div class="trans">svalpa</div><div class="note">हर अनुरोध को नरम कर देता है।</div></div>
+      <div class="word"><div class="kan">ಬೇಕು</div><div class="dev-eq">चाहिए</div><div class="trans">bēku</div></div>
+      <div class="word"><div class="kan">ಬೇಡ</div><div class="dev-eq">नहीं चाहिए</div><div class="trans">bēḍa</div></div>
+      <div class="word"><div class="kan">ಗೊತ್ತಿಲ್ಲ</div><div class="dev-eq">मुझे नहीं पता</div><div class="trans">gottilla</div></div>
+      <div class="word"><div class="kan">ಹೌದು</div><div class="dev-eq">हाँ</div><div class="trans">haudu</div></div>
+      <div class="word"><div class="kan">ಇಲ್ಲ</div><div class="dev-eq">नहीं</div><div class="trans">illa</div></div>
+      <div class="word"><div class="kan">ಊಟ ಆಯ್ತಾ?</div><div class="dev-eq">खाना हुआ?</div><div class="trans">ūṭa āytā?</div><div class="note">असल में प्यार भरा 'कैसे हैं?'</div></div>
+    </div>
+
+    <h3><span class="num">8.3</span>"ज़रा-सा" — बेंगलूरु की आधी भाषा</h3>
+    <p>कन्नड़ का <span class="kan">ಸ್ವಲ್ಪ</span> (svalpa) हिन्दी के 'ज़रा' जैसा है — पर इससे भी ज़्यादा। हर अनुरोध को नरम कर देता है, हर आदेश को विनती बना देता है।</p>
+
+    <div class="sentence">
+      <div class="kan">ಸ್ವಲ್ಪ ಅಡ್ಜಸ್ಟ್ ಮಾಡಿ.</div>
+      <div class="trans">svalpa adjust māḍi.</div>
+      <div class="dev-gloss">ज़रा एडजस्ट कर लीजिए।</div>
+      <div class="literal">बेंगलूरु की बस, ऑटो, मेट्रो — सब जगह सुनेंगे।</div>
+    </div>
+
+    <h3><span class="num">8.4</span>रिश्ते का सम्बोधन — अजनबी को भी</h3>
+    <p>दक्षिण भारत में रिश्तों के शब्द सड़क पर भी चलते हैं। अनजान लोगों को उम्र के हिसाब से बुलाते हैं।</p>
+
+    <div class="words">
+      <div class="word"><div class="kan">ಅಣ್ಣ</div><div class="dev-eq">भैया (अजनबी बड़ा पुरुष)</div><div class="trans">aṇṇa</div></div>
+      <div class="word"><div class="kan">ಅಕ್ಕ</div><div class="dev-eq">दीदी (अजनबी बड़ी स्त्री)</div><div class="trans">akka</div></div>
+      <div class="word"><div class="kan">ಅಜ್ಜ</div><div class="dev-eq">दादा / बाबा (बुज़ुर्ग पुरुष)</div><div class="trans">ajja</div></div>
+      <div class="word"><div class="kan">ಅಜ್ಜಿ</div><div class="dev-eq">दादी / माँजी (बुज़ुर्ग स्त्री)</div><div class="trans">ajji</div></div>
+    </div>
+
+    <div class="aside"><strong>सबको रिश्तेदार बनाना।</strong> उत्तर में 'भैया/दीदी' एक विकल्प है। दक्षिण में <span class="kan">ಅಣ್ಣ/ಅಕ್ಕ</span> प्रायः अनिवार्य — ऑटोवाले को 'अण्णा', चायवाली को 'अक्का'। यह भाषाई आदर का हिस्सा है, जिसे कन्नड़ ने तमिल-मलयालम से साझा किया है।</div>
+
+    <div class="aside"><strong>हिन्दी-कन्नड़ का उलटा अदल-बदल।</strong> हिन्दी में क्रिया <em>अन्त</em> में, पर उसके बाद 'हूँ/है' अलग। कन्नड़ में क्रिया <em>अन्त</em> में, पर सब कुछ (समय, लिंग, वचन) उसी में समाहित। यानी कन्नड़ अपने क्रिया-पद में हिन्दी से अधिक जानकारी घुसाती है। इसे 'समासीकरण' कहते हैं — द्रविड़ भाषाओं की असली विशेषता।</div>
+  </div>
+</section>
+<section class="stage" id="stage-09" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव 09 · साहित्य</div>
+    <h2 class="stage-title">कन्नड़ साहित्य — हिन्दी की खिड़की से</h2>
+    <p class="stage-lede">कन्नड़ में 1400 साल पुरानी साहित्यिक परंपरा है — संस्कृत से बाहर पनपी, जनभाषा में खड़ी। नीचे कुछ लेखक और उनकी हिन्दी-समकक्ष आवाज़ें हैं — हर पुल एक विशिष्ट रिश्ते से बँधा।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="vachana">
+      <div class="kan">ಕಳಬೇಡ, ಕೊಲಬೇಡ, ಹುಸಿಯ ನುಡಿಯಲು ಬೇಡ
+ಮುನಿಯಬೇಡ, ಅನ್ಯರಿಗೆ ಅಸಹ್ಯ ಪಡಬೇಡ
+ತನ್ನ ಬಣ್ಣಿಸಬೇಡ, ಇದಿರ ಹಳಿಯಲು ಬೇಡ
+ಇದೇ ಅಂತರಂಗಶುದ್ಧಿ, ಇದೇ ಬಹಿರಂಗಶುದ್ಧಿ
+ಇದೇ ನಮ್ಮ ಕೂಡಲಸಂಗಮದೇವರನೊಲಿಸುವ ಪರಿ.</div>
+      <div class="dev-gloss">चोरी मत करो, हत्या मत करो, झूठ मत बोलो।
+क्रोध मत करो, दूसरों से घृणा मत करो।
+अपनी प्रशंसा मत करो, दूसरे की निन्दा मत करो।
+यही अन्तरंग की शुद्धि है, यही बहिरंग की शुद्धि है।
+यही हमारे कूडलसंगमदेव को रिझाने का तरीक़ा है।</div>
+      <div class="attrib">बसवण्ण · 12वीं शताब्दी · वचन</div>
+    </div>
+
+    <h3><span class="num">9.1</span>साहित्यिक पुल</h3>
+
+    <div class="bridge">
+      <div class="names"><span class="kan">ಬಸವಣ್ಣ</span> (बसवण्ण) <span class="connect">↔</span> कबीर</div>
+      <div class="insight">बसवण्ण ने 12वीं सदी में 'शरण' आन्दोलन चलाया — जाति और रूढ़ि-कर्मकांड को नकारा, सीधी भक्ति-भाषा अपनाई। कबीर ने लगभग वही 15वीं सदी में हिन्दी-क्षेत्र में किया — ब्राह्मणवाद और कट्टर इस्लाम दोनों को चुनौती, जनभाषा में ईश्वर तक की पहुँच। कबीर के दोहे पढ़ते हुए बसवण्ण का वचन आप पहचानेंगे।</div>
+    </div>
+
+    <div class="bridge">
+      <div class="names"><span class="kan">ಅಕ್ಕ ಮಹಾದೇವಿ</span> (अक्क महादेवी) <span class="connect">↔</span> मीराबाई</div>
+      <div class="insight">अक्क महादेवी ने विवाह और राजसभा दोनों त्यागकर निर्भय भक्ति-काव्य रचा। मीराबाई ने राजपूत-रानी होकर कृष्ण के लिए सब छोड़ा। दोनों स्त्रियाँ — सांसारिक बन्धन तोड़कर आध्यात्मिक स्वतंत्रता तक। भारतीय स्त्री-स्वर की दो सबसे प्राचीन, सबसे तीव्र आवाज़ें।</div>
+    </div>
+
+    <div class="bridge">
+      <div class="names"><span class="kan">ಕುವೆಂಪು</span> (कुवेम्पु) <span class="connect">↔</span> निराला</div>
+      <div class="insight">कुवेम्पु 'राष्ट्रकवि' थे, <em>श्री रामायण दर्शनम्</em> के रचयिता। उन्होंने कन्नड़ में लिखने का अड़ियल आग्रह किया — संस्कृत को वरीयता देने की परंपरा के ख़िलाफ़। निराला ने हिन्दी में 'छायावाद' की रूढ़ियों को तोड़ा, मुक्त छंद लिखा, अपनी भाषा पर गर्व किया। दोनों ने आधुनिक कविता को अपने-अपने कोने में 'खुला' किया।</div>
+    </div>
+
+    <div class="bridge">
+      <div class="names"><span class="kan">ಬೇಂದ್ರೆ</span> (बेन्द्रे) <span class="connect">↔</span> जयशंकर प्रसाद / महादेवी वर्मा</div>
+      <div class="insight">द.रा. बेन्द्रे — कन्नड़ के सबसे बड़े गीतकवि। उनकी भाषा गीत की तरह बहती है; संगीत और कविता की दूरी बेन्द्रे मिटा देते हैं। हिन्दी में यह गुण जयशंकर प्रसाद की <em>कामायनी</em> में और महादेवी वर्मा के गीतों में है — लय की तीव्रता, छन्द की आत्मा।</div>
+    </div>
+
+    <div class="bridge">
+      <div class="names"><span class="kan">ಶಿವರಾಮ ಕಾರಂತ</span> (शिवराम कारंत) <span class="connect">↔</span> फणीश्वरनाथ रेणु</div>
+      <div class="insight">कारंत तटीय कर्नाटक के उपन्यासकार — हर सड़क पैदल चले, यक्षगान जैसी लोक-कलाओं पर गहरा अध्ययन। रेणु ने बिहार के आँचल की मिट्टी को <em>मैला आँचल</em> में उतारा। दोनों 'क्षेत्रीय उपन्यास' के शिल्पी — जहाँ भूगोल पात्र बनकर उभरता है।</div>
+    </div>
+
+    <div class="bridge">
+      <div class="names"><span class="kan">ಅನಂತಮೂರ್ತಿ</span> (अनंतमूर्ति) <span class="connect">↔</span> प्रेमचंद</div>
+      <div class="insight"><em>संस्कार</em> में अनंतमूर्ति ने आधुनिक भारत के नैतिक संकट को खोला — ब्राह्मण समाज, जाति, मृत्यु के नियम। प्रेमचंद ने <em>गोदान</em> और <em>कफ़न</em> में वही नैतिक जटिलता और जाति-समीक्षा हिन्दी के किसान-समाज में लाए। दोनों समाज को आइना दिखाते हैं — बिना किसी रियायत के।</div>
+    </div>
+
+    <div class="bridge">
+      <div class="names"><span class="kan">ಗಿರೀಶ್ ಕಾರ್ನಾಡ್</span> (गिरीश कारनाड) <span class="connect">↔</span> मोहन राकेश</div>
+      <div class="insight">कारनाड ने <em>ययाति, तुग़लक़, हयवदन</em> में पुराण-कथाओं को आधुनिक मंच दिया। मोहन राकेश ने <em>आषाढ़ का एक दिन</em> और <em>लहरों के राजहंस</em> में कालिदास और नन्द को फिर से गढ़ा। दोनों ने पुराने मिथकों में नए प्रश्न भर दिए — सत्ता, अकेलापन, पहचान।</div>
+    </div>
+
+    <div class="aside"><strong>एक पाठकीय सुझाव।</strong> कन्नड़ साहित्य के बारे में पढ़ते हुए याद रखिए — यह परंपरा संस्कृत से अलग, संस्कृत के बग़ल में खड़ी है। जैसे हिन्दी की जड़ें अपभ्रंश और खड़ीबोली में हैं, वैसे ही कन्नड़ की जड़ें पुरानी कन्नड़ (हलेगन्नड) में। दोनों ने संस्कृत से लिया, पर कोई उसका ग़ुलाम नहीं बना। यही पुल असली है।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">दस पड़ाव पूरे। अब कन्नड़ पढ़िए, सुनिए, बोलिए — हिन्दी पर खड़े होकर।</p>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn" disabled>← पिछला</button>
+  <div class="dots" id="dotsWrap"></div>
+  <button id="nextBtn">आगे →</button>
+</div>
+
+</div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="kan">ಕಲಿಕೆ ನಿರಂತರ · सीखना निरंतर है</span>
+    made by Nil · using Claude
+  </div>
+</footer>
+
+<script>
+(function () {
+  const tabs = Array.from(document.querySelectorAll('.stage-tab'));
+  const sections = Array.from(document.querySelectorAll('section.stage'));
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dotsWrap');
+  const scrollWrap = document.getElementById('stageScroll');
+  const total = sections.length;
+  let current = 0;
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function show(idx) {
+    current = Math.max(0, Math.min(total - 1, idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+    sections.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.toggle('done', i < current);
+      d.classList.toggle('current', i === current);
+    });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    nextBtn.textContent = current === total - 1 ? 'समाप्त' : 'आगे →';
+    prevBtn.textContent = '← पिछला';
+
+    const activeTab = tabs[current];
+    if (activeTab && scrollWrap) {
+      const tabLeft = activeTab.offsetLeft;
+      const tabWidth = activeTab.offsetWidth;
+      const wrapWidth = scrollWrap.clientWidth;
+      scrollWrap.scrollTo({ left: tabLeft - wrapWidth / 2 + tabWidth / 2, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+  });
+
+  document.querySelectorAll('.map-cell').forEach(card => {
+    const hint = card.querySelector('.hint');
+    const hintText = card.dataset.hint;
+    if (hintText && hint) hint.textContent = hintText;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+      }
+    });
+  });
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

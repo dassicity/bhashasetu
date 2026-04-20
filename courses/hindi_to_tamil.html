@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="हिन्दी से तमिल सीखने की प्रथम-सिद्धांत पाठ्यक्रम — वर्णमाला की पद्धति पर।" />
+<title>தமிழ் கற்றுக்கொள்வோம் — हिन्दी से तमिल</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Devanagari', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .ta { font-family: 'Noto Serif Tamil', serif; }
+  .hi { font-family: 'Noto Serif Devanagari', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .ta { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .hi-g {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .ta-g {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 60px; margin-top: 4px; }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .ta { font-family: 'Noto Serif Tamil', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .ta { font-family: 'Noto Serif Tamil', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Devanagari', serif; font-size: 14px; color: var(--ink-faded); }
+  .conjug-row .ta { font-family: 'Noto Serif Tamil', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 15px; color: var(--ink-soft); }
+
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+
+  .vachana {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .vachana::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .vachana .ta { font-size: 18px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; }
+  .vachana .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .vachana .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, devanagari);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Devanagari', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .ta { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .ta-g { font-size: 26px; }
+    .map-cell .hi-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 70px 1fr; gap: 6px; }
+    .conjug-row .hi-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+  }
+
+  @media (max-width: 400px) {
+    .wrap { padding: 0 14px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+    .stage-tab { padding: 10px 7px 8px; font-size: 11px; }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">एक प्राइमर · தமிழ் தொடக்கப் புத்தகம்</div>
+    <h1 class="title">
+      <span class="ta">தமிழ் கற்றுக்கொள்வோம்</span>
+      हिन्दी से तमिल सीखें
+    </h1>
+    <p class="subtitle">वर्णमाला-बारहखड़ी की पद्धति से — एक बार में एक ही नयी चीज़, रूप पहले अर्थ बाद में, सूची नहीं व्यवस्था — हिन्दी जो जानती है उसी पर खड़ी होकर तमिल।</p>
+    <div class="byline">दस पड़ाव <span class="sep">·</span> मोबाइल के लिए बना <span class="sep">·</span> बिलकुल शून्य से</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">००</span>भूमिका</button>
+    <button class="stage-tab" data-stage="1"><span class="num">०१</span>स्वर</button>
+    <button class="stage-tab" data-stage="2"><span class="num">०२</span>व्यंजन</button>
+    <button class="stage-tab" data-stage="3"><span class="num">०३</span>संयोजन</button>
+    <button class="stage-tab" data-stage="4"><span class="num">०४</span>मूल शब्द</button>
+    <button class="stage-tab" data-stage="5"><span class="num">०५</span>वाक्य</button>
+    <button class="stage-tab" data-stage="6"><span class="num">०६</span>पाठ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">०७</span>शब्द-क्षेत्र</button>
+    <button class="stage-tab" data-stage="8"><span class="num">०८</span>प्रयोग</button>
+    <button class="stage-tab" data-stage="9"><span class="num">०९</span>साहित्य</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" id="stage-00" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव ०० · भूमिका</div>
+    <h2 class="stage-title">यह पाठ अलग क्यों है</h2>
+    <p class="stage-lede">आप हिन्दी जानते हैं। इसका अर्थ है कि तमिल सीखने के लिए आपको अंग्रेज़ी-भाषियों की तरह शून्य से शुरू नहीं करना है — ३३ में से २७ ध्वनियाँ, व्याकरण का ढाँचा, और शब्दावली का एक हिस्सा आप पहले से पहचानते हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>बचपन की <strong>वर्णमाला</strong> और <strong>बारहखड़ी</strong> आपकी पहली किताब थी। उसका मूल सिद्धांत था — <strong>एक बार में केवल एक नयी चीज़</strong>, और जो नहीं सिखाया उसका उदाहरण नहीं दिया जाएगा। यह पाठ्यक्रम उसी पद्धति पर बना है, पर एक बड़ी सुविधा के साथ : आपकी भाषा और तमिल एक परिवार की नहीं हैं, फिर भी एक सभ्यता की हैं — दोनों ब्राह्मी लिपि से निकली हैं, दोनों की ध्वनि-व्यवस्था काफ़ी मिलती है, दोनों <span class="mono">SOV</span> हैं।</p>
+
+    <p>उदाहरण देखिए — "मैं पानी पीता हूँ" और तमिल में <span class="ta">நான் தண்ணீர் குடிக்கிறேன்</span> (nān taṇṇīr kuḍikkiṟēṉ)। क्रम ठीक वही — कर्ता, कर्म, क्रिया। आपका मन पहले से इसी तरह सोचता है।</p>
+
+    <h3><span class="num">¶</span>हिन्दी → तमिल : कहाँ मिल, कहाँ फ़र्क़</h3>
+
+    <ol class="principles">
+      <li><strong>ध्वनि — २७/३३ साझी हैं।</strong> क, च, ट, त, प वर्ग के पहले अक्षर, अनुनासिक (ङ, ञ, ण, न, म), अन्तःस्थ (य, र, ल, व) — सब तमिल में वैसे ही हैं : <span class="ta">க ச ட த ப</span>। आपका मुँह पहले से जानता है।</li>
+      <li><strong>लिपि — रूप नया, नियम वही।</strong> देवनागरी और तमिल दोनों अबुगिदा हैं — हर व्यंजन में एक अन्तर्निहित 'अ' रहता है, स्वर-चिह्न लगाने पर वह बदलती है। तमिल में हलन्त को <span class="ta">் </span>(पुळ्ळि = बिन्दु) कहते हैं, हिन्दी वाले <span class="mono">्</span> का ठीक वही काम।</li>
+      <li><strong>व्याकरण — ढाँचा एक, मांस में फ़र्क़।</strong> दोनों SOV हैं (मैं भात खाता हूँ = <span class="ta">நான் சாதம் சாப்பிடுகிறேன்</span>)। दोनों में विभक्ति/परसर्ग क्रिया के बाद नहीं, संज्ञा के बाद लगते हैं। पर तमिल क्रिया में तीसरे पुरुष पर लिंग-भेद करती है (<span class="ta">அவன்/அவள்/அது</span>), हिन्दी क्रिया सहायक क्रिया से करती है।</li>
+      <li><strong>शब्दावली — संस्कृत का सेतु।</strong> तत्सम शब्द दोनों भाषाओं में मिलते हैं — समय/<span class="ta">சமயம்</span>, भूमि/<span class="ta">பூமி</span>, सूर्य/<span class="ta">சூரியன்</span>, दिन/<span class="ta">தினம்</span>। परन्तु तमिल <em>शुद्ध तमिल</em> (चेन्तमिल) को वरीयता देती है — घर के लिए <em>गृह</em> नहीं, द्रविड़ <span class="ta">வீடு</span> (vīḍu)।</li>
+      <li><strong>महाप्राण ध्वनियाँ — तमिल में हैं ही नहीं।</strong> ख, घ, छ, झ, ठ, ढ, थ, ध, फ, भ — ये शुद्ध तमिल में नहीं। क और ग एक ही अक्षर <span class="ta">க</span> — जगह और पड़ोसी ध्वनियों से आवाज़ तय होती है। यह आपके लिए रियायत है : पाँच पंक्तियों के बदले एक-एक अक्षर।</li>
+      <li><strong>छह असली नयी ध्वनियाँ।</strong> सबसे प्रसिद्ध — <span class="ta">ழ</span> (ḻa, मूर्धन्य अन्तःस्थ)। यह ध्वनि पूरे भारत में केवल तमिल और मलयालम में है — कन्नड़/तेलुगु में भी नहीं। साथ ही दीर्घ ए <span class="ta">ஏ</span>, दीर्घ ओ <span class="ta">ஓ</span>, मूर्धन्य ल <span class="ta">ள</span>, वर्ण्य न <span class="ta">ன</span>, और मोटा र <span class="ta">ற</span>।</li>
+    </ol>
+
+    <div class="aside"><strong>पद्धति।</strong> हर पड़ाव में तमिल अक्षर/शब्द/वाक्य के साथ हिन्दी समानार्थी रखा गया है। आप हिन्दी पहचानते हैं, तो तमिल सिर्फ़ नया चेहरा है — नया विचार नहीं।</div>
+
+    <div class="aside"><strong>तमिल की प्राचीनता।</strong> तमिल साहित्य लगभग २,३०० साल पुराना है — संगम काव्य हिन्दी (खड़ी बोली) के साहित्य से लगभग १,५०० साल पहले का। आप एक जीवित शास्त्रीय भाषा सीख रहे हैं।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ऊपर <strong>स्वर</strong> टैब दबाइए, शुरुआत करें।</p>
+  </div>
+</section>
+<section class="stage" id="stage-01" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव ०१ · ध्वनि</div>
+    <h2 class="stage-title">स्वर — <span class="ta">உயிர் எழுத்துக்கள்</span></h2>
+    <p class="stage-lede">हिन्दी में आप ११ स्वर जानते हैं। तमिल में १२ (ऋ नहीं, पर दीर्घ ए और दीर्घ ओ अलग से हैं)। ध्वनि लगभग एक — बस चेहरा नया। हर हिन्दी अक्षर के साथ उसका तमिल जुड़वाँ पहचानिए।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=tamil+vowels+uyir+ezhuthukal+pronunciation" title="Tamil vowels uyir ezhuthukal pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">तमिल स्वरों का उच्चारण — उयिर् एळुत्तुक्कळ् <a href="https://www.youtube.com/results?search_query=tamil+vowels+uyir+ezhuthukal+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>पढ़ने का नियम।</strong> हर कार्ड को दबाने पर एक उदाहरण शब्द दिखेगा। हिन्दी अक्षर ऊपर, तमिल नीचे — आँख पहले हिन्दी पहचानेगी, फिर तमिल रूप स्मृति में बैठेगा। तमिल में स्वरों को <em>उयिर्</em> (प्राण) कहते हैं — ये ही अक्षरों में जान फूँकते हैं।</div>
+
+    <div class="group-label">ह्रस्व / दीर्घ जोड़ी — 'अ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="அம்மா (ammā) = अम्मा — माँ। हिन्दी के 'अ' से बिलकुल वही आवाज़।"><div class="hi-g">अ</div><div class="arrow">↓</div><div class="ta-g">அ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஆடு (āḍu) = आडु — बकरी। 'आ' वही — दुगना खिंचा हुआ।"><div class="hi-g">आ</div><div class="arrow">↓</div><div class="ta-g">ஆ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'इ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="இது (idu) = यह"><div class="hi-g">इ</div><div class="arrow">↓</div><div class="ta-g">இ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஈ (ī) = मक्खी"><div class="hi-g">ई</div><div class="arrow">↓</div><div class="ta-g">ஈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'उ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="உப்பு (uppu) = नमक"><div class="hi-g">उ</div><div class="arrow">↓</div><div class="ta-g">உ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஊர் (ūr) = गाँव/शहर"><div class="hi-g">ऊ</div><div class="arrow">↓</div><div class="ta-g">ஊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ए' परिवार — यहाँ हिन्दी तमिल से पीछे है</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="எலி (eli) = चूहा। ह्रस्व ए — जल्दी बोला।"><div class="hi-g">ए (ह्रस्व)</div><div class="arrow">↓</div><div class="ta-g">எ</div><div class="label">e</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஏழு (ēḻu) = सात। दीर्घ ए — खिंचा हुआ।"><div class="hi-g">ए (दीर्घ)</div><div class="arrow">↓</div><div class="ta-g">ஏ</div><div class="label">ē</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஐந்து (aindu) = पाँच"><div class="hi-g">ऐ</div><div class="arrow">↓</div><div class="ta-g">ஐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी में नहीं, तमिल में है।</strong> तमिल 'ए' को दो रूपों में लिखती है — <span class="ta">எ</span> (ह्रस्व, जैसे 'एक' का एक) और <span class="ta">ஏ</span> (दीर्घ, जैसे 'बेटा' का बे लम्बा खींचा)। हिन्दी में यह भेद बोलचाल में है पर लिपि में नहीं। तमिल उसे लिख कर अलग कर देती है। 'ओ' में भी यही — <span class="ta">ஒ</span> बनाम <span class="ta">ஓ</span>।</div>
+
+    <div class="group-label">'ओ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ஒன்று (oṉṟu) = एक। ह्रस्व ओ।"><div class="hi-g">ओ (ह्रस्व)</div><div class="arrow">↓</div><div class="ta-g">ஒ</div><div class="label">o</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஓடு (ōḍu) = दौड़ो। दीर्घ ओ।"><div class="hi-g">ओ (दीर्घ)</div><div class="arrow">↓</div><div class="ta-g">ஓ</div><div class="label">ō</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஔடதம் (auḍatam) = औषध — पहचाना?"><div class="hi-g">औ</div><div class="arrow">↓</div><div class="ta-g">ஔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ऋ' — तमिल में नहीं</div>
+    <p>हिन्दी का <strong>ऋ</strong> तमिल में नहीं है। संस्कृत से आये शब्दों में तमिल 'री' या 'र' लगा देती है — ऋषि → <span class="ta">ரிஷி</span> (riṣi)।</p>
+
+    <div class="group-label">विशेष चिह्न — आय्तम्</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="आय्तम् — दुर्लभ, पुरानी तमिल में विशेष ध्वनि" style="grid-column: span 2;"><div class="hi-g">(नहीं)</div><div class="arrow">↓</div><div class="ta-g">ஃ</div><div class="label">āytam</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>गिनती मिलान।</strong> हिन्दी के ११ स्वर (अ आ इ ई उ ऊ ऋ ए ऐ ओ औ), तमिल के १२ (अ आ इ ई उ ऊ ए ऐ ऐ ओ ओ औ — दो 'ए', दो 'ओ')। शुद्ध गणित : ऋ गया, दो स्वर जुड़े। २७/३३ साझा ध्वनियाँ।</div>
+
+    <h3><span class="num">१.१</span>अभ्यास</h3>
+    <ul class="clean">
+      <li>हर जोड़ी को ज़ोर से २० बार कहिए — अ-आ, इ-ई, उ-ऊ, ए (ह्रस्व)-ए (दीर्घ), ओ (ह्रस्व)-ओ (दीर्घ) — पर आँख तमिल ग्लिफ़ पर।</li>
+      <li>काग़ज़ पर हर तमिल स्वर ५ बार लिखिए। हाथ आँख को सिखाता है।</li>
+      <li>जब तक हर तमिल स्वर १ सेकंड में पहचान न लें, पड़ाव २ पर न जाइए।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-02" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव ०२ · ध्वनि (चालू)</div>
+    <h2 class="stage-title">व्यंजन — <span class="ta">மெய் எழுத்துக்கள்</span></h2>
+    <p class="stage-lede">यहाँ सबसे बड़ी हैरानी है। हिन्दी में पाँच-पाँच वर्ग (क-ख-ग-घ-ङ), कुल ३३ व्यंजन। तमिल में केवल <strong>१८</strong> व्यंजन — क्योंकि तमिल अल्पप्राण/महाप्राण का भेद लिपि में नहीं करती, और घोष/अघोष भी एक ही अक्षर से व्यक्त करती है।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=tamil+consonants+mei+ezhuthukal+pronunciation" title="Tamil consonants mei ezhuthukal pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">तमिल व्यंजन — मेय् एळुत्तुक्कळ् <a href="https://www.youtube.com/results?search_query=tamil+consonants+mei+ezhuthukal+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>सबसे बड़ा फ़र्क़, एक बार में समझ लीजिए।</strong> तमिल में <em>क, ख, ग, घ</em> — चारों के लिए एक ही अक्षर <span class="ta">க</span>। <em>च, छ, ज, झ</em> — एक ही <span class="ta">ச</span>। नियम यह है — शब्द के शुरू में या दो व्यंजनों के बीच यह अघोष (क), दो स्वरों के बीच या अनुनासिक के बाद यह घोष (ग)। तमिल ने ये पाँचों कॉलम एक में समेट दिए। आपके लिए राहत — कम अक्षर याद करने हैं। पर चेतावनी — उच्चारण सन्दर्भ से तय होता है, लिपि से नहीं।</div>
+
+    <h3><span class="num">२.१</span>कण्ठ्य (क-वर्ग)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="க में क, ख, ग, घ — चारों छिपे हैं। शब्द के आरम्भ में 'क', बीच में अक्सर 'ग'।" style="grid-column: span 2;"><div class="hi-g">क/ख/ग/घ</div><div class="arrow">↓</div><div class="ta-g">க</div><div class="label">ka/ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ங — कण्ठ्य अनुनासिक। संयुक्ताक्षर में : ங்க (ङ्क)।"><div class="hi-g">ङ</div><div class="arrow">↓</div><div class="ta-g">ங</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.२</span>तालव्य (च-वर्ग)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="சமயம் (samayam) = समय। च, छ, ज, झ — सब एक में।" style="grid-column: span 2;"><div class="hi-g">च/छ/ज/झ</div><div class="arrow">↓</div><div class="ta-g">ச</div><div class="label">ca/ja/sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஞாயிறு (ñāyiṟu) = रविवार। तालव्य अनुनासिक।"><div class="hi-g">ञ</div><div class="arrow">↓</div><div class="ta-g">ஞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>च का दोहरा चेहरा।</strong> <span class="ta">ச</span> शब्द के आरम्भ में अक्सर 's' की तरह बोला जाता है — <span class="ta">சமயம்</span> <em>समयम्</em> (न कि चमयम्)। द्रविड़ लहजे की विशेषता। संस्कृत से आये शब्दों में यह स अथवा च — कान तय करता है, आँख नहीं।</div>
+
+    <h3><span class="num">२.३</span>मूर्धन्य (ट-वर्ग) — जीभ पीछे मोड़कर</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="பட்டு (paṭṭu) = रेशम। ट, ठ, ड, ढ — सब एक अक्षर।" style="grid-column: span 2;"><div class="hi-g">ट/ठ/ड/ढ</div><div class="arrow">↓</div><div class="ta-g">ட</div><div class="label">ṭa/ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="கண் (kaṇ) = आँख। मूर्धन्य ण — बिलकुल हिन्दी जैसा।"><div class="hi-g">ण</div><div class="arrow">↓</div><div class="ta-g">ண</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.४</span>दन्त्य (त-वर्ग) — जीभ दाँतों पर</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="தினம் (dinam) = दिन — वही संस्कृत शब्द! त, थ, द, ध — एक में।" style="grid-column: span 2;"><div class="hi-g">त/थ/द/ध</div><div class="arrow">↓</div><div class="ta-g">த</div><div class="label">ta/da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="நான் (nān) = मैं। दन्त्य न — ज़्यादातर शब्दों के आरम्भ में।"><div class="hi-g">न</div><div class="arrow">↓</div><div class="ta-g">ந</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.५</span>ओष्ठ्य (प-वर्ग)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="பால் (pāl) = दूध। प, फ, ब, भ — एक ही अक्षर।" style="grid-column: span 2;"><div class="hi-g">प/फ/ब/भ</div><div class="arrow">↓</div><div class="ta-g">ப</div><div class="label">pa/ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="மரம் (maram) = पेड़। ओष्ठ्य म — हिन्दी जैसा।"><div class="hi-g">म</div><div class="arrow">↓</div><div class="ta-g">ம</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.६</span>अन्तःस्थ — हिन्दी जैसे</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="யார் (yār) = कौन?"><div class="hi-g">य</div><div class="arrow">↓</div><div class="ta-g">ய</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ராஜா (rājā) = राजा। कोमल 'र'।"><div class="hi-g">र</div><div class="arrow">↓</div><div class="ta-g">ர</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="லதா (latā) = लता।"><div class="hi-g">ल</div><div class="arrow">↓</div><div class="ta-g">ல</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="வா (vā) = आओ।"><div class="hi-g">व</div><div class="arrow">↓</div><div class="ta-g">வ</div><div class="label">va</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.७</span>तीन असली नयी ध्वनियाँ — तमिल की अपनी पहचान</h3>
+
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ழ — मूर्धन्य अन्तःस्थ। जीभ पीछे मोड़ें, छुएँ नहीं, हवा बहने दें। 'र' और 'ल' के बीच की आवाज़।" style="grid-column: span 2; border-color: var(--sindoor);">
+        <div class="hi-g" style="color: var(--sindoor);">(नहीं!)</div>
+        <div class="arrow">↓</div>
+        <div class="ta-g" style="color: var(--sindoor);">ழ</div>
+        <div class="label">ḻa</div>
+        <div class="hint" style="opacity:1; max-height: 80px;">तमिऴ़् का ऴ़्। पूरे भारत में केवल तमिल-मलयालम में।</div>
+      </div>
+      <div class="map-cell" tabindex="0" data-hint="ள — मूर्धन्य ल। जीभ पीछे छत से छुए।" style="border-color: var(--sindoor);">
+        <div class="hi-g" style="color: var(--sindoor);">(नहीं)</div>
+        <div class="arrow">↓</div>
+        <div class="ta-g" style="color: var(--sindoor);">ள</div>
+        <div class="label">ḷa</div>
+        <div class="hint"></div>
+      </div>
+      <div class="map-cell" tabindex="0" data-hint="ற — भारी 'र'। जीभ एक बार से ज़्यादा लगे। तमिल 'र' दो तरह का है।" style="border-color: var(--sindoor);">
+        <div class="hi-g" style="color: var(--sindoor);">(नहीं)</div>
+        <div class="arrow">↓</div>
+        <div class="ta-g" style="color: var(--sindoor);">ற</div>
+        <div class="label">ṟa</div>
+        <div class="hint"></div>
+      </div>
+      <div class="map-cell" tabindex="0" data-hint="ன — वर्त्स्य (दन्तमूलीय) न। जीभ दाँत नहीं, दाँत के पीछे मसूड़े पर।" style="border-color: var(--sindoor);">
+        <div class="hi-g" style="color: var(--sindoor);">(नहीं)</div>
+        <div class="arrow">↓</div>
+        <div class="ta-g" style="color: var(--sindoor);">ன</div>
+        <div class="label">ṉa</div>
+        <div class="hint"></div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>तमिऴ़् का ऴ़्।</strong> स्वयं "तमिल" शब्द में यह ध्वनि है — <span class="ta">தமிழ்</span> (tamiḻ)। कोई भाषा अपने नाम में एक ऐसी ध्वनि रखती है जो किसी और भाषा में नहीं — यह गर्व कम नहीं। कन्नड़ में भी नहीं, तेलुगु में भी नहीं। जीभ पीछे मोड़िए पर तालु को छुइए नहीं — हवा बहे, कंपन हो। २,००० साल पहले इसी ध्वनि से <em>तोल्काप्पियम्</em> ने भाषा का व्याकरण लिखा था।</div>
+
+    <h3><span class="num">२.८</span>संस्कृत-जनित (ग्रन्थ अक्षर)</h3>
+    <p>शुद्ध तमिल में श, ष, स, ह, ज नहीं थे। संस्कृत से आये शब्दों के लिए तमिल ने चार अतिरिक्त अक्षर (ग्रन्थ) अपनाए :</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ஜனம் (janam) = जन"><div class="hi-g">ज</div><div class="arrow">↓</div><div class="ta-g">ஜ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஷண்முகம் = षण्मुख"><div class="hi-g">ष</div><div class="arrow">↓</div><div class="ta-g">ஷ</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஸமயம் = समय (शुद्ध संस्कृत वर्तनी)"><div class="hi-g">स</div><div class="arrow">↓</div><div class="ta-g">ஸ</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ஹரி = हरि"><div class="hi-g">ह</div><div class="arrow">↓</div><div class="ta-g">ஹ</div><div class="label">ha</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>शुद्ध तमिल बनाम संस्कृत।</strong> तमिल में एक पुरानी बहस है — शब्दावली संस्कृत से उधार ले या द्रविड़ जड़ों से बनाए। पेरियार और उनके बाद के सुधारकों ने <em>तनित्तमिऴ़्</em> (शुद्ध तमिल) आन्दोलन चलाया। इसीलिए आज 'घर' के लिए <em>गृह</em> नहीं, <span class="ta">வீடு</span> (vīḍu) लिखा-बोला जाता है। हिन्दी में ऐसी शुद्धता-बहस संस्कृत-उर्दू के बीच है, तमिल में संस्कृत-द्रविड़ के बीच।</div>
+
+    <h3><span class="num">२.९</span>गणित की बात</h3>
+    <p>हिन्दी ३३ व्यंजन × १२ स्वर ≈ ३९६ सम्भव शब्दांश। तमिल १८ व्यंजन × १२ स्वर = २१६। पर शुद्ध तमिल में कम अक्षरों से काम चलता है — यही कारण है तमिल शब्द छोटे हैं।</p>
+  </div>
+</section>
+<section class="stage" id="stage-03" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव ०३ · संयोजन</div>
+    <h2 class="stage-title">कार-चिह्न और संयुक्ताक्षर — <span class="ta">உயிர்மெய் எழுத்துக்கள்</span></h2>
+    <p class="stage-lede">बारहखड़ी का दूसरा भाग। हिन्दी में क + ा = का, क + ि = कि। तमिल में ठीक वैसा ही — <span class="ta">க</span> + <span class="ta">ா</span> = <span class="ta">கா</span>। चिह्न की शक्ल अलग, नियम वही।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>तमिल व्यंजन + स्वर का जोड़ा <em>उयिर्मेय्</em> (प्राण-शरीर) कहलाता है — स्वर प्राण, व्यंजन शरीर। यह १८ × १२ = २१६ अक्षर बन जाते हैं, पर चिह्न केवल ११ सीखने हैं — बिलकुल हिन्दी की बारहखड़ी जैसा।</p>
+
+    <h3><span class="num">३.१</span><span class="ta">க</span> की बारहखड़ी — हिन्दी ↔ तमिल पास-पास</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>स्वर</th><th>हिन्दी</th><th>तमिल</th><th>उच्चारण</th></tr>
+        <tr><td>अ</td><td class="hi g">क</td><td><span class="ta g">க</span></td><td class="mono">ka</td></tr>
+        <tr><td>आ</td><td class="hi g">का</td><td><span class="ta g">கா</span></td><td class="mono">kā</td></tr>
+        <tr><td>इ</td><td class="hi g">कि</td><td><span class="ta g">கி</span></td><td class="mono">ki</td></tr>
+        <tr><td>ई</td><td class="hi g">की</td><td><span class="ta g">கீ</span></td><td class="mono">kī</td></tr>
+        <tr><td>उ</td><td class="hi g">कु</td><td><span class="ta g">கு</span></td><td class="mono">ku</td></tr>
+        <tr><td>ऊ</td><td class="hi g">कू</td><td><span class="ta g">கூ</span></td><td class="mono">kū</td></tr>
+        <tr><td>ए (ह्रस्व)</td><td class="hi g">के</td><td><span class="ta g">கெ</span></td><td class="mono">ke</td></tr>
+        <tr><td>ए (दीर्घ)</td><td class="hi g">—</td><td><span class="ta g">கே</span></td><td class="mono">kē</td></tr>
+        <tr><td>ऐ</td><td class="hi g">कै</td><td><span class="ta g">கை</span></td><td class="mono">kai</td></tr>
+        <tr><td>ओ (ह्रस्व)</td><td class="hi g">को</td><td><span class="ta g">கொ</span></td><td class="mono">ko</td></tr>
+        <tr><td>ओ (दीर्घ)</td><td class="hi g">—</td><td><span class="ta g">கோ</span></td><td class="mono">kō</td></tr>
+        <tr><td>औ</td><td class="hi g">कौ</td><td><span class="ta g">கௌ</span></td><td class="mono">kau</td></tr>
+        <tr><td>हलन्त</td><td class="hi g">क्</td><td><span class="ta g">க்</span></td><td class="mono">k</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>बड़ी चाल।</strong> ये ११ चिह्न <span class="ta">ா ி ீ ு ூ ெ ே ை ொ ோ ௌ</span> हर एक १८ व्यंजनों पर बिलकुल वैसे ही बैठते हैं। १८ × १२ = २१६ अक्षर — ११ चिह्नों की क़ीमत पर! वर्णमाला का यही सौन्दर्य है।</div>
+
+    <h3><span class="num">३.२</span>पुळ्ळि (<span class="ta">்</span>) — तमिल का हलन्त</h3>
+    <p>हिन्दी में <span class="mono">्</span> का काम तमिल में <span class="ta">்</span> (पुळ्ळि = बिन्दु) करती है। यह व्यंजन पर लगती है और स्वर हटा देती है — बिलकुल देवनागरी हलन्त की तरह।</p>
+
+    <div class="words">
+      <div class="word">
+        <div class="ta">பல்</div>
+        <div class="hi-eq">दाँत</div>
+        <div class="trans">pal</div>
+        <div class="note">प + अ + ल् → पल् (अन्त में हलन्त)</div>
+      </div>
+      <div class="word">
+        <div class="ta">கண்</div>
+        <div class="hi-eq">आँख</div>
+        <div class="trans">kaṇ</div>
+        <div class="note">क + अ + ण् → कण्</div>
+      </div>
+      <div class="word">
+        <div class="ta">வீடு</div>
+        <div class="hi-eq">घर</div>
+        <div class="trans">vīḍu</div>
+        <div class="note">व् + ई + ड + उ → वीडु</div>
+      </div>
+    </div>
+
+    <h3><span class="num">३.३</span>संयुक्ताक्षर — तमिल में कैसे?</h3>
+    <p>हिन्दी में क्ष = क् + ष, ज्ञ = ज् + ञ। तमिल में यह बहुत सरल है — अधिकतर संयुक्ताक्षर दो पूरे अक्षर लिखकर पहले पर पुळ्ळि लगाकर बनते हैं। अलग ढाँचा बनाने की ज़रूरत नहीं।</p>
+
+    <div class="words">
+      <div class="word">
+        <div class="ta">பக்தி</div>
+        <div class="hi-eq">भक्ति</div>
+        <div class="trans">bhakti</div>
+        <div class="note">ப் + க + தி = भक्ति (प पर पुळ्ळि, फिर क)</div>
+      </div>
+      <div class="word">
+        <div class="ta">சத்தம்</div>
+        <div class="hi-eq">शब्द/आवाज़</div>
+        <div class="trans">sattam</div>
+        <div class="note">த் + த = त्त — एक ही अक्षर दो बार</div>
+      </div>
+      <div class="word">
+        <div class="ta">கற்பனை</div>
+        <div class="hi-eq">कल्पना</div>
+        <div class="trans">kaṟpaṉai</div>
+        <div class="note">ற + ் + प = ऱ्प (मोटा र हलन्त के साथ)</div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>तमिल की सादगी।</strong> हिन्दी में क्त, क्ष, त्र, ज्ञ, श्र, द्र — हर एक की अलग शक्ल याद करनी है। तमिल में लगभग सब संयुक्ताक्षर पुळ्ळि + पूरा अक्षर के नियम से बनते हैं — न के बराबर अपवाद। हिन्दी वालों के लिए यह राहत।</div>
+
+    <h3><span class="num">३.४</span>हिन्दी संयुक्ताक्षर ↔ तमिल विभाजन</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>अर्थ</th><th>हिन्दी</th><th>तमिल</th><th>विभाजन</th></tr>
+        <tr><td>पुस्तक</td><td class="hi g">पुस्तकम्</td><td><span class="ta g">புஸ்தகம்</span></td><td class="mono">pus·ta·kam</td></tr>
+        <tr><td>शब्द</td><td class="hi g">शब्दम्</td><td><span class="ta g">சப்தம்</span></td><td class="mono">sap·tam</td></tr>
+        <tr><td>कर्म</td><td class="hi g">कर्म</td><td><span class="ta g">கர்மம்</span></td><td class="mono">kar·mam</td></tr>
+        <tr><td>नमस्कार</td><td class="hi g">नमस्कार</td><td><span class="ta g">நமஸ்காரம்</span></td><td class="mono">na·mas·kā·ram</td></tr>
+      </table>
+    </div>
+
+    <p><strong>ध्यान दें :</strong> तमिल संज्ञाओं के अन्त में अक्सर <span class="ta">ம்</span> (म्) लगा रहता है — यह तमिल की नपुंसक संज्ञा का चिह्न है। हिन्दी 'पुस्तक' तमिल में <span class="ta">புஸ்தகம்</span> (पुस्तकम्) बन जाता है।</p>
+  </div>
+</section>
+<section class="stage" id="stage-04" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव ०४ · शब्दावली</div>
+    <h2 class="stage-title">मूल शब्द — <span class="ta">அடிப்படை சொற்கள்</span></h2>
+    <p class="stage-lede">पचास से ऊपर रोज़मर्रा के शब्द। हर शब्द के साथ हिन्दी समानार्थी। <span class="mono">[तत्सम]</span> लगा हो तो वह संस्कृत-सेतु से आया — आप उसे पहले से जानते हैं। <span class="mono">[द्रविड़]</span> लगा हो तो यह तमिल का अपना — याद करना ही पड़ेगा।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">४.१</span>सर्वनाम</h3>
+    <div class="words">
+      <div class="word"><div class="ta">நான்</div><div class="hi-eq">मैं</div><div class="trans">nān</div></div>
+      <div class="word"><div class="ta">நீ</div><div class="hi-eq">तू (अनौपचारिक)</div><div class="trans">nī</div></div>
+      <div class="word"><div class="ta">நீங்கள்</div><div class="hi-eq">आप (औपचारिक/बहुवचन)</div><div class="trans">nīṅgaḷ</div></div>
+      <div class="word"><div class="ta">அவன்</div><div class="hi-eq">वह (पुरुष)</div><div class="trans">avaṉ</div></div>
+      <div class="word"><div class="ta">அவள்</div><div class="hi-eq">वह (स्त्री)</div><div class="trans">avaḷ</div></div>
+      <div class="word"><div class="ta">அவர்</div><div class="hi-eq">वे (आदरार्थ, आजकल लिंग-निरपेक्ष)</div><div class="trans">avar</div></div>
+      <div class="word"><div class="ta">அது</div><div class="hi-eq">वह (वस्तु)</div><div class="trans">adu</div></div>
+      <div class="word"><div class="ta">இது</div><div class="hi-eq">यह</div><div class="trans">idu</div></div>
+      <div class="word"><div class="ta">நாங்கள்</div><div class="hi-eq">हम (आप को छोड़कर)</div><div class="trans">nāṅgaḷ</div><div class="note">विशेष : अनन्य 'हम' — सुनने वाला शामिल नहीं</div></div>
+      <div class="word"><div class="ta">நாம்</div><div class="hi-eq">हम (आप सहित)</div><div class="trans">nām</div><div class="note">समावेशी 'हम' — सुनने वाला भी शामिल</div></div>
+      <div class="word"><div class="ta">அவர்கள்</div><div class="hi-eq">वे (बहुवचन)</div><div class="trans">avargaḷ</div></div>
+    </div>
+
+    <div class="aside"><strong>समावेशी बनाम अनन्य 'हम'।</strong> हिन्दी में 'हम' एक ही शब्द है — सुनने वाले को भीतर गिनो या बाहर, परवाह नहीं। तमिल दो साफ़ शब्द रखती है — <span class="ta">நாம்</span> (nām, आप-भी-हम), <span class="ta">நாங்கள்</span> (nāṅgaḷ, हम-बिना-आप)। बोलते वक़्त सोचना पड़ेगा — "क्या सामने वाला मेरे 'हम' में है या नहीं?" यह द्रविड़ भाषाओं की विशेषता है।</div>
+
+    <h3><span class="num">४.२</span>संज्ञा — रोज़ के शब्द</h3>
+    <div class="words">
+      <div class="word"><div class="ta">வீடு</div><div class="hi-eq">घर</div><div class="trans">vīḍu</div><div class="note">[द्रविड़] — संस्कृत 'गृह' नहीं</div></div>
+      <div class="word"><div class="ta">பெயர்</div><div class="hi-eq">नाम</div><div class="trans">peyar</div><div class="note">[द्रविड़]</div></div>
+      <div class="word"><div class="ta">தண்ணீர்</div><div class="hi-eq">पानी</div><div class="trans">taṇṇīr</div><div class="note">[द्रविड़] — शब्दशः 'ठण्डा नीर'</div></div>
+      <div class="word"><div class="ta">பணம்</div><div class="hi-eq">पैसा</div><div class="trans">paṇam</div><div class="note">[द्रविड़]</div></div>
+      <div class="word"><div class="ta">மரம்</div><div class="hi-eq">पेड़</div><div class="trans">maram</div><div class="note">[द्रविड़]</div></div>
+      <div class="word"><div class="ta">சமயம்</div><div class="hi-eq">समय</div><div class="trans">samayam</div><div class="note">[तत्सम] — आप पहले से जानते हैं!</div></div>
+      <div class="word"><div class="ta">நேரம்</div><div class="hi-eq">वक़्त/समय</div><div class="trans">nēram</div><div class="note">[द्रविड़] — रोज़ बोलचाल में यही</div></div>
+      <div class="word"><div class="ta">தினம்</div><div class="hi-eq">दिन</div><div class="trans">dinam</div><div class="note">[तत्सम]</div></div>
+      <div class="word"><div class="ta">நாள்</div><div class="hi-eq">दिन/दिवस</div><div class="trans">nāḷ</div><div class="note">[द्रविड़]</div></div>
+      <div class="word"><div class="ta">சூரியன்</div><div class="hi-eq">सूर्य</div><div class="trans">sūriyaṉ</div><div class="note">[तत्सम]</div></div>
+      <div class="word"><div class="ta">பால்</div><div class="hi-eq">दूध</div><div class="trans">pāl</div><div class="note">[द्रविड़]</div></div>
+      <div class="word"><div class="ta">மழை</div><div class="hi-eq">बारिश</div><div class="trans">maḻai</div><div class="note">[द्रविड़] — ध्यान दें <span class="ta">ழ</span> (ऴ़्)!</div></div>
+      <div class="word"><div class="ta">பூமி</div><div class="hi-eq">भूमि</div><div class="trans">būmi</div><div class="note">[तत्सम]</div></div>
+      <div class="word"><div class="ta">பூ</div><div class="hi-eq">फूल</div><div class="trans">pū</div><div class="note">[द्रविड़] — छोटा-सा एक अक्षर!</div></div>
+      <div class="word"><div class="ta">புத்தகம்</div><div class="hi-eq">पुस्तक</div><div class="trans">puttakam</div><div class="note">[तत्सम]</div></div>
+      <div class="word"><div class="ta">கதவு</div><div class="hi-eq">दरवाज़ा</div><div class="trans">kadavu</div><div class="note">[द्रविड़]</div></div>
+    </div>
+
+    <h3><span class="num">४.३</span>क्रिया — मूल धातुएँ</h3>
+    <div class="words">
+      <div class="word"><div class="ta">இரு</div><div class="hi-eq">होना/रहना</div><div class="trans">iru</div></div>
+      <div class="word"><div class="ta">செய்</div><div class="hi-eq">करना</div><div class="trans">sey</div></div>
+      <div class="word"><div class="ta">போ</div><div class="hi-eq">जाना</div><div class="trans">pō</div></div>
+      <div class="word"><div class="ta">வா</div><div class="hi-eq">आना</div><div class="trans">vā</div></div>
+      <div class="word"><div class="ta">சாப்பிடு</div><div class="hi-eq">खाना</div><div class="trans">sāppiḍu</div><div class="note">बोलचाल में यही; शुद्ध : <span class="ta">தின்</span> (tiṉ)</div></div>
+      <div class="word"><div class="ta">குடி</div><div class="hi-eq">पीना</div><div class="trans">kuḍi</div></div>
+      <div class="word"><div class="ta">பார்</div><div class="hi-eq">देखना</div><div class="trans">pār</div></div>
+      <div class="word"><div class="ta">கேள்</div><div class="hi-eq">सुनना</div><div class="trans">kēḷ</div></div>
+      <div class="word"><div class="ta">நட</div><div class="hi-eq">चलना</div><div class="trans">naḍa</div></div>
+      <div class="word"><div class="ta">ஓடு</div><div class="hi-eq">दौड़ना</div><div class="trans">ōḍu</div></div>
+      <div class="word"><div class="ta">கொடு</div><div class="hi-eq">देना</div><div class="trans">koḍu</div></div>
+      <div class="word"><div class="ta">வேண்டும்</div><div class="hi-eq">चाहिए</div><div class="trans">vēṇḍum</div></div>
+      <div class="word"><div class="ta">நில்</div><div class="hi-eq">खड़ा होना/रुकना</div><div class="trans">nil</div></div>
+      <div class="word"><div class="ta">படி</div><div class="hi-eq">पढ़ना</div><div class="trans">paḍi</div></div>
+      <div class="word"><div class="ta">எழுது</div><div class="hi-eq">लिखना</div><div class="trans">eḻudu</div><div class="note">ध्यान दें — <span class="ta">ழ</span> फिर!</div></div>
+    </div>
+
+    <h3><span class="num">४.४</span>संख्याएँ</h3>
+    <div class="words">
+      <div class="word"><div class="ta">ஒன்று</div><div class="hi-eq">एक</div><div class="trans">oṉṟu</div></div>
+      <div class="word"><div class="ta">இரண்டு</div><div class="hi-eq">दो</div><div class="trans">iraṇḍu</div></div>
+      <div class="word"><div class="ta">மூன்று</div><div class="hi-eq">तीन</div><div class="trans">mūṉṟu</div></div>
+      <div class="word"><div class="ta">நான்கு</div><div class="hi-eq">चार</div><div class="trans">nāṉku</div></div>
+      <div class="word"><div class="ta">ஐந்து</div><div class="hi-eq">पाँच</div><div class="trans">aindu</div></div>
+      <div class="word"><div class="ta">ஆறு</div><div class="hi-eq">छह</div><div class="trans">āṟu</div></div>
+      <div class="word"><div class="ta">ஏழு</div><div class="hi-eq">सात</div><div class="trans">ēḻu</div><div class="note">फिर <span class="ta">ழ</span>!</div></div>
+      <div class="word"><div class="ta">எட்டு</div><div class="hi-eq">आठ</div><div class="trans">eṭṭu</div></div>
+      <div class="word"><div class="ta">ஒன்பது</div><div class="hi-eq">नौ</div><div class="trans">oṉbadu</div></div>
+      <div class="word"><div class="ta">பத்து</div><div class="hi-eq">दस</div><div class="trans">pattu</div></div>
+      <div class="word"><div class="ta">நூறு</div><div class="hi-eq">सौ</div><div class="trans">nūṟu</div></div>
+    </div>
+
+    <div class="aside"><strong>संख्याएँ पूरी तरह द्रविड़।</strong> हिन्दी में 'एक, दो, तीन, चार' — संस्कृत मूल। तमिल की संख्याएँ अपनी द्रविड़ जड़ों से आयीं — <em>एक/ऑन्ऱ्</em>, <em>दो/इरण्डु</em> में कोई रिश्ता नहीं। यहाँ तत्सम पुल काम नहीं करेगा। कन्नड़/तेलुगु से ज़रूर मिलेगा (ओन्दु, एरडु)।</div>
+
+    <h3><span class="num">४.५</span>रिश्ते</h3>
+    <div class="words">
+      <div class="word"><div class="ta">அப்பா</div><div class="hi-eq">पिताजी/अब्बा</div><div class="trans">appā</div></div>
+      <div class="word"><div class="ta">அம்மா</div><div class="hi-eq">माँ/अम्मा</div><div class="trans">ammā</div><div class="note">हिन्दी के 'अम्मा' से बिलकुल वही ध्वनि!</div></div>
+      <div class="word"><div class="ta">அண்ணா</div><div class="hi-eq">बड़ा भाई</div><div class="trans">aṇṇā</div></div>
+      <div class="word"><div class="ta">தம்பி</div><div class="hi-eq">छोटा भाई</div><div class="trans">tambi</div></div>
+      <div class="word"><div class="ta">அக்கா</div><div class="hi-eq">बड़ी बहन</div><div class="trans">akkā</div></div>
+      <div class="word"><div class="ta">தங்கை</div><div class="hi-eq">छोटी बहन</div><div class="trans">taṅkai</div></div>
+      <div class="word"><div class="ta">தாத்தா</div><div class="hi-eq">दादा/नाना</div><div class="trans">tāttā</div></div>
+      <div class="word"><div class="ta">பாட்டி</div><div class="hi-eq">दादी/नानी</div><div class="trans">pāṭṭi</div></div>
+      <div class="word"><div class="ta">மாமா</div><div class="hi-eq">मामा</div><div class="trans">māmā</div><div class="note">तमिल में भी 'मामा' — रिश्ते-शब्द के लिए पूरे भारत में एक धारा है</div></div>
+      <div class="word"><div class="ta">அத்தை</div><div class="hi-eq">बुआ</div><div class="trans">attai</div></div>
+    </div>
+
+    <h3><span class="num">४.६</span>शरीर</h3>
+    <div class="words">
+      <div class="word"><div class="ta">தலை</div><div class="hi-eq">सिर</div><div class="trans">talai</div></div>
+      <div class="word"><div class="ta">கண்</div><div class="hi-eq">आँख</div><div class="trans">kaṇ</div></div>
+      <div class="word"><div class="ta">வாய்</div><div class="hi-eq">मुँह</div><div class="trans">vāy</div></div>
+      <div class="word"><div class="ta">கை</div><div class="hi-eq">हाथ</div><div class="trans">kai</div></div>
+      <div class="word"><div class="ta">கால்</div><div class="hi-eq">पैर</div><div class="trans">kāl</div></div>
+      <div class="word"><div class="ta">மூக்கு</div><div class="hi-eq">नाक</div><div class="trans">mūkku</div></div>
+    </div>
+
+    <h3><span class="num">४.७</span>समय</h3>
+    <div class="words">
+      <div class="word"><div class="ta">இன்று</div><div class="hi-eq">आज</div><div class="trans">iṉṟu</div></div>
+      <div class="word"><div class="ta">நாளை</div><div class="hi-eq">कल (आने वाला)</div><div class="trans">nāḷai</div></div>
+      <div class="word"><div class="ta">நேற்று</div><div class="hi-eq">कल (बीता)</div><div class="trans">nēṟṟu</div></div>
+      <div class="word"><div class="ta">இப்போது</div><div class="hi-eq">अभी</div><div class="trans">ippōdu</div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी का 'कल' दोनों दिशाओं में — तमिल अलग करती है।</strong> 'कल मैं आऊँगा' और 'कल मैं गया था' — हिन्दी एक ही 'कल' से काम चला लेती है। तमिल साफ़ शब्द रखती है : <span class="ta">நாளை</span> (nāḷai, आने वाला कल), <span class="ta">நேற்று</span> (nēṟṟu, बीता कल)। कन्नड़ भी ऐसा ही करती है (नाळे/निन्ने)। द्रविड़ भाषाएँ काल में भ्रम नहीं छोड़तीं।</div>
+  </div>
+</section>
+<section class="stage" id="stage-05" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव ०५ · वाक्य</div>
+    <h2 class="stage-title">वाक्य बनाना — <span class="ta">வாக்கியம் அமைத்தல்</span></h2>
+    <p class="stage-lede">कर्ता-कर्म-क्रिया (SOV) दोनों में एक। पर तमिल क्रिया में 'मैं', 'तू', 'वह (पुरुष)', 'वह (स्त्री)' — सब क्रिया के अन्त में घुल जाते हैं। हिन्दी सहायक क्रिया (हूँ/है/हैं) से करती है, तमिल प्रत्यय से।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">५.१</span>वाक्य का ढाँचा</h3>
+    <p>दोनों भाषाएँ <strong>कर्ता → कर्म → क्रिया</strong> के क्रम में चलती हैं — क्रिया हमेशा अन्त में।</p>
+
+    <div class="sentence">
+      <div class="ta">நான் தண்ணீர் குடிக்கிறேன்.</div>
+      <div class="trans">nān taṇṇīr kuḍikkiṟēṉ</div>
+      <div class="hi-gloss">मैं पानी पीता हूँ।</div>
+      <div class="literal">मैं · पानी · पीता-हूँ (एक ही क्रिया-शब्द में 'हूँ' समाया)</div>
+    </div>
+
+    <h3><span class="num">५.२</span>क्रिया-रूप : <span class="ta">செய்</span> (करना) — वर्तमान काल</h3>
+    <p>तमिल क्रिया के तीन भाग — धातु + काल-चिह्न + पुरुष-वचन-लिंग।  <span class="ta">செய்</span> + <span class="ta">கிற</span> (वर्तमान) + <span class="ta">ஏன்</span> (मैं) = <span class="ta">செய்கிறேன்</span> (मैं करता हूँ)।</p>
+
+    <div class="conjug">
+      <div class="conjug-row" style="border-bottom: 1px solid var(--rule); font-weight: 600;">
+        <div class="pron">सर्वनाम</div>
+        <div class="ta">तमिल</div>
+        <div class="hi-eq">हिन्दी</div>
+      </div>
+      <div class="conjug-row"><div class="pron">मैं</div><div class="ta">செய்கிறேன்</div><div class="hi-eq">करता/करती हूँ</div></div>
+      <div class="conjug-row"><div class="pron">तू</div><div class="ta">செய்கிறாய்</div><div class="hi-eq">करता/करती है</div></div>
+      <div class="conjug-row"><div class="pron">वह (पुरुष)</div><div class="ta">செய்கிறான்</div><div class="hi-eq">करता है</div></div>
+      <div class="conjug-row"><div class="pron">वह (स्त्री)</div><div class="ta">செய்கிறாள்</div><div class="hi-eq">करती है</div></div>
+      <div class="conjug-row"><div class="pron">वह (वस्तु)</div><div class="ta">செய்கிறது</div><div class="hi-eq">करता है (न.पु.)</div></div>
+      <div class="conjug-row"><div class="pron">हम</div><div class="ta">செய்கிறோம்</div><div class="hi-eq">करते/करती हैं</div></div>
+      <div class="conjug-row"><div class="pron">आप</div><div class="ta">செய்கிறீர்கள்</div><div class="hi-eq">करते हैं</div></div>
+      <div class="conjug-row"><div class="pron">वे</div><div class="ta">செய்கிறார்கள்</div><div class="hi-eq">करते हैं</div></div>
+    </div>
+
+    <div class="aside"><strong>क्रिया में लिंग समा गया।</strong> हिन्दी में "वह करता है"/"वह करती है" — क्रिया के साथ लिंग अलग से। तमिल एक ही क्रिया में लिंग और पुरुष दोनों घोल देती है — <span class="ta">செய்கிறான்</span> = "वह-पुरुष-करता", <span class="ta">செய்கிறாள்</span> = "वह-स्त्री-करती"। सर्वनाम भी छोड़ सकते हैं — अकेला क्रिया पूरा वाक्य है।</div>
+
+    <div class="aside"><strong>बोलचाल की सच्चाई।</strong> शास्त्रीय तमिल में <span class="ta">அவன்/அவள்</span> (वह-पुरुष/वह-स्त्री) का भेद कड़ाई से था। आज के बोलचाल में <span class="ta">அவர்</span> (avar) — जो पहले केवल आदरार्थ था — लिंग-निरपेक्ष 'वह' बनता जा रहा है। हिन्दी का 'आप' भी वैसे ही लिंग नहीं बताता। भाषाएँ धीरे-धीरे सरल होती हैं।</div>
+
+    <h3><span class="num">५.३</span>विभक्तियाँ — हिन्दी परसर्ग तमिल प्रत्यय</h3>
+    <p>हिन्दी में "राम को", "राम से", "राम का" — संज्ञा के बाद अलग शब्द। तमिल में सब प्रत्यय रूप में संज्ञा से जुड़ जाते हैं।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>विभक्ति</th><th>हिन्दी</th><th>तमिल</th><th>उदाहरण</th></tr>
+        <tr><td>कर्ता</td><td>—</td><td>—</td><td class="mono">rāmaṉ</td></tr>
+        <tr><td>कर्म (को)</td><td>-को</td><td>-ை (-ai)</td><td class="mono">rāmaṉai</td></tr>
+        <tr><td>सम्प्रदान (को/के लिए)</td><td>-को</td><td>-க்கு (-kku)</td><td class="mono">rāmaṉukku</td></tr>
+        <tr><td>अधिकरण (में)</td><td>-में</td><td>-இல் (-il)</td><td class="mono">vīṭṭil</td></tr>
+        <tr><td>अपादान (से)</td><td>-से</td><td>-இலிருந்து</td><td class="mono">vīṭṭiliruntu</td></tr>
+        <tr><td>सम्बन्ध (का/की/के)</td><td>-का/-की</td><td>-இன்/-உடைய</td><td class="mono">rāmaṉin</td></tr>
+      </table>
+    </div>
+
+    <h3><span class="num">५.४</span>उदाहरण वाक्य</h3>
+
+    <div class="sentence">
+      <div class="ta">என் பெயர் ராமன்.</div>
+      <div class="trans">eṉ peyar rāmaṉ</div>
+      <div class="hi-gloss">मेरा नाम राम है।</div>
+      <div class="literal">मेरा · नाम · राम (होना-क्रिया गायब — अर्थ स्वयं स्पष्ट)</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ta">அவள் வீட்டிற்கு போகிறாள்.</div>
+      <div class="trans">avaḷ vīṭṭiṟku pōgiṟāḷ</div>
+      <div class="hi-gloss">वह (स्त्री) घर जाती है।</div>
+      <div class="literal">वह-स्त्री · घर-को · जाती-है</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ta">நான் புத்தகத்தை படிக்கிறேன்.</div>
+      <div class="trans">nān puttakattai paḍikkiṟēṉ</div>
+      <div class="hi-gloss">मैं पुस्तक पढ़ता हूँ।</div>
+      <div class="literal">मैं · पुस्तक-को · पढ़ता-हूँ</div>
+    </div>
+
+    <h3><span class="num">५.५</span>निषेध — "नहीं" कहना</h3>
+    <p>हिन्दी : क्रिया + नहीं। तमिल : क्रिया का विशेष रूप या <span class="ta">இல்லை</span> (illai = नहीं) पूरक।</p>
+
+    <div class="sentence">
+      <div class="ta">நான் வரவில்லை.</div>
+      <div class="trans">nān varavillai</div>
+      <div class="hi-gloss">मैं नहीं आया/आयी।</div>
+      <div class="literal">मैं · आना-नहीं (क्रिया-अन्त में 'इल्लै' घुला)</div>
+    </div>
+
+    <div class="sentence">
+      <div class="ta">இது என் புத்தகம் இல்லை.</div>
+      <div class="trans">idu eṉ puttakam illai</div>
+      <div class="hi-gloss">यह मेरी किताब नहीं है।</div>
+    </div>
+
+    <h3><span class="num">५.६</span>प्रश्न — सिरा जोड़ना, अन्त पर <span class="ta">ஆ</span></h3>
+    <p>हिन्दी : 'क्या' शुरुआत में, या स्वर ऊँचा। तमिल : वाक्य के अन्त में <span class="ta">ஆ</span> (ā) जोड़ दो।</p>
+
+    <div class="sentence">
+      <div class="ta">நீ வருகிறாயா?</div>
+      <div class="trans">nī varugiṟāyā?</div>
+      <div class="hi-gloss">क्या तुम आ रहे हो?</div>
+      <div class="literal">तू · आता-है + आ (प्रश्नवाचक)</div>
+    </div>
+
+    <h3><span class="num">५.७</span>प्रश्नवाचक शब्द</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>अर्थ</th><th>हिन्दी</th><th>तमिल</th><th>उच्चारण</th></tr>
+        <tr><td>क्या</td><td>क्या</td><td><span class="ta g">என்ன</span></td><td class="mono">eṉṉa</td></tr>
+        <tr><td>कौन</td><td>कौन</td><td><span class="ta g">யார்</span></td><td class="mono">yār</td></tr>
+        <tr><td>कहाँ</td><td>कहाँ</td><td><span class="ta g">எங்கே</span></td><td class="mono">eṅgē</td></tr>
+        <tr><td>कब</td><td>कब</td><td><span class="ta g">எப்போது</span></td><td class="mono">eppōdu</td></tr>
+        <tr><td>क्यों</td><td>क्यों</td><td><span class="ta g">ஏன்</span></td><td class="mono">ēṉ</td></tr>
+        <tr><td>कैसे</td><td>कैसे</td><td><span class="ta g">எப்படி</span></td><td class="mono">eppaḍi</td></tr>
+        <tr><td>कितना</td><td>कितना</td><td><span class="ta g">எவ்வளவு</span></td><td class="mono">evvaḷavu</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>'क' और 'ए' का परिवार।</strong> हिन्दी के सब प्रश्नवाचक 'क' से शुरू — क्या, कौन, कब, कहाँ, क्यों। तमिल के सब 'ए' से शुरू — <span class="ta">என்ன, எப்போது, எங்கே, ஏன், எப்படி</span>। जब आप तमिल वाक्य के शुरू में 'ए' सुनें — सावधान, प्रश्न आ रहा है।</div>
+  </div>
+</section>
+<section class="stage" id="stage-06" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव ०६ · पाठ</div>
+    <h2 class="stage-title">पढ़ने का अभ्यास — <span class="ta">படிக்கும் பயிற்சி</span></h2>
+    <p class="stage-lede">तीन छोटे पाठ। हर पाठ तीन पंक्तियों में — तमिल, रोमन लिप्यन्तरण, हिन्दी अर्थ। शब्दों को टुकड़े-टुकड़े में पहचानिए, फिर पूरा वाक्य।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">६.१</span>परिचय — <span class="ta">என் அறிமுகம்</span></h3>
+    <div class="vachana">
+      <div class="ta">
+        வணக்கம். என் பெயர் ராகுல். நான் டில்லியில் இருக்கிறேன். நான் தமிழ் கற்றுக்கொள்கிறேன். எனக்கு தமிழ் மிகவும் பிடிக்கும்.
+      </div>
+      <div class="trans" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 10px;">
+        vaṇakkam. eṉ peyar rāhul. nāṉ ḍillīyil irukkiṟēṉ. nāṉ tamiḻ kaṟṟukkoḷkiṟēṉ. eṉakku tamiḻ migavum piḍikkum.
+      </div>
+      <div class="hi-gloss">
+        नमस्कार। मेरा नाम राहुल है। मैं दिल्ली में रहता हूँ। मैं तमिल सीख रहा हूँ। मुझे तमिल बहुत पसन्द है।
+      </div>
+      <div class="attrib">परिचय · पाठ १</div>
+    </div>
+
+    <h3><span class="num">६.२</span>एक दिन — <span class="ta">ஒரு நாள்</span></h3>
+    <div class="vachana">
+      <div class="ta">
+        காலையில் நான் எழுந்திருக்கிறேன். பல் தேய்க்கிறேன். காபி குடிக்கிறேன். பிறகு வேலைக்கு போகிறேன். மதியம் சாப்பிடுகிறேன். மாலையில் வீட்டிற்கு திரும்புகிறேன். இரவில் புத்தகம் படிக்கிறேன்.
+      </div>
+      <div class="trans" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 10px;">
+        kālaiyil nāṉ eḻundirukkiṟēṉ. pal tēykkiṟēṉ. kāpi kuḍikkiṟēṉ. piṟagu vēlaikku pōgiṟēṉ. madiyam sāppiḍugiṟēṉ. mālaiyil vīṭṭiṟku tirumbugiṟēṉ. iravil puttakam paḍikkiṟēṉ.
+      </div>
+      <div class="hi-gloss">
+        सुबह मैं उठता हूँ। दाँत माँजता हूँ। कॉफ़ी पीता हूँ। फिर काम पर जाता हूँ। दोपहर को खाना खाता हूँ। शाम को घर लौटता हूँ। रात को किताब पढ़ता हूँ।
+      </div>
+      <div class="attrib">दिनचर्या · पाठ २</div>
+    </div>
+
+    <div class="aside"><strong>समय-वाचक '<span class="ta">இல்</span>' (-il)।</strong> 'सुबह में' = <span class="ta">காலையில்</span> (kālaiyil), 'रात में' = <span class="ta">இரவில்</span> (iravil)। हिन्दी '-में' का ठीक वही काम। <span class="ta">வீட்டிற்கு</span> (vīṭṭiṟku) = 'घर को' — '-को' का काम '-kku' प्रत्यय करता है।</div>
+
+    <h3><span class="num">६.३</span>बातचीत — <span class="ta">உரையாடல்</span></h3>
+    <div class="vachana">
+      <div class="ta">
+        <strong>ரமா :</strong> வணக்கம். எப்படி இருக்கீங்க?<br>
+        <strong>அன்பு :</strong> நல்லா இருக்கேன். நீங்க?<br>
+        <strong>ரமா :</strong> நானும் நல்லா இருக்கேன். சாப்பிட்டீங்களா?<br>
+        <strong>அன்பு :</strong> ஆமா, சாப்பிட்டேன். நீங்க?<br>
+        <strong>ரமா :</strong> நான் இன்னும் சாப்பிடல. கொஞ்சம் வேலை இருக்கு.<br>
+        <strong>அன்பு :</strong> சரி, பிறகு பார்க்கலாம். நன்றி.<br>
+        <strong>ரமா :</strong> வணக்கம்.
+      </div>
+      <div class="trans" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 10px;">
+        ramā : vaṇakkam. eppaḍi irukkīṅga?<br>
+        aṉbu : nallā irukkēṉ. nīṅga?<br>
+        ramā : nāṉum nallā irukkēṉ. sāppiṭṭīṅgaḷā?<br>
+        aṉbu : āmā, sāppiṭṭēṉ. nīṅga?<br>
+        ramā : nāṉ iṉṉum sāppiḍala. koñcam vēlai irukku.<br>
+        aṉbu : sari, piṟagu pārkkalām. naṉṟi.<br>
+        ramā : vaṇakkam.
+      </div>
+      <div class="hi-gloss">
+        <strong>रमा :</strong> नमस्कार। कैसे हैं आप?<br>
+        <strong>अन्बु :</strong> ठीक हूँ। आप?<br>
+        <strong>रमा :</strong> मैं भी ठीक हूँ। खाना खाया क्या?<br>
+        <strong>अन्बु :</strong> हाँ, खा लिया। आप?<br>
+        <strong>रमा :</strong> मैंने अभी नहीं खाया। थोड़ा काम है।<br>
+        <strong>अन्बु :</strong> ठीक है, बाद में मिलेंगे। धन्यवाद।<br>
+        <strong>रमा :</strong> नमस्कार।
+      </div>
+      <div class="attrib">बातचीत · पाठ ३</div>
+    </div>
+
+    <div class="aside"><strong>'<span class="ta">சாப்பிட்டீங்களா?</span>' — खाना खाया क्या?</strong> तमिल संस्कृति में यह अभिवादन है, भूख की जाँच नहीं। हिन्दी में भी 'खाना खाया?' प्यार का भाव देता है। कन्नड़ में <em>ऊट आय्ता?</em>, बंगाली में <em>खेयेछो?</em> — पूरा दक्षिण एशिया इसी तरह दुलार करता है। तमिल में <span class="ta">வணக்கம்</span> (vaṇakkam) औपचारिक है, खाने की पूछताछ अपनेपन का।</div>
+  </div>
+</section>
+<section class="stage" id="stage-07" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव ०७ · शब्द-क्षेत्र</div>
+    <h2 class="stage-title">दुनिया को दो भाषाएँ कैसे काटती हैं</h2>
+    <p class="stage-lede">हर भाषा एक-एक शब्द-क्षेत्र (रिश्ते, समय, शरीर, गति) को अपने तरीक़े से बाँटती है। जहाँ हिन्दी एक शब्द रखती है, तमिल कभी-कभी दो रखती है — और उलटा भी।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">७.१</span>रिश्तों का जाल — हिन्दी से बारीक, तमिल से और बारीक</h3>
+    <p>हिन्दी 'भाई' कहती है, पर 'बड़ा भाई' और 'छोटा भाई' जोड़ देती है। तमिल भाई के लिए बुनियादी शब्द ही दो — <span class="ta">அண்ணா</span> (बड़ा) और <span class="ta">தம்பி</span> (छोटा)। एक अकेला 'भाई' शब्द ही नहीं। उम्र का भेद भाषा में पका हुआ है।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>रिश्ता</th><th>हिन्दी</th><th>तमिल</th><th>टिप्पणी</th></tr>
+        <tr><td>बड़ा भाई</td><td>बड़ा भाई</td><td><span class="ta g">அண்ணா</span></td><td>बुनियादी शब्द</td></tr>
+        <tr><td>छोटा भाई</td><td>छोटा भाई</td><td><span class="ta g">தம்பி</span></td><td>बुनियादी शब्द</td></tr>
+        <tr><td>बड़ी बहन</td><td>बड़ी बहन</td><td><span class="ta g">அக்கா</span></td><td>बुनियादी शब्द</td></tr>
+        <tr><td>छोटी बहन</td><td>छोटी बहन</td><td><span class="ta g">தங்கை</span></td><td>बुनियादी शब्द</td></tr>
+        <tr><td>मामा</td><td>मामा</td><td><span class="ta g">மாமா</span></td><td>दोनों में समान</td></tr>
+        <tr><td>चाचा</td><td>चाचा</td><td><span class="ta g">சித்தப்பா</span></td><td>शब्दशः 'छोटे पिता'</td></tr>
+        <tr><td>ताऊ</td><td>ताऊ</td><td><span class="ta g">பெரியப்பா</span></td><td>शब्दशः 'बड़े पिता'</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>तमिल 'छोटे पिता' बनाती है।</strong> <span class="ta">சித்தப்பா</span> (cittappā) = छोटा + पिता। <span class="ta">பெரியப்பா</span> (periyappā) = बड़ा + पिता। हिन्दी 'चाचा/ताऊ' के दो भिन्न शब्द हैं, तमिल 'पिता' को आधार मानकर विशेषण लगा देती है — एक ज़्यादा पारदर्शी व्यवस्था।</div>
+
+    <h3><span class="num">७.२</span>समय — कल का झगड़ा</h3>
+    <p>जैसा पहले देखा : हिन्दी 'कल' को दोनों दिशाओं में फेंक देती है, तमिल दो साफ़ शब्द रखती है।</p>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>अर्थ</th><th>हिन्दी</th><th>तमिल</th></tr>
+        <tr><td>आज</td><td>आज</td><td><span class="ta g">இன்று</span></td></tr>
+        <tr><td>कल (बीता)</td><td>कल</td><td><span class="ta g">நேற்று</span></td></tr>
+        <tr><td>कल (आने वाला)</td><td>कल</td><td><span class="ta g">நாளை</span></td></tr>
+        <tr><td>परसों (बीता)</td><td>परसों</td><td><span class="ta g">முந்தாநாள்</span></td></tr>
+        <tr><td>परसों (आने वाला)</td><td>परसों</td><td><span class="ta g">நாளை மறுநாள்</span></td></tr>
+      </table>
+    </div>
+
+    <h3><span class="num">७.३</span>शरीर — चेहरे बनाम चेहरा</h3>
+    <p>हिन्दी 'आँख' — तमिल <span class="ta">கண்</span>। हिन्दी 'नाक' — तमिल <span class="ta">மூக்கு</span>। अधिकतर अंगों के लिए तमिल के पास अपने द्रविड़ शब्द हैं। आप शब्द-दर-शब्द अनुवाद कर सकते हैं — भाव वही रहता है।</p>
+
+    <p>एक बारीक फ़र्क़ : 'हाथ' और 'पैर'। हिन्दी 'हाथ' माने पूरी बाँह और पंजा दोनों। तमिल <span class="ta">கை</span> (kai) भी यही। पर 'पैर' हिन्दी में पूरा अंग, तमिल <span class="ta">கால்</span> (kāl) टाँग + पैर दोनों के लिए — कोई अलग शब्द नहीं।</p>
+
+    <h3><span class="num">७.४</span>गति की क्रियाएँ — जाना/आना</h3>
+    <p>हिन्दी 'जाना' - तमिल <span class="ta">போ</span> (pō)। हिन्दी 'आना' - तमिल <span class="ta">வா</span> (vā)। दोनों भाषाओं में गति की क्रिया सरल। पर तमिल में गति की बारीक़ भेद ज़्यादा :</p>
+
+    <div class="words">
+      <div class="word"><div class="ta">வா</div><div class="hi-eq">आओ (सामान्य)</div><div class="trans">vā</div></div>
+      <div class="word"><div class="ta">வந்திடு</div><div class="hi-eq">आ ही जाओ (निकट आग्रह)</div><div class="trans">vandiḍu</div></div>
+      <div class="word"><div class="ta">வாங்க</div><div class="hi-eq">आइए (आदरसूचक)</div><div class="trans">vāṅga</div></div>
+      <div class="word"><div class="ta">போ</div><div class="hi-eq">जा (अनौपचारिक)</div><div class="trans">pō</div></div>
+      <div class="word"><div class="ta">போங்க</div><div class="hi-eq">जाइए (आदरसूचक)</div><div class="trans">pōṅga</div></div>
+    </div>
+
+    <div class="aside"><strong>तीन हज़ार साल पुरानी द्रविड़ बारीकी।</strong> तमिल क्रियाओं में "निकटता/दूरी/गति-दिशा/वक्ता की राय" — सब प्रत्ययों में घुले हैं। <span class="ta">போ</span> (जा), <span class="ta">போய்விடு</span> (जाकर कर लो), <span class="ta">போய்க்கொண்டே இரு</span> (जाते ही रहो)। हिन्दी यह काम अलग शब्दों से करती है, तमिल एक क्रिया में जोड़-तोड़ से।</div>
+
+    <h3><span class="num">७.५</span>रंग — कितने मूल?</h3>
+    <p>हिन्दी में लाल, पीला, हरा, नीला, सफ़ेद, काला — मूल रंग। तमिल <span class="ta">சிவப்பு</span> (चिवप्पु, लाल), <span class="ta">மஞ்சள்</span> (मञ्जळ्, पीला/हल्दी), <span class="ta">பச்சை</span> (पच्चै, हरा/कच्चा), <span class="ta">நீலம்</span> (नीलम्, नीला), <span class="ta">வெள்ளை</span> (वेळ्ळै, सफ़ेद), <span class="ta">கருப்பு</span> (करुप्पु, काला)।</p>
+
+    <p>'नीला' और 'श्याम/काला' की सीमा धुँधली दोनों में है। तमिल <span class="ta">கருப்பு</span> 'काला' और 'गहरा' दोनों के लिए — हिन्दी में भी 'काले बादल' का 'काला' गहरा नीला-भूरा होता है।</p>
+  </div>
+</section>
+<section class="stage" id="stage-08" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव ०८ · व्यवहार</div>
+    <h2 class="stage-title">प्रयोग — कैसे बोलें, कब क्या कहें</h2>
+    <p class="stage-lede">व्याकरण सीखकर भी अगर आप 'चाय लाओ' तमिल में सीधे कहेंगे, तो रूखे लगेंगे। यहाँ आदर, नरमी, अभिवादन और माफ़ी के ठेठ तमिल ढंग।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">८.१</span>आदर के तीन स्तर</h3>
+    <p>हिन्दी में तू/तुम/आप — तीन स्तर। तमिल में भी तीन समानान्तर :</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>स्तर</th><th>हिन्दी</th><th>तमिल</th><th>उपयोग</th></tr>
+        <tr><td>निकट/छोटा</td><td>तू</td><td><span class="ta g">நீ</span></td><td>घर, क़रीबी, बच्चे</td></tr>
+        <tr><td>सामान्य</td><td>तुम</td><td><span class="ta g">நீங்கள்</span></td><td>आज सबके लिए बोलचाल में</td></tr>
+        <tr><td>आदरार्थ</td><td>आप</td><td><span class="ta g">நீங்கள்/தாங்கள்</span></td><td>बुज़ुर्ग, अजनबी, कार्यालय</td></tr>
+      </table>
+    </div>
+
+    <p>ध्यान दें — बोलचाल की तमिल में <span class="ta">நீங்கள்</span> (nīṅgaḷ) लगभग सार्वभौमिक हो गया है। <span class="ta">தாங்கள்</span> (tāṅgaḷ) बहुत औपचारिक, सरकारी पत्रों में।</p>
+
+    <h3><span class="num">८.२</span>अभिवादन — 'वणक्कम्' ही क्यों?</h3>
+    <p>तमिल में अभिवादन का ठेठ शब्द <span class="ta">வணக்கம்</span> (vaṇakkam) है — 'नमस्ते/नमस्कार' नहीं। यह <em>वण्</em> (= नमस्कार/प्रणाम करना) धातु से बना है, हाथ जोड़ने का भाव लिए। तमिलनाडु की सरकार, दूरदर्शन, रेडियो — सब <span class="ta">வணக்கம்</span> से शुरू करते हैं। यह तमिल-विशिष्ट पहचान है।</p>
+
+    <div class="words">
+      <div class="word"><div class="ta">வணக்கம்</div><div class="hi-eq">नमस्कार</div><div class="trans">vaṇakkam</div><div class="note">सुबह-शाम किसी भी वक़्त</div></div>
+      <div class="word"><div class="ta">நன்றி</div><div class="hi-eq">धन्यवाद</div><div class="trans">naṉṟi</div></div>
+      <div class="word"><div class="ta">மன்னிக்கவும்</div><div class="hi-eq">माफ़ कीजिए</div><div class="trans">maṉṉikkavum</div></div>
+      <div class="word"><div class="ta">பரவாயில்லை</div><div class="hi-eq">कोई बात नहीं</div><div class="trans">paravāyillai</div></div>
+      <div class="word"><div class="ta">சரி</div><div class="hi-eq">ठीक है</div><div class="trans">sari</div></div>
+      <div class="word"><div class="ta">ஆமா</div><div class="hi-eq">हाँ</div><div class="trans">āmā</div></div>
+      <div class="word"><div class="ta">இல்லை</div><div class="hi-eq">नहीं</div><div class="trans">illai</div></div>
+    </div>
+
+    <h3><span class="num">८.३</span>नरमी का शब्द — <span class="ta">கொஞ்சம்</span> (koñcam)</h3>
+    <p>हिन्दी में 'ज़रा' या 'थोड़ा' माँग को कोमल करता है — "ज़रा पानी दीजिए"। तमिल में <span class="ta">கொஞ்சம்</span> (koñcam, थोड़ा) का ठीक वही काम है।</p>
+
+    <div class="sentence">
+      <div class="ta">கொஞ்சம் தண்ணீர் கொடுங்க.</div>
+      <div class="trans">koñcam taṇṇīr koḍuṅga</div>
+      <div class="hi-gloss">ज़रा पानी दीजिए।</div>
+    </div>
+
+    <div class="aside"><strong>दक्षिण एशिया की नरमी-तिकड़ी।</strong> हिन्दी 'ज़रा', तमिल <span class="ta">கொஞ்சம்</span>, कन्नड़ <em>स्वल्प</em>, बंगाली <em>एकटु</em>, मराठी 'जरा' — सब का एक काम : आदेश को अनुरोध में बदलना। भाषाएँ अलग, शिष्टता की तकनीक एक।</div>
+
+    <h3><span class="num">८.४</span>"खाना खाया?" — प्यार का अभिवादन</h3>
+    <p>तमिल में निकट लोगों से मिलते समय हालचाल पूछने का एक लोकप्रिय तरीक़ा है :</p>
+
+    <div class="sentence">
+      <div class="ta">சாப்பிட்டீங்களா?</div>
+      <div class="trans">sāppiṭṭīṅgaḷā?</div>
+      <div class="hi-gloss">खाना खा लिया?</div>
+      <div class="literal">खाने की चिन्ता = आत्मीयता। अजनबियों से नहीं पूछते।</div>
+    </div>
+
+    <p>हिन्दी में "खाना खाया?" यही काम करता है। कन्नड़ <em>ऊट आय्ता?</em>, बंगाली <em>खेयेछो?</em> — सभी भाषाओं में यह प्रश्न दुलार का माध्यम है, भूख की जाँच नहीं।</p>
+
+    <h3><span class="num">८.५</span>रोज़ के वाक्यांश</h3>
+
+    <div class="words">
+      <div class="word"><div class="ta">எப்படி இருக்கீங்க?</div><div class="hi-eq">कैसे हैं आप?</div><div class="trans">eppaḍi irukkīṅga?</div></div>
+      <div class="word"><div class="ta">நல்லா இருக்கேன்</div><div class="hi-eq">ठीक हूँ</div><div class="trans">nallā irukkēṉ</div></div>
+      <div class="word"><div class="ta">வேண்டும்</div><div class="hi-eq">चाहिए</div><div class="trans">vēṇḍum</div></div>
+      <div class="word"><div class="ta">வேண்டாம்</div><div class="hi-eq">नहीं चाहिए</div><div class="trans">vēṇḍām</div></div>
+      <div class="word"><div class="ta">தெரியாது</div><div class="hi-eq">मालूम नहीं</div><div class="trans">teriyādu</div></div>
+      <div class="word"><div class="ta">புரியல</div><div class="hi-eq">समझ में नहीं आया</div><div class="trans">puriyala</div></div>
+      <div class="word"><div class="ta">மெதுவா பேசுங்க</div><div class="hi-eq">धीरे बोलिए</div><div class="trans">meduvā pēsuṅga</div></div>
+      <div class="word"><div class="ta">இன்னொரு முறை</div><div class="hi-eq">फिर से</div><div class="trans">iṉṉoru muṟai</div></div>
+    </div>
+
+    <h3><span class="num">८.६</span>अजनबियों को रिश्तों से बुलाना</h3>
+    <p>तमिलनाडु में बाज़ार में, बस में, चाय की दुकान पर — अजनबी को सीधे उसका नाम नहीं पूछते। रिश्ते के शब्दों से बुलाते हैं :</p>
+
+    <div class="words">
+      <div class="word"><div class="ta">அண்ணா</div><div class="hi-eq">भैया (अपरिचित युवक)</div><div class="trans">aṇṇā</div></div>
+      <div class="word"><div class="ta">அக்கா</div><div class="hi-eq">दीदी (अपरिचित युवती)</div><div class="trans">akkā</div></div>
+      <div class="word"><div class="ta">தாத்தா</div><div class="hi-eq">दादाजी (अपरिचित बुज़ुर्ग)</div><div class="trans">tāttā</div></div>
+      <div class="word"><div class="ta">பாட்டி</div><div class="hi-eq">दादीजी (अपरिचित बुज़ुर्ग महिला)</div><div class="trans">pāṭṭi</div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी-तमिल — एक ही संस्कृति।</strong> हिन्दी में भी 'भैया', 'दीदी', 'अंकल', 'आंटी' से अजनबी को बुलाते हैं। तमिल <span class="ta">அண்ணா</span> बिलकुल 'भैया' है — चाय वाला, रिक्शे वाला, दुकान वाला। संस्कृति एक है, शब्द अलग।</div>
+  </div>
+</section>
+<section class="stage" id="stage-09" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">पड़ाव ०९ · साहित्य</div>
+    <h2 class="stage-title">तमिल साहित्य — २३०० साल का सिलसिला</h2>
+    <p class="stage-lede">तमिल साहित्य संसार की सबसे पुरानी जीवित शास्त्रीय परम्पराओं में से एक है। ईसा से तीन शताब्दी पहले का <em>संगम काव्य</em> — यह हिन्दी (खड़ी बोली) के आरम्भ से लगभग १,५०० साल पुराना है। जिन हिन्दी कवियों को आप जानते हैं, उनकी तमिल प्रतिच्छाया खोजिए।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">९.१</span>तिरुवळ्ळुवर् — तमिल के कबीर</h3>
+    <p>ईस्वी सन् से पहले लिखा <em>तिरुक्कुऱळ्</em> — १,३३० दोहे, केवल दो पंक्ति प्रत्येक। विषय — धर्म (अऱम्), अर्थ (पॉरुळ्), काम (इन्बम्)। किसी देवता का नाम नहीं, किसी मज़हब का नहीं। सीधी नैतिकता, सरल तमिल में।</p>
+
+    <div class="vachana">
+      <div class="ta">
+        அகர முதல எழுத்தெல்லாம் ஆதி<br>
+        பகவன் முதற்றே உலகு.
+      </div>
+      <div class="trans" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 10px;">
+        agara mudala eḻuttellām ādi · bhagavaṉ mudaṟṟē ulagu
+      </div>
+      <div class="hi-gloss">
+        जैसे सब अक्षरों का आरम्भ 'अ' से है, वैसे ही यह संसार आदि भगवान से आरम्भ होता है।
+      </div>
+      <div class="attrib">तिरुक्कुऱळ् — पहला दोहा</div>
+    </div>
+
+    <div class="aside"><strong>तिरुवळ्ळुवर् ↔ कबीर।</strong> दोनों ने धर्म-सम्प्रदाय से ऊपर उठकर लिखा। कबीर के दोहे में "ऐसी बानी बोलिए, मन का आपा खोय" — तिरुक्कुऱळ् का "इनियवै कूऱल्" (मीठा बोलो) उसी भाव का है। दोनों ने लोगों की भाषा में, छोटे-छोटे सूत्रों में, आचरण की शिक्षा दी। कबीर का दोहा, तिरुवळ्ळुवर् का कुऱळ् — रूप भी एक, आत्मा भी।</div>
+
+    <h3><span class="num">९.२</span>भारतियार् — तमिल के निराला</h3>
+    <p>सुब्रह्मण्य भारतियार् (१८८२-१९२१) — स्वतंत्रता सेनानी, राष्ट्रवादी कवि, तमिल कविता के आधुनिककार। उन्होंने पुरानी जड़ शैली तोड़ी, नयी तमिल गढ़ी। स्त्री-मुक्ति, जाति-तोड़, भारत-प्रेम — सब पर लिखा।</p>
+
+    <div class="vachana">
+      <div class="ta">
+        ஆடுவோமே பள்ளுப் பாடுவோமே<br>
+        ஆனந்த சுதந்திரம் அடைந்துவிட்டோம் என்று.
+      </div>
+      <div class="trans" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 10px;">
+        āḍuvōmē paḷḷup pāḍuvōmē · ānanda sudantiram aḍaindu-viṭṭōm eṉṟu
+      </div>
+      <div class="hi-gloss">
+        नाचें हम, गाएँ हम — आनन्द की स्वतन्त्रता हमने पा ली है यह कहकर।
+      </div>
+      <div class="attrib">सुब्रह्मण्य भारतियार्</div>
+    </div>
+
+    <div class="aside"><strong>भारतियार् ↔ निराला।</strong> दोनों राष्ट्रवाद के साथ-साथ भाषाई गर्व के कवि। निराला ने खड़ी बोली में मुक्त छन्द रचा — "सरोज स्मृति", "राम की शक्ति पूजा"। भारतियार् ने उसी तरह पुरानी तमिल व्याकरण तोड़ी, लोक-भाषा अपनायी। दोनों क्रान्तिकारी — भाषा में भी, विचार में भी। दोनों जल्दी गए।</div>
+
+    <h3><span class="num">९.३</span>जयकान्तन् — तमिल के प्रेमचंद</h3>
+    <p>जयकान्तन् (१९३४-२०१५) — ज्ञानपीठ पुरस्कार विजेता। शहरी तमिलनाडु, फुटपाथ, वेश्या, फ़ैक्टरी मज़दूर, मध्यम वर्ग की घुटन — इन्हीं पर लिखा। तमिल साहित्य-परम्परा की मधुर-रूमानी छवि उन्होंने तोड़ी।</p>
+
+    <div class="aside"><strong>जयकान्तन् ↔ प्रेमचंद।</strong> प्रेमचंद ने हिन्दी कहानी को ज़मीन से जोड़ा — होरी, घीसू-माधव, हामिद। जयकान्तन् ने तमिल कहानी वैसे ही ज़मीन पर उतारी — <em>अग्निप्रवेशम्</em> में ढोंगी ब्राह्मण, <em>यारुक्काग अऴुदान्?</em> में बलात्कार-पीड़िता। दोनों ने 'पवित्र' मध्य वर्ग को आईना दिखाया — और गाली भी सही।</div>
+
+    <h3><span class="num">९.४</span>और भी पुल</h3>
+
+    <div class="words">
+      <div class="word">
+        <div class="ta">பெருந்தலைவர் காமராசர்</div>
+        <div class="hi-eq">कामराज</div>
+        <div class="trans">perundalaivar kāmarājar</div>
+        <div class="note">तमिलनाडु के शिक्षा-सुधारक। मिड-डे मील की शुरुआत।</div>
+      </div>
+      <div class="word">
+        <div class="ta">மகாகவி பாரதிதாசன்</div>
+        <div class="hi-eq">भारतिदासन्</div>
+        <div class="trans">bhāratidāsan</div>
+        <div class="note">भारतियार् के शिष्य। द्रविड़ आन्दोलन के कवि। जैसे शमशेर — भारतियार् के बाद के निरन्तरण।</div>
+      </div>
+      <div class="word">
+        <div class="ta">கல்கி கிருஷ்ணமூர்த்தி</div>
+        <div class="hi-eq">कल्कि कृष्णमूर्ति</div>
+        <div class="trans">kalki kiruṣṇamūrti</div>
+        <div class="note">ऐतिहासिक उपन्यासकार — 'पोन्नियिन् सेल्वन्'। हिन्दी के वृन्दावनलाल वर्मा की तरह।</div>
+      </div>
+      <div class="word">
+        <div class="ta">சுஜாதா</div>
+        <div class="hi-eq">सुजाता (रङ्गराजन्)</div>
+        <div class="trans">sujātā</div>
+        <div class="note">विज्ञान-कथा, लोकप्रिय उपन्यास। हिन्दी के शरतचन्द्र/गुलशन नन्दा की मिश्रित छाप।</div>
+      </div>
+      <div class="word">
+        <div class="ta">பெருமாள் முருகன்</div>
+        <div class="hi-eq">पेरुमाळ् मुरुगन्</div>
+        <div class="trans">perumāḷ murugaṉ</div>
+        <div class="note">समकालीन कथाकार। 'मादोरुबागन्' पर तमिलनाडु में विवाद। जैसे मनोहर श्याम जोशी की ठेठ लोक-संवेदना।</div>
+      </div>
+    </div>
+
+    <h3><span class="num">९.५</span>संगम काव्य की एक झलक</h3>
+
+    <div class="vachana">
+      <div class="ta">
+        யாதும் ஊரே யாவரும் கேளிர்<br>
+        தீதும் நன்றும் பிறர்தர வாரா.
+      </div>
+      <div class="trans" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 10px;">
+        yādum ūrē yāvarum kēḷir · tīdum naṉṟum piṟartara vārā
+      </div>
+      <div class="hi-gloss">
+        हर जगह मेरा गाँव, हर कोई मेरा अपना। बुरा और भला दूसरों से नहीं आता।
+      </div>
+      <div class="attrib">कणियन् पूंगुन्ऱनार् · पुऱनानूऱु १९२ · लगभग २,००० साल पहले</div>
+    </div>
+
+    <div class="aside"><strong>तमिल का विश्वबोध।</strong> यह पंक्तियाँ — "यादुम् ऊरे, यावरुम् केळिर्" — तमिलनाडु की राजकीय मुहर पर अंकित हैं, संयुक्त राष्ट्र में भी उद्धृत होती हैं। २,००० साल पुरानी कविता में वैश्विक भाईचारे का संदेश — यह तमिल की विरासत है, जिसे सीखकर आप पूरे भारत की एक पुरानी नस को छू रहे हैं।</div>
+
+    <p style="margin-top: 40px; text-align: center; color: var(--ink-faded); font-style: italic;">यह पाठ्यक्रम यहाँ समाप्त होता है। असली यात्रा अब शुरू।<br><span class="ta" style="color: var(--sindoor); font-size: 18px;">நன்றி. வணக்கம்.</span><br>— धन्यवाद। नमस्कार।</p>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn" disabled>← पिछला</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">अगला →</button>
+</div>
+
+</div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="ta">தமிழ் கற்றுக்கொள்வோம்</span>
+    made by Nil · using Claude
+  </div>
+</footer>
+
+<script>
+(function(){
+  var stages = document.querySelectorAll('section.stage');
+  var tabs = document.querySelectorAll('.stage-tab');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var dotsWrap = document.getElementById('dots');
+  var total = stages.length;
+  var current = 0;
+  var devNums = ['००','०१','०२','०३','०४','०५','०६','०७','०८','०९'];
+
+  for (var i = 0; i < total; i++) {
+    var d = document.createElement('div');
+    d.className = 'dot';
+    dotsWrap.appendChild(d);
+  }
+  var dots = dotsWrap.querySelectorAll('.dot');
+
+  function show(n) {
+    if (n < 0) n = 0;
+    if (n >= total) n = total - 1;
+    current = n;
+    for (var i = 0; i < stages.length; i++) {
+      stages[i].classList.toggle('active', i === n);
+      tabs[i].classList.toggle('active', i === n);
+      dots[i].classList.remove('done', 'current');
+      if (i < n) dots[i].classList.add('done');
+      if (i === n) dots[i].classList.add('current');
+    }
+    prevBtn.disabled = (n === 0);
+    nextBtn.disabled = (n === total - 1);
+    prevBtn.textContent = '← पिछला';
+    nextBtn.textContent = (n === total - 1) ? 'समाप्त' : 'अगला →';
+    var activeTab = tabs[n];
+    if (activeTab && activeTab.scrollIntoView) {
+      activeTab.scrollIntoView({behavior: 'smooth', inline: 'center', block: 'nearest'});
+    }
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  for (var i = 0; i < tabs.length; i++) {
+    (function(idx){
+      tabs[idx].addEventListener('click', function(){ show(idx); });
+    })(i);
+  }
+  prevBtn.addEventListener('click', function(){ show(current - 1); });
+  nextBtn.addEventListener('click', function(){ show(current + 1); });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' && current < total - 1) show(current + 1);
+    if (e.key === 'ArrowLeft' && current > 0) show(current - 1);
+  });
+
+  var cells = document.querySelectorAll('.map-cell');
+  for (var j = 0; j < cells.length; j++) {
+    (function(cell){
+      cell.addEventListener('click', function(){
+        var hint = cell.getAttribute('data-hint');
+        var hintDiv = cell.querySelector('.hint');
+        if (hint && hintDiv && !hintDiv.textContent.trim()) {
+          hintDiv.textContent = hint;
+        }
+        cell.classList.toggle('expanded');
+      });
+      cell.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cell.click(); }
+      });
+    })(cells[j]);
+  }
+
+  show(0);
+})();
+</script>
+
+</body>
+</html>

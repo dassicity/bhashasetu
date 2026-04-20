@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="description" content="हिन्दी भाषी के लिए तेलुगु सीखने का पहला-सिद्धांत पाठ्यक्रम — वर्णमाला की पद्धति में।" />
+<title>తెలుగు నేర్చుకుందాం — हिन्दी से तेलुगु</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #F4ECDA;
+    --paper-warm: #EFE5CC;
+    --paper-deep: #E8DCBE;
+    --ink: #1C1611;
+    --ink-soft: #3A2F24;
+    --ink-faded: #6B5B48;
+    --sindoor: #A83024;
+    --sindoor-deep: #7B1F17;
+    --ochre: #B8802D;
+    --ochre-light: #D4A24A;
+    --teal: #1F4D4A;
+    --leaf: #4A6B2F;
+    --rule: rgba(28, 22, 17, 0.15);
+    --rule-strong: rgba(28, 22, 17, 0.35);
+    --shadow: 0 1px 2px rgba(28, 22, 17, 0.04), 0 4px 16px rgba(28, 22, 17, 0.06);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Noto Serif Devanagari', 'Noto Serif', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184, 128, 45, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(168, 48, 36, 0.04), transparent 40%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .te { font-family: 'Noto Serif Telugu', serif; }
+  .hi { font-family: 'Noto Serif Devanagari', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+  header.masthead {
+    padding: 48px 0 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  header.masthead::after {
+    content: "";
+    display: block;
+    width: 60px; height: 2px;
+    background: var(--sindoor);
+    margin: 18px auto -1px;
+  }
+  .pretitle {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 14px;
+  }
+  h1.title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 50px);
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  h1.title .te { font-weight: 500; display: block; font-size: 0.6em; color: var(--ink-soft); margin-bottom: 10px; }
+  .subtitle {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--ink-faded);
+    font-weight: 400;
+    margin: 14px auto 0;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .byline { font-size: 13px; color: var(--ink-faded); margin-top: 18px; }
+  .byline .sep { color: var(--ochre); margin: 0 8px; }
+  .credit {
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+  }
+
+  nav.stages {
+    position: sticky; top: 0;
+    z-index: 10;
+    background: rgba(244, 236, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stages-scroll {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 16px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .stages-scroll::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex: 0 0 auto;
+    padding: 14px 12px 12px;
+    border: 0;
+    background: transparent;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 44px;
+  }
+  .stage-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .stage-tab:hover { color: var(--ink-soft); }
+  .stage-tab.active { color: var(--ink); border-bottom-color: var(--sindoor); }
+
+  main { padding: 30px 0 80px; }
+  section.stage { display: none; animation: fadeIn 0.4s ease; }
+  section.stage.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .stage-head { margin-bottom: 26px; }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sindoor);
+    margin-bottom: 6px;
+  }
+  h2.stage-title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .stage-lede {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.5vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--ochre);
+  }
+
+  h3 {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sindoor);
+    margin-right: 10px;
+    font-weight: 400;
+  }
+
+  p { margin: 0 0 14px; }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 14px 0 24px;
+  }
+  .map-cell {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 6px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+  }
+  .map-cell:hover, .map-cell:focus-visible {
+    background: var(--paper-deep);
+    border-color: var(--ochre);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  .map-cell .hi-g {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink-faded);
+    line-height: 1;
+  }
+  .map-cell .arrow {
+    font-size: 10px;
+    color: var(--ochre);
+    margin: 4px 0;
+  }
+  .map-cell .te-g {
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .map-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sindoor);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .map-cell .hint {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 11px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .map-cell.expanded {
+    border-color: var(--sindoor);
+    background: var(--paper-deep);
+    grid-column: span 2;
+  }
+  .map-cell.expanded .hint { opacity: 1; max-height: 80px; margin-top: 4px; }
+
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin: 24px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .words { display: grid; gap: 10px; margin: 18px 0 24px; }
+  .word {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    padding: 14px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 3px solid var(--ochre);
+    align-items: baseline;
+  }
+  .word .te { font-family: 'Noto Serif Telugu', serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .word .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 18px; color: var(--ink-soft); }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); grid-column: 1 / 3; }
+  .word .meaning { font-size: 14px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .word .note { font-size: 12px; color: var(--teal); grid-column: 1 / 3; font-style: italic; }
+
+  .sentence {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+  }
+  .sentence .te { font-family: 'Noto Serif Telugu', serif; font-size: 21px; line-height: 1.5; margin-bottom: 6px; font-weight: 500; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sindoor); margin-bottom: 4px; }
+  .sentence .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; color: var(--ink-soft); margin-bottom: 4px; }
+  .sentence .literal { font-size: 12px; color: var(--ink-faded); font-family: 'JetBrains Mono', monospace; }
+
+  .conjug { display: grid; gap: 4px; margin: 14px 0; }
+  .conjug-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 15px;
+    align-items: baseline;
+  }
+  .conjug-row .pron { font-family: 'Noto Serif Devanagari', serif; font-size: 13px; color: var(--ink-faded); }
+  .conjug-row .te { font-family: 'Noto Serif Telugu', serif; font-weight: 500; font-size: 17px; }
+  .conjug-row .hi-eq { font-family: 'Noto Serif Devanagari', serif; font-size: 15px; color: var(--ink-soft); }
+
+  .guni-wrap { overflow-x: auto; margin: 16px -22px 24px; padding: 0 22px; }
+  table.guni { border-collapse: collapse; margin: 0 auto; min-width: 100%; }
+  table.guni th, table.guni td { border: 1px solid var(--rule); padding: 8px 8px; text-align: center; font-size: 15px; }
+  table.guni th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; background: var(--paper-deep); color: var(--sindoor); letter-spacing: 0.08em; }
+  table.guni .g { font-size: 20px; line-height: 1; }
+  table.guni .sub { font-size: 10px; color: var(--ink-faded); display: block; margin-top: 2px; }
+
+  .vachana {
+    margin: 24px 0;
+    padding: 20px 22px;
+    background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep));
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .vachana::before { content: ""; display: block; width: 28px; height: 2px; background: var(--sindoor); margin-bottom: 14px; }
+  .vachana .te { font-size: 18px; line-height: 1.9; font-weight: 500; margin-bottom: 14px; }
+  .vachana .hi-gloss { font-family: 'Noto Serif Devanagari', serif; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+  .vachana .attrib { margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .aside {
+    margin: 18px 0;
+    padding: 14px 16px;
+    background: rgba(184, 128, 45, 0.08);
+    border-left: 2px solid var(--ochre);
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-radius: 0 2px 2px 0;
+  }
+  .aside strong { color: var(--sindoor); }
+
+  .principles { margin: 24px 0; padding: 0; list-style: none; counter-reset: p; }
+  .principles li {
+    counter-increment: p;
+    padding: 16px 0 16px 50px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .principles li:last-child { border-bottom: 1px solid var(--rule); }
+  .principles li::before {
+    content: counter(p, devanagari);
+    position: absolute; left: 0; top: 18px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--sindoor);
+  }
+
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 22px; position: relative; margin-bottom: 8px; }
+  ul.clean li::before { content: "❧"; position: absolute; left: 0; color: var(--ochre); font-size: 14px; top: 2px; }
+
+  .video { margin: 22px 0; background: var(--ink); border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-strong); }
+  .video-frame { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-caption { padding: 10px 14px; font-size: 13px; color: var(--paper); background: var(--ink); font-family: 'Noto Serif Devanagari', serif; }
+  .video-caption a { color: var(--ochre-light); text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; }
+
+  .progress {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin: 50px 0 0; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  .progress button {
+    padding: 10px 16px;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 14px; font-weight: 500;
+    background: var(--paper-warm); color: var(--ink);
+    border: 1px solid var(--rule-strong); border-radius: 3px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .progress button:hover:not(:disabled) { background: var(--sindoor); color: var(--paper); border-color: var(--sindoor); }
+  .progress button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .progress .dots { display: flex; gap: 5px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: all 0.2s; }
+  .progress .dot.done { background: var(--ochre); }
+  .progress .dot.current { background: var(--sindoor); transform: scale(1.4); }
+
+  footer.colophon {
+    margin-top: 60px; padding: 30px 0; border-top: 2px solid var(--ink);
+    text-align: center; font-size: 13px; color: var(--ink-faded);
+  }
+  footer .te { font-size: 16px; color: var(--sindoor); display: block; margin-bottom: 10px; font-weight: 500; }
+
+  .bridge {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+    margin: 14px 0; padding: 14px 16px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule); border-left: 3px solid var(--teal);
+    border-radius: 3px;
+  }
+  .bridge .te-side, .bridge .hi-side { font-size: 15px; }
+  .bridge .te-side strong { font-family: 'Noto Serif Telugu', serif; font-size: 18px; display: block; margin-bottom: 4px; color: var(--ink); }
+  .bridge .hi-side strong { font-family: 'Noto Serif Devanagari', serif; font-size: 18px; display: block; margin-bottom: 4px; color: var(--ink); }
+  .bridge .note { grid-column: 1 / 3; font-size: 13px; color: var(--ink-faded); font-style: italic; border-top: 1px dashed var(--rule); padding-top: 8px; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    .map-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .map-cell { min-height: 90px; padding: 8px 4px 6px; }
+    .map-cell .te-g { font-size: 26px; }
+    .map-cell .hi-g { font-size: 20px; }
+    .word { grid-template-columns: 1fr; gap: 4px; }
+    .conjug-row { grid-template-columns: 80px 1fr; gap: 6px; }
+    .conjug-row .hi-eq { grid-column: 2; font-size: 13px; margin-top: -2px; }
+    .stage-tab { padding: 12px 9px 10px; font-size: 12px; }
+    header.masthead { padding: 36px 0 22px; }
+    .bridge { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 380px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 14px; }
+    .map-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media print {
+    nav.stages, .progress, .video { display: none !important; }
+    section.stage { display: block !important; page-break-after: always; }
+    body { background: white; }
+    body::before { display: none; }
+  }
+
+  button:focus-visible, a:focus-visible, .map-cell:focus-visible {
+    outline: 2px solid var(--sindoor); outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="pretitle">एक प्राइमर · प्राथमिक पुस्तक</div>
+    <h1 class="title">
+      <span class="te">తెలుగు నేర్చుకుందాం</span>
+      हिन्दी से तेलुगु सीखें
+    </h1>
+    <p class="subtitle">वर्णमाला और बारहखड़ी की पद्धति में — एक समय पर एक ही अनजानी चीज़, रूप पहले अर्थ बाद में, सूची नहीं व्यवस्था — हिन्दी जो जानती है उसी पर तेलुगु खड़ी हो।</p>
+    <div class="byline">दस चरण <span class="sep">·</span> मोबाइल-अनुकूल <span class="sep">·</span> पूर्ण शून्य से</div>
+    <div class="credit">made by Nil <span class="sep">·</span> using Claude</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="stages-scroll" id="stageScroll">
+    <button class="stage-tab active" data-stage="0"><span class="num">००</span>भूमिका</button>
+    <button class="stage-tab" data-stage="1"><span class="num">०१</span>स्वर</button>
+    <button class="stage-tab" data-stage="2"><span class="num">०२</span>व्यंजन</button>
+    <button class="stage-tab" data-stage="3"><span class="num">०३</span>संयोजन</button>
+    <button class="stage-tab" data-stage="4"><span class="num">०४</span>मूल शब्द</button>
+    <button class="stage-tab" data-stage="5"><span class="num">०५</span>वाक्य</button>
+    <button class="stage-tab" data-stage="6"><span class="num">०६</span>पाठ</button>
+    <button class="stage-tab" data-stage="7"><span class="num">०७</span>शब्द-क्षेत्र</button>
+    <button class="stage-tab" data-stage="8"><span class="num">०८</span>प्रयोग</button>
+    <button class="stage-tab" data-stage="9"><span class="num">०९</span>साहित्य</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="stage active" id="stage-00" data-stage="0">
+  <div class="stage-head">
+    <div class="stage-label">Stage 00 · भूमिका</div>
+    <h2 class="stage-title">यह पाठ क्यों अलग है</h2>
+    <p class="stage-lede">आप हिन्दी जानते हैं। इसका मतलब है कि तेलुगु सीखने के लिए आपको अंग्रेज़ी-भाषियों की तरह शून्य से नहीं शुरू करना — आप लगभग ९४% ध्वनियाँ, व्याकरण का कंकाल, और शब्दावली का एक बड़ा हिस्सा पहले से पहचानते हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <p>बचपन की <strong>वर्णमाला</strong> और <strong>बारहखड़ी</strong> आपकी पहली किताब थी — क, का, कि, की, कु, कू... वही सिद्धांत तेलुगु में भी चलता है: क → క, का → కా, कि → కి, की → కీ। चिह्न का आकार बदलता है, नियम वही रहता है। इसलिए यह पाठ्यक्रम उसी बारहखड़ी की पद्धति पर चलेगा — <strong>एक समय पर एक ही अनजानी चीज़</strong>, और जो नहीं पढ़ाया गया है उसका उदाहरण कभी नहीं दिया जाएगा।</p>
+
+    <p>हिन्दी और तेलुगु एक ही परिवार की नहीं — हिन्दी भारोपीय (संस्कृत से), तेलुगु द्राविड़ (तमिल की बहन) — लेकिन दोनों एक ही सभ्यता की बेटियाँ हैं। दोनों लिपियाँ ब्राह्मी से निकली अबुगिदा हैं, दोनों में वाक्य-रचना SOV है, दोनों में परसर्ग (postposition) हैं, दोनों ने संस्कृत से सैकड़ों तत्सम शब्द लिए हैं।</p>
+
+    <p>एक उदाहरण लो: <em>"मैं किताब पढ़ता हूँ।"</em> — कर्ता, कर्म, क्रिया। तेलुगु में बिलकुल वही क्रम: <span class="te" style="font-size: 19px;">నేను పుస్తకం చదువుతాను।</span> (<span class="mono">nēnu pustakaṃ caduvutānu</span>) — मैं पुस्तकं पढ़ता-हूँ। पुस्तक/<span class="te">పుస్తకం</span> — वही संस्कृत शब्द। नमस्कार/<span class="te">నమస్కారం</span> — वही अभिवादन। ४४ में से ४७ स्वनिम (phoneme) साझा हैं — आपका मुँह पहले से इन्हें जानता है।</p>
+
+    <h3><span class="num">¶</span>हिन्दी → तेलुगु: कहाँ मेल, कहाँ फ़र्क़</h3>
+
+    <ol class="principles">
+      <li><strong>ध्वनियाँ — लगभग पूरी की पूरी एक।</strong> वर्गीय व्यंजन (क-ख-ग-घ-ङ, च-छ-ज-झ-ञ...) ज्यों-के-त्यों मिलते हैं। अल्पप्राण/महाप्राण, घोष/अघोष — सब आपका मुँह पहले से जानता है। तेलुगु की <span class="te">క ఖ గ ఘ ఙ</span> = हिन्दी की क ख ग घ ङ।</li>
+      <li><strong>लिपि — आकार अलग, नियम एक।</strong> दोनों अबुगिदा हैं — हर व्यंजन में एक अंतर्निहित 'अ' है, स्वर-चिह्न से बदलता है। देवनागरी में 'क + ि = कि', तेलुगु में '<span class="te">క + ి = కి</span>'। बस चिह्न का रूप सीखना है, नियम नहीं।</li>
+      <li><strong>वाक्य-रचना — कंकाल एक।</strong> दोनों SOV हैं (मैं पानी पीता हूँ = <span class="te">నేను నీరు తాగుతాను</span>)। दोनों में परसर्ग, प्रत्यय अंत में लगते हैं — '-को' की जगह '<span class="te">-కి/-కు</span>', '-में' की जगह '<span class="te">-లో</span>'। आप पहले से इसी तरह सोचते हैं।</li>
+      <li><strong>संस्कृत — सुनहरा पुल।</strong> पुस्तक/<span class="te">పుస్తకం</span>, समय/<span class="te">సమయం</span>, दिन/<span class="te">దినం</span>, सूर्य/<span class="te">సూర్యుడు</span>, भूमि/<span class="te">భూమి</span>, रात्रि/<span class="te">రాత్రి</span> — तत्सम शब्द लगभग एक ही हैं। लगभग ३२% शब्दावली तुरंत पहचानी जाएगी।</li>
+      <li><strong>क्रिया में लिंग-भेद — यहाँ ध्यान।</strong> हिन्दी की क्रिया कर्ता के लिंग पर बदलती है (लड़का जाता है / लड़की जाती है)। तेलुगु तीसरे पुरुष में पुरुष-स्त्री-वस्तु अलग करती है — <span class="te">వెళ్తాడు</span> (वेळ्ताडु — वह पुरुष जाता है), <span class="te">వెళ్తుంది</span> (वेळ्तुंदि — वह स्त्री/वस्तु जाती है)। धारणा परिचित, नियम नया।</li>
+      <li><strong>एकमात्र सच में नई ध्वनि: <span class="te">ళ</span></strong> — मूर्धन्य ल। हिन्दी ने इसे खो दिया, तेलुगु, कन्नड़, तमिल, मलयालम ने रखा। जीभ को मूर्धा की ओर मोड़कर 'ल' — तीन हज़ार साल पुरानी द्राविड़ विरासत जो आपका कान पहली बार सुनेगा। साथ ही तेलुगु में 'ए' और 'ओ' के दो-दो रूप हैं — ह्रस्व <span class="te">ఎ/ఒ</span> और दीर्घ <span class="te">ఏ/ఓ</span> — हिन्दी में यह भेद लिपि में नहीं दिखता।</li>
+    </ol>
+
+    <div class="aside"><strong>पद्धति।</strong> हर चरण में तेलुगु अक्षर/शब्द/वाक्य के बगल में हिन्दी समतुल्य रखा गया है। आप हिन्दी पहचानें, तो तेलुगु केवल नया आकार है — नई धारणा नहीं।</div>
+
+    <div class="aside"><strong>एक सुंदर संयोग।</strong> तेलुगु को "इतालियन ऑफ़ दि ईस्ट" कहा गया है — क्योंकि लगभग हर शब्द स्वर पर समाप्त होता है: <span class="te">పుస్తకం, దినం, సమయం</span>। हिन्दी में भी कई शब्द वैसे ही — 'पुस्तक-म्' नहीं, 'पुस्तकं'। सुनने में मिठास वहीं से आती है।</div>
+
+    <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ऊपर <strong>स्वर</strong> टैब पर टैप करें, शुरुआत करें।</p>
+  </div>
+</section>
+<section class="stage" id="stage-01" data-stage="1">
+  <div class="stage-head">
+    <div class="stage-label">Stage 01 · ध्वनि</div>
+    <h2 class="stage-title">स्वर — <span class="te">అచ్చులు</span></h2>
+    <p class="stage-lede">हिन्दी में ११ स्वर हैं। तेलुगु में १३ — दो अतिरिक्त हैं (दीर्घ <span class="te">ఏ</span> और दीर्घ <span class="te">ఓ</span>)। ध्वनि लगभग एक — सिर्फ़ आकार नया। हर हिन्दी अक्षर के बगल में उसका तेलुगु जुड़वाँ पहचान लीजिए।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+vowels+achulu+pronunciation" title="Telugu vowels achulu pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">तेलुगु स्वरों (<span class="te">అచ్చులు</span>) का उच्चारण <a href="https://www.youtube.com/results?search_query=learn+telugu+vowels+achulu+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <div class="aside"><strong>पढ़ने का नियम।</strong> हर कार्ड पर टैप करें — एक उदाहरण शब्द दिखेगा। हिन्दी अक्षर ऊपर, तेलुगु नीचे — आँख पहले हिन्दी पहचानेगी, फिर तेलुगु रूप स्मृति में बैठेगा।</div>
+
+    <div class="group-label">ह्रस्व / दीर्घ जोड़ा — 'अ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="అమ్మ (amma) = अम्मा — माँ"><div class="hi-g">अ</div><div class="arrow">↓</div><div class="te-g">అ</div><div class="label">a</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఆవు (āvu) = गाय"><div class="hi-g">आ</div><div class="arrow">↓</div><div class="te-g">ఆ</div><div class="label">ā</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'इ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ఇల్లు (illu) = घर"><div class="hi-g">इ</div><div class="arrow">↓</div><div class="te-g">ఇ</div><div class="label">i</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఈగ (īga) = मक्खी"><div class="hi-g">ई</div><div class="arrow">↓</div><div class="te-g">ఈ</div><div class="label">ī</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'उ' परिवार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ఉప్పు (uppu) = नमक"><div class="hi-g">उ</div><div class="arrow">↓</div><div class="te-g">ఉ</div><div class="label">u</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఊరు (ūru) = गाँव"><div class="hi-g">ऊ</div><div class="arrow">↓</div><div class="te-g">ఊ</div><div class="label">ū</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">ऋ — संस्कृत से उधार</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ఋషి (ṛṣi) = ऋषि — वही संस्कृत शब्द!"><div class="hi-g">ऋ</div><div class="arrow">↓</div><div class="te-g">ఋ</div><div class="label">ṛ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">'ए' परिवार — यहाँ हिन्दी और तेलुगु अलग चलते हैं</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ఎరుపు (erupu) = लाल रंग"><div class="hi-g">ए</div><div class="arrow">↓</div><div class="te-g">ఎ</div><div class="label">e (ह्रस्व)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఏడు (ēḍu) = सात — दीर्घ ए"><div class="hi-g">ए (दीर्घ)</div><div class="arrow">↓</div><div class="te-g">ఏ</div><div class="label">ē (दीर्घ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఐదు (aidu) = पाँच"><div class="hi-g">ऐ</div><div class="arrow">↓</div><div class="te-g">ఐ</div><div class="label">ai</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी से फ़र्क़: ह्रस्व/दीर्घ 'ए'।</strong> तेलुगु <span class="te">ఎ</span> (ह्रस्व) और <span class="te">ఏ</span> (दीर्घ) को अलग-अलग लिखती है। हिन्दी की लिपि में यह भेद नहीं है — पर बोली में है! "बेला" (फूल) का 'ए' और "बेलचा" का 'ए' एक-सा नहीं। तेलुगु उसी को अक्षर में दर्ज कर देती है। यही बात 'ओ' के साथ भी।</div>
+
+    <div class="group-label">'ओ' परिवार — फिर से दो रूप</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="ఒకటి (okaṭi) = एक"><div class="hi-g">ओ</div><div class="arrow">↓</div><div class="te-g">ఒ</div><div class="label">o (ह्रस्व)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఓడ (ōḍa) = नाव — दीर्घ ओ"><div class="hi-g">ओ (दीर्घ)</div><div class="arrow">↓</div><div class="te-g">ఓ</div><div class="label">ō (दीर्घ)</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఔషధం (auṣadhaṃ) = औषध — वही शब्द!"><div class="hi-g">औ</div><div class="arrow">↓</div><div class="te-g">ఔ</div><div class="label">au</div><div class="hint"></div></div>
+    </div>
+
+    <div class="group-label">अनुस्वार व विसर्ग — हिन्दी जैसे</div>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="అం (aṃ) — नासिक्य, हिन्दी जैसा"><div class="hi-g">अं</div><div class="arrow">↓</div><div class="te-g">అం</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="అః (aḥ) — विसर्ग, दुःख के अंत जैसा"><div class="hi-g">अः</div><div class="arrow">↓</div><div class="te-g">అః</div><div class="label">aḥ</div><div class="hint"></div></div>
+    </div>
+
+    <div class="aside"><strong>एक पैटर्न पहचानिए।</strong> तेलुगु के स्वर चिह्न गोल-घुमावदार हैं — देवनागरी की सीधी-लंबवत रेखाओं के मुक़ाबले। यह इसलिए कि दक्षिण में ताड़-पत्र पर लिखा जाता था — सीधी रेखा खींचने से पत्ता फट जाता। उत्तर में काग़ज़ / भोजपत्र था, सीधी रेखा चल गई। एक ही ब्राह्मी की दो संतानें, दो भूगोल की लिखाई।</div>
+
+    <h3><span class="num">१.१</span>अभ्यास</h3>
+    <ul class="clean">
+      <li>हर जोड़ा ज़ोर से २० बार बोलें: अ-आ, इ-ई, उ-ऊ, ए-ऎ, ओ-ऒ — पर तेलुगु ग्लिफ़ की ओर देखते हुए।</li>
+      <li>काग़ज़ पर हर तेलुगु स्वर ५ बार बनाइए। हाथ आँख को सिखाता है।</li>
+      <li>जब तक हर तेलुगु स्वर १ सेकंड में पहचान न लें, चरण २ पर मत जाइए।</li>
+    </ul>
+  </div>
+</section>
+<section class="stage" id="stage-02" data-stage="2">
+  <div class="stage-head">
+    <div class="stage-label">Stage 02 · ध्वनि (क्रमशः)</div>
+    <h2 class="stage-title">व्यंजन — <span class="te">హల్లులు</span></h2>
+    <p class="stage-lede">वर्णमाला का वर्गीय क्रम आपके शरीर में है। क-ख-ग-घ-ङ, च-छ-ज-झ-ञ... ठीक उसी क्रम में तेलुगु व्यंजन सजे हैं। सिर्फ़ चेहरा नया।</p>
+  </div>
+  <div class="stage-body">
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+consonants+hallulu+pronunciation" title="Telugu consonants hallulu pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">तेलुगु व्यंजनों (<span class="te">హల్లులు</span>) का उच्चारण <a href="https://www.youtube.com/results?search_query=learn+telugu+consonants+hallulu+pronunciation" target="_blank" rel="noopener">और खोजें ↗</a></div>
+    </div>
+
+    <h3><span class="num">२.१</span>कवर्ग (कण्ठ्य) — जीभ की जड़ तालु के पीछे</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="కమలం (kamalaṃ) = कमल"><div class="hi-g">क</div><div class="arrow">↓</div><div class="te-g">క</div><div class="label">ka</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఖగం (khagaṃ) = पक्षी"><div class="hi-g">ख</div><div class="arrow">↓</div><div class="te-g">ఖ</div><div class="label">kha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="గగనం (gaganaṃ) = आसमान"><div class="hi-g">ग</div><div class="arrow">↓</div><div class="te-g">గ</div><div class="label">ga</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఘటం (ghaṭaṃ) = घड़ा"><div class="hi-g">घ</div><div class="arrow">↓</div><div class="te-g">ఘ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="हिन्दी ङ जैसा — विरल, संयुक्ताक्षरों में"><div class="hi-g">ङ</div><div class="arrow">↓</div><div class="te-g">ఙ</div><div class="label">ṅa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.२</span>चवर्ग (तालव्य)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="చందమామ (candamāma) = चाँदामामा — चाँद मामा"><div class="hi-g">च</div><div class="arrow">↓</div><div class="te-g">చ</div><div class="label">ca</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఛత్రం (chatraṃ) = छत्र, छाता"><div class="hi-g">छ</div><div class="arrow">↓</div><div class="te-g">ఛ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="జలం (jalaṃ) = जल"><div class="hi-g">ज</div><div class="arrow">↓</div><div class="te-g">జ</div><div class="label">ja</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఝరి (jhari) = झरना"><div class="hi-g">झ</div><div class="arrow">↓</div><div class="te-g">ఝ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="विरल — संयुक्ताक्षरों में मिलेगा"><div class="hi-g">ञ</div><div class="arrow">↓</div><div class="te-g">ఞ</div><div class="label">ña</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.३</span>टवर्ग (मूर्धन्य) — जीभ पीछे मोड़कर</h3>
+    <p>हिन्दी की ट-ठ-ड-ढ-ण तेलुगु में ठीक वैसी ही। ये ध्वनियाँ अंग्रेज़ी-भाषियों के लिए कठिन हैं — आपके लिए नहीं।</p>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="టమాట (ṭamāṭa) = टमाटर"><div class="hi-g">ट</div><div class="arrow">↓</div><div class="te-g">ట</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="विरल"><div class="hi-g">ठ</div><div class="arrow">↓</div><div class="te-g">ఠ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="డబ్బు (ḍabbu) = धन"><div class="hi-g">ड</div><div class="arrow">↓</div><div class="te-g">డ</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="विरल, तत्सम में"><div class="hi-g">ढ</div><div class="arrow">↓</div><div class="te-g">ఢ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="గణం (gaṇaṃ) = गण, समूह"><div class="hi-g">ण</div><div class="arrow">↓</div><div class="te-g">ణ</div><div class="label">ṇa</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.४</span>तवर्ग (दन्त्य) — जीभ की नोक दाँतों के पीछे</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="తల (tala) = सिर"><div class="hi-g">त</div><div class="arrow">↓</div><div class="te-g">త</div><div class="label">ta</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="స్థలం (sthalaṃ) = स्थल, जगह"><div class="hi-g">थ</div><div class="arrow">↓</div><div class="te-g">థ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="దినం (dinaṃ) = दिन — वही शब्द!"><div class="hi-g">द</div><div class="arrow">↓</div><div class="te-g">ద</div><div class="label">da</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ధనం (dhanaṃ) = धन"><div class="hi-g">ध</div><div class="arrow">↓</div><div class="te-g">ధ</div><div class="label">dha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="నేను (nēnu) = मैं"><div class="hi-g">न</div><div class="arrow">↓</div><div class="te-g">న</div><div class="label">na</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.५</span>पवर्ग (ओष्ठ्य)</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="పుస్తకం (pustakaṃ) = पुस्तक"><div class="hi-g">प</div><div class="arrow">↓</div><div class="te-g">ప</div><div class="label">pa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="ఫలం (phalaṃ) = फल"><div class="hi-g">फ</div><div class="arrow">↓</div><div class="te-g">ఫ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="బా (bā) — आओ"><div class="hi-g">ब</div><div class="arrow">↓</div><div class="te-g">బ</div><div class="label">ba</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="భాష (bhāṣa) = भाषा — पहचानते हैं?"><div class="hi-g">भ</div><div class="arrow">↓</div><div class="te-g">భ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="మనిషి (maniṣi) = मनुष्य"><div class="hi-g">म</div><div class="arrow">↓</div><div class="te-g">మ</div><div class="label">ma</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.६</span>अन्तःस्थ, ऊष्म व विशेष</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="యముడు (yamuḍu) = यम"><div class="hi-g">य</div><div class="arrow">↓</div><div class="te-g">య</div><div class="label">ya</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="రాజు (rāju) = राजा"><div class="hi-g">र</div><div class="arrow">↓</div><div class="te-g">ర</div><div class="label">ra</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="లత (lata) = लता"><div class="hi-g">ल</div><div class="arrow">↓</div><div class="te-g">ల</div><div class="label">la</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="వనం (vanaṃ) = वन"><div class="hi-g">व</div><div class="arrow">↓</div><div class="te-g">వ</div><div class="label">va</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="శాల (śāla) = शाला, स्कूल"><div class="hi-g">श</div><div class="arrow">↓</div><div class="te-g">శ</div><div class="label">śa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="షష్ఠి (ṣaṣṭhi) = षष्ठी"><div class="hi-g">ष</div><div class="arrow">↓</div><div class="te-g">ష</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="సమయం (samayaṃ) = समय"><div class="hi-g">स</div><div class="arrow">↓</div><div class="te-g">స</div><div class="label">sa</div><div class="hint"></div></div>
+      <div class="map-cell" tabindex="0" data-hint="హలో (halō) = हलो! / హంస (haṃsa) = हंस"><div class="hi-g">ह</div><div class="arrow">↓</div><div class="te-g">హ</div><div class="label">ha</div><div class="hint"></div></div>
+    </div>
+
+    <h3><span class="num">२.७</span>एकमात्र नई ध्वनि: <span class="te">ళ</span> ⚡</h3>
+    <div class="map-grid">
+      <div class="map-cell" tabindex="0" data-hint="తెలుగు (telugu) में 'ల' है, पर తెలుళ्ळि नहीं। पाళ्ళు (pāḷḷu) = दाँत। మంచినీళ్ళు (mañcinīḷḷu) = अच्छा पानी। जीभ पीछे गोल करके 'ल'।" style="grid-column: span 2; border-color: var(--sindoor);">
+        <div class="hi-g" style="color: var(--sindoor);">??? (नहीं है!)</div>
+        <div class="arrow">↓</div>
+        <div class="te-g" style="color: var(--sindoor);">ళ</div>
+        <div class="label">ḷa — मूर्धन्य ल</div>
+        <div class="hint" style="opacity:1; max-height: 80px;">हिन्दी ने खो दिया! द्राविड़ की भेंट। जीभ पीछे मोड़कर बोलें — मराठी, कन्नड़, तमिल, मलयालम में भी।</div>
+      </div>
+    </div>
+
+    <div class="aside"><strong>द्राविड़ बनाम भारोपीय — दो परिवारों का मिलन।</strong> <span class="te">ళ</span> वह निशानी है जो साबित करती है कि तेलुगु द्राविड़ बहन है, संस्कृत की संतान नहीं। उत्तर भारत ने 'ळ' को वैदिक काल में छोड़ दिया (कुछ मराठी, राजस्थानी में बची) — दक्षिण ने ज़िंदा रखा। जब आप <span class="te">పాళ్ళు</span> (दाँत) या <span class="te">కాళ్ళు</span> (पैर) कहते हैं, आप ३००० साल पुरानी ध्वनि बोलते हैं।</div>
+
+    <div class="aside"><strong>ఱ — एक और द्राविड़ निशानी।</strong> तेलुगु के पुराने ग्रंथों में एक अतिरिक्त 'र' थी — <span class="te">ఱ</span> (मूर्धन्य र)। अब आधुनिक तेलुगु में लगभग नहीं दिखती, पर प्राचीन काव्य में मिलेगी। हिन्दी में यह कभी थी ही नहीं।</div>
+  </div>
+</section>
+<section class="stage" id="stage-03" data-stage="3">
+  <div class="stage-head">
+    <div class="stage-label">Stage 03 · संयोजन</div>
+    <h2 class="stage-title">मात्रा व संयुक्ताक्षर — <span class="te">గుణింతాలు, ఒత్తులు</span></h2>
+    <p class="stage-lede">बारहखड़ी याद है? क, का, कि, की, कु, कू, के, कै, को, कौ, कं, कः — बारह रूप। तेलुगु में बिलकुल वही सिलसिला, नाम बदलकर: <span class="te">గుణింతం</span> (गुणिन्तं)। बस चिह्नों का आकार नया।</p>
+  </div>
+  <div class="stage-body">
+    <p>आप पहले से जानते हैं: हिन्दी में क + ा = का, क + ि = कि। तेलुगु में वही होता है: <span class="te">క + ా = కా, క + ి = కి</span>। चिह्न का रूप अलग है, नियम ज्यों-का-त्यों।</p>
+
+    <h3><span class="num">३.१</span><span class="te">క</span>-की बारहखड़ी — हिन्दी ↔ तेलुगु आमने-सामने</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>स्वर</th><th>हिन्दी</th><th>तेलुगु</th><th>उच्चारण</th></tr>
+        <tr><td>अ</td><td class="hi g">क</td><td><span class="te g">క</span></td><td class="mono">ka</td></tr>
+        <tr><td>आ</td><td class="hi g">का</td><td><span class="te g">కా</span></td><td class="mono">kā</td></tr>
+        <tr><td>इ</td><td class="hi g">कि</td><td><span class="te g">కి</span></td><td class="mono">ki</td></tr>
+        <tr><td>ई</td><td class="hi g">की</td><td><span class="te g">కీ</span></td><td class="mono">kī</td></tr>
+        <tr><td>उ</td><td class="hi g">कु</td><td><span class="te g">కు</span></td><td class="mono">ku</td></tr>
+        <tr><td>ऊ</td><td class="hi g">कू</td><td><span class="te g">కూ</span></td><td class="mono">kū</td></tr>
+        <tr><td>ऋ</td><td class="hi g">कृ</td><td><span class="te g">కృ</span></td><td class="mono">kṛ</td></tr>
+        <tr><td>ए (ह्रस्व)</td><td class="hi g">—</td><td><span class="te g">కె</span></td><td class="mono">ke</td></tr>
+        <tr><td>ए (दीर्घ)</td><td class="hi g">के</td><td><span class="te g">కే</span></td><td class="mono">kē</td></tr>
+        <tr><td>ऐ</td><td class="hi g">कै</td><td><span class="te g">కై</span></td><td class="mono">kai</td></tr>
+        <tr><td>ओ (ह्रस्व)</td><td class="hi g">—</td><td><span class="te g">కొ</span></td><td class="mono">ko</td></tr>
+        <tr><td>ओ (दीर्घ)</td><td class="hi g">को</td><td><span class="te g">కో</span></td><td class="mono">kō</td></tr>
+        <tr><td>औ</td><td class="hi g">कौ</td><td><span class="te g">కౌ</span></td><td class="mono">kau</td></tr>
+        <tr><td>अं</td><td class="hi g">कं</td><td><span class="te g">కం</span></td><td class="mono">kaṃ</td></tr>
+        <tr><td>अः</td><td class="hi g">कः</td><td><span class="te g">కః</span></td><td class="mono">kaḥ</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>एक जोड़ी नई मात्रा।</strong> हिन्दी में के और को के लिए एक-एक चिह्न है। तेलुगु में ह्रस्व-दीर्घ दोनों — <span class="te">కె / కే</span>, <span class="te">కొ / కో</span>। जब भी देखें कि मात्रा पर ऊपर या दायीं ओर एक छोटा सा 'शिखा' लगा है — वह दीर्घता की निशानी है।</div>
+
+    <h3><span class="num">३.२</span>हल् / विराम — ् ↔ <span class="te">్</span></h3>
+    <p>हिन्दी में जब व्यंजन को बिना स्वर के बोलना हो, हम हलंत लगाते हैं: क् = सिर्फ़ 'क्'। तेलुगु में वही चिह्न है — <span class="te">హల్లు</span> (हल्लु) या <span class="te">విరామం</span> (विरामं) या <span class="te">పొల్లు</span>: <span class="te" style="font-size: 22px;">క్</span>। रूप अलग, काम वही।</p>
+
+    <div class="sentence">
+      <div class="te">మన్ననలు</div>
+      <div class="trans">mannanalu</div>
+      <div class="hi-gloss">= 'मन्ननलु' — सम्मान। देखिए, 'न्न' जोड़ा गया है दूसरे 'न' को नीचे लगाकर — यह ओत्तु (<span class="te">ఒత్తు</span>) कहलाता है।</div>
+    </div>
+
+    <h3><span class="num">३.३</span>ओत्तु (<span class="te">ఒత్తు</span>) — संयुक्ताक्षर का तेलुगु तरीक़ा</h3>
+    <p>हिन्दी में संयुक्त बनाने के दो ढंग हैं: (क) आधा अक्षर — क्क, त्त; (ख) पाद-रूप — द्य, ह्म। तेलुगु एक ही युक्ति रखती है: दूसरे व्यंजन को मुख्य अक्षर के <strong>नीचे</strong> एक छोटे रूप (<span class="te">ఒత్తు</span>) में जोड़ दो। एक ही नियम, हर जगह।</p>
+
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>संस्कृत मूल</th><th>हिन्दी रूप</th><th>तेलुगु रूप</th><th>उच्चारण</th></tr>
+        <tr><td>क+क</td><td class="hi g">क्क</td><td><span class="te g">క్క</span></td><td class="mono">kka</td></tr>
+        <tr><td>त+त</td><td class="hi g">त्त</td><td><span class="te g">త్త</span></td><td class="mono">tta</td></tr>
+        <tr><td>स+त</td><td class="hi g">स्त</td><td><span class="te g">స్త</span></td><td class="mono">sta</td></tr>
+        <tr><td>प+र</td><td class="hi g">प्र</td><td><span class="te g">ప్ర</span></td><td class="mono">pra</td></tr>
+        <tr><td>क+ष</td><td class="hi g">क्ष</td><td><span class="te g">క్ష</span></td><td class="mono">kṣa</td></tr>
+        <tr><td>ज+ञ</td><td class="hi g">ज्ञ</td><td><span class="te g">జ్ఞ</span></td><td class="mono">jña</td></tr>
+        <tr><td>ध+व+न+ि</td><td class="hi g">ध्वनि</td><td><span class="te g">ధ్వని</span></td><td class="mono">dhvani</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>विद्यासागर की चाल, तेलुगु रूप में।</strong> तेलुगु के हर व्यंजन के लिए एक छोटा ओत्तु-रूप है — लगभग ३४ ओत्तु मिलकर ३४ × ३४ = ११५६ संभव संयुक्ताक्षर देते हैं, और सबका बनने का तरीक़ा <strong>एक ही</strong>: नीचे लगाओ। हिन्दी की तरह हर संयुक्त का अलग रूप याद करने की ज़रूरत नहीं। यह सबसे बड़ी राहत है।</div>
+
+    <div class="sentence">
+      <div class="te">పుస్తకం</div>
+      <div class="trans">pustakaṃ</div>
+      <div class="hi-gloss">= पुस्तकं — पुस्तक। देखिए: <span class="te">ప + ు + స + ్ + త + క + ం</span>। 'स्' के नीचे 'त' का ओत्तु लगा है।</div>
+    </div>
+
+    <div class="sentence">
+      <div class="te">ప్రేమ</div>
+      <div class="trans">prēma</div>
+      <div class="hi-gloss">= प्रेम — वही संस्कृत शब्द। <span class="te">ప</span> के नीचे <span class="te">్ర</span> (र का ओत्तु) — हिन्दी के 'प्र' का जुड़वाँ।</div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-04" data-stage="4">
+  <div class="stage-head">
+    <div class="stage-label">Stage 04 · शब्दावली</div>
+    <h2 class="stage-title">मूल शब्द — <span class="te">మూల పదాలు</span></h2>
+    <p class="stage-lede">लगभग ३२% शब्दावली साझा है — सब तत्सम (संस्कृत-उधार)। बाक़ी शुद्ध द्राविड़ — पर छोटे होते हैं, याद करने में आसान।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">४.१</span>सर्वनाम — <span class="te">సర్వనామాలు</span></h3>
+    <div class="words">
+      <div class="word"><div class="te">నేను</div><div class="hi-eq">मैं</div><div class="trans">nēnu</div><div class="note">तेलुगु में 'म' नहीं — द्राविड़ रूप। याद रखें: ने-नु।</div></div>
+      <div class="word"><div class="te">మేము / మనము</div><div class="hi-eq">हम</div><div class="trans">mēmu / manamu</div><div class="note">मेमु = 'हम (तुम्हें छोड़कर)', मनमु = 'हम सब (तुम्हें मिलाकर)' — दो 'हम' हैं!</div></div>
+      <div class="word"><div class="te">నువ్వు / మీరు</div><div class="hi-eq">तू / आप</div><div class="trans">nuvvu / mīru</div><div class="note">नुव्वु = तू (घनिष्ठ), मीरु = आप (आदर)। हिन्दी का 'तुम' अलग से नहीं — दो स्तर।</div></div>
+      <div class="word"><div class="te">అతడు / ఆయన</div><div class="hi-eq">वह (पुरुष)</div><div class="trans">ataḍu / āyana</div><div class="note">अतडु = साधारण, आयन = आदरपूर्ण।</div></div>
+      <div class="word"><div class="te">ఆమె / ఆవిడ</div><div class="hi-eq">वह (स्त्री)</div><div class="trans">āme / āviḍa</div><div class="note">आमे = साधारण, आविड = आदरपूर्ण।</div></div>
+      <div class="word"><div class="te">అది</div><div class="hi-eq">वह (वस्तु/दूर)</div><div class="trans">adi</div><div class="note">'अदि' = वह — दूर की चीज़ या स्त्री/वस्तु सामान्य रूप में।</div></div>
+      <div class="word"><div class="te">ఇది</div><div class="hi-eq">यह</div><div class="trans">idi</div><div class="note">'इदि' = यह। ध्यान दें: हिन्दी 'इ-' = पास, 'उ/व-' = दूर; तेलुगु 'इ-' = पास, 'अ-' = दूर।</div></div>
+    </div>
+
+    <h3><span class="num">४.२</span>मूल संज्ञा — <span class="te">నామవాచకాలు</span></h3>
+    <div class="words">
+      <div class="word"><div class="te">నీరు / నీళ్ళు</div><div class="hi-eq">पानी / जल</div><div class="trans">nīru / nīḷḷu</div><div class="note">द्राविड़ मूल — तमिल नीर के भाई। 'नील' (नीला) से कोई संबंध नहीं।</div></div>
+      <div class="word"><div class="te">పుస్తకం</div><div class="hi-eq">पुस्तक</div><div class="trans">pustakaṃ</div><div class="note">तत्सम! संस्कृत से सीधे — पहचान हुई?</div></div>
+      <div class="word"><div class="te">సమయం</div><div class="hi-eq">समय</div><div class="trans">samayaṃ</div><div class="note">तत्सम — वही शब्द, पूँछ में '-ं' जोड़कर।</div></div>
+      <div class="word"><div class="te">దినం / రోజు</div><div class="hi-eq">दिन / रोज़</div><div class="trans">dinaṃ / rōju</div><div class="note">दिनं = तत्सम; रोजु = रोज़मर्रा का तेलुगु। दोनों चलते हैं।</div></div>
+      <div class="word"><div class="te">పాలు</div><div class="hi-eq">दूध</div><div class="trans">pālu</div><div class="note">द्राविड़ — तमिल पाल, कन्नड़ हालु का रिश्तेदार।</div></div>
+      <div class="word"><div class="te">సూర్యుడు</div><div class="hi-eq">सूर्य</div><div class="trans">sūryuḍu</div><div class="note">तत्सम + पुल्लिंग प्रत्यय '-डु'। चाँद-सूरज पुरुष हैं तेलुगु में।</div></div>
+      <div class="word"><div class="te">చంద్రుడు</div><div class="hi-eq">चंद्रमा</div><div class="trans">candruḍu</div><div class="note">तत्सम — चंद्र + डु।</div></div>
+      <div class="word"><div class="te">భూమి</div><div class="hi-eq">भूमि, धरती</div><div class="trans">bhūmi</div><div class="note">तत्सम, बिलकुल वही।</div></div>
+      <div class="word"><div class="te">పేరు</div><div class="hi-eq">नाम</div><div class="trans">pēru</div><div class="note">द्राविड़ — संस्कृत 'नाम' नहीं। 'पेरु पेट्टु' = नाम रखो।</div></div>
+      <div class="word"><div class="te">దారి</div><div class="hi-eq">रास्ता, राह</div><div class="trans">dāri</div><div class="note">द्राविड़ मूल।</div></div>
+      <div class="word"><div class="te">రాత్రి</div><div class="hi-eq">रात, रात्रि</div><div class="trans">rātri</div><div class="note">तत्सम — संस्कृत की सीधी उधार।</div></div>
+      <div class="word"><div class="te">పువ్వు</div><div class="hi-eq">फूल, पुष्प</div><div class="trans">puvvu</div><div class="note">द्राविड़ — पर 'पुष्प' से भी रिश्ता मानते हैं कुछ लोग।</div></div>
+      <div class="word"><div class="te">ఇల్లు</div><div class="hi-eq">घर</div><div class="trans">illu</div><div class="note">द्राविड़ — 'इल' तमिल में भी 'घर'।</div></div>
+      <div class="word"><div class="te">ఊరు</div><div class="hi-eq">गाँव</div><div class="trans">ūru</div><div class="note">द्राविड़ — ब्रह्मांड समान पुराना शब्द।</div></div>
+    </div>
+
+    <h3><span class="num">४.३</span>मूल क्रियाएँ — <span class="te">క్రియలు</span></h3>
+    <p>तेलुगु क्रिया का 'शब्दकोशी' रूप आदेश-रूप होता है (जैसे 'जा!'), और <strong>क्रिया के साथ कर्ता के लिंग-वचन पूँछ में जुड़ते हैं</strong> — एग्लूटिनेटिव रचना।</p>
+    <div class="words">
+      <div class="word"><div class="te">ఉండు</div><div class="hi-eq">होना, रहना</div><div class="trans">uṇḍu</div><div class="note">सहायक क्रिया — 'है' की भूमिका।</div></div>
+      <div class="word"><div class="te">పోవు / వెళ్ళు</div><div class="hi-eq">जाना</div><div class="trans">pōvu / veḷḷu</div><div class="note">दोनों चलते हैं; वेळ्ळु ज़्यादा बोलचाल।</div></div>
+      <div class="word"><div class="te">రా / రావు</div><div class="hi-eq">आना</div><div class="trans">rā / rāvu</div><div class="note">'रा' = आ (आदेश-रूप)। 'अन्ना, रा!' = भैया, आओ।</div></div>
+      <div class="word"><div class="te">తిను</div><div class="hi-eq">खाना</div><div class="trans">tinu</div><div class="note">द्राविड़ — तमिल 'तिन्नु' के भाई।</div></div>
+      <div class="word"><div class="te">చూడు</div><div class="hi-eq">देखना</div><div class="trans">cūḍu</div><div class="note">द्राविड़ — कन्नड़ 'नोडु' से भाई-चारा।</div></div>
+      <div class="word"><div class="te">చదువు</div><div class="hi-eq">पढ़ना</div><div class="trans">caduvu</div><div class="note">'पढ़ाई' = <span class="te">చదువు</span> — संज्ञा और क्रिया दोनों।</div></div>
+      <div class="word"><div class="te">వ్రాయు / రాయు</div><div class="hi-eq">लिखना</div><div class="trans">vrāyu / rāyu</div><div class="note">'व्राय्' — 'व' का उच्चारण हल्का।</div></div>
+      <div class="word"><div class="te">కావాలి</div><div class="hi-eq">चाहिए</div><div class="trans">kāvāli</div><div class="note">अनियमित — कर्ता को '-कि/कु' लगता है: 'नाकु कावालि' = मुझे चाहिए।</div></div>
+      <div class="word"><div class="te">తెలుసు</div><div class="hi-eq">पता होना, जानना</div><div class="trans">telusu</div><div class="note">'नाकु तेलुसु' = मुझे पता है।</div></div>
+      <div class="word"><div class="te">నడచు / నడుచు</div><div class="hi-eq">चलना</div><div class="trans">naḍacu / naḍucu</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">నిలుచు / నిలుచో</div><div class="hi-eq">खड़े होना, रुकना</div><div class="trans">nilucu / nilucō</div><div class="note">'निलुचो!' = रुक!</div></div>
+      <div class="word"><div class="te">ఇవ్వు</div><div class="hi-eq">देना</div><div class="trans">ivvu</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">చెప్పు</div><div class="hi-eq">बोलना, कहना</div><div class="trans">ceppu</div><div class="note">'चेप्पू!' = बता!</div></div>
+    </div>
+
+    <h3><span class="num">४.४</span>संख्याएँ — <span class="te">సంఖ్యలు</span></h3>
+    <div class="words">
+      <div class="word"><div class="te">ఒకటి</div><div class="hi-eq">एक</div><div class="trans">okaṭi</div><div class="note">द्राविड़ — तमिल 'ओन्ऱु' के भाई।</div></div>
+      <div class="word"><div class="te">రెండు</div><div class="hi-eq">दो</div><div class="trans">reṇḍu</div><div class="note">द्राविड़ — तमिल 'रेण्डु'।</div></div>
+      <div class="word"><div class="te">మూడు</div><div class="hi-eq">तीन</div><div class="trans">mūḍu</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">నాలుగు</div><div class="hi-eq">चार</div><div class="trans">nālugu</div><div class="note">द्राविड़ — तमिल 'नालु' का भाई।</div></div>
+      <div class="word"><div class="te">ఐదు</div><div class="hi-eq">पाँच</div><div class="trans">aidu</div><div class="note">द्राविड़ — ऐ + दु।</div></div>
+      <div class="word"><div class="te">ఆరు</div><div class="hi-eq">छह</div><div class="trans">āru</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">ఏడు</div><div class="hi-eq">सात</div><div class="trans">ēḍu</div><div class="note">द्राविड़ — दीर्घ ए से शुरू।</div></div>
+      <div class="word"><div class="te">ఎనిమిది</div><div class="hi-eq">आठ</div><div class="trans">enimidi</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">తొమ్మిది</div><div class="hi-eq">नौ</div><div class="trans">tommidi</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">పది</div><div class="hi-eq">दस</div><div class="trans">padi</div><div class="note">द्राविड़ — तमिल 'पत्तु'।</div></div>
+    </div>
+
+    <h3><span class="num">४.५</span>रिश्ते — <span class="te">బంధుత్వాలు</span></h3>
+    <div class="words">
+      <div class="word"><div class="te">నాన్న</div><div class="hi-eq">पिता, बाबा</div><div class="trans">nānna</div><div class="note">दोहरा 'न' — बच्चों की शब्दावली सी लगती है, पर बड़े भी यही कहते हैं।</div></div>
+      <div class="word"><div class="te">అమ్మ</div><div class="hi-eq">माँ, अम्मा</div><div class="trans">amma</div><div class="note">हिन्दी 'अम्मा' से एकदम वही — पूरे भारत का साझा शब्द।</div></div>
+      <div class="word"><div class="te">అన్న</div><div class="hi-eq">बड़ा भाई</div><div class="trans">anna</div><div class="note">साथ ही अजनबी पुरुषों को आदर से 'अन्ना' कहा जाता है।</div></div>
+      <div class="word"><div class="te">అక్క</div><div class="hi-eq">बड़ी बहन</div><div class="trans">akka</div><div class="note">अजनबी स्त्रियों को आदर से 'अक्का'।</div></div>
+      <div class="word"><div class="te">తమ్ముడు</div><div class="hi-eq">छोटा भाई</div><div class="trans">tammuḍu</div><div class="note">-डु = पुल्लिंग।</div></div>
+      <div class="word"><div class="te">చెల్లెలు / చెల్లి</div><div class="hi-eq">छोटी बहन</div><div class="trans">celleli / celli</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">మామ / మామయ్య</div><div class="hi-eq">मामा</div><div class="trans">māma / māmayya</div><div class="note">तत्सम — हिन्दी का मामा ज्यों-का-त्यों!</div></div>
+      <div class="word"><div class="te">అత్త</div><div class="hi-eq">बुआ / सास</div><div class="trans">atta</div><div class="note">पिता की बहन, या पति/पत्नी की माँ। संदर्भ से तय होता है।</div></div>
+      <div class="word"><div class="te">తాత</div><div class="hi-eq">दादा, नाना</div><div class="trans">tāta</div><div class="note">दोनों के लिए एक ही शब्द।</div></div>
+      <div class="word"><div class="te">నానమ్మ / అమ్మమ్మ</div><div class="hi-eq">दादी / नानी</div><div class="trans">nānamma / ammamma</div><div class="note">नानम्मा = दादी (नान्न + अम्मा); अम्ममा = नानी (अम्मा + अम्मा)। तार्किक!</div></div>
+    </div>
+
+    <div class="aside"><strong>मामा/<span class="te">మామ</span> — एक पुल।</strong> पूरे भारत में 'मामा' शब्द है। आर्य-द्राविड़ से पुराना — शायद मूल भारतीय। इसलिए जब आप 'मामा' कहते हैं, आप ४००० साल का बाँधा हुआ रिश्ता बोलते हैं।</div>
+
+    <h3><span class="num">४.६</span>शरीर — <span class="te">శరీరం</span></h3>
+    <div class="words">
+      <div class="word"><div class="te">తల</div><div class="hi-eq">सिर</div><div class="trans">tala</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">కన్ను</div><div class="hi-eq">आँख, नेत्र</div><div class="trans">kannu</div><div class="note">द्राविड़ — कन्नड़ 'कण्णु' का भाई।</div></div>
+      <div class="word"><div class="te">చెవి</div><div class="hi-eq">कान</div><div class="trans">cevi</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">ముక్కు</div><div class="hi-eq">नाक</div><div class="trans">mukku</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">నోరు</div><div class="hi-eq">मुँह</div><div class="trans">nōru</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">చేయి</div><div class="hi-eq">हाथ</div><div class="trans">cēyi</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">కాలు</div><div class="hi-eq">पैर, टाँग</div><div class="trans">kālu</div><div class="note">द्राविड़ — तमिल 'काल' का भाई।</div></div>
+    </div>
+
+    <h3><span class="num">४.७</span>समय — <span class="te">కాలం</span></h3>
+    <div class="words">
+      <div class="word"><div class="te">ఈరోజు / ఈరోజున</div><div class="hi-eq">आज</div><div class="trans">īrōju</div><div class="note">ई (यह) + रोजु (दिन) = 'यह दिन' = आज।</div></div>
+      <div class="word"><div class="te">రేపు</div><div class="hi-eq">कल (आने वाला)</div><div class="trans">rēpu</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">నిన్న</div><div class="hi-eq">कल (बीता हुआ)</div><div class="trans">ninna</div><div class="note">द्राविड़।</div></div>
+      <div class="word"><div class="te">ఇప్పుడు</div><div class="hi-eq">अभी</div><div class="trans">ippuḍu</div><div class="note">इ- = यह, -प्पुडु = समय। 'इस समय' = अभी।</div></div>
+      <div class="word"><div class="te">అప్పుడు</div><div class="hi-eq">तब, उस समय</div><div class="trans">appuḍu</div><div class="note">अ- = वह, -प्पुडु = समय।</div></div>
+      <div class="word"><div class="te">ఉదయం</div><div class="hi-eq">सुबह</div><div class="trans">udayaṃ</div><div class="note">तत्सम — उदय + ं।</div></div>
+      <div class="word"><div class="te">సాయంత్రం</div><div class="hi-eq">शाम, सायंकाल</div><div class="trans">sāyantraṃ</div><div class="note">तत्सम।</div></div>
+    </div>
+
+    <div class="aside"><strong>हिन्दी की 'कल' की पहेली।</strong> हिन्दी 'कल' दोनों दिशाओं में चलता है — बीता हुआ भी, आने वाला भी! तेलुगु अलग कर देती है: <span class="te">నిన్న</span> (बीता कल), <span class="te">రేపు</span> (आने वाला कल)। अस्पष्टता नहीं, और कविता भी बची रहती है।</div>
+
+    <h3><span class="num">४.८</span>अभिवादन व आवश्यक वाक्यांश</h3>
+    <div class="words">
+      <div class="word"><div class="te">నమస్కారం / నమస్తే</div><div class="hi-eq">नमस्कार / नमस्ते</div><div class="trans">namaskāraṃ / namaste</div><div class="note">तत्सम — वही संस्कृत।</div></div>
+      <div class="word"><div class="te">ధన్యవాదాలు</div><div class="hi-eq">धन्यवाद</div><div class="trans">dhanyavādālu</div><div class="note">तत्सम + बहुवचन प्रत्यय '-लु'। तेलुगु में बहुवचन में बोलना विनम्रता।</div></div>
+      <div class="word"><div class="te">క్షమించండి</div><div class="hi-eq">माफ़ कीजिए</div><div class="trans">kṣamiñcaṇḍi</div><div class="note">'क्षमा' तत्सम + 'इंच' + आदर-प्रत्यय।</div></div>
+      <div class="word"><div class="te">కావాలి</div><div class="hi-eq">चाहिए</div><div class="trans">kāvāli</div><div class="note">'नाकु नीरु कावालि' = मुझे पानी चाहिए।</div></div>
+      <div class="word"><div class="te">తెలియదు</div><div class="hi-eq">नहीं पता / नहीं जानता</div><div class="trans">teliyadu</div><div class="note">तेलिसु (जानना) का नकारात्मक रूप।</div></div>
+      <div class="word"><div class="te">అర్థమైంది</div><div class="hi-eq">समझ गया</div><div class="trans">arthamaindi</div><div class="note">'अर्थ' (तत्सम) + 'मैन्दि' (हो गया)।</div></div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-05" data-stage="5">
+  <div class="stage-head">
+    <div class="stage-label">Stage 05 · व्याकरण</div>
+    <h2 class="stage-title">वाक्य — <span class="te">వాక్యాలు</span></h2>
+    <p class="stage-lede">वाक्य-रचना एक है (SOV), पर क्रिया-रूप अलग। हिन्दी कर्ता के लिंग पर क्रिया बदलती है; तेलुगु कर्ता के पुरुष-वचन-लिंग तीनों पर — और प्रत्यय पूँछ में जुड़ते हैं।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">५.१</span>वाक्य-रचना — SOV, दोनों में एक</h3>
+    <div class="sentence">
+      <div class="te">నేను పుస్తకం చదువుతాను.</div>
+      <div class="trans">nēnu pustakaṃ caduvutānu.</div>
+      <div class="hi-gloss">मैं पुस्तक पढ़ता हूँ।</div>
+      <div class="literal">शब्द-दर-शब्द: मैं · पुस्तक · पढ़ता-हूँ</div>
+    </div>
+    <div class="sentence">
+      <div class="te">ఆమె నీరు తాగుతుంది.</div>
+      <div class="trans">āme nīru tāgutundi.</div>
+      <div class="hi-gloss">वह पानी पीती है।</div>
+      <div class="literal">वह-स्त्री · पानी · पीती-है</div>
+    </div>
+    <div class="sentence">
+      <div class="te">మేము ఇంటికి వెళ్తున్నాము.</div>
+      <div class="trans">mēmu iṇṭiki veḷtunnāmu.</div>
+      <div class="hi-gloss">हम घर (को) जा रहे हैं।</div>
+      <div class="literal">हम · घर-को · जा-रहे-हैं · इंटिकि = घर-को, '-कि' = हिन्दी का '-को'</div>
+    </div>
+
+    <h3><span class="num">५.२</span>क्रिया-रूप — <span class="te">చేయు</span> (करना) का वर्तमान काल</h3>
+    <p>हिन्दी '-ता/ती हूँ/है' लगाती है; तेलुगु पूँछ में सर्वनाम-सूचक प्रत्यय जोड़ती है। <strong>एक ही धातु, छह अंत</strong>। यह पूरी तेलुगु क्रिया-व्यवस्था का बीज है।</p>
+    <div class="conjug">
+      <div class="conjug-row"><div class="pron">मैं</div><div class="te">చేస్తాను</div><div class="hi-eq">करता/करती हूँ</div></div>
+      <div class="conjug-row"><div class="pron">तू</div><div class="te">చేస్తావు</div><div class="hi-eq">करता/करती है</div></div>
+      <div class="conjug-row"><div class="pron">वह (पु.)</div><div class="te">చేస్తాడు</div><div class="hi-eq">करता है</div></div>
+      <div class="conjug-row"><div class="pron">वह (स्त्री./वस्तु)</div><div class="te">చేస్తుంది</div><div class="hi-eq">करती है</div></div>
+      <div class="conjug-row"><div class="pron">हम</div><div class="te">చేస్తాము</div><div class="hi-eq">करते/करती हैं</div></div>
+      <div class="conjug-row"><div class="pron">आप / वे</div><div class="te">చేస్తారు</div><div class="hi-eq">करते हैं</div></div>
+    </div>
+
+    <div class="aside"><strong>तेलुगु का हिसाब — तीसरे पुरुष में लिंग।</strong> हिन्दी तीसरे पुरुष में लिंग तो देखती है (वह करता/करती है), पर 'वह' शब्द एक ही है। तेलुगु 'वह' को दो में काटती है — <span class="te">అతడు/ఆయన</span> (पुरुष) बनाम <span class="te">అది/ఆమె</span> (स्त्री/वस्तु) — और क्रिया भी अलग: <span class="te">చేస్తాడు</span> पुरुष के लिए, <span class="te">చేస్తుంది</span> स्त्री/वस्तु के लिए। यानी पुरुष-स्त्री भेद क्रिया में भी दर्ज होता है — हिन्दी की तरह, पर सिर्फ़ तीसरे पुरुष में।</div>
+
+    <h3><span class="num">५.३</span>प्रत्यय-श्रृंखला / एग्लूटिनेटिव रचना</h3>
+    <p>हिन्दी पाँच अलग शब्दों में कहती है जो तेलुगु एक में: '<em>मैं घर से नहीं जा रहा हूँ</em>' → <span class="te" style="font-size: 19px;">నేను ఇంటి-నుండి వెళ్ళ-ట్లేదు</span> — 'इंटि' (घर) + 'नुंडि' (से); 'वेळ्ळ' (जा) + 'ट्लेदु' (नहीं-रहा-हूँ)। तेलुगु प्रत्यय जोड़ती चलती है — यह द्राविड़ भाषाओं की पहचान।</p>
+
+    <h3><span class="num">५.४</span>कारक / विभक्ति — <span class="te">విభక్తి</span></h3>
+    <p>हिन्दी परसर्ग (-ने, -को, -से, -में, -का) अलग शब्द की तरह लिखती है। तेलुगु उन्हें <strong>प्रत्यय</strong> की तरह शब्द से जोड़ देती है।</p>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>भूमिका</th><th>हिन्दी</th><th>तेलुगु</th><th>उदाहरण</th></tr>
+        <tr><td>कर्ता</td><td>—</td><td>—</td><td class="mono">रामुडु / रामु</td></tr>
+        <tr><td>कर्म</td><td>-को</td><td>-ని / -ను</td><td class="mono">रामु-नि</td></tr>
+        <tr><td>कारण/दिशा</td><td>-को</td><td>-కి / -కు</td><td class="mono">रामु-कि</td></tr>
+        <tr><td>अधिकरण</td><td>-में</td><td>-లో</td><td class="mono">इंटि-लो</td></tr>
+        <tr><td>अपादान</td><td>-से</td><td>-నుండి</td><td class="mono">इंटि-नुंडि</td></tr>
+        <tr><td>संबंध</td><td>-का/की/के</td><td>-యొక్క</td><td class="mono">रामु-योक्का</td></tr>
+      </table>
+    </div>
+
+    <div class="sentence">
+      <div class="te">నాకు తెలుగు వచ్చు.</div>
+      <div class="trans">nāku telugu vaccu.</div>
+      <div class="hi-gloss">मुझे तेलुगु आती है।</div>
+      <div class="literal">नाकु = 'मुझे' (मैं + कु)। तेलुगु का 'आना' = 'भाषा आना' ठीक हिन्दी की तरह!</div>
+    </div>
+
+    <h3><span class="num">५.५</span>नकारात्मक — <span class="te">లేదు / కాదు</span></h3>
+    <p>हिन्दी की 'नहीं' को तेलुगु दो रूपों में काटती है: <span class="te">లేదు</span> (लेदु — 'नहीं है', अनुपस्थिति) और <span class="te">కాదు</span> (कादु — 'नहीं है', पहचान का खंडन)।</p>
+    <div class="sentence">
+      <div class="te">నాకు సమయం లేదు.</div>
+      <div class="trans">nāku samayaṃ lēdu.</div>
+      <div class="hi-gloss">मेरे पास समय नहीं है। (अनुपस्थिति — 'नहीं-है')</div>
+    </div>
+    <div class="sentence">
+      <div class="te">ఇది మంచిది కాదు.</div>
+      <div class="trans">idi mañcidi kādu.</div>
+      <div class="hi-gloss">यह अच्छा नहीं है। (पहचान — 'अच्छा नहीं है')</div>
+    </div>
+
+    <h3><span class="num">५.६</span>प्रश्न-शब्द — <span class="te">ప్రశ్నలు</span></h3>
+    <div class="words">
+      <div class="word"><div class="te">ఏమిటి / ఏమి</div><div class="hi-eq">क्या</div><div class="trans">ēmiṭi / ēmi</div><div class="note">'ఇది ఏమిటి?' = यह क्या है?</div></div>
+      <div class="word"><div class="te">ఎవరు</div><div class="hi-eq">कौन</div><div class="trans">evaru</div><div class="note">'मीरु एवरु?' = आप कौन हैं?</div></div>
+      <div class="word"><div class="te">ఎక్కడ</div><div class="hi-eq">कहाँ</div><div class="trans">ekkaḍa</div><div class="note">'एक्कड?' = कहाँ?</div></div>
+      <div class="word"><div class="te">ఎప్పుడు</div><div class="hi-eq">कब</div><div class="trans">eppuḍu</div><div class="note">ए- + प्पुडु (समय)। 'कौन-सा समय' = कब।</div></div>
+      <div class="word"><div class="te">ఎందుకు</div><div class="hi-eq">क्यों</div><div class="trans">enduku</div><div class="note">'एंदुकु?' = क्यों?</div></div>
+      <div class="word"><div class="te">ఎలా</div><div class="hi-eq">कैसे</div><div class="trans">elā</div><div class="note">'मीरु एला उन्नारु?' = आप कैसे हैं?</div></div>
+      <div class="word"><div class="te">ఎంత</div><div class="hi-eq">कितना</div><div class="trans">enta</div><div class="note">'एंत?' = कितना?</div></div>
+    </div>
+
+    <div class="aside"><strong>पैटर्न पहचानिए।</strong> तेलुगु के सारे प्रश्न-शब्द <span class="te">ఎ-</span> (ए-) से शुरू होते हैं — <span class="te">ఎవరు, ఎక్కడ, ఎప్పుడు, ఎందుకు, ఎలా, ఎంత</span>। हिन्दी में 'क-' से — कौन, कहाँ, कब, क्यों, कैसे, कितना। दोनों भाषाओं ने अपना एक-एक अक्षर 'प्रश्न' के लिए बँधवा लिया है।</div>
+
+    <h3><span class="num">५.७</span>हाँ / नहीं</h3>
+    <div class="words">
+      <div class="word"><div class="te">అవును</div><div class="hi-eq">हाँ</div><div class="trans">avunu</div><div class="note">'अवुनु' — सबसे साधारण 'हाँ'।</div></div>
+      <div class="word"><div class="te">కాదు / లేదు</div><div class="hi-eq">नहीं</div><div class="trans">kādu / lēdu</div><div class="note">कादु = पहचान-खंडन; लेदु = अनुपस्थिति। ऊपर विस्तार से।</div></div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-06" data-stage="6">
+  <div class="stage-head">
+    <div class="stage-label">Stage 06 · पाठ</div>
+    <h2 class="stage-title">पढ़ने का अभ्यास — <span class="te">చదవడం</span></h2>
+    <p class="stage-lede">तीन क्रमशः कठिन पाठ — अपना परिचय, दिनचर्या, और बातचीत। हर पाठ के नीचे हिन्दी अनुवाद है। <strong>पहले तेलुगु पढ़िए, फिर हिन्दी</strong> — तब शब्द जुड़ेंगे।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">६.१</span>पहला पाठ — अपना परिचय</h3>
+    <div class="vachana">
+      <div class="te">
+        నా పేరు రమేశ్. నేను హైదరాబాద్‌లో ఉంటాను. నేను ఉపాధ్యాయుడిని. నాకు పుస్తకాలు చదవడం అంటే ఇష్టం. మా ఇంట్లో నాన్న, అమ్మ, ఒక చెల్లెలు ఉన్నారు.
+      </div>
+      <div class="hi-gloss">
+        मेरा नाम रमेश है। मैं हैदराबाद में रहता हूँ। मैं अध्यापक हूँ। मुझे किताबें पढ़ना पसंद है। मेरे घर में पिताजी, माँ, एक छोटी बहन हैं।
+      </div>
+      <div class="attrib">स्वः परिचयं / आत्म-परिचय</div>
+    </div>
+    <div class="aside"><strong>नज़र रखिए:</strong> <span class="te">నా</span> = मेरा, <span class="te">-లో</span> = -में, <span class="te">ఉంటాను</span> = रहता-हूँ (उंडु का रूप), <span class="te">అంటే ఇష్టం</span> = पसंद है (शब्दशः 'कहना पसंद है')।</div>
+
+    <h3><span class="num">६.२</span>दूसरा पाठ — एक दिन</h3>
+    <div class="vachana">
+      <div class="te">
+        నేను ఉదయం ఆరు గంటలకు లేస్తాను. ముఖం కడుక్కుని, కొంచెం పాలు తాగుతాను. తరువాత పని కోసం బయటకు వెళ్తాను. మధ్యాహ్నం ఇంటికి వచ్చి భోజనం చేస్తాను. సాయంత్రం పుస్తకం చదువుతాను, లేదా స్నేహితులతో మాట్లాడతాను. రాత్రి పది గంటలకు నిద్రపోతాను.
+      </div>
+      <div class="hi-gloss">
+        मैं सुबह छह बजे उठता हूँ। मुँह धोकर, थोड़ा दूध पीता हूँ। फिर काम के लिए बाहर जाता हूँ। दोपहर को घर आकर भोजन करता हूँ। शाम को किताब पढ़ता हूँ, या दोस्तों से बातें करता हूँ। रात दस बजे सो जाता हूँ।
+      </div>
+      <div class="attrib">ఒక రోజు / एक दिन</div>
+    </div>
+    <div class="aside"><strong>व्याकरण छिपा है:</strong> <span class="te">-కు</span> छह के बाद = 'छह को/पर' (समय); <span class="te">కడుక్కుని</span> = 'धोकर' (क्रिया + कुनि = -कर); <span class="te">కోసం</span> = 'के लिए'। यही एग्लूटिनेशन है — हिन्दी अलग शब्द रखती है, तेलुगु जोड़ लेती है।</div>
+
+    <h3><span class="num">६.३</span>तीसरा पाठ — दो लोगों की बातचीत</h3>
+    <div class="vachana">
+      <div class="te">
+        <strong>రమ:</strong> నమస్కారం! మీరు ఎలా ఉన్నారు?<br>
+        <strong>రవి:</strong> బాగున్నాను, ధన్యవాదాలు. మీరు?<br>
+        <strong>రమ:</strong> నేను కూడా బాగున్నాను. మీరు ఎక్కడికి వెళ్తున్నారు?<br>
+        <strong>రవి:</strong> నేను మార్కెట్‌కి వెళ్తున్నాను. మీరు?<br>
+        <strong>రమ:</strong> నేను ఇంటికి వెళ్తున్నాను. మా అమ్మ ఎదురుచూస్తోంది.<br>
+        <strong>రవి:</strong> సరే, మళ్ళీ కలుద్దాం!<br>
+        <strong>రమ:</strong> సరే, వెళ్ళిరండి!
+      </div>
+      <div class="hi-gloss">
+        <strong>रमा:</strong> नमस्कार! आप कैसे हैं?<br>
+        <strong>रवि:</strong> मैं ठीक हूँ, धन्यवाद। आप?<br>
+        <strong>रमा:</strong> मैं भी ठीक हूँ। आप कहाँ जा रहे हैं?<br>
+        <strong>रवि:</strong> मैं बाज़ार जा रहा हूँ। आप?<br>
+        <strong>रमा:</strong> मैं घर जा रही हूँ। मेरी माँ इंतज़ार कर रही हैं।<br>
+        <strong>रवि:</strong> अच्छा, फिर मिलेंगे!<br>
+        <strong>रमा:</strong> अच्छा, (जाकर) वापस आइए!
+      </div>
+      <div class="attrib">సంభాషణ / संभाषण</div>
+    </div>
+
+    <div class="aside"><strong>सांस्कृतिक पेच:</strong> <span class="te">వెళ్ళిరండి</span> (वेळ्ळिरंडि) का शब्दशः अर्थ 'जाकर आइए' — हिन्दी 'अच्छा, जा रहे हैं' से अलग, विदा में 'वापसी' की कामना निहित। यह द्राविड़ विशेषता है — तमिल 'पोयिट्टु वारेन', कन्नड़ 'होयि बरुत्तेने' भी वैसे ही।</div>
+  </div>
+</section>
+<section class="stage" id="stage-07" data-stage="7">
+  <div class="stage-head">
+    <div class="stage-label">Stage 07 · शब्द-क्षेत्र</div>
+    <h2 class="stage-title">अर्थ-क्षेत्र — <span class="te">అర్థ క్షేత్రాలు</span></h2>
+    <p class="stage-lede">हर भाषा संसार को अलग ढंग से काटती है। हिन्दी जहाँ एक शब्द रखती है, तेलुगु कभी दो-तीन रखती है। और उलटा भी सच है।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">७.१</span>रिश्ते — कौन बड़ा, कौन छोटा</h3>
+    <p>हिन्दी में 'भाई' एक ही शब्द — बड़ा हो या छोटा, 'भाई' कह देते हैं। तेलुगु भाई को बड़े-छोटे में अलग करती है:</p>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>रिश्ता</th><th>हिन्दी</th><th>तेलुगु</th></tr>
+        <tr><td>बड़ा भाई</td><td>भाई / भैया</td><td><span class="te g">అన్న</span></td></tr>
+        <tr><td>छोटा भाई</td><td>भाई / छोटा भाई</td><td><span class="te g">తమ్ముడు</span></td></tr>
+        <tr><td>बड़ी बहन</td><td>बहन / दीदी</td><td><span class="te g">అక్క</span></td></tr>
+        <tr><td>छोटी बहन</td><td>बहन</td><td><span class="te g">చెల్లెలు</span></td></tr>
+      </table>
+    </div>
+    <p>हिन्दी 'दीदी, भैया' से यह भेद करती तो है पर ऐच्छिक — तेलुगु में भेद अनिवार्य। 'अन्न' / 'तम्मुडु' एक ही मौके पर नहीं चल सकते।</p>
+
+    <div class="aside"><strong>मामा-चचा का दक्षिणी हिसाब।</strong> तेलुगु में पिता के भाई <span class="te">పెదనాన్న</span> (बड़े चचा) / <span class="te">చిన్ననాన్న</span> (छोटे चचा), पर माँ का भाई <span class="te">మామ</span> — पिता की बहन <span class="te">అత్త</span>, माँ की बहन <span class="te">పిన్ని</span> (बड़ी/छोटी)। हिन्दी चाचा/चाची-मामा/मामी-मौसी/मौसा-बुआ/फूफा रखती है — कुल आठ। तेलुगु उसी को अलग ढंग से काटती है — पर पूरा नक्शा परिचित।</div>
+
+    <h3><span class="num">७.२</span>समय — कल का विघटन</h3>
+    <p>हिन्दी का 'कल' दिशाहीन है — संदर्भ से तय। तेलुगु दो अलग शब्द रखती है:</p>
+    <div class="words">
+      <div class="word"><div class="te">నిన్న</div><div class="hi-eq">बीता कल, कल</div><div class="trans">ninna</div></div>
+      <div class="word"><div class="te">రేపు</div><div class="hi-eq">आने वाला कल, कल</div><div class="trans">rēpu</div></div>
+      <div class="word"><div class="te">మొన్న</div><div class="hi-eq">परसों (बीता)</div><div class="trans">monna</div></div>
+      <div class="word"><div class="te">ఎల్లుండి</div><div class="hi-eq">परसों (आने वाला)</div><div class="trans">ellunḍi</div></div>
+    </div>
+
+    <h3><span class="num">७.३</span>पानी — एक से ज़्यादा</h3>
+    <div class="words">
+      <div class="word"><div class="te">నీరు / నీళ్ళు</div><div class="hi-eq">पानी (पीने/उपयोग का)</div><div class="trans">nīru / nīḷḷu</div><div class="note">द्राविड़ — तमिल नीर।</div></div>
+      <div class="word"><div class="te">జలం</div><div class="hi-eq">जल (शुद्ध तत्सम)</div><div class="trans">jalaṃ</div><div class="note">काव्य / भाषण में।</div></div>
+      <div class="word"><div class="te">మంచినీళ్ళు</div><div class="hi-eq">पीने का पानी</div><div class="trans">mañcinīḷḷu</div><div class="note">'अच्छा' + 'पानी' = पीने का।</div></div>
+    </div>
+
+    <h3><span class="num">७.४</span>गति के क्रिया — कौन-सी 'जाना'</h3>
+    <p>हिन्दी 'जाना' एक ही क्रिया — तेलुगु में दो:</p>
+    <div class="words">
+      <div class="word"><div class="te">వెళ్ళు</div><div class="hi-eq">जाना (सामान्य)</div><div class="trans">veḷḷu</div><div class="note">'నేను ఇంటికి వెళ్తాను' = मैं घर जाता हूँ।</div></div>
+      <div class="word"><div class="te">పోవు</div><div class="hi-eq">जाना, खो जाना</div><div class="trans">pōvu</div><div class="note">'చని-పోయిన' = मर गया। 'जाना' का दूरीय भाव।</div></div>
+      <div class="word"><div class="te">రా</div><div class="hi-eq">आओ (आदेश)</div><div class="trans">rā</div><div class="note">'इक्कड रा!' = यहाँ आओ!</div></div>
+      <div class="word"><div class="te">వచ్చు</div><div class="hi-eq">आना</div><div class="trans">vaccu</div><div class="note">इसी से 'नाकु तेलुगु वच्चु' = मुझे तेलुगु आती है।</div></div>
+    </div>
+
+    <h3><span class="num">७.५</span>शरीर — कहाँ साझा, कहाँ अलग</h3>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>अंग</th><th>हिन्दी</th><th>तेलुगु</th><th>टिप्पणी</th></tr>
+        <tr><td>सिर</td><td>सिर</td><td><span class="te g">తల</span></td><td>द्राविड़</td></tr>
+        <tr><td>आँख</td><td>आँख / नेत्र</td><td><span class="te g">కన్ను</span></td><td>द्राविड़</td></tr>
+        <tr><td>हाथ</td><td>हाथ</td><td><span class="te g">చేయి</span></td><td>द्राविड़</td></tr>
+        <tr><td>पैर</td><td>पैर / पाँव</td><td><span class="te g">కాలు</span></td><td>द्राविड़</td></tr>
+        <tr><td>दिल</td><td>दिल / हृदय</td><td><span class="te g">హృదయం</span></td><td>तत्सम — पहचाना!</div></td></tr>
+        <tr><td>जीभ</td><td>जीभ / जिह्वा</td><td><span class="te g">నాలుక</span></td><td>द्राविड़</td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>तत्सम-सेतु।</strong> शरीर में अधिकांश शब्द द्राविड़ हैं, पर <span class="te">హృదయం</span> (हृदयं) तत्सम — क्योंकि हृदय एक भावनात्मक शब्द है, और भावना की शब्दावली पूरे भारतीय उपमहाद्वीप में संस्कृत से ही आई। 'प्रेम, क्रोध, शांति' तेलुगु में भी <span class="te">ప్రేమ, క్రోధం, శాంతి</span> — ज्यों-के-त्यों।</div>
+
+    <h3><span class="num">७.६</span>रंग — <span class="te">రంగులు</span></h3>
+    <div class="words">
+      <div class="word"><div class="te">ఎరుపు</div><div class="hi-eq">लाल</div><div class="trans">erupu</div></div>
+      <div class="word"><div class="te">తెలుపు</div><div class="hi-eq">सफ़ेद</div><div class="trans">telupu</div><div class="note">ध्यान — 'तेलुगु' शब्द का मूल इसी 'उजला/शुभ' से बताते हैं कुछ विद्वान!</div></div>
+      <div class="word"><div class="te">నలుపు</div><div class="hi-eq">काला</div><div class="trans">nalupu</div></div>
+      <div class="word"><div class="te">పచ్చ / ఆకుపచ్చ</div><div class="hi-eq">हरा</div><div class="trans">pacca / ākupacca</div><div class="note">आकु (पत्ता) + पच्च = 'पत्ता-हरा'।</div></div>
+      <div class="word"><div class="te">నీలం</div><div class="hi-eq">नीला</div><div class="trans">nīlaṃ</div><div class="note">तत्सम — बिलकुल हिन्दी जैसा।</div></div>
+      <div class="word"><div class="te">పసుపు</div><div class="hi-eq">पीला, हल्दी</div><div class="trans">pasupu</div><div class="note">पसुपु = हल्दी भी।</div></div>
+    </div>
+  </div>
+</section>
+<section class="stage" id="stage-08" data-stage="8">
+  <div class="stage-head">
+    <div class="stage-label">Stage 08 · प्रयोग</div>
+    <h2 class="stage-title">व्यवहार व संस्कार — <span class="te">వాడుక</span></h2>
+    <p class="stage-lede">शब्द सही हों, फिर भी वाक्य गलत लग सकता है — अगर आदर का स्तर, तेवर, या सांस्कृतिक संकेत चूक गया। यहाँ वही सीखें।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">८.१</span>आदर के स्तर</h3>
+    <p>हिन्दी तीन स्तर रखती है — <strong>तू / तुम / आप</strong>। तेलुगु दो रखती है — <strong><span class="te">నువ్వు / మీరు</span></strong>।</p>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>स्तर</th><th>हिन्दी</th><th>तेलुगु</th><th>कब</th></tr>
+        <tr><td>घनिष्ठ</td><td>तू</td><td><span class="te g">నువ్వు</span></td><td>दोस्त, भाई, छोटे</td></tr>
+        <tr><td>सम्मान</td><td>तुम / आप</td><td><span class="te g">మీరు</span></td><td>बड़े, अजनबी, शिक्षक</td></tr>
+      </table>
+    </div>
+    <p>हिन्दी का 'तुम' तेलुगु में नहीं — बीच का कोई स्तर नहीं। थोड़े जानने वाले को भी <span class="te">మీరు</span> ही कहते हैं। दो स्तर ज़्यादा सरल — पर भेद पक्का।</p>
+
+    <div class="aside"><strong>एक सुंदर नियम।</strong> तेलुगु में पति-पत्नी के बीच भी <span class="te">మీరు</span> चलता है — ख़ासकर पारंपरिक परिवारों में। आदर प्यार का उल्टा नहीं; आदर से ही प्यार।</div>
+
+    <h3><span class="num">८.२</span>'खाना खाया?' — भोजन के ज़रिए अभिवादन</h3>
+    <p>हिन्दी में 'क्या हाल है?' पूछते हैं। तेलुगु में एक और प्रश्न उतना ही सामान्य है: <span class="te">భోజనం అయిందా?</span></p>
+    <div class="sentence">
+      <div class="te">భోజనం అయిందా?</div>
+      <div class="trans">bhōjanaṃ ayindā?</div>
+      <div class="hi-gloss">भोजन हो गया? (= तबियत ठीक है? / अच्छे हो?)</div>
+      <div class="literal">द्राविड़ संस्कृति में 'भोजन हुआ?' = 'सब ठीक है?'। यह बंगाली 'खाबार खेयेछो?' और तमिल 'चापिट्टिंगला?' से बंधा अभिवादन।</div>
+    </div>
+
+    <h3><span class="num">८.३</span>कोमलता के शब्द — <span class="te">కొంచెం, దయచేసి</span></h3>
+    <div class="words">
+      <div class="word"><div class="te">కొంచెం</div><div class="hi-eq">थोड़ा</div><div class="trans">koñceṃ</div><div class="note">'कोंचें सहायं' = थोड़ी मदद। वाक्य को नरम बनाने का तरीक़ा।</div></div>
+      <div class="word"><div class="te">దయచేసి</div><div class="hi-eq">कृपया, मेहरबानी से</div><div class="trans">dayacēsi</div><div class="note">तत्सम — 'दया करके'। हिन्दी 'कृपया' का जुड़वाँ।</div></div>
+      <div class="word"><div class="te">అర్థమయిందా?</div><div class="hi-eq">समझ आया?</div><div class="trans">arthamayindā?</div><div class="note">तत्सम अर्थ + हो गया।</div></div>
+      <div class="word"><div class="te">సరే</div><div class="hi-eq">अच्छा, ठीक है</div><div class="trans">sarē</div><div class="note">'ठीक' का दक्षिणी चचेरा।</div></div>
+    </div>
+
+    <h3><span class="num">८.४</span>अजनबी को कैसे बुलाएँ</h3>
+    <p>हिन्दी में अजनबी को 'भाई साहब / बहन जी / अंकल / आंटी' कहा जाता है। तेलुगु रिश्ते की शब्दावली अजनबियों पर भी लगाती है:</p>
+    <div class="guni-wrap">
+      <table class="guni">
+        <tr><th>स्थिति</th><th>हिन्दी</th><th>तेलुगु</th></tr>
+        <tr><td>अपरिचित पुरुष (बड़ा)</td><td>भाई साहब / जी</td><td><span class="te g">అన్నా</span></td></tr>
+        <tr><td>अपरिचित स्त्री (बड़ी)</td><td>बहन जी / आंटी</td><td><span class="te g">అక్కా</span></td></tr>
+        <tr><td>बूढ़ा पुरुष</td><td>दादा / बाबा</td><td><span class="te g">తాతా / అయ్యా</span></td></tr>
+        <tr><td>बूढ़ी स्त्री</td><td>दादी / अम्मा</td><td><span class="te g">అమ్మా</span></td></tr>
+      </table>
+    </div>
+
+    <div class="aside"><strong>भारत की साझी आदत।</strong> 'अजनबी को भी रिश्तेदार कहो' — यह पूरे भारत का ढंग है। हिन्दी 'भाई साहब', बंगाली 'दादा', मराठी 'दादा', तमिल 'अण्णा', तेलुगु <span class="te">అన్నా</span> — एक ही सोच, हर भाषा में अलग आवाज़।</div>
+
+    <h3><span class="num">८.५</span>हैदराबादी तेलुगु — ज़रा उर्दू का रंग</h3>
+    <p>हैदराबाद का तेलुगु बाक़ी इलाकों से अलग है — सदियों निज़ाम-शासन के कारण उर्दू-फ़ारसी शब्द मिल गए। हिन्दी-भाषी के लिए यह विशेष पुल है।</p>
+    <div class="words">
+      <div class="word"><div class="te">హుషారు</div><div class="hi-eq">होशियार, चुस्त</div><div class="trans">huṣāru</div><div class="note">फ़ारसी से, हिन्दी में भी!</div></div>
+      <div class="word"><div class="te">ఖబరు</div><div class="hi-eq">ख़बर</div><div class="trans">khabaru</div><div class="note">अरबी से, दोनों भाषाओं में।</div></div>
+      <div class="word"><div class="te">జవాబు</div><div class="hi-eq">जवाब</div><div class="trans">javābu</div><div class="note">अरबी से।</div></div>
+      <div class="word"><div class="te">దోస్త్</div><div class="hi-eq">दोस्त</div><div class="trans">dost</div><div class="note">फ़ारसी — हैदराबादी में ख़ूब।</div></div>
+    </div>
+
+    <h3><span class="num">८.६</span>कुछ रोज़मर्रा के वाक्य</h3>
+    <div class="sentence"><div class="te">మీ పేరు ఏమిటి?</div><div class="trans">mī pēru ēmiṭi?</div><div class="hi-gloss">आपका नाम क्या है?</div></div>
+    <div class="sentence"><div class="te">నా పేరు _____.</div><div class="trans">nā pēru _____.</div><div class="hi-gloss">मेरा नाम _____ है।</div></div>
+    <div class="sentence"><div class="te">నాకు తెలుగు కొంచెం వచ్చు.</div><div class="trans">nāku telugu koñceṃ vaccu.</div><div class="hi-gloss">मुझे तेलुगु थोड़ी-थोड़ी आती है।</div></div>
+    <div class="sentence"><div class="te">మెల్లగా చెప్పండి.</div><div class="trans">mellagā ceppaṇḍi.</div><div class="hi-gloss">धीरे-धीरे बोलिए। ('मेल्लगा' = धीरे; '-अंडि' = आदरसूचक)</div></div>
+    <div class="sentence"><div class="te">ఎంత?</div><div class="trans">enta?</div><div class="hi-gloss">कितना? (दाम पूछते समय)</div></div>
+    <div class="sentence"><div class="te">బాగుంది!</div><div class="trans">bāgundi!</div><div class="hi-gloss">अच्छा है! (प्रशंसा)</div></div>
+  </div>
+</section>
+<section class="stage" id="stage-09" data-stage="9">
+  <div class="stage-head">
+    <div class="stage-label">Stage 09 · साहित्य</div>
+    <h2 class="stage-title">तेलुगु साहित्य — <span class="te">తెలుగు సాహిత్యం</span></h2>
+    <p class="stage-lede">हज़ार साल का साहित्य — नन्नय्य से श्री श्री तक। हर युग की तेलुगु आवाज़ की बगल में हिन्दी की कौन-सी आवाज़ खड़ी है, यह देखिए। साहित्य सीखने का सबसे तेज़ रास्ता है।</p>
+  </div>
+  <div class="stage-body">
+
+    <h3><span class="num">९.१</span>वेमना की पद — कबीर की गूँज</h3>
+    <div class="vachana">
+      <div class="te">
+        ఉప్పు కప్పురంబు ఒక్క పోలికనుండు<br>
+        చూడ చూడ రుచుల జాడ వేరు<br>
+        పురుషులందు పుణ్యపురుషులు వేరయా<br>
+        విశ్వదాభిరామ వినుర వేమ.
+      </div>
+      <div class="hi-gloss">
+        नमक और कपूर देखने में एक-से लगते हैं —<br>
+        पर चखो तो स्वाद बिलकुल अलग।<br>
+        मनुष्यों में भी असली पुण्यवान अलग होते हैं।<br>
+        सुनो रे वेमा, संसार के मित्र!
+      </div>
+      <div class="attrib">वेमना · वेमन शतकम् · सत्रहवीं सदी</div>
+    </div>
+
+    <div class="bridge">
+      <div class="te-side"><strong class="te">వేమన</strong> (वेमना, १७वीं सदी) — द्राविड़ कबीर। छोटे-छोटे चार-चरण के दोहे (<span class="te">ఆటవెలది</span>) में तीखा सामाजिक व्यंग्य, कर्मकांड का विरोध, आत्मज्ञान का ज़ोर। हर पद के अंत में 'विश्वदाभिरामा विनुरा वेमा!' — टेक।</div>
+      <div class="hi-side"><strong>कबीर</strong> (१५वीं सदी) — हिन्दी-भाषी क्षेत्र का वेमना। दोहे में वही सीधी चोट — 'कागद लिखी सो कागदी, साधु की मती और।' दोनों अनपढ़ के स्वर, दोनों जाति-व्यवस्था के विरुद्ध, दोनों कविता के ज़रिए दर्शन।</div>
+      <div class="note">सेतु: दोनों ने काव्य-आसन छोड़कर बोली-भाषा में दर्शन लिखा। वेमना को 'आंध्र कबीर' कहा जाता है।</div>
+    </div>
+
+    <h3><span class="num">९.२</span>गुरजाडा — प्रेमचंद की बगल का नाम</h3>
+    <div class="bridge">
+      <div class="te-side"><strong class="te">గురజాడ అప్పారావు</strong> (गुरजाडा अप्पाराव, १८६१-१९१५) — आधुनिक तेलुगु का जन्मदाता। <em>कन्यासुल्कम्</em> (<span class="te">కన్యాశుల్కం</span>, १८९२) — कन्या के बेचे जाने पर तीखा नाटक। तेलुगु की पहली 'देश-भक्ति' कविता <em>देशमुन्ननु प्रेमिन्चुमन्ना</em> (देश को प्रेम करो भैया) उन्हीं की।</div>
+      <div class="hi-side"><strong>प्रेमचंद</strong> (१८८०-१९३६) — जैसे गुरजाडा तेलुगु को किताबी संस्कृत से खींचकर बोली में लाए, वैसे प्रेमचंद ने हिन्दी को उर्दू-किताबी से खींचकर किसानी-गाँव तक पहुँचाया। दोनों ने गद्य की भाषा बदली; दोनों सामाजिक अन्याय के चित्रकार।</div>
+      <div class="note">सेतु: बोलचाल की भाषा में गद्य, और समाज-सुधार — दोनों का मूल सिद्धांत।</div>
+    </div>
+
+    <h3><span class="num">९.३</span>श्री श्री — मुक्तिबोध व निराला का भाई</h3>
+    <div class="vachana">
+      <div class="te">
+        మరో ప్రపంచం, మరో ప్రపంచం, మరో ప్రపంచం పిలిచింది!<br>
+        పదండి, ముందుకు! పదండి, తోసుకు! పోదాం, పోదాం పైపైకి!
+      </div>
+      <div class="hi-gloss">
+        एक और दुनिया, एक और दुनिया, एक और दुनिया ने पुकारा!<br>
+        चलो, आगे! चलो, धकेलकर! चलें, चलें ऊपर-ऊपर!
+      </div>
+      <div class="attrib">श्री श्री · महाप्रस्थानम् · १९३४</div>
+    </div>
+
+    <div class="bridge">
+      <div class="te-side"><strong class="te">శ్రీశ్రీ</strong> (श्रीरंगम श्रीनिवासराव, १९१०-१९८३) — तेलुगु की क्रांतिकारी आवाज़। पुराने छंद तोड़े, मज़दूर-किसान को केंद्र में लाए। <em>महाप्रस्थानम्</em> ने तेलुगु काव्य का परिवेश पूरा बदल दिया।</div>
+      <div class="hi-side"><strong>निराला</strong> (१८९९-१९६१) व <strong>मुक्तिबोध</strong> (१९१७-१९६४) — हिन्दी के वही क्रांतिकारी। निराला ने छंद तोड़ा, 'तोड़ती पत्थर' लिखी; मुक्तिबोध ने 'अँधेरे में' में बुर्जुआ आत्म को ललकारा। श्री श्री का 'पदंडी मुन्दुकु' = मुक्तिबोध का 'चलो आगे'।</div>
+      <div class="note">सेतु: तीनों प्रगतिशील आंदोलन, तीनों ने पारंपरिक छंद तोड़ा, तीनों ने मज़दूर/श्रमिक को कविता का नायक बनाया।</div>
+    </div>
+
+    <h3><span class="num">९.४</span>विश्वनाथ सत्यनारायण — जयशंकर प्रसाद की डाल</h3>
+    <div class="bridge">
+      <div class="te-side"><strong class="te">విశ్వనాథ సత్యనారాయణ</strong> (विश्वनाथ सत्यनारायण, १८९५-१९७६) — पहले तेलुगु ज्ञानपीठ विजेता (१९७०)। <em>वेयि पडगलु</em> (<span class="te">వేయి పడగలు</span> — 'हज़ार फन') — परंपरा और आधुनिकता के संघर्ष की महागाथा। शुद्ध तत्सम-तेलुगु के पक्षधर।</div>
+      <div class="hi-side"><strong>जयशंकर प्रसाद</strong> (१८८९-१९३७) — <em>कामायनी</em> के रचयिता। प्रसाद भी संस्कृत-निष्ठ हिन्दी के पक्षधर, पर आधुनिक संवेदना के। दोनों छायावाद-युग की दोनों भाषाओं की दो चोटियाँ।</div>
+      <div class="note">सेतु: परंपरा की आधुनिक पुनर्रचना; संस्कृत का काव्य-ऐश्वर्य बोलचाल में ढालना।</div>
+    </div>
+
+    <h3><span class="num">९.५</span>नन्नय्य — तुलसीदास का पूर्वज</h3>
+    <div class="bridge">
+      <div class="te-side"><strong class="te">నన్నయ</strong> (नन्नय्य, ११वीं सदी) — 'आदिकवि'। उन्होंने पहली बार महाभारत का तेलुगु में अनुवाद शुरू किया (<em>आंध्र महाभारतमु</em>)। तेलुगु साहित्य का जन्म उन्हीं से।</div>
+      <div class="hi-side"><strong>तुलसीदास</strong> (१५३२-१६२३) — अवधी में रामचरितमानस लिखकर संस्कृत के रामायण को जन-भाषा में लाए। नन्नय्य ने तेलुगु के साथ वही किया जो तुलसी ने अवधी के साथ — संस्कृत के महाकाव्य को अपनी भाषा में बसाया।</div>
+      <div class="note">सेतु: महाकाव्य-अनुवाद से भाषा-संस्कार। दोनों ने अपनी भाषा को 'काव्य-योग्य' सिद्ध किया।</div>
+    </div>
+
+    <h3><span class="num">९.६</span>त्यागराज — तुलसी व मीरा की बहन-संगीत</h3>
+    <div class="bridge">
+      <div class="te-side"><strong class="te">త్యాగరాజ</strong> (त्यागराज, १७६७-१८४७) — कर्नाटक संगीत के त्रिमूर्ति। सैकड़ों कृति तेलुगु में रचीं — राम-भक्ति, सामाजिक टिप्पणी, आत्म-जिज्ञासा। <span class="te">నిధిచాల సుఖమా</span> ('क्या धन ही सुख है?') आज भी हर मंच पर।</div>
+      <div class="hi-side"><strong>तुलसीदास / मीराबाई</strong> — दोनों ने भक्ति को काव्य में ढाला। त्यागराज-कृति की भावना वही है जो तुलसी की 'विनय-पत्रिका' या मीरा के पदों की। फ़र्क़ — त्यागराज ने संगीत के लिए रची, पर शब्द भी पूरी काव्यगत।</div>
+      <div class="note">सेतु: भक्ति + काव्य + संगीत की त्रिवेणी। शब्द गायन के लिए, पर कविता के रूप में भी अमर।</div>
+    </div>
+
+    <h3><span class="num">९.७</span>आधुनिक उपन्यास — यद्दनपुडि सुलोचना रानी ↔ शिवानी</h3>
+    <div class="bridge">
+      <div class="te-side"><strong class="te">యద్దనపూడి సులోచనారాణి</strong> (यद्दनपुडि सुलोचना रानी, १९४०-२०१८) — तेलुगु का लोकप्रिय उपन्यास। स्त्री-पाठकों के लिए सैकड़ों कथा, सामाजिक मध्यवर्ग का संसार।</div>
+      <div class="hi-side"><strong>शिवानी</strong> (१९२३-२००३) — हिन्दी का वही वर्ग। 'कृष्णकली', 'चौदह फेरे' — घर, स्त्री, रिश्ते की सूक्ष्म दुनिया।</div>
+      <div class="note">सेतु: लोकप्रिय + गंभीर की रेखा पर — स्त्री-जीवन को कथा-केंद्र में रखने वाली दो बहनें।</div>
+    </div>
+
+    <div class="aside"><strong>एक अंतिम बात।</strong> तेलुगु साहित्य का स्वर हिन्दी से अलग नहीं — वही भक्ति, वही प्रगतिशीलता, वही आधुनिकता। भाषा बदलती है, मनुष्य का दिल वही रहता है। अब आपने पुल देख लिया — अब उस पुल पर चलना है।</div>
+
+    <div style="margin-top: 40px; padding: 24px; text-align: center; background: linear-gradient(180deg, var(--paper-warm), var(--paper-deep)); border-radius: 4px; border: 1px solid var(--rule);">
+      <div class="te" style="font-size: 22px; color: var(--sindoor); margin-bottom: 10px;">శుభాకాంక్షలు!</div>
+      <div style="font-size: 16px; color: var(--ink-soft);">शुभकामनाएँ! अब आप तेलुगु पढ़ सकते हैं, लिख सकते हैं, और बोल भी सकते हैं। आगे — अभ्यास, संगीत, फ़िल्में, कविता। <br><br>तेलुगु-हिन्दी दो बहनें हैं — पहले अजनबी लगीं, अब अपनी लगेंगी।</div>
+    </div>
+  </div>
+</section>
+
+<div class="progress">
+  <button id="prevBtn" disabled>← पिछला</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn">अगला →</button>
+</div>
+
+</div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="te">తెలుగు నేర్చుకుందాం</span>
+    हिन्दी ↔ तेलुगु · भारत की दो बहनें
+    <div style="margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--sindoor);">made by Nil · using Claude</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const tabs = document.querySelectorAll('.stage-tab');
+  const stages = document.querySelectorAll('section.stage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsEl = document.getElementById('dots');
+  const total = stages.length;
+  let current = 0;
+
+  // build dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    dotsEl.appendChild(d);
+  }
+  const dots = dotsEl.querySelectorAll('.dot');
+
+  function show(idx) {
+    if (idx < 0 || idx >= total) return;
+    current = idx;
+    stages.forEach((s, i) => s.classList.toggle('active', i === idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+    dots.forEach((d, i) => {
+      d.classList.toggle('current', i === idx);
+      d.classList.toggle('done', i < idx);
+    });
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === total - 1;
+    nextBtn.textContent = idx === total - 1 ? 'समाप्त ✓' : 'अगला →';
+    // scroll tab into view
+    const activeTab = tabs[idx];
+    if (activeTab) {
+      activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((t, i) => t.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => { if (current < total - 1) show(current + 1); });
+
+  // tap-to-reveal for map-cells
+  document.querySelectorAll('.map-cell').forEach(cell => {
+    const hint = cell.querySelector('.hint');
+    const hintText = cell.getAttribute('data-hint') || '';
+    const toggle = () => {
+      const expanded = cell.classList.toggle('expanded');
+      if (hint && hintText) {
+        hint.textContent = expanded ? hintText : '';
+      }
+      // collapse siblings in same grid
+      if (expanded) {
+        const siblings = cell.parentElement.querySelectorAll('.map-cell.expanded');
+        siblings.forEach(s => {
+          if (s !== cell) {
+            s.classList.remove('expanded');
+            const h = s.querySelector('.hint');
+            if (h) h.textContent = '';
+          }
+        });
+      }
+    };
+    cell.addEventListener('click', toggle);
+    cell.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  // keyboard nav: arrows
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowLeft') show(current - 1);
+    else if (e.key === 'ArrowRight') show(current + 1);
+  });
+})();
+</script>
+
+</body>
+</html>
