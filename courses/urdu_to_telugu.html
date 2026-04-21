@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اردو سے تیلگو · بھاشا سیتو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Noto Nastaliq Urdu', serif;
+  background:
+    radial-gradient(ellipse at top left, #F6EEDC 0%, transparent 55%),
+    radial-gradient(ellipse at bottom right, #EEE2C4 0%, transparent 60%),
+    var(--paper);
+  color:var(--ink);
+  line-height:2;
+  font-size:17px;
+  min-height:100vh;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0.12 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.target{font-family:'Noto Serif Telugu', serif; direction:ltr; unicode-bidi:isolate}
+.tr{font-family:'JetBrains Mono', monospace; font-size:.85em; color:var(--ink-faded); direction:ltr; unicode-bidi:isolate}
+.display{font-family:'Fraunces', serif}
+a{color:var(--teal)}
+header.top{
+  padding:36px 22px 14px; text-align:center; position:relative; z-index:1;
+  border-bottom:1px solid rgba(60,40,20,.12);
+}
+header.top h1{
+  margin:0 0 6px; font-size:34px; font-weight:700;
+  color:var(--ink);
+}
+header.top .sub{color:var(--ink-faded); font-size:16px}
+nav.tabs{
+  position:sticky; top:0; z-index:10;
+  background:rgba(244,236,218,.95);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(60,40,20,.15);
+  display:flex; flex-wrap:wrap; gap:2px; justify-content:center;
+  padding:8px 10px;
+}
+nav.tabs button{
+  font-family:'Noto Nastaliq Urdu', serif;
+  background:transparent; border:1px solid transparent;
+  color:var(--ink-soft); padding:8px 12px; font-size:14px;
+  border-radius:8px; cursor:pointer; line-height:1.6;
+}
+nav.tabs button:hover{background:rgba(184,128,45,.12)}
+nav.tabs button.active{
+  background:var(--ink); color:var(--paper);
+  border-color:var(--ink);
+}
+main{max-width:900px; margin:0 auto; padding:24px 26px 60px; position:relative; z-index:1}
+section.stage{display:none; animation:fade .28s ease}
+section.stage.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+h2{
+  font-size:26px; margin:6px 0 6px;
+  color:var(--ink); font-weight:600;
+  border-bottom:2px solid var(--ochre); padding-bottom:8px; display:inline-block;
+}
+h3{font-size:20px; color:var(--sindoor); margin:28px 0 10px; font-weight:600}
+h4{font-size:16px; color:var(--teal); margin:18px 0 6px}
+p{margin:10px 0}
+.lede{font-size:18px; color:var(--ink-soft)}
+.aha{
+  background:linear-gradient(180deg, #FBF3DB, #F3E7C2);
+  border-inline-start:4px solid var(--sindoor);
+  padding:14px 18px; margin:18px 0;
+  border-radius:6px;
+  box-shadow:0 1px 0 rgba(0,0,0,.04);
+}
+.aha .tag{
+  display:inline-block; font-family:'Fraunces', serif; font-size:12px;
+  background:var(--sindoor); color:#fff; padding:2px 10px; border-radius:20px;
+  margin-bottom:6px; letter-spacing:.5px;
+}
+.aside{
+  background:#EFE7CF; border:1px dashed var(--ink-faded);
+  padding:12px 16px; border-radius:6px; margin:14px 0;
+  color:var(--ink-soft);
+}
+.grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin:14px 0}
+.vowel-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin:10px 0 18px}
+.varga-grid{display:grid; grid-template-columns:repeat(5, 1fr); gap:8px; margin:10px 0}
+.card, .letter-card{
+  background:var(--paper-warm);
+  border:1px solid rgba(60,40,20,.14);
+  border-radius:8px; padding:12px; text-align:center;
+  cursor:pointer; transition:.2s;
+  position:relative;
+}
+.card:hover, .letter-card:hover{background:var(--paper-deep); transform:translateY(-1px)}
+.letter-card .big{font-family:'Noto Serif Telugu', serif; font-size:34px; direction:ltr; color:var(--ink); display:block; line-height:1.2}
+.letter-card .tr{display:block; margin-top:2px}
+.letter-card .hint{
+  display:none; font-size:13px; color:var(--ink-soft);
+  margin-top:8px; padding-top:8px; border-top:1px dashed var(--ink-faded);
+}
+.letter-card.open .hint{display:block}
+.letter-card .new{
+  position:absolute; top:4px; inset-inline-start:6px;
+  color:var(--sindoor); font-size:12px;
+}
+table{
+  width:100%; border-collapse:collapse; margin:12px 0; font-size:15px;
+  background:var(--paper-warm); border-radius:6px; overflow:hidden;
+}
+th, td{
+  padding:8px 10px; border:1px solid rgba(60,40,20,.15);
+  text-align:start; vertical-align:middle;
+}
+th{background:var(--ink); color:var(--paper); font-weight:500}
+tr:nth-child(even) td{background:rgba(232,220,190,.5)}
+.video{margin:16px 0}
+.video-frame{
+  position:relative; width:100%; aspect-ratio:16/9;
+  border-radius:8px; overflow:hidden; background:#000;
+  box-shadow:0 4px 16px rgba(0,0,0,.18);
+}
+.video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+.video-caption{
+  margin-top:8px; font-size:14px; color:var(--ink-faded); text-align:center;
+}
+.family{
+  background:rgba(255,255,255,.35);
+  border:1px solid rgba(60,40,20,.1);
+  border-radius:10px; padding:14px; margin:14px 0;
+}
+.family h4{margin-top:0}
+.passage{
+  background:var(--paper-warm); border:1px solid rgba(60,40,20,.12);
+  padding:16px 18px; border-radius:8px; margin:14px 0;
+}
+.passage .line{margin:8px 0; padding-bottom:8px; border-bottom:1px dotted rgba(60,40,20,.15)}
+.passage .line:last-child{border-bottom:0}
+.passage .t{font-family:'Noto Serif Telugu', serif; direction:ltr; font-size:19px; color:var(--ink); display:block}
+.passage .r{font-family:'JetBrains Mono', monospace; direction:ltr; font-size:13px; color:var(--ink-faded); display:block}
+.passage .u{display:block; color:var(--ink-soft); margin-top:2px}
+.pair{
+  display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+  padding:8px 0; border-bottom:1px dotted rgba(60,40,20,.2);
+}
+.pair .tgt{font-family:'Noto Serif Telugu', serif; direction:ltr; font-size:22px; min-width:90px}
+.pair .src{font-size:18px; color:var(--ink)}
+.pair .note{font-size:13px; color:var(--ink-faded); flex:1}
+.nav-btns{
+  display:flex; justify-content:space-between; margin-top:30px;
+  padding-top:16px; border-top:1px solid rgba(60,40,20,.15);
+}
+.nav-btns button{
+  font-family:'Noto Nastaliq Urdu', serif;
+  background:var(--ink); color:var(--paper); border:0;
+  padding:10px 18px; border-radius:6px; font-size:15px; cursor:pointer;
+}
+.nav-btns button:hover{background:var(--sindoor)}
+.nav-btns button:disabled{opacity:.35; cursor:not-allowed}
+footer{
+  text-align:center; color:var(--ink-faded); font-size:13px;
+  padding:30px 20px; border-top:1px solid rgba(60,40,20,.15);
+  font-family:'Fraunces', serif; direction:ltr;
+}
+.tatsama{color:var(--teal); font-weight:600}
+.dravid{color:var(--sindoor); font-weight:600}
+.tag-sm{
+  display:inline-block; font-size:11px;
+  padding:1px 8px; border-radius:20px;
+  background:var(--paper-deep); color:var(--ink-soft);
+  margin-inline-start:4px; font-family:'Fraunces', serif;
+}
+@media (max-width: 420px){
+  body{font-size:15px}
+  .wrap,main,.container,article{padding-left:14px !important; padding-right:14px !important}
+  .grid,.map-grid,.cards,.varga-grid,.vowel-grid{grid-template-columns:1fr 1fr !important; gap:8px !important}
+  .tabs,.nav,nav{flex-wrap:wrap; gap:4px}
+  .tab,.nav a,.nav-item{padding:8px 10px !important; font-size:12px !important}
+  .stage,section{padding:14px !important}
+  h1{font-size:22px !important; line-height:1.2}
+  h2{font-size:18px !important; line-height:1.25}
+  h3{font-size:15px !important}
+  table{font-size:13px}
+  .card,.letter-card,.map-card{padding:10px !important; min-height:auto}
+  iframe{max-width:100%; height:auto; aspect-ratio:16/9}
+  blockquote,.aside,.aha{padding:12px !important; font-size:14px}
+}
+@media (max-width: 340px){
+  .grid,.map-grid,.cards,.varga-grid,.vowel-grid{grid-template-columns:1fr !important}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>اردو سے تیلگو</h1>
+  <div class="sub">بھاشا سیتو · زبان کا پُل</div>
+</header>
+<nav class="tabs" id="tabs">
+  <button data-i="0" class="active">۰۰ · تعارف</button>
+  <button data-i="1">۰۱ · حروفِ علت</button>
+  <button data-i="2">۰۲ · حروف</button>
+  <button data-i="3">۰۳ · ترکیب</button>
+  <button data-i="4">۰۴ · الفاظ</button>
+  <button data-i="5">۰۵ · جملے</button>
+  <button data-i="6">۰۶ · مطالعہ</button>
+  <button data-i="7">۰۷ · لفظی میدان</button>
+  <button data-i="8">۰۸ · استعمال</button>
+  <button data-i="9">۰۹ · ادب</button>
+</nav>
+<main>
+  <section id="stage-00" class="stage active">
+    <h2>۰۰ · تعارف</h2>
+    <p class="lede">آپ نے بچپن میں <b>قاعدہ</b> کھولا تھا — الف، بے، پے۔ ایک ایک حرف، ایک ایک آواز۔ یہی راستہ اب دوبارہ شروع ہوتا ہے، مگر ایک نئی رسم الخط میں۔ تیلگو کے حروف گول، بل کھاتے، موتی کی طرح ایک لڑی میں پروئے ہوئے ہیں — مگر جو آوازیں وہ لکھتے ہیں، ان میں سے زیادہ تر آپ کے منہ کو پہلے ہی معلوم ہیں۔</p>
+    <p>اُردو اور تیلگو دو مختلف خاندانوں سے ہیں — اُردو <b>ہند-آریائی</b>، تیلگو <b>دراوڑی</b>۔ مگر حیدرآباد، دکن کی صدیوں کی مشترکہ زمین نے انہیں بہنوں کی طرح قریب کر دیا۔ <span class="target">پుస్తకం</span> <span class="tr">(pustakaṃ)</span> = کتاب۔ <span class="target">సమయం</span> <span class="tr">(samayaṃ)</span> = وقت۔ <span class="target">జవాబు</span> <span class="tr">(javābu)</span> = جواب۔ سینکڑوں لفظ تیلگو میں ایسے موجود ہیں جو آپ کی گفتگو کا حصہ ہیں۔</p>
+    <p>۴۷ میں سے ۴۱ آوازیں مشترک ہیں — تقریباً ۸۷٪۔ جملے کا ترتیب بھی ایک ہی ہے: <b>فاعل — مفعول — فعل</b>۔ اُردو میں "میں پانی پیتا ہوں" = <span class="target">నేను నీరు తాగుతాను</span> <span class="tr">(nēnu nīru tāgutānu)</span> — لفظ بہ لفظ وہی ترتیب۔ آپ کا ذہن پہلے ہی تیلگو کی طرح سوچتا ہے۔</p>
+
+    <h3>چھ اصول — فوائد اور چیلنج</h3>
+    <div class="aside"><b>۱۔</b> آپ کی زبان پہلے ہی SOV ہے۔ اُردو "وہ کتاب پڑھتا ہے" اور تیلگو <span class="target">అతడు పుస్తకం చదువుతాడు</span> <span class="tr">(ataḍu pustakaṃ caduvutāḍu)</span> — فعل آخر میں، بالکل اُردو کی طرح۔ ہندوستانی اور یورپی زبانوں کے درمیان یہ فرق سب سے بڑا ہوتا ہے، مگر یہاں نہیں۔</div>
+    <div class="aside"><b>۲۔</b> لاحقے (postpositions) دونوں میں ہیں۔ اُردو "گھر میں" — "میں" بعد میں آتا ہے۔ تیلگو <span class="target">ఇంట్లో</span> <span class="tr">(iṇṭlō)</span> = گھر + لو۔ <b>-లో</b> = "میں"۔ انگریزی کا "in the house" اُلٹا ہے، مگر تیلگو آپ کی طرح سوچتی ہے۔</div>
+    <div class="aside"><b>۳۔</b> سنسکرت کا پُل۔ دکنی اور اُردو میں بہت سے <b>تتسم</b> لفظ ہیں — <span class="target">సమయం</span> = وقت (سمے)، <span class="target">పుస్తకం</span> = کتاب (پستک)، <span class="target">భాష</span> = زبان (بھاشا)۔ یہی لفظ تیلگو میں ہو بہو موجود ہیں، اکثر انہی معنوں میں۔</div>
+    <div class="aside"><b>۴۔</b> دکن کا تحفہ۔ حیدرآبادی تیلگو میں <span class="target">ఖబరు</span> <span class="tr">(khabaru)</span> = خبر، <span class="target">దావాకాణా</span> <span class="tr">(dāvākāṇā)</span> = دواخانہ، <span class="target">జవాబు</span> = جواب — یہ فارسی-عربی کے قرض کے لفظ ہیں جو صدیوں سے تیلگو میں گھر بنائے بیٹھے ہیں۔</div>
+    <div class="aside"><b>۵۔</b> نیا چیلنج — رسم الخط۔ اُردو نستعلیق دائیں سے بائیں بہتی ہے؛ تیلگو بائیں سے دائیں، ہر حرف گول اور خود مکمل۔ حرف اور اعراب اکٹھے ملتے ہیں — یہ <b>ابوگدا</b> ہے، جسے سیکھنا پڑے گا۔</div>
+    <div class="aside"><b>۶۔</b> چھ نئی آوازیں۔ <b>ళ</b> (رِٹروفلیکس لام — ل اور ڑ کے بیچ)، <b>ఞ</b> (نرم ں)، <b>ఋ</b> (رِ)، اور سب سے اہم — <b>چھوٹی اور بڑی ایکار/اوکار</b>۔ اُردو میں "ے" ایک ہے، تیلگو میں دو: <span class="target">ఎ</span>/<span class="target">ఏ</span>، <span class="target">ఒ</span>/<span class="target">ఓ</span>۔ یہی نیا وقار ہے جسے کان کو سیکھنا ہے۔</div>
+
+    <div class="aha">
+      <span class="tag">آگہی</span>
+      <p>تیلگو کو "<b>اطالوی مشرق کی</b>" کہا گیا ہے — کیوں؟ کیونکہ ہر لفظ حرفِ علت پر ختم ہوتا ہے۔ <span class="target">పుస్తకం</span> (pustakaṃ)، <span class="target">నీరు</span> (nīru)، <span class="target">అమ్మ</span> (amma)۔ اُردو میں "کتاب"، "پانی"، "ماں" ساکن پر ختم ہوتے ہیں۔ یہی تیلگو کو موسیقی دیتا ہے — اور شاعری میں قافیہ آسان بناتا ہے۔</p>
+    </div>
+  </section>
+  <section id="stage-01" class="stage">
+    <h2>۰۱ · حروفِ علت</h2>
+    <p class="lede">تیلگو کی آوازوں کی دنیا جوڑوں میں بٹی ہے — <b>ہرسو</b> (چھوٹی) اور <b>دیرگھ</b> (بڑی)۔ ہر چھوٹی آواز کے ساتھ اس کی لمبی سہیلی موجود ہے۔ اُردو میں بھی "اَ/آ" اور "اِ/ای" ہیں، مگر تیلگو اس اصول کو ہر جگہ لاگو کرتا ہے — اور دو مزید جوڑے دیتا ہے جن سے اُردو ناواقف ہے۔</p>
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+vowels+achulu+pronunciation" title="Telugu vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">تیلگو حروفِ علت کا تلفظ سنیں — <a href="https://www.youtube.com/results?search_query=learn+telugu+vowels+achulu+pronunciation" target="_blank" rel="noopener">مزید ویڈیوز ↗</a></div>
+    </div>
+
+    <div class="family">
+      <h4>'اَ' کا خاندان — అ / ఆ</h4>
+      <div class="vowel-grid">
+        <div class="letter-card"><span class="big">అ</span><span class="tr">a</span><div class="hint">అమ్మ (amma) = امّا — ماں۔ اُردو "اَ" کی طرح مختصر۔</div></div>
+        <div class="letter-card"><span class="big">ఆ</span><span class="tr">ā</span><div class="hint">ఆకాశం (ākāśaṃ) = آسمان۔ اُردو "آ" کی طرح کھنچی ہوئی۔</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>'اِ' کا خاندان — ఇ / ఈ</h4>
+      <div class="vowel-grid">
+        <div class="letter-card"><span class="big">ఇ</span><span class="tr">i</span><div class="hint">ఇది (idi) = یہ۔ مختصر "اِ" — جیسے "اِس" کی پہلی آواز۔</div></div>
+        <div class="letter-card"><span class="big">ఈ</span><span class="tr">ī</span><div class="hint">ఈరోజు (īrōju) = آج۔ لمبی "ای" — جیسے "ایمان"۔</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>'اُ' کا خاندان — ఉ / ఊ</h4>
+      <div class="vowel-grid">
+        <div class="letter-card"><span class="big">ఉ</span><span class="tr">u</span><div class="hint">ఉడుత (uḍuta) = گلہری۔ مختصر "اُ" — جیسے "اُس"۔</div></div>
+        <div class="letter-card"><span class="big">ఊ</span><span class="tr">ū</span><div class="hint">ఊరు (ūru) = گاؤں۔ لمبی "او" — جیسے "اوپر" کی پہلی آواز کھنچی ہوئی۔</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>'رِ' — سنسکرتی مہمان <span class="tag-sm">ఋ</span></h4>
+      <div class="vowel-grid">
+        <div class="letter-card"><span class="new">⚡</span><span class="big">ఋ</span><span class="tr">ṛ</span><div class="hint">ఋషి (ṛṣi) = رشی۔ "رِ" جیسی آواز — سنسکرت کے تتسم الفاظ میں آتی ہے۔ اُردو میں "کرشن" کا 'رِ' یہی ہے۔</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>'ے' کا خاندان — ఎ / ఏ <span class="tag-sm">نیا فرق</span></h4>
+      <div class="vowel-grid">
+        <div class="letter-card"><span class="new">⚡</span><span class="big">ఎ</span><span class="tr">e</span><div class="hint">ఎరుపు (erupu) = سرخ۔ مختصر "اے" — اُردو "ے" کی طرح مگر ذرا کم کھنچی۔</div></div>
+        <div class="letter-card"><span class="new">⚡</span><span class="big">ఏ</span><span class="tr">ē</span><div class="hint">ఏడు (ēḍu) = سات۔ لمبی "اے" — دوگنی کھنچی ہوئی۔</div></div>
+        <div class="letter-card"><span class="big">ఐ</span><span class="tr">ai</span><div class="hint">ఐదు (aidu) = پانچ۔ "اَے" — اُردو "ہَے" کی دوگنی۔</div></div>
+      </div>
+      <div class="aside">اُردو میں ایک ہی "ے" ہے۔ تیلگو دو دیتا ہے — <span class="target">ఎల</span> (چھوٹی) اور <span class="target">ఏల</span> (لمبی)۔ معنی بدل جاتا ہے، لہٰذا کان کو چوکس رکھیں۔</div>
+    </div>
+
+    <div class="family">
+      <h4>'او' کا خاندان — ఒ / ఓ <span class="tag-sm">نیا فرق</span></h4>
+      <div class="vowel-grid">
+        <div class="letter-card"><span class="new">⚡</span><span class="big">ఒ</span><span class="tr">o</span><div class="hint">ఒకటి (okaṭi) = ایک۔ مختصر "او"۔</div></div>
+        <div class="letter-card"><span class="new">⚡</span><span class="big">ఓ</span><span class="tr">ō</span><div class="hint">ఓడ (ōḍa) = کشتی۔ لمبی "او"۔</div></div>
+        <div class="letter-card"><span class="big">ఔ</span><span class="tr">au</span><div class="hint">ఔషధం (auṣadhaṃ) = دوا۔ "اَو" — جیسے "کَون"۔</div></div>
+      </div>
+    </div>
+
+    <div class="aha">
+      <span class="tag">ہرسو/دیرگھ</span>
+      <p>اُردو نے "ے" کو ایک ہی رکھا؛ تیلگو نے سنسکرت کا قدیم فرق محفوظ رکھا۔ <span class="target">ఏల</span> (ēla) = کیوں، <span class="target">ఎల</span> — الگ الفاظ، الگ معنی۔ یہ "وقت کی لمبائی" ہے جسے سُر میں تولنا پڑتا ہے، جیسے طبلے کی تال میں ماترا گنتے ہیں۔</p>
+    </div>
+  </section>
+  <section id="stage-02" class="stage">
+    <h2>۰۲ · حروف (ہَلُّلُو)</h2>
+    <p class="lede">سنسکرت کے قدیم صَرفیوں نے حروف کو پانچ <b>ورگ</b> میں ترتیب دیا — ہر ورگ میں وہ آوازیں جو منہ کے ایک ہی مقام سے نکلتی ہیں۔ اُردو کے حروف اس ترتیب میں نہیں لکھے گئے، مگر ہر اُردو بولنے والا یہ سب آوازیں نکالتا ہے۔ آئیے ان کو ان کے آبائی گھروں میں واپس لے چلیں۔</p>
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+consonants+hallulu+pronunciation" title="Telugu consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">تیلگو حروف کا تلفظ سنیں — <a href="https://www.youtube.com/results?search_query=learn+telugu+consonants+hallulu+pronunciation" target="_blank" rel="noopener">مزید ویڈیوز ↗</a></div>
+    </div>
+
+    <h3>کنٹھ ورگ — حلق سے (ک کا خاندان)</h3>
+    <div class="varga-grid">
+      <div class="letter-card"><span class="big">క</span><span class="tr">ka</span><div class="hint">ک۔ కలం (kalaṃ) = قلم۔</div></div>
+      <div class="letter-card"><span class="big">ఖ</span><span class="tr">kha</span><div class="hint">کھ (ہوا کے ساتھ)۔ ఖగం (khagaṃ) = پرندہ۔</div></div>
+      <div class="letter-card"><span class="big">గ</span><span class="tr">ga</span><div class="hint">گ۔ గంగ (gaṅga) = گنگا۔</div></div>
+      <div class="letter-card"><span class="big">ఘ</span><span class="tr">gha</span><div class="hint">گھ۔ گھر کی "گھ"۔</div></div>
+      <div class="letter-card"><span class="big">ఙ</span><span class="tr">ṅa</span><div class="hint">ں (ناک کی آواز)۔ "رنگ" کی "ن"۔</div></div>
+    </div>
+
+    <h3>تالو ورگ — منہ کی چھت سے (چ کا خاندان)</h3>
+    <div class="varga-grid">
+      <div class="letter-card"><span class="big">చ</span><span class="tr">ca</span><div class="hint">چ۔ చేయి (cēyi) = ہاتھ۔</div></div>
+      <div class="letter-card"><span class="big">ఛ</span><span class="tr">cha</span><div class="hint">چھ۔ ఛత్రం (chatraṃ) = چھتری۔</div></div>
+      <div class="letter-card"><span class="big">జ</span><span class="tr">ja</span><div class="hint">ج۔ జవాబు (javābu) = جواب۔</div></div>
+      <div class="letter-card"><span class="big">ఝ</span><span class="tr">jha</span><div class="hint">جھ۔ جھنڈا کی "جھ"۔</div></div>
+      <div class="letter-card"><span class="new">⚡</span><span class="big">ఞ</span><span class="tr">ña</span><div class="hint">نرم ں — "پانچ" میں چ سے پہلے والی ناکی آواز۔ اُردو میں لکھی نہیں جاتی، بولی جاتی ہے۔</div></div>
+    </div>
+
+    <h3>مُردھن ورگ — زبان پیچھے مُڑی (ٹ کا خاندان)</h3>
+    <div class="varga-grid">
+      <div class="letter-card"><span class="big">ట</span><span class="tr">ṭa</span><div class="hint">ٹ۔ టమాట (ṭamāṭa) = ٹماٹر۔</div></div>
+      <div class="letter-card"><span class="big">ఠ</span><span class="tr">ṭha</span><div class="hint">ٹھ۔ ٹھنڈا کی "ٹھ"۔</div></div>
+      <div class="letter-card"><span class="big">డ</span><span class="tr">ḍa</span><div class="hint">ڈ۔ డబ్బా (ḍabbā) = ڈبّہ۔</div></div>
+      <div class="letter-card"><span class="big">ఢ</span><span class="tr">ḍha</span><div class="hint">ڈھ۔ ڈھول کی "ڈھ"۔</div></div>
+      <div class="letter-card"><span class="big">ణ</span><span class="tr">ṇa</span><div class="hint">رِٹروفلیکس ن — اُردو "ن" سے مختلف، زبان پیچھے مُڑی۔ "گنیش" کی "ن"۔</div></div>
+    </div>
+
+    <h3>دنت ورگ — دانتوں سے (ت کا خاندان)</h3>
+    <div class="varga-grid">
+      <div class="letter-card"><span class="big">త</span><span class="tr">ta</span><div class="hint">ت۔ తల (tala) = سر۔</div></div>
+      <div class="letter-card"><span class="big">థ</span><span class="tr">tha</span><div class="hint">تھ۔ థాలి (thāli) = تھالی۔</div></div>
+      <div class="letter-card"><span class="big">ద</span><span class="tr">da</span><div class="hint">د۔ దినం (dinaṃ) = دن۔</div></div>
+      <div class="letter-card"><span class="big">ధ</span><span class="tr">dha</span><div class="hint">دھ۔ ధనం (dhanaṃ) = دھن، مال۔</div></div>
+      <div class="letter-card"><span class="big">న</span><span class="tr">na</span><div class="hint">ن۔ నీరు (nīru) = پانی۔</div></div>
+    </div>
+
+    <h3>اوشٹھ ورگ — ہونٹوں سے (پ کا خاندان)</h3>
+    <div class="varga-grid">
+      <div class="letter-card"><span class="big">ప</span><span class="tr">pa</span><div class="hint">پ۔ పాలు (pālu) = دودھ۔</div></div>
+      <div class="letter-card"><span class="big">ఫ</span><span class="tr">pha</span><div class="hint">پھ۔ ఫలం (phalaṃ) = پھل۔</div></div>
+      <div class="letter-card"><span class="big">బ</span><span class="tr">ba</span><div class="hint">ب۔ బంగారం (baṅgāraṃ) = سونا۔</div></div>
+      <div class="letter-card"><span class="big">భ</span><span class="tr">bha</span><div class="hint">بھ۔ భూమి (bhūmi) = زمین۔</div></div>
+      <div class="letter-card"><span class="big">మ</span><span class="tr">ma</span><div class="hint">م۔ మామ (māma) = ماما۔</div></div>
+    </div>
+
+    <h3>اَنتَستھ و اُشم — ی، ر، ل، و، ش، ہ</h3>
+    <div class="varga-grid">
+      <div class="letter-card"><span class="big">య</span><span class="tr">ya</span><div class="hint">ی۔</div></div>
+      <div class="letter-card"><span class="big">ర</span><span class="tr">ra</span><div class="hint">ر۔</div></div>
+      <div class="letter-card"><span class="big">ల</span><span class="tr">la</span><div class="hint">ل۔</div></div>
+      <div class="letter-card"><span class="big">వ</span><span class="tr">va</span><div class="hint">و۔ వాన (vāna) = بارش۔</div></div>
+      <div class="letter-card"><span class="big">శ</span><span class="tr">śa</span><div class="hint">ش (تالوی)۔ శాంతి (śānti) = سکون۔</div></div>
+      <div class="letter-card"><span class="new">⚡</span><span class="big">ష</span><span class="tr">ṣa</span><div class="hint">ش (رِٹروفلیکس) — زبان پیچھے مُڑی۔ "وشنو" کی "ش"۔</div></div>
+      <div class="letter-card"><span class="big">స</span><span class="tr">sa</span><div class="hint">س۔ సమయం (samayaṃ) = وقت۔</div></div>
+      <div class="letter-card"><span class="big">హ</span><span class="tr">ha</span><div class="hint">ہ۔ హృదయం (hṛdayaṃ) = دل۔</div></div>
+      <div class="letter-card"><span class="new">⚡</span><span class="big">ళ</span><span class="tr">ḷa</span><div class="hint">رِٹروفلیکس ل — "ل" اور "ڑ" کے درمیان۔ اُردو میں نہیں؛ مراٹھی، تمل، کنڑ میں ہے۔</div></div>
+    </div>
+
+    <div class="aha">
+      <span class="tag">ళ کا راز</span>
+      <p>تیلگو کا <span class="target">ళ</span> جنوبی ہند کی شان ہے — اُردو کے "ل" سے ذرا پیچھے، جیسے ذائقہ زبان کی نوک سے پیچھے سرکا دیں۔ <span class="target">పళ్లు</span> (paḷḷu) = دانت، <span class="target">తెలుగు</span> میں نہیں مگر قریبی لفظ <span class="target">కళ</span> (kaḷa) = فن۔ یہی آواز تمل، ملیالم، کنڑ سب میں موجود ہے۔ جب آپ اسے سیکھ لیں گے، پورا جنوب اپنا لگے گا۔</p>
+    </div>
+
+    <div class="aha">
+      <span class="tag">دکنی پُل</span>
+      <p>حیدرآبادی تیلگو نے اُردو سے سیکڑوں لفظ اُدھار لیے۔ <span class="target">ఖబరు</span> (khabaru) = خبر، <span class="target">జవాబు</span> (javābu) = جواب، <span class="target">దావాకాణా</span> (dāvākāṇā) = دواخانہ، <span class="target">కిరాయి</span> (kirāyi) = کرایہ۔ جب آپ یہ الفاظ تیلگو میں سنیں، وہ آپ کو اجنبی نہیں لگیں گے — وہ پہلے سے گھر میں تھے۔</p>
+    </div>
+  </section>
+  <section id="stage-03" class="stage">
+    <h2>۰۳ · ترکیب</h2>
+    <p class="lede">اُردو میں آپ حرف کے نیچے زبر/زیر/پیش لگاتے ہیں۔ تیلگو میں بھی یہی ہوتا ہے — مگر ہر اعراب حرف کے اوپر، نیچے، دائیں، یا بائیں اپنی مخصوص شکل میں چپک جاتا ہے۔ اس کو <b>گُنِنتم</b> (guṇintam) کہتے ہیں۔ ایک حرف (جیسے <span class="target">క</span>) + بارہ اعراب = بارہ شکلیں۔</p>
+
+    <h3>ک کا گُنِنتم — ایک حرف کی بارہ صورتیں</h3>
+    <table>
+      <thead><tr><th>اُردو آواز</th><th>اعراب</th><th>تیلگو</th><th>تلفظ</th></tr></thead>
+      <tbody>
+        <tr><td>کَ</td><td>—</td><td class="target">క</td><td class="tr">ka</td></tr>
+        <tr><td>کا</td><td>ా</td><td class="target">కా</td><td class="tr">kā</td></tr>
+        <tr><td>کِ</td><td>ి</td><td class="target">కి</td><td class="tr">ki</td></tr>
+        <tr><td>کی</td><td>ీ</td><td class="target">కీ</td><td class="tr">kī</td></tr>
+        <tr><td>کُ</td><td>ు</td><td class="target">కు</td><td class="tr">ku</td></tr>
+        <tr><td>کُو</td><td>ూ</td><td class="target">కూ</td><td class="tr">kū</td></tr>
+        <tr><td>کے (چھوٹی)</td><td>ె</td><td class="target">కె</td><td class="tr">ke</td></tr>
+        <tr><td>کے (لمبی)</td><td>ే</td><td class="target">కే</td><td class="tr">kē</td></tr>
+        <tr><td>کَے</td><td>ై</td><td class="target">కై</td><td class="tr">kai</td></tr>
+        <tr><td>کو (چھوٹی)</td><td>ొ</td><td class="target">కొ</td><td class="tr">ko</td></tr>
+        <tr><td>کو (لمبی)</td><td>ో</td><td class="target">కో</td><td class="tr">kō</td></tr>
+        <tr><td>کَو</td><td>ౌ</td><td class="target">కౌ</td><td class="tr">kau</td></tr>
+      </tbody>
+    </table>
+
+    <div class="aha">
+      <span class="tag">تدریسی معیشت</span>
+      <p>یہ ۱۲ اعراب ہر ایک حرف پر ہو بہو اسی شکل میں لگتے ہیں۔ تیلگو کے ۳۶ بنیادی حروف × ۱۲ اعراب = ۴۳۲ مجموعے۔ ۱۲ کی قیمت میں ۴۳۲ حرف مل جاتے ہیں — یہی ابوگدا کی خوبصورتی ہے۔ اُردو میں ایک حرف صرف ابتدائی، درمیانی، آخری اور منفرد شکلیں بدلتا ہے، مگر اعراب الگ سے لکھنا پڑتا ہے۔</p>
+    </div>
+
+    <h3>ہَلُّو — ساکن کی نشانی (్)</h3>
+    <p>اگر کوئی حرف بغیر سُر کے، بالکل ساکن، دوسرے حرف سے جُڑنا ہو، تو اوپر ایک چھوٹی سی علامت <b>ہَلّو</b> (్) لگتی ہے۔ یہ اُردو کی <b>جزم</b> (ْ) جیسی ہے۔</p>
+    <table>
+      <thead><tr><th>ترکیب</th><th>معنی</th><th>اُردو</th></tr></thead>
+      <tbody>
+        <tr><td class="target">క్ + అ = క</td><td class="tr">k + a = ka</td><td>کَ</td></tr>
+        <tr><td class="target">పుస్తకం</td><td class="tr">pu-s-ta-kaṃ</td><td>پستکم / کتاب</td></tr>
+        <tr><td class="target">సత్యం</td><td class="tr">sa-t-yaṃ</td><td>ستیم / سچ</td></tr>
+      </tbody>
+    </table>
+
+    <h3>جوڑی حروف (saṃyuktākṣara)</h3>
+    <p>جب دو ساکن ملیں، تو نیچے والا حرف چھوٹا ہو کر پہلے کے نیچے چپک جاتا ہے۔ اُردو میں "پستک" لکھتے وقت س اور ت الگ رہتے ہیں؛ تیلگو میں وہ ایک شکل بن جاتے ہیں۔</p>
+    <table>
+      <thead><tr><th>تیلگو</th><th>تجزیہ</th><th>اُردو</th></tr></thead>
+      <tbody>
+        <tr><td class="target">పుస్తకం</td><td class="tr">pu + s + ta + kaṃ</td><td>کتاب (پستکم)</td></tr>
+        <tr><td class="target">విద్య</td><td class="tr">vi + d + ya</td><td>ودیا / علم</td></tr>
+        <tr><td class="target">శక్తి</td><td class="tr">śa + k + ti</td><td>شکتی / طاقت</td></tr>
+        <tr><td class="target">మిత్రుడు</td><td class="tr">mi + t + ru + ḍu</td><td>دوست (متر)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="aside">اُردو میں جزم کم کم لگتی ہے — قاری خود سمجھ لیتا ہے۔ تیلگو میں یہ لازم ہے؛ ہر ساکن اپنی علامت مانگتا ہے۔ پہلے عجیب لگے گا، پھر واضح۔</div>
+
+    <h3>اَنُسوار (ం) اور وِسرگ (ః)</h3>
+    <p><b>اَنُسوار</b> (<span class="target">ం</span>) = ناک کی "ں" — <span class="target">పుస్తకం</span> کے آخر میں۔ <b>وِسرگ</b> (<span class="target">ః</span>) = ہلکی "ہ" کی آواز جو سنسکرت الفاظ کے آخر میں آتی ہے — <span class="target">నమః</span> (namaḥ)۔</p>
+  </section>
+  <section id="stage-04" class="stage">
+    <h2>۰۴ · الفاظ</h2>
+    <p class="lede">تیلگو کے الفاظ تین قسموں میں آتے ہیں: <span class="dravid">دراوڑی</span> (اپنا خالص، سب سے پرانا)، <span class="tatsama">تتسم</span> (سنسکرت سے — اُردو میں بھی موجود)، اور دکنی (فارسی-عربی)۔ ہر لفظ کے ساتھ ٹیگ ہے — دیکھیں کتنے پہلے سے آپ کے ہیں۔</p>
+
+    <h3>ضمائر</h3>
+    <div class="pair"><span class="tgt">నేను</span><span class="tr">nēnu</span><span class="src">میں</span><span class="note">خود کے لیے۔</span></div>
+    <div class="pair"><span class="tgt">అతడు</span><span class="tr">ataḍu</span><span class="src">وہ (مذکر)</span><span class="note">مرد کے لیے۔</span></div>
+    <div class="pair"><span class="tgt">ఆమె</span><span class="tr">āme</span><span class="src">وہ (مؤنث)</span><span class="note">عورت کے لیے — اُردو "وہ" میں جنس نہیں، تیلگو میں الگ۔</span></div>
+    <div class="pair"><span class="tgt">అది</span><span class="tr">adi</span><span class="src">وہ (غیر ذی روح)</span><span class="note">چیز کے لیے۔</span></div>
+    <div class="pair"><span class="tgt">ఇది</span><span class="tr">idi</span><span class="src">یہ</span><span class="note">قریب کی چیز۔</span></div>
+
+    <h3>بنیادی اسماء</h3>
+    <div class="pair"><span class="tgt">నీరు</span><span class="tr">nīru</span><span class="src">پانی</span><span class="note"><span class="dravid">دراوڑی</span></span></div>
+    <div class="pair"><span class="tgt">పుస్తకం</span><span class="tr">pustakaṃ</span><span class="src">کتاب</span><span class="note"><span class="tatsama">تتسم</span> — اُردو "کتاب" عربی سے، تیلگو "پستک" سنسکرت سے۔</span></div>
+    <div class="pair"><span class="tgt">సమయం</span><span class="tr">samayaṃ</span><span class="src">وقت</span><span class="note"><span class="tatsama">تتسم</span> — "سمے" اُردو شاعری میں بھی ملتا ہے۔</span></div>
+    <div class="pair"><span class="tgt">దినం / రోజు</span><span class="tr">dinaṃ / rōju</span><span class="src">دن</span><span class="note">دونوں چلتے ہیں — پہلا سنسکرتی، دوسرا گھریلو۔</span></div>
+    <div class="pair"><span class="tgt">పాలు</span><span class="tr">pālu</span><span class="src">دودھ</span><span class="note"><span class="dravid">دراوڑی</span></span></div>
+    <div class="pair"><span class="tgt">సూర్యుడు</span><span class="tr">sūryuḍu</span><span class="src">سورج</span><span class="note"><span class="tatsama">تتسم</span> — "سوریہ"۔</span></div>
+    <div class="pair"><span class="tgt">భూమి</span><span class="tr">bhūmi</span><span class="src">زمین</span><span class="note"><span class="tatsama">تتسم</span> — "بھومی"۔</span></div>
+    <div class="pair"><span class="tgt">పేరు</span><span class="tr">pēru</span><span class="src">نام</span><span class="note"><span class="dravid">دراوڑی</span></span></div>
+    <div class="pair"><span class="tgt">దారి</span><span class="tr">dāri</span><span class="src">راستہ</span><span class="note"><span class="dravid">دراوڑی</span></span></div>
+    <div class="pair"><span class="tgt">రాత్రి</span><span class="tr">rātri</span><span class="src">رات</span><span class="note"><span class="tatsama">تتسم</span> — اُردو "رات" بھی اسی سے۔</span></div>
+    <div class="pair"><span class="tgt">పువ్వు</span><span class="tr">puvvu</span><span class="src">پھول</span><span class="note"><span class="dravid">دراوڑی</span></span></div>
+    <div class="pair"><span class="tgt">భాష</span><span class="tr">bhāṣa</span><span class="src">زبان</span><span class="note"><span class="tatsama">تتسم</span> — "بھاشا"۔</span></div>
+    <div class="pair"><span class="tgt">జవాబు</span><span class="tr">javābu</span><span class="src">جواب</span><span class="note">دکنی قرض — عربی سے تیلگو تک۔</span></div>
+    <div class="pair"><span class="tgt">ఖబరు</span><span class="tr">khabaru</span><span class="src">خبر</span><span class="note">دکنی قرض۔</span></div>
+
+    <h3>افعال</h3>
+    <div class="pair"><span class="tgt">ఉండు</span><span class="tr">uṇḍu</span><span class="src">ہونا</span></div>
+    <div class="pair"><span class="tgt">పోవు</span><span class="tr">pōvu</span><span class="src">جانا</span></div>
+    <div class="pair"><span class="tgt">రా</span><span class="tr">rā</span><span class="src">آنا</span></div>
+    <div class="pair"><span class="tgt">తిను</span><span class="tr">tinu</span><span class="src">کھانا</span></div>
+    <div class="pair"><span class="tgt">చూడు</span><span class="tr">cūḍu</span><span class="src">دیکھنا</span></div>
+    <div class="pair"><span class="tgt">చదువు</span><span class="tr">caduvu</span><span class="src">پڑھنا</span></div>
+    <div class="pair"><span class="tgt">కావాలి</span><span class="tr">kāvāli</span><span class="src">چاہیے</span></div>
+    <div class="pair"><span class="tgt">తెలుసు</span><span class="tr">telusu</span><span class="src">جاننا / معلوم ہونا</span></div>
+    <div class="pair"><span class="tgt">నడచు</span><span class="tr">naḍacu</span><span class="src">چلنا</span></div>
+    <div class="pair"><span class="tgt">నిలుచు</span><span class="tr">nilucu</span><span class="src">کھڑا ہونا</span></div>
+    <div class="pair"><span class="tgt">ఇవ్వు</span><span class="tr">ivvu</span><span class="src">دینا</span></div>
+    <div class="pair"><span class="tgt">చెప్పు</span><span class="tr">ceppu</span><span class="src">بولنا / کہنا</span></div>
+
+    <h3>اعداد</h3>
+    <div class="pair"><span class="tgt">ఒకటి</span><span class="tr">okaṭi</span><span class="src">ایک</span></div>
+    <div class="pair"><span class="tgt">రెండు</span><span class="tr">reṇḍu</span><span class="src">دو</span></div>
+    <div class="pair"><span class="tgt">మూడు</span><span class="tr">mūḍu</span><span class="src">تین</span></div>
+    <div class="pair"><span class="tgt">నాలుగు</span><span class="tr">nālugu</span><span class="src">چار</span></div>
+    <div class="pair"><span class="tgt">ఐదు</span><span class="tr">aidu</span><span class="src">پانچ</span></div>
+    <div class="pair"><span class="tgt">పది</span><span class="tr">padi</span><span class="src">دس</span></div>
+
+    <h3>رشتے</h3>
+    <div class="pair"><span class="tgt">నాన్న</span><span class="tr">nānna</span><span class="src">باپ / ابّا</span></div>
+    <div class="pair"><span class="tgt">అమ్మ</span><span class="tr">amma</span><span class="src">ماں / امّی</span><span class="note">بچّے کی پہلی آواز — ہر زبان میں۔</span></div>
+    <div class="pair"><span class="tgt">అన్న</span><span class="tr">anna</span><span class="src">بڑا بھائی</span></div>
+    <div class="pair"><span class="tgt">అక్క</span><span class="tr">akka</span><span class="src">بڑی بہن</span></div>
+    <div class="pair"><span class="tgt">మామ</span><span class="tr">māma</span><span class="src">ماما (ماں کا بھائی)</span><span class="note">یہی لفظ، یہی معنی — سیدھا پُل۔</span></div>
+    <div class="pair"><span class="tgt">అత్త</span><span class="tr">atta</span><span class="src">پھوپھی / خالہ</span></div>
+
+    <h3>جسم</h3>
+    <div class="pair"><span class="tgt">తల</span><span class="tr">tala</span><span class="src">سر</span></div>
+    <div class="pair"><span class="tgt">కన్ను</span><span class="tr">kannu</span><span class="src">آنکھ</span></div>
+    <div class="pair"><span class="tgt">చేయి</span><span class="tr">cēyi</span><span class="src">ہاتھ</span></div>
+    <div class="pair"><span class="tgt">కాలు</span><span class="tr">kālu</span><span class="src">پاؤں</span></div>
+    <div class="pair"><span class="tgt">ముక్కు</span><span class="tr">mukku</span><span class="src">ناک</span></div>
+
+    <h3>وقت</h3>
+    <div class="pair"><span class="tgt">ఈరోజు</span><span class="tr">īrōju</span><span class="src">آج</span></div>
+    <div class="pair"><span class="tgt">రేపు</span><span class="tr">rēpu</span><span class="src">کل (آنے والا)</span></div>
+    <div class="pair"><span class="tgt">నిన్న</span><span class="tr">ninna</span><span class="src">کل (گزرا ہوا)</span></div>
+    <div class="pair"><span class="tgt">ఇప్పుడు</span><span class="tr">ippuḍu</span><span class="src">ابھی</span></div>
+
+    <div class="aha">
+      <span class="tag">"کل" کا راز</span>
+      <p>اُردو "کل" دونوں طرف کام کرتا ہے — گزرا ہوا اور آنے والا۔ تیلگو اسے الگ کرتا ہے: <span class="target">నిన్న</span> (ninna) = گزرا کل، <span class="target">రేపు</span> (rēpu) = آنے والا کل۔ وقت کی سمت میں کوئی ابہام نہیں۔</p>
+    </div>
+
+    <h3>فقرے</h3>
+    <div class="pair"><span class="tgt">నమస్కారం</span><span class="tr">namaskāraṃ</span><span class="src">آداب / سلام</span></div>
+    <div class="pair"><span class="tgt">ధన్యవాదాలు</span><span class="tr">dhanyavādālu</span><span class="src">شکریہ</span></div>
+    <div class="pair"><span class="tgt">కావాలి</span><span class="tr">kāvāli</span><span class="src">چاہیے</span></div>
+    <div class="pair"><span class="tgt">తెలియదు</span><span class="tr">teliyadu</span><span class="src">معلوم نہیں</span></div>
+  </section>
+  <section id="stage-05" class="stage">
+    <h2>۰۵ · جملے</h2>
+    <p class="lede">جملہ بناتے وقت تیلگو اور اُردو ایک ہی ترتیب پر چلتے ہیں — <b>فاعل، مفعول، فعل</b>۔ فرق صرف یہ ہے کہ تیلگو فعل میں ہی فاعل کی جنس اور تعداد چھپا دیتا ہے، اور فعل کے بعد کوئی "ہے/ہوں/ہو" نہیں لگتا — وہ فعل کے اندر ہی ہے۔</p>
+
+    <h3>ایک جملہ — ایک ساتھ</h3>
+    <table>
+      <thead><tr><th>اُردو</th><th>تیلگو</th><th>ٹوٹا ہوا</th></tr></thead>
+      <tbody>
+        <tr><td>میں پانی پیتا ہوں</td><td class="target">నేను నీరు తాగుతాను</td><td class="tr">nēnu (میں) + nīru (پانی) + tāgutānu (پیتا ہوں)</td></tr>
+        <tr><td>وہ کتاب پڑھتا ہے</td><td class="target">అతడు పుస్తకం చదువుతాడు</td><td class="tr">ataḍu + pustakaṃ + caduvutāḍu</td></tr>
+        <tr><td>وہ گھر جاتی ہے</td><td class="target">ఆమె ఇంటికి వెళుతుంది</td><td class="tr">āme + iṇṭi-ki + veḷutundi</td></tr>
+      </tbody>
+    </table>
+
+    <h3>فعل "کرنا" — حالِ حاضر (చేయు / cēyu)</h3>
+    <table>
+      <thead><tr><th>ضمیر</th><th>تیلگو</th><th>تلفظ</th><th>اُردو</th></tr></thead>
+      <tbody>
+        <tr><td>میں</td><td class="target">చేస్తాను</td><td class="tr">cēstānu</td><td>کرتا/کرتی ہوں</td></tr>
+        <tr><td>تم</td><td class="target">చేస్తావు</td><td class="tr">cēstāvu</td><td>کرتے/کرتی ہو</td></tr>
+        <tr><td>وہ (مذکر)</td><td class="target">చేస్తాడు</td><td class="tr">cēstāḍu</td><td>کرتا ہے</td></tr>
+        <tr><td>وہ (مؤنث)</td><td class="target">చేస్తుంది</td><td class="tr">cēstundi</td><td>کرتی ہے</td></tr>
+        <tr><td>ہم</td><td class="target">చేస్తాము</td><td class="tr">cēstāmu</td><td>کرتے ہیں</td></tr>
+        <tr><td>وہ سب</td><td class="target">చేస్తారు</td><td class="tr">cēstāru</td><td>کرتے ہیں</td></tr>
+      </tbody>
+    </table>
+
+    <div class="aha">
+      <span class="tag">فعل میں جنس</span>
+      <p>اُردو میں مذکر/مؤنث کا فرق فعل پر بھی آتا ہے — "کرتا" بمقابلہ "کرتی"۔ مگر "میں" اور "وہ" دونوں میں ہو۔ تیلگو میں یہی فرق مختلف جگہ ہے: <span class="target">చేస్తాడు</span> (مرد)، <span class="target">చేస్తుంది</span> (عورت یا چیز) — صرف تیسرے شخص میں۔ پہلا شخص <span class="target">చేస్తాను</span> جنس سے آزاد ہے۔ یہ نئی عادت ہے جسے لگانا پڑے گا۔</p>
+    </div>
+
+    <h3>لاحقے (اسم + لاحقہ)</h3>
+    <table>
+      <thead><tr><th>اعرابی حالت</th><th>تیلگو</th><th>اُردو</th><th>مثال</th></tr></thead>
+      <tbody>
+        <tr><td>مفعولی</td><td class="target">-ని / -ను</td><td>-کو</td><td class="target">పుస్తకాన్ని</td></tr>
+        <tr><td>حرف جر</td><td class="target">-కి / -కు</td><td>-کو / -کے لیے</td><td class="target">ఇంటికి</td></tr>
+        <tr><td>ظرفی</td><td class="target">-లో</td><td>-میں</td><td class="target">ఇంట్లో</td></tr>
+        <tr><td>مبداء</td><td class="target">-నుండి</td><td>-سے</td><td class="target">హైదరాబాద్ నుండి</td></tr>
+        <tr><td>اضافی</td><td class="target">-యొక్క</td><td>-کا/کی/کے</td><td class="target">రాము యొక్క</td></tr>
+      </tbody>
+    </table>
+
+    <h3>نفی</h3>
+    <p>اُردو میں "نہیں" الگ لفظ ہے۔ تیلگو میں نفی فعل کے اندر چھپ جاتی ہے — فعل کی شکل ہی بدل جاتی ہے۔</p>
+    <table>
+      <tbody>
+        <tr><td>میں نہیں جاتا</td><td class="target">నేను వెళ్ళను</td><td class="tr">nēnu veḷḷanu</td></tr>
+        <tr><td>مجھے معلوم نہیں</td><td class="target">నాకు తెలియదు</td><td class="tr">nāku teliyadu</td></tr>
+        <tr><td>یہ اچھا نہیں</td><td class="target">ఇది మంచిది కాదు</td><td class="tr">idi mañcidi kādu</td></tr>
+      </tbody>
+    </table>
+
+    <h3>سوال</h3>
+    <table>
+      <thead><tr><th>اُردو</th><th>تیلگو</th><th>تلفظ</th></tr></thead>
+      <tbody>
+        <tr><td>کیا؟</td><td class="target">ఏమిటి?</td><td class="tr">ēmiṭi</td></tr>
+        <tr><td>کون؟</td><td class="target">ఎవరు?</td><td class="tr">evaru</td></tr>
+        <tr><td>کہاں؟</td><td class="target">ఎక్కడ?</td><td class="tr">ekkaḍa</td></tr>
+        <tr><td>کب؟</td><td class="target">ఎప్పుడు?</td><td class="tr">eppuḍu</td></tr>
+        <tr><td>کیوں؟</td><td class="target">ఎందుకు?</td><td class="tr">enduku</td></tr>
+        <tr><td>کیسے؟</td><td class="target">ఎలా?</td><td class="tr">elā</td></tr>
+      </tbody>
+    </table>
+
+    <div class="aside">ہاں/نہ والے سوال میں فعل کے آخر میں <b>-ఆ</b> لگا دیں: <span class="target">వస్తావా?</span> (vastāvā?) = "آؤ گے؟"۔ اُردو میں لہجہ اوپر کرتے ہیں؛ تیلگو ایک چھوٹا لاحقہ لگاتا ہے۔</div>
+
+    <div class="aha">
+      <span class="tag">لاحقوں کا مُنار</span>
+      <p>تیلگو <b>اِلتصاقی</b> (agglutinative) زبان ہے — ایک اسم پر کئی لاحقے لگاتے جا سکتے ہیں۔ <span class="target">ఇల్లు</span> (گھر) + <span class="target">లో</span> (میں) + <span class="target">నుండి</span> (سے) = <span class="target">ఇంటిలోనుండి</span> = "گھر کے اندر سے"۔ اُردو تین لفظوں میں کہتا ہے؛ تیلگو ایک میں۔</p>
+    </div>
+  </section>
+  <section id="stage-06" class="stage">
+    <h2>۰۶ · مطالعہ</h2>
+    <p class="lede">تین مختصر اقتباس — ہر سطر کے ساتھ تلفظ اور اُردو ترجمہ۔ پہلے صرف تیلگو پڑھیں، پھر تلفظ، پھر معنی۔</p>
+
+    <h3>۱ · تعارف</h3>
+    <div class="passage">
+      <div class="line"><span class="t">నా పేరు రాము.</span><span class="r">nā pēru rāmu.</span><span class="u">میرا نام رام ہے۔</span></div>
+      <div class="line"><span class="t">నేను హైదరాబాద్‌లో ఉంటాను.</span><span class="r">nēnu haidarābād-lō uṇṭānu.</span><span class="u">میں حیدرآباد میں رہتا ہوں۔</span></div>
+      <div class="line"><span class="t">నేను తెలుగు నేర్చుకుంటున్నాను.</span><span class="r">nēnu telugu nērcukuṇṭunnānu.</span><span class="u">میں تیلگو سیکھ رہا ہوں۔</span></div>
+      <div class="line"><span class="t">నాకు పుస్తకాలు అంటే ఇష్టం.</span><span class="r">nāku pustakālu aṇṭē iṣṭaṃ.</span><span class="u">مجھے کتابیں پسند ہیں۔</span></div>
+      <div class="line"><span class="t">మీ పేరు ఏమిటి?</span><span class="r">mī pēru ēmiṭi?</span><span class="u">آپ کا نام کیا ہے؟</span></div>
+    </div>
+
+    <h3>۲ · دن بھر</h3>
+    <div class="passage">
+      <div class="line"><span class="t">నేను ఉదయం ఆరు గంటలకు లేస్తాను.</span><span class="r">nēnu udayaṃ āru gaṇṭalaku lēstānu.</span><span class="u">میں صبح چھ بجے اٹھتا ہوں۔</span></div>
+      <div class="line"><span class="t">తరువాత పాలు తాగుతాను.</span><span class="r">taruvāta pālu tāgutānu.</span><span class="u">پھر دودھ پیتا ہوں۔</span></div>
+      <div class="line"><span class="t">అమ్మ అల్పాహారం చేస్తుంది.</span><span class="r">amma alpāhāraṃ cēstundi.</span><span class="u">ماں ناشتہ بناتی ہیں۔</span></div>
+      <div class="line"><span class="t">నేను పాఠశాలకు వెళతాను.</span><span class="r">nēnu pāṭhaśālaku veḷatānu.</span><span class="u">میں اسکول جاتا ہوں۔</span></div>
+      <div class="line"><span class="t">సాయంత్రం స్నేహితులతో ఆడుతాను.</span><span class="r">sāyantraṃ snēhitulatō āḍutānu.</span><span class="u">شام کو دوستوں کے ساتھ کھیلتا ہوں۔</span></div>
+      <div class="line"><span class="t">రాత్రి తొందరగా నిద్రపోతాను.</span><span class="r">rātri tondaragā nidrapōtānu.</span><span class="u">رات کو جلدی سو جاتا ہوں۔</span></div>
+    </div>
+
+    <h3>۳ · گفتگو — بازار میں</h3>
+    <div class="passage">
+      <div class="line"><span class="t">రాము: నమస్కారం! మీరు ఎలా ఉన్నారు?</span><span class="r">rāmu: namaskāraṃ! mīru elā unnāru?</span><span class="u">رام: آداب! آپ کیسے ہیں؟</span></div>
+      <div class="line"><span class="t">సీత: బాగున్నాను, ధన్యవాదాలు. మీరు?</span><span class="r">sīta: bāgunnānu, dhanyavādālu. mīru?</span><span class="u">سیتا: اچھی ہوں، شکریہ۔ آپ؟</span></div>
+      <div class="line"><span class="t">రాము: బాగున్నాను. ఈ పువ్వులు ఎంత?</span><span class="r">rāmu: bāgunnānu. ī puvvulu enta?</span><span class="u">رام: میں بھی ٹھیک ہوں۔ یہ پھول کتنے کے ہیں؟</span></div>
+      <div class="line"><span class="t">సీత: పది రూపాయలు.</span><span class="r">sīta: padi rūpāyalu.</span><span class="u">سیتا: دس روپے۔</span></div>
+      <div class="line"><span class="t">రాము: కొంచెం తగ్గించండి.</span><span class="r">rāmu: koñceṃ taggiñcaṇḍi.</span><span class="u">رام: تھوڑا کم کر دیجیے۔</span></div>
+      <div class="line"><span class="t">సీత: సరే, ఎనిమిది ఇవ్వండి.</span><span class="r">sīta: sarē, enimidi ivvaṇḍi.</span><span class="u">سیتا: ٹھیک، آٹھ دے دیجیے۔</span></div>
+      <div class="line"><span class="t">రాము: ధన్యవాదాలు!</span><span class="r">rāmu: dhanyavādālu!</span><span class="u">رام: شکریہ!</span></div>
+    </div>
+
+    <div class="aha">
+      <span class="tag">سودا بازی کا لفظ</span>
+      <p><span class="target">కొంచెం</span> (koñceṃ) = "تھوڑا"۔ یہی لفظ نرمی کا جادو ہے — قیمت کم کرواتے وقت، چائے مانگتے وقت، سبزی میں نمک کہتے وقت۔ جیسے اُردو میں "ذرا سا" یا "ایک ذرا"۔ کوئی بھی سخت جملہ <span class="target">కొంచెం</span> لگا دینے سے فوراً میٹھا ہو جاتا ہے۔</p>
+    </div>
+  </section>
+  <section id="stage-07" class="stage">
+    <h2>۰۷ · لفظی میدان</h2>
+    <p class="lede">ہر زبان دنیا کو اپنے طریقے سے کاٹتی ہے۔ کہیں ایک لفظ ہوتا ہے، کہیں دو — کیونکہ اس ثقافت کے لیے وہ فرق اہم ہے۔ آئیے چند میدان دیکھیں۔</p>
+
+    <h3>رشتے — تیلگو کی باریکی</h3>
+    <table>
+      <thead><tr><th>اُردو</th><th>تیلگو</th><th>نوٹ</th></tr></thead>
+      <tbody>
+        <tr><td>بھائی</td><td class="target">అన్న (anna) / తమ్ముడు (tammuḍu)</td><td>بڑا / چھوٹا۔ تیلگو میں عمر کے حساب سے الگ لفظ۔</td></tr>
+        <tr><td>بہن</td><td class="target">అక్క (akka) / చెల్లెలు (cellelu)</td><td>بڑی / چھوٹی۔ اُردو "بہن" دونوں پر چلتا ہے۔</td></tr>
+        <tr><td>چچا</td><td class="target">పెదనాన్న / బాబాయ్</td><td>باپ کا بڑا / چھوٹا بھائی — الگ لفظ۔</td></tr>
+        <tr><td>ماما</td><td class="target">మామ (māma)</td><td>سیدھا سا پُل — یہی لفظ اُردو میں بھی۔</td></tr>
+        <tr><td>پھوپھی / خالہ</td><td class="target">అత్త (atta) / పిన్ని (pinni)</td><td>باپ کی بہن / ماں کی بہن — الگ۔</td></tr>
+      </tbody>
+    </table>
+
+    <div class="aha">
+      <span class="tag">عمر کا نظام</span>
+      <p>اُردو "بھائی" کہہ کر چھوڑ دیتی ہے؛ تیلگو آپ سے پوچھتا ہے — بڑا یا چھوٹا؟ یہ صرف زبان نہیں، سماجی ڈھانچہ ہے — بڑے بھائی کے لیے احترام، چھوٹے کے لیے شفقت۔ اسی لیے اجنبی مردوں کو بھی عمر کے حساب سے <span class="target">అన్నా</span> (annā — بھائی صاحب) یا <span class="target">తమ్ముడూ</span> (tammuḍū — چھوٹے بھائی) کہا جاتا ہے۔</p>
+    </div>
+
+    <h3>وقت</h3>
+    <table>
+      <tbody>
+        <tr><td>صبح</td><td class="target">ఉదయం</td><td class="tr">udayaṃ</td></tr>
+        <tr><td>دوپہر</td><td class="target">మధ్యాహ్నం</td><td class="tr">madhyāhnaṃ</td></tr>
+        <tr><td>شام</td><td class="target">సాయంత్రం</td><td class="tr">sāyantraṃ</td></tr>
+        <tr><td>رات</td><td class="target">రాత్రి</td><td class="tr">rātri</td></tr>
+        <tr><td>لمحہ</td><td class="target">క్షణం</td><td class="tr">kṣaṇaṃ</td></tr>
+        <tr><td>سال</td><td class="target">సంవత్సరం</td><td class="tr">saṃvatsaraṃ</td></tr>
+      </tbody>
+    </table>
+
+    <h3>جسم</h3>
+    <div class="grid">
+      <div class="letter-card"><span class="big">తల</span><span class="tr">tala</span><div class="hint">سر</div></div>
+      <div class="letter-card"><span class="big">కన్ను</span><span class="tr">kannu</span><div class="hint">آنکھ</div></div>
+      <div class="letter-card"><span class="big">చెవి</span><span class="tr">cevi</span><div class="hint">کان</div></div>
+      <div class="letter-card"><span class="big">ముక్కు</span><span class="tr">mukku</span><div class="hint">ناک</div></div>
+      <div class="letter-card"><span class="big">నోరు</span><span class="tr">nōru</span><div class="hint">منہ</div></div>
+      <div class="letter-card"><span class="big">పళ్ళు</span><span class="tr">paḷḷu</span><div class="hint">دانت — یہاں ళ کی آواز۔</div></div>
+      <div class="letter-card"><span class="big">చేయి</span><span class="tr">cēyi</span><div class="hint">ہاتھ</div></div>
+      <div class="letter-card"><span class="big">కాలు</span><span class="tr">kālu</span><div class="hint">پاؤں</div></div>
+      <div class="letter-card"><span class="big">గుండె</span><span class="tr">guṇḍe</span><div class="hint">دل</div></div>
+      <div class="letter-card"><span class="big">వెంట్రుక</span><span class="tr">veṇṭruka</span><div class="hint">بال</div></div>
+    </div>
+
+    <h3>حرکت کے فعل</h3>
+    <table>
+      <tbody>
+        <tr><td>جانا</td><td class="target">వెళ్ళు / పోవు</td></tr>
+        <tr><td>آنا</td><td class="target">రా / వచ్చు</td></tr>
+        <tr><td>چلنا</td><td class="target">నడచు</td></tr>
+        <tr><td>دوڑنا</td><td class="target">పరుగెత్తు</td></tr>
+        <tr><td>بیٹھنا</td><td class="target">కూర్చో</td></tr>
+        <tr><td>کھڑا ہونا</td><td class="target">నిలబడు</td></tr>
+      </tbody>
+    </table>
+
+    <div class="aha">
+      <span class="tag">دو "آنکھ"</span>
+      <p>اُردو میں "آنکھ" ایک ہے؛ تیلگو کے پاس بھی بنیادی طور پر <span class="target">కన్ను</span> (kannu) ہے، مگر شاعری میں <span class="target">నయనం</span> (nayanaṃ — سنسکرت) بھی آتا ہے۔ اُردو "نین" بھی اسی رگ سے — ہم دونوں کا سنسکرت پردادا ایک ہی ہے۔</p>
+    </div>
+  </section>
+  <section id="stage-08" class="stage">
+    <h2>۰۸ · استعمال</h2>
+    <p class="lede">زبان صرف لفظ نہیں — وہ ادب و آداب بھی ہے۔ کب "تم"، کب "آپ"۔ کب <span class="target">మీరు</span>، کب <span class="target">నువ్వు</span>۔ کس کو <span class="target">అన్నా</span> کہیں، کس کو نہیں۔</p>
+
+    <h3>تین درجے — اُردو، دو درجے — تیلگو</h3>
+    <table>
+      <thead><tr><th>درجہ</th><th>اُردو</th><th>تیلگو</th><th>کب</th></tr></thead>
+      <tbody>
+        <tr><td>دوستی / چھوٹے</td><td>تُو</td><td class="target">నువ్వు (nuvvu)</td><td>قریبی، بچے، خدا سے دعا۔</td></tr>
+        <tr><td>درمیانی</td><td>تم</td><td class="target">నువ్వు (nuvvu)</td><td>تیلگو دوسرا درجہ نہیں دیتی — سب ایک۔</td></tr>
+        <tr><td>ادب</td><td>آپ</td><td class="target">మీరు (mīru)</td><td>بڑے، اجنبی، استاد، دفتر۔</td></tr>
+      </tbody>
+    </table>
+
+    <div class="aside">اُردو کے تین درجوں کو تیلگو دو میں سمیٹ لیتی ہے۔ "تُو" اور "تم" کا فرق نہیں — جہاں اُردو میں "تم" کہیں گے، وہاں تیلگو میں <span class="target">నువ్వు</span>۔ جہاں "آپ" کہیں گے، وہاں <span class="target">మీరు</span>۔</div>
+
+    <h3>کھانے کی سلام</h3>
+    <div class="passage">
+      <div class="line"><span class="t">భోజనం అయిందా?</span><span class="r">bhōjanaṃ ayindā?</span><span class="u">کھانا ہو گیا؟ (حال چال پوچھنے کا عام طریقہ)</span></div>
+      <div class="line"><span class="t">అయ్యింది, మీరు?</span><span class="r">ayyindi, mīru?</span><span class="u">ہو گیا، آپ نے؟</span></div>
+    </div>
+    <div class="aside">جیسے اُردو میں "کھانا کھایا؟" محبت کا جملہ ہے، تیلگو میں <span class="target">భోజనం అయిందా?</span> اکثر "کیسے ہیں؟" کی جگہ لیتا ہے۔ دکن کی مہمان نوازی دونوں زبانوں میں ایک سی ہے۔</div>
+
+    <h3>نرمی کے الفاظ</h3>
+    <table>
+      <tbody>
+        <tr><td>ذرا سا / تھوڑا</td><td class="target">కొంచెం (koñceṃ)</td><td>درخواست کو نرم کرے۔</td></tr>
+        <tr><td>برائے مہربانی</td><td class="target">దయచేసి (dayacēsi)</td><td>"دیا چیسی" — دیا کر کے۔</td></tr>
+        <tr><td>معاف کیجیے</td><td class="target">క్షమించండి (kṣamiñcaṇḍi)</td><td>تتسم — سنسکرت "کشما" سے۔</td></tr>
+        <tr><td>شکریہ</td><td class="target">ధన్యవాదాలు (dhanyavādālu)</td><td>"دھنیہ واد" — اُردو شاعری میں بھی۔</td></tr>
+      </tbody>
+    </table>
+
+    <h3>اجنبیوں سے پکار</h3>
+    <table>
+      <tbody>
+        <tr><td>بڑے بھائی صاحب (اجنبی مرد)</td><td class="target">అన్నా (annā)</td></tr>
+        <tr><td>بڑی بہن (اجنبی عورت)</td><td class="target">అక్కా (akkā)</td></tr>
+        <tr><td>انکل</td><td class="target">మామయ్యా (māmayyā)</td></tr>
+        <tr><td>آنٹی</td><td class="target">ఆంటీ / అత్తమ్మ</td></tr>
+      </tbody>
+    </table>
+
+    <div class="aha">
+      <span class="tag">رشتے کی سلام</span>
+      <p>چائے کی دکان پر بھی اجنبی کو <span class="target">అన్నా</span> کہہ کر بلانا عام ہے — "بھائی، ایک چائے"۔ اُردو میں "بھائی صاحب" یا "بھیا" بالکل یہی کام کرتا ہے۔ جنوبی ہند کی زبانیں اجنبی کو بھی فوراً خاندان میں شامل کر لیتی ہیں — یہی دکن کی روح ہے۔</p>
+    </div>
+
+    <h3>عام فقرے</h3>
+    <table>
+      <tbody>
+        <tr><td>معاف کیجیے، کیا وقت ہوا ہے؟</td><td class="target">క్షమించండి, టైం ఎంత అయింది?</td></tr>
+        <tr><td>مجھے تیلگو تھوڑی سی آتی ہے۔</td><td class="target">నాకు తెలుగు కొంచెం వచ్చు.</td></tr>
+        <tr><td>مجھے معلوم نہیں۔</td><td class="target">నాకు తెలియదు.</td></tr>
+        <tr><td>پھر ملیں گے۔</td><td class="target">మళ్ళీ కలుద్దాం.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="stage-09" class="stage">
+    <h2>۰۹ · ادب</h2>
+    <p class="lede">تیلگو کی ادبی روایت ایک ہزار سال پرانی ہے — ناناّیہ کے <b>مہابھارتم</b> (۱۱ویں صدی) سے لے کر شری شری کی انقلابی نظموں تک۔ اُردو کے قاری کے لیے یہ ادب اجنبی نہیں — وہی درد، وہی انقلاب، وہی تصوف، وہی محبت — مگر دراوڑی لہجے میں۔</p>
+
+    <h3>ستون — تیلگو کا ادبی پنتیون</h3>
+
+    <div class="family">
+      <h4>ویمنا — تیلگو کا غالب کا پیش رو</h4>
+      <p><span class="target">వేమన</span> (۱۷ویں صدی)۔ اس نے <b>آتا ویلَدِ</b> (چار مصرعوں کی نظم) میں مذہبی ریا کاری، ذات پات، اور منافقت کو ایسے کچلا جیسے غالب نے زاہد کی "تسبیح پر اور چَسکا" کا مذاق اُڑایا تھا۔ ہر نظم اس تکیہ کلام سے ختم ہوتی ہے: <span class="target">విశ్వదాభిరామ వినుర వేమ</span> — "اے ویمنا، سن!"</p>
+      <div class="aside">غالب کا "ہم کو معلوم ہے جنّت کی حقیقت لیکن / دل کے خوش رکھنے کو غالب یہ خیال اچھا ہے" — ویمنا کا ۴۰۰ سال پرانا کلام اسی مزاج کا ہے۔</div>
+    </div>
+
+    <div class="family">
+      <h4>گُرَجاڑا — جدید ادب کا بانی · اقبال کا ہم عصر</h4>
+      <p><span class="target">గురజాడ అప్పారావు</span> (۱۸۶۲-۱۹۱۵)۔ <b>کنیا شُلکم</b> (دلہن کی قیمت) — تیلگو کا پہلا جدید ڈراما جس نے جہیز اور بچپن کی شادی کے خلاف آواز اٹھائی۔ ان کی نظم <b>دیسَم مَنَدی</b> ("ملک ہمارا ہے") اسی دور کی ہے جب اقبال <b>ترانۂ ہندی</b> لکھ رہے تھے۔ دونوں ایک ہی دریا کے دو کنارے۔</p>
+    </div>
+
+    <div class="family">
+      <h4>شری شری — تیلگو کا فیض</h4>
+      <p><span class="target">శ్రీశ్రీ</span> (۱۹۱۰-۱۹۸۳)۔ <b>مَہا پرَستھانَم</b> (۱۹۴۰) نے تیلگو شاعری کو کلاسیکی بندھنوں سے آزاد کیا۔ "ہر چٹان ایک مصرع، ہر قطرہ ایک لفظ"۔ یہ وہی آواز ہے جو فیض کے "ہم دیکھیں گے" میں ہے — مزدور، غریب، انقلاب۔ دونوں نے ۱۹۴۰ کی دہائی کو اپنی اپنی زبان میں جلا کر راکھ کر دیا۔</p>
+    </div>
+
+    <div class="family">
+      <h4>وِشوَناتھ ستیَنارائِنَ — اقبال کا ہم خیال</h4>
+      <p><span class="target">విశ్వనాథ సత్యనారాయణ</span> (۱۸۹۵-۱۹۷۶)۔ تیلگو کے پہلے جنانپیٹھ فاتح۔ <b>ویِی پَڑَگَلُ</b> (ہزار پھن) — ایک ہزار صفحوں کا ناول جس میں قدیم روایت اور جدیدیت کی کشمکش ہے۔ جیسے اقبال نے "جاوید نامہ" میں مشرق کو خواب دکھایا، ستیَنارائِنَ نے تیلگو میں وہی تہذیبی سوال اٹھایا — کیا ہم نے ماضی چھوڑ کر کیا پایا؟</p>
+    </div>
+
+    <div class="family">
+      <h4>مخدوم محی الدین — دکن کا مشترکہ دل</h4>
+      <p>یہ پُل براہِ راست ہے۔ مخدوم حیدرآباد کے اُردو شاعر تھے، مگر ان کی شاعری تیلگو بولنے والے ہم عصروں — شری شری اور ڈاسَرَتھی کرشنَماچاریَ — سے براہِ راست جڑی تھی۔ وہ ایک ہی دکن کے کارکن، ایک ہی انقلابی راگ کے دو ساز۔ "چارہ گر" اور تیلگو کی انقلابی نظم کا جذبہ ایک۔</p>
+    </div>
+
+    <div class="family">
+      <h4>ڈاسَرَتھی — تلنگانہ کی فریاد · فیض کا دکنی بھائی</h4>
+      <p><span class="target">దాశరథి కృష్ణమాచార్య</span> (۱۹۲۵-۱۹۸۷)۔ نظام حیدرآباد کے دور میں قید بھگتی، جیل سے اُردو اور تیلگو دونوں میں لکھا۔ "میری تلنگانہ کی رات" — کچھ ایسا جیسے فیض کی "زنداں کی ایک شام"۔ دو زبانوں، ایک درد۔</p>
+    </div>
+
+    <div class="family">
+      <h4>تِکنَّا، نَنَّیَ، یرَّا پرَگَڑَ — قدیم تریمُرتی</h4>
+      <p>تیلگو کا "مہابھارتم" تین شاعروں نے تین صدیوں میں لکھا — <span class="target">నన్నయ</span> (۱۱ویں)، <span class="target">తిక్కన</span> (۱۳ویں)، <span class="target">ఎర్రాప్రగడ</span> (۱۴ویں)۔ یہ وہی زمانہ ہے جب امیر خسرو ہندوستانی بنا رہے تھے۔ دو قدیم دریا، ایک ہی گنگا-جمنی تہذیب۔</p>
+    </div>
+
+    <div class="aha">
+      <span class="tag">مشترکہ آسمان</span>
+      <p>غالب کا "یہ خونِ جگر" اور ویمنا کا "یہ رکھ" — دونوں مذہبی ریا کے خلاف۔ فیض کا "ہم دیکھیں گے" اور شری شری کا "مَہا پرَستھانَم" — دونوں ۱۹۴۰ کی دہائی کا انقلاب۔ اقبال کا "خودی" اور وِشوَناتھ کا "سوَدھرم" — دونوں قومی روح کی جستجو۔ دو زبانیں، ایک دل۔</p>
+    </div>
+
+    <p class="lede" style="margin-top:26px">سفر یہاں ختم نہیں ہوتا۔ یہاں سے شروع ہوتا ہے۔ اب تیلگو کتاب کھولیں — پہلی سطر آپ پڑھ سکیں گے۔</p>
+  </section>
+  <div class="nav-btns">
+    <button id="prev">← پچھلا</button>
+    <button id="next">اگلا →</button>
+  </div>
+</main>
+<footer>made by Nil · using Claude</footer>
+<script>
+(function(){
+  var tabs = document.querySelectorAll('#tabs button');
+  var stages = document.querySelectorAll('section.stage');
+  var prev = document.getElementById('prev');
+  var next = document.getElementById('next');
+  var current = 0;
+  function show(i){
+    if(i<0) i=0; if(i>stages.length-1) i=stages.length-1;
+    current = i;
+    tabs.forEach(function(t,k){ t.classList.toggle('active', k===i); });
+    stages.forEach(function(s,k){ s.classList.toggle('active', k===i); });
+    prev.disabled = (i===0);
+    next.disabled = (i===stages.length-1);
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      show(parseInt(t.getAttribute('data-i'),10));
+    });
+  });
+  prev.addEventListener('click', function(){ show(current-1); });
+  next.addEventListener('click', function(){ show(current+1); });
+  document.addEventListener('click', function(e){
+    var card = e.target.closest('.letter-card');
+    if(card){ card.classList.toggle('open'); }
+  });
+  show(0);
+})();
+</script>
+</body>
+</html>

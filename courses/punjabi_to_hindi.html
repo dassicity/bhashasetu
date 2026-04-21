@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="pa">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ਪੰਜਾਬੀ ਤੋਂ ਹਿੰਦੀ · ਭਾਸ਼ਾ-ਸੇਤੂ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Gurmukhi:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Noto Serif Gurmukhi', serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  font-size:16px;
+  position:relative;
+  background-image:
+    radial-gradient(ellipse at top left, rgba(184,128,45,0.07), transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(168,48,36,0.06), transparent 60%),
+    radial-gradient(ellipse at center, rgba(31,77,74,0.04), transparent 70%);
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity:.55; mix-blend-mode:multiply;
+}
+.wrap{max-width:920px; margin:0 auto; padding:28px 22px 80px; position:relative; z-index:2}
+header.top{text-align:center; padding:28px 0 10px; border-bottom:1px solid rgba(107,91,72,0.25)}
+.kicker{font-family:'Fraunces', serif; letter-spacing:.28em; text-transform:uppercase; font-size:11px; color:var(--ink-faded)}
+header.top h1{
+  font-family:'Fraunces', serif; font-weight:600;
+  font-size:34px; margin:8px 0 4px; color:var(--ink);
+}
+header.top h1 .hi{font-family:'Noto Serif Devanagari', serif; color:var(--sindoor)}
+header.top h1 .pa{font-family:'Noto Serif Gurmukhi', serif; color:var(--teal)}
+.subtitle{color:var(--ink-soft); font-size:15px; max-width:560px; margin:0 auto 14px}
+nav.tabs{
+  position:sticky; top:0; z-index:10;
+  background:linear-gradient(180deg, var(--paper) 75%, rgba(244,236,218,0.85));
+  display:flex; gap:4px; overflow-x:auto; padding:10px 4px; margin:10px -10px 22px;
+  border-bottom:1px solid rgba(107,91,72,0.25);
+  scrollbar-width:thin;
+}
+nav.tabs button{
+  font-family:inherit; font-size:13px;
+  background:transparent; color:var(--ink-faded);
+  border:1px solid transparent; padding:7px 12px; border-radius:999px;
+  white-space:nowrap; cursor:pointer; transition:all .2s;
+}
+nav.tabs button:hover{color:var(--ink-soft); background:rgba(184,128,45,0.08)}
+nav.tabs button.active{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+nav.tabs button .num{font-family:'JetBrains Mono', monospace; font-size:11px; opacity:.7; margin-right:4px}
+main{padding:8px 0}
+section.stage{display:none; animation:fade .35s ease}
+section.stage.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+.stage-head{margin:8px 0 18px}
+.stage-head .tag{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--ochre); letter-spacing:.2em}
+h2{font-family:'Fraunces', serif; font-weight:600; font-size:26px; margin:2px 0 8px; color:var(--ink)}
+h3{font-family:'Fraunces', serif; font-weight:600; font-size:18px; margin:22px 0 10px; color:var(--ink-soft)}
+h4{font-weight:600; font-size:15px; margin:14px 0 8px; color:var(--ink-soft)}
+p{margin:0 0 12px}
+.hi, .dev{font-family:'Noto Serif Devanagari', serif}
+.mono{font-family:'JetBrains Mono', monospace; font-size:.9em; color:var(--ink-faded)}
+.lead{font-size:17px; color:var(--ink-soft)}
+.sindoor{color:var(--sindoor)} .ochre{color:var(--ochre)} .teal{color:var(--teal)}
+
+.aside{
+  border-left:3px solid var(--sindoor);
+  background:linear-gradient(180deg, rgba(168,48,36,0.06), rgba(168,48,36,0.02));
+  padding:14px 16px; margin:18px 0; border-radius:2px 8px 8px 2px;
+}
+.aside.teal{border-color:var(--teal); background:linear-gradient(180deg, rgba(31,77,74,0.07), rgba(31,77,74,0.02))}
+.aside.ochre{border-color:var(--ochre); background:linear-gradient(180deg, rgba(184,128,45,0.08), rgba(184,128,45,0.02))}
+.aside .label{font-family:'Fraunces', serif; font-style:italic; color:var(--sindoor); font-size:13px; letter-spacing:.05em; margin-bottom:4px; display:block}
+.aside.teal .label{color:var(--teal)}
+.aside.ochre .label{color:var(--ochre)}
+
+.principles{counter-reset:p; list-style:none; padding:0; margin:18px 0}
+.principles li{
+  counter-increment:p; position:relative; padding:10px 10px 10px 44px; margin:0 0 10px;
+  background:rgba(239,229,204,0.55); border-radius:6px;
+}
+.principles li::before{
+  content:counter(p,decimal-leading-zero);
+  position:absolute; left:12px; top:11px;
+  font-family:'JetBrains Mono', monospace; font-size:12px;
+  color:var(--sindoor); font-weight:600;
+}
+
+.grid{display:grid; gap:10px}
+.vowel-grid{grid-template-columns:repeat(4, 1fr)}
+.varga-grid{grid-template-columns:repeat(5, 1fr)}
+.cards{grid-template-columns:repeat(3, 1fr)}
+.map-grid{grid-template-columns:repeat(3, 1fr)}
+
+.card{
+  background:var(--paper-warm);
+  border:1px solid rgba(107,91,72,0.18);
+  padding:12px 10px; border-radius:8px; text-align:center;
+  cursor:pointer; transition:all .2s; position:relative;
+}
+.card:hover{background:var(--paper-deep); transform:translateY(-1px); box-shadow:0 2px 8px rgba(28,22,17,0.08)}
+.card .src{font-size:28px; color:var(--teal); font-family:'Noto Serif Gurmukhi', serif; line-height:1}
+.card .tgt{font-size:28px; color:var(--sindoor); font-family:'Noto Serif Devanagari', serif; line-height:1; margin-top:2px}
+.card .ipa{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--ink-faded); margin-top:4px}
+.card .hint{display:none; font-size:12px; color:var(--ink-soft); margin-top:6px; line-height:1.4; text-align:left}
+.card.open .hint{display:block}
+.card.new::after{
+  content:"⚡"; position:absolute; top:4px; right:6px; font-size:11px;
+}
+.card.new{border-color:var(--sindoor); background:linear-gradient(180deg, rgba(168,48,36,0.06), var(--paper-warm))}
+
+.family{
+  background:rgba(232,220,190,0.4); padding:14px; border-radius:10px; margin:14px 0;
+  border:1px dashed rgba(107,91,72,0.25);
+}
+.family h4{margin:0 0 4px; color:var(--ochre); font-family:'Fraunces', serif}
+.family .note{font-size:13px; color:var(--ink-faded); margin-bottom:10px}
+
+table{width:100%; border-collapse:collapse; margin:10px 0; font-size:14px; background:rgba(239,229,204,0.35); border-radius:8px; overflow:hidden}
+th, td{padding:8px 10px; text-align:left; border-bottom:1px solid rgba(107,91,72,0.15)}
+th{background:rgba(58,47,36,0.06); font-weight:600; color:var(--ink-soft); font-size:13px}
+td.hi, td.dev{font-family:'Noto Serif Devanagari', serif; font-size:17px; color:var(--sindoor)}
+td.pa{font-family:'Noto Serif Gurmukhi', serif; font-size:17px; color:var(--teal)}
+td.mono{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-faded)}
+
+.video{margin:18px 0}
+.video-frame{position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; border:1px solid rgba(107,91,72,0.2)}
+.video-frame iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0}
+.video-caption{margin-top:6px; font-size:13px; color:var(--ink-faded)}
+.video-caption a{color:var(--teal); text-decoration:none; border-bottom:1px dotted var(--teal)}
+
+.passage{
+  background:rgba(244,236,218,0.6); padding:16px 18px; border-radius:10px;
+  border:1px solid rgba(107,91,72,0.18); margin:14px 0;
+}
+.passage .tgt{font-family:'Noto Serif Devanagari', serif; font-size:19px; color:var(--ink); line-height:1.9; margin-bottom:10px}
+.passage .translit{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-faded); margin-bottom:10px; line-height:1.7}
+.passage .gloss{color:var(--ink-soft); font-size:15px; border-top:1px dashed rgba(107,91,72,0.3); padding-top:10px}
+.passage .gloss::before{content:"ਅਰਥ · "; font-family:'Fraunces', serif; font-style:italic; color:var(--ochre); font-size:12px; letter-spacing:.1em}
+
+.dialogue{margin:8px 0}
+.dialogue .line{padding:6px 0; border-bottom:1px dotted rgba(107,91,72,0.2)}
+.dialogue .line:last-child{border-bottom:0}
+.dialogue .who{font-family:'Fraunces', serif; font-style:italic; color:var(--ochre); font-size:13px; margin-right:6px}
+
+.lit{padding:14px 0; border-bottom:1px solid rgba(107,91,72,0.2)}
+.lit:last-child{border-bottom:0}
+.lit .name{font-family:'Fraunces', serif; font-size:18px; color:var(--sindoor)}
+.lit .name .hi{font-family:'Noto Serif Devanagari', serif; color:var(--ink)}
+.lit .era{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--ink-faded); margin-left:6px}
+.lit .bridge{margin-top:6px; font-size:14px; color:var(--ink-soft)}
+.lit .bridge::before{content:"▸ ਪੁਲ · "; font-family:'Fraunces', serif; font-style:italic; color:var(--teal); letter-spacing:.05em; font-size:12px}
+
+.nav-btns{display:flex; justify-content:space-between; margin-top:28px; padding-top:18px; border-top:1px solid rgba(107,91,72,0.25)}
+.nav-btns button{
+  font-family:inherit; font-size:14px; color:var(--ink-soft);
+  background:transparent; border:1px solid rgba(107,91,72,0.35); padding:8px 16px; border-radius:6px;
+  cursor:pointer;
+}
+.nav-btns button:hover{background:rgba(184,128,45,0.1); color:var(--ink)}
+.nav-btns button:disabled{opacity:.35; cursor:not-allowed}
+
+footer{
+  text-align:center; margin-top:50px; padding-top:22px;
+  border-top:1px solid rgba(107,91,72,0.25);
+  font-size:12px; color:var(--ink-faded); font-family:'Fraunces', serif; font-style:italic; letter-spacing:.08em;
+}
+
+.pill{
+  display:inline-block; font-family:'JetBrains Mono', monospace; font-size:10px;
+  background:rgba(31,77,74,0.1); color:var(--teal); padding:2px 7px; border-radius:99px;
+  letter-spacing:.1em; margin-left:4px; vertical-align:middle;
+}
+.pill.s{background:rgba(168,48,36,0.1); color:var(--sindoor)}
+.pill.o{background:rgba(184,128,45,0.12); color:var(--ochre)}
+
+@media (max-width: 420px){
+  body{font-size:15px}
+  .wrap,main,.container,article{padding-left:14px !important; padding-right:14px !important}
+  .grid,.map-grid,.cards,.varga-grid,.vowel-grid{grid-template-columns:1fr 1fr !important; gap:8px !important}
+  .stage,section{padding:14px !important}
+  h1{font-size:22px !important} h2{font-size:18px !important} h3{font-size:15px !important}
+  table{font-size:13px}
+  iframe{max-width:100%; height:auto; aspect-ratio:16/9}
+}
+@media (max-width: 340px){
+  .grid,.map-grid,.cards,.varga-grid,.vowel-grid{grid-template-columns:1fr !important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="kicker">ਭਾਸ਼ਾ-ਸੇਤੂ · Bhashasetu</div>
+  <h1><span class="pa">ਪੰਜਾਬੀ</span> <span style="color:var(--ink-faded); font-weight:400">ਤੋਂ</span> <span class="hi">हिन्दी</span></h1>
+  <p class="subtitle">ਨਾਨਕ ਦੀ ਬਾਣੀ ਤੋਂ ਪ੍ਰੇਮਚੰਦ ਦੇ ਪਿੰਡ ਤੱਕ — ਦੇਵਨਾਗਰੀ ਦਾ ਇਕ ਸੌਖਾ ਰਾਹ।</p>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-stage="0" class="active"><span class="num">00</span>ਜਾਣ-ਪਛਾਣ</button>
+  <button data-stage="1"><span class="num">01</span>ਸਵਰ</button>
+  <button data-stage="2"><span class="num">02</span>ਵਿਅੰਜਨ</button>
+  <button data-stage="3"><span class="num">03</span>ਜੋੜ</button>
+  <button data-stage="4"><span class="num">04</span>ਮੁੱਖ ਸ਼ਬਦ</button>
+  <button data-stage="5"><span class="num">05</span>ਵਾਕ</button>
+  <button data-stage="6"><span class="num">06</span>ਪੜ੍ਹਾਈ</button>
+  <button data-stage="7"><span class="num">07</span>ਸ਼ਬਦ-ਖੇਤਰ</button>
+  <button data-stage="8"><span class="num">08</span>ਵਰਤੋਂ</button>
+  <button data-stage="9"><span class="num">09</span>ਸਾਹਿਤ</button>
+</nav>
+
+<main>
+
+<!-- STAGE 00 -->
+<section class="stage active" data-stage="0">
+  <div class="stage-head"><div class="tag">STAGE · 00</div><h2>ਜਾਣ-ਪਛਾਣ — ਦੋ ਭੈਣਾਂ ਦਾ ਮੇਲ</h2></div>
+  <p class="lead">ਜਿਵੇਂ ਤੁਸੀਂ ਬਚਪਨ ਵਿੱਚ <b>ਪੈਂਤੀ ਅੱਖਰੀ</b> ਸਿੱਖੀ ਸੀ — ਊੜਾ, ਐੜਾ, ਈੜੀ, ਸੱਸਾ, ਹਾਹਾ — ਹਿੰਦੀ ਵਿਚ ਵੀ ਉਹੀ ਤਰਤੀਬ ਹੈ, ਬੱਸ ਚਿਹਰੇ ਬਦਲ ਗਏ ਹਨ। ਦੇਵਨਾਗਰੀ ਕੋਈ ਨਵੀਂ ਭਾਸ਼ਾ ਨਹੀਂ — ਉਹੀ ਤੁਹਾਡੀ ਗੁਰਮੁਖੀ ਦੀ ਵੱਡੀ ਭੈਣ ਹੈ, ਜੋ ਦੱਖਣ ਵੱਲ ਮੁੜ ਕੇ ਕੁਝ ਕੁ ਨੁਕਤੇ ਲੈ ਕੇ ਸੰਸਕ੍ਰਿਤ ਨਾਲ ਵਧੇਰੇ ਜੁੜੀ ਰਹੀ।</p>
+
+  <p>ਇਹ ਸੋਚੋ — ਪੰਜਾਬੀ ਦਾ <b>ਮੈਂ ਘਰ ਜਾਂਦਾ ਹਾਂ</b> ਅਤੇ ਹਿੰਦੀ ਦਾ <span class="dev">मैं घर जाता हूँ</span> (maĩ ghar jātā hū̃) — ਸ਼ਬਦ-ਤਰਤੀਬ ਬਿਲਕੁਲ ਇਕੋ ਹੈ: ਕਰਤਾ → ਕਰਮ → ਕਿਰਿਆ। ਨਾ ਤਰਤੀਬ ਬਦਲੀ, ਨਾ ਸੋਚਣ ਦਾ ਢੰਗ। <b>44 ਵਿੱਚੋਂ 42 ਧੁਨੀਆਂ</b> ਤੁਹਾਡੇ ਮੂੰਹ ਨੂੰ ਪਹਿਲਾਂ ਹੀ ਆਉਂਦੀਆਂ ਹਨ — ਸਿਰਫ਼ ਦੋ ਨਵੀਆਂ: <span class="dev">ष</span> (ʂ) ਅਤੇ <span class="dev">ऋ</span> (ɾi)।</p>
+
+  <p>ਵੱਡਾ ਫ਼ਰਕ ਸਿਰਫ਼ <i>ਅੱਖਰਾਂ ਦੀ ਸ਼ਕਲ</i> ਦਾ ਹੈ, ਨਾ ਕਿ ਬੋਲੀ ਦਾ। ਜੋ ਤੁਸੀਂ ਪਹਿਲਾਂ ਤੋਂ ਜਾਣਦੇ ਹੋ, ਉਹ ਅਸੀਂ ਦੁਬਾਰਾ ਨਹੀਂ ਪੜ੍ਹਾਵਾਂਗੇ; ਬੱਸ ਨਵੇਂ ਰੂਪ ਵਿਚ ਪਛਾਣਾਵਾਂਗੇ।</p>
+
+  <ol class="principles">
+    <li><b>ਲਿਪੀ ਦੀ ਭੈਣ-ਭੈਣ ਦੀ ਰਿਸ਼ਤੇਦਾਰੀ।</b> ਦੋਵੇਂ <i>ਅਭੁਗਿਦਾ</i> ਹਨ — ਵਿਅੰਜਨ ਵਿੱਚ ਅੰਤਰਗਤ 'ਅ' ਪਹਿਲਾਂ ਹੀ ਬੈਠਾ ਹੁੰਦਾ ਹੈ, ਤੇ ਸਵਰ-ਚਿੰਨ੍ਹ ਉੱਪਰ/ਥੱਲੇ/ਅੱਗੇ/ਪਿੱਛੇ ਲੱਗਦੇ ਹਨ। ਪੰਜਾਬੀ <span class="pa" style="color:var(--teal)">ਕ + ਾ = ਕਾ</span>; ਹਿੰਦੀ <span class="dev sindoor">क + ा = का</span> — ਤਰਕ ਇਕੋ, ਸਿਰਫ਼ ਸ਼ਕਲ ਵੱਖਰੀ।</li>
+    <li><b>42/44 ਧੁਨੀਆਂ ਸਾਂਝੀਆਂ।</b> ਕ, ਖ, ਗ, ਘ, ਙ … ਪੰਜਾਂ ਵਰਗਾਂ ਦੇ ਬਹੁਤੇ ਅੱਖਰ ਉਹੀ ਆਵਾਜ਼ ਦਿੰਦੇ ਹਨ। ਸਿਰਫ਼ <span class="dev sindoor">ष</span> (ਮੂਰਧਨਯ ʂ) ਅਤੇ <span class="dev sindoor">ऋ</span> (ɾi) ਹੀ ਨਵੇਂ ਹਨ — ਤੇ ਇਹ ਦੋਵੇਂ ਜ਼ਿਆਦਾਤਰ ਤਤਸਮ (ਸੰਸਕ੍ਰਿਤ) ਸ਼ਬਦਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ।</li>
+    <li><b>ਵਾਕ-ਤਰਤੀਬ ਇਕੋ ਹੈ (SOV)।</b> ਪੰਜਾਬੀ <i>ਓਹ ਕਿਤਾਬ ਪੜ੍ਹਦਾ ਹੈ</i> → ਹਿੰਦੀ <span class="dev">वह किताब पढ़ता है</span>। ਕਰਤਾ ਪਹਿਲਾਂ, ਕਿਰਿਆ ਅੰਤ ਵਿਚ — ਤੁਹਾਡਾ ਦਿਮਾਗ਼ ਪਹਿਲਾਂ ਤੋਂ ਇਸੇ ਤਰਤੀਬ ਵਿਚ ਸੋਚਦਾ ਹੈ।</li>
+    <li><b>ਨੁਕਤਾ (dot) — ਦੋਵਾਂ ਦੀ ਸਾਂਝ।</b> ਜਿਵੇਂ ਪੰਜਾਬੀ ਵਿਚ <span class="pa" style="color:var(--teal)">ਜ਼, ਫ਼, ਗ਼, ਖ਼, ਸ਼, ਲ਼</span> — ਹਿੰਦੀ ਵਿਚ ਵੀ <span class="dev sindoor">ज़, फ़, ग़, ख़, ष</span> ਨੁਕਤੇ ਨਾਲ ਬਣਦੇ ਹਨ। ਪਰ ਰੋਜ਼ਾਨਾ ਹਿੰਦੀ ਵਿੱਚ ਇਹ ਅਕਸਰ ਲਿਖੇ ਨਹੀਂ ਜਾਂਦੇ; <i>ਜ਼ਿਮੀਂਦਾਰ</i> ਅਕਸਰ <span class="dev">जमींदार</span> ਲਿਖਿਆ ਮਿਲੇਗਾ।</li>
+    <li><b>ਟੋਨ ਦਾ ਫ਼ਰਕ।</b> ਪੰਜਾਬੀ ਵਿਚ ਤਿੰਨ ਟੋਨ ਹਨ — ਤੁਹਾਡਾ <i>ਕੋੜਾ</i> (whip, ਉੱਚਾ ਟੋਨ) ਅਤੇ <i>ਘੋੜਾ</i> (horse, ਨੀਵਾਂ ਟੋਨ) ਵਿੱਚ ਫ਼ਰਕ ਹੈ। <b>ਹਿੰਦੀ ਵਿਚ ਟੋਨ ਨਹੀਂ</b> — ਉਹ ਸਾਰੀ ਟੋਨ-ਸੂਚਨਾ <i>ਘ/ਝ/ਢ/ਧ/ਭ</i> ਜਿਹੇ ਮਹਾਪ੍ਰਾਣ (aspirated) ਅੱਖਰਾਂ ਨਾਲ ਹੀ ਦਿਖਾਉਂਦੀ ਹੈ। ਤੁਹਾਡਾ ਪੰਜਾਬੀ <span class="pa teal">ਘੋੜਾ</span> → ਹਿੰਦੀ <span class="dev sindoor">घोड़ा</span> — ਲਿਖਤ ਵਿਚ <span class="dev sindoor">घ</span> ਦਾ ਪੂਰਾ ਹਵਾ-ਛੱਡਦਾ ਉਚਾਰਨ ਕਰੋ।</li>
+    <li><b>ਸ਼੍ਵਾ-ਲੋਪ (schwa-deletion) — ਨਵਾਂ ਨਿਯਮ।</b> ਹਿੰਦੀ ਵਿਚ ਸ਼ਬਦ ਦੇ ਅੰਤ ਵਾਲਾ 'ਅ' ਅਕਸਰ ਚੁੱਪ ਹੁੰਦਾ ਹੈ: <span class="dev">राम</span> = "ਰਾਮ" ਨਹੀਂ "ਰਾਮਅ"; <span class="dev">नमस्ते</span> = "namaste" ਨਹੀਂ "namastey"। ਪੰਜਾਬੀ ਵਿਚ ਤੁਸੀਂ ਪਹਿਲਾਂ ਹੀ <span class="pa teal">ਰਾਮ</span> ਕਹਿੰਦੇ ਹੋ — ਇਹ ਨਿਯਮ ਤੁਹਾਡੇ ਮੂੰਹ ਵਿਚ ਪਹਿਲਾਂ ਤੋਂ ਹੈ, ਬੱਸ ਲਿਖਤ ਵਿਚ ਯਾਦ ਰੱਖਣਾ ਹੈ।</li>
+  </ol>
+
+  <div class="aside teal">
+    <span class="label">ਸਭ ਤੋਂ ਵੱਡੀ ਖ਼ਬਰ</span>
+    ਜੇ ਤੁਸੀਂ ਪੰਜਾਬੀ ਪੜ੍ਹ ਸਕਦੇ ਹੋ, ਤੁਸੀਂ ਹਿੰਦੀ ਦਾ <b>70%</b> ਮੁਫ਼ਤ ਵਿਚ ਸਮਝ ਲੈਂਦੇ ਹੋ। ਬਾਕੀ 30% — ਲਿਪੀ ਦੀ ਪਛਾਣ, ਸ਼੍ਵਾ-ਲੋਪ, ਤਿੰਨ ਆਦਰ-ਪੱਧਰ (ਤੂ/ਤੁਮ/ਆਪ), ਅਤੇ ਥੋੜ੍ਹੇ ਤਤਸਮ ਸ਼ਬਦ — ਇਹੀ ਅਸੀਂ ਦਸ ਪੜਾਵਾਂ ਵਿੱਚ ਕਰਾਂਗੇ।
+  </div>
+</section>
+
+<!-- STAGE 01 -->
+<section class="stage" data-stage="1">
+  <div class="stage-head"><div class="tag">STAGE · 01</div><h2>ਸਵਰ — ਆਵਾਜ਼ਾਂ ਦਾ ਪਰਿਵਾਰ</h2></div>
+  <p>ਹਿੰਦੀ ਦੇ ਸਵਰ ਉਹੀ ਗਿਆਰਾਂ ਹਨ ਜੋ ਪੰਜਾਬੀ ਵਿਚ ਤੁਸੀਂ ਊੜੇ-ਐੜੇ ਨਾਲ ਸਿੱਖੇ ਸੀ। ਬੱਸ ਇਕ ਨਵਾਂ ਮੈਂਬਰ ਹੈ: <span class="dev sindoor">ऋ</span> — ਜੋ ਅੱਜ-ਕੱਲ੍ਹ "ri" ਵਾਂਗੂ ਹੀ ਬੋਲਿਆ ਜਾਂਦਾ ਹੈ।</p>
+
+  <div class="family">
+    <h4>'ਅ' ਪਰਿਵਾਰ <span class="pill o">ਛੋਟਾ · ਲੰਮਾ</span></h4>
+    <div class="note">ਪੰਜਾਬੀ <span class="pa teal">ਅ / ਆ</span> = ਹਿੰਦੀ <span class="dev sindoor">अ / आ</span>। ਬਿਲਕੁਲ ਉਹੀ ਭੇਦ।</div>
+    <div class="grid vowel-grid">
+      <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਅ</div><div class="tgt">अ</div><div class="ipa">a</div><div class="hint"><span class="dev">अब</span> (ab) = ਹੁਣ — ਅੰਤਰਗਤ 'ਅ', ਛੋਟਾ।</div></div>
+      <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਆ</div><div class="tgt">आ</div><div class="ipa">aː</div><div class="hint"><span class="dev">आम</span> (ām) = ਅੰਬ — ਲੰਮਾ, ਖਿੱਚ ਕੇ।</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ਇ' ਪਰਿਵਾਰ <span class="pill o">ਛੋਟਾ · ਲੰਮਾ</span></h4>
+    <div class="note">ਹਿੰਦੀ ਦੀ ਸਿਹਾਰੀ <span class="dev sindoor">ि</span> ਅੱਖਰ ਤੋਂ <b>ਪਹਿਲਾਂ</b> ਲਿਖੀ ਜਾਂਦੀ ਹੈ ਪਰ ਬਾਅਦ ਵਿਚ ਪੜ੍ਹੀ — ਪੰਜਾਬੀ ਵਾਂਗ ਹੀ <span class="pa teal">ਕਿ</span> → <span class="dev sindoor">कि</span>।</div>
+    <div class="grid vowel-grid">
+      <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਇ</div><div class="tgt">इ</div><div class="ipa">i</div><div class="hint"><span class="dev">इधर</span> (idhar) = ਇੱਧਰ।</div></div>
+      <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਈ</div><div class="tgt">ई</div><div class="ipa">iː</div><div class="hint"><span class="dev">ईख</span> (īkh) = ਗੰਨਾ; ਲੰਮੀ ਬਿਹਾਰੀ।</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ਉ' ਪਰਿਵਾਰ <span class="pill o">ਛੋਟਾ · ਲੰਮਾ</span></h4>
+    <div class="note">ਪੰਜਾਬੀ <span class="pa teal">ਉ / ਊ</span> — ਔਂਕੜ ਤੇ ਦੁਲੈਂਕੜ ਦਾ ਫ਼ਰਕ ਹਿੰਦੀ ਵਿਚ ਵੀ ਉਹੀ ਹੈ।</div>
+    <div class="grid vowel-grid">
+      <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਉ</div><div class="tgt">उ</div><div class="ipa">u</div><div class="hint"><span class="dev">उधर</span> (udhar) = ਉੱਧਰ।</div></div>
+      <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਊ</div><div class="tgt">ऊ</div><div class="ipa">uː</div><div class="hint"><span class="dev">ऊन</span> (ūn) = ਉੱਨ।</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ਏ' ਪਰਿਵਾਰ <span class="pill">ਲੰਮਾ · ਦੁਸਵਰ</span></h4>
+    <div class="note">ਪੰਜਾਬੀ <span class="pa teal">ਏ / ਐ</span> = ਹਿੰਦੀ <span class="dev sindoor">ए / ऐ</span>। ਹਿੰਦੀ ਵਿੱਚ <span class="dev">ऐ</span> ਅਕਸਰ "ai" ਤੋਂ "ɛ" ਵੱਲ ਖਿਸਕ ਜਾਂਦਾ ਹੈ।</div>
+    <div class="grid vowel-grid">
+      <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਏ</div><div class="tgt">ए</div><div class="ipa">e</div><div class="hint"><span class="dev">एक</span> (ek) = ਇਕ।</div></div>
+      <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਐ</div><div class="tgt">ऐ</div><div class="ipa">ai / ɛ</div><div class="hint"><span class="dev">ऐसा</span> (aisā) = ਇਸ ਤਰ੍ਹਾਂ।</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ਓ' ਪਰਿਵਾਰ <span class="pill">ਲੰਮਾ · ਦੁਸਵਰ</span></h4>
+    <div class="note">ਪੰਜਾਬੀ <span class="pa teal">ਓ / ਔ</span> = ਹਿੰਦੀ <span class="dev sindoor">ओ / औ</span>। <span class="dev">औ</span> ਅਕਸਰ "ɔ" (ਖੁੱਲ੍ਹਾ 'ਔ') ਵਾਂਗ।</div>
+    <div class="grid vowel-grid">
+      <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਓ</div><div class="tgt">ओ</div><div class="ipa">o</div><div class="hint"><span class="dev">ओस</span> (os) = ਤ੍ਰੇਲ।</div></div>
+      <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਔ</div><div class="tgt">औ</div><div class="ipa">au / ɔ</div><div class="hint"><span class="dev">और</span> (aur) = ਅਤੇ।</div></div>
+    </div>
+  </div>
+
+  <div class="family">
+    <h4>'ऋ' — ਨਵਾਂ ਮੈਂਬਰ <span class="pill s">⚡ ਨਵਾਂ</span></h4>
+    <div class="note">ਪੰਜਾਬੀ ਵਿਚ ਇਸ ਦਾ ਕੋਈ ਸਵਰ-ਜੋੜ ਨਹੀਂ; ਪਰ ਅੱਜ-ਕੱਲ੍ਹ ਹਿੰਦੀ ਵਾਲੇ ਵੀ ਇਹ "ri" ਵਾਂਗੂ ਹੀ ਬੋਲਦੇ ਹਨ — ਪੁਰਾਣਾ ਸੰਸਕ੍ਰਿਤ ɾ̩ ਹੁਣ ਘੱਟ ਸੁਣਨ ਨੂੰ ਮਿਲਦਾ ਹੈ।</div>
+    <div class="grid vowel-grid">
+      <div class="card new" onclick="this.classList.toggle('open')"><div class="src">—</div><div class="tgt">ऋ</div><div class="ipa">ɾi / ri</div><div class="hint"><span class="dev">ऋतु</span> (ritu) = ਰੁੱਤ; <span class="dev">ऋषि</span> (rishi) = ਰਿਸ਼ੀ।</div></div>
+    </div>
+  </div>
+
+  <div class="aside ochre">
+    <span class="label">ਨਾਸਿਕੀ (nasal) — ਬਿੰਦੀ ਤੇ ਟਿੱਪੀ</span>
+    ਪੰਜਾਬੀ ਦੀ <span class="pa teal">ਬਿੰਦੀ (ਂ)</span> ਅਤੇ <span class="pa teal">ਟਿੱਪੀ (ੰ)</span> ਦਾ ਕੰਮ ਹਿੰਦੀ ਵਿਚ <span class="dev sindoor">चंद्रबिन्दु (ँ)</span> ਅਤੇ <span class="dev sindoor">अनुस्वार (ं)</span> ਕਰਦੇ ਹਨ। ਪੰਜਾਬੀ <span class="pa teal">ਮੈਂ</span> = ਹਿੰਦੀ <span class="dev sindoor">मैं</span>; ਪੰਜਾਬੀ <span class="pa teal">ਹਾਂ</span> = ਹਿੰਦੀ <span class="dev sindoor">हूँ</span>।
+  </div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+hindi+vowels+swar+pronunciation" title="Hindi vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ਹਿੰਦੀ ਸਵਰਾਂ ਦਾ ਉਚਾਰਨ ਕੰਨਾਂ ਨਾਲ ਸੁਣੋ। <a href="https://www.youtube.com/results?search_query=learn+hindi+vowels+swar+pronunciation" target="_blank" rel="noopener">ਹੋਰ ਵੀਡੀਓ ਲੱਭੋ ↗</a></div>
+  </div>
+
+  <div class="nav-btns"><button onclick="go(0)">← ਪਿੱਛੇ · ਜਾਣ-ਪਛਾਣ</button><button onclick="go(2)">ਅੱਗੇ · ਵਿਅੰਜਨ →</button></div>
+</section>
+
+<!-- STAGE 02 -->
+<section class="stage" data-stage="2">
+  <div class="stage-head"><div class="tag">STAGE · 02</div><h2>ਵਿਅੰਜਨ — ਪੰਜ ਵਰਗ, ਜਾਣੀ-ਪਛਾਣੀ ਤਰਤੀਬ</h2></div>
+  <p>ਸਾਰੇ ਵਿਅੰਜਨ ਉਸੇ ਤਰਤੀਬ ਵਿਚ ਹਨ ਜੋ ਤੁਸੀਂ ਪੈਂਤੀ ਅੱਖਰੀ ਵਿਚ ਸਿੱਖੀ ਸੀ: ਕੰਠ (velar), ਤਾਲਵੀ (palatal), ਮੂਰਧਨਯ (retroflex), ਦੰਤ (dental), ਓਸ਼ਠ (labial)। ਹਰ ਵਰਗ ਵਿਚ ਪੰਜ ਅੱਖਰ — ਅਲਪ-ਪ੍ਰਾਣ, ਮਹਾ-ਪ੍ਰਾਣ, ਮਿੱਠਾ, ਮਿੱਠਾ-ਮਹਾਪ੍ਰਾਣ, ਨਾਸਿਕੀ।</p>
+
+  <h3>ਕੰਠ ਵਰਗ <span class="pill">ka-varga</span></h3>
+  <div class="grid varga-grid">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਕ</div><div class="tgt">क</div><div class="ipa">ka</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਖ</div><div class="tgt">ख</div><div class="ipa">kha</div><div class="hint">ਮਹਾਪ੍ਰਾਣ — ਹਵਾ ਛੱਡੋ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਗ</div><div class="tgt">ग</div><div class="ipa">ga</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਘ</div><div class="tgt">घ</div><div class="ipa">gha</div><div class="hint"><span class="dev">घर</span> (ghar) = ਘਰ — ਪੂਰਾ ਮਹਾਪ੍ਰਾਣ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਙ</div><div class="tgt">ङ</div><div class="ipa">ṅa</div><div class="hint">ਇਕੱਲਾ ਘੱਟ ਵਰਤਿਆ; 'ng' ਦੀ ਆਵਾਜ਼।</div></div>
+  </div>
+
+  <h3>ਤਾਲਵੀ ਵਰਗ <span class="pill">ca-varga</span></h3>
+  <div class="grid varga-grid">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਚ</div><div class="tgt">च</div><div class="ipa">ca</div><div class="hint"><span class="dev">चार</span> (cār) = ਚਾਰ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਛ</div><div class="tgt">छ</div><div class="ipa">cha</div><div class="hint"><span class="dev">छह</span> (chah) = ਛੇ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਜ</div><div class="tgt">ज</div><div class="ipa">ja</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਝ</div><div class="tgt">झ</div><div class="ipa">jha</div><div class="hint"><span class="dev">झरना</span> (jharnā) = ਝਰਨਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਞ</div><div class="tgt">ञ</div><div class="ipa">ña</div><div class="hint">ਇਕੱਲਾ ਘੱਟ ਵਰਤਿਆ।</div></div>
+  </div>
+
+  <h3>ਮੂਰਧਨਯ ਵਰਗ <span class="pill">ṭa-varga</span></h3>
+  <div class="grid varga-grid">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਟ</div><div class="tgt">ट</div><div class="ipa">ṭa</div><div class="hint">ਜੀਭ ਉੱਪਰ ਮੋੜ ਕੇ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਠ</div><div class="tgt">ठ</div><div class="ipa">ṭha</div><div class="hint"><span class="dev">ठीक</span> (ṭhīk) = ਠੀਕ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਡ</div><div class="tgt">ड</div><div class="ipa">ḍa</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਢ</div><div class="tgt">ढ</div><div class="ipa">ḍha</div><div class="hint"><span class="dev">ढूँढ़ना</span> = ਢੂੰਡਣਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਣ</div><div class="tgt">ण</div><div class="ipa">ṇa</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+  </div>
+
+  <h3>ਦੰਤ ਵਰਗ <span class="pill">ta-varga</span></h3>
+  <div class="grid varga-grid">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਤ</div><div class="tgt">त</div><div class="ipa">ta</div><div class="hint">ਜੀਭ ਦੰਦਾਂ ਨਾਲ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਥ</div><div class="tgt">थ</div><div class="ipa">tha</div><div class="hint"><span class="dev">थाली</span> = ਥਾਲੀ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਦ</div><div class="tgt">द</div><div class="ipa">da</div><div class="hint"><span class="dev">दिन</span> = ਦਿਨ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਧ</div><div class="tgt">ध</div><div class="ipa">dha</div><div class="hint"><span class="dev">धूप</span> = ਧੁੱਪ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਨ</div><div class="tgt">न</div><div class="ipa">na</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+  </div>
+
+  <h3>ਓਸ਼ਠ ਵਰਗ <span class="pill">pa-varga</span></h3>
+  <div class="grid varga-grid">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਪ</div><div class="tgt">प</div><div class="ipa">pa</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਫ</div><div class="tgt">फ</div><div class="ipa">pha</div><div class="hint"><span class="dev">फल</span> = ਫਲ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਬ</div><div class="tgt">ब</div><div class="ipa">ba</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਭ</div><div class="tgt">भ</div><div class="ipa">bha</div><div class="hint"><span class="dev">भाई</span> = ਭਾਈ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਮ</div><div class="tgt">म</div><div class="ipa">ma</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+  </div>
+
+  <h3>ਅੰਤਸਥ ਅਤੇ ਊਸ਼ਮ <span class="pill">y r l v · ś ṣ s h</span></h3>
+  <div class="grid varga-grid">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਯ</div><div class="tgt">य</div><div class="ipa">ya</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਰ</div><div class="tgt">र</div><div class="ipa">ra</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਲ</div><div class="tgt">ल</div><div class="ipa">la</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਵ</div><div class="tgt">व</div><div class="ipa">va/wa</div><div class="hint">ਪੰਜਾਬੀ ਵੱਵਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਸ਼</div><div class="tgt">श</div><div class="ipa">śa</div><div class="hint"><span class="dev">शाम</span> = ਸ਼ਾਮ।</div></div>
+    <div class="card new" onclick="this.classList.toggle('open')"><div class="src">—</div><div class="tgt">ष</div><div class="ipa">ṣa</div><div class="hint">ਮੂਰਧਨਯ 'ਸ਼' — ਲਿਖਤ ਵਿਚ ਹੀ ਵੱਖ; ਬੋਲ ਅਕਸਰ श ਵਾਂਗ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਸ</div><div class="tgt">स</div><div class="ipa">sa</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਹ</div><div class="tgt">ह</div><div class="ipa">ha</div><div class="hint">ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ।</div></div>
+  </div>
+
+  <h3>ਨੁਕਤੇ ਵਾਲੇ (perso-arabic) <span class="pill o">ਜਾਣੀ-ਪਛਾਣੀ</span></h3>
+  <div class="grid varga-grid">
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਕ਼</div><div class="tgt">क़</div><div class="ipa">qa</div><div class="hint"><span class="dev">क़िला</span> = ਕ਼ਿਲਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਖ਼</div><div class="tgt">ख़</div><div class="ipa">x</div><div class="hint"><span class="dev">ख़त</span> = ਖ਼ਤ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਗ਼</div><div class="tgt">ग़</div><div class="ipa">ɣ</div><div class="hint"><span class="dev">ग़ज़ल</span> = ਗ਼ਜ਼ਲ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਜ਼</div><div class="tgt">ज़</div><div class="ipa">za</div><div class="hint"><span class="dev">ज़रा</span> = ਜ਼ਰਾ।</div></div>
+    <div class="card" onclick="this.classList.toggle('open')"><div class="src">ਫ਼</div><div class="tgt">फ़</div><div class="ipa">fa</div><div class="hint"><span class="dev">फ़ोन</span> = ਫ਼ੋਨ।</div></div>
+  </div>
+
+  <div class="aside">
+    <span class="label">ਟੋਨ ਦੀ ਵਾਪਸੀ</span>
+    ਪੰਜਾਬੀ ਦਾ ਸਭ ਤੋਂ ਅਨੋਖਾ ਨਿਯਮ ਯਾਦ ਹੈ? <b>ਘ, ਝ, ਢ, ਧ, ਭ</b> ਅਕਸਰ ਸ਼ਬਦ ਦੇ ਸ਼ੁਰੂ ਵਿਚ <i>ਨੀਵੇਂ ਟੋਨ</i> ਵਜੋਂ ਬੋਲੇ ਜਾਂਦੇ ਹਨ (<span class="pa teal">ਘੋੜਾ</span> = "kòɽa")। ਹਿੰਦੀ ਵਿਚ ਟੋਨ ਨਹੀਂ — ਇਹੀ ਅੱਖਰ ਆਪਣਾ ਪੂਰਾ ਮਹਾਪ੍ਰਾਣ ਵਾਪਸ ਲੈ ਲੈਂਦੇ ਹਨ: <span class="dev sindoor">घोड़ा</span> = "ghoɽa" — ਪੂਰੀ ਹਵਾ ਨਾਲ। ਜਦੋਂ ਤੁਸੀਂ ਹਿੰਦੀ ਬੋਲੋ, <b>ਟੋਨ ਭੁੱਲੋ, ਹਵਾ ਵਾਪਸ ਪਾਓ।</b>
+  </div>
+
+  <div class="aside teal">
+    <span class="label">ਲਿਪੀ ਦਾ ਉਲਟ-ਫੇਰ</span>
+    ਗੁਰਮੁਖੀ ਦੇ ਕੁਝ ਅੱਖਰ ਦੇਵਨਾਗਰੀ ਵਿਚ ਆਪਣੇ ਸਿਰੇ ਦੀ ਰੇਖਾ (ਸ਼ਿਰੋਰੇਖਾ) ਬਰਕਰਾਰ ਰੱਖਦੇ ਹਨ, ਪਰ ਹੇਠਾਂ ਦੀ ਸ਼ਕਲ ਬਦਲ ਜਾਂਦੀ ਹੈ। ਜਿਵੇਂ <span class="pa teal">ਕ</span> → <span class="dev sindoor">क</span> — ਉੱਪਰ ਦੀ ਲਕੀਰ ਉਹੀ; ਹੇਠਾਂ ਦਾ 'U' ਹੁਣ ਸੱਜੇ-ਖੁੱਲ੍ਹੀ ਜੇਬ। ਕਈ ਅੱਖਰਾਂ ਵਿਚ ਤਾਂ ਇਹ ਲਗਦਾ ਹੈ ਜਿਵੇਂ ਕਿਸੇ ਨੇ ਗੁਰਮੁਖੀ ਨੂੰ <i>ਖੱਬੇ-ਸੱਜੇ ਉਲਟਾ</i> ਦਿੱਤਾ ਹੋਵੇ।
+  </div>
+
+  <div class="video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed?listType=search&list=learn+hindi+consonants+vyanjan+pronunciation" title="Hindi consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">ਵਿਅੰਜਨਾਂ ਦਾ ਉਚਾਰਨ ਸੁਣੋ ਤੇ ਦੁਹਰਾਓ। <a href="https://www.youtube.com/results?search_query=learn+hindi+consonants+vyanjan+pronunciation" target="_blank" rel="noopener">ਹੋਰ ਵੀਡੀਓ ↗</a></div>
+  </div>
+
+  <div class="nav-btns"><button onclick="go(1)">← ਪਿੱਛੇ · ਸਵਰ</button><button onclick="go(3)">ਅੱਗੇ · ਜੋੜ →</button></div>
+</section>
+
+<!-- STAGE 03 -->
+<section class="stage" data-stage="3">
+  <div class="stage-head"><div class="tag">STAGE · 03</div><h2>ਜੋੜ — ਸਵਰ-ਚਿੰਨ੍ਹ, ਹਲੰਤ ਤੇ ਸੰਯੁਕਤਾਕਸ਼ਰ</h2></div>
+  <p>ਤੁਹਾਨੂੰ ਪਤਾ ਹੈ ਕਿ ਪੰਜਾਬੀ ਵਿਚ <span class="pa teal">ਕ + ਾ = ਕਾ</span>, <span class="pa teal">ਕ + ਿ = ਕਿ</span> — ਇਹੀ ਤਰਕ ਹਿੰਦੀ ਵਿਚ ਵੀ ਹੈ। ਬਸ ਚਿੰਨ੍ਹਾਂ ਦੀਆਂ ਸ਼ਕਲਾਂ ਬਦਲੀਆਂ ਹਨ।</p>
+
+  <h3>ਸਵਰ-ਚਿੰਨ੍ਹ ਦੀ ਜੋੜੀ (<span class="dev">क</span> ਦੇ ਨਾਲ)</h3>
+  <table>
+    <thead><tr><th>ਆਵਾਜ਼</th><th>ਪੰਜਾਬੀ</th><th>ਹਿੰਦੀ</th><th>IPA</th><th>ਨੋਟ</th></tr></thead>
+    <tbody>
+      <tr><td>a (ਅੰਤਰਗਤ)</td><td class="pa">ਕ</td><td class="dev">क</td><td class="mono">ka</td><td>ਬਿਨਾ ਚਿੰਨ੍ਹ</td></tr>
+      <tr><td>aː</td><td class="pa">ਕਾ</td><td class="dev">का</td><td class="mono">kaː</td><td>ਕੰਨਾ ≈ खड़ी पाई</td></tr>
+      <tr><td>i</td><td class="pa">ਕਿ</td><td class="dev">कि</td><td class="mono">ki</td><td>ਦੋਵੇਂ ਅੱਖਰ ਤੋਂ ਪਹਿਲਾਂ</td></tr>
+      <tr><td>iː</td><td class="pa">ਕੀ</td><td class="dev">की</td><td class="mono">kiː</td><td>ਬਿਹਾਰੀ</td></tr>
+      <tr><td>u</td><td class="pa">ਕੁ</td><td class="dev">कु</td><td class="mono">ku</td><td>ਔਂਕੜ ≈ छोटा उ</td></tr>
+      <tr><td>uː</td><td class="pa">ਕੂ</td><td class="dev">कू</td><td class="mono">kuː</td><td>ਦੁਲੈਂਕੜ ≈ बड़ा ऊ</td></tr>
+      <tr><td>e</td><td class="pa">ਕੇ</td><td class="dev">के</td><td class="mono">keː</td><td>ਲਾਂ</td></tr>
+      <tr><td>ai</td><td class="pa">ਕੈ</td><td class="dev">कै</td><td class="mono">kai</td><td>ਦੁਲਾਵਾਂ</td></tr>
+      <tr><td>o</td><td class="pa">ਕੋ</td><td class="dev">को</td><td class="mono">koː</td><td>ਹੋੜਾ</td></tr>
+      <tr><td>au</td><td class="pa">ਕੌ</td><td class="dev">कौ</td><td class="mono">kau</td><td>ਕਨੌੜਾ</td></tr>
+    </tbody>
+  </table>
+
+  <h3>ਹਲੰਤ — ਸ਼੍ਵਾ ਨੂੰ ਮਾਰਨ ਵਾਲਾ</h3>
+  <p>ਪੰਜਾਬੀ ਦਾ <span class="pa teal">ਹਲੰਤ ੍</span> = ਹਿੰਦੀ ਦਾ <span class="dev sindoor">हलन्त ्</span>। ਦੋਵੇਂ ਅੱਖਰ ਦੇ ਹੇਠਾਂ ਤਿਰਛੀ ਲਕੀਰ। ਕੰਮ ਇਕੋ: ਅੰਤਰਗਤ 'ਅ' ਨੂੰ ਚੁੱਪ ਕਰਨਾ। ਹਿੰਦੀ ਵਿਚ ਹਲੰਤ ਘੱਟ ਲਿਖਿਆ ਜਾਂਦਾ ਹੈ; ਇਸ ਦੀ ਜਗ੍ਹਾ <b>ਸੰਯੁਕਤਾਕਸ਼ਰ</b> (conjunct) ਬਣਾਏ ਜਾਂਦੇ ਹਨ।</p>
+
+  <h3>ਸੰਯੁਕਤਾਕਸ਼ਰ — ਦੋ ਅੱਖਰ ਮਿਲ ਕੇ</h3>
+  <table>
+    <thead><tr><th>ਅੱਖਰ</th><th>ਜੋੜ</th><th>ਉਦਾਹਰਨ</th><th>ਪੰਜਾਬੀ</th></tr></thead>
+    <tbody>
+      <tr><td class="dev">क्ष</td><td>क् + ष</td><td class="dev">क्षमा (kṣamā)</td><td class="pa">ਖਿਮਾ / ਮਾਫ਼ੀ</td></tr>
+      <tr><td class="dev">त्र</td><td>त् + र</td><td class="dev">पुत्र (putra)</td><td class="pa">ਪੁੱਤਰ</td></tr>
+      <tr><td class="dev">ज्ञ</td><td>ज् + ञ</td><td class="dev">ज्ञान (gyān)</td><td class="pa">ਗਿਆਨ</td></tr>
+      <tr><td class="dev">श्र</td><td>श् + र</td><td class="dev">श्री (śrī)</td><td class="pa">ਸ਼੍ਰੀ</td></tr>
+      <tr><td class="dev">स्त</td><td>स् + त</td><td class="dev">नमस्ते (namaste)</td><td class="pa">ਨਮਸਤੇ</td></tr>
+      <tr><td class="dev">द्ध</td><td>द् + ध</td><td class="dev">बुद्ध (buddha)</td><td class="pa">ਬੁੱਧ</td></tr>
+      <tr><td class="dev">र्</td><td>ਅੱਖਰ + ਉੱਪਰ 'र'</td><td class="dev">कर्म (karma)</td><td class="pa">ਕਰਮ — ਰੇਫ਼</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside ochre">
+    <span class="label">ਸ਼੍ਵਾ-ਲੋਪ — ਹਿੰਦੀ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਨਵਾਂ ਨਿਯਮ</span>
+    ਹਿੰਦੀ ਵਿਚ ਸ਼ਬਦ ਦੇ ਅੰਤ ਦਾ 'ਅ' <b>ਲਗਭਗ ਹਮੇਸ਼ਾ ਚੁੱਪ</b> ਹੁੰਦਾ ਹੈ। <span class="dev">राम</span> = "rām", ਨਾ ਕਿ "rāma"। <span class="dev">नमस्ते</span> = "namaste", ਨਾ ਕਿ "namastey"। ਕਈ ਵਾਰ ਵਿਚਕਾਰ ਦਾ 'ਅ' ਵੀ ਲੋਪ ਹੁੰਦਾ ਹੈ: <span class="dev">समझ</span> = "samajh", ਨਾ "samajha"। ਖ਼ੁਸ਼ੀ ਦੀ ਗੱਲ — ਪੰਜਾਬੀ ਵਿਚ ਤੁਸੀਂ ਪਹਿਲਾਂ ਹੀ <span class="pa teal">ਰਾਮ</span>, <span class="pa teal">ਸਮਝ</span> ਕਹਿੰਦੇ ਹੋ। ਬੱਸ <i>ਲਿਖਤ ਵੇਖ ਕੇ ਆਖ਼ਰੀ 'अ' ਨੂੰ ਬੋਲਣ ਦਾ ਧੋਖਾ ਨਾ ਖਾਓ।</i>
+  </div>
+
+  <div class="nav-btns"><button onclick="go(2)">← ਪਿੱਛੇ · ਵਿਅੰਜਨ</button><button onclick="go(4)">ਅੱਗੇ · ਮੁੱਖ ਸ਼ਬਦ →</button></div>
+</section>
+
+<!-- STAGE 04 -->
+<section class="stage" data-stage="4">
+  <div class="stage-head"><div class="tag">STAGE · 04</div><h2>ਮੁੱਖ ਸ਼ਬਦ — ਜੋ ਤੁਸੀਂ ਪਹਿਲਾਂ ਤੋਂ ਜਾਣਦੇ ਹੋ</h2></div>
+  <p>ਹੇਠਾਂ ਦਿੱਤੇ ਸ਼ਬਦਾਂ ਵਿੱਚ ਵੇਖੋਗੇ ਕਿ ਹਿੰਦੀ-ਪੰਜਾਬੀ ਦੀ <b>20% ਸਾਂਝ</b> ਸਿਰਫ਼ ਕਿਤਾਬੀ ਗਿਣਤੀ ਹੈ — ਅਸਲੀਅਤ ਵਿਚ ਤੁਹਾਨੂੰ ਹਰ ਤੀਜਾ ਸ਼ਬਦ ਜਾਣਿਆ ਲੱਗੇਗਾ।</p>
+
+  <h3>ਸਰਵਨਾਮ (pronouns) — ਆਦਰ ਦੇ ਤਿੰਨ ਪੱਧਰ</h3>
+  <table>
+    <thead><tr><th>ਹਿੰਦੀ</th><th>ਉਚਾਰਨ</th><th>ਪੰਜਾਬੀ</th><th>ਨੋਟ</th></tr></thead>
+    <tbody>
+      <tr><td class="dev">मैं</td><td class="mono">maĩ</td><td class="pa">ਮੈਂ</td><td>ਮੈਂ</td></tr>
+      <tr><td class="dev">तू</td><td class="mono">tū</td><td class="pa">ਤੂੰ</td><td>ਬਹੁਤ ਅਪਣੱਤ ਵਾਲਾ</td></tr>
+      <tr><td class="dev">तुम</td><td class="mono">tum</td><td class="pa">ਤੁਸੀਂ (ਜਾਣੂ)</td><td>ਪੰਜਾਬੀ ਵਿਚ ਇਹ ਪੱਧਰ ਨਹੀਂ — ਨਵਾਂ</td></tr>
+      <tr><td class="dev">आप</td><td class="mono">āp</td><td class="pa">ਤੁਸੀਂ (ਆਦਰ)</td><td>ਸਭ ਤੋਂ ਆਦਰਸੂਚਕ</td></tr>
+      <tr><td class="dev">वह</td><td class="mono">vah / vo</td><td class="pa">ਉਹ</td><td>ਦੂਰ ਦਾ</td></tr>
+      <tr><td class="dev">यह</td><td class="mono">yah / ye</td><td class="pa">ਇਹ</td><td>ਨੇੜੇ ਦਾ</td></tr>
+      <tr><td class="dev">हम</td><td class="mono">ham</td><td class="pa">ਅਸੀਂ</td><td>—</td></tr>
+      <tr><td class="dev">वे</td><td class="mono">ve / vo</td><td class="pa">ਉਹ (ਬਹੁ.)</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside">
+    <span class="label">ਤੁਮ — ਪੰਜਾਬੀ ਵਿਚ ਗੁੰਮ ਹੋਈ ਵਿਚਕਾਰਲੀ ਡੰਡੀ</span>
+    ਪੰਜਾਬੀ ਵਿੱਚ ਸਿਰਫ਼ ਦੋ ਪੱਧਰ ਹਨ — <span class="pa teal">ਤੂੰ</span> (ਅਪਣੱਤ) ਅਤੇ <span class="pa teal">ਤੁਸੀਂ</span> (ਆਦਰ)। ਹਿੰਦੀ ਵਿੱਚ ਤਿੰਨ: <span class="dev sindoor">तू → तुम → आप</span>। ਇਹ <span class="dev sindoor">तुम</span> — ਦੋਸਤਾਂ, ਛੋਟੇ ਭੈਣ-ਭਰਾਵਾਂ, ਸਹਿਪਾਠੀਆਂ ਲਈ — ਤੁਹਾਡੇ ਲਈ ਨਵਾਂ ਹੈ। ਯਾਦ ਰੱਖੋ: <i>ਤੂੰ = ਬੱਚੇ/ਰੱਬ/ਬਹੁਤ ਕਰੀਬ; ਤੁਮ = ਦੋਸਤ; ਆਪ = ਵੱਡਾ/ਅਣਜਾਣ।</i>
+  </div>
+
+  <h3>ਨਾਂਵ (nouns)</h3>
+  <table>
+    <thead><tr><th>ਹਿੰਦੀ</th><th>ਉਚਾਰਨ</th><th>ਪੰਜਾਬੀ</th><th>ਕਿਸਮ</th></tr></thead>
+    <tbody>
+      <tr><td class="dev">घर</td><td class="mono">ghar</td><td class="pa">ਘਰ</td><td><span class="pill">ਤਦਭਵ</span></td></tr>
+      <tr><td class="dev">पानी</td><td class="mono">pānī</td><td class="pa">ਪਾਣੀ</td><td><span class="pill">ਤਦਭਵ</span></td></tr>
+      <tr><td class="dev">नाम</td><td class="mono">nām</td><td class="pa">ਨਾਮ</td><td><span class="pill o">ਤਤਸਮ</span></td></tr>
+      <tr><td class="dev">किताब / पुस्तक</td><td class="mono">kitāb / pustak</td><td class="pa">ਕਿਤਾਬ / ਪੁਸਤਕ</td><td><span class="pill s">ਮਿਸ਼੍ਰਿਤ</span></td></tr>
+      <tr><td class="dev">स्कूल / विद्यालय</td><td class="mono">skūl / vidyālay</td><td class="pa">ਸਕੂਲ / ਵਿਦਿਆਲਾ</td><td><span class="pill s">ਮਿਸ਼੍ਰਿਤ</span></td></tr>
+      <tr><td class="dev">पैसा</td><td class="mono">paisā</td><td class="pa">ਪੈਸਾ</td><td><span class="pill">ਤਦਭਵ</span></td></tr>
+      <tr><td class="dev">समय / वक़्त</td><td class="mono">samay / vaqt</td><td class="pa">ਸਮਾਂ / ਵਕਤ</td><td><span class="pill o">ਤਤਸਮ</span></td></tr>
+      <tr><td class="dev">दिन</td><td class="mono">din</td><td class="pa">ਦਿਨ</td><td><span class="pill o">ਤਤਸਮ</span></td></tr>
+      <tr><td class="dev">दूध</td><td class="mono">dūdh</td><td class="pa">ਦੁੱਧ</td><td><span class="pill">ਤਦਭਵ</span></td></tr>
+      <tr><td class="dev">सूरज / सूर्य</td><td class="mono">sūraj / sūrya</td><td class="pa">ਸੂਰਜ</td><td><span class="pill o">ਤਤਸਮ</span></td></tr>
+      <tr><td class="dev">ज़मीन / भूमि</td><td class="mono">zamīn / bhūmi</td><td class="pa">ਜ਼ਮੀਨ / ਧਰਤੀ</td><td><span class="pill s">ਮਿਸ਼੍ਰਿਤ</span></td></tr>
+      <tr><td class="dev">चावल / अन्न</td><td class="mono">cāval / anna</td><td class="pa">ਚਾਵਲ / ਅੰਨ</td><td><span class="pill o">ਤਤਸਮ</span></td></tr>
+      <tr><td class="dev">रात / रात्रि</td><td class="mono">rāt / rātri</td><td class="pa">ਰਾਤ</td><td><span class="pill o">ਤਤਸਮ</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>ਕਿਰਿਆਵਾਂ (verbs)</h3>
+  <table>
+    <thead><tr><th>ਹਿੰਦੀ</th><th>ਉਚਾਰਨ</th><th>ਪੰਜਾਬੀ</th></tr></thead>
+    <tbody>
+      <tr><td class="dev">होना</td><td class="mono">honā</td><td class="pa">ਹੋਣਾ</td></tr>
+      <tr><td class="dev">करना</td><td class="mono">karnā</td><td class="pa">ਕਰਨਾ</td></tr>
+      <tr><td class="dev">जाना</td><td class="mono">jānā</td><td class="pa">ਜਾਣਾ</td></tr>
+      <tr><td class="dev">आना</td><td class="mono">ānā</td><td class="pa">ਆਉਣਾ</td></tr>
+      <tr><td class="dev">खाना</td><td class="mono">khānā</td><td class="pa">ਖਾਣਾ</td></tr>
+      <tr><td class="dev">पीना</td><td class="mono">pīnā</td><td class="pa">ਪੀਣਾ</td></tr>
+      <tr><td class="dev">देखना</td><td class="mono">dekhnā</td><td class="pa">ਦੇਖਣਾ / ਵੇਖਣਾ</td></tr>
+      <tr><td class="dev">पढ़ना</td><td class="mono">paṛhnā</td><td class="pa">ਪੜ੍ਹਨਾ</td></tr>
+      <tr><td class="dev">लिखना</td><td class="mono">likhnā</td><td class="pa">ਲਿਖਣਾ</td></tr>
+      <tr><td class="dev">बोलना</td><td class="mono">bolnā</td><td class="pa">ਬੋਲਣਾ</td></tr>
+    </tbody>
+  </table>
+
+  <h3>ਗਿਣਤੀ</h3>
+  <div class="grid cards">
+    <div class="card"><div class="tgt">एक</div><div class="src">ਇਕ</div><div class="ipa">ek · 1</div></div>
+    <div class="card"><div class="tgt">दो</div><div class="src">ਦੋ</div><div class="ipa">do · 2</div></div>
+    <div class="card"><div class="tgt">तीन</div><div class="src">ਤਿੰਨ</div><div class="ipa">tīn · 3</div></div>
+    <div class="card"><div class="tgt">चार</div><div class="src">ਚਾਰ</div><div class="ipa">cār · 4</div></div>
+    <div class="card"><div class="tgt">पाँच</div><div class="src">ਪੰਜ</div><div class="ipa">pā̃c · 5</div></div>
+    <div class="card"><div class="tgt">छह</div><div class="src">ਛੇ</div><div class="ipa">chah · 6</div></div>
+    <div class="card"><div class="tgt">सात</div><div class="src">ਸੱਤ</div><div class="ipa">sāt · 7</div></div>
+    <div class="card"><div class="tgt">आठ</div><div class="src">ਅੱਠ</div><div class="ipa">āṭh · 8</div></div>
+    <div class="card"><div class="tgt">नौ</div><div class="src">ਨੌਂ</div><div class="ipa">nau · 9</div></div>
+    <div class="card"><div class="tgt">दस</div><div class="src">ਦਸ</div><div class="ipa">das · 10</div></div>
+    <div class="card"><div class="tgt">सौ</div><div class="src">ਸੌ</div><div class="ipa">sau · 100</div></div>
+  </div>
+
+  <div class="aside teal">
+    <span class="label">ਸਾਂਝਾ ਵਿਰਸਾ — ਸੰਸਕ੍ਰਿਤ ਦਾ ਪੁਲ</span>
+    ਜਦ ਤੁਸੀਂ ਹਿੰਦੀ ਦਾ <span class="dev sindoor">नाम</span>, <span class="dev sindoor">कर्म</span>, <span class="dev sindoor">धर्म</span>, <span class="dev sindoor">विद्या</span> ਪੜ੍ਹਦੇ ਹੋ — ਇਹ ਉਹੀ ਤਤਸਮ ਸ਼ਬਦ ਹਨ ਜੋ ਪੰਜਾਬੀ ਵਿਚ <span class="pa teal">ਨਾਮ, ਕਰਮ, ਧਰਮ, ਵਿੱਦਿਆ</span> ਦੇ ਰੂਪ ਵਿਚ ਆਏ। ਗੁਰੂ ਗ੍ਰੰਥ ਸਾਹਿਬ ਵਿਚ ਇਹੋ ਜਿਹੇ ਹਜ਼ਾਰਾਂ ਸ਼ਬਦ ਹਨ। <b>ਤਤਸਮ ਭੰਡਾਰ ਮੁਫ਼ਤ ਦਾ ਖ਼ਜ਼ਾਨਾ ਹੈ।</b>
+  </div>
+
+  <div class="nav-btns"><button onclick="go(3)">← ਪਿੱਛੇ · ਜੋੜ</button><button onclick="go(5)">ਅੱਗੇ · ਵਾਕ →</button></div>
+</section>
+
+<!-- STAGE 05 -->
+<section class="stage" data-stage="5">
+  <div class="stage-head"><div class="tag">STAGE · 05</div><h2>ਵਾਕ — ਕ੍ਰਿਆ-ਰੂਪ ਅਤੇ ਬਣਤਰ</h2></div>
+  <p>ਪੰਜਾਬੀ ਦੀ <span class="pa teal">ਮੈਂ ਕਰਦਾ ਹਾਂ / ਮੈਂ ਕਰਦੀ ਹਾਂ</span> ਬਣਤਰ ਉਹੀ ਹੈ ਜੋ ਹਿੰਦੀ ਵਿਚ <span class="dev sindoor">मैं करता हूँ / करती हूँ</span>। ਤਿੰਨੇ ਹਿੱਸੇ ਮੇਲ ਖਾਂਦੇ ਹਨ: ਕ੍ਰਿਆ-ਮੂਲ + ਲਿੰਗ-ਪੁਰਖ ਪ੍ਰਤੀਕ + ਸਹਾਇਕ।</p>
+
+  <h3>ਕਰਨਾ (to do) — ਵਰਤਮਾਨ ਕਾਲ</h3>
+  <table>
+    <thead><tr><th>ਪੁਰਖ</th><th>ਹਿੰਦੀ</th><th>ਉਚਾਰਨ</th><th>ਪੰਜਾਬੀ (ਤੁਲਨਾ)</th></tr></thead>
+    <tbody>
+      <tr><td>ਮੈਂ</td><td class="dev">करता / करती हूँ</td><td class="mono">kartā / kartī hū̃</td><td class="pa">ਕਰਦਾ / ਕਰਦੀ ਹਾਂ</td></tr>
+      <tr><td>ਤੂ</td><td class="dev">करता / करती है</td><td class="mono">kartā / kartī hai</td><td class="pa">ਕਰਦਾ / ਕਰਦੀ ਏਂ</td></tr>
+      <tr><td>ਤੁਮ</td><td class="dev">करते / करती हो</td><td class="mono">karte / kartī ho</td><td class="pa">— (ਨਹੀਂ)</td></tr>
+      <tr><td>ਆਪ</td><td class="dev">करते / करती हैं</td><td class="mono">karte / kartī hãi</td><td class="pa">ਕਰਦੇ / ਕਰਦੀਆਂ ਹੋ</td></tr>
+      <tr><td>ਉਹ</td><td class="dev">करता / करती है</td><td class="mono">kartā / kartī hai</td><td class="pa">ਕਰਦਾ / ਕਰਦੀ ਹੈ</td></tr>
+      <tr><td>ਅਸੀਂ</td><td class="dev">करते / करती हैं</td><td class="mono">karte / kartī hãi</td><td class="pa">ਕਰਦੇ / ਕਰਦੀਆਂ ਹਾਂ</td></tr>
+      <tr><td>ਉਹ (ਬਹੁ.)</td><td class="dev">करते / करती हैं</td><td class="mono">karte / kartī hãi</td><td class="pa">ਕਰਦੇ / ਕਰਦੀਆਂ ਹਨ</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside ochre">
+    <span class="label">ਲਿੰਗ-ਵਿੱਚ-ਕ੍ਰਿਆ ਦੀ ਸਾਂਝ</span>
+    ਅੰਗਰੇਜ਼ੀ ਕਹੇਗੀ "I do" — ਕਰਨ ਵਾਲਾ ਮਰਦ ਹੋਵੇ ਜਾਂ ਔਰਤ, ਕੋਈ ਫ਼ਰਕ ਨਹੀਂ। ਪਰ ਪੰਜਾਬੀ ਤੇ ਹਿੰਦੀ ਦੋਵੇਂ <b>ਲਿੰਗ ਨੂੰ ਕ੍ਰਿਆ ਵਿਚ ਹੀ ਦਿਖਾਉਂਦੀਆਂ</b> ਹਨ: <span class="pa teal">ਕਰਦਾ / ਕਰਦੀ</span> = <span class="dev sindoor">करता / करती</span>। ਇਹ ਬਹੁਤ ਵੱਡਾ ਸਾਂਝਾ ਗੁਣ ਹੈ — ਤੁਹਾਨੂੰ ਨਵਾਂ ਨਿਯਮ ਨਹੀਂ ਸਿੱਖਣਾ, ਬੱਸ ਨਵੀਂ ਲਿਪੀ ਵਿਚ ਲਿਖਣਾ ਹੈ।
+  </div>
+
+  <h3>ਪਰਸਰਗ (postpositions) — ਕਾਰਕ-ਚਿੰਨ੍ਹ</h3>
+  <table>
+    <thead><tr><th>ਕਾਰਕ</th><th>ਹਿੰਦੀ</th><th>ਪੰਜਾਬੀ</th><th>ਉਦਾਹਰਨ</th></tr></thead>
+    <tbody>
+      <tr><td>ਕਰਮ/ਦਾਤਾ</td><td class="dev">को (ko)</td><td class="pa">ਨੂੰ (nū̃)</td><td class="dev">राम को — ਰਾਮ ਨੂੰ</td></tr>
+      <tr><td>ਅਧਿਕਰਣ</td><td class="dev">में (mẽ)</td><td class="pa">ਵਿੱਚ (vic)</td><td class="dev">घर में — ਘਰ ਵਿੱਚ</td></tr>
+      <tr><td>ਅਪਾਦਾਨ</td><td class="dev">से (se)</td><td class="pa">ਤੋਂ (tõ)</td><td class="dev">घर से — ਘਰ ਤੋਂ</td></tr>
+      <tr><td>ਸੰਬੰਧ</td><td class="dev">का / की / के</td><td class="pa">ਦਾ / ਦੀ / ਦੇ</td><td class="dev">राम का घर — ਰਾਮ ਦਾ ਘਰ</td></tr>
+      <tr><td>ਕਰਣ</td><td class="dev">से (se)</td><td class="pa">ਨਾਲ (nāl)</td><td class="dev">कलम से — ਕਲਮ ਨਾਲ</td></tr>
+    </tbody>
+  </table>
+
+  <h3>ਪ੍ਰਸ਼ਨ-ਸ਼ਬਦ — ਬਿਲਕੁਲ ਸਾਂਝੇ ਤਰਕ</h3>
+  <table>
+    <thead><tr><th>ਹਿੰਦੀ</th><th>ਉਚਾਰਨ</th><th>ਪੰਜਾਬੀ</th></tr></thead>
+    <tbody>
+      <tr><td class="dev">क्या</td><td class="mono">kyā</td><td class="pa">ਕੀ</td></tr>
+      <tr><td class="dev">कौन</td><td class="mono">kaun</td><td class="pa">ਕੌਣ</td></tr>
+      <tr><td class="dev">कहाँ</td><td class="mono">kahā̃</td><td class="pa">ਕਿੱਥੇ</td></tr>
+      <tr><td class="dev">कब</td><td class="mono">kab</td><td class="pa">ਕਦੋਂ</td></tr>
+      <tr><td class="dev">क्यों</td><td class="mono">kyõ</td><td class="pa">ਕਿਉਂ</td></tr>
+      <tr><td class="dev">कैसे</td><td class="mono">kaise</td><td class="pa">ਕਿਵੇਂ</td></tr>
+      <tr><td class="dev">कितना</td><td class="mono">kitnā</td><td class="pa">ਕਿੰਨਾ</td></tr>
+    </tbody>
+  </table>
+
+  <h3>ਉਦਾਹਰਨ ਵਾਕ</h3>
+  <div class="passage">
+    <div class="tgt">मेरा नाम अनु है। मैं दिल्ली में रहती हूँ।</div>
+    <div class="translit">merā nām anu hai. maĩ dillī mẽ rahtī hū̃.</div>
+    <div class="gloss">ਮੇਰਾ ਨਾਮ ਅਨੂੰ ਹੈ। ਮੈਂ ਦਿੱਲੀ ਵਿੱਚ ਰਹਿੰਦੀ ਹਾਂ।</div>
+  </div>
+  <div class="passage">
+    <div class="tgt">क्या तुम चाय पीते हो?  — नहीं, मैं दूध पीता हूँ।</div>
+    <div class="translit">kyā tum cāy pīte ho? — nahī̃, maĩ dūdh pītā hū̃.</div>
+    <div class="gloss">ਕੀ ਤੁਸੀਂ ਚਾਹ ਪੀਂਦੇ ਹੋ? — ਨਹੀਂ, ਮੈਂ ਦੁੱਧ ਪੀਂਦਾ ਹਾਂ।</div>
+  </div>
+
+  <p><b>ਨਕਾਰ (negation):</b> ਪੰਜਾਬੀ <span class="pa teal">ਨਹੀਂ</span> = ਹਿੰਦੀ <span class="dev sindoor">नहीं</span>। ਬਿਲਕੁਲ ਉਹੀ ਜਗ੍ਹਾ — ਕ੍ਰਿਆ ਤੋਂ ਪਹਿਲਾਂ।</p>
+
+  <div class="nav-btns"><button onclick="go(4)">← ਪਿੱਛੇ · ਮੁੱਖ ਸ਼ਬਦ</button><button onclick="go(6)">ਅੱਗੇ · ਪੜ੍ਹਾਈ →</button></div>
+</section>
+
+<!-- STAGE 06 -->
+<section class="stage" data-stage="6">
+  <div class="stage-head"><div class="tag">STAGE · 06</div><h2>ਪੜ੍ਹਾਈ — ਤਿੰਨ ਪੈਰੇ</h2></div>
+
+  <h3>ਪਹਿਲਾ ਪੈਰਾ · ਜਾਣ-ਪਛਾਣ</h3>
+  <div class="passage">
+    <div class="tgt">नमस्ते! मेरा नाम अर्जुन है। मैं अमृतसर से हूँ, लेकिन अब दिल्ली में रहता हूँ। मैं एक विद्यार्थी हूँ और हिन्दी सीख रहा हूँ। मुझे पंजाबी गीत बहुत पसंद हैं।</div>
+    <div class="translit">namaste! merā nām arjun hai. maĩ amritsar se hū̃, lekin ab dillī mẽ rahtā hū̃. maĩ ek vidyārthī hū̃ aur hindī sīkh rahā hū̃. mujhe panjābī gīt bahut pasand hãi.</div>
+    <div class="gloss">ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੇਰਾ ਨਾਮ ਅਰਜੁਨ ਹੈ। ਮੈਂ ਅੰਮ੍ਰਿਤਸਰ ਤੋਂ ਹਾਂ, ਪਰ ਹੁਣ ਦਿੱਲੀ ਵਿੱਚ ਰਹਿੰਦਾ ਹਾਂ। ਮੈਂ ਇਕ ਵਿਦਿਆਰਥੀ ਹਾਂ ਅਤੇ ਹਿੰਦੀ ਸਿੱਖ ਰਿਹਾ ਹਾਂ। ਮੈਨੂੰ ਪੰਜਾਬੀ ਗੀਤ ਬਹੁਤ ਪਸੰਦ ਹਨ।</div>
+  </div>
+
+  <h3>ਦੂਜਾ ਪੈਰਾ · ਦਿਨ ਦੀ ਦਿਨਚਰੀਆ</h3>
+  <div class="passage">
+    <div class="tgt">मैं सुबह छह बजे उठता हूँ। फिर मैं चाय पीता हूँ और अख़बार पढ़ता हूँ। दस बजे मैं स्कूल जाता हूँ। शाम को मैं दोस्तों के साथ खेलता हूँ। रात को खाना खाकर सो जाता हूँ।</div>
+    <div class="translit">maĩ subah chah baje uṭhtā hū̃. phir maĩ cāy pītā hū̃ aur akhbār paṛhtā hū̃. das baje maĩ skūl jātā hū̃. śām ko maĩ dostõ ke sāth kheltā hū̃. rāt ko khānā khākar so jātā hū̃.</div>
+    <div class="gloss">ਮੈਂ ਸਵੇਰੇ ਛੇ ਵਜੇ ਉੱਠਦਾ ਹਾਂ। ਫਿਰ ਮੈਂ ਚਾਹ ਪੀਂਦਾ ਹਾਂ ਅਤੇ ਅਖ਼ਬਾਰ ਪੜ੍ਹਦਾ ਹਾਂ। ਦਸ ਵਜੇ ਮੈਂ ਸਕੂਲ ਜਾਂਦਾ ਹਾਂ। ਸ਼ਾਮ ਨੂੰ ਮੈਂ ਦੋਸਤਾਂ ਨਾਲ ਖੇਡਦਾ ਹਾਂ। ਰਾਤ ਨੂੰ ਰੋਟੀ ਖਾ ਕੇ ਸੌਂ ਜਾਂਦਾ ਹਾਂ।</div>
+  </div>
+
+  <h3>ਤੀਜਾ ਪੈਰਾ · ਗੱਲਬਾਤ</h3>
+  <div class="passage">
+    <div class="dialogue">
+      <div class="line"><span class="who">ਅਨੂੰ:</span> <span class="dev">नमस्ते भैया, आप कैसे हैं?</span> <span class="mono">(namaste bhaiyā, āp kaise hãi?)</span></div>
+      <div class="line"><span class="who">ਰਾਮ:</span> <span class="dev">नमस्ते! मैं ठीक हूँ। तुम सुनाओ?</span> <span class="mono">(namaste! maĩ ṭhīk hū̃. tum sunāo?)</span></div>
+      <div class="line"><span class="who">ਅਨੂੰ:</span> <span class="dev">मैं भी ठीक हूँ। क्या आप आज बाज़ार जा रहे हैं?</span> <span class="mono">(maĩ bhī ṭhīk hū̃. kyā āp āj bāzār jā rahe hãi?)</span></div>
+      <div class="line"><span class="who">ਰਾਮ:</span> <span class="dev">हाँ, मुझे कुछ किताबें ख़रीदनी हैं। तुम भी चलो।</span> <span class="mono">(hā̃, mujhe kuch kitābẽ kharīdnī hãi. tum bhī calo.)</span></div>
+      <div class="line"><span class="who">ਅਨੂੰ:</span> <span class="dev">ज़रूर! मुझे भी एक कलम चाहिए।</span> <span class="mono">(zarūr! mujhe bhī ek kalam cāhie.)</span></div>
+      <div class="line"><span class="who">ਰਾਮ:</span> <span class="dev">तो चलो, निकलते हैं।</span> <span class="mono">(to calo, nikalte hãi.)</span></div>
+    </div>
+    <div class="gloss">ਅਨੂੰ: ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਭਾਈ ਸਾਹਿਬ, ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ? / ਰਾਮ: ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਠੀਕ ਹਾਂ। ਤੁਸੀਂ ਦੱਸੋ? / ਅਨੂੰ: ਮੈਂ ਵੀ ਠੀਕ ਹਾਂ। ਕੀ ਤੁਸੀਂ ਅੱਜ ਬਾਜ਼ਾਰ ਜਾ ਰਹੇ ਹੋ? / ਰਾਮ: ਹਾਂ, ਮੈਨੂੰ ਕੁਝ ਕਿਤਾਬਾਂ ਖ਼ਰੀਦਣੀਆਂ ਹਨ। ਤੁਸੀਂ ਵੀ ਚਲੋ। / ਅਨੂੰ: ਜ਼ਰੂਰ! ਮੈਨੂੰ ਵੀ ਇਕ ਕਲਮ ਚਾਹੀਦੀ ਹੈ। / ਰਾਮ: ਤਾਂ ਚਲੋ, ਨਿਕਲਦੇ ਹਾਂ।</div>
+  </div>
+
+  <div class="nav-btns"><button onclick="go(5)">← ਪਿੱਛੇ · ਵਾਕ</button><button onclick="go(7)">ਅੱਗੇ · ਸ਼ਬਦ-ਖੇਤਰ →</button></div>
+</section>
+
+<!-- STAGE 07 -->
+<section class="stage" data-stage="7">
+  <div class="stage-head"><div class="tag">STAGE · 07</div><h2>ਸ਼ਬਦ-ਖੇਤਰ — ਰਿਸ਼ਤੇ, ਸਮਾਂ, ਸਰੀਰ</h2></div>
+
+  <h3>ਰਿਸ਼ਤੇ</h3>
+  <table>
+    <thead><tr><th>ਹਿੰਦੀ</th><th>ਉਚਾਰਨ</th><th>ਪੰਜਾਬੀ</th></tr></thead>
+    <tbody>
+      <tr><td class="dev">पिता / पापा</td><td class="mono">pitā / pāpā</td><td class="pa">ਪਿਤਾ / ਪਾਪਾ</td></tr>
+      <tr><td class="dev">माँ / माता</td><td class="mono">mā̃ / mātā</td><td class="pa">ਮਾਂ / ਮਾਤਾ</td></tr>
+      <tr><td class="dev">भाई / भैया</td><td class="mono">bhāī / bhaiyā</td><td class="pa">ਭਰਾ / ਵੀਰ</td></tr>
+      <tr><td class="dev">बहन / दीदी</td><td class="mono">bahan / dīdī</td><td class="pa">ਭੈਣ</td></tr>
+      <tr><td class="dev">दादा</td><td class="mono">dādā</td><td class="pa">ਦਾਦਾ</td></tr>
+      <tr><td class="dev">दादी</td><td class="mono">dādī</td><td class="pa">ਦਾਦੀ</td></tr>
+      <tr><td class="dev">नाना / नानी</td><td class="mono">nānā / nānī</td><td class="pa">ਨਾਨਾ / ਨਾਨੀ</td></tr>
+      <tr><td class="dev">मामा</td><td class="mono">māmā</td><td class="pa">ਮਾਮਾ</td></tr>
+      <tr><td class="dev">चाचा</td><td class="mono">cācā</td><td class="pa">ਚਾਚਾ</td></tr>
+      <tr><td class="dev">ताऊ</td><td class="mono">tāū</td><td class="pa">ਤਾਇਆ</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside">
+    <span class="label">ਦਾਦਾ ਬਨਾਮ ਨਾਨਾ — ਦੋਵਾਂ ਨੇ ਸਾਂਭੀ</span>
+    ਅੰਗਰੇਜ਼ੀ ਕਹੇਗੀ ਸਿਰਫ਼ "grandfather" — ਪਤਾ ਨਹੀਂ ਪਿਤਾ ਦਾ ਜਾਂ ਮਾਤਾ ਦਾ। ਪਰ ਪੰਜਾਬੀ ਤੇ ਹਿੰਦੀ ਦੋਵਾਂ ਨੇ ਇਹ ਭੇਦ ਰੱਖਿਆ: <span class="pa teal">ਦਾਦਾ / ਨਾਨਾ</span> = <span class="dev sindoor">दादा / नाना</span>। ਇਹ ਉੱਤਰ-ਭਾਰਤੀ ਪਰਿਵਾਰ ਦੀ ਡੂੰਘੀ ਸਾਂਝ ਹੈ।
+  </div>
+
+  <h3>ਸਮਾਂ</h3>
+  <table>
+    <thead><tr><th>ਹਿੰਦੀ</th><th>ਉਚਾਰਨ</th><th>ਪੰਜਾਬੀ</th></tr></thead>
+    <tbody>
+      <tr><td class="dev">आज</td><td class="mono">āj</td><td class="pa">ਅੱਜ</td></tr>
+      <tr><td class="dev">कल</td><td class="mono">kal</td><td class="pa">ਕੱਲ੍ਹ</td></tr>
+      <tr><td class="dev">परसों</td><td class="mono">parsõ</td><td class="pa">ਪਰਸੋਂ</td></tr>
+      <tr><td class="dev">अब / अभी</td><td class="mono">ab / abhī</td><td class="pa">ਹੁਣ / ਹੁਣੇ</td></tr>
+      <tr><td class="dev">सुबह</td><td class="mono">subah</td><td class="pa">ਸਵੇਰ</td></tr>
+      <tr><td class="dev">दोपहर</td><td class="mono">dopahar</td><td class="pa">ਦੁਪਹਿਰ</td></tr>
+      <tr><td class="dev">शाम</td><td class="mono">śām</td><td class="pa">ਸ਼ਾਮ</td></tr>
+      <tr><td class="dev">रात</td><td class="mono">rāt</td><td class="pa">ਰਾਤ</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside teal">
+    <span class="label">'ਕੱਲ੍ਹ' ਦਾ ਦੋਹਰਾ ਚਿਹਰਾ — ਦੋਵਾਂ ਵਿਚ ਸਾਂਝਾ</span>
+    ਪੰਜਾਬੀ ਦਾ <span class="pa teal">ਕੱਲ੍ਹ</span> ਬੀਤੇ ਕੱਲ੍ਹ ਤੇ ਆਉਣ ਵਾਲੇ ਕੱਲ੍ਹ — ਦੋਵਾਂ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ। ਹਿੰਦੀ <span class="dev sindoor">कल</span> ਵੀ ਬਿਲਕੁਲ ਇਵੇਂ ਹੀ — <b>ਦੋਹਰੇ ਚਿਹਰੇ ਵਾਲਾ</b>। ਫ਼ਰਕ ਕ੍ਰਿਆ ਦੇ ਕਾਲ ਤੋਂ ਪਤਾ ਲੱਗਦਾ ਹੈ: <span class="dev">कल आऊँगा</span> (ਆਵਾਂਗਾ) = ਆਉਣ ਵਾਲਾ; <span class="dev">कल आया था</span> (ਆਇਆ ਸੀ) = ਬੀਤਿਆ।
+  </div>
+
+  <h3>ਸਰੀਰ</h3>
+  <div class="grid cards">
+    <div class="card"><div class="tgt">सिर</div><div class="src">ਸਿਰ</div><div class="ipa">sir</div></div>
+    <div class="card"><div class="tgt">आँख</div><div class="src">ਅੱਖ</div><div class="ipa">ā̃kh</div></div>
+    <div class="card"><div class="tgt">कान</div><div class="src">ਕੰਨ</div><div class="ipa">kān</div></div>
+    <div class="card"><div class="tgt">नाक</div><div class="src">ਨੱਕ</div><div class="ipa">nāk</div></div>
+    <div class="card"><div class="tgt">मुँह</div><div class="src">ਮੂੰਹ</div><div class="ipa">mũh</div></div>
+    <div class="card"><div class="tgt">हाथ</div><div class="src">ਹੱਥ</div><div class="ipa">hāth</div></div>
+    <div class="card"><div class="tgt">पैर</div><div class="src">ਪੈਰ</div><div class="ipa">pair</div></div>
+    <div class="card"><div class="tgt">पेट</div><div class="src">ਪੇਟ</div><div class="ipa">peṭ</div></div>
+    <div class="card"><div class="tgt">दिल</div><div class="src">ਦਿਲ</div><div class="ipa">dil</div></div>
+  </div>
+
+  <h3>ਗਤੀ</h3>
+  <table>
+    <tbody>
+      <tr><td class="dev">जाना</td><td class="pa">ਜਾਣਾ</td><td class="dev">आना</td><td class="pa">ਆਉਣਾ</td></tr>
+      <tr><td class="dev">चलना</td><td class="pa">ਚੱਲਣਾ</td><td class="dev">रुकना</td><td class="pa">ਰੁਕਣਾ</td></tr>
+      <tr><td class="dev">दौड़ना</td><td class="pa">ਦੌੜਨਾ</td><td class="dev">पहुँचना</td><td class="pa">ਪਹੁੰਚਣਾ</td></tr>
+      <tr><td class="dev">लौटना</td><td class="pa">ਵਾਪਸ ਆਉਣਾ</td><td class="dev">निकलना</td><td class="pa">ਨਿਕਲਣਾ</td></tr>
+    </tbody>
+  </table>
+
+  <div class="nav-btns"><button onclick="go(6)">← ਪਿੱਛੇ · ਪੜ੍ਹਾਈ</button><button onclick="go(8)">ਅੱਗੇ · ਵਰਤੋਂ →</button></div>
+</section>
+
+<!-- STAGE 08 -->
+<section class="stage" data-stage="8">
+  <div class="stage-head"><div class="tag">STAGE · 08</div><h2>ਵਰਤੋਂ — ਆਦਰ, ਵਾਕਫ਼ੀਅਤ ਅਤੇ ਨਰਮਾਈ</h2></div>
+
+  <h3>ਨਮਸਕਾਰ ਦੀ ਪੱਧਰ</h3>
+  <table>
+    <thead><tr><th>ਹਿੰਦੀ</th><th>ਉਚਾਰਨ</th><th>ਪੰਜਾਬੀ ਤੁਲਨਾ</th></tr></thead>
+    <tbody>
+      <tr><td class="dev">नमस्ते / नमस्कार</td><td class="mono">namaste / namaskār</td><td class="pa">ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ</td></tr>
+      <tr><td class="dev">धन्यवाद / शुक्रिया</td><td class="mono">dhanyavād / śukriyā</td><td class="pa">ਧੰਨਵਾਦ / ਸ਼ੁਕਰੀਆ</td></tr>
+      <tr><td class="dev">माफ़ कीजिए</td><td class="mono">māf kījiye</td><td class="pa">ਮਾਫ਼ ਕਰੋ</td></tr>
+      <tr><td class="dev">आप कैसे हैं?</td><td class="mono">āp kaise hãi?</td><td class="pa">ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ?</td></tr>
+      <tr><td class="dev">मैं ठीक हूँ</td><td class="mono">maĩ ṭhīk hū̃</td><td class="pa">ਮੈਂ ਠੀਕ ਹਾਂ</td></tr>
+      <tr><td class="dev">खाना खाया?</td><td class="mono">khānā khāyā?</td><td class="pa">ਰੋਟੀ ਖਾ ਲਈ?</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside ochre">
+    <span class="label">ਤਿੰਨ ਦਰਵਾਜ਼ੇ — ਤੂ, ਤੁਮ, ਆਪ</span>
+    ਪੰਜਾਬੀ ਦਾ ਘਰ ਦੋ ਕਮਰਿਆਂ ਦਾ ਹੈ: <span class="pa teal">ਤੂੰ</span> ਅਤੇ <span class="pa teal">ਤੁਸੀਂ</span>। ਹਿੰਦੀ ਦਾ ਘਰ ਤਿੰਨਾਂ ਦਾ — ਵਿਚਕਾਰ <span class="dev sindoor">तुम</span> ਦਾ ਵਾਧੂ ਕਮਰਾ। ਅੰਗੂਠੇ ਦਾ ਨਿਯਮ: ਆਪਣੇ ਤੋਂ ਵੱਡੇ, ਅਜਨਬੀ, ਦਫ਼ਤਰ ਵਿਚ → <b>आप</b>। ਦੋਸਤ, ਸਹਿਪਾਠੀ, ਭੈਣ-ਭਰਾ → <b>तुम</b>। ਬੱਚਾ, ਰੱਬ, ਬਹੁਤ ਕਰੀਬੀ → <b>तू</b> (ਪਰ ਸੰਭਾਲ ਕੇ — ਅਣਜਾਣ ਨਾਲ ਤੂ ਗੁਸਤਾਖ਼ੀ ਹੈ)।
+  </div>
+
+  <h3>ਸੰਬੋਧਨ — ਪਰਾਏ ਨੂੰ ਵੀ ਘਰ ਦਾ ਬਣਾਓ</h3>
+  <table>
+    <thead><tr><th>ਕਿਸ ਨੂੰ?</th><th>ਹਿੰਦੀ</th><th>ਪੰਜਾਬੀ ਵਿਚ ਇਹੀ ਬੋਲੀਦਾ</th></tr></thead>
+    <tbody>
+      <tr><td>ਵੱਡਾ ਮਰਦ (ਅਜਨਬੀ)</td><td class="dev">भैया / भाई साहब</td><td class="pa">ਵੀਰ ਜੀ / ਭਾਈ ਸਾਹਿਬ</td></tr>
+      <tr><td>ਵੱਡੀ ਔਰਤ (ਅਜਨਬੀ)</td><td class="dev">दीदी / बहनजी</td><td class="pa">ਭੈਣ ਜੀ / ਦੀਦੀ</td></tr>
+      <tr><td>ਬਜ਼ੁਰਗ ਆਦਮੀ</td><td class="dev">अंकल / बाबा</td><td class="pa">ਅੰਕਲ / ਬਾਬਾ ਜੀ</td></tr>
+      <tr><td>ਬਜ਼ੁਰਗ ਔਰਤ</td><td class="dev">आंटी / अम्माजी</td><td class="pa">ਆਂਟੀ / ਅੰਮਾ ਜੀ</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aside">
+    <span class="label">ਜ਼ਰਾ — ਨਰਮਾਈ ਦਾ ਸੁਨਿਹਰੀ ਸ਼ਬਦ</span>
+    ਹਿੰਦੀ ਵਿਚ <span class="dev sindoor">ज़रा</span> (zarā) — ਪੰਜਾਬੀ ਦਾ ਉਹੀ <span class="pa teal">ਜ਼ਰਾ</span>। ਇਕ ਸ਼ਬਦ ਲਗਾ ਦਿਓ ਤੇ ਹੁਕਮ ਬੇਨਤੀ ਬਣ ਜਾਏ: <span class="dev">सुनिए</span> (ਸੁਣੋ) ਸਖ਼ਤ; <span class="dev">ज़रा सुनिए</span> (ਜ਼ਰਾ ਸੁਣੋ) ਨਰਮ। ਇਹੀ ਚਾਲ <span class="dev">थोड़ा</span> (thoṛā) ਨਾਲ ਵੀ ਕੰਮ ਕਰਦੀ ਹੈ।
+  </div>
+
+  <h3>ਖਾਣੇ ਦਾ ਹਾਲ-ਚਾਲ</h3>
+  <p>ਪੰਜਾਬ ਵਿੱਚ "<span class="pa teal">ਰੋਟੀ ਖਾ ਲਈ?</span>" ਰੋਜ਼ਾਨਾ ਦਾ ਪਿਆਰ ਭਰਿਆ ਪ੍ਰਸ਼ਨ ਹੈ। ਹਿੰਦੀ ਵਿਚ <span class="dev sindoor">खाना खाया?</span> ਵੀ ਮਿਲੇਗਾ — ਪਰ ਇਹ ਉੱਤਰ-ਭਾਰਤ ਦੇ ਉਰਬਨ ਹਿੱਸਿਆਂ ਵਿਚ ਦੱਖਣ ਜਾਂ ਬੰਗਾਲ ਦੇ ਮੁਕਾਬਲੇ <b>�ੱਟ ਆਮ</b> ਹੈ। ਵੱਡਿਆਂ ਨਾਲ <span class="dev">खाना खाया आपने?</span> ਜਾਂ ਸਿੱਧੇ <span class="dev">आप कैसे हैं?</span> ਵਰਤੋ।</p>
+
+  <div class="nav-btns"><button onclick="go(7)">← ਪਿੱਛੇ · ਸ਼ਬਦ-ਖੇਤਰ</button><button onclick="go(9)">ਅੱਗੇ · ਸਾਹਿਤ →</button></div>
+</section>
+
+<!-- STAGE 09 -->
+<section class="stage" data-stage="9">
+  <div class="stage-head"><div class="tag">STAGE · 09</div><h2>ਸਾਹਿਤ — ਦੋ ਕਿਨਾਰਿਆਂ ਦੇ ਪੁਲ</h2></div>
+  <p>ਹਿੰਦੀ ਸਾਹਿਤ ਦੀ 800 ਸਾਲ ਪੁਰਾਣੀ ਧਾਰਾ ਵਿਚ ਅਨੇਕ ਅਵਾਜ਼ਾਂ ਹਨ ਜਿਨ੍ਹਾਂ ਨੂੰ ਤੁਸੀਂ ਆਪਣੇ ਪੰਜਾਬੀ ਲੇਖਕਾਂ ਨਾਲ ਜੋੜ ਕੇ ਸਮਝ ਸਕਦੇ ਹੋ।</p>
+
+  <div class="lit">
+    <div class="name"><span class="hi">कबीर</span> (Kabir)<span class="era">15ਵੀਂ ਸਦੀ · ਦੋਹਾ · ਭਜਨ</span></div>
+    <div>ਜੁਲਾਹਾ-ਭਗਤ ਕਵੀ — ਜਾਤ, ਪਾਖੰਡ ਤੇ ਰੀਤੀ-ਰਿਵਾਜ ਦੇ ਖ਼ਿਲਾਫ਼; ਸੰਤ ਭਾਸ਼ਾ ਵਿੱਚ ਲਿਖਿਆ।</div>
+    <div class="bridge"><b>ਗੁਰੂ ਨਾਨਕ ਦੇਵ ਜੀ</b> ਨਾਲ। ਦੋਵਾਂ ਨੇ ਬ੍ਰਾਹਮਣੀ ਰੀਤ ਤੇ ਮੁਲਾਣਵੀ ਸ਼ਰੀਅਤ — ਦੋਵਾਂ ਨੂੰ ਮੋੜ ਕੇ ਲੋਕ-ਭਾਸ਼ਾ ਵਿਚ ਇਕ-ਅਕਾਲ ਦਾ ਸੁਨੇਹਾ ਦਿੱਤਾ। ਗੁਰੂ ਗ੍ਰੰਥ ਸਾਹਿਬ ਵਿੱਚ ਕਬੀਰ ਦੀ ਬਾਣੀ ਆਪਣੀ ਥਾਂ ਰੱਖਦੀ ਹੈ — ਇਹ ਖ਼ੁਦ ਇਕ ਪੁਲ ਹੈ ਜੋ ਪਹਿਲਾਂ ਤੋਂ ਬਣ ਚੁੱਕਿਆ।</div>
+  </div>
+
+  <div class="lit">
+    <div class="name"><span class="hi">प्रेमचंद</span> (Premchand)<span class="era">1880–1936 · ਨਾਵਲ · ਕਹਾਣੀ</span></div>
+    <div>ਹਿੰਦੀ ਕਥਾ-ਸਾਹਿਤ ਦੇ ਪਿਤਾਮਾ। "ਗੋਦਾਨ" ਵਿਚ ਪੇਂਡੂ ਗ਼ਰੀਬੀ, ਜਾਤ ਅਤੇ ਕਿਸਾਨ ਦੀ ਕਹਾਣੀ।</div>
+    <div class="bridge"><b>ਨਾਨਕ ਸਿੰਘ</b> ਨਾਲ — ਪੰਜਾਬੀ ਨਾਵਲ ਦੇ ਪਿਤਾਮਾ। ਦੋਵਾਂ ਨੇ ਸਮਾਜਵਾਦੀ ਨਜ਼ਰ ਨਾਲ ਆਮ ਬੰਦੇ ਦੇ ਦੁੱਖ ਲਿਖੇ; ਦੋਵੇਂ ਵੰਡ-ਦੁਖਾਂਤ ਦੇ ਗਵਾਹ ਸਨ। "ਗੋਦਾਨ" ਦਾ ਹੋਰੀ ਤੇ "ਪਵਿੱਤਰ ਪਾਪੀ" ਦੇ ਕੇਦਾਰ — ਦੋਵੇਂ ਇਕੋ ਜ਼ਮੀਨ ਦੇ ਚਰਿੱਤਰ ਹਨ।</div>
+  </div>
+
+  <div class="lit">
+    <div class="name"><span class="hi">निराला</span> (Nirala)<span class="era">1896–1961 · ਕਵਿਤਾ</span></div>
+    <div>ਹਿੰਦੀ ਛਾਇਆਵਾਦੀ ਕਵੀ — ਪਰੰਪਰਾਗਤ ਛੰਦ ਤੋੜੇ, ਮੁਕਤ ਛੰਦ ਲਿਆਂਦਾ; ਜ਼ਿੱਦੀ ਤੇ ਬਾਗ਼ੀ।</div>
+    <div class="bridge"><b>ਸ਼ਿਵ ਕੁਮਾਰ ਬਟਾਲਵੀ</b> ਨਾਲ — ਪੰਜਾਬੀ ਦਾ ਰੋਮਾਂਟਿਕ-ਤ੍ਰਾਸਦੀ ਵਾਲਾ ਕਵੀ। ਨਿਰਾਲਾ ਦੀ "ਸਰੋਜ-ਸਮਰਿਤੀ" ਅਤੇ ਸ਼ਿਵ ਦਾ "ਲੂਣਾ" — ਦੋਵੇਂ ਪਿਆਰ, ਪੀੜ ਤੇ ਮੌਤ ਦੇ ਗੀਤ; ਦੋਵੇਂ ਸਮੇਂ ਤੋਂ ਪਹਿਲਾਂ ਤੁਰ ਗਏ।</div>
+  </div>
+
+  <div class="lit">
+    <div class="name"><span class="hi">महादेवी वर्मा</span> (Mahadevi Varma)<span class="era">1907–1987 · ਕਵਿਤਾ</span></div>
+    <div>ਛਾਇਆਵਾਦ ਦੀ "ਮੀਰਾ" — ਰਹੱਸਵਾਦ, ਪੀੜ, ਔਰਤ ਦੀ ਆਵਾਜ਼।</div>
+    <div class="bridge"><b>ਅੰਮ੍ਰਿਤਾ ਪ੍ਰੀਤਮ</b> ਨਾਲ। ਦੋਵੇਂ ਆਪਣੀ ਭਾਸ਼ਾ ਦੀਆਂ ਪਹਿਲੀਆਂ ਮੁਖ ਔਰਤ-ਕਵਿਤਰੀਆਂ; ਦੋਵਾਂ ਨੇ ਔਰਤ ਦੀ ਇਕੱਲ, ਇੱਛਾ ਅਤੇ ਹਿੱਸੇਦਾਰੀ ਬਾਰੇ ਲਿਖਿਆ। ਅੰਮ੍ਰਿਤਾ ਦਾ "ਅੱਜ ਆਖਾਂ ਵਾਰਿਸ ਸ਼ਾਹ ਨੂੰ" ਤੇ ਮਹਾਦੇਵੀ ਦੇ ਪੀੜ-ਗੀਤ — ਦੋਵੇਂ ਵੰਡ ਦੀ ਭੁਗਤੀ ਹੋਈ ਔਰਤ ਦੇ ਰੁਦਨ ਹਨ।</div>
+  </div>
+
+  <div class="lit">
+    <div class="name"><span class="hi">मुक्तिबोध</span> (Muktibodh)<span class="era">1917–1964 · ਕਵਿਤਾ</span></div>
+    <div>ਹਿੰਦੀ ਦਾ ਸਭ ਤੋਂ ਬਾਗ਼ੀ ਆਧੁਨਿਕ ਕਵੀ — "ਅੰਧੇਰੇ ਮੇਂ"। ਵਰਗ-ਸੰਘਰਸ਼, ਮਾਰਕਸਵਾਦੀ ਦ੍ਰਿਸ਼ਟੀ, ਡੂੰਘਾ ਅੰਤਰ-ਮੰਥਨ।</div>
+    <div class="bridge"><b>ਪਾਸ਼</b> (ਅਵਤਾਰ ਸਿੰਘ ਸੰਧੂ) ਨਾਲ। ਦੋਵੇਂ ਲੋਕ-ਕ੍ਰਾਂਤੀਕਾਰੀ ਕਵੀ; ਦੋਵਾਂ ਨੇ ਸੁਪਨਾ ਅਤੇ ਗੁੱਸਾ ਇਕ ਹੀ ਛੰਦ ਵਿਚ ਜੋੜੇ। ਪਾਸ਼ ਦਾ "ਸਭ ਤੋਂ ਖ਼ਤਰਨਾਕ ਹੁੰਦਾ ਹੈ ਸਾਡੇ ਸੁਪਨਿਆਂ ਦਾ ਮਰ ਜਾਣਾ" ਤੇ ਮੁਕਤਿਬੋਧ ਦਾ "ਅਭਿਵਿਅਕਤੀ ਕੇ ਖ਼ਤਰੇ ਉਠਾਨੇ ਹੀ ਹੋਂਗੇ" — ਇਕੋ ਆਵਾਜ਼ ਦੇ ਦੋ ਸਿਰੇ।</div>
+  </div>
+
+  <div class="aside teal">
+    <span class="label">ਸਾਂਝਾ ਘਰ, ਸਾਂਝੀ ਧੜਕਣ</span>
+    ਦੋਵਾਂ ਭਾਸ਼ਾਵਾਂ ਦੇ ਲੇਖਕ ਅਕਸਰ ਇਕ-ਦੂਜੇ ਨੂੰ ਪੜ੍ਹਦੇ-ਲਿਖਦੇ ਰਹੇ — ਅੰਮ੍ਰਿਤਾ ਪ੍ਰੀਤਮ ਤਾਂ ਹਿੰਦੀ-ਪੰਜਾਬੀ ਦੋਵਾਂ ਵਿਚ ਲਿਖਦੀ ਸੀ; ਕਬੀਰ ਦੀ ਬਾਣੀ ਗੁਰੂ ਗ੍ਰੰਥ ਵਿਚ ਹੈ। ਇਹ ਪੁਲ ਤੁਸੀਂ ਬਣਾਉਂਦੇ ਨਹੀਂ — <i>ਤੁਸੀਂ ਇਸ ਉੱਪਰ ਪੈਰ ਰੱਖ ਕੇ ਜੰਮੇ ਹੋ।</i>
+  </div>
+
+  <div class="nav-btns"><button onclick="go(8)">← ਪਿੱਛੇ · ਵਰਤੋਂ</button><button disabled>ਅੰਤ ·</button></div>
+</section>
+
+</main>
+
+<footer>made by Nil · using Claude</footer>
+
+</div>
+
+<script>
+const tabs = document.querySelectorAll('#tabs button');
+const stages = document.querySelectorAll('section.stage');
+function go(n){
+  tabs.forEach(t=>t.classList.toggle('active', +t.dataset.stage===n));
+  stages.forEach(s=>s.classList.toggle('active', +s.dataset.stage===n));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+tabs.forEach(t=>t.addEventListener('click', ()=>go(+t.dataset.stage)));
+</script>
+</body>
+</html>

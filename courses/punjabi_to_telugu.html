@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="pa">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ਪੰਜਾਬੀ ਤੋਂ తెలుగు — ਭਾਸ਼ਾ ਸੇਤੁ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Gurmukhi:wght@400;600;700&family=Noto+Serif+Telugu:wght@400;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Noto Serif Gurmukhi', serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 800px at 10% 0%, #F7EFDE 0%, transparent 60%),
+    radial-gradient(900px 700px at 90% 100%, #EADFBF 0%, transparent 60%),
+    var(--paper);
+  min-height:100vh; line-height:1.65; font-size:17px;
+  position:relative;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.wrap{max-width:980px; margin:0 auto; padding:28px 28px 80px; position:relative; z-index:1}
+header.top{display:flex; align-items:baseline; justify-content:space-between; border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px; flex-wrap:wrap; gap:10px}
+.brand{font-family:'Fraunces', serif; font-size:22px; font-weight:600; letter-spacing:.3px}
+.brand em{font-style:italic; color:var(--sindoor)}
+.subtitle{color:var(--ink-faded); font-size:15px}
+.te{font-family:'Noto Serif Telugu', serif}
+.mono{font-family:'JetBrains Mono', monospace; font-size:.85em; color:var(--ink-faded)}
+
+nav.tabs{position:sticky; top:0; z-index:10; background:linear-gradient(var(--paper) 85%, transparent); padding:10px 0 12px; display:flex; flex-wrap:wrap; gap:6px; border-bottom:1px dashed var(--ink-faded); margin-bottom:22px}
+nav.tabs button{
+  font-family:inherit; font-size:14px; padding:8px 12px; border:1px solid var(--ink-faded);
+  background:var(--paper-warm); color:var(--ink-soft); border-radius:20px; cursor:pointer;
+}
+nav.tabs button.active{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+nav.tabs button:hover{background:var(--paper-deep)}
+
+.stage{display:none; padding:18px 0; animation:fade .35s ease}
+.stage.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+
+h1{font-family:'Fraunces', serif; font-size:32px; margin:0 0 6px; color:var(--ink)}
+h2{font-family:'Fraunces', serif; font-size:24px; margin:24px 0 8px; color:var(--sindoor)}
+h3{font-size:18px; margin:18px 0 8px; color:var(--teal)}
+p{margin:10px 0}
+
+.aside{border-left:4px solid var(--ochre); background:rgba(184,128,45,.08); padding:12px 14px; margin:16px 0; border-radius:0 8px 8px 0}
+.aside b{color:var(--sindoor)}
+
+.grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin:12px 0}
+.vowel-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px}
+.varga-grid{display:grid; grid-template-columns:repeat(5, 1fr); gap:8px}
+.cards{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px}
+.map-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:10px}
+
+.card{background:var(--paper-warm); border:1px solid var(--ink-faded); border-radius:10px; padding:10px 12px; cursor:pointer; transition:transform .15s}
+.card:hover{transform:translateY(-2px); background:var(--paper-deep)}
+.card .big{font-family:'Noto Serif Telugu', serif; font-size:28px; color:var(--ink); display:block}
+.card .src{color:var(--sindoor); font-size:18px}
+.card .tl{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-faded)}
+.card .hint{display:none; margin-top:6px; font-size:13px; color:var(--ink-soft); border-top:1px dashed var(--ink-faded); padding-top:5px}
+.card.open .hint{display:block}
+.card .new{color:var(--sindoor); font-weight:700}
+
+.family{border:1px dashed var(--ink-faded); border-radius:10px; padding:12px; margin:12px 0; background:rgba(244,236,218,.5)}
+.family h4{margin:0 0 8px; font-size:15px; color:var(--ink-soft)}
+
+table{width:100%; border-collapse:collapse; margin:10px 0; font-size:15px}
+th,td{border:1px solid var(--ink-faded); padding:6px 8px; text-align:left; vertical-align:top}
+th{background:var(--paper-deep); color:var(--ink)}
+
+.video{margin:14px 0}
+.video-frame{position:relative; width:100%; aspect-ratio:16/9; background:#000; border-radius:10px; overflow:hidden}
+.video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+.video-caption{margin-top:6px; font-size:14px; color:var(--ink-faded)}
+.video-caption a{color:var(--teal)}
+
+.passage{background:var(--paper-warm); border:1px solid var(--ink-faded); border-radius:10px; padding:14px; margin:14px 0}
+.passage .te{font-size:19px; line-height:1.9}
+.passage .tl{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--ink-faded); margin:6px 0}
+.passage .gloss{color:var(--ink-soft); font-size:15px; border-top:1px dashed var(--ink-faded); padding-top:8px}
+
+.nav-btns{display:flex; justify-content:space-between; margin-top:30px; padding-top:16px; border-top:1px solid var(--ink-faded)}
+.nav-btns button{font-family:inherit; padding:10px 18px; border:1px solid var(--ink); background:var(--paper); color:var(--ink); border-radius:6px; cursor:pointer; font-size:15px}
+.nav-btns button:hover{background:var(--ink); color:var(--paper)}
+
+footer{text-align:center; margin-top:40px; padding:18px 0; border-top:2px solid var(--ink); color:var(--ink-faded); font-size:14px; font-family:'Fraunces', serif; font-style:italic}
+
+.kinship li, .numwords li{padding:6px 0; border-bottom:1px dashed var(--ink-faded)}
+ol,ul{padding-left:24px}
+.bridge{border-left:3px solid var(--teal); padding:8px 12px; margin:12px 0; background:rgba(31,77,74,.06)}
+.bridge b{color:var(--teal)}
+
+@media (max-width: 420px){
+  body{font-size:15px}
+  .wrap,main,.container,article{padding-left:14px !important; padding-right:14px !important}
+  .grid,.map-grid,.cards,.varga-grid,.vowel-grid{grid-template-columns:1fr 1fr !important; gap:8px !important}
+  .stage,section{padding:14px !important}
+  h1{font-size:22px !important} h2{font-size:18px !important} h3{font-size:15px !important}
+  table{font-size:13px}
+  iframe{max-width:100%; height:auto; aspect-ratio:16/9}
+}
+@media (max-width: 340px){
+  .grid,.map-grid,.cards,.varga-grid,.vowel-grid{grid-template-columns:1fr !important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">ਭਾਸ਼ਾ <em>ਸੇਤੁ</em></div>
+    <div class="subtitle">ਪੰਜਾਬੀ → <span class="te">తెలుగు</span></div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button data-st="0" class="active">00 · ਜਾਣ-ਪਛਾਣ</button>
+    <button data-st="1">01 · ਸਵਰ</button>
+    <button data-st="2">02 · ਵਿਅੰਜਨ</button>
+    <button data-st="3">03 · ਜੋੜ</button>
+    <button data-st="4">04 · ਮੁੱਖ ਸ਼ਬਦ</button>
+    <button data-st="5">05 · ਵਾਕ</button>
+    <button data-st="6">06 · ਪੜ੍ਹਾਈ</button>
+    <button data-st="7">07 · ਸ਼ਬਦ-ਖੇਤਰ</button>
+    <button data-st="8">08 · ਵਰਤੋਂ</button>
+    <button data-st="9">09 · ਸਾਹਿਤ</button>
+  </nav>
+
+  <section class="stage active" id="st0">
+    <h1>ਜਾਣ-ਪਛਾਣ — ਦੋ ਪੁਰਾਣੀਆਂ ਬੋਲੀਆਂ, ਇੱਕ ਨਵਾਂ ਪੁਲ</h1>
+    <p>ਬਚਪਨ ਵਿੱਚ ਜਦੋਂ ਤੁਸੀਂ <b>ਪੈਂਤੀ ਅੱਖਰੀ</b> ਸਿੱਖੀ ਸੀ — ਊੜਾ, ਐੜਾ, ਈੜੀ, ਸੱਸਾ, ਹਾਹਾ — ਉਸ ਵੇਲੇ ਤੁਹਾਡੇ ਅੰਦਰ ਇੱਕ ਗੱਲ ਬੈਠ ਗਈ ਸੀ: ਹਰ ਵਿਅੰਜਨ ਵਿੱਚ ਇੱਕ ਸਵਰ ਲੁਕਿਆ ਹੁੰਦਾ ਹੈ, ਤੇ ਉਸ ਉੱਤੇ ਚਿੰਨ੍ਹ ਲਾ ਕੇ ਨਵਾਂ ਸਵਰ ਜੋੜ ਲਵੋ। ਇਹੀ ਉਹ ਤਰੀਕਾ ਹੈ ਜਿਸ ਨਾਲ ਤੇਲੁਗੂ ਵੀ ਚੱਲਦੀ ਹੈ। ਦੋਵੇਂ ਲਿਪੀਆਂ ਬ੍ਰਾਹਮੀ ਦੀਆਂ ਬੇਟੀਆਂ ਹਨ — ਬਸ ਸ਼ਕਲਾਂ ਬਦਲ ਗਈਆਂ ਹਨ, ਨਿਯਮ ਉਹੀ ਹਨ।</p>
+    <p>ਪਰ ਇੱਕ ਵੱਡੀ ਗੱਲ ਯਾਦ ਰੱਖੋ: ਪੰਜਾਬੀ <b>ਹਿੰਦ-ਆਰੀਆਈ</b> ਹੈ, ਤੇਲੁਗੂ <b>ਦ੍ਰਾਵਿੜ</b> ਹੈ। ਇਹ ਦੋ ਵੱਖਰੇ ਪਰਿਵਾਰ ਹਨ — ਜਿਵੇਂ ਚਾਚਾ ਤੇ ਫੁੱਫੜ। ਫਿਰ ਵੀ ਹਜ਼ਾਰਾਂ ਸਾਲਾਂ ਤੋਂ ਸੰਸਕ੍ਰਿਤ ਦਾ ਪੁਲ ਦੋਵਾਂ ਉੱਤੇ ਪਿਆ ਹੈ, ਇਸ ਲਈ <b>ਤਤਸਮ</b> ਸ਼ਬਦਾਂ ਦਾ ਬੂਹਾ ਖੁੱਲ੍ਹਾ ਹੈ: ਪੰਜਾਬੀ ‘ਸੂਰਜ’ = ਤੇਲੁਗੂ <span class="te">సూర్యుడు</span> (sūryuḍu), ਪੰਜਾਬੀ ‘ਦਿਨ’ = <span class="te">దినం</span> (dinaṃ), ‘ਪੁਸਤਕ’ = <span class="te">పుస్తకం</span> (pustakaṃ)। ਲਗਭਗ <b>42/47</b> ਧੁਨੀਆਂ ਸਾਂਝੀਆਂ ਹਨ — ਤੁਹਾਡਾ ਮੂੰਹ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਤਿਆਰ ਹੈ।</p>
+    <p>ਵਾਕ-ਕ੍ਰਮ ਵੀ ਇੱਕੋ: <b>ਕਰਤਾ–ਕਰਮ–ਕਿਰਿਆ</b>। ਪੰਜਾਬੀ: “ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।” ਤੇਲੁਗੂ: <span class="te">నేను నీరు తాగుతాను।</span> (nēnu nīru tāgutānu) — ਉਹੀ ਲੜੀ, ਉਹੀ ਸੋਚ। ਸੰਬੰਧਕ (postposition) ਵੀ ਸ਼ਬਦ ਦੇ ਪਿੱਛੇ ਹੀ ਲੱਗਦੇ ਹਨ।</p>
+
+    <h2>ਛੇ ਸਿਧਾਂਤ — ਲਾਭ ਤੇ ਚੁਣੌਤੀਆਂ</h2>
+    <ol>
+      <li><b>ਅਬੁਗਿਦਾ ਇੱਕੋ।</b> ਪੰਜਾਬੀ ਦਾ ‘ਕ’ + ‘ਾ’ = ਕਾ, ਤੇਲੁਗੂ ਦਾ <span class="te">క</span> + <span class="te">ా</span> = <span class="te">కా</span>। ਸਿਧਾਂਤ ਇੱਕੋ, ਸਿਰਫ਼ ਚਿੰਨ੍ਹ ਦੀ ਸ਼ਕਲ ਬਦਲੀ।</li>
+      <li><b>ਉਚਾਰਨ ਲਗਭਗ ਮੁਫ਼ਤ।</b> ਵਰਗ ਦੇ ਪੰਜੇ ਵਿਅੰਜਨ (ਕ ਖ ਗ ਘ ਙ → <span class="te">క ఖ గ ఘ ఙ</span>) ਤੁਹਾਡੇ ਮੂੰਹ ਨੂੰ ਪਹਿਲਾਂ ਤੋਂ ਪਤਾ ਹਨ। ਮੁਰਧਨੀ <span class="te">ట ఠ డ ఢ</span> = ਟ ਠ ਡ ਢ ਹੀ ਹਨ।</li>
+      <li><b>ਵਾਕ-ਬਣਤਰ ਇੱਕੋ।</b> ਪੰਜਾਬੀ SOV, ਤੇਲੁਗੂ SOV। “ਮੈਂ ਘਰ ਜਾਂਦਾ ਹਾਂ” = <span class="te">నేను ఇంటికి వెళతాను</span> — ਕਰਤਾ, ਫਿਰ ਸਥਾਨ, ਫਿਰ ਕਿਰਿਆ।</li>
+      <li><b>ਸੰਸਕ੍ਰਿਤ ਦਾ ਪੁਲ।</b> ‘ਨਮਸਕਾਰ’ = <span class="te">నమస్కారం</span>, ‘ਧੰਨਵਾਦ’ = <span class="te">ధన్యవాదాలు</span>, ‘ਸਮਾਂ’ = <span class="te">సమయం</span>। ਤਤਸਮ ਸ਼ਬਦ ਸਿੱਧੇ ਕੰਮ ਆਉਂਦੇ ਹਨ।</li>
+      <li><b>ਚੁਣੌਤੀ: ਹ੍ਰਸਵ/ਦੀਰਘ ਏ/ਓ।</b> ਪੰਜਾਬੀ ਵਿੱਚ ‘ਏ’ ਤੇ ‘ਓ’ ਇੱਕ-ਇੱਕ ਹਨ। ਤੇਲੁਗੂ ਵਿੱਚ <span class="te">ఎ/ఏ</span> (e/ē) ਤੇ <span class="te">ఒ/ఓ</span> (o/ō) ਵੱਖੋ-ਵੱਖਰੇ ਅਰਥ ਦਿੰਦੇ ਹਨ — <span class="te">పలు</span> (palu, ‘ਬਹੁਤ’) ਤੇ <span class="te">పేలు</span> (pēlu, ‘ਜੂੰਆਂ’) ਇੱਕ ਨਹੀਂ!</li>
+      <li><b>ਚੁਣੌਤੀ: ਨਵੀਂ ਧੁਨੀ <span class="te">ళ</span>।</b> ਇਹ ‘ਲ’ ਦਾ ਮੁਰਧਨੀ ਰੂਪ ਹੈ — ਜੀਭ ਨੂੰ ਉੱਪਰ ਤਾਲੂ ਨੂੰ ਛੂਹ ਕੇ ਬੋਲੋ। ਪੰਜਾਬੀ ਵਿੱਚ ‘ਲ਼’ ਕੁਝ-ਕੁਝ ਇਸੇ ਤਰ੍ਹਾਂ ਸੁਣਦੀ ਹੈ, ਪਰ ਤੇਲੁਗੂ ਵਿੱਚ ਇਹ ਆਮ ਤੇ ਜ਼ਰੂਰੀ ਹੈ। ਕਿਰਿਆ-ਸੰਯੋਜਨ (agglutination) ਵੀ ਨਵੀਂ ਗੱਲ ਹੈ — ਇੱਕ ਸ਼ਬਦ ਨਾਲ ਬਹੁਤ ਸਾਰੇ ਪਿਛੇਤਰ ਚਿਪਕ ਜਾਂਦੇ ਹਨ।</li>
+    </ol>
+
+    <div class="aside"><b>ਇੱਕ ਮਹੱਤਵਪੂਰਨ ਨੁਕਤਾ:</b> ਪੰਜਾਬੀ ਵਿੱਚ <b>ਸੁਰ</b> (tones: ਉੱਚਾ, ਵਿਚਕਾਰਲਾ, ਨੀਵਾਂ) ਹਨ — ਪਰ ਤੇਲੁਗੂ ਨੇ ਇਹ ਵਿਸ਼ੇਸ਼ਤਾ ਕਦੇ ਨਹੀਂ ਅਪਣਾਈ। ਤੇਲੁਗੂ ਬੋਲਣ ਵੇਲੇ ਸੁਰ ਛੱਡ ਦਿਓ — ਸਿਰਫ਼ ਲੰਬਾਈ (ਹ੍ਰਸਵ/ਦੀਰਘ) ਉੱਤੇ ਧਿਆਨ ਰੱਖੋ।</div>
+</section>
+  <section class="stage" id="st1">
+    <h1>ਸਵਰ — <span class="te">అచ్చులు</span></h1>
+    <p>ਤੇਲੁਗੂ ਦੇ ਸਵਰ <b>ਜੋੜਿਆਂ</b> ਵਿੱਚ ਆਉਂਦੇ ਹਨ — ਹ੍ਰਸਵ (ਛੋਟਾ) ਤੇ ਦੀਰਘ (ਵੱਡਾ)। ਪੰਜਾਬੀ ਵਿੱਚ ਇਹ ਅੰਤਰ ‘ਅ/ਆ’, ‘ਇ/ਈ’, ‘ਉ/ਊ’ ਵਿੱਚ ਤਾਂ ਹੈ, ਪਰ ‘ਏ’ ਤੇ ‘ਓ’ ਦੇ ਲਈ ਨਹੀਂ — ਇਹ ਤੇਲੁਗੂ ਦਾ ਨਵਾਂ ਤੋਹਫ਼ਾ ਹੈ।</p>
+
+    <div class="family">
+      <h4>‘ਅ’ ਪਰਿਵਾਰ — ਘਰ ਦੇ ਜਾਣੇ-ਪਛਾਣੇ</h4>
+      <div class="vowel-grid">
+        <div class="card"><span class="big te">అ</span><span class="src">ਅ</span><span class="tl">a</span><div class="hint"><span class="te">అమ్మ</span> (amma) = ਮਾਂ — ਛੋਟਾ ‘ਅ’</div></div>
+        <div class="card"><span class="big te">ఆ</span><span class="src">ਆ</span><span class="tl">aː</span><div class="hint"><span class="te">ఆవు</span> (āvu) = ਗਾਂ — ਲੰਬਾ ‘ਆ’</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>‘ਇ’ ਪਰਿਵਾਰ</h4>
+      <div class="vowel-grid">
+        <div class="card"><span class="big te">ఇ</span><span class="src">ਇ</span><span class="tl">i</span><div class="hint"><span class="te">ఇల్లు</span> (illu) = ਘਰ</div></div>
+        <div class="card"><span class="big te">ఈ</span><span class="src">ਈ</span><span class="tl">iː</span><div class="hint"><span class="te">ఈగ</span> (īga) = ਮੱਖੀ</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>‘ਉ’ ਪਰਿਵਾਰ</h4>
+      <div class="vowel-grid">
+        <div class="card"><span class="big te">ఉ</span><span class="src">ਉ</span><span class="tl">u</span><div class="hint"><span class="te">ఉడుత</span> (uduta) = ਗਿਲਹਰੀ</div></div>
+        <div class="card"><span class="big te">ఊ</span><span class="src">ਊ</span><span class="tl">uː</span><div class="hint"><span class="te">ఊరు</span> (ūru) = ਪਿੰਡ</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>‘ਏ’ ਪਰਿਵਾਰ — <span style="color:var(--sindoor)">⚡ ਧਿਆਨ ਦਿਓ</span></h4>
+      <p style="margin:4px 0 8px; font-size:14px; color:var(--ink-soft)">ਪੰਜਾਬੀ ਵਿੱਚ ਸਿਰਫ਼ ‘ਏ’ ਹੈ — ਤੇਲੁਗੂ ਵਿੱਚ ਦੋ: ਹ੍ਰਸਵ <span class="te">ఎ</span> ਤੇ ਦੀਰਘ <span class="te">ఏ</span>। ਇਹ ਅਰਥ ਬਦਲਦੇ ਹਨ!</p>
+      <div class="vowel-grid">
+        <div class="card"><span class="big te">ఎ</span><span class="src">ਏ (ਛੋਟਾ)</span><span class="tl">e</span><div class="hint"><span class="te">ఎలుక</span> (eluka) = ਚੂਹਾ</div></div>
+        <div class="card"><span class="big te">ఏ</span><span class="src new">ਏ (ਲੰਬਾ)</span><span class="tl">eː</span><div class="hint"><span class="te">ఏమి</span> (ēmi) = ਕੀ</div></div>
+        <div class="card"><span class="big te">ఐ</span><span class="src">ਐ</span><span class="tl">ai</span><div class="hint"><span class="te">ఐదు</span> (aidu) = ਪੰਜ</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>‘ਓ’ ਪਰਿਵਾਰ — <span style="color:var(--sindoor)">⚡ ਫਿਰ ਉਹੀ ਗੱਲ</span></h4>
+      <div class="vowel-grid">
+        <div class="card"><span class="big te">ఒ</span><span class="src">ਓ (ਛੋਟਾ)</span><span class="tl">o</span><div class="hint"><span class="te">ఒకటి</span> (okaṭi) = ਇੱਕ</div></div>
+        <div class="card"><span class="big te">ఓ</span><span class="src new">ਓ (ਲੰਬਾ)</span><span class="tl">oː</span><div class="hint"><span class="te">ఓడ</span> (ōḍa) = ਬੇੜੀ</div></div>
+        <div class="card"><span class="big te">ఔ</span><span class="src">ਔ</span><span class="tl">au</span><div class="hint"><span class="te">ఔషధం</span> (auṣadhaṃ) = ਦਵਾਈ</div></div>
+      </div>
+    </div>
+
+    <div class="family">
+      <h4>ਸੰਸਕ੍ਰਿਤੀ ਸਵਰ</h4>
+      <div class="vowel-grid">
+        <div class="card"><span class="big te">ఋ</span><span class="src">— (ਨਵਾਂ)</span><span class="tl">ɾi</span><div class="hint"><span class="te">ఋషి</span> (ṛṣi) = ਰਿਸ਼ੀ — ਸੰਸਕ੍ਰਿਤ ਸ਼ਬਦਾਂ ਵਿੱਚ</div></div>
+      </div>
+    </div>
+
+    <div class="aside"><b>ਹ੍ਰਸਵ/ਦੀਰਘ ਏ/ਓ ਦੀ ਪਰਖ:</b> <span class="te">పలు</span> (palu, ‘ਬਹੁਤ’) ≠ <span class="te">పేలు</span> (pēlu, ‘ਜੂੰਆਂ’); <span class="te">పోరు</span> (pōru, ‘ਲੜਾਈ’) ≠ <span class="te">పొరు</span> (poru, ‘ਪਰਤ’)। ਛੋਟੀ ਜਿਹੀ ਲੰਬਾਈ ਵੀ ਅਰਥ ਪੂਰਾ ਬਦਲ ਦਿੰਦੀ ਹੈ — ਇਹ ਤੇਲੁਗੂ ਦਾ ਦ੍ਰਾਵਿੜ ਸੁਭਾਅ ਹੈ।</div>
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+vowels+achulu+pronunciation" title="Telugu vowels pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">ਤੇਲੁਗੂ ਸਵਰਾਂ ਦਾ ਉਚਾਰਨ ਸੁਣੋ · <a href="https://www.youtube.com/results?search_query=learn+telugu+vowels+achulu+pronunciation" target="_blank" rel="noopener">ਹੋਰ ਵੀਡੀਓ ਲੱਭੋ ↗</a></div>
+    </div>
+</section>
+  <section class="stage" id="st2">
+    <h1>ਵਿਅੰਜਨ — <span class="te">హల్లులు</span></h1>
+    <p>ਪੈਂਤੀ ਅੱਖਰੀ ਦੇ ਪੰਜ ਵਰਗ (ਕੰਠ, ਤਾਲਵ, ਮੁਰਧਨੀ, ਦੰਤ, ਓਸ਼ਟ) — ਤੇਲੁਗੂ ਵੀ ਇਸੇ ਬਣਤਰ ਨਾਲ ਚੱਲਦੀ ਹੈ। ਇੱਕੋ ਕ੍ਰਮ, ਇੱਕੋ ਲਕੀਰ।</p>
+
+    <h3>ਕੰਠ ਵਰਗ (ਕ-ਵਰਗ)</h3>
+    <div class="varga-grid">
+      <div class="card"><span class="big te">క</span><span class="src">ਕ</span><span class="tl">ka</span></div>
+      <div class="card"><span class="big te">ఖ</span><span class="src">ਖ</span><span class="tl">kha</span></div>
+      <div class="card"><span class="big te">గ</span><span class="src">ਗ</span><span class="tl">ga</span></div>
+      <div class="card"><span class="big te">ఘ</span><span class="src">ਘ</span><span class="tl">gha</span></div>
+      <div class="card"><span class="big te">ఙ</span><span class="src">ਙ</span><span class="tl">ṅa</span></div>
+    </div>
+
+    <h3>ਤਾਲਵ ਵਰਗ (ਚ-ਵਰਗ)</h3>
+    <div class="varga-grid">
+      <div class="card"><span class="big te">చ</span><span class="src">ਚ</span><span class="tl">ca</span></div>
+      <div class="card"><span class="big te">ఛ</span><span class="src">ਛ</span><span class="tl">cha</span></div>
+      <div class="card"><span class="big te">జ</span><span class="src">ਜ</span><span class="tl">ja</span></div>
+      <div class="card"><span class="big te">ఝ</span><span class="src">ਝ</span><span class="tl">jha</span></div>
+      <div class="card"><span class="big te">ఞ</span><span class="src">ਞ</span><span class="tl">ña</span></div>
+    </div>
+
+    <h3>ਮੁਰਧਨੀ ਵਰਗ (ਟ-ਵਰਗ)</h3>
+    <div class="varga-grid">
+      <div class="card"><span class="big te">ట</span><span class="src">ਟ</span><span class="tl">ṭa</span></div>
+      <div class="card"><span class="big te">ఠ</span><span class="src">ਠ</span><span class="tl">ṭha</span></div>
+      <div class="card"><span class="big te">డ</span><span class="src">ਡ</span><span class="tl">ḍa</span></div>
+      <div class="card"><span class="big te">ఢ</span><span class="src">ਢ</span><span class="tl">ḍha</span></div>
+      <div class="card"><span class="big te">ణ</span><span class="src">ਣ</span><span class="tl">ṇa</span></div>
+    </div>
+
+    <h3>ਦੰਤ ਵਰਗ (ਤ-ਵਰਗ)</h3>
+    <div class="varga-grid">
+      <div class="card"><span class="big te">త</span><span class="src">ਤ</span><span class="tl">ta</span></div>
+      <div class="card"><span class="big te">థ</span><span class="src">ਥ</span><span class="tl">tha</span></div>
+      <div class="card"><span class="big te">ద</span><span class="src">ਦ</span><span class="tl">da</span></div>
+      <div class="card"><span class="big te">ధ</span><span class="src">ਧ</span><span class="tl">dha</span></div>
+      <div class="card"><span class="big te">న</span><span class="src">ਨ</span><span class="tl">na</span></div>
+    </div>
+
+    <h3>ਓਸ਼ਟ ਵਰਗ (ਪ-ਵਰਗ)</h3>
+    <div class="varga-grid">
+      <div class="card"><span class="big te">ప</span><span class="src">ਪ</span><span class="tl">pa</span></div>
+      <div class="card"><span class="big te">ఫ</span><span class="src">ਫ</span><span class="tl">pha</span></div>
+      <div class="card"><span class="big te">బ</span><span class="src">ਬ</span><span class="tl">ba</span></div>
+      <div class="card"><span class="big te">భ</span><span class="src">ਭ</span><span class="tl">bha</span></div>
+      <div class="card"><span class="big te">మ</span><span class="src">ਮ</span><span class="tl">ma</span></div>
+    </div>
+
+    <h3>ਅੰਤਸਥ ਤੇ ਊਸ਼ਮ</h3>
+    <div class="varga-grid">
+      <div class="card"><span class="big te">య</span><span class="src">ਯ</span><span class="tl">ya</span></div>
+      <div class="card"><span class="big te">ర</span><span class="src">ਰ</span><span class="tl">ra</span></div>
+      <div class="card"><span class="big te">ల</span><span class="src">ਲ</span><span class="tl">la</span></div>
+      <div class="card"><span class="big te">వ</span><span class="src">ਵ</span><span class="tl">va</span></div>
+      <div class="card"><span class="big te">శ</span><span class="src">ਸ਼</span><span class="tl">śa</span></div>
+      <div class="card"><span class="big te">ష</span><span class="src new">ਸ਼ (ਮੁਰਧਨੀ) ⚡</span><span class="tl">ṣa</span><div class="hint">ਪੰਜਾਬੀ ਵਿੱਚ ਇਹ ਅਲੱਗ ਨਹੀਂ — ਸਿਰਫ਼ ‘ਸ਼’ ਹੈ। ਤੇਲੁਗੂ ਤੋਂ ਸੰਸਕ੍ਰਿਤ ਸ਼ਬਦਾਂ ਵਿੱਚ।</div></div>
+      <div class="card"><span class="big te">స</span><span class="src">ਸ</span><span class="tl">sa</span></div>
+      <div class="card"><span class="big te">హ</span><span class="src">ਹ</span><span class="tl">ha</span></div>
+      <div class="card"><span class="big te">ళ</span><span class="src new">— (ਨਵਾਂ) ⚡</span><span class="tl">ḷa</span><div class="hint"><span class="te">పాళ్ళు</span> (pāḷḷu) = ਦੰਦ; ਜੀਭ ਉਲਟੀ ਕਰ ਕੇ ਤਾਲੂ ਨੂੰ ਛੂਹੋ — ਮੁਰਧਨੀ ‘ਲ’।</div></div>
+    </div>
+
+    <div class="aside"><b>ਦ੍ਰਾਵਿੜ ਦੀ ਨਿਸ਼ਾਨੀ — <span class="te">ళ</span>:</b> ਇਹ ਇੱਕ ਅੱਖਰ ਦੱਸਦਾ ਹੈ ਕਿ ਤੇਲੁਗੂ ਉੱਤਰੀ ਨਹੀਂ, ਦੱਖਣੀ ਹੈ। ਤਮਿਲ, ਕੰਨੜ, ਮਲਯਾਲਮ — ਸਭ ਭੈਣਾਂ ਵਿੱਚ ਇਹ ਧੁਨੀ ਹੈ। ਪੰਜਾਬੀ ‘ਲ਼’ (ਜਿਵੇਂ ‘ਚਾਲ਼ੀ, ਕਾਲ਼ਾ’) ਲਗਭਗ ਇਹੀ ਹੈ — ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ ਨੂੰ ਸੌਖੀ ਲੱਗੇਗੀ, ਹਿੰਦੀ ਵਾਲੇ ਨੂੰ ਔਖੀ।</div>
+
+    <div class="aside"><b>ਕਿਰਿਆ-ਸੰਯੋਜਨ (agglutination):</b> ਤੇਲੁਗੂ ਇੱਕ ਸ਼ਬਦ ਉੱਤੇ ਪਿਛੇਤਰ-ਉੱਤੇ-ਪਿਛੇਤਰ ਚਿਪਕਾਂਦੀ ਹੈ। <span class="te">ఇంటి-కి-ని</span> (iṇṭi-ki-ni) — ‘ਘਰ-ਨੂੰ-ਹੀ’। ਪੰਜਾਬੀ ਵਿੱਚ ਇਹ ਅਲੱਗ ਸ਼ਬਦਾਂ ਵਿੱਚ ਹੋਵੇਗਾ, ਤੇਲੁਗੂ ਵਿੱਚ ਇੱਕੋ ਲੰਮੇ ਸ਼ਬਦ ਵਿੱਚ।</div>
+
+    <div class="video">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+telugu+consonants+hallulu+pronunciation" title="Telugu consonants pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">ਤੇਲੁਗੂ ਵਿਅੰਜਨਾਂ ਦਾ ਉਚਾਰਨ · <a href="https://www.youtube.com/results?search_query=learn+telugu+consonants+hallulu+pronunciation" target="_blank" rel="noopener">ਹੋਰ ਵੀਡੀਓ ↗</a></div>
+    </div>
+</section>
+  <section class="stage" id="st3">
+    <h1>ਜੋੜ — ਸਵਰ-ਚਿੰਨ੍ਹ, ਹਲੰਤ, ਸੰਯੁਕਤਾਕਸ਼ਰ</h1>
+    <p>ਜਿਵੇਂ ਪੰਜਾਬੀ ਵਿੱਚ ‘ਕ’ ਉੱਤੇ ‘ਾ, ਿ, ੀ, ੁ, ੂ’ ਲੱਗ ਕੇ ‘ਕਾ, ਕਿ, ਕੀ, ਕੁ, ਕੂ’ ਬਣਦੇ ਹਨ — ਤੇਲੁਗੂ ਵਿੱਚ ਵੀ ਇੱਕੋ ਤਰੀਕਾ। ਬਸ ਚਿੰਨ੍ਹ ਦੀ ਸ਼ਕਲ ਬਦਲਦੀ ਹੈ।</p>
+
+    <h3>ਸਵਰ-ਚਿੰਨ੍ਹ — ‘ਕ’ ਉੱਤੇ</h3>
+    <table>
+      <tr><th>ਸਵਰ</th><th>ਪੰਜਾਬੀ</th><th>ਤੇਲੁਗੂ</th><th>ਲਿਪੀ-ਅੰਤਰ</th></tr>
+      <tr><td>a</td><td>ਕ</td><td class="te">క</td><td>ਅੰਤਰਹਿਤ ਸਵਰ</td></tr>
+      <tr><td>aː</td><td>ਕਾ</td><td class="te">కా</td><td>ਸੱਜੇ ਪਾਸੇ ਲੰਬੀ ਲਕੀਰ</td></tr>
+      <tr><td>i</td><td>ਕਿ</td><td class="te">కి</td><td>ਉੱਪਰ ਛੋਟਾ ਚਿੰਨ੍ਹ</td></tr>
+      <tr><td>iː</td><td>ਕੀ</td><td class="te">కీ</td><td>ਉੱਪਰ ਲੰਬਾ ਚਿੰਨ੍ਹ</td></tr>
+      <tr><td>u</td><td>ਕੁ</td><td class="te">కు</td><td>ਹੇਠਾਂ ਛੋਟਾ</td></tr>
+      <tr><td>uː</td><td>ਕੂ</td><td class="te">కూ</td><td>ਹੇਠਾਂ ਲੰਬਾ</td></tr>
+      <tr><td>e</td><td>ਕੇ</td><td class="te">కె</td><td>ਉੱਪਰ ਛੋਟਾ ਟੋਪੀ</td></tr>
+      <tr><td>eː</td><td>— (ਨਵਾਂ)</td><td class="te">కే</td><td>ਉੱਪਰ ਲੰਬੀ ਟੋਪੀ</td></tr>
+      <tr><td>ai</td><td>ਕੈ</td><td class="te">కై</td><td>ਉੱਪਰ ਦੋਹਰੀ</td></tr>
+      <tr><td>o</td><td>ਕੋ</td><td class="te">కొ</td><td>ਛੋਟਾ</td></tr>
+      <tr><td>oː</td><td>— (ਨਵਾਂ)</td><td class="te">కో</td><td>ਲੰਬਾ</td></tr>
+      <tr><td>au</td><td>ਕੌ</td><td class="te">కౌ</td><td>ਦੋਹਰੀ</td></tr>
+    </table>
+
+    <h3>ਹਲੰਤ / ਵਿਰਾਮ</h3>
+    <p>ਪੰਜਾਬੀ ‘੍’ = ਤੇਲੁਗੂ <span class="te">్</span> (hallu)। ਜਦੋਂ ਵਿਅੰਜਨ ਦਾ ਅੰਤਰਹਿਤ ‘ਅ’ ਮਿਟਾਉਣਾ ਹੋਵੇ। ਉਦਾਹਰਨ: <span class="te">క్</span> = ‘ਕ੍’।</p>
+
+    <h3>ਸੰਯੁਕਤਾਕਸ਼ਰ — ਤੇਲੁਗੂ ਦੀ ਖ਼ਾਸੀਅਤ</h3>
+    <p>ਤੇਲੁਗੂ ਵਿੱਚ ਸੰਯੁਕਤ ਅੱਖਰ ਦਾ ਦੂਜਾ ਵਿਅੰਜਨ ਛੋਟੇ ਰੂਪ ਵਿੱਚ <b>ਹੇਠਾਂ</b> ਲਗਦਾ ਹੈ — ਇਸ ਨੂੰ ‘ਓਤਤੁ’ (<span class="te">ఒత్తు</span>) ਕਹਿੰਦੇ ਹਨ।</p>
+    <table>
+      <tr><th>ਸੰਯੋਜਨ</th><th>ਪੰਜਾਬੀ</th><th>ਤੇਲੁਗੂ</th><th>ਅਰਥ</th></tr>
+      <tr><td>k + ṣ</td><td>ਕ੍ਸ਼</td><td class="te">క్ష</td><td>ਅੱਖਰ</td></tr>
+      <tr><td>p + r</td><td>ਪ੍ਰ</td><td class="te">ప్ర</td><td>ਪ੍ਰੇਮ → <span class="te">ప్రేమ</span></td></tr>
+      <tr><td>s + t</td><td>ਸ੍ਤ</td><td class="te">స్త</td><td><span class="te">నమస్తే</span> = ਨਮਸਤੇ</td></tr>
+      <tr><td>n + n</td><td>ਨ੍ਨ</td><td class="te">న్న</td><td><span class="te">అమ్మ, అన్న</span></td></tr>
+    </table>
+
+    <div class="aside"><b>ਪੈਂਤੀ ਅੱਖਰੀ ਦੀ ਗੰਢ:</b> ਇੱਕ ਵਾਰੀ ਇਹ 12 ਸਵਰ-ਚਿੰਨ੍ਹ ਯਾਦ ਕਰ ਲਏ, ਤਾਂ 36 ਵਿਅੰਜਨ × 12 ਸਵਰ = <b>432</b> ਅੱਖਰ ਮੁਫ਼ਤ ਮਿਲ ਗਏ। ਇਹੀ ਅਬੁਗਿਦਾ ਦਾ ਜਾਦੂ ਹੈ — ਜੋ ਤੁਹਾਨੂੰ ਪੰਜਾਬੀ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਪਤਾ ਹੈ।</div>
+</section>
+  <section class="stage" id="st4">
+    <h1>ਮੁੱਖ ਸ਼ਬਦ — ਰੋਜ਼ਮੱਰਾ ਦਾ ਖ਼ਜ਼ਾਨਾ</h1>
+    <p>ਤੇਲੁਗੂ ਦੀ ਸ਼ਬਦਾਵਲੀ ਦੋ ਪਰਤਾਂ ਵਿੱਚ ਹੈ — <b>ਦ੍ਰਾਵਿੜ ਮੂਲ</b> (ਘਰ, ਸਰੀਰ, ਰਿਸ਼ਤੇ) ਅਤੇ <b>ਤਤਸਮ/ਸੰਸਕ੍ਰਿਤ</b> (ਪੜ੍ਹਾਈ, ਧਰਮ, ਸਰਕਾਰ)। ਪੰਜਾਬੀ ਵਾਲੇ ਨੂੰ ਤਤਸਮ ਪਰਤ ਮੁਫ਼ਤ ਵਿੱਚ ਮਿਲਦੀ ਹੈ।</p>
+
+    <h3>ਸਰਵਨਾਮ</h3>
+    <div class="cards">
+      <div class="card"><span class="big te">నేను</span><span class="src">ਮੈਂ</span><span class="tl">nēnu</span></div>
+      <div class="card"><span class="big te">నువ్వు</span><span class="src">ਤੂੰ</span><span class="tl">nuvvu</span></div>
+      <div class="card"><span class="big te">అతడు</span><span class="src">ਉਹ (ਮਰਦ)</span><span class="tl">ataḍu</span></div>
+      <div class="card"><span class="big te">ఆమె</span><span class="src">ਉਹ (ਔਰਤ)</span><span class="tl">āme</span></div>
+      <div class="card"><span class="big te">అది</span><span class="src">ਉਹ (ਨਿਰਜੀਵ)</span><span class="tl">adi</span></div>
+      <div class="card"><span class="big te">ఇది</span><span class="src">ਇਹ</span><span class="tl">idi</span></div>
+      <div class="card"><span class="big te">మేము</span><span class="src">ਅਸੀਂ</span><span class="tl">mēmu</span></div>
+      <div class="card"><span class="big te">వారు</span><span class="src">ਉਹ (ਆਦਰ/ਬਹੁਵਚਨ)</span><span class="tl">vāru</span></div>
+    </div>
+
+    <h3>ਆਮ ਨਾਂਵ</h3>
+    <div class="cards">
+      <div class="card"><span class="big te">నీరు</span><span class="src">ਪਾਣੀ</span><span class="tl">nīru</span><div class="hint">ਦ੍ਰਾਵਿੜ ਮੂਲ — ਪੰਜਾਬੀ ‘ਜਲ’ ਤੋਂ ਅਲੱਗ</div></div>
+      <div class="card"><span class="big te">పాలు</span><span class="src">ਦੁੱਧ</span><span class="tl">pālu</span><div class="hint">ਦ੍ਰਾਵਿੜ</div></div>
+      <div class="card"><span class="big te">పుస్తకం</span><span class="src">ਪੁਸਤਕ / ਕਿਤਾਬ</span><span class="tl">pustakaṃ</span><div class="hint">ਤਤਸਮ — ਪਛਾਣਿਆ ਸ਼ਬਦ</div></div>
+      <div class="card"><span class="big te">సమయం</span><span class="src">ਸਮਾਂ</span><span class="tl">samayaṃ</span><div class="hint">ਤਤਸਮ</div></div>
+      <div class="card"><span class="big te">దినం</span><span class="src">ਦਿਨ</span><span class="tl">dinaṃ</span><div class="hint">ਤਤਸਮ — ਰੋਜ਼ਮੱਰਾ ਵਿੱਚ <span class="te">రోజు</span> ਵੀ</div></div>
+      <div class="card"><span class="big te">సూర్యుడు</span><span class="src">ਸੂਰਜ</span><span class="tl">sūryuḍu</span><div class="hint">ਤਤਸਮ — ਮਰਦਾਨਾ ‘-ਡੁ’ ਪਿਛੇਤਰ</div></div>
+      <div class="card"><span class="big te">భూమి</span><span class="src">ਧਰਤੀ / ਭੂਮੀ</span><span class="tl">bhūmi</span><div class="hint">ਤਤਸਮ</div></div>
+      <div class="card"><span class="big te">పేరు</span><span class="src">ਨਾਂ</span><span class="tl">pēru</span><div class="hint">ਦ੍ਰਾਵਿੜ — ਲੰਬਾ ‘ਏ’</div></div>
+      <div class="card"><span class="big te">దారి</span><span class="src">ਰਾਹ / ਰਸਤਾ</span><span class="tl">dāri</span><div class="hint">ਦ੍ਰਾਵਿੜ</div></div>
+      <div class="card"><span class="big te">రాత్రి</span><span class="src">ਰਾਤ</span><span class="tl">rātri</span><div class="hint">ਤਤਸਮ</div></div>
+      <div class="card"><span class="big te">పువ్వు</span><span class="src">ਫੁੱਲ</span><span class="tl">puvvu</span><div class="hint">ਦ੍ਰਾਵਿੜ</div></div>
+      <div class="card"><span class="big te">ఇల్లు</span><span class="src">ਘਰ</span><span class="tl">illu</span><div class="hint">ਦ੍ਰਾਵਿੜ</div></div>
+    </div>
+
+    <h3>ਕਿਰਿਆਵਾਂ (ਮੂਲ ਰੂਪ)</h3>
+    <div class="cards">
+      <div class="card"><span class="big te">ఉండు</span><span class="src">ਹੋਣਾ</span><span class="tl">uṇḍu</span></div>
+      <div class="card"><span class="big te">పోవు</span><span class="src">ਜਾਣਾ</span><span class="tl">pōvu</span></div>
+      <div class="card"><span class="big te">రా</span><span class="src">ਆਉਣਾ</span><span class="tl">rā</span></div>
+      <div class="card"><span class="big te">తిను</span><span class="src">ਖਾਣਾ</span><span class="tl">tinu</span></div>
+      <div class="card"><span class="big te">చూడు</span><span class="src">ਦੇਖਣਾ</span><span class="tl">cūḍu</span></div>
+      <div class="card"><span class="big te">చదువు</span><span class="src">ਪੜ੍ਹਨਾ</span><span class="tl">caduvu</span></div>
+      <div class="card"><span class="big te">కావాలి</span><span class="src">ਚਾਹੀਦਾ ਹੈ</span><span class="tl">kāvāli</span></div>
+      <div class="card"><span class="big te">తెలుసు</span><span class="src">ਪਤਾ ਹੋਣਾ</span><span class="tl">telusu</span></div>
+      <div class="card"><span class="big te">నడచు</span><span class="src">ਤੁਰਨਾ</span><span class="tl">naḍacu</span></div>
+      <div class="card"><span class="big te">నిలుచు</span><span class="src">ਖੜ੍ਹੇ ਹੋਣਾ</span><span class="tl">nilucu</span></div>
+      <div class="card"><span class="big te">ఇవ్వు</span><span class="src">ਦੇਣਾ</span><span class="tl">ivvu</span></div>
+      <div class="card"><span class="big te">చెప్పు</span><span class="src">ਕਹਿਣਾ</span><span class="tl">ceppu</span></div>
+    </div>
+
+    <h3>ਗਿਣਤੀ</h3>
+    <div class="cards">
+      <div class="card"><span class="big te">ఒకటి</span><span class="src">ਇੱਕ</span><span class="tl">okaṭi</span></div>
+      <div class="card"><span class="big te">రెండు</span><span class="src">ਦੋ</span><span class="tl">reṇḍu</span></div>
+      <div class="card"><span class="big te">మూడు</span><span class="src">ਤਿੰਨ</span><span class="tl">mūḍu</span></div>
+      <div class="card"><span class="big te">నాలుగు</span><span class="src">ਚਾਰ</span><span class="tl">nālugu</span></div>
+      <div class="card"><span class="big te">ఐదు</span><span class="src">ਪੰਜ</span><span class="tl">aidu</span></div>
+      <div class="card"><span class="big te">పది</span><span class="src">ਦਸ</span><span class="tl">padi</span></div>
+    </div>
+
+    <div class="aside"><b>ਤਤਸਮ ਦਾ ਪੁਲ:</b> ‘ਧੰਨਵਾਦ → <span class="te">ధన్యవాదాలు</span>’, ‘ਨਮਸਕਾਰ → <span class="te">నమస్కారం</span>’, ‘ਸਮਾਂ → <span class="te">సమయం</span>’ — ਇਹ ਸ਼ਬਦ ਤੁਹਾਡੇ ਲਈ ਮੁਫ਼ਤ ਹਨ। ਸੰਸਕ੍ਰਿਤ ਦੀ ਛਾਂ ਦੋਹਾਂ ਬੋਲੀਆਂ ਉੱਤੇ ਹੈ, ਇਸ ਲਈ ਧਰਮ, ਪੜ੍ਹਾਈ, ਰਾਜ — ਇਨ੍ਹਾਂ ਖੇਤਰਾਂ ਦੇ ਸ਼ਬਦ ਲਗਭਗ ਇੱਕੋ ਜਿਹੇ।</div>
+</section>
+  <section class="stage" id="st5">
+    <h1>ਵਾਕ — ਜੋੜ ਕੇ ਬੋਲਣਾ</h1>
+
+    <h3>ਵਾਕ-ਕ੍ਰਮ: ਕਰਤਾ–ਕਰਮ–ਕਿਰਿਆ</h3>
+    <p>ਦੋਵੇਂ ਬੋਲੀਆਂ SOV ਹਨ — ਇਹ ਸਭ ਤੋਂ ਵੱਡਾ ਤੋਹਫ਼ਾ।</p>
+    <table>
+      <tr><th>ਪੰਜਾਬੀ</th><th>ਤੇਲੁਗੂ</th><th>ਲਿਪੀ-ਅੰਤਰਨ</th></tr>
+      <tr><td>ਮੈਂ ਪਾਣੀ ਪੀਂਦਾ ਹਾਂ।</td><td class="te">నేను నీరు తాగుతాను।</td><td class="mono">nēnu nīru tāgutānu</td></tr>
+      <tr><td>ਉਹ ਘਰ ਜਾਂਦਾ ਹੈ।</td><td class="te">అతడు ఇంటికి వెళతాడు।</td><td class="mono">ataḍu iṇṭiki veḷatāḍu</td></tr>
+      <tr><td>ਬੱਚੇ ਕਿਤਾਬ ਪੜ੍ਹਦੇ ਹਨ।</td><td class="te">పిల్లలు పుస్తకం చదువుతారు।</td><td class="mono">pillalu pustakaṃ caduvutāru</td></tr>
+    </table>
+
+    <h3>ਕਿਰਿਆ-ਸੰਯੋਜਨ — <span class="te">చేయు</span> (ਕਰਨਾ), ਵਰਤਮਾਨ ਕਾਲ</h3>
+    <table>
+      <tr><th>ਵਿਅਕਤੀ</th><th>ਪੰਜਾਬੀ</th><th>ਤੇਲੁਗੂ</th><th>ਲਿਪੀ-ਅੰਤਰਨ</th></tr>
+      <tr><td>ਮੈਂ</td><td>ਕਰਦਾ/ਕਰਦੀ ਹਾਂ</td><td class="te">చేస్తాను</td><td class="mono">cēstānu</td></tr>
+      <tr><td>ਤੂੰ</td><td>ਕਰਦਾ/ਕਰਦੀ ਹੈਂ</td><td class="te">చేస్తావు</td><td class="mono">cēstāvu</td></tr>
+      <tr><td>ਉਹ (ਪੁ.)</td><td>ਕਰਦਾ ਹੈ</td><td class="te">చేస్తాడు</td><td class="mono">cēstāḍu</td></tr>
+      <tr><td>ਉਹ (ਇ.)</td><td>ਕਰਦੀ ਹੈ</td><td class="te">చేస్తుంది</td><td class="mono">cēstundi</td></tr>
+      <tr><td>ਅਸੀਂ</td><td>ਕਰਦੇ ਹਾਂ</td><td class="te">చేస్తాము</td><td class="mono">cēstāmu</td></tr>
+      <tr><td>ਉਹ (ਬ.ਵ.)</td><td>ਕਰਦੇ ਹਨ</td><td class="te">చేస్తారు</td><td class="mono">cēstāru</td></tr>
+    </table>
+
+    <div class="aside"><b>ਲਿੰਗ ਕਿਰਿਆ ਵਿੱਚ!</b> ਪੰਜਾਬੀ ਵਿੱਚ ਵੀ ਕਿਰਿਆ ਲਿੰਗ ਅਨੁਸਾਰ ਬਦਲਦੀ ਹੈ (‘ਕਰਦਾ/ਕਰਦੀ’), ਪਰ ਤੇਲੁਗੂ ਵਿੱਚ ਹਰ ਵਿਅਕਤੀ ਲਈ ਪਿਛੇਤਰ ਵੀ ਬਦਲਦੇ ਹਨ: <span class="te">-ను</span> (ਮੈਂ), <span class="te">-వు</span> (ਤੂੰ), <span class="te">-డు</span> (ਉਹ ਪੁ.), <span class="te">-ది</span> (ਉਹ ਇ.)। ਇੱਕ ਵਾਰੀ ਕਿਰਿਆ ਵੇਖੋ — ਪੂਰਾ ਵਾਕ ਸਮਝ ਆ ਜਾਂਦਾ ਹੈ, ਬਿਨਾਂ ਸਰਵਨਾਮ ਦੇ ਵੀ।</div>
+
+    <h3>ਸੰਬੰਧਕ (case markers)</h3>
+    <table>
+      <tr><th>ਕਾਰਕ</th><th>ਪੰਜਾਬੀ</th><th>ਤੇਲੁਗੂ</th><th>ਉਦਾਹਰਨ</th></tr>
+      <tr><td>ਕਰਤਾ</td><td>—</td><td>—</td><td class="te">రాము (rāmu)</td></tr>
+      <tr><td>ਕਰਮ</td><td>-ਨੂੰ</td><td>-ni / -nu</td><td class="te">రాముని (rāmuni)</td></tr>
+      <tr><td>ਸੰਪ੍ਰਦਾਨ</td><td>-ਨੂੰ</td><td>-ki / -ku</td><td class="te">రాముకి (rāmuki)</td></tr>
+      <tr><td>ਅਧਿਕਰਣ</td><td>-ਵਿੱਚ</td><td>-lō</td><td class="te">ఇంట్లో (iṇṭlō)</td></tr>
+      <tr><td>ਅਪਾਦਾਨ</td><td>-ਤੋਂ</td><td>-nuṇḍi</td><td class="te">ఇంటినుండి</td></tr>
+      <tr><td>ਸੰਬੰਧ</td><td>-ਦਾ/ਦੀ/ਦੇ</td><td>-yokkā</td><td class="te">రాము యొక్క</td></tr>
+    </table>
+
+    <h3>ਨਕਾਰ (negation) ਤੇ ਸਵਾਲ</h3>
+    <table>
+      <tr><th>ਭਾਵ</th><th>ਪੰਜਾਬੀ</th><th>ਤੇਲੁਗੂ</th></tr>
+      <tr><td>ਮੈਂ ਨਹੀਂ ਜਾਂਦਾ।</td><td>ਮੈਂ ਨਹੀਂ ਜਾਂਦਾ।</td><td class="te">నేను వెళ్ళను। (nēnu veḷḷanu)</td></tr>
+      <tr><td>ਪਤਾ ਨਹੀਂ।</td><td>ਪਤਾ ਨਹੀਂ।</td><td class="te">తెలియదు। (teliyadu)</td></tr>
+      <tr><td>ਤੂੰ ਕੀ ਕਰਦਾ ਹੈਂ?</td><td>ਤੂੰ ਕੀ ਕਰਦਾ ਹੈਂ?</td><td class="te">నువ్వు ఏమి చేస్తావు? (nuvvu ēmi cēstāvu?)</td></tr>
+      <tr><td>ਤੂੰ ਕਿੱਥੇ ਜਾਂਦਾ ਹੈਂ?</td><td>ਤੂੰ ਕਿੱਥੇ ਜਾਂਦਾ ਹੈਂ?</td><td class="te">నువ్వు ఎక్కడికి వెళతావు?</td></tr>
+    </table>
+
+    <h3>ਪ੍ਰਸ਼ਨ-ਸ਼ਬਦ</h3>
+    <div class="cards">
+      <div class="card"><span class="big te">ఏమిటి</span><span class="src">ਕੀ</span><span class="tl">ēmiṭi</span></div>
+      <div class="card"><span class="big te">ఎవరు</span><span class="src">ਕੌਣ</span><span class="tl">evaru</span></div>
+      <div class="card"><span class="big te">ఎక్కడ</span><span class="src">ਕਿੱਥੇ</span><span class="tl">ekkaḍa</span></div>
+      <div class="card"><span class="big te">ఎప్పుడు</span><span class="src">ਕਦੋਂ</span><span class="tl">eppuḍu</span></div>
+      <div class="card"><span class="big te">ఎందుకు</span><span class="src">ਕਿਉਂ</span><span class="tl">enduku</span></div>
+      <div class="card"><span class="big te">ఎలా</span><span class="src">ਕਿਵੇਂ</span><span class="tl">elā</span></div>
+    </div>
+
+    <div class="aside"><b>ਸਾਰੇ ‘ਏ’ ਨਾਲ ਸ਼ੁਰੂ!</b> ਧਿਆਨ ਦਿਓ — ਤੇਲੁਗੂ ਦੇ ਪ੍ਰਸ਼ਨ-ਸ਼ਬਦ ਸਭ ‘ਏ’ (e-) ਨਾਲ ਸ਼ੁਰੂ ਹੁੰਦੇ ਹਨ, ਜਿਵੇਂ ਪੰਜਾਬੀ ਦੇ ‘ਕ’ ਨਾਲ (ਕੀ, ਕੌਣ, ਕਿੱਥੇ...)। ਇਹ ਇੱਕ ਪਰਿਵਾਰਕ ਨਮੂਨਾ ਹੈ — ਤੁਸੀਂ ਕਦੇ ਨਹੀਂ ਭੁੱਲੋਗੇ।</div>
+</section>
+  <section class="stage" id="st6">
+    <h1>ਪੜ੍ਹਾਈ — ਤਿੰਨ ਪਾਠ</h1>
+
+    <h3>੧. ਆਪਣੀ ਜਾਣ-ਪਛਾਣ</h3>
+    <div class="passage">
+      <div class="te">నా పేరు రాము। నేను హైదరాబాదులో ఉంటాను। నేను విద్యార్థిని। నాకు తెలుగు, పంజాబీ తెలుసు। నేను ప్రతి రోజు పుస్తకాలు చదువుతాను।</div>
+      <div class="tl">nā pēru rāmu. nēnu haidarābādulō uṇṭānu. nēnu vidyārthini. nāku telugu, pañjābī telusu. nēnu prati rōju pustakālu caduvutānu.</div>
+      <div class="gloss">ਮੇਰਾ ਨਾਂ ਰਾਮ ਹੈ। ਮੈਂ ਹੈਦਰਾਬਾਦ ਵਿੱਚ ਰਹਿੰਦਾ ਹਾਂ। ਮੈਂ ਵਿਦਿਆਰਥੀ ਹਾਂ। ਮੈਨੂੰ ਤੇਲੁਗੂ ਤੇ ਪੰਜਾਬੀ ਆਉਂਦੀਆਂ ਹਨ। ਮੈਂ ਹਰ ਰੋਜ਼ ਕਿਤਾਬਾਂ ਪੜ੍ਹਦਾ ਹਾਂ।</div>
+    </div>
+
+    <h3>੨. ਇੱਕ ਦਿਨ</h3>
+    <div class="passage">
+      <div class="te">నేను ఉదయం ఆరు గంటలకు లేస్తాను। ముఖం కడుక్కుని పాలు తాగుతాను। తరువాత ఇంటి నుండి బడికి వెళతాను। మధ్యాహ్నం అన్నం తింటాను। సాయంత్రం స్నేహితులతో ఆడుతాను। రాత్రి అమ్మ వంట చేస్తుంది।</div>
+      <div class="tl">nēnu udayaṃ āru gaṇṭalaku lēstānu. mukhaṃ kaḍukkuni pālu tāgutānu. taruvāta iṇṭi nuṇḍi baḍiki veḷatānu. madhyāhnaṃ annaṃ tiṇṭānu. sāyantraṃ snēhitulatō āḍutānu. rātri amma vaṇṭa cēstundi.</div>
+      <div class="gloss">ਮੈਂ ਸਵੇਰੇ ਛੇ ਵਜੇ ਉੱਠਦਾ ਹਾਂ। ਮੂੰਹ ਧੋ ਕੇ ਦੁੱਧ ਪੀਂਦਾ ਹਾਂ। ਫਿਰ ਘਰੋਂ ਸਕੂਲ ਜਾਂਦਾ ਹਾਂ। ਦੁਪਹਿਰੇ ਭੋਜਨ ਖਾਂਦਾ ਹਾਂ। ਸ਼ਾਮ ਨੂੰ ਦੋਸਤਾਂ ਨਾਲ ਖੇਡਦਾ ਹਾਂ। ਰਾਤ ਨੂੰ ਮਾਂ ਖਾਣਾ ਬਣਾਉਂਦੀ ਹੈ।</div>
+    </div>
+
+    <h3>੩. ਦੋ ਸਾਥੀਆਂ ਦੀ ਗੱਲਬਾਤ</h3>
+    <div class="passage">
+      <div class="te">రాము: నమస్కారం! నువ్వు ఎలా ఉన్నావు?<br>
+సీత: నమస్కారం రామూ! నేను బాగున్నాను, ధన్యవాదాలు। నువ్వు?<br>
+రాము: నేను కూడా బాగున్నాను। నువ్వు ఎక్కడికి వెళతావు?<br>
+సీత: నేను బజారుకి వెళతాను। పువ్వులు కావాలి।<br>
+రాము: నేను కూడా వస్తాను। కొంచెం ఆగు।<br>
+సీత: సరే, రా!</div>
+      <div class="tl">rāmu: namaskāraṃ! nuvvu elā unnāvu?<br>
+sīta: namaskāraṃ rāmū! nēnu bāgunnānu, dhanyavādālu. nuvvu?<br>
+rāmu: nēnu kūḍā bāgunnānu. nuvvu ekkaḍiki veḷatāvu?<br>
+sīta: nēnu bajāruki veḷatānu. puvvulu kāvāli.<br>
+rāmu: nēnu kūḍā vastānu. koñceṃ āgu.<br>
+sīta: sarē, rā!</div>
+      <div class="gloss">ਰਾਮ: ਨਮਸਕਾਰ! ਤੂੰ ਕਿਵੇਂ ਹੈਂ?<br>
+ਸੀਤਾ: ਨਮਸਕਾਰ ਰਾਮ! ਮੈਂ ਠੀਕ ਹਾਂ, ਧੰਨਵਾਦ। ਤੂੰ?<br>
+ਰਾਮ: ਮੈਂ ਵੀ ਠੀਕ ਹਾਂ। ਤੂੰ ਕਿੱਥੇ ਜਾਂਦੀ ਹੈਂ?<br>
+ਸੀਤਾ: ਮੈਂ ਬਜ਼ਾਰ ਜਾਂਦੀ ਹਾਂ। ਫੁੱਲ ਚਾਹੀਦੇ ਹਨ।<br>
+ਰਾਮ: ਮੈਂ ਵੀ ਆਉਂਦਾ ਹਾਂ। ਥੋੜ੍ਹਾ ਰੁਕ।<br>
+ਸੀਤਾ: ਠੀਕ ਹੈ, ਆ!</div>
+    </div>
+</section>
+  <section class="stage" id="st7">
+    <h1>ਸ਼ਬਦ-ਖੇਤਰ</h1>
+
+    <h3>ਰਿਸ਼ਤੇ</h3>
+    <div class="cards">
+      <div class="card"><span class="big te">నాన్న</span><span class="src">ਪਿਤਾ / ਪਾਪਾ</span><span class="tl">nānna</span></div>
+      <div class="card"><span class="big te">అమ్మ</span><span class="src">ਮਾਂ</span><span class="tl">amma</span></div>
+      <div class="card"><span class="big te">అన్న</span><span class="src">ਵੱਡਾ ਭਰਾ</span><span class="tl">anna</span></div>
+      <div class="card"><span class="big te">అక్క</span><span class="src">ਵੱਡੀ ਭੈਣ</span><span class="tl">akka</span></div>
+      <div class="card"><span class="big te">తమ్ముడు</span><span class="src">ਛੋਟਾ ਭਰਾ</span><span class="tl">tammuḍu</span></div>
+      <div class="card"><span class="big te">చెల్లి</span><span class="src">ਛੋਟੀ ਭੈਣ</span><span class="tl">celli</span></div>
+      <div class="card"><span class="big te">మామ</span><span class="src">ਮਾਮਾ</span><span class="tl">māma</span></div>
+      <div class="card"><span class="big te">అత్త</span><span class="src">ਭੂਆ</span><span class="tl">atta</span></div>
+    </div>
+
+    <div class="aside"><b>ਰਿਸ਼ਤਿਆਂ ਵਿੱਚ ਉਮਰ ਦਾ ਬੰਧਨ:</b> ਤੇਲੁਗੂ ਵਿੱਚ ‘ਵੱਡਾ ਭਰਾ’ (<span class="te">అన్న</span>) ਤੇ ‘ਛੋਟਾ ਭਰਾ’ (<span class="te">తమ్ముడు</span>) ਲਈ ਅਲੱਗ-ਅਲੱਗ ਸ਼ਬਦ ਹਨ — ਇਹੀ ਗੱਲ ਭੈਣਾਂ ਲਈ ਹੈ। ਪੰਜਾਬੀ ਵਿੱਚ ਇੱਕੋ ‘ਭਰਾ/ਭੈਣ’ ਹੈ — ਦ੍ਰਾਵਿੜ ਬੋਲੀਆਂ ਉਮਰ ਨੂੰ ਸ਼ਬਦ ਵਿੱਚ ਹੀ ਪਾ ਦਿੰਦੀਆਂ ਹਨ।</div>
+
+    <h3>ਸਮਾਂ</h3>
+    <div class="cards">
+      <div class="card"><span class="big te">ఈరోజు</span><span class="src">ਅੱਜ</span><span class="tl">īrōju</span></div>
+      <div class="card"><span class="big te">రేపు</span><span class="src">ਕੱਲ੍ਹ (ਆਉਣ ਵਾਲਾ)</span><span class="tl">rēpu</span></div>
+      <div class="card"><span class="big te">నిన్న</span><span class="src">ਕੱਲ੍ਹ (ਬੀਤਿਆ)</span><span class="tl">ninna</span></div>
+      <div class="card"><span class="big te">ఇప్పుడు</span><span class="src">ਹੁਣ</span><span class="tl">ippuḍu</span></div>
+      <div class="card"><span class="big te">ఉదయం</span><span class="src">ਸਵੇਰ</span><span class="tl">udayaṃ</span></div>
+      <div class="card"><span class="big te">సాయంత్రం</span><span class="src">ਸ਼ਾਮ</span><span class="tl">sāyantraṃ</span></div>
+    </div>
+
+    <div class="aside"><b>ਪੰਜਾਬੀ ‘ਕੱਲ੍ਹ’ ਦੋਵੇਂ ਪਾਸੇ:</b> ਪੰਜਾਬੀ ਵਿੱਚ ‘ਕੱਲ੍ਹ’ ਆਉਣ ਵਾਲਾ ਵੀ ਹੈ ਤੇ ਬੀਤਿਆ ਵੀ — ਕਾਲ ਸਮਝ ਕੇ ਤੈਅ ਕਰਨਾ ਪੈਂਦਾ ਹੈ। ਤੇਲੁਗੂ ਇੱਥੇ ਵੱਖ-ਵੱਖ ਸ਼ਬਦ ਰੱਖਦੀ ਹੈ: <span class="te">రేపు</span> (ਆਉਣ ਵਾਲਾ), <span class="te">నిన్న</span> (ਬੀਤਿਆ)। ਇਹ ਸਪਸ਼ਟਤਾ ਦ੍ਰਾਵਿੜ ਸੋਚ ਦੀ ਖ਼ਾਸੀਅਤ ਹੈ।</div>
+
+    <h3>ਸਰੀਰ</h3>
+    <div class="cards">
+      <div class="card"><span class="big te">తల</span><span class="src">ਸਿਰ</span><span class="tl">tala</span></div>
+      <div class="card"><span class="big te">కన్ను</span><span class="src">ਅੱਖ</span><span class="tl">kannu</span></div>
+      <div class="card"><span class="big te">ముక్కు</span><span class="src">ਨੱਕ</span><span class="tl">mukku</span></div>
+      <div class="card"><span class="big te">నోరు</span><span class="src">ਮੂੰਹ</span><span class="tl">nōru</span></div>
+      <div class="card"><span class="big te">చేయి</span><span class="src">ਹੱਥ</span><span class="tl">cēyi</span></div>
+      <div class="card"><span class="big te">కాలు</span><span class="src">ਪੈਰ</span><span class="tl">kālu</span></div>
+    </div>
+
+    <h3>ਗਤੀ (ਜਾਣਾ-ਆਉਣਾ)</h3>
+    <table>
+      <tr><th>ਪੰਜਾਬੀ</th><th>ਤੇਲੁਗੂ</th><th>ਸੂਖਮ ਅੰਤਰ</th></tr>
+      <tr><td>ਜਾਣਾ</td><td class="te">వెళ్ళు / పోవు</td><td>ਪਿੱਛੇ ਛੱਡ ਕੇ ਜਾਣਾ</td></tr>
+      <tr><td>ਆਉਣਾ</td><td class="te">రా / వచ్చు</td><td>ਬੋਲਣ ਵਾਲੇ ਵੱਲ</td></tr>
+      <tr><td>ਤੁਰਨਾ</td><td class="te">నడచు</td><td>ਪੈਦਲ</td></tr>
+      <tr><td>ਦੌੜਨਾ</td><td class="te">పరుగు</td><td>ਤੇਜ਼</td></tr>
+    </table>
+</section>
+  <section class="stage" id="st8">
+    <h1>ਵਰਤੋਂ — ਸ਼ਿਸ਼ਟਾਚਾਰ</h1>
+
+    <h3>ਆਦਰ ਦੇ ਪੱਧਰ</h3>
+    <p>ਪੰਜਾਬੀ ‘ਤੂੰ / ਤੁਸੀਂ’ ਦੋ ਪੱਧਰ। ਤੇਲੁਗੂ ਵੀ ਦੋ: <span class="te">నువ్వు</span> (ਤੂੰ, ਸਾਥੀ) ਤੇ <span class="te">మీరు</span> (ਤੁਸੀਂ, ਆਦਰ)। ਆਪਣੇ ਉਮਰ ਵਾਲੇ ਜਾਂ ਛੋਟੇ ਨਾਲ <span class="te">నువ్వు</span>, ਵੱਡਿਆਂ ਤੇ ਅਜਨਬੀਆਂ ਨਾਲ <span class="te">మీరు</span>।</p>
+
+    <h3>ਰੋਜ਼ਮੱਰਾ ਦੇ ਵਾਕ</h3>
+    <table>
+      <tr><th>ਭਾਵ</th><th>ਤੇਲੁਗੂ</th><th>ਲਿਪੀ-ਅੰਤਰਨ</th></tr>
+      <tr><td>ਨਮਸਕਾਰ</td><td class="te">నమస్కారం</td><td class="mono">namaskāraṃ</td></tr>
+      <tr><td>ਧੰਨਵਾਦ</td><td class="te">ధన్యవాదాలు</td><td class="mono">dhanyavādālu</td></tr>
+      <tr><td>ਕਿਵੇਂ ਹੋ?</td><td class="te">ఎలా ఉన్నారు?</td><td class="mono">elā unnāru?</td></tr>
+      <tr><td>ਮੈਂ ਠੀਕ ਹਾਂ</td><td class="te">బాగున్నాను</td><td class="mono">bāgunnānu</td></tr>
+      <tr><td>ਮੈਨੂੰ ਚਾਹੀਦਾ ਹੈ</td><td class="te">కావాలి</td><td class="mono">kāvāli</td></tr>
+      <tr><td>ਪਤਾ ਨਹੀਂ</td><td class="te">తెలియదు</td><td class="mono">teliyadu</td></tr>
+      <tr><td>ਮਾਫ਼ ਕਰੋ</td><td class="te">క్షమించండి</td><td class="mono">kṣamiñcaṇḍi</td></tr>
+      <tr><td>ਫਿਰ ਮਿਲਾਂਗੇ</td><td class="te">మళ్ళీ కలుద్దాం</td><td class="mono">maḷḷī kaluddāṃ</td></tr>
+    </table>
+
+    <h3>ਭੋਜਨ ਵਾਲਾ ਅਭਿਵਾਦਨ</h3>
+    <p>ਜਿਵੇਂ ਪੰਜਾਬੀ ਪਿੰਡਾਂ ਵਿੱਚ ‘ਰੋਟੀ ਖਾਧੀ?’ ਪੁੱਛਣਾ ਅਪਣੱਤ ਦਾ ਚਿੰਨ੍ਹ ਹੈ — ਆਂਧਰਾ ਤੇ ਤੇਲੰਗਾਨਾ ਵਿੱਚ ਲੋਕ ਪੁੱਛਦੇ ਹਨ:</p>
+    <div class="passage">
+      <div class="te">భోజనం అయిందా?</div>
+      <div class="tl">bhōjanaṃ ayindā?</div>
+      <div class="gloss">ਭੋਜਨ ਹੋ ਗਿਆ? (ਮਤਲਬ: ਤੁਸੀਂ ਖਾਣਾ ਖਾ ਲਿਆ?) — ਇਹ ਨਿਰਾ ਸਵਾਲ ਨਹੀਂ, ਰਿਸ਼ਤੇ ਦੀ ਨੇੜਤਾ ਹੈ।</div>
+    </div>
+
+    <h3>ਰਿਸ਼ਤਾ-ਸੰਬੋਧਨ (ਅਜਨਬੀਆਂ ਨਾਲ)</h3>
+    <table>
+      <tr><th>ਕਿਸ ਨੂੰ</th><th>ਤੇਲੁਗੂ</th><th>ਪੰਜਾਬੀ ਵਿੱਚ ਸਮਾਨ</th></tr>
+      <tr><td>ਵੱਡੇ ਮਰਦ ਨੂੰ</td><td class="te">అన్నా (annā)</td><td>‘ਭਾਜੀ / ਵੀਰ ਜੀ’</td></tr>
+      <tr><td>ਵੱਡੀ ਔਰਤ ਨੂੰ</td><td class="te">అక్కా (akkā)</td><td>‘ਭੈਣ ਜੀ’</td></tr>
+      <tr><td>ਬਜ਼ੁਰਗ ਆਦਮੀ</td><td class="te">తాతా (tātā)</td><td>‘ਬਾਬਾ ਜੀ’</td></tr>
+      <tr><td>ਬਜ਼ੁਰਗ ਔਰਤ</td><td class="te">అమ్మా (ammā)</td><td>‘ਮਾਂ ਜੀ’</td></tr>
+    </table>
+
+    <h3>ਕੋਮਲ ਕਰਨ ਵਾਲਾ ਸ਼ਬਦ</h3>
+    <p><span class="te">కొంచెం</span> (koñceṃ) = ‘ਥੋੜ੍ਹਾ ਜਿਹਾ’ — ਜਦੋਂ ਬੇਨਤੀ ਨੂੰ ਨਰਮ ਕਰਨਾ ਹੋਵੇ। “<span class="te">కొంచెం నీరు ఇవ్వండి</span>” = ‘ਜ਼ਰਾ ਪਾਣੀ ਦੇਣਾ’। ਪੰਜਾਬੀ ‘ਜ਼ਰਾ / ਥੋੜ੍ਹਾ’ ਦੀ ਹੂ-ਬ-ਹੂ ਭੂਮਿਕਾ।</p>
+
+    <div class="aside"><b>ਸਭ ਤੋਂ ਜ਼ਰੂਰੀ ਆਦਤ:</b> ਤੇਲੁਗੂ ਵਿੱਚ ਵੱਡੇ ਨਾਲ ਗੱਲ ਕਰਦੇ ਹੋਏ ਕਿਰਿਆ ਵਿੱਚ <span class="te">-ండి</span> (-ṇḍi) ਲਗਾਓ: <span class="te">చెప్పు</span> (cheppu, ਕਹਿ) → <span class="te">చెప్పండి</span> (cheppaṇḍi, ਕਹੋ)। ਇਹ ਪੰਜਾਬੀ ‘ਦੱਸੋ ਜੀ’ ਦੇ ‘ਜੀ’ ਵਰਗਾ ਹੈ।</div>
+</section>
+  <section class="stage" id="st9">
+    <h1>ਸਾਹਿਤ — ਦੋ ਪਰੰਪਰਾਵਾਂ, ਇੱਕ ਰੂਹ</h1>
+    <p>ਤੇਲੁਗੂ ਸਾਹਿਤ ਦੀ ਪਰੰਪਰਾ ਹਜ਼ਾਰ ਸਾਲ ਪੁਰਾਣੀ ਹੈ — ਨੰਨਇਆ ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ਅੱਜ ਤੱਕ। ਪੰਜਾਬੀ ਦੀ ਆਪਣੀ ਚਮਕ ਹੈ — ਬਾਬਾ ਫ਼ਰੀਦ ਤੋਂ ਅੰਮ੍ਰਿਤਾ ਪ੍ਰੀਤਮ ਤੱਕ। ਦੋਵਾਂ ਦੇ ਵਿਚਕਾਰ ਪੁਲ ਲੱਭਣਾ — ਇਹੀ ਸਾਡੀ ਯਾਤਰਾ ਦੀ ਖ਼ੂਬਸੂਰਤੀ।</p>
+
+    <div class="bridge">
+      <b>ਵੇਮਨਾ ↔ ਬੁੱਲ੍ਹੇ ਸ਼ਾਹ:</b> ਵੇਮਨਾ (<span class="te">వేమన</span>, 17ਵੀਂ ਸਦੀ) ਨੇ ਆਪਣੇ ਛੋਟੇ-ਛੋਟੇ ‘ਆਤਵੇਲਦੀ’ ਪਦਾਂ ਵਿੱਚ ਕਰਮਕਾਂਡ, ਜਾਤ, ਪਾਖੰਡ ਨੂੰ ਠੋਕਰ ਮਾਰੀ — “ਵਿਸ਼ਵਦਾਭਿਰਾਮ, ਵਿਨੁਰ ਵੇਮਾ!” ਉਹੀ ਅਵਾਜ਼ ਬੁੱਲ੍ਹੇ ਸ਼ਾਹ ਦੀ ਹੈ — “ਇੱਕ ਨੁਕਤੇ ਵਿੱਚ ਗੱਲ ਮੁਕਦੀ ਏ।” ਦੋਵੇਂ ਪੜ੍ਹੇ-ਲਿਖੇ ਸਾਹਿਤ ਨੂੰ ਛੱਡ ਲੋਕ-ਜ਼ੁਬਾਨ ਵਿੱਚ ਚੁਣੌਤੀ ਦੇਣ ਵਾਲੇ ਸੰਤ-ਕਵੀ।
+    </div>
+
+    <div class="bridge">
+      <b>ਗੁਰਜ਼ਾੜਾ ↔ ਗੁਰੂ ਨਾਨਕ:</b> ਗੁਰਜ਼ਾੜਾ ਅੱਪਾਰਾਓ (<span class="te">గురజాడ అప్పారావు</span>) ਨੇ ‘ਦੇਸ਼ਮੁ ਮੁਨੁ ਪ੍ਰੇਮਿੰਚੁਮੰਨਾ’ ਵਿੱਚ ਕਿਹਾ — “ਦੇਸ਼ ਸਿਰਫ਼ ਮਿੱਟੀ ਨਹੀਂ, ਲੋਕ ਹੁੰਦੇ ਹਨ।” ਗੁਰੂ ਨਾਨਕ ਨੇ ਇਸੇ ਗੱਲ ਨੂੰ ਹੋਰ ਵੀ ਡੂੰਘਾਈ ਵਿੱਚ ਕਿਹਾ — “ਸਭੇ ਜੀਅ ਸਮਾਲਿ ਅਪਣੀ ਮਿਹਰ ਕਰੁ।” ਦੋਵਾਂ ਨੇ ਇਨਸਾਨ ਦੀ ਬਰਾਬਰੀ ਨੂੰ ਪਹਿਲਾ ਧਰਮ ਮੰਨਿਆ।
+    </div>
+
+    <div class="bridge">
+      <b>ਸ਼੍ਰੀ ਸ਼੍ਰੀ ↔ ਪਾਸ਼:</b> ਸ਼੍ਰੀ ਸ਼੍ਰੀ (<span class="te">శ్రీ శ్రీ</span>, ‘ਮਹਾਪ੍ਰਸਥਾਨਮ’) ਨੇ ਤੇਲੁਗੂ ਕਵਿਤਾ ਦੇ ਹਰ ਪੁਰਾਣੇ ਨਿਯਮ ਨੂੰ ਤੋੜ ਦਿੱਤਾ — ਇਨਕਲਾਬ ਨੂੰ ਸ਼ਬਦ ਦਿੱਤੇ। ਉਹੀ ਅੱਗ ਪਾਸ਼ ਦੀ ‘ਸਭ ਤੋਂ ਖ਼ਤਰਨਾਕ’ ਵਿੱਚ ਹੈ — “ਸਭ ਤੋਂ ਖ਼ਤਰਨਾਕ ਹੁੰਦਾ ਹੈ ਸਾਡੇ ਸੁਪਨਿਆਂ ਦਾ ਮਰ ਜਾਣਾ।” ਦੋਵੇਂ ਨੌਜਵਾਨਾਂ ਦੇ ਕਵੀ, ਦੋਵੇਂ ਬਗ਼ਾਵਤ ਦੇ ਅਵਾਜ਼।
+    </div>
+
+    <div class="bridge">
+      <b>ਵਿਸ਼ਵਨਾਥ ਸਤਯਨਾਰਾਇਣ ↔ ਭਾਈ ਵੀਰ ਸਿੰਘ:</b> ਵਿਸ਼ਵਨਾਥ (<span class="te">విశ్వనాథ సత్యనారాయణ</span>, ‘ਵੇਯੀ ਪਡਗਲੁ’) ਨੇ ਤੇਲੁਗੂ ਨੂੰ ਪਹਿਲਾ ਗਿਆਨਪੀਠ ਦਿੱਤਾ, ਪਰੰਪਰਾ ਨੂੰ ਨਵੇਂ ਰੂਪ ਵਿੱਚ ਜਿਉਂਦਾ ਰੱਖਿਆ। ਭਾਈ ਵੀਰ ਸਿੰਘ ਨੇ ਪੰਜਾਬੀ ਸਾਹਿਤ ਨੂੰ ਆਧੁਨਿਕ ਤੇ ਆਤਮਿਕ, ਦੋਵੇਂ ਇੱਕੋ ਸਮੇਂ ਬਣਾਇਆ — ‘ਰਾਣਾ ਸੂਰਤ ਸਿੰਘ’ ਵਿੱਚ ਉਹੀ ਪਰੰਪਰਾ ਦੀ ਪੁਨਰ-ਸਿਰਜਨਾ।
+    </div>
+
+    <div class="bridge">
+      <b>ਨੰਨਇਆ ↔ ਬਾਬਾ ਫ਼ਰੀਦ:</b> ਨੰਨਇਆ ਨੇ 11ਵੀਂ ਸਦੀ ਵਿੱਚ ਤੇਲੁਗੂ ਵਿੱਚ ਪਹਿਲਾ ਕਾਵਿ — ‘ਆਂਧਰ ਮਹਾਭਾਰਤਮ’ — ਲਿਖ ਕੇ ਦ੍ਰਾਵਿੜ ਬੋਲੀ ਨੂੰ ਸਾਹਿਤਕ ਦਰਜਾ ਦਿੱਤਾ। ਬਾਬਾ ਫ਼ਰੀਦ ਦੇ ਸਲੋਕ ਪੰਜਾਬੀ ਸਾਹਿਤ ਦੀ ਪਹਿਲੀ ਪੱਕੀ ਨੀਂਹ — ਦੋਵਾਂ ਨੇ ਆਪਣੀ ਬੋਲੀ ਨੂੰ ਇੱਕ ਘਰ ਦਿੱਤਾ।
+    </div>
+
+    <div class="bridge">
+      <b>ਤ੍ਯਾਗਰਾਜ ↔ ਗੁਰਬਾਣੀ ਦੇ ਰਾਗੀ:</b> ਤ੍ਯਾਗਰਾਜ ਦੇ ਕ੍ਰਿਤੀ (ਤੇਲੁਗੂ ਵਿੱਚ ਭਗਤੀ-ਗੀਤ) ਤੇ ਸਿੱਖ ਰਾਗੀਆਂ ਦੀ ਗੁਰਬਾਣੀ ਕੀਰਤਨ — ਦੋਵੇਂ ਸੰਗੀਤ ਨੂੰ ਰੱਬ ਦਾ ਨਾਂ ਮੰਨਦੇ ਹਨ। ‘ਨਾਦੋਪਾਸਨਾ’ ਤੇ ‘ਸ਼ਬਦ ਗੁਰੂ’ ਇੱਕੋ ਵਿਚਾਰ ਦੀਆਂ ਦੋ ਆਵਾਜ਼ਾਂ।
+    </div>
+
+    <div class="aside"><b>ਇੱਕ ਆਖ਼ਰੀ ਗੱਲ:</b> ਇਹ ਕੋਰਸ ਤੁਹਾਨੂੰ ਤੇਲੁਗੂ ਦਾ ਪਹਿਲਾ ਦਰਵਾਜ਼ਾ ਖੋਲ੍ਹ ਕੇ ਦੇ ਰਿਹਾ ਹੈ। ਹੁਣ ਵੇਮਨਾ ਦਾ ਇੱਕ ਪਦ ਲੱਭੋ, ਇੱਕ ਸ਼੍ਰੀ ਸ਼੍ਰੀ ਦੀ ਕਵਿਤਾ ਸੁਣੋ, ਇੱਕ ਤ੍ਯਾਗਰਾਜ ਦਾ ਕੀਰਤਨ — ਤੇ ਤੁਸੀਂ ਦੇਖੋਗੇ ਕਿ ਦੋ ਪਰੰਪਰਾਵਾਂ ਇੱਕੋ ਨਦੀ ਦੀਆਂ ਦੋ ਧਾਰਾਵਾਂ ਹਨ।</div>
+</section>
+
+  <div class="nav-btns">
+    <button id="prev">← ਪਿੱਛੇ</button>
+    <button id="next">ਅੱਗੇ →</button>
+  </div>
+
+  <footer>made by Nil · using Claude</footer>
+</div>
+
+<script>
+const tabs = document.querySelectorAll('#tabs button');
+const stages = document.querySelectorAll('.stage');
+let cur = 0;
+function show(i){
+  cur = Math.max(0, Math.min(9, i));
+  tabs.forEach((t,k)=>t.classList.toggle('active', k===cur));
+  stages.forEach((s,k)=>s.classList.toggle('active', k===cur));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+tabs.forEach((t,i)=>t.addEventListener('click', ()=>show(i)));
+document.getElementById('prev').addEventListener('click', ()=>show(cur-1));
+document.getElementById('next').addEventListener('click', ()=>show(cur+1));
+document.addEventListener('click', e=>{
+  const c = e.target.closest('.card');
+  if(c) c.classList.toggle('open');
+});
+</script>
+</body>
+</html>

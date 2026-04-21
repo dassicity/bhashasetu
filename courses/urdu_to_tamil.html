@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>اردو سے تمل — بھاشا سیتو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Noto+Serif+Tamil:wght@400;600;700&family=Fraunces:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
+  --ink:#1C1611; --ink-soft:#3A2F24; --ink-faded:#6B5B48;
+  --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Noto Nastaliq Urdu', serif;
+  background:
+    radial-gradient(ellipse at 20% 10%, #F7F0DE 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, #EADFC0 0%, transparent 55%),
+    var(--paper);
+  color:var(--ink);
+  line-height:2.1;
+  font-size:17px;
+  min-height:100vh;
+  direction:rtl;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.09 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.ta{font-family:'Noto Serif Tamil', serif; direction:ltr; unicode-bidi:isolate; line-height:1.5}
+.mono{font-family:'JetBrains Mono', monospace; direction:ltr; unicode-bidi:isolate; font-size:.88em; color:var(--ink-faded)}
+.display{font-family:'Fraunces', serif; direction:ltr}
+header{
+  position:relative; z-index:2;
+  padding:40px 28px 22px; text-align:center;
+  border-bottom:1px solid rgba(28,22,17,.12);
+}
+header h1{margin:0 0 6px; font-size:34px; font-weight:700; color:var(--sindoor); line-height:1.35}
+header .sub{color:var(--ink-faded); font-size:15px}
+header .sub .ta{color:var(--teal); font-weight:600}
+nav.tabs{
+  position:sticky; top:0; z-index:10;
+  background:rgba(244,236,218,.96);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(28,22,17,.12);
+  display:flex; flex-wrap:wrap; gap:2px; padding:8px 14px;
+  justify-content:center;
+}
+nav.tabs a{
+  text-decoration:none; color:var(--ink-soft);
+  padding:8px 14px; border-radius:8px; font-size:14px;
+  transition:all .15s;
+}
+nav.tabs a:hover{background:var(--paper-deep); color:var(--sindoor)}
+nav.tabs a.active{background:var(--ink); color:var(--paper)}
+main{position:relative; z-index:2; max-width:960px; margin:0 auto; padding:28px 26px 80px}
+section.stage{
+  padding:34px 30px; margin:22px 0;
+  background:rgba(255,251,238,.55);
+  border:1px solid rgba(28,22,17,.1);
+  border-radius:14px;
+  box-shadow:0 2px 12px rgba(28,22,17,.04);
+}
+section.stage h2{
+  font-size:28px; color:var(--sindoor); margin:0 0 6px;
+  border-bottom:2px solid var(--ochre); padding-bottom:10px;
+}
+section.stage h2 .num{color:var(--ochre); font-family:'Fraunces', serif; font-size:22px; margin-left:10px}
+section.stage h3{font-size:20px; color:var(--teal); margin:26px 0 10px}
+section.stage p{margin:10px 0}
+.aha{
+  background:linear-gradient(135deg, #F9F1DC, #EEE3C3);
+  border-right:4px solid var(--sindoor);
+  padding:16px 20px; margin:18px 0; border-radius:8px;
+  font-size:16px;
+}
+.aha .label{
+  display:inline-block; font-family:'Fraunces', serif; font-size:13px;
+  color:var(--sindoor); font-weight:700; letter-spacing:.1em;
+  margin-left:8px;
+}
+.grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:16px 0}
+.vowel-grid,.varga-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:14px 0}
+.card,.letter-card{
+  background:var(--paper-warm);
+  border:1px solid rgba(28,22,17,.12);
+  border-radius:10px; padding:14px 12px;
+  text-align:center; cursor:pointer;
+  transition:all .15s;
+  min-height:110px;
+  display:flex; flex-direction:column; justify-content:center; gap:4px;
+}
+.card:hover,.letter-card:hover{
+  background:#FBF4DE; border-color:var(--ochre);
+  transform:translateY(-1px);
+}
+.card .big{font-size:30px; line-height:1}
+.card .src{font-size:18px; color:var(--ink-soft)}
+.card .hint{display:none; font-size:13px; color:var(--ink-faded); margin-top:6px}
+.card.open .hint{display:block}
+.new-flag{color:var(--sindoor); font-weight:700; font-size:12px}
+table{width:100%; border-collapse:collapse; margin:14px 0; background:rgba(255,251,238,.5)}
+th,td{border:1px solid rgba(28,22,17,.15); padding:9px 12px; text-align:right; font-size:15px}
+th{background:var(--paper-deep); color:var(--ink); font-weight:600}
+td.ta,th.ta{text-align:center}
+.family{
+  background:rgba(239,229,204,.55);
+  border:1px dashed rgba(184,128,45,.5);
+  border-radius:10px; padding:14px 16px; margin:14px 0;
+}
+.family .fam-title{
+  font-size:17px; color:var(--teal); font-weight:700; margin-bottom:8px;
+}
+.video{margin:18px 0}
+.video-frame{position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; border:1px solid rgba(28,22,17,.15)}
+.video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+.video-caption{font-size:14px; color:var(--ink-faded); margin-top:8px; text-align:center}
+.video-caption a{color:var(--sindoor); text-decoration:none}
+blockquote{
+  margin:16px 0; padding:16px 22px;
+  border-right:3px solid var(--teal);
+  background:rgba(239,229,204,.4);
+  border-radius:8px;
+}
+blockquote .ta{font-size:19px; color:var(--ink); display:block; margin-bottom:6px}
+blockquote .mono{display:block; margin-bottom:6px}
+blockquote .gloss{color:var(--ink-soft)}
+.nav-btns{display:flex; justify-content:space-between; margin-top:28px; gap:10px}
+.nav-btns a{
+  text-decoration:none; padding:10px 18px;
+  background:var(--ink); color:var(--paper);
+  border-radius:8px; font-size:14px;
+}
+.nav-btns a.disabled{background:var(--ink-faded); pointer-events:none; opacity:.5}
+footer{
+  text-align:center; padding:30px 20px; color:var(--ink-faded);
+  font-family:'Fraunces', serif; font-size:13px;
+  border-top:1px solid rgba(28,22,17,.1);
+  position:relative; z-index:2;
+}
+.tag{
+  display:inline-block; font-size:11px; padding:2px 8px; border-radius:4px;
+  background:var(--paper-deep); color:var(--ink-faded); margin-right:4px;
+  font-family:'Fraunces', serif; letter-spacing:.05em;
+}
+.tag.cog{background:#E4D4A8; color:var(--teal)}
+.tag.new{background:#E8C7B9; color:var(--sindoor)}
+ul.clean{padding-right:22px}
+ul.clean li{margin:8px 0}
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:16px 0}
+@media (max-width: 420px){
+  body{font-size:15px}
+  .wrap,main,.container,article{padding-left:14px !important; padding-right:14px !important}
+  .grid,.map-grid,.cards,.varga-grid,.vowel-grid{grid-template-columns:1fr 1fr !important; gap:8px !important}
+  .tabs,.nav,nav{flex-wrap:wrap; gap:4px}
+  .tab,.nav a,.nav-item{padding:8px 10px !important; font-size:12px !important}
+  .stage,section{padding:14px !important}
+  h1{font-size:22px !important; line-height:1.2}
+  h2{font-size:18px !important; line-height:1.25}
+  h3{font-size:15px !important}
+  table{font-size:13px}
+  .card,.letter-card,.map-card{padding:10px !important; min-height:auto}
+  iframe{max-width:100%; height:auto; aspect-ratio:16/9}
+  blockquote,.aside,.aha{padding:12px !important; font-size:14px}
+}
+@media (max-width: 340px){
+  .grid,.map-grid,.cards,.varga-grid,.vowel-grid{grid-template-columns:1fr !important}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>اردو سے تمل</h1>
+  <div class="sub">بھاشا سیتو — <span class="ta">தமிழ்</span> سیکھنے کا سفر اردو بولنے والوں کے لیے</div>
+</header>
+<nav class="tabs" id="nav">
+  <a href="#stage-00">۰۰ · تعارف</a>
+  <a href="#stage-01">۰۱ · حروف علت</a>
+  <a href="#stage-02">۰۲ · حروف</a>
+  <a href="#stage-03">۰۳ · ترکیب</a>
+  <a href="#stage-04">۰۴ · الفاظ</a>
+  <a href="#stage-05">۰۵ · جملے</a>
+  <a href="#stage-06">۰۶ · مطالعہ</a>
+  <a href="#stage-07">۰۷ · لفظی میدان</a>
+  <a href="#stage-08">۰۸ · استعمال</a>
+  <a href="#stage-09">۰۹ · ادب</a>
+</nav>
+<main>
+<section class="stage" id="stage-00">
+<h2><span class="num">۰۰</span>تعارف</h2>
+<p>جب ہم نے پہلی بار <b>قاعدہ</b> کھولا تھا — الف، بے، پے — تو ہم نے حروف سیکھے نہیں تھے، ہم نے <i>آواز کی شکلیں</i> سیکھی تھیں۔ اب جب ہم تمل کی طرف جا رہے ہیں، تو یہ سفر ایسا ہی ہے: ایک نیا قاعدہ، مگر منہ وہی ہے، زبان وہی ہے، صرف انگلی اور آنکھ کو نئی شکلیں پہچاننی ہیں۔ اردو ہند آریائی خاندان سے ہے، تمل دراوڑی خاندان سے — یہ فاصلہ کاغذ پر بڑا لگتا ہے، مگر ۳۳ میں سے ۲۶ آوازیں دونوں زبانوں میں مشترک ہیں۔ یعنی تقریباً ۷۹٪ آوازیں آپ کے منہ کو پہلے سے معلوم ہیں۔</p>
+<p>سب سے بڑی خوشخبری: جملے کی ترتیب ایک جیسی ہے۔ اردو میں ہم کہتے ہیں <b>میں کھانا کھاتا ہوں</b> (فاعل — مفعول — فعل)۔ تمل میں بھی بالکل یہی ترتیب ہے: <span class="ta">நான் சாப்பிடுகிறேன்</span> (<span class="mono">nāṉ sāppiḍugiṟēṉ</span>) — میں — کھاتا ہوں۔ دونوں زبانیں حروفِ جر کے بجائے لاحقے (postpositions) استعمال کرتی ہیں۔ اردو میں "گھر میں" = تمل میں <span class="ta">வீட்டில்</span> (<span class="mono">vīṭṭil</span>) — "گھر" + "میں"۔ آپ پہلے سے اسی طرح سوچتے ہیں۔</p>
+<p>چیلنج کیا ہے؟ رسم الخط بالکل نیا ہے — نستعلیق کے گھومتے حروف کے مقابلے میں تمل برہمی سے نکلی ہوئی ہندسی شکلیں ہیں۔ اور تمل میں سات نئی آوازیں ہیں جو اردو میں نہیں — خاص طور پر <span class="ta">ழ</span> (ḻa)، جو دنیا میں صرف تمل اور ملیالم میں پائی جاتی ہے۔</p>
+
+<h3>چھ اصول — فائدے اور چیلنج</h3>
+<ul class="clean">
+<li><b>۱۔ ایک جیسی ترتیب (SOV):</b> اردو "میں پانی پیتا ہوں" = تمل <span class="ta">நான் தண்ணீர் குடிக்கிறேன்</span> (<span class="mono">nāṉ taṇṇīr kuḍikkiṟēṉ</span>)۔ فاعل، مفعول، فعل — بالکل وہی ترتیب۔ آپ کو جملہ پلٹنا نہیں پڑے گا۔</li>
+<li><b>۲۔ لاحقے (postpositions):</b> اردو "میں"، "سے"، "کو" لفظ کے بعد آتے ہیں — تمل بھی یہی کرتی ہے: <span class="ta">-இல்</span> (il = میں)، <span class="ta">-இலிருந்து</span> (iliruntu = سے)، <span class="ta">-கு</span> (kku = کو)۔ سوچنے کا ڈھانچہ ایک ہے۔</li>
+<li><b>۳۔ بے ہمزہ نظام:</b> تمل میں پ/پھ، ب/بھ، ت/تھ، د/دھ کا فرق <i>نہیں</i> ہے۔ ایک حرف <span class="ta">ப</span> سیاق کے حساب سے p، ph، b، bh چاروں کام دیتا ہے۔ اردو کے لیے یہ راحت ہے — کم حروف یاد کرنے ہیں۔ چیلنج یہ ہے کہ ایک حرف چار طرح پڑھا جاتا ہے۔</li>
+<li><b>۴۔ ایک نئی آواز <span class="ta">ழ</span>:</b> تمل کا <span class="ta">ழ</span> (ḻa) دنیا کی نایاب ترین آوازوں میں سے ہے — زبان کی نوک تالو کے قریب مگر چھوتی نہیں۔ لفظ <span class="ta">தமிழ்</span> (tamiḻ) کی آخری آواز یہی ہے۔ اردو میں اس کا کوئی ہم آواز حرف نہیں۔</li>
+<li><b>۵۔ فعل میں صنف:</b> اردو میں "وہ کرتا ہے / وہ کرتی ہے" — صنف فعل پر ظاہر ہوتی ہے۔ تمل بھی یہی کرتی ہے — بلکہ اور بھی باریک بینی سے: <span class="ta">செய்கிறான்</span> (مذکر)، <span class="ta">செய்கிறாள்</span> (مؤنث)، <span class="ta">செய்கிறது</span> (بے جان/جانور)۔ آپ پہلے سے جنس پر توجہ دیتے ہیں۔</li>
+<li><b>۶۔ لغت کا فرق:</b> اردو کی ۶۰٪ سے زیادہ لغت عربی-فارسی-سنسکرت سے ہے۔ تمل نے شعوری طور پر سنسکرت قرض لفظ کم کیے — "وقت" کے لیے اردو "وقت" (عربی) استعمال کرتی ہے، تمل <span class="ta">நேரம்</span> (<span class="mono">nēram</span>) یا <span class="ta">சமயம்</span> (<span class="mono">samayam</span>)۔ صرف ۱۵٪ لغت مشترک ہے — یہ سب سے بڑا چیلنج ہے۔</li>
+</ul>
+
+<div class="aha"><span class="label">پہلی بصیرت</span> اردو اور تمل دونوں "اچھا ہوں" کہنے کے لیے فعل "ہونا" استعمال کرتی ہیں — <span class="ta">நல்லா இருக்கேன்</span> (<span class="mono">nallā irukkēṉ</span>) = "اچھا ہوں"۔ <span class="ta">இரு</span> بالکل "ہونا" کا ہم معنی ہے۔ دو مختلف خاندانوں کی زبانیں، ایک ہی طریقۂ اظہار۔</div>
+</section>
+<section class="stage" id="stage-01">
+<h2><span class="num">۰۱</span>حروف علت</h2>
+<p>تمل میں حروفِ علت کو <span class="ta">உயிர் எழுத்துக்கள்</span> (<span class="mono">uyir eḻuttukkaḷ</span>) کہتے ہیں — "زندہ حروف"۔ کل ۱۲ حروفِ علت ہیں، جو ۵ خاندانوں میں بٹتے ہیں: چھوٹی اور لمبی جوڑیاں۔ اردو ان جوڑیوں کو ہمیشہ الگ نہیں لکھتی — مثلاً ہم "اَ" اور "آ" کا فرق تو لکھتے ہیں، مگر چھوٹی "ای" اور لمبی "اِی"، چھوٹی "او" اور لمبی "اُو" کا فرق اتنا واضح نہیں۔ تمل میں ہر چھوٹی آواز کی ایک لمبی بہن ہے۔</p>
+
+<div class="family">
+<div class="fam-title">خاندانِ "اَ/آ"</div>
+<div class="vowel-grid">
+<div class="card" data-hint="اردو 'اَ' کی چھوٹی آواز — 'اَب' کی 'اَ'"><div class="big ta">அ</div><div class="src">اَ</div><div class="mono">a</div><div class="hint">مختصر "اَ" — جیسے "اَدب" میں</div></div>
+<div class="card" data-hint="اردو 'آ' کی لمبی آواز — 'آم' کی 'آ'"><div class="big ta">ஆ</div><div class="src">آ</div><div class="mono">ā</div><div class="hint">لمبی "آ" — جیسے "آم" میں</div></div>
+</div>
+</div>
+
+<div class="family">
+<div class="fam-title">خاندانِ "اِ/اِی"</div>
+<div class="vowel-grid">
+<div class="card" data-hint="مختصر 'اِ' — 'اِدھر' کی 'اِ'"><div class="big ta">இ</div><div class="src">اِ</div><div class="mono">i</div><div class="hint">مختصر "اِ"</div></div>
+<div class="card" data-hint="لمبی 'اِی' — 'ایران' کی 'ای'"><div class="big ta">ஈ</div><div class="src">ای</div><div class="mono">ī</div><div class="hint">لمبی "ای"</div></div>
+</div>
+</div>
+
+<div class="family">
+<div class="fam-title">خاندانِ "اُ/اُو"</div>
+<div class="vowel-grid">
+<div class="card" data-hint="مختصر 'اُ' — 'اُدھر' کی 'اُ'"><div class="big ta">உ</div><div class="src">اُ</div><div class="mono">u</div><div class="hint">مختصر "اُ"</div></div>
+<div class="card" data-hint="لمبی 'اُو' — 'اُردو' کی 'اُو'"><div class="big ta">ஊ</div><div class="src">او</div><div class="mono">ū</div><div class="hint">لمبی "اُو"</div></div>
+</div>
+</div>
+
+<div class="family">
+<div class="fam-title">خاندانِ "ے/اے" — <span class="new-flag">نیا فرق</span></div>
+<div class="vowel-grid">
+<div class="card" data-hint="مختصر 'اے' — اردو 'ے' سے قریب"><div class="big ta">எ</div><div class="src">ے</div><div class="mono">e</div><div class="hint">مختصر "اے"</div></div>
+<div class="card" data-hint="لمبی 'اے' — اردو میں الگ نہیں ⚡"><div class="big ta">ஏ</div><div class="src">—</div><div class="mono">ē</div><div class="hint">لمبی "اے" — اردو میں اس کا الگ حرف نہیں</div></div>
+<div class="card" data-hint="اردو 'اَے' — 'اَے بھائی' کی 'اَے'"><div class="big ta">ஐ</div><div class="src">اَے</div><div class="mono">ai</div><div class="hint">مرکب "اَے"</div></div>
+</div>
+</div>
+
+<div class="family">
+<div class="fam-title">خاندانِ "او/اَو" — <span class="new-flag">نیا فرق</span></div>
+<div class="vowel-grid">
+<div class="card" data-hint="مختصر 'او' — 'وہ' کی 'و'"><div class="big ta">ஒ</div><div class="src">او</div><div class="mono">o</div><div class="hint">مختصر "او"</div></div>
+<div class="card" data-hint="لمبی 'اوو' — اردو میں الگ نہیں ⚡"><div class="big ta">ஓ</div><div class="src">—</div><div class="mono">ō</div><div class="hint">لمبی "او" — اردو میں اس کا الگ حرف نہیں</div></div>
+<div class="card" data-hint="اردو 'اَو' — 'اَور' کی 'اَو'"><div class="big ta">ஔ</div><div class="src">اَو</div><div class="mono">au</div><div class="hint">مرکب "اَو"</div></div>
+</div>
+</div>
+
+<div class="aha"><span class="label">راز</span> اردو میں "دن" کی "اے" اور "دیر" کی "ای" میں لمبائی کا فرق ہے مگر رسم الخط میں ایک ہی "ی" سے کام چلتا ہے۔ تمل اس فرق کو <i>لکھائی میں</i> ظاہر کرتی ہے: <span class="ta">எ</span> (مختصر) بمقابلہ <span class="ta">ஏ</span> (لمبی)۔ ایک بار کان کو لگ جائے، آنکھ بھی پہچاننے لگتی ہے۔</div>
+
+<div class="video">
+<div class="video-frame"><iframe src="https://www.youtube.com/embed?listType=search&list=learn+tamil+vowels+uyir+ezhuthukal+pronunciation" title="Tamil vowels uyir ezhuthukal pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<div class="video-caption">تمل حروفِ علت کا تلفظ سنیں — <a href="https://www.youtube.com/results?search_query=learn+tamil+vowels+uyir+ezhuthukal+pronunciation" target="_blank" rel="noopener">مزید تلاش کریں ↗</a></div>
+</div>
+</section>
+<section class="stage" id="stage-02">
+<h2><span class="num">۰۲</span>حروف</h2>
+<p>تمل میں حروفِ صحیح کو <span class="ta">மெய் எழுத்துக்கள்</span> (<span class="mono">mey eḻuttukkaḷ</span>) کہتے ہیں — "جسمانی حروف"۔ یہاں ایک بڑی خبر ہے: <b>تمل میں صرف ایک حرف ہر جگہ کی آواز کے لیے ہے</b>۔ اردو کے پ/پھ/ب/بھ چار الگ الگ حروف ہیں؛ تمل میں یہ سب <span class="ta">ப</span> ایک ہی حرف ہیں، سیاق کے حساب سے تلفظ بدلتا ہے۔ یہی <span class="ta">க</span>، <span class="ta">ச</span>، <span class="ta">ட</span>، <span class="ta">த</span> کے ساتھ ہے۔</p>
+
+<h3>پانچ ورگ (varga) — آواز کی جگہ کے حساب سے</h3>
+
+<div class="family">
+<div class="fam-title">۱۔ کنٹھ (velar) — گلے کی آواز</div>
+<div class="varga-grid">
+<div class="card" data-hint="اردو ک/کھ/گ/گھ سب — پ پ"><div class="big ta">க</div><div class="src">ک</div><div class="mono">ka/ga</div><div class="hint">ک، کھ، گ، گھ — چاروں ایک حرف</div></div>
+<div class="card" data-hint="اردو 'ں' کی ناک کی آواز"><div class="big ta">ங</div><div class="src">ں</div><div class="mono">ṅa</div><div class="hint">نونِ غنہ — "رنگ" کی "ں"</div></div>
+</div>
+</div>
+
+<div class="family">
+<div class="fam-title">۲۔ تالو (palatal) — چ کی جگہ</div>
+<div class="varga-grid">
+<div class="card" data-hint="اردو چ/چھ/ج/جھ — سب ایک"><div class="big ta">ச</div><div class="src">چ / ج</div><div class="mono">ca/ja/sa</div><div class="hint">چ، چھ، ج، جھ — ایک حرف</div></div>
+<div class="card" data-hint="اردو میں نہیں ⚡"><div class="big ta">ஞ</div><div class="src">— <span class="new-flag">⚡</span></div><div class="mono">ña</div><div class="hint">نیا: تالو سے نکلی "ن" جیسی آواز</div></div>
+</div>
+</div>
+
+<div class="family">
+<div class="fam-title">۳۔ مرتفع (retroflex) — زبان پیچھے موڑ کر</div>
+<div class="varga-grid">
+<div class="card" data-hint="اردو ٹ/ڈ — زبان موڑ کر"><div class="big ta">ட</div><div class="src">ٹ / ڈ</div><div class="mono">ṭa/ḍa</div><div class="hint">ٹ، ٹھ، ڈ، ڈھ — ایک حرف</div></div>
+<div class="card" data-hint="اردو 'ن' کی مرتفع شکل"><div class="big ta">ண</div><div class="src">ن (مرتفع)</div><div class="mono">ṇa</div><div class="hint">زبان موڑ کر کہی ہوئی "ن"</div></div>
+</div>
+</div>
+
+<div class="family">
+<div class="fam-title">۴۔ دندان (dental) — دانتوں پر</div>
+<div class="varga-grid">
+<div class="card" data-hint="اردو ت/تھ/د/دھ — سب ایک"><div class="big ta">த</div><div class="src">ت / د</div><div class="mono">ta/da/tha</div><div class="hint">ت، تھ، د، دھ — ایک حرف</div></div>
+<div class="card" data-hint="اردو 'ن' کی نرم شکل"><div class="big ta">ந</div><div class="src">ن</div><div class="mono">na</div><div class="hint">عام "ن"</div></div>
+</div>
+</div>
+
+<div class="family">
+<div class="fam-title">۵۔ لب (labial) — ہونٹوں سے</div>
+<div class="varga-grid">
+<div class="card" data-hint="اردو پ/پھ/ب/بھ — سب ایک"><div class="big ta">ப</div><div class="src">پ / ب</div><div class="mono">pa/ba</div><div class="hint">پ، پھ، ب، بھ — ایک حرف</div></div>
+<div class="card" data-hint="اردو 'م' بالکل ویسی"><div class="big ta">ம</div><div class="src">م</div><div class="mono">ma</div><div class="hint">بالکل اردو "م"</div></div>
+</div>
+</div>
+
+<h3>خاص تمل حروف (مَدُلَی — middle group)</h3>
+<div class="varga-grid">
+<div class="card" data-hint="اردو 'ی' بالکل ویسی"><div class="big ta">ய</div><div class="src">ی</div><div class="mono">ya</div><div class="hint">اردو "ی"</div></div>
+<div class="card" data-hint="اردو 'ر' بالکل ویسی"><div class="big ta">ர</div><div class="src">ر</div><div class="mono">ra</div><div class="hint">اردو "ر"</div></div>
+<div class="card" data-hint="اردو 'ل' بالکل ویسی"><div class="big ta">ல</div><div class="src">ل</div><div class="mono">la</div><div class="hint">عام "ل"</div></div>
+<div class="card" data-hint="اردو 'و' کی آواز"><div class="big ta">வ</div><div class="src">و</div><div class="mono">va</div><div class="hint">اردو "و" (w/v)</div></div>
+<div class="card" data-hint="دنیا کی نایاب آواز! ⚡"><div class="big ta">ழ</div><div class="src">— <span class="new-flag">⚡</span></div><div class="mono">ḻa</div><div class="hint">تمل کی مشہور آواز — زبان تالو کے قریب مگر چھوتی نہیں</div></div>
+<div class="card" data-hint="مرتفع 'ل' — نئی ⚡"><div class="big ta">ள</div><div class="src">— <span class="new-flag">⚡</span></div><div class="mono">ḷa</div><div class="hint">زبان موڑ کر "ل"</div></div>
+<div class="card" data-hint="سخت 'ر' ⚡"><div class="big ta">ற</div><div class="src">— <span class="new-flag">⚡</span></div><div class="mono">ṟa</div><div class="hint">سخت "ر" — رَولا</div></div>
+<div class="card" data-hint="ہلکی 'ن' ⚡"><div class="big ta">ன</div><div class="src">— <span class="new-flag">⚡</span></div><div class="mono">ṉa</div><div class="hint">دانتوں کے پیچھے کی "ن"</div></div>
+</div>
+
+<div class="aha"><span class="label">جادو</span> تمل نے ۳۳ اردو حروف کو ۱۸ مَی حروف میں سمو دیا ہے۔ کیسے؟ ہم آواز/بے آواز اور ہمزہ/بغیر ہمزہ کا فرق <i>لکھتی نہیں، پڑھتی ہے</i>۔ <span class="ta">பாடம்</span> کو "پاڈم" پڑھتے ہیں (درمیان میں ب والی ب)، مگر <span class="ta">பம்பாய்</span> کو "بمبائی"۔ لفظ کے مقام پر منحصر ہے۔</div>
+
+<div class="aha"><span class="label">تمل کی شناخت</span> لفظ <span class="ta">தமிழ்</span> (tamiḻ) کی آخری آواز <span class="ta">ழ</span> ہے — یہ آواز اتنی خاص ہے کہ زبان کا نام خود اسی پر ختم ہوتا ہے۔ یہ آواز نہ اردو میں ہے، نہ ہندی میں، نہ عربی یا فارسی میں۔ اسے سیکھنا گویا تمل کی چابی ہاتھ آنا ہے۔</div>
+
+<div class="video">
+<div class="video-frame"><iframe src="https://www.youtube.com/embed?listType=search&list=learn+tamil+consonants+mei+ezhuthukal+pronunciation" title="Tamil consonants mei ezhuthukal pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<div class="video-caption">تمل حروفِ صحیح کا تلفظ — <a href="https://www.youtube.com/results?search_query=learn+tamil+consonants+mei+ezhuthukal+pronunciation" target="_blank" rel="noopener">مزید تلاش کریں ↗</a></div>
+</div>
+</section>
+<section class="stage" id="stage-03">
+<h2><span class="num">۰۳</span>ترکیب</h2>
+<p>تمل ایک <b>ابوگیڈا</b> ہے — ہر حرفِ صحیح اپنے ساتھ مختصر "اَ" کی آواز لاتا ہے۔ اردو میں اگر "ک" لکھیں تو اسے "ک" ہی پڑھتے ہیں؛ تمل میں <span class="ta">க</span> خود بخود "کَ" پڑھا جاتا ہے۔ دوسری آواز لگانے کے لیے چھوٹے نشان (<span class="ta">உயிர்மெய்</span> — uyirmey) لگائے جاتے ہیں۔</p>
+
+<h3>حرف "ک" کے بارہ روپ</h3>
+<table>
+<tr><th>آواز</th><th>اردو</th><th class="ta">تمل</th><th>تلفظ</th></tr>
+<tr><td>ک + اَ</td><td>کَ</td><td class="ta">க</td><td class="mono">ka</td></tr>
+<tr><td>ک + آ</td><td>کا</td><td class="ta">கா</td><td class="mono">kā</td></tr>
+<tr><td>ک + اِ</td><td>کِ</td><td class="ta">கி</td><td class="mono">ki</td></tr>
+<tr><td>ک + اِی</td><td>کی</td><td class="ta">கீ</td><td class="mono">kī</td></tr>
+<tr><td>ک + اُ</td><td>کُ</td><td class="ta">கு</td><td class="mono">ku</td></tr>
+<tr><td>ک + اُو</td><td>کو</td><td class="ta">கூ</td><td class="mono">kū</td></tr>
+<tr><td>ک + ے</td><td>کے</td><td class="ta">கெ</td><td class="mono">ke</td></tr>
+<tr><td>ک + لمبی اے</td><td>—</td><td class="ta">கே</td><td class="mono">kē</td></tr>
+<tr><td>ک + اَے</td><td>کَے</td><td class="ta">கை</td><td class="mono">kai</td></tr>
+<tr><td>ک + او</td><td>کو</td><td class="ta">கொ</td><td class="mono">ko</td></tr>
+<tr><td>ک + لمبی او</td><td>—</td><td class="ta">கோ</td><td class="mono">kō</td></tr>
+<tr><td>ک + اَو</td><td>کَو</td><td class="ta">கௌ</td><td class="mono">kau</td></tr>
+</table>
+
+<h3>پُللی (puḷḷi) — خاموش کرنے والا نقطہ</h3>
+<p>اردو میں حرف پر زبر نہ لگائیں تو وہ خاموش سمجھ لیا جاتا ہے۔ تمل ابوگیڈا ہے — حرف پر ہمیشہ مختصر "اَ" لگا رہتا ہے۔ اسے ہٹانے کے لیے اوپر ایک چھوٹا نقطہ (<span class="ta">்</span>) لگاتے ہیں — اسے <span class="ta">புள்ளி</span> (puḷḷi) کہتے ہیں۔</p>
+<table>
+<tr><th>مطلب</th><th class="ta">تمل</th><th>تلفظ</th><th>اردو</th></tr>
+<tr><td>دریا/سمندر</td><td class="ta">கடல்</td><td class="mono">kaḍal</td><td>کَڈَل (آخری ل خاموش نہیں)</td></tr>
+<tr><td>آنکھ</td><td class="ta">கண்</td><td class="mono">kaṇ</td><td>کَن (آخری ن بغیر اَ)</td></tr>
+<tr><td>سننا</td><td class="ta">கேள்</td><td class="mono">kēḷ</td><td>کیل (آخری ل بغیر اَ)</td></tr>
+</table>
+
+<h3>مرکب حروف (conjuncts) — تمل میں کم</h3>
+<p>اردو/دیوناگری میں "ٹھ" یا "پر" جیسے دو حرف چپکے ہوتے ہیں۔ تمل میں اکثر دوسرا حرف پہلے پر پُللی لگا کر کھینچ دیا جاتا ہے — کوئی خاص شکل نہیں بنتی۔</p>
+<table>
+<tr><th>لفظ</th><th class="ta">تمل</th><th>تجزیہ</th></tr>
+<tr><td>تمل</td><td class="ta">தமிழ்</td><td class="mono">t + a + m + i + ḻ(puḷḷi)</td></tr>
+<tr><td>نام</td><td class="ta">பெயர்</td><td class="mono">p + e + y + a + r(puḷḷi)</td></tr>
+<tr><td>گھر</td><td class="ta">வீடு</td><td class="mono">v + ī + ḍ + u</td></tr>
+</table>
+
+<div class="aha"><span class="label">ترکیب کا راز</span> اردو/فارسی رسم الخط "جوڑ" کی زبان ہے — حروف آپس میں ملتے اور شکلیں بدلتے ہیں۔ تمل ہر حرف کو الگ، سیدھا، بغیر شکل بدلے لکھتی ہے۔ آنکھ کو ابتدا میں سادہ لگے گا، مگر پڑھنے کی رفتار جلدی آتی ہے کیونکہ ہر شکل ایک ہی طرح دکھائی دیتی ہے۔</div>
+</section>
+<section class="stage" id="stage-04">
+<h2><span class="num">۰۴</span>الفاظ</h2>
+<p>تمل کی لغت کا بڑا حصہ دراوڑی جڑوں سے ہے۔ اردو کی طرح یہ عربی-فارسی سے ادھار نہیں لیتی؛ سنسکرت سے بھی شعوری طور پر کم قرض لیتی ہے۔ مگر کچھ <span class="tag">tatsama</span> لفظ مشترک ہیں — جیسے "وقت" اور "زمین"۔</p>
+
+<h3>ضمائر</h3>
+<div class="grid">
+<div class="card"><div class="big ta">நான்</div><div class="mono">nāṉ</div><div class="src">میں</div></div>
+<div class="card"><div class="big ta">நீ</div><div class="mono">nī</div><div class="src">تُو (بے تکلف)</div></div>
+<div class="card"><div class="big ta">நீங்கள்</div><div class="mono">nīṅgaḷ</div><div class="src">آپ (مؤدب)</div></div>
+<div class="card"><div class="big ta">அவன்</div><div class="mono">avaṉ</div><div class="src">وہ (مذکر)</div></div>
+<div class="card"><div class="big ta">அவள்</div><div class="mono">avaḷ</div><div class="src">وہ (مؤنث)</div></div>
+<div class="card"><div class="big ta">அது</div><div class="mono">adu</div><div class="src">وہ (بے جان)</div></div>
+<div class="card"><div class="big ta">இது</div><div class="mono">idu</div><div class="src">یہ</div></div>
+<div class="card"><div class="big ta">நாங்கள்</div><div class="mono">nāṅgaḷ</div><div class="src">ہم</div></div>
+<div class="card"><div class="big ta">அவர்கள்</div><div class="mono">avargaḷ</div><div class="src">وہ (جمع)</div></div>
+</div>
+
+<h3>بنیادی اسماء <span class="tag">dra</span> = دراوڑی · <span class="tag cog">tat</span> = تتسم</h3>
+<div class="grid">
+<div class="card"><div class="big ta">தண்ணீர்</div><div class="mono">taṇṇīr</div><div class="src">پانی <span class="tag">dra</span></div></div>
+<div class="card"><div class="big ta">வீடு</div><div class="mono">vīḍu</div><div class="src">گھر <span class="tag">dra</span></div></div>
+<div class="card"><div class="big ta">பெயர்</div><div class="mono">peyar</div><div class="src">نام <span class="tag">dra</span></div></div>
+<div class="card"><div class="big ta">பணம்</div><div class="mono">paṇam</div><div class="src">پیسہ/روپیہ <span class="tag">dra</span></div></div>
+<div class="card"><div class="big ta">மரம்</div><div class="mono">maram</div><div class="src">درخت <span class="tag">dra</span></div></div>
+<div class="card"><div class="big ta">நேரம்</div><div class="mono">nēram</div><div class="src">وقت <span class="tag cog">tat</span></div></div>
+<div class="card"><div class="big ta">நாள்</div><div class="mono">nāḷ</div><div class="src">دن <span class="tag">dra</span></div></div>
+<div class="card"><div class="big ta">சூரியன்</div><div class="mono">sūriyaṉ</div><div class="src">سورج <span class="tag cog">tat</span></div></div>
+<div class="card"><div class="big ta">பால்</div><div class="mono">pāl</div><div class="src">دودھ <span class="tag">dra</span></div></div>
+<div class="card"><div class="big ta">மழை</div><div class="mono">maḻai</div><div class="src">بارش <span class="tag">dra</span></div></div>
+<div class="card"><div class="big ta">பூமி</div><div class="mono">būmi</div><div class="src">زمین <span class="tag cog">tat</span></div></div>
+<div class="card"><div class="big ta">பூ</div><div class="mono">pū</div><div class="src">پھول <span class="tag">dra</span></div></div>
+</div>
+
+<h3>بنیادی افعال (مصدر/جذر)</h3>
+<div class="grid">
+<div class="card"><div class="big ta">இரு</div><div class="mono">iru</div><div class="src">ہونا</div></div>
+<div class="card"><div class="big ta">செய்</div><div class="mono">sey</div><div class="src">کرنا</div></div>
+<div class="card"><div class="big ta">போ</div><div class="mono">pō</div><div class="src">جانا</div></div>
+<div class="card"><div class="big ta">வா</div><div class="mono">vā</div><div class="src">آنا</div></div>
+<div class="card"><div class="big ta">சாப்பிடு</div><div class="mono">sāppiḍu</div><div class="src">کھانا</div></div>
+<div class="card"><div class="big ta">குடி</div><div class="mono">kuḍi</div><div class="src">پینا</div></div>
+<div class="card"><div class="big ta">பார்</div><div class="mono">pār</div><div class="src">دیکھنا</div></div>
+<div class="card"><div class="big ta">கேள்</div><div class="mono">kēḷ</div><div class="src">سننا</div></div>
+<div class="card"><div class="big ta">நட</div><div class="mono">naḍa</div><div class="src">چلنا</div></div>
+<div class="card"><div class="big ta">ஓடு</div><div class="mono">ōḍu</div><div class="src">دوڑنا</div></div>
+<div class="card"><div class="big ta">கொடு</div><div class="mono">koḍu</div><div class="src">دینا</div></div>
+<div class="card"><div class="big ta">வேணும்</div><div class="mono">vēṇum</div><div class="src">چاہیے</div></div>
+<div class="card"><div class="big ta">நில்</div><div class="mono">nil</div><div class="src">کھڑا ہونا</div></div>
+</div>
+
+<h3>اعداد</h3>
+<div class="grid">
+<div class="card"><div class="big ta">ஒன்று</div><div class="mono">oṉṟu</div><div class="src">ایک</div></div>
+<div class="card"><div class="big ta">இரண்டு</div><div class="mono">iraṇḍu</div><div class="src">دو</div></div>
+<div class="card"><div class="big ta">மூன்று</div><div class="mono">mūṉṟu</div><div class="src">تین</div></div>
+<div class="card"><div class="big ta">நான்கு</div><div class="mono">nāṉku</div><div class="src">چار</div></div>
+<div class="card"><div class="big ta">ஐந்து</div><div class="mono">aindu</div><div class="src">پانچ</div></div>
+<div class="card"><div class="big ta">ஆறு</div><div class="mono">āṟu</div><div class="src">چھ</div></div>
+<div class="card"><div class="big ta">ஏழு</div><div class="mono">ēḻu</div><div class="src">سات</div></div>
+<div class="card"><div class="big ta">எட்டு</div><div class="mono">eṭṭu</div><div class="src">آٹھ</div></div>
+<div class="card"><div class="big ta">ஒன்பது</div><div class="mono">oṉbadu</div><div class="src">نو</div></div>
+<div class="card"><div class="big ta">பத்து</div><div class="mono">pattu</div><div class="src">دس</div></div>
+<div class="card"><div class="big ta">நூறு</div><div class="mono">nūṟu</div><div class="src">سو</div></div>
+</div>
+
+<div class="aha"><span class="label">تاتسم پل</span> <span class="ta">சூரியன்</span> (sūriyaṉ) = اردو "سورج" — دونوں سنسکرت <i>سوریہ</i> سے۔ <span class="ta">பூமி</span> (būmi) = "زمین" کا اردو مترادف "بھومی" (ہندی میں)۔ تمل نے سنسکرت سے ادھار کم لیا، مگر جو لیا وہ آج بھی زندہ ہے — اور یہ الفاظ ہمارا پل ہیں۔</div>
+</section>
+<section class="stage" id="stage-05">
+<h2><span class="num">۰۵</span>جملے</h2>
+<p>تمل کی سب سے بڑی راحت یہی ہے: <b>جملے کی ترتیب اردو جیسی ہے</b>۔ فاعل — مفعول — فعل۔ آپ اردو میں سوچیے، لفظ بدل کر تمل بنا لیجیے۔</p>
+
+<blockquote>
+<span class="ta">நான் புத்தகம் படிக்கிறேன்.</span>
+<span class="mono">nāṉ puttagam paḍikkiṟēṉ.</span>
+<span class="gloss">میں (nāṉ) — کتاب (puttagam) — پڑھتا/پڑھتی ہوں (paḍikkiṟēṉ)۔ "میں کتاب پڑھتا ہوں۔"</span>
+</blockquote>
+
+<h3>فعل کی گردان — <span class="ta">செய்</span> (sey = کرنا) حالِ حاضر</h3>
+<table>
+<tr><th>ضمیر</th><th class="ta">تمل</th><th>تلفظ</th><th>اردو مماثل</th></tr>
+<tr><td>میں</td><td class="ta">செய்கிறேன்</td><td class="mono">seykiṟēṉ</td><td>کرتا/کرتی ہوں</td></tr>
+<tr><td>تُو</td><td class="ta">செய்கிறாய்</td><td class="mono">seykiṟāy</td><td>کرتا/کرتی ہے</td></tr>
+<tr><td>وہ (مذکر)</td><td class="ta">செய்கிறான்</td><td class="mono">seykiṟāṉ</td><td>کرتا ہے</td></tr>
+<tr><td>وہ (مؤنث)</td><td class="ta">செய்கிறாள்</td><td class="mono">seykiṟāḷ</td><td>کرتی ہے</td></tr>
+<tr><td>وہ (بے جان)</td><td class="ta">செய்கிறது</td><td class="mono">seykiṟadu</td><td>(وہ) کرتا ہے</td></tr>
+<tr><td>ہم</td><td class="ta">செய்கிறோம்</td><td class="mono">seykiṟōm</td><td>کرتے ہیں</td></tr>
+<tr><td>آپ</td><td class="ta">செய்கிறீர்கள்</td><td class="mono">seykiṟīrgaḷ</td><td>کرتے ہیں</td></tr>
+<tr><td>وہ (جمع)</td><td class="ta">செய்கிறார்கள்</td><td class="mono">seykiṟārgaḷ</td><td>(وہ) کرتے ہیں</td></tr>
+</table>
+
+<div class="aha"><span class="label">اردو کی جھلک</span> اردو میں "کرتا/کرتی ہوں" — صنف الگ، فعل میں شامل۔ تمل میں بھی ویسا ہی: <span class="ta">செய்கிறான்</span> (وہ کرتا ہے) بمقابلہ <span class="ta">செய்கிறாள்</span> (وہ کرتی ہے)۔ بلکہ تمل ایک قدم آگے ہے — بے جان چیز کے لیے <span class="ta">செய்கிறது</span> الگ شکل ہے، جو اردو میں نہیں۔</div>
+
+<h3>حال کے نشانات (case markers)</h3>
+<table>
+<tr><th>حال</th><th class="ta">تمل لاحقہ</th><th>اردو</th><th>مثال</th></tr>
+<tr><td>فاعلی</td><td class="ta">—</td><td>—</td><td class="ta">வீடு</td></tr>
+<tr><td>مفعولی</td><td class="ta">-ஐ (-ai)</td><td>-کو</td><td class="ta">வீட்டை</td></tr>
+<tr><td>اضافی (دینا)</td><td class="ta">-கு (-kku)</td><td>-کو</td><td class="ta">வீட்டுக்கு</td></tr>
+<tr><td>ظرفی (میں)</td><td class="ta">-இல் (-il)</td><td>-میں</td><td class="ta">வீட்டில்</td></tr>
+<tr><td>مبدأ (سے)</td><td class="ta">-இலிருந்து</td><td>-سے</td><td class="ta">வீட்டிலிருந்து</td></tr>
+<tr><td>ملکیتی</td><td class="ta">-இன் (-in)</td><td>-کا/کی</td><td class="ta">வீட்டின்</td></tr>
+</table>
+
+<h3>نفی</h3>
+<p>اردو میں "نہیں" الگ لفظ ہے۔ تمل میں نفی اکثر فعل کی شکل بدل دیتی ہے:</p>
+<blockquote>
+<span class="ta">நான் வர மாட்டேன்.</span>
+<span class="mono">nāṉ vara māṭṭēṉ.</span>
+<span class="gloss">میں نہیں آؤں گا/گی۔</span>
+</blockquote>
+
+<h3>سوال کے الفاظ</h3>
+<table>
+<tr><th class="ta">تمل</th><th>تلفظ</th><th>اردو</th></tr>
+<tr><td class="ta">என்ன</td><td class="mono">eṉṉa</td><td>کیا</td></tr>
+<tr><td class="ta">யார்</td><td class="mono">yār</td><td>کون</td></tr>
+<tr><td class="ta">எங்கே</td><td class="mono">eṅgē</td><td>کہاں</td></tr>
+<tr><td class="ta">எப்போது</td><td class="mono">eppōdu</td><td>کب</td></tr>
+<tr><td class="ta">ஏன்</td><td class="mono">ēṉ</td><td>کیوں</td></tr>
+<tr><td class="ta">எப்படி</td><td class="mono">eppaḍi</td><td>کیسے</td></tr>
+<tr><td class="ta">எவ்வளவு</td><td class="mono">evvaḷavu</td><td>کتنا</td></tr>
+</table>
+
+<div class="aha"><span class="label">لاحقوں کا راج</span> اردو میں "گھر میں سے" تین الگ الفاظ ہیں۔ تمل ان تینوں کو ایک لفظ میں چپکا دیتی ہے: <span class="ta">வீட்டிலிருந்து</span> (vīṭṭiliruntu) = "گھر+میں+سے"۔ یہی تمل کی <i>agglutinative</i> فطرت ہے — لاحقے ایک کے بعد ایک چسپاں ہوتے جاتے ہیں۔</div>
+</section>
+<section class="stage" id="stage-06">
+<h2><span class="num">۰۶</span>مطالعہ</h2>
+
+<h3>پہلا اقتباس — خود تعارف</h3>
+<blockquote>
+<span class="ta">வணக்கம். என் பெயர் ரஹீம். நான் ஹைதராபாத்திலிருந்து வருகிறேன். நான் மாணவன். எனக்கு தமிழ் கற்க ஆசை.</span>
+<span class="mono">vaṇakkam. eṉ peyar Rahīm. nāṉ Haidarābāttiliruntu varugiṟēṉ. nāṉ māṇavaṉ. eṉakku tamiḻ kaṟka āsai.</span>
+<span class="gloss">سلام۔ میرا نام رحیم ہے۔ میں حیدرآباد سے آیا ہوں۔ میں طالبِ علم ہوں۔ مجھے تمل سیکھنے کا شوق ہے۔</span>
+</blockquote>
+
+<h3>دوسرا اقتباس — دن کی روٹین</h3>
+<blockquote>
+<span class="ta">நான் காலையில் ஆறு மணிக்கு எழுகிறேன். பல் துலக்கி, குளித்து, காபி குடிக்கிறேன். பிறகு அம்மா செய்த சாப்பாடு சாப்பிடுகிறேன். மணி எட்டுக்கு வேலைக்கு போகிறேன். மாலை ஆறு மணிக்கு வீடு திரும்புகிறேன். இரவில் புத்தகம் படித்துவிட்டு தூங்குகிறேன்.</span>
+<span class="mono">nāṉ kālaiyil āṟu maṇikku eḻugiṟēṉ. pal tulakki, kuḷittu, kāpi kuḍikkiṟēṉ. piṟagu ammā seyta sāppāḍu sāppiḍugiṟēṉ. maṇi eṭṭukku vēlaikku pōgiṟēṉ. mālai āṟu maṇikku vīḍu tirumbugiṟēṉ. iravil puttagam paḍittuviṭṭu tūṅgugiṟēṉ.</span>
+<span class="gloss">میں صبح چھ بجے اٹھتا ہوں۔ دانت صاف کر کے، نہا کر، کافی پیتا ہوں۔ پھر امی کا پکایا ہوا کھانا کھاتا ہوں۔ آٹھ بجے کام پر جاتا ہوں۔ شام چھ بجے گھر لوٹتا ہوں۔ رات میں کتاب پڑھ کر سو جاتا ہوں۔</span>
+</blockquote>
+
+<h3>تیسرا اقتباس — دو لوگوں کی گفتگو</h3>
+<blockquote>
+<span class="ta">— வணக்கம்! எப்படி இருக்கீங்க?</span>
+<span class="mono">— vaṇakkam! eppaḍi irukkīṅga?</span>
+<span class="gloss">— سلام! آپ کیسے ہیں؟</span>
+</blockquote>
+<blockquote>
+<span class="ta">— நல்லா இருக்கேன், நன்றி. நீங்க?</span>
+<span class="mono">— nallā irukkēṉ, naṉṟi. nīṅga?</span>
+<span class="gloss">— ٹھیک ہوں، شکریہ۔ آپ؟</span>
+</blockquote>
+<blockquote>
+<span class="ta">— நானும் நல்லா இருக்கேன். சாப்பிட்டீங்களா?</span>
+<span class="mono">— nāṉum nallā irukkēṉ. sāppiṭṭīṅgaḷā?</span>
+<span class="gloss">— میں بھی ٹھیک ہوں۔ کھانا کھا لیا؟</span>
+</blockquote>
+<blockquote>
+<span class="ta">— ஆமாம், சாப்பிட்டேன். நீங்க?</span>
+<span class="mono">— āmām, sāppiṭṭēṉ. nīṅga?</span>
+<span class="gloss">— ہاں، کھا لیا۔ آپ نے؟</span>
+</blockquote>
+<blockquote>
+<span class="ta">— இன்னும் இல்லை. கொஞ்சம் வேலை இருக்கு.</span>
+<span class="mono">— iṉṉum illai. koñcam vēlai irukku.</span>
+<span class="gloss">— ابھی نہیں۔ تھوڑا کام ہے۔</span>
+</blockquote>
+<blockquote>
+<span class="ta">— சரி, பிறகு பார்க்கலாம். போய் வருகிறேன்.</span>
+<span class="mono">— sari, piṟagu pārkkalām. pōy varugiṟēṉ.</span>
+<span class="gloss">— ٹھیک ہے، پھر ملیں گے۔ اللہ حافظ۔</span>
+</blockquote>
+
+<div class="aha"><span class="label">مہذب رخصتی</span> تمل میں رخصتی کے لیے <span class="ta">போய் வருகிறேன்</span> (pōy varugiṟēṉ) کہتے ہیں — لفظی معنی "جا کر آتا ہوں"۔ یعنی "پھر ملیں گے" کا وعدہ۔ اردو کا "اللہ حافظ" اللہ کے سپرد کرتا ہے؛ تمل کا لفظ واپسی کا وعدہ کرتا ہے۔ فرقِ تہذیب۔</div>
+</section>
+<section class="stage" id="stage-07">
+<h2><span class="num">۰۷</span>لفظی میدان</h2>
+
+<h3>رشتے — اردو سے بھی باریک تقسیم</h3>
+<div class="grid">
+<div class="card"><div class="big ta">அப்பா</div><div class="mono">appā</div><div class="src">ابا/والد</div></div>
+<div class="card"><div class="big ta">அம்மா</div><div class="mono">ammā</div><div class="src">امی/والدہ</div></div>
+<div class="card"><div class="big ta">அண்ணா</div><div class="mono">aṇṇā</div><div class="src">بڑا بھائی</div></div>
+<div class="card"><div class="big ta">தம்பி</div><div class="mono">tambi</div><div class="src">چھوٹا بھائی</div></div>
+<div class="card"><div class="big ta">அக்கா</div><div class="mono">akkā</div><div class="src">بڑی بہن</div></div>
+<div class="card"><div class="big ta">தங்கை</div><div class="mono">taṅkai</div><div class="src">چھوٹی بہن</div></div>
+<div class="card"><div class="big ta">தாத்தா</div><div class="mono">tāttā</div><div class="src">دادا/نانا</div></div>
+<div class="card"><div class="big ta">பாட்டி</div><div class="mono">pāṭṭi</div><div class="src">دادی/نانی</div></div>
+<div class="card"><div class="big ta">மாமா</div><div class="mono">māmā</div><div class="src">ماما (ماں کا بھائی)</div></div>
+<div class="card"><div class="big ta">அத்தை</div><div class="mono">attai</div><div class="src">پھوپھی</div></div>
+</div>
+
+<div class="aha"><span class="label">بھائی بڑا یا چھوٹا</span> اردو میں صرف "بھائی" کہنا کافی ہے۔ تمل (اور دراوڑی زبانیں) عمر کا فرق <i>لفظ میں</i> رکھتی ہیں: <span class="ta">அண்ணா</span> (بڑا) بمقابلہ <span class="ta">தம்பி</span> (چھوٹا)۔ یعنی جیسے ہی رشتہ نام لیں، سلسلہ مراتب بھی ساتھ چلا آتا ہے۔ احترام زبان میں بُنا ہوا ہے۔</div>
+
+<h3>جسم کے اعضا</h3>
+<div class="grid">
+<div class="card"><div class="big ta">தலை</div><div class="mono">talai</div><div class="src">سر</div></div>
+<div class="card"><div class="big ta">கண்</div><div class="mono">kaṇ</div><div class="src">آنکھ</div></div>
+<div class="card"><div class="big ta">வாய்</div><div class="mono">vāy</div><div class="src">منہ</div></div>
+<div class="card"><div class="big ta">கை</div><div class="mono">kai</div><div class="src">ہاتھ</div></div>
+<div class="card"><div class="big ta">கால்</div><div class="mono">kāl</div><div class="src">پاؤں/ٹانگ</div></div>
+<div class="card"><div class="big ta">மூக்கு</div><div class="mono">mūkku</div><div class="src">ناک</div></div>
+</div>
+
+<h3>وقت</h3>
+<div class="grid">
+<div class="card"><div class="big ta">இன்று</div><div class="mono">iṉṟu</div><div class="src">آج</div></div>
+<div class="card"><div class="big ta">நாளை</div><div class="mono">nāḷai</div><div class="src">کل (آنے والا)</div></div>
+<div class="card"><div class="big ta">நேற்று</div><div class="mono">nēṟṟu</div><div class="src">کل (گزرا)</div></div>
+<div class="card"><div class="big ta">இப்போது</div><div class="mono">ippōdu</div><div class="src">ابھی</div></div>
+</div>
+
+<div class="aha"><span class="label">"کل" کا مسئلہ</span> اردو میں "کل" دونوں سمتوں میں کام کرتا ہے — گزرا ہوا دن بھی "کل" اور آنے والا بھی "کل"۔ تمل اس الجھن کو ختم کر دیتی ہے: <span class="ta">நேற்று</span> (nēṟṟu) صرف ماضی کا، <span class="ta">நாளை</span> (nāḷai) صرف مستقبل کا۔ کوئی شک نہیں رہتا۔</div>
+
+<h3>حرکت کے افعال</h3>
+<div class="grid">
+<div class="card"><div class="big ta">போ</div><div class="mono">pō</div><div class="src">جانا</div></div>
+<div class="card"><div class="big ta">வா</div><div class="mono">vā</div><div class="src">آنا</div></div>
+<div class="card"><div class="big ta">நட</div><div class="mono">naḍa</div><div class="src">چلنا</div></div>
+<div class="card"><div class="big ta">ஓடு</div><div class="mono">ōḍu</div><div class="src">دوڑنا</div></div>
+<div class="card"><div class="big ta">திரும்பு</div><div class="mono">tirumbu</div><div class="src">لوٹنا</div></div>
+<div class="card"><div class="big ta">ஏறு</div><div class="mono">ēṟu</div><div class="src">چڑھنا</div></div>
+</div>
+</section>
+<section class="stage" id="stage-08">
+<h2><span class="num">۰۸</span>استعمال</h2>
+
+<h3>تین درجے کا ادب — اردو جیسا</h3>
+<p>اردو میں "تُو / تم / آپ" تین درجے ہیں۔ تمل میں بھی تین — مگر لفظ مختلف:</p>
+<table>
+<tr><th>درجہ</th><th>اردو</th><th class="ta">تمل</th><th>موقع</th></tr>
+<tr><td>قریبی/بچہ</td><td>تُو</td><td class="ta">நீ (nī)</td><td>بہت قریبی یا نیچا</td></tr>
+<tr><td>برابر</td><td>تم</td><td class="ta">நீங்க (nīṅga)</td><td>روزمرہ محاورہ</td></tr>
+<tr><td>مؤدب</td><td>آپ</td><td class="ta">நீங்கள் (nīṅgaḷ)</td><td>بڑوں اور اجنبیوں سے</td></tr>
+</table>
+
+<h3>روزمرہ کے جملے</h3>
+<div class="grid">
+<div class="card"><div class="big ta">வணக்கம்</div><div class="mono">vaṇakkam</div><div class="src">سلام / آداب</div></div>
+<div class="card"><div class="big ta">நன்றி</div><div class="mono">naṉṟi</div><div class="src">شکریہ</div></div>
+<div class="card"><div class="big ta">எப்படி இருக்கீங்க?</div><div class="mono">eppaḍi irukkīṅga?</div><div class="src">آپ کیسے ہیں؟</div></div>
+<div class="card"><div class="big ta">நல்லா இருக்கேன்</div><div class="mono">nallā irukkēṉ</div><div class="src">میں ٹھیک ہوں</div></div>
+<div class="card"><div class="big ta">வேணும்</div><div class="mono">vēṇum</div><div class="src">چاہیے</div></div>
+<div class="card"><div class="big ta">வேண்டாம்</div><div class="mono">vēṇḍām</div><div class="src">نہیں چاہیے</div></div>
+<div class="card"><div class="big ta">தெரியாது</div><div class="mono">teriyādu</div><div class="src">معلوم نہیں</div></div>
+<div class="card"><div class="big ta">சரி</div><div class="mono">sari</div><div class="src">ٹھیک ہے/اچھا</div></div>
+</div>
+
+<h3>"کھانا کھایا؟" — محبت کا سلام</h3>
+<blockquote>
+<span class="ta">சாப்பிட்டீங்களா?</span>
+<span class="mono">sāppiṭṭīṅgaḷā?</span>
+<span class="gloss">"کھانا کھا لیا؟" — یہ صرف سوال نہیں، سلام ہے۔</span>
+</blockquote>
+<p>جیسے اردو میں "کھانا کھایا؟" یا "چائے پی؟" محبت اور فکر کا اظہار ہے، ویسے ہی تمل کی دنیا میں یہ جملہ پہلا استقبالیہ ہوتا ہے۔ سالن کی خبر لینا — یہی تو پڑوس کی محبت ہے۔</p>
+
+<h3>نرمی کے لفظ — <span class="ta">கொஞ்சம்</span></h3>
+<blockquote>
+<span class="ta">கொஞ்சம் தண்ணீர் கொடுங்க.</span>
+<span class="mono">koñcam taṇṇīr koḍuṅga.</span>
+<span class="gloss">"تھوڑا سا پانی دیجیے۔" — اردو "ذرا" یا "تھوڑا سا" کی طرح۔</span>
+</blockquote>
+<p>اردو میں ہم "ذرا" یا "تھوڑا سا" لگا کر حکم کو درخواست بنا دیتے ہیں۔ تمل میں یہی کام <span class="ta">கொஞ்சம்</span> (koñcam) کرتا ہے۔ "پانی دو" حکم ہے — "کوٹچم پانی دیجیے" التجا ہے۔</p>
+
+<h3>اجنبیوں کو مخاطب کرنا</h3>
+<table>
+<tr><th>کس کو</th><th class="ta">تمل</th><th>اردو مماثل</th></tr>
+<tr><td>بڑا مرد (اجنبی)</td><td class="ta">அண்ணா (aṇṇā)</td><td>بھائی صاحب</td></tr>
+<tr><td>بڑی عورت (اجنبی)</td><td class="ta">அக்கா (akkā)</td><td>باجی/آپا</td></tr>
+<tr><td>بزرگ مرد</td><td class="ta">தாத்தா (tāttā)</td><td>چچا/انکل</td></tr>
+<tr><td>بزرگ عورت</td><td class="ta">பாட்டி (pāṭṭi)</td><td>خالہ/آنٹی</td></tr>
+</table>
+
+<div class="aha"><span class="label">رشتوں کی زبان</span> اردو میں اجنبی سے "بھائی صاحب" کہہ دینا رواج ہے — تمل میں بھی بالکل یہی رواج ہے، مگر لفظ گھر کا ہے: <span class="ta">அண்ணா</span> (بڑا بھائی)۔ اجنبی کو اپنا بنا لینا — دونوں تہذیبوں کا مشترک خوبصورت چلن۔</div>
+</section>
+<section class="stage" id="stage-09">
+<h2><span class="num">۰۹</span>ادب</h2>
+<p>تمل ادب کی عمر ۲۳۰۰ سال سے زیادہ ہے — یہ ہندوستان کی ان گنی چنی زبانوں میں سے ہے جن کا ادبی ذخیرہ اتنا قدیم ہے۔ سنگم ادب (تقریباً دوسری صدی قبل مسیح سے تیسری صدی عیسوی تک) کا شمار دنیا کی قدیم ترین نظم گوئیوں میں ہوتا ہے۔ اردو نے ۷۰۰ سال میں جو قامت حاصل کی، تمل وہی قامت ہزاروں سال سے قائم رکھے ہوئے ہے۔</p>
+
+<h3>تمل کے ستون</h3>
+
+<h3>۱۔ تِروَولّوَر <span class="ta">திருவள்ளுவர்</span> (~تیسری صدی ق م)</h3>
+<p>تمل کے سب سے بزرگ شاعر۔ <b>تِرُکّرَل</b> (<span class="ta">திருக்குறள்</span>) — ۱۳۳۰ دوہے، دو سطری اشعار — اخلاق، دولت اور محبت پر۔ مذہب سے آزاد، انسانی اقدار پر مبنی۔ تمل کی قسم کھانی ہو تو اسی کتاب پر کھائی جاتی ہے۔</p>
+<blockquote>
+<span class="ta">அகர முதல எழுத்தெல்லாம் ஆதி<br>பகவன் முதற்றே உலகு.</span>
+<span class="mono">agara mudala eḻuttellām ādi bagavaṉ mudaṟṟē ulagu.</span>
+<span class="gloss">"جیسے 'اَ' سے حروف کا آغاز، ویسے ہی خالق سے دنیا کا آغاز۔" — تِرُکّرَل کا پہلا دوہا۔</span>
+</blockquote>
+
+<h3>۲۔ بھارَتیار <span class="ta">சுப்பிரமணிய பாரதியார்</span> (۱۸۸۲–۱۹۲۱)</h3>
+<p>جدید تمل شاعری کا باپ۔ قومی تحریک کا شاعر۔ اس نے روایتی سنگم زبان کو توڑ کر عوامی تمل میں جذبۂ حریت کے گیت لکھے۔</p>
+
+<h3>۳۔ پُدُمَئی پیتَن <span class="ta">புதுமைப்பித்தன்</span> (۱۹۰۶–۱۹۴۸)</h3>
+<p>جدید تمل افسانے کا بانی۔ سماجی حقیقت نگاری، عورتوں کے مسائل، کچلی ہوئی طبقات کا درد۔</p>
+
+<h3>۴۔ جئے کانتن <span class="ta">ஜெயகாந்தன்</span> (۱۹۳۴–۲۰۱۵)</h3>
+<p>جنان پیٹھ انعام یافتہ۔ شہری زندگی، جنسی اخلاقیات، روایت شکنی۔ تمل ادب کو دیہات سے شہر لے آیا۔</p>
+
+<h3>ادبی پل — تمل ↔ اردو</h3>
+
+<div class="aha"><span class="label">بھارَتیار ↔ اقبال</span> بھارَتیار اور علامہ اقبال دونوں ہم عصر تھے (۱۸۷۷–۱۹۳۸، ۱۸۸۲–۱۹۲۱)۔ دونوں نے زوال زدہ مشرق کو جگانے کے لیے شاعری کو تلوار بنایا۔ اقبال کا "خودی" بھارَتیار کی <span class="ta">சுதந்திரம்</span> (suthantiram = آزادی) سے مختلف نہیں — ایک نے فارسی کی میراث پر، دوسرے نے سنگم کی میراث پر قومی بیداری کا گیت چھیڑا۔</div>
+
+<div class="aha"><span class="label">تِروَولّوَر ↔ امیر خسرو</span> تِروَولّوَر نے ۱۳۳۰ دوہوں میں زندگی کا پورا فلسفہ بھر دیا — اخلاق، محبت، دولت۔ خسرو نے بھی اپنی پہیلیوں، مُقرّیوں اور دوہوں میں عوامی حکمت کو ایک طرح کا "قاعدہ" بنا دیا۔ دونوں "کم لفظ، زیادہ معنی" کے استاد تھے — دونوں آج بھی زبان کے محاورے میں زندہ ہیں۔</div>
+
+<div class="aha"><span class="label">پُدُمَئی پیتَن ↔ سعادت حسن منٹو</span> دونوں ہم عصر افسانہ نگار (۱۹۰۶–۱۹۴۸، ۱۹۱۲–۱۹۵۵)۔ دونوں نے سماج کے حاشیے پر پڑے لوگوں — طوائفوں، مزدوروں، مذہبی اقلیتوں — کو مرکزی کردار بنایا۔ پُدُمَئی پیتَن کا <span class="ta">"பொன்னகரம்"</span> منٹو کے "ٹوبہ ٹیک سنگھ" سے اتنا دور نہیں — ایک سی مٹی، ایک سا درد۔</div>
+
+<div class="aha"><span class="label">جئے کانتن ↔ عصمت چغتائی</span> دونوں روایت شکن، دونوں نے عورت کی جنسیت کو ادب میں لایا جب معاشرہ اس پر پردہ ڈالے ہوئے تھا۔ عصمت کی "لحاف" اور جئے کانتن کی <span class="ta">"அக்னிப் பிரவேசம்"</span> (آتش میں داخلہ) — دونوں نے کہا کہ عورت کا جسم بھی اس کا اپنا ہے۔</div>
+
+<div class="aha"><span class="label">سنگم نظم ↔ غزل</span> اردو غزل اور تمل کی سنگم <span class="ta">அகம்</span> (akam = داخلی) نظمیں دونوں محبت کے باریک احساسات پر مبنی ہیں — ہجر، وصل، شکوہ، اُمید۔ فرق یہ ہے کہ غزل دربار میں پیدا ہوئی، سنگم نظم پہاڑ اور ساحل کے دیہات میں — مگر دل کا درد ایک سا ہے۔</div>
+
+<div class="nav-btns">
+<a href="#stage-00">واپس تعارف کی طرف</a>
+</div>
+</section>
+</main>
+<footer>made by Nil · using Claude</footer>
+<script>
+document.querySelectorAll('.card, .letter-card').forEach(c=>{
+  c.addEventListener('click', ()=> c.classList.toggle('open'));
+});
+const tabs = document.querySelectorAll('nav.tabs a');
+const sections = document.querySelectorAll('section.stage');
+function setActive(){
+  let cur = sections[0].id;
+  const y = window.scrollY + 120;
+  sections.forEach(s=>{ if(s.offsetTop <= y) cur = s.id; });
+  tabs.forEach(a=>{
+    a.classList.toggle('active', a.getAttribute('href') === '#'+cur);
+  });
+}
+window.addEventListener('scroll', setActive, {passive:true});
+setActive();
+</script>
+</body>
+</html>
