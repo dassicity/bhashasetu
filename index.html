@@ -350,6 +350,7 @@ function pickSource(src){
   stepSource.style.display = 'none';
   stepTarget.classList.add('active');
   renderTargets();
+  history.replaceState(null, '', `#${src.code}`);
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -372,10 +373,31 @@ backBtn.addEventListener('click', () => {
   stepTarget.classList.remove('active');
   stepSource.style.display = '';
   selectedSource = null;
+  history.replaceState(null, '', location.pathname);
   window.scrollTo({top:0, behavior:'smooth'});
 });
 
+function applyHash(){
+  const h = location.hash.replace(/^#/, '').trim();
+  if(!h) return;
+  // Support "#hindi" or "#hindi-to-tamil"
+  const m = h.match(/^([a-z]+)(?:-to-([a-z]+))?$/);
+  if(!m) return;
+  const [, srcCode, tgtCode] = m;
+  if(tgtCode && LANGS.find(l => l.code === tgtCode)){
+    const pair = `${srcCode}_to_${tgtCode}`;
+    if(AVAILABLE.has(pair)){
+      window.location.href = `courses/${pair}.html`;
+      return;
+    }
+  }
+  const src = LANGS.find(l => l.code === srcCode);
+  if(src) pickSource(src);
+}
+
 renderSources();
+applyHash();
+window.addEventListener('hashchange', applyHash);
 </script>
 </body>
 </html>
