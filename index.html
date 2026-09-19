@@ -163,6 +163,26 @@ header{text-align:center; margin-bottom:40px}
   font-family:'JetBrains Mono',monospace;
   letter-spacing:0.02em;
 }
+.ver{
+  display:inline-block;
+  font-size:10px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  font-family:'JetBrains Mono',monospace;
+  color:var(--ink-faded);
+  border:1px solid var(--rule);
+  border-radius:100px;
+  padding:1px 8px;
+  margin-top:6px;
+}
+.ver.v2{color:var(--sindoor); border-color:rgba(168,48,36,0.4); background:rgba(168,48,36,0.05)}
+.legend{
+  margin:18px 0 0;
+  font-size:12px;
+  color:var(--ink-faded);
+  line-height:1.9;
+}
+.legend .ver{margin-top:0; vertical-align:middle}
 .soon{
   font-size:10px;
   letter-spacing:0.14em;
@@ -282,6 +302,7 @@ footer{
   <h2>What would you like to learn? <span id="source-pill" class="selected-pill"></span></h2>
   <button class="back" id="back-btn" type="button">← change</button>
   <div id="target-grid" class="grid"></div>
+  <p class="legend"><span class="ver v1">v1</span> original ten-stage structure (Apr 2026) &nbsp; <span class="ver v2">v2</span> revised brief: self-checks, graded reading in every stage, saved progress (Sep 2026 onward)</p>
 </section>
 
 <div class="about">
@@ -316,6 +337,68 @@ const AVAILABLE = new Set([
   'punjabi_to_bengali','punjabi_to_hindi','punjabi_to_kannada','punjabi_to_malayalam','punjabi_to_tamil','punjabi_to_telugu','punjabi_to_urdu',
 ]);
 
+// Brief version each course was built from, and its build date. v1 = original ten-stage brief (Apr 2026);
+// v2 = revised brief (self-checks, graded reading per stage, source-script transliteration, saved progress).
+const VERSIONS = {
+  'bengali_to_hindi': {v:1, built:'2026-04-19'},
+  'bengali_to_kannada': {v:1, built:'2026-04-19'},
+  'bengali_to_malayalam': {v:1, built:'2026-04-19'},
+  'bengali_to_punjabi': {v:1, built:'2026-04-19'},
+  'bengali_to_tamil': {v:1, built:'2026-04-19'},
+  'bengali_to_telugu': {v:1, built:'2026-04-19'},
+  'bengali_to_urdu': {v:1, built:'2026-04-19'},
+  'hindi_to_bengali': {v:1, built:'2026-04-19'},
+  'hindi_to_kannada': {v:1, built:'2026-04-20'},
+  'hindi_to_malayalam': {v:1, built:'2026-04-20'},
+  'hindi_to_marathi': {v:1, built:'2026-09-20'},
+  'hindi_to_punjabi': {v:1, built:'2026-04-20'},
+  'hindi_to_tamil': {v:1, built:'2026-04-20'},
+  'hindi_to_telugu': {v:1, built:'2026-04-20'},
+  'hindi_to_urdu': {v:1, built:'2026-04-20'},
+  'kannada_to_bengali': {v:1, built:'2026-04-20'},
+  'kannada_to_hindi': {v:1, built:'2026-04-20'},
+  'kannada_to_malayalam': {v:1, built:'2026-04-20'},
+  'kannada_to_punjabi': {v:1, built:'2026-04-20'},
+  'kannada_to_tamil': {v:1, built:'2026-04-20'},
+  'kannada_to_telugu': {v:1, built:'2026-04-20'},
+  'kannada_to_urdu': {v:1, built:'2026-04-20'},
+  'malayalam_to_bengali': {v:1, built:'2026-04-20'},
+  'malayalam_to_hindi': {v:1, built:'2026-04-20'},
+  'malayalam_to_kannada': {v:1, built:'2026-04-20'},
+  'malayalam_to_punjabi': {v:1, built:'2026-04-20'},
+  'malayalam_to_tamil': {v:1, built:'2026-04-20'},
+  'malayalam_to_telugu': {v:1, built:'2026-04-20'},
+  'malayalam_to_urdu': {v:1, built:'2026-04-20'},
+  'punjabi_to_bengali': {v:1, built:'2026-04-21'},
+  'punjabi_to_hindi': {v:1, built:'2026-04-21'},
+  'punjabi_to_kannada': {v:1, built:'2026-04-21'},
+  'punjabi_to_malayalam': {v:1, built:'2026-04-21'},
+  'punjabi_to_tamil': {v:1, built:'2026-04-21'},
+  'punjabi_to_telugu': {v:1, built:'2026-04-21'},
+  'punjabi_to_urdu': {v:1, built:'2026-04-21'},
+  'tamil_to_bengali': {v:1, built:'2026-04-20'},
+  'tamil_to_hindi': {v:1, built:'2026-04-20'},
+  'tamil_to_kannada': {v:1, built:'2026-04-20'},
+  'tamil_to_malayalam': {v:1, built:'2026-04-20'},
+  'tamil_to_punjabi': {v:1, built:'2026-04-20'},
+  'tamil_to_telugu': {v:1, built:'2026-04-20'},
+  'tamil_to_urdu': {v:1, built:'2026-04-20'},
+  'telugu_to_bengali': {v:1, built:'2026-04-20'},
+  'telugu_to_hindi': {v:1, built:'2026-04-20'},
+  'telugu_to_kannada': {v:1, built:'2026-04-20'},
+  'telugu_to_malayalam': {v:1, built:'2026-04-20'},
+  'telugu_to_punjabi': {v:1, built:'2026-04-20'},
+  'telugu_to_tamil': {v:1, built:'2026-04-20'},
+  'telugu_to_urdu': {v:1, built:'2026-04-20'},
+  'urdu_to_bengali': {v:1, built:'2026-04-20'},
+  'urdu_to_hindi': {v:1, built:'2026-04-20'},
+  'urdu_to_kannada': {v:1, built:'2026-04-21'},
+  'urdu_to_malayalam': {v:1, built:'2026-04-21'},
+  'urdu_to_punjabi': {v:1, built:'2026-04-20'},
+  'urdu_to_tamil': {v:1, built:'2026-04-21'},
+  'urdu_to_telugu': {v:1, built:'2026-04-21'}
+};
+
 const sourceGrid = document.getElementById('source-grid');
 const targetGrid = document.getElementById('target-grid');
 const stepTarget = document.getElementById('step-target');
@@ -334,6 +417,7 @@ function makeCard(lang, opts={}){
     <span class="lang-native ${lang.cls}">${lang.native}</span>
     <span class="lang-en">${lang.en}</span>
     ${opts.soon ? '<span class="soon">coming soon</span>' : ''}
+    ${opts.ver ? `<span class="ver v${opts.ver.v}" title="built ${opts.ver.built}">v${opts.ver.v} · ${opts.ver.built.slice(0,7)}</span>` : ''}
   `;
   return btn;
 }
@@ -363,7 +447,7 @@ function renderTargets(){
   LANGS.filter(t => t.code !== selectedSource.code).forEach(t => {
     const pair = `${selectedSource.code}_to_${t.code}`;
     const available = AVAILABLE.has(pair);
-    const card = makeCard(t, { soon: !available, disabled: !available });
+    const card = makeCard(t, { soon: !available, disabled: !available, ver: VERSIONS[pair] });
     if(available){
       card.addEventListener('click', () => {
         window.location.href = `courses/${pair}.html`;
