@@ -881,5 +881,98 @@ footer{
   });
 })();
 </script>
+
+<style>
+.speak-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:22px; height:22px; margin:0 4px;
+  padding:0;
+  border:1px solid rgba(28,22,17,0.15);
+  background:rgba(255,255,255,0.7);
+  border-radius:50%;
+  cursor:pointer;
+  font-size:11px;
+  line-height:1;
+  vertical-align:middle;
+  transition:background 0.15s, transform 0.08s;
+  -webkit-tap-highlight-color:transparent;
+  opacity:0.55;
+}
+.speak-btn:hover{opacity:1; background:rgba(255,255,255,0.95)}
+.speak-btn:active{transform:scale(0.92)}
+.speak-btn:focus-visible{outline:2px solid #A83024; outline-offset:1px}
+@media (max-width:480px){
+  .speak-btn{width:26px; height:26px; font-size:12px; opacity:0.75}
+}
+</style>
+<script>
+(function(){
+  const TARGET_LANG = 'hi-IN';
+  const TARGET_RANGE = /[\u0900-\u097F]/;
+  if(!('speechSynthesis' in window)) return;
+
+  let voice = null;
+  function pickVoice(){
+    const voices = speechSynthesis.getVoices();
+    voice = voices.find(v => v.lang === TARGET_LANG)
+         || voices.find(v => v.lang.startsWith(TARGET_LANG.split('-')[0]))
+         || null;
+  }
+  speechSynthesis.addEventListener('voiceschanged', pickVoice);
+  pickVoice();
+
+  function speak(text){
+    try{
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = TARGET_LANG;
+      if(voice) u.voice = voice;
+      u.rate = 0.85;
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function isTargetText(el){
+    if(!el || el.nodeType !== 1) return false;
+    if(el.querySelector('.speak-btn')) return false;
+    if(el.closest('.speak-btn, script, style, .bhashasetu-home')) return false;
+    const text = (el.textContent || '').trim();
+    if(text.length === 0 || text.length > 40) return false;
+    if(!TARGET_RANGE.test(text)) return false;
+    const targetChars = (text.match(new RegExp(TARGET_RANGE.source, 'g')) || []).length;
+    if(targetChars / text.length < 0.3) return false;
+    if(el.parentElement && el.parentElement.querySelector(':scope > .speak-btn')) return false;
+    return true;
+  }
+
+  function addButtons(){
+    const candidates = document.querySelectorAll(
+      '.big, .letter, .char, .word, .target, .tgt, .bn, .kn, .hi, .ta, .te, .ml, .pa, .ur, td, span'
+    );
+    candidates.forEach(el => {
+      if(!isTargetText(el)) return;
+      const text = (el.textContent || '').trim();
+      const btn = document.createElement('button');
+      btn.className = 'speak-btn';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Play pronunciation');
+      btn.textContent = '🔊';
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        speak(text);
+      });
+      if(el.parentNode){
+        el.parentNode.insertBefore(btn, el.nextSibling);
+      }
+    });
+  }
+
+  if(document.readyState === 'complete' || document.readyState === 'interactive'){
+    setTimeout(addButtons, 100);
+  } else {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(addButtons, 100));
+  }
+})();
+</script>
 </body>
 </html>
