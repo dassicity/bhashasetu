@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="theme-color" content="#F4ECDA"/>
 <title>BHASHASETU — ভাষাসেতু · भाषासेतु</title>
-<meta name="description" content="Learn a sister Indian language from a language you already know. Nine languages, 57 bridges."/>
+<meta name="description" content="Learn a sister Indian language, or a foreign one, from a language you already know. Nine Indian languages, two beyond, 63 bridges."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Gurmukhi:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Tiro+Devanagari+Marathi&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Gurmukhi:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Tiro+Devanagari+Marathi&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --paper:#F4ECDA; --paper-warm:#EFE5CC; --paper-deep:#E8DCBE;
@@ -76,6 +76,8 @@ header{text-align:center; margin-bottom:40px}
 .native .ml{font-family:'Noto Serif Malayalam',serif}
 .native .pa{font-family:'Noto Serif Gurmukhi',serif}
 .native .ur{font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate}
+.native .ko{font-family:'Noto Serif KR',serif}
+.native .es{font-family:'Fraunces',serif; font-style:italic}
 .tagline{
   font-size:clamp(14px, 1.9vw, 19px);
   color:var(--ink-soft);
@@ -157,6 +159,19 @@ header{text-align:center; margin-bottom:40px}
 .lang-native.ml{font-family:'Noto Serif Malayalam',serif}
 .lang-native.pa{font-family:'Noto Serif Gurmukhi',serif}
 .lang-native.ur{font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate; line-height:1.6}
+.lang-native.ko{font-family:'Noto Serif KR',serif}
+.lang-native.es{font-family:'Fraunces',serif; font-style:italic}
+.group-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--ink-faded);
+  margin:22px 0 10px;
+  padding-top:18px;
+  border-top:1px dashed var(--rule);
+}
+.group-title:first-of-type{margin-top:0; padding-top:0; border-top:0}
 .lang-en{
   font-size:12px;
   color:var(--ink-faded);
@@ -286,9 +301,11 @@ footer{
     <span class="te">భాషాసేతు</span><span class="sep">·</span>
     <span class="ml">ഭാഷാസേതു</span><span class="sep">·</span>
     <span class="pa">ਭਾਸ਼ਾ ਪੁਲ</span><span class="sep">·</span>
-    <span class="ur">زبان کا پل</span>
+    <span class="ur">زبان کا پل</span><span class="sep">·</span>
+    <span class="ko">언어의 다리</span><span class="sep">·</span>
+    <span class="es">puente de lenguas</span>
   </p>
-  <p class="tagline">Learn a sister Indian language from one you already know. Nine languages, fifty-seven bridges. No English in the learning path — just the two scripts, side by side.</p>
+  <p class="tagline">Learn a sister Indian language, or a language from beyond India, from one you already know. Nine Indian languages, two beyond, sixty-three bridges. No English in the learning path — just the two scripts, side by side.</p>
 </header>
 
 <section id="step-source" class="step">
@@ -301,7 +318,10 @@ footer{
   <div class="step-label">Step 02</div>
   <h2>What would you like to learn? <span id="source-pill" class="selected-pill"></span></h2>
   <button class="back" id="back-btn" type="button">← change</button>
+  <div class="group-title">Sister languages</div>
   <div id="target-grid" class="grid"></div>
+  <div class="group-title">Beyond India</div>
+  <div id="foreign-grid" class="grid"></div>
   <p class="legend"><span class="ver v1">v1</span> original ten-stage structure (Apr 2026) &nbsp; <span class="ver v2">v2</span> revised brief: self-checks, graded reading in every stage, saved progress (Sep 2026 onward)</p>
 </section>
 
@@ -324,6 +344,8 @@ const LANGS = [
   {code:'malayalam', native:'മലയാളം',   en:'Malayalam', cls:'ml'},
   {code:'punjabi',   native:'ਪੰਜਾਬੀ',    en:'Punjabi',   cls:'pa'},
   {code:'urdu',      native:'اُردُو',    en:'Urdu',      cls:'ur'},
+  {code:'korean',    native:'한국어',    en:'Korean',    cls:'ko', foreign:true},
+  {code:'spanish',   native:'Español',  en:'Spanish',   cls:'es', foreign:true},
 ];
 
 const AVAILABLE = new Set([
@@ -335,6 +357,8 @@ const AVAILABLE = new Set([
   'telugu_to_bengali','telugu_to_hindi','telugu_to_kannada','telugu_to_malayalam','telugu_to_punjabi','telugu_to_tamil','telugu_to_urdu',
   'urdu_to_bengali','urdu_to_hindi','urdu_to_kannada','urdu_to_malayalam','urdu_to_punjabi','urdu_to_tamil','urdu_to_telugu',
   'punjabi_to_bengali','punjabi_to_hindi','punjabi_to_kannada','punjabi_to_malayalam','punjabi_to_tamil','punjabi_to_telugu','punjabi_to_urdu',
+  'bengali_to_korean','telugu_to_korean','kannada_to_korean',
+  'bengali_to_spanish','telugu_to_spanish','kannada_to_spanish',
 ]);
 
 // Brief version each course was built from, and its build date. v1 = original ten-stage brief (Apr 2026);
@@ -396,11 +420,18 @@ const VERSIONS = {
   'urdu_to_malayalam': {v:1, built:'2026-04-21'},
   'urdu_to_punjabi': {v:1, built:'2026-04-20'},
   'urdu_to_tamil': {v:1, built:'2026-04-21'},
-  'urdu_to_telugu': {v:1, built:'2026-04-21'}
+  'urdu_to_telugu': {v:1, built:'2026-04-21'},
+  'bengali_to_korean': {v:2, built:'2026-09-20'},
+  'telugu_to_korean': {v:2, built:'2026-09-20'},
+  'kannada_to_korean': {v:2, built:'2026-09-20'},
+  'bengali_to_spanish': {v:2, built:'2026-09-20'},
+  'telugu_to_spanish': {v:2, built:'2026-09-20'},
+  'kannada_to_spanish': {v:2, built:'2026-09-20'}
 };
 
 const sourceGrid = document.getElementById('source-grid');
 const targetGrid = document.getElementById('target-grid');
+const foreignGrid = document.getElementById('foreign-grid');
 const stepTarget = document.getElementById('step-target');
 const stepSource = document.getElementById('step-source');
 const sourcePill = document.getElementById('source-pill');
@@ -424,7 +455,7 @@ function makeCard(lang, opts={}){
 
 function renderSources(){
   sourceGrid.innerHTML = '';
-  LANGS.forEach(src => {
+  LANGS.filter(l => !l.foreign).forEach(src => {
     const hasAny = LANGS.some(t => t.code !== src.code && AVAILABLE.has(`${src.code}_to_${t.code}`));
     const card = makeCard(src, { soon: !hasAny, disabled: false });
     card.addEventListener('click', () => pickSource(src));
@@ -444,6 +475,7 @@ function pickSource(src){
 
 function renderTargets(){
   targetGrid.innerHTML = '';
+  foreignGrid.innerHTML = '';
   LANGS.filter(t => t.code !== selectedSource.code).forEach(t => {
     const pair = `${selectedSource.code}_to_${t.code}`;
     const available = AVAILABLE.has(pair);
@@ -453,7 +485,7 @@ function renderTargets(){
         window.location.href = `courses/${pair}.html`;
       });
     }
-    targetGrid.appendChild(card);
+    (t.foreign ? foreignGrid : targetGrid).appendChild(card);
   });
 }
 
