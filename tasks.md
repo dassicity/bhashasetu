@@ -14,12 +14,12 @@ Started 2026-09-20. Brief version 2 (`prompts/MASTER_BRIEF.md`). Status marks: `
 
 | # | Course | Prompt sheet | Built | Sidecar | Checker | Browser | Index |
 |---|---|---|---|---|---|---|---|
-| 1 | `bengali_to_korean` | [x] | [~] | [~] | [ ] | [ ] | [x] |
-| 2 | `telugu_to_korean` | [x] | [~] | [~] | [ ] | [ ] | [x] |
-| 3 | `kannada_to_korean` | [x] | [~] | [~] | [ ] | [ ] | [x] |
-| 4 | `bengali_to_spanish` | [x] | [ ] | [ ] | [ ] | [ ] | [x] |
-| 5 | `telugu_to_spanish` | [x] | [ ] | [ ] | [ ] | [ ] | [x] |
-| 6 | `kannada_to_spanish` | [x] | [ ] | [ ] | [ ] | [ ] | [x] |
+| 1 | `bengali_to_korean` | [x] | [x] | [x] | [x] | [x] | [x] |
+| 2 | `telugu_to_korean` | [x] | [x] | [x] | [x] | [x] | [x] |
+| 3 | `kannada_to_korean` | [x] | [x] | [x] | [x] | [x] | [x] |
+| 4 | `bengali_to_spanish` | [x] | [~] | [~] | [ ] | [ ] | [x] |
+| 5 | `telugu_to_spanish` | [x] | [~] | [~] | [ ] | [ ] | [x] |
+| 6 | `kannada_to_spanish` | [x] | [~] | [~] | [ ] | [ ] | [x] |
 
 Progress tracker inside each course (saved stage, per-stage "done" button, dots) comes from `V2_SNIPPETS.html` block 4 and block 2 and is part of "Built".
 
