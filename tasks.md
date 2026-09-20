@@ -1,4 +1,4 @@
-# BHASHASETU — tasks
+# BHASHASETU - tasks
 
 Started 2026-09-20. Brief version 2 (`prompts/MASTER_BRIEF.md`). Status marks: `[ ]` open · `[~]` in progress · `[x]` done.
 
@@ -10,7 +10,7 @@ Started 2026-09-20. Brief version 2 (`prompts/MASTER_BRIEF.md`). Status marks: `
 - [x] Checker: `prompts/check_course.py` (structure, v2 requirements, English leaks, sidecar)
 - [x] Index: "Beyond India" target group, Korean and Spanish cards, fonts, counts, VERSIONS entries
 
-## 2. New courses — build now, in this order (all v2, corridor F)
+## 2. New courses - build now, in this order (all v2, corridor F)
 
 | # | Course | Prompt sheet | Built | Sidecar | Checker | Browser | Index |
 |---|---|---|---|---|---|---|---|
@@ -23,7 +23,7 @@ Started 2026-09-20. Brief version 2 (`prompts/MASTER_BRIEF.md`). Status marks: `
 
 Progress tracker inside each course (saved stage, per-stage "done" button, dots) comes from `V2_SNIPPETS.html` block 4 and block 2 and is part of "Built".
 
-## 3. Modifications — documented now, attempt later
+## 3. Modifications - documented now, attempt later
 
 ### 3a. Rebuild existing v1 courses under the v2 brief
 All 57 courses carry `data-version="1"`. Rebuild order: thinnest first (they gain the most), strong ones last.
