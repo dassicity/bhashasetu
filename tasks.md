@@ -10,18 +10,20 @@ Started 2026-09-20. Brief version 2 (`prompts/MASTER_BRIEF.md`). Status marks: `
 - [x] Checker: `prompts/check_course.py` (structure, v2 requirements, English leaks, sidecar)
 - [x] Index: "Beyond India" target group, Korean and Spanish cards, fonts, counts, VERSIONS entries
 
-## 2. New courses - build now, in this order (all v2, corridor F)
+## 2. New courses - COMPLETE (all v2, corridor F, built and verified 2026-09-20)
 
 | # | Course | Prompt sheet | Built | Sidecar | Checker | Browser | Index |
 |---|---|---|---|---|---|---|---|
 | 1 | `bengali_to_korean` | [x] | [x] | [x] | [x] | [x] | [x] |
 | 2 | `telugu_to_korean` | [x] | [x] | [x] | [x] | [x] | [x] |
 | 3 | `kannada_to_korean` | [x] | [x] | [x] | [x] | [x] | [x] |
-| 4 | `bengali_to_spanish` | [x] | [~] | [~] | [ ] | [ ] | [x] |
-| 5 | `telugu_to_spanish` | [x] | [~] | [~] | [ ] | [ ] | [x] |
-| 6 | `kannada_to_spanish` | [x] | [~] | [~] | [ ] | [ ] | [x] |
+| 4 | `bengali_to_spanish` | [x] | [x] | [x] | [x] | [x] | [x] |
+| 5 | `telugu_to_spanish` | [x] | [x] | [x] | [x] | [x] | [x] |
+| 6 | `kannada_to_spanish` | [x] | [x] | [x] | [x] | [x] | [x] |
 
 Progress tracker inside each course (saved stage, per-stage "done" button, dots) comes from `V2_SNIPPETS.html` block 4 and block 2 and is part of "Built".
+
+All six pass `prompts/check_course.py` and were checked live in the browser (desktop + 375px, hash routing, self-checks, speak buttons, no console errors). Each has a sidecar in `prompts/pair_knowledge/` recording its aha moments, anchors with verification URLs, and what was dropped for lack of evidence.
 
 ## 3. Modifications - documented now, attempt later
 
