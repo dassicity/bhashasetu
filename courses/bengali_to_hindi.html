@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="bn" data-version="1" data-built="2026-04-19" data-pair="bengali_to_hindi">
+<html lang="bn" data-version="2" data-built="2026-09-21" data-pair="bengali_to_hindi" data-target="hi-IN" data-speak-label="শুনুন">
 <head>
 <meta charset="UTF-8" />
-<meta name="bhashasetu-version" content="1" />
+<meta name="bhashasetu-version" content="2" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 <meta name="description" content="বাংলা থেকে হিন্দি শেখার প্রথম-নীতি পাঠ্যক্রম - বিদ্যাসাগরের বর্ণপরিচয়ের পদ্ধতিতে।" />
 <title>हिन्दी सीखें - বাংলা থেকে হিন্দি</title>
@@ -525,6 +525,111 @@
     body::before { display: none; }
   }
 
+
+  /* --- v2: source-script pronunciation primary, roman secondary --- */
+  .word .pron { font-family: 'Noto Serif Bengali', serif; font-size: 15px; color: var(--sindoor); grid-column: 1 / 3; line-height: 1.5; }
+  .word .trans { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); grid-column: 1 / 3; }
+  .field-grid .cell .pron { font-family: 'Noto Serif Bengali', serif; font-size: 14px; color: var(--sindoor); display: block; }
+  .field-grid .cell .trans { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-faded); }
+  .sentence .pron { font-family: 'Noto Serif Bengali', serif; font-size: 15px; color: var(--sindoor); margin-bottom: 4px; line-height: 1.6; }
+  .sentence .trans { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); margin-bottom: 4px; }
+  .sentence .literal { font-size: 13px; color: var(--ink-faded); font-family: 'Noto Serif Bengali', serif; border-top: 1px dotted var(--rule); padding-top: 6px; margin-top: 6px; line-height: 1.6; }
+  .sentence .literal::before { content: "\261E\00A0"; color: var(--ochre); }
+  .passage .pron { font-family: 'Noto Serif Bengali', serif; font-size: 15px; color: var(--sindoor); margin-bottom: 8px; line-height: 1.75; }
+  .passage .trans { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faded); margin-bottom: 10px; line-height: 1.7; }
+  .passage > h3:first-child { margin-top: 0; }
+  .passage .sentence { background: rgba(244,236,218,0.7); }
+
+  /* --- v2: false-friend list --- */
+  .ff { display: grid; gap: 10px; margin: 16px 0 24px; }
+  .ff-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px;
+    padding: 12px 14px; background: var(--paper-warm);
+    border: 1px solid var(--rule); border-left: 3px solid var(--sindoor); border-radius: 4px;
+  }
+  .ff-row .h { font-family: 'Noto Serif Devanagari', serif; font-size: 20px; font-weight: 500; }
+  .ff-row .b { font-family: 'Noto Serif Bengali', serif; font-size: 19px; font-weight: 500; color: var(--ink-soft); }
+  .ff-row .hm, .ff-row .bm { font-size: 14px; color: var(--ink-faded); }
+  .ff-row .why { grid-column: 1 / 3; font-size: 13px; color: var(--teal); border-top: 1px dotted var(--rule); padding-top: 6px; margin-top: 4px; }
+  @media (max-width: 560px) { .ff-row { grid-template-columns: 1fr; } .ff-row .why { grid-column: 1; } }
+
+  /* --- v2: sound-count working table --- */
+  .tally { margin: 18px 0; padding: 14px 16px; background: var(--paper-deep); border: 1px solid var(--rule); border-radius: 4px; font-size: 15px; }
+  .tally-row { display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; border-bottom: 1px dotted var(--rule); }
+  .tally-row:last-child { border-bottom: 0; border-top: 1px solid var(--rule-strong); font-weight: 600; margin-top: 4px; padding-top: 8px; }
+  .tally-row .n { font-family: 'Noto Serif Bengali', serif; color: var(--sindoor); white-space: nowrap; }
+
+  /* ═══════════════════ 2. SELF-CHECK - CSS (copy) ═══════════════════ */
+  .check{ margin:40px 0 10px; padding:18px 18px 14px; background:var(--paper-warm); border:1px solid var(--rule-strong); border-radius:4px; }
+  .check.done{ border-color:var(--leaf); }
+  .check-title{ font-weight:600; font-size:17px; margin:0 0 4px; color:var(--sindoor); }
+  .check-title::before{ content:"\270E\00A0"; }
+  .check.done .check-title::before{ content:"\2713\00A0"; color:var(--leaf); }
+  .check-lede{ font-size:14px; color:var(--ink-faded); margin:0 0 14px; }
+  .q{ padding:12px 0; border-top:1px dotted var(--rule); }
+  .q-prompt{ margin:0 0 8px; }
+  .q-prompt .hi{ font-size:20px; }
+  .q-btn, .q-opt, .check-done{
+    font-family:inherit; font-size:14px; padding:8px 14px; min-height:40px;
+    background:var(--paper); color:var(--ink); border:1px solid var(--rule-strong); border-radius:3px; cursor:pointer;
+    margin:4px 6px 4px 0; -webkit-tap-highlight-color:transparent;
+  }
+  .q-btn:hover, .q-opt:hover, .check-done:hover:not(:disabled){ background:var(--paper-deep); }
+  .q-opt .hi{ font-size:19px; }
+  .q-answer{ display:none; margin-top:8px; padding:10px 12px; background:var(--paper); border-left:3px solid var(--teal); font-size:16px; }
+  .q-answer .hi{ font-size:21px; }
+  .q.open .q-answer{ display:block; }
+  .q.open .q-btn{ display:none; }
+  .q-choice .q-opt.picked{ border-width:2px; }
+  .q-choice.ok .q-opt.picked{ border-color:var(--leaf); background:rgba(74,107,47,0.12); }
+  .q-choice.no .q-opt.picked{ border-color:var(--sindoor); background:rgba(168,48,36,0.10); }
+  .q-feedback{ font-size:14px; margin-top:6px; min-height:1.4em; color:var(--ink-soft); }
+  .q-choice.ok .q-feedback{ color:var(--leaf); }
+  .q-choice.no .q-feedback{ color:var(--sindoor); }
+  .gap{ display:inline-block; min-width:3em; border-bottom:2px solid var(--sindoor); text-align:center; padding:0 4px; color:var(--sindoor); }
+  .q.open .gap{ color:var(--leaf); border-bottom-color:var(--leaf); }
+  .check-done{ margin-top:14px; background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .check-done:disabled{ background:var(--leaf); border-color:var(--leaf); cursor:default; }
+  /* ═══════════════════ end 2 ═══════════════════ */
+
+  /* ═══════════════════ 5. CULTURAL ANCHOR - CSS (copy) ═══════════════════ */
+  .anchor{
+    margin:18px 0; padding:14px 16px 14px 18px;
+    background:rgba(31,77,74,0.07);
+    border-left:3px solid var(--teal);
+    border-radius:0 2px 2px 0;
+    font-size:15px; line-height:1.75; color:var(--ink-soft);
+  }
+  .anchor-tag{
+    display:inline-block; margin:0 8px 6px 0; padding:1px 8px;
+    font-size:12px; letter-spacing:0.04em; color:var(--paper);
+    background:var(--teal); border-radius:100px; vertical-align:middle;
+  }
+  .anchor strong{ color:var(--teal); }
+  /* ═══════════════════ end 5 ═══════════════════ */
+
+  /* ═══════════════════ 3. SPEAK BUTTONS - CSS (copy) ═══════════════════ */
+  [data-say]{ position:relative; }
+  .say-btn{
+    position:absolute; top:6px; right:6px;
+    width:26px; height:26px; padding:0;
+    display:inline-flex; align-items:center; justify-content:center;
+    border:1px solid rgba(28,22,17,0.15); border-radius:50%;
+    background:rgba(255,255,255,0.7); cursor:pointer; font-size:12px; line-height:1;
+    opacity:0.6; transition:opacity .15s, transform .08s; -webkit-tap-highlight-color:transparent;
+  }
+  .say-btn:hover{ opacity:1; background:rgba(255,255,255,0.95); }
+  .say-btn:active{ transform:scale(0.92); }
+  .say-btn:focus-visible{ outline:2px solid #A83024; outline-offset:1px; }
+  .map-cell .say-btn{ top:4px; right:4px; width:22px; height:22px; font-size:10px; }
+  .word .say-btn, .passage .say-btn{ top:8px; right:8px; }
+  /* ═══════════════════ end 3 ═══════════════════ */
+
+  /* --- v2: resume hint --- */
+  .resume { margin:0 0 18px; padding:10px 14px; background:rgba(31,77,74,0.08); border-left:2px solid var(--teal); font-size:15px; border-radius:0 2px 2px 0; }
+  .resume a { color:var(--sindoor); }
+  .progress .dot.done { background: var(--leaf); }
+
   button:focus-visible, a:focus-visible, .map-cell:focus-visible {
     outline: 2px solid var(--sindoor); outline-offset: 2px;
   }
@@ -532,7 +637,7 @@
 </head>
 
 <body>
-<div class="bhashasetu-version" data-version="1" data-built="2026-04-19"><b>v1</b><span class="bhashasetu-built">· 2026-04</span></div>
+<div class="bhashasetu-version" data-version="2" data-built="2026-09-21"><b>v2</b><span class="bhashasetu-built">· 2026-09</span></div>
 <style>
 .bhashasetu-version{position:fixed;top:10px;right:10px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(244,236,218,0.92);border:1px solid rgba(28,22,17,0.15);border-radius:100px;color:#6B5B48;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);direction:ltr;pointer-events:none}
 .bhashasetu-version b{color:#A83024;font-weight:600}
@@ -604,26 +709,35 @@
 
 <!-- STAGE 0 -->
 <section class="stage active" data-stage="0" id="stage-00">
+  <p class="resume" id="resumeHint" hidden>তুমি আগে ধাপ <span data-n></span> পর্যন্ত এসেছিলে - <a href="#s00">সেখান থেকে চালিয়ে যাও →</a></p>
   <div class="stage-head">
     <div class="stage-label">ধাপ ০০ · ভূমিকা</div>
     <h2 class="stage-title">এই পাঠ কেন আলাদা</h2>
-    <p class="stage-lede">তুমি বাংলা জানো। তার মানে হিন্দি শেখার জন্য তোমাকে ইংরেজি-ভাষীদের মতো শূন্য থেকে শুরু করতে হবে না - তুমি ৯৩% ধ্বনি, ব্যাকরণের কঙ্কাল, আর শব্দভাণ্ডারের প্রায় চার-পঞ্চমাংশ ইতিমধ্যেই চেনো।</p>
+    <p class="stage-lede">তুমি বাংলা জানো। তার মানে হিন্দি শেখার জন্য তোমাকে ইংরেজি-ভাষীদের মতো শূন্য থেকে শুরু করতে হবে না - দেবনাগরীর ৪৪টি বর্ণধ্বনির মধ্যে ৪১টি, ব্যাকরণের গোটা কঙ্কাল, আর শব্দভাণ্ডারের সিংহভাগ তুমি ইতিমধ্যেই চেনো। হিসেবটা নিচে মিলিয়ে দেখতে পারো।</p>
   </div>
   <div class="stage-body">
 
-    <p>বিদ্যাসাগরের <strong>বর্ণপরিচয়</strong> তোমার শৈশবের বই। সেই বইয়ের মূল নীতি ছিল - <em>একসাথে একটিই অজানা জিনিস</em>, আর যা শেখানো হয়নি তা দিয়ে কোনো উদাহরণ দেওয়া হবে না। এই কোর্সটি সেই একই পদ্ধতি ব্যবহার করে, কিন্তু একটি বিশাল সুবিধা সহ: হিন্দি আর বাংলা দুই বোন - দুটোই ইন্দো-আর্য, দুটোই সংস্কৃত-জাত, দুটোই SOV, দুটোই ব্রাহ্মী পরিবারের লিপি। ৪৪টি ধ্বনির মধ্যে ৪১টিই মিল, শব্দভাণ্ডারের ৮১% সাধারণ।</p>
+    <p>বিদ্যাসাগরের <strong>বর্ণপরিচয়</strong> তোমার শৈশবের বই। সেই বইয়ের মূল নীতি ছিল - <em>একসাথে একটিই অজানা জিনিস</em>, আর যা শেখানো হয়নি তা দিয়ে কোনো উদাহরণ দেওয়া হবে না। এই কোর্সটি সেই একই পদ্ধতি ব্যবহার করে, কিন্তু একটি বিশাল সুবিধা সহ: হিন্দি আর বাংলা দুই বোন - দুটোই ইন্দো-আর্য, দুটোই সংস্কৃত-জাত, দুটোই কর্তা-কর্ম-ক্রিয়া ক্রমে চলে, দুটোই ব্রাহ্মী পরিবারের লিপি। ৪৪টি বর্ণধ্বনির মধ্যে ৪১টিই মিল, আর শব্দভাণ্ডারের সিংহভাগ - বিশেষ করে তৎসম স্তরটা - প্রায় পুরোটাই সাধারণ।</p>
 
     <p>দেখো তো - "আমি বই পড়ি।" হিন্দিতে <span class="hi">मैं किताब पढ़ता हूँ।</span> (পুরুষ) / <span class="hi">मैं किताब पढ़ती हूँ।</span> (স্ত্রী)। শব্দের ক্রম এক - কর্তা, কর্ম, ক্রিয়া। "পড়া" আর <span class="hi">पढ़ना</span> একই মূল থেকে এসেছে। শুধু চেহারা আলাদা - আর একটা নতুন কথা: হিন্দিতে ক্রিয়া তোমার লিঙ্গ জানতে চায়।</p>
+
+    <div class="tally">
+      <div class="tally-row"><span>স্বরবর্ণ - ধাপ ০১-এর কার্ড গুনে দেখো</span><span class="n">১১টি</span></div>
+      <div class="tally-row"><span>ব্যঞ্জনবর্ণ - ধাপ ০২: পাঁচ বর্গে ২৫, অন্তস্থ ও উষ্ম ৮</span><span class="n">৩৩টি</span></div>
+      <div class="tally-row"><span>মোট বর্ণধ্বনি</span><span class="n">৪৪টি</span></div>
+      <div class="tally-row"><span>⚡ চিহ্ন দেওয়া, অর্থাৎ তোমার কানে নতুন - <span class="hi">ऐ</span>, <span class="hi">औ</span>, <span class="hi">व</span></span><span class="n">৩টি</span></div>
+      <div class="tally-row"><span>বাকিটা, যা তোমার মুখ আগে থেকেই পারে</span><span class="n">৪১টি</span></div>
+    </div>
 
     <h3><span class="num">¶</span>বাংলা → হিন্দি: কোথায় মিল, কোথায় ফারাক</h3>
 
     <ol class="principles">
       <li><strong>ধ্বনি - প্রায় পুরোটাই এক।</strong> বর্গীয় ব্যঞ্জন (ক-খ-গ-ঘ-ঙ, চ-ছ-জ-ঝ-ঞ...) হুবহু মিলে যায়। অল্পপ্রাণ/মহাপ্রাণ, ঘোষ/অঘোষ - সব তোমার মুখ আগে থেকেই জানে। নতুন ধ্বনি মাত্র তিনটি: <span class="hi">व</span> (দাঁত-ঠোঁট 'ভ'-'ও'-র মাঝামাঝি), <span class="hi">ऐ</span> (দ্বিস্বর 'আই'), <span class="hi">औ</span> (দ্বিস্বর 'আউ')।</li>
       <li><strong>লিপি - পরিবার এক, চেহারা আলাদা।</strong> বাংলা পূর্ব-ব্রাহ্মী, দেবনাগরী উত্তর-ব্রাহ্মী - কিন্তু দুটোই অবুগিদা। প্রতিটি ব্যঞ্জনে অন্তর্নিহিত 'অ'। স্বরচিহ্ন একই নিয়মে বসে। নিয়ম নতুন নয়, শুধু হাতের আঁকটা নতুন।</li>
-      <li><strong>ব্যাকরণ - কঙ্কাল এক, একটি নতুন হাড়।</strong> দুটোই SOV, দুটোই পরসর্গ (শব্দের পরে বসা সম্পর্ক-চিহ্ন) ব্যবহার করে। কিন্তু হিন্দিতে <strong>লিঙ্গ</strong> আছে - প্রতিটি বিশেষ্য পুরুষ বা স্ত্রী, এবং ক্রিয়াও সেটা মানে। <span class="hi">लड़का जाता है</span> / <span class="hi">लड़की जाती है</span>। বাংলায় এই চিন্তা নেই - তাই এটা সত্যি নতুন।</li>
+      <li><strong>ব্যাকরণ - কঙ্কাল এক, একটি নতুন হাড়।</strong> দুটোই কর্তা-কর্ম-ক্রিয়া ক্রমে চলে, দুটোই পরসর্গ (শব্দের পরে বসা সম্পর্ক-চিহ্ন) ব্যবহার করে। কিন্তু হিন্দিতে <strong>লিঙ্গ</strong> আছে - প্রতিটি বিশেষ্য পুরুষ বা স্ত্রী, এবং ক্রিয়াও সেটা মানে। <span class="hi">लड़का जाता है</span> / <span class="hi">लड़की जाती है</span>। বাংলায় এই চিন্তা নেই - তাই এটা সত্যি নতুন।</li>
       <li><strong>শব্দভাণ্ডার - সংস্কৃত সেতু।</strong> পুস্তক/<span class="hi">पुस्तक</span>, সময়/<span class="hi">समय</span>, নাম/<span class="hi">नाम</span>, সূর্য/<span class="hi">सूर्य</span>, ভূমি/<span class="hi">भूमि</span> - তৎসম শব্দ একই। ১০+ তৎসম সেতু শব্দে তাৎক্ষণিকভাবে অভিধান খুলে যায়।</li>
       <li><strong>সম্মান - তিন-থেকে-তিন।</strong> তুই/তুমি/আপনি = <span class="hi">तू/तुम/आप</span>। এটা প্রায় এক-এক মিল - বাংলার তিন স্তর হিন্দিতেও তিন স্তর। শুধু মনে রেখো, <span class="hi">तू</span> বাংলার "তুই"-এর মতোই কাছাকাছি সম্পর্কের জন্য, অপরিচিতদের বললে ঝগড়া হবে।</li>
-      <li><strong>"কাল" - দুই ভাষায় দুই দিক।</strong> বাংলা 'কাল' যেমন গতকাল ও আগামীকাল দুটোই বোঝায়, হিন্দির <span class="hi">कल</span>ও ঠিক তাই! এটা এক বিরল স্বস্তি - বাক্যের সময়ের ক্রিয়া শুনে ঠিক করো আগে না পরে।</li>
+      <li><strong>"কাল" - দুই ভাষায় দুই দিক।</strong> বাংলা 'কাল' যেমন গতকাল ও আগামীকাল দুটোই বোঝায়, হিন্দির <span class="hi">कल</span>ও ঠিক তাই! এটা এক বিরল স্বস্তি - বাক্যের সময়ের ক্রিয়া শুনে ঠিক করো আগে না পরে। <strong>তবে সব চেনা শব্দ বন্ধু নয়।</strong> হিন্দি <span class="hi">दादा</span> মানে ঠাকুরদা, বড় ভাই নয়; <span class="hi">घर</span> মানে গোটা বাড়ি, কামরা নয়; <span class="hi">बहू</span> মানে পুত্রবধূ, স্ত্রী নয়; আর <span class="hi">अच्छा</span> মানে ‘ভালো’, বাংলার সম্মতির ‘আচ্ছা’ নয়। এরকম আরও আটটি ধাপ ০৭-এ অপেক্ষা করছে।</li>
     </ol>
 
     <div class="aside"><strong>পদ্ধতি।</strong> প্রতিটি ধাপে হিন্দি অক্ষর/শব্দ/বাক্যের পাশে বাংলা সমতুল্য রাখা হয়েছে। তুমি বাংলা চিনলে, হিন্দি শুধু নতুন চেহারা - নতুন ধারণা নয়। কার্ডে ট্যাপ করলেই বাংলায় হিন্ট।</div>
@@ -632,6 +746,7 @@
 
     <p style="margin-top: 32px; text-align: center; color: var(--ink-faded); font-style: italic;">ওপরে <strong>স্বরবর্ণ</strong> ট্যাবে চাপো, শুরু করো।</p>
   
+<div class="anchor"><span class="anchor-tag">তোমার জগৎ থেকে</span> <strong>ভারতের জাতীয় গান আর জাতীয় সংগীত - দুটোই লিখেছেন দুই বাঙালি, আর দুটোই হিন্দিভাষী ভারত রোজ গায়।</strong> বঙ্কিমচন্দ্র চট্টোপাধ্যায়ের "বন্দে মাতরম্" ছাপা হয় তাঁর উপন্যাস <em>আনন্দমঠ</em>-এ, ১৮৮২ সালে (কবিতাটি লেখা আরও আগে, সত্তরের দশকে)। ১৮৯৬ সালের কলকাতা কংগ্রেস অধিবেশনে সেটি গেয়েছিলেন স্বয়ং রবীন্দ্রনাথ, সুরও তাঁর দেওয়া। আর রবীন্দ্রনাথের "জন গণ মন" - মূল নাম "ভারত ভাগ্য বিধাতা" - প্রথম গাওয়া হয় ১৯১১ সালের ২৭ ডিসেম্বর, কলকাতা কংগ্রেসে; ১৯৫০ সালের ২৪ জানুয়ারি সেটি ভারতের জাতীয় সংগীত হয়, আর ওই একই দিনে গণপরিষদের সভাপতি রাজেন্দ্র প্রসাদ ঘোষণা করেন, বন্দে মাতরম্ সমান মর্যাদা পাবে। দুটোই সাধুভাষার বাংলা - এত তৎসম যে হিন্দিভাষীও বেশির ভাগ শব্দ ধরে ফেলে। সংস্কৃতের এই সাঁকোটাই এই কোর্সের ভিত্তি।</div>
     <div class="khata">
       <h4>হাতের লেখার খাতা - আটটি ছাপার বই</h4>
       <p>পড়া আর লেখা এক জিনিস নয়। চোখ দেবনাগরী চিনবে পড়তে পড়তে, কিন্তু হাত চিনবে শুধু লিখতে লিখতে। তাই এই কোর্সের সঙ্গে আটটি ছাপার-যোগ্য খাতা আছে - স্বরবর্ণ থেকে আস্ত বাক্য পর্যন্ত, মোট ১৬৯ পাতা। প্রতিটি ধাপ শেষ করে সেই ধাপের খাতাটা ছাপিয়ে নাও; সব একসাথে নামিয়ে ফেলার দরকার নেই।</p>
@@ -652,54 +767,63 @@
 
     <div class="video">
       <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+hindi+vowels+swar+pronunciation" title="हिन्दी स्वर pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.youtube.com/embed/HUoj5s5AnZg" title="Learn Hindi Vowels - Swar" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
       <div class="video-caption">হিন্দি স্বরবর্ণের উচ্চারণ <a href="https://www.youtube.com/results?search_query=learn+hindi+vowels+swar+pronunciation" target="_blank" rel="noopener">আরও খুঁজুন ↗</a></div>
     </div>
 
     <div class="aside"><strong>পড়ার নিয়ম।</strong> প্রতিটি কার্ডে ট্যাপ করলে একটি হিন্ট দেখাবে - একটি উদাহরণ শব্দ, উচ্চারণ, আর বাংলা অর্থ। বাংলা অক্ষরটি ওপরে, হিন্দি নিচে - চোখ বাংলা চিনবে, তারপর হিন্দি রূপটি স্মৃতিতে ঢুকবে। ⚡ চিহ্ন যেগুলোতে আছে, সেগুলোই তোমার কানের জন্য নতুন।</div>
 
+    <div class="aside"><strong>উচ্চারণ লেখার নিয়ম - একবারই বলে রাখি।</strong> এই কোর্সে প্রতিটি হিন্দি শব্দের পাশে তার উচ্চারণ <em>বাংলা লিপিতে</em> লেখা থাকবে, আর তার নিচে ছোট হরফে রোমান। বাংলা লিপির লাইনটাই আসল; রোমানটা শুধু মিলিয়ে নেওয়ার জন্য রাখা। চারটে জায়গায় বানান আর উচ্চারণ আলাদা হয়ে যায়, সেগুলো মনে রেখো:
+    <ul class="clean">
+      <li><strong>শব্দের শেষের ‘অ’ হিন্দি গিলে ফেলে, বাংলা ফেলে না।</strong> <span class="hi">कमल</span> লিখেছি <strong>কমল্</strong> - কমল নয়; <span class="hi">घर</span> = <strong>ঘর্</strong>। শেষের হসন্তটা মনে করিয়ে দেবে ওখানে কোনো স্বর নেই।</li>
+      <li><strong>শব্দের ভেতরেও ‘অ’ পড়ে যেতে পারে।</strong> <span class="hi">देखना</span> = <strong>দেখ্‌না</strong>, দেখনা নয়। তাই ভেতরেও হসন্ত বসেছে।</li>
+      <li><strong>নুক্তার অক্ষরে বাংলাতেও নিচে বিন্দু।</strong> <span class="hi">ज़</span> = জ়, <span class="hi">फ़</span> = ফ়, <span class="hi">क़</span> = ক়, <span class="hi">ख़</span> = খ়, <span class="hi">ग़</span> = গ়। তাই <span class="hi">ज़मीन</span> = <strong>জ়মীন্</strong>।</li>
+      <li><strong>ঐ আর ঔ - অক্ষর এক, ধ্বনি এক নয়।</strong> লিখেছি <strong>ৈ</strong> আর <strong>ৌ</strong>, কারণ অক্ষরটা দুই লিপিতেই একই জায়গা থেকে এসেছে। কিন্তু বাংলায় এরা দুই টুকরো (কৈ = ক + ই), হিন্দিতে একটানা খোলা স্বর। <span class="hi">है</span> লিখেছি <strong>হৈ</strong>, মুখে বলবে ‘হ্যা’-র মতো টেনে; <span class="hi">नौ</span> লিখেছি <strong>নৌ</strong>, মুখে ‘নো’-র মতো একটানা।</li>
+    </ul>
+    আর <span class="hi">व</span>-কে লিখেছি <strong>ব</strong>, কারণ বাংলায় ওই ধ্বনিটা নেই - ধাপ ০২-এ ঠোঁট আর দাঁতের কায়দাটা দেখে নিয়ো।</div>
+
     <div class="group-label">'অ' পরিবার - হ্রস্ব / দীর্ঘ</div>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="अब (ab) = এখন"><div class="bn-g">অ</div><div class="arrow">↓</div><div class="hi-g">अ</div><div class="label">a</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="आम (ām) = আম - একই ফল, একই শব্দ"><div class="bn-g">আ</div><div class="arrow">↓</div><div class="hi-g">आ</div><div class="label">ā</div><div class="hint"></div></div>
+      <div data-say="अ" class="map-cell" tabindex="0" data-hint="अब (ab) = এখন"><div class="bn-g">অ</div><div class="arrow">↓</div><div class="hi-g">अ</div><div class="label">a</div><div class="hint"></div></div>
+      <div data-say="आ" class="map-cell" tabindex="0" data-hint="आम (ām) = আম - একই ফল, একই শব্দ"><div class="bn-g">আ</div><div class="arrow">↓</div><div class="hi-g">आ</div><div class="label">ā</div><div class="hint"></div></div>
     </div>
 
     <div class="group-label">'ই' পরিবার</div>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="इधर (idhar) = এদিকে"><div class="bn-g">ই</div><div class="arrow">↓</div><div class="hi-g">इ</div><div class="label">i</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="ईख (īkh) = আখ"><div class="bn-g">ঈ</div><div class="arrow">↓</div><div class="hi-g">ई</div><div class="label">ī</div><div class="hint"></div></div>
+      <div data-say="इ" class="map-cell" tabindex="0" data-hint="इधर (idhar) = এদিকে"><div class="bn-g">ই</div><div class="arrow">↓</div><div class="hi-g">इ</div><div class="label">i</div><div class="hint"></div></div>
+      <div data-say="ई" class="map-cell" tabindex="0" data-hint="ईख (īkh) = আখ"><div class="bn-g">ঈ</div><div class="arrow">↓</div><div class="hi-g">ई</div><div class="label">ī</div><div class="hint"></div></div>
     </div>
 
     <div class="group-label">'উ' পরিবার</div>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="उधर (udhar) = ওদিকে"><div class="bn-g">উ</div><div class="arrow">↓</div><div class="hi-g">उ</div><div class="label">u</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="ऊन (ūn) = উল"><div class="bn-g">ঊ</div><div class="arrow">↓</div><div class="hi-g">ऊ</div><div class="label">ū</div><div class="hint"></div></div>
+      <div data-say="उ" class="map-cell" tabindex="0" data-hint="उधर (udhar) = ওদিকে"><div class="bn-g">উ</div><div class="arrow">↓</div><div class="hi-g">उ</div><div class="label">u</div><div class="hint"></div></div>
+      <div data-say="ऊ" class="map-cell" tabindex="0" data-hint="ऊन (ūn) = উল"><div class="bn-g">ঊ</div><div class="arrow">↓</div><div class="hi-g">ऊ</div><div class="label">ū</div><div class="hint"></div></div>
     </div>
 
     <div class="group-label">ঋ - সংস্কৃত ঋণ</div>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="ऋषि (ṛṣi) = ঋষি - একই সংস্কৃত শব্দ!"><div class="bn-g">ঋ</div><div class="arrow">↓</div><div class="hi-g">ऋ</div><div class="label">ṛ</div><div class="hint"></div></div>
+      <div data-say="ऋ" class="map-cell" tabindex="0" data-hint="ऋषि (ṛṣi) = ঋষি - একই সংস্কৃত শব্দ!"><div class="bn-g">ঋ</div><div class="arrow">↓</div><div class="hi-g">ऋ</div><div class="label">ṛ</div><div class="hint"></div></div>
     </div>
 
     <div class="group-label">'এ' পরিবার - এখানে একটি নতুন দ্বিস্বর</div>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="एक (ek) = এক"><div class="bn-g">এ</div><div class="arrow">↓</div><div class="hi-g">ए</div><div class="label">e</div><div class="hint"></div></div>
-      <div class="map-cell new" tabindex="0" data-hint="ऐनक (ainak) = চশমা। 'আই' - দ্বিস্বর, বাংলায় ঐ-র মতো"><div class="bn-g">ঐ</div><div class="arrow">↓</div><div class="hi-g">ऐ</div><div class="label">ai</div><div class="hint"></div></div>
+      <div data-say="ए" class="map-cell" tabindex="0" data-hint="एक (ek) = এক"><div class="bn-g">এ</div><div class="arrow">↓</div><div class="hi-g">ए</div><div class="label">e</div><div class="hint"></div></div>
+      <div data-say="ऐ" class="map-cell new" tabindex="0" data-hint="ऐनक (ainak) = চশমা। 'আই' - দ্বিস্বর, বাংলায় ঐ-র মতো"><div class="bn-g">ঐ</div><div class="arrow">↓</div><div class="hi-g">ऐ</div><div class="label">ai</div><div class="hint"></div></div>
     </div>
 
     <div class="group-label">'ও' পরিবার - এখানেও একটি নতুন দ্বিস্বর</div>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="ओर (or) = দিক"><div class="bn-g">ও</div><div class="arrow">↓</div><div class="hi-g">ओ</div><div class="label">o</div><div class="hint"></div></div>
-      <div class="map-cell new" tabindex="0" data-hint="औषधि (auṣadhi) = ঔষধ - একই শব্দ। 'আউ' দ্বিস্বর, বাংলায় ঔ-র মতো"><div class="bn-g">ঔ</div><div class="arrow">↓</div><div class="hi-g">औ</div><div class="label">au</div><div class="hint"></div></div>
+      <div data-say="ओ" class="map-cell" tabindex="0" data-hint="ओर (or) = দিক"><div class="bn-g">ও</div><div class="arrow">↓</div><div class="hi-g">ओ</div><div class="label">o</div><div class="hint"></div></div>
+      <div data-say="औ" class="map-cell new" tabindex="0" data-hint="औषधि (auṣadhi) = ঔষধ - একই শব্দ। 'আউ' দ্বিস্বর, বাংলায় ঔ-র মতো"><div class="bn-g">ঔ</div><div class="arrow">↓</div><div class="hi-g">औ</div><div class="label">au</div><div class="hint"></div></div>
     </div>
 
     <div class="aside"><strong>সুসংবাদ।</strong> বাংলার ১১টি স্বর আর হিন্দির ১১টি স্বর এক-এক মিল। ঐ, ঔ দুটোকে বাংলায় 'স্বর' বলা হয় না ঠিকই, কিন্তু তোমার কান চেনে - "কৈ", "বৌ"-র মধ্যে তারা আছে। হিন্দি শুধু এদের আলাদা অক্ষর দিয়েছে।</div>
 
     <div class="group-label">অনুস্বার ও বিসর্গ - বাংলার মতোই</div>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="हंस (haṃs) = হংস - রাজহাঁস"><div class="bn-g">অং</div><div class="arrow">↓</div><div class="hi-g">अं</div><div class="label">aṃ</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="दुःख (duḥkh) = দুঃখ - একই শব্দ"><div class="bn-g">অঃ</div><div class="arrow">↓</div><div class="hi-g">अः</div><div class="label">aḥ</div><div class="hint"></div></div>
+      <div data-say="अं" class="map-cell" tabindex="0" data-hint="हंस (haṃs) = হংস - রাজহাঁস"><div class="bn-g">অং</div><div class="arrow">↓</div><div class="hi-g">अं</div><div class="label">aṃ</div><div class="hint"></div></div>
+      <div data-say="अः" class="map-cell" tabindex="0" data-hint="दुःख (duḥkh) = দুঃখ - একই শব্দ"><div class="bn-g">অঃ</div><div class="arrow">↓</div><div class="hi-g">अः</div><div class="label">aḥ</div><div class="hint"></div></div>
     </div>
 
     <div class="aside"><strong>চন্দ্রবিন্দু - দুই ভাষায় একই কাজ।</strong> বাংলার ঁ হিন্দিতে ँ। হিন্দিতে একে বলে 'চন্দ্রবিন্দু', ঠিক যেমন বাংলায়। <span class="hi">हाँ</span> (hā̃) = হ্যাঁ, <span class="hi">माँ</span> (mā̃) = মা। বাংলা "হ্যাঁ" আর হিন্দি "हाँ" উচ্চারণে প্রায় একই - নাক দিয়ে উচ্চারিত দীর্ঘ 'আ'।</div>
@@ -711,6 +835,49 @@
       <li>যতক্ষণ না প্রতিটি হিন্দি স্বর ১ সেকেন্ডে চিনতে পারো, ধাপ ২-তে যেও না।</li>
     </ul>
   
+<div class="anchor"><span class="anchor-tag">তোমার জগৎ থেকে</span> <strong>কিশোরকুমারের গলা তোমার চেনা - আর তাঁর বাড়ির ভাষা ছিল বাংলা।</strong> আভাসকুমার গঙ্গোপাধ্যায়ের জন্ম ১৯২৯ সালের ৪ অগস্ট, মধ্যপ্রদেশের খাণ্ডোয়ায়, এক বাঙালি পরিবারে - অশোককুমারের ভাই। "চলতী কা নাম গাড়ী" (১৯৫৮) থেকে "আরাধনা" (১৯৬৯) পর্যন্ত হিন্দি গানের অর্ধেক শতাব্দী তাঁর গলায় বাজে। যে এগারোটি স্বর এই ধাপে দেখছ, সেগুলোই তিনি বাংলা-ঘরে বড় হয়ে হিন্দিতে বসিয়ে দিয়েছিলেন। বাঙালি মুখ হিন্দি স্বর ধরতে পারে - প্রমাণ তোমার নিজের গানের তালিকায়।</div>
+    <div class="check" data-check="1">
+      <div class="check-title">নিজেকে যাচাই করো</div>
+      <p class="check-lede">আগে ভাবো, তারপর চাপো। সবকিছু এই ধাপ বা তার আগের ধাপ থেকেই।</p>
+      <div class="q q-reveal">
+        <div class="q-prompt">বাংলার ‘ঋ’ হিন্দিতে কোন অক্ষর? একটা উদাহরণ শব্দ বলো।</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">ऋ</span> - <span class="hi">ऋषि</span> (ঋষি)। সংস্কৃত থেকে দুই ভাষাতেই একই ধার।</div>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">হিন্দির <span class="hi">ऐ</span> তুমি কীভাবে বলবে?</div>
+        <button class="q-opt" type="button" data-opt="a">বাংলার ‘ঐ’-র মতো ভেঙে - অ + ই</button>
+        <button class="q-opt" type="button" data-opt="b">একটানা একটা খোলা স্বর</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - হিন্দিতে ऐ একটানা, ‘ব্যাগ’-এর অ্যা-র দিকে ঝোঁকা।" data-no="✗ না - বাংলায় ঐ দুই টুকরো, হিন্দিতে ऐ এক টুকরো। ওখানেই কান আটকায়।"></div>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">‘ঊ’-র হিন্দি যমজ কোনটি?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">उ</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">ऊ</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - দীর্ঘ ঊ = ऊ; হ্রস্ব উ = उ।" data-no="✗ না - ওটা হ্রস্ব ‘উ’। দীর্ঘটির পেটে একটা বাড়তি টান আছে: ऊ।"></div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">इ ई उ ऊ ऋ ए </span><span class="gap" data-answer="ऐ">___</span> <span class="hi">ओ औ</span> - ‘এ’ পরিবারের দ্বিতীয়টি বসাও।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt">বাংলার চন্দ্রবিন্দু হিন্দিতে কী, আর কোথায় দেখবে?</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">ँ</span> - হিন্দিতেও নাম ‘চন্দ্রবিন্দু’। <span class="hi">माँ</span> (মাঁ) = মা, <span class="hi">हाँ</span> (হাঁ) = হ্যাঁ।</div>
+      </div>
+      <div class="q q-choice" data-answer="a">
+        <div class="q-prompt"><span class="hi">अं</span> আর <span class="hi">अः</span> - বাংলায় এদের কী বলো?</div>
+        <button class="q-opt" type="button" data-opt="a">অনুস্বার আর বিসর্গ</button>
+        <button class="q-opt" type="button" data-opt="b">দুটোই সম্পূর্ণ নতুন চিহ্ন</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - অং, অঃ। হংস = हंस, দুঃখ = दुःख।" data-no="✗ না - এ দুটো তোমার চেনা: অনুস্বার (ং) আর বিসর্গ (ঃ)।"></div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt">হিন্দি <span class="hi">कमल</span> বাংলা লিপিতে লিখলে <span class="gap" data-answer="কমল্">___</span> - শেষের হসন্তটা কেন, ভাবো।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <button class="check-done" type="button">হয়ে গেছে ✓</button>
+    </div>
+
     <div class="khata">
       <h4>এই ধাপের খাতা - স্বরবর্ণ</h4>
       <p>উপরের কার্ডগুলো চিনে নেওয়ার পর কাগজে নামাও। তেরোটি স্বর, প্রতিটির জন্য একটি আস্ত পাতা।</p>
@@ -731,71 +898,71 @@
 
     <div class="video">
       <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed?listType=search&list=learn+hindi+consonants+vyanjan+pronunciation" title="हिन्दी व्यंजन pronunciation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.youtube.com/embed/X8xjvjONZmA" title="Learn Hindi Consonants - Vyanjan" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
       <div class="video-caption">হিন্দি ব্যঞ্জনবর্ণের উচ্চারণ <a href="https://www.youtube.com/results?search_query=learn+hindi+consonants+vyanjan+pronunciation" target="_blank" rel="noopener">আরও ↗</a></div>
     </div>
 
     <h3><span class="num">২.১</span>কণ্ঠ্য বর্গ (কবর্গ) - জিভের গোড়া তালুর পেছনে</h3>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="कमल (kamal) = কমল - একই শব্দ"><div class="bn-g">ক</div><div class="arrow">↓</div><div class="hi-g">क</div><div class="label">ka</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="खग (khag) = খগ, পাখি"><div class="bn-g">খ</div><div class="arrow">↓</div><div class="hi-g">ख</div><div class="label">kha</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="गगन (gagan) = গগন, আকাশ"><div class="bn-g">গ</div><div class="arrow">↓</div><div class="hi-g">ग</div><div class="label">ga</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="घर (ghar) = ঘর - একই শব্দ"><div class="bn-g">ঘ</div><div class="arrow">↓</div><div class="hi-g">घ</div><div class="label">gha</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="বাংলা ঙ-র মতো, বিরল, যুক্তাক্ষরে পাওয়া যায়"><div class="bn-g">ঙ</div><div class="arrow">↓</div><div class="hi-g">ङ</div><div class="label">ṅa</div><div class="hint"></div></div>
+      <div data-say="क" class="map-cell" tabindex="0" data-hint="कमल (kamal) = কমল - একই শব্দ"><div class="bn-g">ক</div><div class="arrow">↓</div><div class="hi-g">क</div><div class="label">ka</div><div class="hint"></div></div>
+      <div data-say="ख" class="map-cell" tabindex="0" data-hint="खग (khag) = খগ, পাখি"><div class="bn-g">খ</div><div class="arrow">↓</div><div class="hi-g">ख</div><div class="label">kha</div><div class="hint"></div></div>
+      <div data-say="ग" class="map-cell" tabindex="0" data-hint="गगन (gagan) = গগন, আকাশ"><div class="bn-g">গ</div><div class="arrow">↓</div><div class="hi-g">ग</div><div class="label">ga</div><div class="hint"></div></div>
+      <div data-say="घ" class="map-cell" tabindex="0" data-hint="घर (ghar) = ঘর - একই শব্দ"><div class="bn-g">ঘ</div><div class="arrow">↓</div><div class="hi-g">घ</div><div class="label">gha</div><div class="hint"></div></div>
+      <div data-say="ङ" class="map-cell" tabindex="0" data-hint="বাংলা ঙ-র মতো, বিরল, যুক্তাক্ষরে পাওয়া যায়"><div class="bn-g">ঙ</div><div class="arrow">↓</div><div class="hi-g">ङ</div><div class="label">ṅa</div><div class="hint"></div></div>
     </div>
 
     <h3><span class="num">২.২</span>তালব্য বর্গ (চবর্গ)</h3>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="चंद्र (candra) = চন্দ্র - একই শব্দ"><div class="bn-g">চ</div><div class="arrow">↓</div><div class="hi-g">च</div><div class="label">ca</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="छत्र (chatra) = ছাতা, ছত্র"><div class="bn-g">ছ</div><div class="arrow">↓</div><div class="hi-g">छ</div><div class="label">cha</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="जल (jal) = জল - একই শব্দ"><div class="bn-g">জ</div><div class="arrow">↓</div><div class="hi-g">ज</div><div class="label">ja</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="झरना (jharnā) = ঝরনা - একই শব্দ"><div class="bn-g">ঝ</div><div class="arrow">↓</div><div class="hi-g">झ</div><div class="label">jha</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="বিরল, যুক্তাক্ষরে পাওয়া যায়"><div class="bn-g">ঞ</div><div class="arrow">↓</div><div class="hi-g">ञ</div><div class="label">ña</div><div class="hint"></div></div>
+      <div data-say="च" class="map-cell" tabindex="0" data-hint="चंद्र (candra) = চন্দ্র - একই শব্দ"><div class="bn-g">চ</div><div class="arrow">↓</div><div class="hi-g">च</div><div class="label">ca</div><div class="hint"></div></div>
+      <div data-say="छ" class="map-cell" tabindex="0" data-hint="छत्र (chatra) = ছাতা, ছত্র"><div class="bn-g">ছ</div><div class="arrow">↓</div><div class="hi-g">छ</div><div class="label">cha</div><div class="hint"></div></div>
+      <div data-say="ज" class="map-cell" tabindex="0" data-hint="जल (jal) = জল - একই শব্দ"><div class="bn-g">জ</div><div class="arrow">↓</div><div class="hi-g">ज</div><div class="label">ja</div><div class="hint"></div></div>
+      <div data-say="झ" class="map-cell" tabindex="0" data-hint="झरना (jharnā) = ঝরনা - একই শব্দ"><div class="bn-g">ঝ</div><div class="arrow">↓</div><div class="hi-g">झ</div><div class="label">jha</div><div class="hint"></div></div>
+      <div data-say="ञ" class="map-cell" tabindex="0" data-hint="বিরল, যুক্তাক্ষরে পাওয়া যায়"><div class="bn-g">ঞ</div><div class="arrow">↓</div><div class="hi-g">ञ</div><div class="label">ña</div><div class="hint"></div></div>
     </div>
 
-    <div class="aside"><strong>সতর্কতা - চ-র উচ্চারণ।</strong> বাংলায় 'চ' প্রায় 'ৎস'-র মতো (চা = tsha)। হিন্দিতে <span class="hi">च</span> ইংরেজি "church"-র 'ch'-র মতো - জিভ তালুতে লেগে সরাসরি 'চ'। একইভাবে বাংলা 'জ' এবং হিন্দি <span class="hi">ज</span> - বাংলা 'জ' কখনো 'য'-র দিকে গড়ায়, হিন্দি <span class="hi">ज</span> সরাসরি 'j'।</div>
+    <div class="aside"><strong>সতর্কতা - চ-র উচ্চারণ।</strong> বাংলায় 'চ' প্রায় 'ৎস'-র মতো (চা = tsha)। হিন্দিতে <span class="hi">च</span> সোজাসুজি 'চ' - জিভ তালুতে লেগে, 'ৎস'-এর কোনো ছোঁয়া নেই। একইভাবে বাংলা 'জ' এবং হিন্দি <span class="hi">ज</span> - বাংলা 'জ' কখনো 'য'-র দিকে গড়ায়, হিন্দি <span class="hi">ज</span> সরাসরি 'j'।</div>
 
     <h3><span class="num">২.৩</span>মূর্ধন্য বর্গ (টবর্গ) - জিভ পেছনে গোল করে</h3>
     <p>বাংলায় ট-ঠ-ড-ঢ-ণ যেমন, হিন্দিতে ঠিক তেমনই। এই ধ্বনিগুলো ইংরেজি-ভাষীদের জন্য কঠিন - তোমার জন্য নয়।</p>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="टमाटर (ṭamāṭar) = টম্যাটো"><div class="bn-g">ট</div><div class="arrow">↓</div><div class="hi-g">ट</div><div class="label">ṭa</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="ठंड (ṭhanḍ) = ঠান্ডা"><div class="bn-g">ঠ</div><div class="arrow">↓</div><div class="hi-g">ठ</div><div class="label">ṭha</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="डंडा (ḍanḍā) = ডান্ডা, লাঠি"><div class="bn-g">ড</div><div class="arrow">↓</div><div class="hi-g">ड</div><div class="label">ḍa</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="ढोल (ḍhol) = ঢোল - একই বাদ্য, একই শব্দ"><div class="bn-g">ঢ</div><div class="arrow">↓</div><div class="hi-g">ढ</div><div class="label">ḍha</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="प्राण (prāṇ) = প্রাণ"><div class="bn-g">ণ</div><div class="arrow">↓</div><div class="hi-g">ण</div><div class="label">ṇa</div><div class="hint"></div></div>
+      <div data-say="ट" class="map-cell" tabindex="0" data-hint="टमाटर (ṭamāṭar) = টম্যাটো"><div class="bn-g">ট</div><div class="arrow">↓</div><div class="hi-g">ट</div><div class="label">ṭa</div><div class="hint"></div></div>
+      <div data-say="ठ" class="map-cell" tabindex="0" data-hint="ठंड (ṭhanḍ) = ঠান্ডা"><div class="bn-g">ঠ</div><div class="arrow">↓</div><div class="hi-g">ठ</div><div class="label">ṭha</div><div class="hint"></div></div>
+      <div data-say="ड" class="map-cell" tabindex="0" data-hint="डंडा (ḍanḍā) = ডান্ডা, লাঠি"><div class="bn-g">ড</div><div class="arrow">↓</div><div class="hi-g">ड</div><div class="label">ḍa</div><div class="hint"></div></div>
+      <div data-say="ढ" class="map-cell" tabindex="0" data-hint="ढोल (ḍhol) = ঢোল - একই বাদ্য, একই শব্দ"><div class="bn-g">ঢ</div><div class="arrow">↓</div><div class="hi-g">ढ</div><div class="label">ḍha</div><div class="hint"></div></div>
+      <div data-say="ण" class="map-cell" tabindex="0" data-hint="प्राण (prāṇ) = প্রাণ"><div class="bn-g">ণ</div><div class="arrow">↓</div><div class="hi-g">ण</div><div class="label">ṇa</div><div class="hint"></div></div>
     </div>
 
     <div class="aside"><strong>বিদ্যাসাগরের ছায়া।</strong> বিদ্যাসাগর যেভাবে বাংলা বর্ণমালা সাজিয়েছিলেন - স্বর + পাঁচ বর্গ + অন্তস্থ + উষ্ম - পাণিনি ঠিক সেভাবেই সংস্কৃতের ক্রম বানিয়েছিলেন, আর দেবনাগরী হুবহু সেটাই ধরে রেখেছে। ক্রম এক, চেহারা আলাদা - মানে তুমি ইতিমধ্যেই হিন্দি বর্ণমালা মুখস্থ জানো, শুধু গ্লিফগুলো বদলেছে।</div>
 
     <h3><span class="num">২.৪</span>দন্ত্য বর্গ (তবর্গ) - জিভের ডগা দাঁতের পেছনে</h3>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="तारा (tārā) = তারা - একই শব্দ"><div class="bn-g">ত</div><div class="arrow">↓</div><div class="hi-g">त</div><div class="label">ta</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="थाली (thālī) = থালি, পাত্র"><div class="bn-g">থ</div><div class="arrow">↓</div><div class="hi-g">थ</div><div class="label">tha</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="दिन (din) = দিন - একই শব্দ"><div class="bn-g">দ</div><div class="arrow">↓</div><div class="hi-g">द</div><div class="label">da</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="धन (dhan) = ধন"><div class="bn-g">ধ</div><div class="arrow">↓</div><div class="hi-g">ध</div><div class="label">dha</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="नाम (nām) = নাম - একই শব্দ"><div class="bn-g">ন</div><div class="arrow">↓</div><div class="hi-g">न</div><div class="label">na</div><div class="hint"></div></div>
+      <div data-say="त" class="map-cell" tabindex="0" data-hint="तारा (tārā) = তারা - একই শব্দ"><div class="bn-g">ত</div><div class="arrow">↓</div><div class="hi-g">त</div><div class="label">ta</div><div class="hint"></div></div>
+      <div data-say="थ" class="map-cell" tabindex="0" data-hint="थाली (thālī) = থালি, পাত্র"><div class="bn-g">থ</div><div class="arrow">↓</div><div class="hi-g">थ</div><div class="label">tha</div><div class="hint"></div></div>
+      <div data-say="द" class="map-cell" tabindex="0" data-hint="दिन (din) = দিন - একই শব্দ"><div class="bn-g">দ</div><div class="arrow">↓</div><div class="hi-g">द</div><div class="label">da</div><div class="hint"></div></div>
+      <div data-say="ध" class="map-cell" tabindex="0" data-hint="धन (dhan) = ধন"><div class="bn-g">ধ</div><div class="arrow">↓</div><div class="hi-g">ध</div><div class="label">dha</div><div class="hint"></div></div>
+      <div data-say="न" class="map-cell" tabindex="0" data-hint="नाम (nām) = নাম - একই শব্দ"><div class="bn-g">ন</div><div class="arrow">↓</div><div class="hi-g">न</div><div class="label">na</div><div class="hint"></div></div>
     </div>
 
     <h3><span class="num">২.৫</span>ওষ্ঠ্য বর্গ (পবর্গ)</h3>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="पुस्तक (pustak) = পুস্তক - একই শব্দ"><div class="bn-g">প</div><div class="arrow">↓</div><div class="hi-g">प</div><div class="label">pa</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="फल (phal) = ফল - একই শব্দ"><div class="bn-g">ফ</div><div class="arrow">↓</div><div class="hi-g">फ</div><div class="label">pha</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="बाबा (bābā) = বাবা"><div class="bn-g">ব</div><div class="arrow">↓</div><div class="hi-g">ब</div><div class="label">ba</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="भाषा (bhāṣā) = ভাষা - একই শব্দ"><div class="bn-g">ভ</div><div class="arrow">↓</div><div class="hi-g">भ</div><div class="label">bha</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="माँ (mā̃) = মা"><div class="bn-g">ম</div><div class="arrow">↓</div><div class="hi-g">म</div><div class="label">ma</div><div class="hint"></div></div>
+      <div data-say="प" class="map-cell" tabindex="0" data-hint="पुस्तक (pustak) = পুস্তক - একই শব্দ"><div class="bn-g">প</div><div class="arrow">↓</div><div class="hi-g">प</div><div class="label">pa</div><div class="hint"></div></div>
+      <div data-say="फ" class="map-cell" tabindex="0" data-hint="फल (phal) = ফল - একই শব্দ"><div class="bn-g">ফ</div><div class="arrow">↓</div><div class="hi-g">फ</div><div class="label">pha</div><div class="hint"></div></div>
+      <div data-say="ब" class="map-cell" tabindex="0" data-hint="बाबा (bābā) = বাবা"><div class="bn-g">ব</div><div class="arrow">↓</div><div class="hi-g">ब</div><div class="label">ba</div><div class="hint"></div></div>
+      <div data-say="भ" class="map-cell" tabindex="0" data-hint="भाषा (bhāṣā) = ভাষা - একই শব্দ"><div class="bn-g">ভ</div><div class="arrow">↓</div><div class="hi-g">भ</div><div class="label">bha</div><div class="hint"></div></div>
+      <div data-say="म" class="map-cell" tabindex="0" data-hint="माँ (mā̃) = মা"><div class="bn-g">ম</div><div class="arrow">↓</div><div class="hi-g">म</div><div class="label">ma</div><div class="hint"></div></div>
     </div>
 
     <h3><span class="num">২.৬</span>অন্তস্থ ও উষ্ম</h3>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="यह (yah) = এটা"><div class="bn-g">য</div><div class="arrow">↓</div><div class="hi-g">य</div><div class="label">ya</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="राम (rām) = রাম"><div class="bn-g">র</div><div class="arrow">↓</div><div class="hi-g">र</div><div class="label">ra</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="लाल (lāl) = লাল - একই শব্দ"><div class="bn-g">ল</div><div class="arrow">↓</div><div class="hi-g">ल</div><div class="label">la</div><div class="hint"></div></div>
-      <div class="map-cell new" tabindex="0" data-hint="वह (vah) = সে। 'ভ' নয়, 'ব' নয় - ওষ্ঠ আর দাঁতের মাঝে 'ব'-'ও'"><div class="bn-g">ব/ভ?</div><div class="arrow">↓</div><div class="hi-g">व</div><div class="label">va/wa</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="शांति (śānti) = শান্তি"><div class="bn-g">শ</div><div class="arrow">↓</div><div class="hi-g">श</div><div class="label">śa</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="षट् (ṣaṭ) = ষট্, ছয়"><div class="bn-g">ষ</div><div class="arrow">↓</div><div class="hi-g">ष</div><div class="label">ṣa</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="सत्य (satya) = সত্য"><div class="bn-g">স</div><div class="arrow">↓</div><div class="hi-g">स</div><div class="label">sa</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="हाथ (hāth) = হাত"><div class="bn-g">হ</div><div class="arrow">↓</div><div class="hi-g">ह</div><div class="label">ha</div><div class="hint"></div></div>
+      <div data-say="य" class="map-cell" tabindex="0" data-hint="यह (yah) = এটা"><div class="bn-g">য</div><div class="arrow">↓</div><div class="hi-g">य</div><div class="label">ya</div><div class="hint"></div></div>
+      <div data-say="र" class="map-cell" tabindex="0" data-hint="राम (rām) = রাম"><div class="bn-g">র</div><div class="arrow">↓</div><div class="hi-g">र</div><div class="label">ra</div><div class="hint"></div></div>
+      <div data-say="ल" class="map-cell" tabindex="0" data-hint="लाल (lāl) = লাল - একই শব্দ"><div class="bn-g">ল</div><div class="arrow">↓</div><div class="hi-g">ल</div><div class="label">la</div><div class="hint"></div></div>
+      <div data-say="व" class="map-cell new" tabindex="0" data-hint="वह (vah) = সে। 'ভ' নয়, 'ব' নয় - ওষ্ঠ আর দাঁতের মাঝে 'ব'-'ও'"><div class="bn-g">ব/ভ?</div><div class="arrow">↓</div><div class="hi-g">व</div><div class="label">va/wa</div><div class="hint"></div></div>
+      <div data-say="श" class="map-cell" tabindex="0" data-hint="शांति (śānti) = শান্তি"><div class="bn-g">শ</div><div class="arrow">↓</div><div class="hi-g">श</div><div class="label">śa</div><div class="hint"></div></div>
+      <div data-say="ष" class="map-cell" tabindex="0" data-hint="षट् (ṣaṭ) = ষট্, ছয়"><div class="bn-g">ষ</div><div class="arrow">↓</div><div class="hi-g">ष</div><div class="label">ṣa</div><div class="hint"></div></div>
+      <div data-say="स" class="map-cell" tabindex="0" data-hint="सत्य (satya) = সত্য"><div class="bn-g">স</div><div class="arrow">↓</div><div class="hi-g">स</div><div class="label">sa</div><div class="hint"></div></div>
+      <div data-say="ह" class="map-cell" tabindex="0" data-hint="हाथ (hāth) = হাত"><div class="bn-g">হ</div><div class="arrow">↓</div><div class="hi-g">ह</div><div class="label">ha</div><div class="hint"></div></div>
     </div>
 
     <div class="aside"><strong>একমাত্র সত্যিকারের নতুন ধ্বনি: <span class="hi">व</span>।</strong> বাংলায় এই ধ্বনি নেই - আমরা 'ব' বা 'ভ' দিয়ে কাজ চালাই। সংস্কৃতের 'ব' (ওষ্ঠ-দন্ত্য) হিন্দি রেখে দিয়েছে - ঠোঁট-দাঁতে হালকা স্পর্শ, অল্প ঘষা 'ব' আর 'ওয়া'-র মাঝামাঝি। <span class="hi">विद्यार्थी</span> = বিদ্যার্থী, <span class="hi">वह</span> = সে। বাংলা "বন" আর হিন্দি <span class="hi">वन</span> লিখতে এক, উচ্চারণে একটু আলাদা।</div>
@@ -803,11 +970,11 @@
     <h3><span class="num">২.৭</span>হিন্দির বিশেষ: নুক্তা</h3>
     <p>ফার্সি-আরবি থেকে আসা শব্দের জন্য হিন্দি কিছু অক্ষরে নিচে বিন্দু (নুক্তা) বসায়। বাংলায় এই চিহ্ন নেই - বাংলা এদের 'জ', 'খ' লিখেই কাজ চালায়।</p>
     <div class="map-grid">
-      <div class="map-cell" tabindex="0" data-hint="क़ानून (qānūn) = আইন। গলার গভীর থেকে 'ক'"><div class="bn-g">ক</div><div class="arrow">↓</div><div class="hi-g">क़</div><div class="label">qa</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="ख़त (khat) = চিঠি। গলার কাশি-জাতীয় 'খ'"><div class="bn-g">খ</div><div class="arrow">↓</div><div class="hi-g">ख़</div><div class="label">kha (gh.)</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="ग़ज़ल (ġazal) = গজল"><div class="bn-g">গ</div><div class="arrow">↓</div><div class="hi-g">ग़</div><div class="label">ġa</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="ज़रूर (zarūr) = অবশ্যই। ইংরেজি 'z'"><div class="bn-g">জ</div><div class="arrow">↓</div><div class="hi-g">ज़</div><div class="label">za</div><div class="hint"></div></div>
-      <div class="map-cell" tabindex="0" data-hint="फ़ोन (fon) = ফোন। ইংরেজি 'f'"><div class="bn-g">ফ</div><div class="arrow">↓</div><div class="hi-g">फ़</div><div class="label">fa</div><div class="hint"></div></div>
+      <div data-say="क़" class="map-cell" tabindex="0" data-hint="क़ानून (qānūn) = আইন। গলার গভীর থেকে 'ক'"><div class="bn-g">ক</div><div class="arrow">↓</div><div class="hi-g">क़</div><div class="label">qa</div><div class="hint"></div></div>
+      <div data-say="ख़" class="map-cell" tabindex="0" data-hint="ख़त (khat) = চিঠি। গলার কাশি-জাতীয় 'খ'"><div class="bn-g">খ</div><div class="arrow">↓</div><div class="hi-g">ख़</div><div class="label">kha</div><div class="hint"></div></div>
+      <div data-say="ग़" class="map-cell" tabindex="0" data-hint="ग़ज़ल (ġazal) = গজল"><div class="bn-g">গ</div><div class="arrow">↓</div><div class="hi-g">ग़</div><div class="label">ġa</div><div class="hint"></div></div>
+      <div data-say="ज़" class="map-cell" tabindex="0" data-hint="ज़रूर (zarūr) = অবশ্যই। ইংরেজি 'z'"><div class="bn-g">জ</div><div class="arrow">↓</div><div class="hi-g">ज़</div><div class="label">za</div><div class="hint"></div></div>
+      <div data-say="फ़" class="map-cell" tabindex="0" data-hint="फ़ोन (fon) = ফোন। ইংরেজি 'f'"><div class="bn-g">ফ</div><div class="arrow">↓</div><div class="hi-g">फ़</div><div class="label">fa</div><div class="hint"></div></div>
     </div>
 
     <div class="aside"><strong>বাংলা যা হারিয়েছে, হিন্দি রেখে দিয়েছে।</strong> ফার্সি থেকে 'জ়' আর 'ফ়' - "জ়রুর", "ফ়োন" - এই ধ্বনিগুলো বাংলা উচ্চারণে রাখলেও লেখায় নুক্তা দেয় না। হিন্দি দেয়। তাই <span class="hi">ज़िंदगी</span> (জিন্দগি - জীবন) আর <span class="hi">जंग</span> (জঙ্গ - যুদ্ধ) - দুই শব্দে ভিন্ন 'জ'।</div>
@@ -819,6 +986,49 @@
       <li>শিরোরেখা - ওপরের সরল রেখা - প্রথমে অক্ষর লিখে, তারপর ওপরে টান। দেবনাগরী লেখার ক্রম এটাই।</li>
     </ul>
   
+<div class="anchor"><span class="anchor-tag">তোমার জগৎ থেকে</span> <strong>বর্ণপরিচয় তোমাকে হিন্দি বর্ণমালার ক্রমটা আগেই মুখস্থ করিয়ে দিয়েছে।</strong> ঈশ্বরচন্দ্র বিদ্যাসাগরের <em>বর্ণপরিচয়</em> প্রথম ভাগ বেরোয় ১৮৫৫ সালের ১৫ এপ্রিল, দ্বিতীয় ভাগ ওই বছরেরই ১৪ জুন। ১৮৫৫ থেকে বিদ্যাসাগরের মৃত্যু (১৮৯১) পর্যন্ত শুধু প্রথম ভাগেরই ১৫২টি সংস্করণ ছাপা হয়েছিল। সেই বইয়ে তুমি যে ক্রমে ক-খ-গ-ঘ-ঙ শিখেছ, দেবনাগরীর ক্রম হুবহু সেটাই - <span class="hi">क-ख-ग-घ-ङ</span>। পাঁচটি বর্গ, তারপর অন্তস্থ, তারপর উষ্ম। অর্থাৎ হিন্দি বর্ণমালার <em>সাজানো</em> নতুন করে শেখার কিছু নেই; শুধু প্রতিটি ঘরের ছবিটা বদলেছে।</div>
+    <div class="check" data-check="2">
+      <div class="check-title">নিজেকে যাচাই করো</div>
+      <p class="check-lede">আগে ভাবো, তারপর চাপো। সবকিছু এই ধাপ বা তার আগের ধাপ থেকেই।</p>
+      <div class="q q-reveal">
+        <div class="q-prompt">কবর্গের পাঁচটি অক্ষর দেবনাগরীতে লেখো।</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">क ख ग घ ङ</span> - বর্ণপরিচয়ের ক্রম হুবহু।</div>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">তেত্রিশটি ব্যঞ্জনের মধ্যে তোমার কানে সত্যিই নতুন কোনটি?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">श</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">व</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - व ওষ্ঠ-দন্ত্য, বাংলায় নেই। ‘ব’ আর ‘ওয়া’-র মাঝামাঝি।" data-no="✗ না - श তো তোমার ‘শ’। নতুনটি व।"></div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">ट ठ ड ढ </span><span class="gap" data-answer="ण">___</span> - টবর্গের পঞ্চম অক্ষরটি বসাও।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">प फ ब भ </span><span class="gap" data-answer="म">___</span> - পবর্গের নাসিক্য অক্ষরটি বসাও।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-choice" data-answer="a">
+        <div class="q-prompt"><span class="hi">ज</span> আর <span class="hi">ज़</span>-এর মধ্যে তফাত কী?</div>
+        <button class="q-opt" type="button" data-opt="a">নিচের বিন্দু; <span class="hi">ज़</span> = ইংরেজি ‘z’-র ধ্বনি</button>
+        <button class="q-opt" type="button" data-opt="b">কোনো তফাত নেই, লেখার শখ</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - নুক্তা। ज़रूर (জ়রুর) আর जंग (জঙ্গ) - দুই রকম ‘জ’।" data-no="✗ না - নুক্তা ধ্বনি বদলায়। বাংলা লেখায় বিন্দু দেয় না, হিন্দি দেয়।"></div>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt">‘ভাষা’ শব্দটি দেবনাগরীতে লেখো।</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">भाषा</span> - ভ + আ-কার, ষ + আ-কার। বাংলার সঙ্গে অক্ষরে অক্ষরে মিল।</div>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">হিন্দিতে ‘ফোন’ লিখতে কোন অক্ষর নেবে?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">फ</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">फ़</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - फ़ोन। নুক্তা ছাড়া फ হলো তোমার ‘ফ’।" data-no="✗ না - নুক্তা ছাড়া ওটা মহাপ্রাণ ‘ফ’। বিদেশি ‘f’-র জন্য फ़।"></div>
+      </div>
+      <button class="check-done" type="button">হয়ে গেছে ✓</button>
+    </div>
+
     <div class="khata">
       <h4>এই ধাপের খাতা - ব্যঞ্জনবর্ণ</h4>
       <p>তেত্রিশটি ব্যঞ্জন বর্গ অনুসারে, তারপর সাতটি নুক্তা-অক্ষর। বাংলার ড় আর ঢ় ওই নুক্তার অংশেই পাবে।</p>
@@ -843,7 +1053,7 @@
     <div class="guni-wrap">
     <table class="guni">
       <thead>
-        <tr><th>স্বর</th><th>বাংলা</th><th>হিন্দি</th><th>ROMAN</th></tr>
+        <tr><th>স্বর</th><th>বাংলা</th><th>হিন্দি</th><th>রোমান</th></tr>
       </thead>
       <tbody>
         <tr><td>অ</td><td class="bn g">ক</td><td class="hi g">क</td><td>ka</td></tr>
@@ -902,11 +1112,11 @@
 
     <h3><span class="num">৩.৪</span>শিরোরেখা - হিন্দির "বাড়ির ছাদ"</h3>
     <p>বাংলা অক্ষরের ওপরে যে মাথা-রেখা আছে (ক, খ, গ) - সেটা কিছু অক্ষরে থাকে, কিছুতে নেই। হিন্দিতে প্রায় সব অক্ষরের ওপরে একটা সোজা সরল রেখা - তাকে বলে 'শিরোরেখা'। একটা শব্দের সব অক্ষরের শিরোরেখা একসাথে জোড়া - তাই শব্দ একটা সূতায় গাঁথা মুক্তো মালার মতো দেখায়।</p>
-    <div class="sentence">
-      <div class="hi">नमस्कार मेरा नाम निल है।</div>
+    <div class="sentence" data-say="नमस्कार मेरा नाम निल है।">
+      <div class="hi" lang="hi">नमस्कार मेरा नाम निल है।</div>
+      <div class="pron">নমস্কার্ মেরা নাম্ নিল্ হৈ।</div>
       <div class="trans">namaskār merā nām nil hai.</div>
-      <div class="bn-gloss">নমস্কার, আমার নাম নিল।</div>
-    </div>
+      <div class="bn-gloss">নমস্কার, আমার নাম নিল।</div></div>
     <p style="font-size:14px;color:var(--ink-faded)">দেখো - প্রতিটি শব্দের ওপরে একটানা লাইন। শব্দ শেষ হলেই লাইন শেষ। এটাই দেবনাগরীর চাক্ষুষ ছন্দ।</p>
 
     <h3><span class="num">৩.৫</span>অভ্যাস</h3>
@@ -915,6 +1125,45 @@
       <li>প্রিয় পাঁচটি বাংলা শব্দ দেবনাগরীতে লেখো। শুরু করো - "ভাষা" <span class="hi">भाषा</span>, "মানুষ" <span class="hi">मानुष</span>, "বাড়ি" <span class="hi">बाड़ी</span>।</li>
     </ul>
   
+<div class="anchor"><span class="anchor-tag">তোমার জগৎ থেকে</span> <strong>দুটো লিপি আসলে এক গাছের দুই ডাল।</strong> ব্রাহ্মী থেকে গুপ্ত লিপি, গুপ্ত থেকে সিদ্ধং - এই পর্যন্ত দুই লিপির পথ এক। তারপর ডাল ভাগ হয়: সিদ্ধং থেকে নাগরী, নাগরী থেকে দেবনাগরী; আর সিদ্ধং থেকে গৌড়ী, গৌড়ী থেকে বাংলা-অসমিয়া লিপি (ওড়িয়া আর তিরহুতাও ওই একই ডালে)। চোদ্দো-পনেরো শতকে পূর্ব ভারতের লিপিগুলো আলাদা চেহারা পায়। তাই স্বরচিহ্ন একই নিয়মে বসে, হলন্ত একই কাজ করে, যুক্তাক্ষরের কৌশলও এক - কারণ নিয়মগুলো ডাল ভাগ হওয়ার আগেই তৈরি হয়ে গিয়েছিল। তুমি নতুন ব্যবস্থা শিখছ না, পুরনো ব্যবস্থার আরেকটা হাতের লেখা শিখছ।</div>
+    <div class="check" data-check="3">
+      <div class="check-title">নিজেকে যাচাই করো</div>
+      <p class="check-lede">আগে ভাবো, তারপর চাপো। সবকিছু এই ধাপ বা তার আগের ধাপ থেকেই।</p>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">क</span> + <span class="hi">ि</span> = <span class="gap" data-answer="कि">___</span> - চিহ্নটা কোন দিকে গেল, দেখো।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">क</span> + <span class="hi">ी</span> = <span class="gap" data-answer="की">___</span></div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-choice" data-answer="a">
+        <div class="q-prompt">হিন্দিতে ই-কার <span class="hi">ि</span> অক্ষরের কোন দিকে বসে?</div>
+        <button class="q-opt" type="button" data-opt="a">অক্ষরের আগে, বাঁ দিকে</button>
+        <button class="q-opt" type="button" data-opt="b">অক্ষরের পরে, বাংলার মতো</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - লেখায় আগে, পড়ায় পরে। कि = ‘কি’।" data-no="✗ না - বাংলায় পরে (কি), হিন্দিতে আগে (कि)। শুধু লেখার নিয়ম, উচ্চারণ একই।"></div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">स्</span> + <span class="hi">त</span> = <span class="gap" data-answer="स्त">___</span> - প্রথমটার দাঁড়ি কেটে জুড়ে দাও।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">क्</span> + <span class="hi">ष</span> = <span class="gap" data-answer="क्ष">___</span> - মুখস্থ করার বিশেষ রূপ, বাংলাতেও আছে।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">प्</span> + <span class="hi">र</span> = <span class="gap" data-answer="प्र">___</span> - র-ফলা, পায়ের নিচে।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt"><span class="hi">घर</span> শব্দের শেষের অন্তর্নিহিত ‘অ’ কি পড়া হয়?</div>
+        <button class="q-opt" type="button" data-opt="a">হ্যাঁ, ‘ঘর-অ’</button>
+        <button class="q-opt" type="button" data-opt="b">না, শুধু ‘ঘর্’</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - অন্ত্য-অ লোপ। তাই বাংলা লিপিতে লিখি ঘর্, नमस्ते = নমস্তে।" data-no="✗ না - হিন্দি শব্দের শেষের ‘অ’ গিলে ফেলে। कमल = কমল্, घर = ঘর্।"></div>
+      </div>
+      <button class="check-done" type="button">হয়ে গেছে ✓</button>
+    </div>
+
     <div class="khata">
       <h4>এই ধাপের খাতা - মাত্রা আর যুক্তাক্ষর</h4>
       <p>এই ধাপে দুটি খাতা। আগে মাত্রা - ক-এর বারাখড়ি, তেরোটি রূপ। তারপর যুক্তাক্ষর - ছেষট্টিটি জোড়। মাত্রার খাতা শেষ না করে যুক্তাক্ষরে যেও না।</p>
@@ -928,8 +1177,8 @@
 <section class="stage" data-stage="4" id="stage-04">
   <div class="stage-head">
     <div class="stage-label">ধাপ ০৪ · শব্দ</div>
-    <h2 class="stage-title">মূল শব্দ - ৫০টি যা আজই চেনো</h2>
-    <p class="stage-lede">বাংলা আর হিন্দির শব্দভাণ্ডারের ৮১% মিল। নিচের তালিকায় ট্যাগ দেখবে - <em>তৎসম</em> (সংস্কৃত থেকে সরাসরি, দুই ভাষায় এক), <em>তদ্ভব</em> (সংস্কৃত থেকে আলাদা পথে বদলেছে), <em>ফার্সি-আরবি</em> (পরে এসেছে, দুই ভাষা আলাদা রাস্তা বেছেছে)।</p>
+    <h2 class="stage-title">মূল শব্দ - যা আজই চেনো</h2>
+    <p class="stage-lede">এই ধাপে পঞ্চান্নটি শব্দ - আটটি সর্বনাম, তেরোটি বিশেষ্য, তেরোটি ক্রিয়া, এগারোটি সংখ্যা আর দশটি কাজের শব্দ। বেশির ভাগই তুমি আগে থেকেই চেনো, শুধু চেহারা বদলেছে। নিচের তালিকায় ট্যাগ দেখবে - <em>তৎসম</em> (সংস্কৃত থেকে সরাসরি, দুই ভাষায় এক), <em>তদ্ভব</em> (সংস্কৃত থেকে আলাদা পথে বদলেছে), <em>ফার্সি-আরবি</em> (পরে এসেছে, দুই ভাষা আলাদা রাস্তা বেছেছে)।</p>
   </div>
   <div class="stage-body">
 
@@ -937,138 +1186,209 @@
     <div class="aside"><strong>তিন স্তরে তিন স্তর।</strong> বাংলার তুই/তুমি/আপনি - হিন্দিতেও তিন ধাপ: <span class="hi">तू</span>/<span class="hi">तुम</span>/<span class="hi">आप</span>। এক-এক মিল। "তুই" = <span class="hi">तू</span> অতি-ঘনিষ্ঠ (মা-সন্তান, ভগবান, বা গালাগালি)। অপরিচিতদের <span class="hi">तू</span> বললে ঝগড়া। "তুমি" = <span class="hi">तुम</span> বন্ধু। "আপনি" = <span class="hi">आप</span> সম্মান।</div>
 
     <div class="words">
-      <div class="word">
+      <div class="word" data-say="मैं">
         <span class="hi">मैं</span><span class="bn-eq">আমি</span>
-        <span class="trans">maĩ</span>
+        <span class="pron">মৈঁ</span><span class="trans">maĩ</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="तू">
         <span class="hi">तू</span><span class="bn-eq">তুই</span>
-        <span class="trans">tū <span class="tag">অন্তরঙ্গ</span></span>
+        <span class="pron">তূ</span><span class="trans">tū <span class="tag">অন্তরঙ্গ</span></span>
       </div>
-      <div class="word">
+      <div class="word" data-say="तुम">
         <span class="hi">तुम</span><span class="bn-eq">তুমি</span>
-        <span class="trans">tum <span class="tag">বন্ধু</span></span>
+        <span class="pron">তুম্</span><span class="trans">tum <span class="tag">বন্ধু</span></span>
       </div>
-      <div class="word">
+      <div class="word" data-say="आप">
         <span class="hi">आप</span><span class="bn-eq">আপনি</span>
-        <span class="trans">āp <span class="tag">সম্মান</span></span>
+        <span class="pron">আপ্</span><span class="trans">āp <span class="tag">সম্মান</span></span>
       </div>
-      <div class="word">
+      <div class="word" data-say="वह">
         <span class="hi">वह</span><span class="bn-eq">সে (ঐ)</span>
-        <span class="trans">vah</span>
+        <span class="pron">বহ্ · কথায় বো</span><span class="trans">vah</span>
         <span class="note">দূরের কাউকে বোঝাতে</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="यह">
         <span class="hi">यह</span><span class="bn-eq">এটা / এ</span>
-        <span class="trans">yah</span>
+        <span class="pron">য়হ্ · কথায় য়ে</span><span class="trans">yah</span>
         <span class="note">কাছের কাউকে/কিছু</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="हम">
         <span class="hi">हम</span><span class="bn-eq">আমরা</span>
-        <span class="trans">ham</span>
+        <span class="pron">হম্</span><span class="trans">ham</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="वे">
         <span class="hi">वे</span><span class="bn-eq">তারা</span>
-        <span class="trans">ve</span>
+        <span class="pron">বে</span><span class="trans">ve</span>
       </div>
-    </div>
+      </div>
 
     <h3><span class="num">৪.২</span>প্রাত্যহিক বিশেষ্য</h3>
     <div class="words">
-      <div class="word">
+      <div class="word" data-say="घर">
         <span class="hi">घर</span><span class="bn-eq">ঘর</span>
-        <span class="trans">ghar <span class="tag">তদ্ভব</span></span>
+        <span class="pron">ঘর্</span><span class="trans">ghar <span class="tag">তদ্ভব</span></span>
         <span class="note">বাংলা আর হিন্দিতে হুবহু একই শব্দ</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="पानी">
         <span class="hi">पानी</span><span class="bn-eq">পানি / জল</span>
-        <span class="trans">pānī <span class="tag">তদ্ভব</span></span>
+        <span class="pron">পানী</span><span class="trans">pānī <span class="tag">তদ্ভব</span></span>
         <span class="note">ঢাকার বাংলায় 'পানি' - হিন্দিতেও তাই। কলকাতার 'জল' হিন্দিতে <span class="hi">जल</span> সাহিত্যিক।</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="नाम">
         <span class="hi">नाम</span><span class="bn-eq">নাম</span>
-        <span class="trans">nām <span class="tag">তৎসম</span></span>
+        <span class="pron">নাম্</span><span class="trans">nām <span class="tag">তৎসম</span></span>
       </div>
-      <div class="word">
+      <div class="word" data-say="किताब">
         <span class="hi">किताब</span><span class="bn-eq">বই / কিতাব</span>
-        <span class="trans">kitāb <span class="tag">ফার্সি-আরবি</span></span>
+        <span class="pron">কিতাব্</span><span class="trans">kitāb <span class="tag">ফার্সি-আরবি</span></span>
         <span class="note">পাশাপাশি <span class="hi">पुस्तक</span> (পুস্তক)ও আছে - তৎসম</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="स्कूल">
         <span class="hi">स्कूल</span><span class="bn-eq">স্কুল</span>
-        <span class="trans">skūl <span class="tag">ইংরেজি</span></span>
+        <span class="pron">স্কূল্</span><span class="trans">skūl <span class="tag">ইংরেজি</span></span>
         <span class="note">হিন্দিতে <span class="hi">विद्यालय</span> (বিদ্যালয়)ও ব্যবহৃত</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="पैसा">
         <span class="hi">पैसा</span><span class="bn-eq">টাকা / পয়সা</span>
-        <span class="trans">paisā <span class="tag">তদ্ভব</span></span>
+        <span class="pron">পৈসা</span><span class="trans">paisā <span class="tag">তদ্ভব</span></span>
         <span class="note">বাংলায় পয়সা = ক্ষুদ্র মুদ্রা, হিন্দিতে <span class="hi">पैसा</span> সাধারণ "টাকা"-র অর্থেও</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="समय">
         <span class="hi">समय</span><span class="bn-eq">সময়</span>
-        <span class="trans">samay <span class="tag">তৎসম</span></span>
+        <span class="pron">সময়</span><span class="trans">samay <span class="tag">তৎসম</span></span>
       </div>
-      <div class="word">
+      <div class="word" data-say="दिन">
         <span class="hi">दिन</span><span class="bn-eq">দিন</span>
-        <span class="trans">din <span class="tag">তৎসম</span></span>
+        <span class="pron">দিন্</span><span class="trans">din <span class="tag">তৎসম</span></span>
       </div>
-      <div class="word">
+      <div class="word" data-say="दूध">
         <span class="hi">दूध</span><span class="bn-eq">দুধ</span>
-        <span class="trans">dūdh <span class="tag">তদ্ভব</span></span>
+        <span class="pron">দূধ্</span><span class="trans">dūdh <span class="tag">তদ্ভব</span></span>
       </div>
-      <div class="word">
+      <div class="word" data-say="सूरज">
         <span class="hi">सूरज</span><span class="bn-eq">সূর্য</span>
-        <span class="trans">sūraj <span class="tag">তদ্ভব</span></span>
+        <span class="pron">সূরজ্</span><span class="trans">sūraj <span class="tag">তদ্ভব</span></span>
         <span class="note">পাশাপাশি <span class="hi">सूर्य</span> (সূর্য)ও আছে - তৎসম</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="ज़मीन">
         <span class="hi">ज़मीन</span><span class="bn-eq">জমি / ভূমি</span>
-        <span class="trans">zamīn <span class="tag">ফার্সি</span></span>
+        <span class="pron">জ়মীন্</span><span class="trans">zamīn <span class="tag">ফার্সি</span></span>
       </div>
-      <div class="word">
+      <div class="word" data-say="चावल">
         <span class="hi">चावल</span><span class="bn-eq">চাল / ভাত</span>
-        <span class="trans">cāval <span class="tag">তদ্ভব</span></span>
+        <span class="pron">চাবল্</span><span class="trans">cāval <span class="tag">তদ্ভব</span></span>
         <span class="note">রান্নার আগে - চাল। রান্নার পর - <span class="hi">भात</span> (ভাত)</span>
       </div>
-      <div class="word">
+      <div class="word" data-say="रात">
         <span class="hi">रात</span><span class="bn-eq">রাত</span>
-        <span class="trans">rāt <span class="tag">তৎসম</span></span>
+        <span class="pron">রাত্</span><span class="trans">rāt <span class="tag">তৎসম</span></span>
       </div>
-    </div>
+      </div>
 
     <h3><span class="num">৪.৩</span>ক্রিয়া - সব শেষ হয় <span class="hi">-ना</span>-তে</h3>
     <div class="aside"><strong>চেনা সূত্র।</strong> বাংলা নামধাতু শেষ হয় '-া' বা '-ওয়া'-তে - করা, যাওয়া, পড়া। হিন্দি নামধাতু শেষ হয় <span class="hi">-ना</span>-তে - <span class="hi">करना</span>, <span class="hi">जाना</span>, <span class="hi">पढ़ना</span>। একই চিন্তা, আলাদা মুখ।</div>
 
     <div class="words">
-      <div class="word"><span class="hi">होना</span><span class="bn-eq">হওয়া</span><span class="trans">honā</span></div>
-      <div class="word"><span class="hi">करना</span><span class="bn-eq">করা</span><span class="trans">karnā</span></div>
-      <div class="word"><span class="hi">जाना</span><span class="bn-eq">যাওয়া</span><span class="trans">jānā</span></div>
-      <div class="word"><span class="hi">आना</span><span class="bn-eq">আসা</span><span class="trans">ānā</span></div>
-      <div class="word"><span class="hi">खाना</span><span class="bn-eq">খাওয়া</span><span class="trans">khānā</span><span class="note">দ্বৈত অর্থ - ক্রিয়া "খাওয়া" + বিশেষ্য "খাবার"</span></div>
-      <div class="word"><span class="hi">पीना</span><span class="bn-eq">পান করা / পিপাসা মেটানো</span><span class="trans">pīnā</span></div>
-      <div class="word"><span class="hi">देखना</span><span class="bn-eq">দেখা</span><span class="trans">dekhnā</span></div>
-      <div class="word"><span class="hi">पढ़ना</span><span class="bn-eq">পড়া</span><span class="trans">paṛhnā</span><span class="note">ডে-নিচু-বিন্দু (ड़) - জিহ্বা পেছনে গড়ানো 'ড়'; বাংলার 'ড়'-র মতোই</span></div>
-      <div class="word"><span class="hi">लिखना</span><span class="bn-eq">লেখা</span><span class="trans">likhnā</span></div>
-      <div class="word"><span class="hi">बोलना</span><span class="bn-eq">বলা</span><span class="trans">bolnā</span></div>
-    </div>
+      <div class="word" data-say="होना"><span class="hi">होना</span><span class="bn-eq">হওয়া</span><span class="pron">হোনা</span><span class="trans">honā</span></div>
+      <div class="word" data-say="करना"><span class="hi">करना</span><span class="bn-eq">করা</span><span class="pron">করনা</span><span class="trans">karnā</span></div>
+      <div class="word" data-say="जाना"><span class="hi">जाना</span><span class="bn-eq">যাওয়া</span><span class="pron">জানা</span><span class="trans">jānā</span></div>
+      <div class="word" data-say="आना"><span class="hi">आना</span><span class="bn-eq">আসা</span><span class="pron">আনা</span><span class="trans">ānā</span></div>
+      <div class="word" data-say="खाना"><span class="hi">खाना</span><span class="bn-eq">খাওয়া</span><span class="pron">খানা</span><span class="trans">khānā</span><span class="note">দ্বৈত অর্থ - ক্রিয়া "খাওয়া" + বিশেষ্য "খাবার"</span></div>
+      <div class="word" data-say="पीना"><span class="hi">पीना</span><span class="bn-eq">পান করা / পিপাসা মেটানো</span><span class="pron">পীনা</span><span class="trans">pīnā</span></div>
+      <div class="word" data-say="देखना"><span class="hi">देखना</span><span class="bn-eq">দেখা</span><span class="pron">দেখ্‌না</span><span class="trans">dekhnā</span></div>
+      <div class="word" data-say="पढ़ना"><span class="hi">पढ़ना</span><span class="bn-eq">পড়া</span><span class="pron">পঢ়্‌না</span><span class="trans">paṛhnā</span><span class="note">ডে-নিচু-বিন্দু (ड़) - জিহ্বা পেছনে গড়ানো 'ড়'; বাংলার 'ড়'-র মতোই</span></div>
+      <div class="word" data-say="लिखना"><span class="hi">लिखना</span><span class="bn-eq">লেখা</span><span class="pron">লিখ্‌না</span><span class="trans">likhnā</span></div>
+      <div class="word" data-say="बोलना"><span class="hi">बोलना</span><span class="bn-eq">বলা</span><span class="pron">বোল্‌না</span><span class="trans">bolnā</span></div>
+      <div class="word" data-say="सुनना"><span class="hi">सुनना</span><span class="bn-eq">শোনা</span><span class="pron">সুন্‌না</span><span class="trans">sunnā</span></div>
+      <div class="word" data-say="रहना"><span class="hi">रहना</span><span class="bn-eq">থাকা / বাস করা</span><span class="pron">রহ্‌না</span><span class="trans">rahnā</span><span class="note">বাংলার ‘রওয়া’ (রয়ে যাওয়া) একই মূল থেকে</span></div>
+      <div class="word" data-say="देना"><span class="hi">देना</span><span class="bn-eq">দেওয়া</span><span class="pron">দেনা</span><span class="trans">denā</span></div>
+      </div>
 
     <h3><span class="num">৪.৪</span>সংখ্যা - এক থেকে দশ</h3>
     <div class="words">
-      <div class="word"><span class="hi">एक</span><span class="bn-eq">এক</span><span class="trans">ek</span></div>
-      <div class="word"><span class="hi">दो</span><span class="bn-eq">দুই</span><span class="trans">do</span><span class="note">বাংলা "দুই", সংস্কৃত "দ্বি" - সব এক মূল</span></div>
-      <div class="word"><span class="hi">तीन</span><span class="bn-eq">তিন</span><span class="trans">tīn</span></div>
-      <div class="word"><span class="hi">चार</span><span class="bn-eq">চার</span><span class="trans">cār</span></div>
-      <div class="word"><span class="hi">पाँच</span><span class="bn-eq">পাঁচ</span><span class="trans">pā̃c</span></div>
-      <div class="word"><span class="hi">छह</span><span class="bn-eq">ছয়</span><span class="trans">chah</span></div>
-      <div class="word"><span class="hi">सात</span><span class="bn-eq">সাত</span><span class="trans">sāt</span></div>
-      <div class="word"><span class="hi">आठ</span><span class="bn-eq">আট</span><span class="trans">āṭh</span></div>
-      <div class="word"><span class="hi">नौ</span><span class="bn-eq">নয়</span><span class="trans">nau</span></div>
-      <div class="word"><span class="hi">दस</span><span class="bn-eq">দশ</span><span class="trans">das</span></div>
-      <div class="word"><span class="hi">सौ</span><span class="bn-eq">শত</span><span class="trans">sau</span></div>
-    </div>
+      <div class="word" data-say="एक"><span class="hi">एक</span><span class="bn-eq">এক</span><span class="pron">এক্</span><span class="trans">ek</span></div>
+      <div class="word" data-say="दो"><span class="hi">दो</span><span class="bn-eq">দুই</span><span class="pron">দো</span><span class="trans">do</span><span class="note">বাংলা "দুই", সংস্কৃত "দ্বি" - সব এক মূল</span></div>
+      <div class="word" data-say="तीन"><span class="hi">तीन</span><span class="bn-eq">তিন</span><span class="pron">তীন্</span><span class="trans">tīn</span></div>
+      <div class="word" data-say="चार"><span class="hi">चार</span><span class="bn-eq">চার</span><span class="pron">চার্</span><span class="trans">cār</span></div>
+      <div class="word" data-say="पाँच"><span class="hi">पाँच</span><span class="bn-eq">পাঁচ</span><span class="pron">পাঁচ্</span><span class="trans">pā̃c</span></div>
+      <div class="word" data-say="छह"><span class="hi">छह</span><span class="bn-eq">ছয়</span><span class="pron">ছহ্</span><span class="trans">chah</span></div>
+      <div class="word" data-say="सात"><span class="hi">सात</span><span class="bn-eq">সাত</span><span class="pron">সাত্</span><span class="trans">sāt</span></div>
+      <div class="word" data-say="आठ"><span class="hi">आठ</span><span class="bn-eq">আট</span><span class="pron">আঠ্</span><span class="trans">āṭh</span></div>
+      <div class="word" data-say="नौ"><span class="hi">नौ</span><span class="bn-eq">নয়</span><span class="pron">নৌ</span><span class="trans">nau</span></div>
+      <div class="word" data-say="दस"><span class="hi">दस</span><span class="bn-eq">দশ</span><span class="pron">দস্</span><span class="trans">das</span></div>
+      <div class="word" data-say="सौ"><span class="hi">सौ</span><span class="bn-eq">শত</span><span class="pron">সৌ</span><span class="trans">sau</span></div>
+      </div>
 
     <div class="aside"><strong>সংখ্যার ছন্দ।</strong> এক, দুই, তিন, চার - এই ছন্দ বাংলা আর হিন্দিতে প্রায় এক। ৭ = সাত/<span class="hi">सात</span>, ৮ = আট/<span class="hi">आठ</span>। কিন্তু ১-এর পরের বেশি সংখ্যা (১১, ২১, ৩৭...) হিন্দিতে প্রত্যেকটি আলাদা শব্দ - ১০০টি আলাদা নাম মুখস্থ করতে হয়। এটা হিন্দি শেখার কঠিনতম অংশ। সে অংশ পরে।</div>
+
+    <h3><span class="num">৪.৫</span>কাজের শব্দ - দশটি যা বাক্য জুড়ে রাখে</h3>
+    <div class="aside"><strong>এই দশটাই সবচেয়ে কম জায়গা নেয়, সবচেয়ে বেশি কাজ করে।</strong> বিশেষ্য আর ক্রিয়া না জানলে বাক্য খোঁড়া হয়; এই শব্দগুলো না জানলে বাক্য জোড়াই লাগে না। ধাপ ০৬-এর পাঠগুলোতে প্রতিটি বারবার ফিরে আসবে।</div>
+    <div class="words">
+      <div class="word" data-say="और"><span class="hi">और</span><span class="bn-eq">আর / এবং</span><span class="pron">ঔর্</span><span class="trans">aur</span></div>
+      <div class="word" data-say="लेकिन"><span class="hi">लेकिन</span><span class="bn-eq">কিন্তু</span><span class="pron">লেকিন্</span><span class="trans">lekin <span class="tag">ফার্সি-আরবি</span></span></div>
+      <div class="word" data-say="भी"><span class="hi">भी</span><span class="bn-eq">-ও / আরও</span><span class="pron">ভী</span><span class="trans">bhī</span><span class="note">বাংলার ‘-ও’-র মতো শব্দের পরে বসে: <span class="hi">मैं भी</span> = আমিও</span></div>
+      <div class="word" data-say="ही"><span class="hi">ही</span><span class="bn-eq">-ই / শুধু</span><span class="pron">হী</span><span class="trans">hī</span><span class="note">বাংলার ‘-ই’: <span class="hi">यही</span> = এটাই</span></div>
+      <div class="word" data-say="बहुत"><span class="hi">बहुत</span><span class="bn-eq">খুব / অনেক</span><span class="pron">বহুত্</span><span class="trans">bahut</span></div>
+      <div class="word" data-say="थोड़ा"><span class="hi">थोड़ा</span><span class="bn-eq">একটু / অল্প</span><span class="pron">থোড়া</span><span class="trans">thoṛā</span></div>
+      <div class="word" data-say="अब"><span class="hi">अब</span><span class="bn-eq">এখন</span><span class="pron">অব্</span><span class="trans">ab</span></div>
+      <div class="word" data-say="फिर"><span class="hi">फिर</span><span class="bn-eq">তারপর / আবার</span><span class="pron">ফির্</span><span class="trans">phir</span></div>
+      <div class="word" data-say="यहाँ"><span class="hi">यहाँ</span><span class="bn-eq">এখানে</span><span class="pron">য়হাঁ</span><span class="trans">yahā̃</span><span class="note"><span class="hi">यह</span> (এই) থেকে - বাংলার ‘এ’ থেকে ‘এখানে’-র মতোই</span></div>
+      <div class="word" data-say="वहाँ"><span class="hi">वहाँ</span><span class="bn-eq">ওখানে / সেখানে</span><span class="pron">বহাঁ</span><span class="trans">vahā̃</span></div>
+    </div>
   
+<div class="anchor"><span class="anchor-tag">তোমার জগৎ থেকে</span> <strong>হিন্দি গানের সুর যাঁরা বেঁধেছেন, তাঁদের অনেকেই বাঙালি।</strong> শচীন দেব বর্মন - জন্ম ১৯০৬, কুমিল্লায় - সুর দিয়েছেন "পিয়াসা" (১৯৫৭), "গাইড" (১৯৬৫), "আরাধনা" (১৯৬৯)-তে। তাঁর ছেলে রাহুল দেব বর্মন, জন্ম ১৯৩৯ কলকাতায়, করেছেন "তিসরী মঞ্জিল" (১৯৬৬), "শোলে" (১৯৭৫), আর শেষ কাজ "১৯৪২: আ লাভ স্টোরি" (১৯৯৪)। আর সলিল চৌধুরী - জন্ম ১৯২৫, দক্ষিণ চব্বিশ পরগনায় - "দো বিঘা জমিন" (১৯৫৩), "মধুমতী" (১৯৫৮), "আনন্দ" (১৯৭১)। এই ধাপের শব্দগুলো তুমি তাঁদের গানেই প্রথম শুনেছ: <span class="hi">घर</span>, <span class="hi">पानी</span>, <span class="hi">दिन</span>, <span class="hi">रात</span>, <span class="hi">नाम</span>। শোনাটা আগেই হয়ে গেছে - এখন শুধু চোখে চেনাটা বাকি।</div>
+    <div class="passage" data-stage="4">
+      <h3><span class="num">৪.৬</span>পড়ো - খাতার একটা পাতা</h3>
+      <p>ক্রিয়ার রূপ এখনো শেখোনি - সেটা পরের ধাপ। তাই এটা আস্ত বাক্য নয়, খাতায় টুকে রাখা তালিকা; বাঙালি যেভাবে বাজারের ফর্দ লেখে। এখানে একটাও শব্দ নেই যা এই ধাপের বাইরে।</p>
+      <div class="sentence" data-say="एक घर, दो स्कूल, दस दिन। पानी और दूध। चावल भी। अब पढ़ना, फिर लिखना, फिर बोलना। यहाँ किताब, वहाँ पैसा। तुम और मैं - हम।">
+        <div class="hi" lang="hi">एक घर, दो स्कूल, दस दिन।<br/>पानी और दूध। चावल भी।<br/>अब पढ़ना, फिर लिखना, फिर बोलना।<br/>यहाँ किताब, वहाँ पैसा।<br/>तुम और मैं - हम।</div>
+        <div class="pron">এক্ ঘর্, দো স্কূল্, দস্ দিন্।<br/>পানী ঔর্ দূধ্। চাবল্ ভী।<br/>অব্ পঢ়্‌না, ফির্ লিখ্‌না, ফির্ বোল্‌না।<br/>য়হাঁ কিতাব্, বহাঁ পৈসা।<br/>তুম্ ঔর্ মৈঁ - হম্।</div>
+        <div class="bn-gloss">একটা ঘর, দুটো স্কুল, দশ দিন।<br/>জল আর দুধ। চালও।<br/>এখন পড়া, তারপর লেখা, তারপর বলা।<br/>এখানে বই, ওখানে টাকা।<br/>তুমি আর আমি - আমরা।</div>
+        <div class="literal">লক্ষ্য করো: তালিকায় হিন্দি ক্রিয়াকে নামরূপেই রাখে - <span class="hi">पढ़ना, लिखना, बोलना</span> - ঠিক যেমন তুমি ফর্দে লেখো ‘পড়া, লেখা, বলা’। আর সংখ্যার পরে <span class="hi">घर, स्कूल, दिन</span> রূপ বদলায় না, বাংলার মতোই।</div>
+      </div>
+    </div>
+    <div class="check" data-check="4">
+      <div class="check-title">নিজেকে যাচাই করো</div>
+      <p class="check-lede">আগে ভাবো, তারপর চাপো। সবকিছু এই ধাপ বা তার আগের ধাপ থেকেই।</p>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">‘তুমি’ হিন্দিতে কোনটি?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">तू</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">तुम</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - তিন স্তর: तू তুই, तुम তুমি, आप আপনি।" data-no="✗ না - तू মানে ‘তুই’। অপরিচিতকে বললে ঝগড়া।"></div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">एक दो तीन </span><span class="gap" data-answer="चार">___</span><span class="hi"> पाँच</span></div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">सात आठ नौ </span><span class="gap" data-answer="दस">___</span></div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt">হিন্দি ক্রিয়ার নামরূপ কীসে শেষ হয়? তিনটে উদাহরণ দাও।</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">-ना</span> - <span class="hi">करना</span> (করা), <span class="hi">जाना</span> (যাওয়া), <span class="hi">लिखना</span> (লেখা)। বাংলার ‘-া/-ওয়া’-র জায়গায়।</div>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">‘কিন্তু’ হিন্দিতে?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">और</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">लेकिन</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - और মানে ‘আর’, लेकिन মানে ‘কিন্তু’।" data-no="✗ না - और = আর। ‘কিন্তু’ = लेकिन।"></div>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt">রান্নার আগের ‘চাল’ আর রান্নার পরের ‘ভাত’ - হিন্দিতে?</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">चावल</span> (চাবল্) আর <span class="hi">भात</span> (ভাত্)। বাংলার মতোই দুটো আলাদা শব্দ।</div>
+      </div>
+      <div class="q q-choice" data-answer="a">
+        <div class="q-prompt">‘খুব’ হিন্দিতে কোনটি?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">बहुत</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">थोड़ा</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - बहुत খুব, थोड़ा একটু।" data-no="✗ না - थोड़ा মানে ‘একটু’, উল্টো দিক।"></div>
+      </div>
+      <button class="check-done" type="button">হয়ে গেছে ✓</button>
+    </div>
+
     <div class="khata">
       <h4>এই ধাপের খাতা - শব্দ, দুই ভাগে</h4>
       <p>অক্ষর হলো, এবার আস্ত শব্দ। দুটি খাতা, কঠিনতা অনুসারে ভাগ করা - কোন শব্দের অর্থ কঠিন তা দিয়ে নয়, <b>হাতে আঁকতে</b> কোনটা কঠিন তা দিয়ে।</p>
@@ -1087,19 +1407,19 @@
   </div>
   <div class="stage-body">
 
-    <h3><span class="num">৫.১</span>শব্দক্রম - SOV, বাংলার মতোই</h3>
-    <div class="sentence">
-      <div class="hi">मैं किताब पढ़ता हूँ।</div>
+    <h3><span class="num">৫.১</span>শব্দক্রম - কর্তা-কর্ম-ক্রিয়া, বাংলার মতোই</h3>
+    <div class="sentence" data-say="मैं किताब पढ़ता हूँ।">
+      <div class="hi" lang="hi">मैं किताब पढ़ता हूँ।</div>
+      <div class="pron">মৈঁ কিতাব্ পঢ়্‌তা হূঁ।</div>
       <div class="trans">maĩ kitāb paṛhtā hū̃.</div>
       <div class="bn-gloss">আমি বই পড়ি।</div>
-      <div class="literal">শব্দে শব্দে: আমি - বই - পড়া-পুরুষ - আছি</div>
-    </div>
-    <div class="sentence">
-      <div class="hi">वह पानी पीती है।</div>
+      <div class="literal">শব্দে শব্দে: আমি - বই - পড়া-পুরুষ - আছি</div></div>
+    <div class="sentence" data-say="वह पानी पीती है।">
+      <div class="hi" lang="hi">वह पानी पीती है।</div>
+      <div class="pron">বহ্ পানী পীতী হৈ।</div>
       <div class="trans">vah pānī pītī hai.</div>
       <div class="bn-gloss">সে পানি পান করে। (স্ত্রীলিঙ্গ)</div>
-      <div class="literal">শব্দে শব্দে: সে - পানি - পান-স্ত্রী - আছে</div>
-    </div>
+      <div class="literal">শব্দে শব্দে: সে - পানি - পান-স্ত্রী - আছে</div></div>
 
     <h3><span class="num">৫.২</span>লিঙ্গ - নতুন ব্যাকরণ</h3>
     <div class="aside"><strong>এটাই হিন্দি শেখার প্রধান চ্যালেঞ্জ।</strong> বাংলায় "ছেলে যায়" আর "মেয়ে যায়" - ক্রিয়া এক। হিন্দিতে <span class="hi">लड़का जाता है</span> (ছেলে যায়) আর <span class="hi">लड़की जाती है</span> (মেয়ে যায়) - ক্রিয়ার লেজ বদলায়। <strong>-तা</strong> পুরুষ, <strong>-ती</strong> স্ত্রী।</div>
@@ -1140,17 +1460,17 @@
 
     <h3><span class="num">৫.৫</span>নেতিবাচক - <span class="hi">नहीं</span></h3>
     <p>বাংলায় "করি না" - ক্রিয়ার পরে 'না'। হিন্দিতে <span class="hi">नहीं करता</span> - ক্রিয়ার <em>আগে</em> 'নহি'। এটা উল্টো।</p>
-    <div class="sentence">
-      <div class="hi">मैं नहीं जाता।</div>
+    <div class="sentence" data-say="मैं नहीं जाता।">
+      <div class="hi" lang="hi">मैं नहीं जाता।</div>
+      <div class="pron">মৈঁ নহীঁ জাতা।</div>
       <div class="trans">maĩ nahī̃ jātā.</div>
-      <div class="bn-gloss">আমি যাই না।</div>
-    </div>
+      <div class="bn-gloss">আমি যাই না।</div></div>
 
     <h3><span class="num">৫.৬</span>প্রশ্ন - ক-অক্ষর</h3>
     <p>বাংলার প্রশ্ন-শব্দ সব 'ক' দিয়ে শুরু - কে, কী, কোথায়, কখন, কেন, কীভাবে। হিন্দিরও তাই - সব <span class="hi">क</span> দিয়ে।</p>
     <div class="guni-wrap">
     <table class="guni">
-      <thead><tr><th>বাংলা</th><th>হিন্দি</th><th>ROMAN</th></tr></thead>
+      <thead><tr><th>বাংলা</th><th>হিন্দি</th><th>রোমান</th></tr></thead>
       <tbody>
         <tr><td class="bn g">কী</td><td class="hi g">क्या</td><td>kyā</td></tr>
         <tr><td class="bn g">কে</td><td class="hi g">कौन</td><td>kaun</td></tr>
@@ -1163,19 +1483,76 @@
     </table>
     </div>
 
-    <div class="sentence">
-      <div class="hi">तुम्हारा नाम क्या है?</div>
+    <div class="sentence" data-say="तुम्हारा नाम क्या है?">
+      <div class="hi" lang="hi">तुम्हारा नाम क्या है?</div>
+      <div class="pron">তুম্হারা নাম্ ক্যা হৈ?</div>
       <div class="trans">tumhārā nām kyā hai?</div>
-      <div class="bn-gloss">তোমার নাম কী?</div>
-    </div>
-    <div class="sentence">
-      <div class="hi">आप कहाँ जाते हैं?</div>
+      <div class="bn-gloss">তোমার নাম কী?</div></div>
+    <div class="sentence" data-say="आप कहाँ जाते हैं?">
+      <div class="hi" lang="hi">आप कहाँ जाते हैं?</div>
+      <div class="pron">আপ্ কহাঁ জাতে হৈঁ?</div>
       <div class="trans">āp kahā̃ jāte haĩ?</div>
-      <div class="bn-gloss">আপনি কোথায় যাচ্ছেন?</div>
-    </div>
+      <div class="bn-gloss">আপনি কোথায় যাচ্ছেন?</div></div>
 
     <div class="aside"><strong>অনুনাসিক - বাংলার চেয়ে বেশি।</strong> <span class="hi">क्यों</span>-এর উপরের ঁ (বিন্দু + চাঁদ) = দীর্ঘ অনুনাসিক স্বর, নাক দিয়ে গাওয়া। বাংলা 'চাঁদ'-এর চন্দ্রবিন্দুর মতোই, কিন্তু হিন্দি অনেক বেশি জায়গায় ব্যবহার করে - <span class="hi">हाँ, नहीं, मैं, पाँच, गाँव</span>। নাকের সাহায্য নিতে সংকোচ কোরো না।</div>
   
+<div class="anchor"><span class="anchor-tag">তোমার জগৎ থেকে</span> <strong>শরৎচন্দ্রের "দেবদাস" হিন্দিতে বারবার পর্দায় এসেছে - আর প্রতিবার লিঙ্গ লুকোনো অসম্ভব হয়ে গেছে।</strong> উপন্যাসটি বেরোয় ১৯১৭ সালের ৩০ জুন। প্রমথেশ বড়ুয়া ১৯৩৫-এ বাংলায় ছবি করেন, পরের বছর ১৯৩৬-এ হিন্দিতে - দেবদাস কুন্দনলাল সায়গল। তারপর বিমল রায়ের "দেবদাস" (১৯৫৫), দেবদাস দিলীপকুমার, পার্বতী সুচিত্রা সেন; আর সঞ্জয় লীলা ভন্সালির "দেবদাস" (২০০২), দেবদাস শাহরুখ খান। লক্ষ্য করো: বাংলা বাক্য "সে চলে গেল" কে গেল তা চেপে রাখতে পারে। হিন্দিতে পারে না - <span class="hi">वह चला गया</span> (পুরুষ) না <span class="hi">वह चली गई</span> (স্ত্রী), বেছে নিতেই হবে। এই ধাপের পুরো ব্যাপারটাই ওইটুকু।</div>
+    <div class="passage" data-stage="5">
+      <h3><span class="num">৫.৭</span>পড়ো - রামের ঘর</h3>
+      <p>এবার আস্ত বাক্য। প্রতিটি বাক্যে এই ধাপের একটা করে নতুন জিনিস আছে - সম্বন্ধের <span class="hi">का/की</span>, পরসর্গ, লিঙ্গ-মিল, নেতিবাচক, প্রশ্ন।</p>
+      <div class="sentence" data-say="यह राम का घर है। राम की किताब यहाँ है। वह स्कूल में दूध पीती है। मैं वहाँ नहीं जाता। आप कहाँ से आते हैं?">
+        <div class="hi" lang="hi">यह राम का घर है।<br/>राम की किताब यहाँ है।<br/>वह स्कूल में दूध पीती है।<br/>मैं वहाँ नहीं जाता।<br/>आप कहाँ से आते हैं?</div>
+        <div class="pron">য়হ্ রাম্ কা ঘর্ হৈ।<br/>রাম্ কী কিতাব্ য়হাঁ হৈ।<br/>বহ্ স্কূল্ মেঁ দূধ্ পীতী হৈ।<br/>মৈঁ বহাঁ নহীঁ জাতা।<br/>আপ্ কহাঁ সে আতে হৈঁ?</div>
+        <div class="bn-gloss">এটা রামের ঘর।<br/>রামের বই এখানে।<br/>সে স্কুলে দুধ খায়। (মেয়ে)<br/>আমি ওখানে যাই না।<br/>আপনি কোথা থেকে আসেন?</div>
+        <div class="literal">লক্ষ্য করো: <span class="hi">राम का घर</span> কিন্তু <span class="hi">राम की किताब</span> - সম্বন্ধের রূপ বদলায় পরের বিশেষ্যের লিঙ্গে, রামের নিজের লিঙ্গে নয়। আর <span class="hi">पीती</span> (স্ত্রী) আর <span class="hi">जाता</span> (পুরুষ) - ক্রিয়ার লেজ কর্তাকে ফাঁস করে দেয়। বাংলায় এই ফাঁস নেই।</div>
+      </div>
+    </div>
+    <div class="check" data-check="5">
+      <div class="check-title">নিজেকে যাচাই করো</div>
+      <p class="check-lede">আগে ভাবো, তারপর চাপো। সবকিছু এই ধাপ বা তার আগের ধাপ থেকেই।</p>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">लड़का जाता है</span> · <span class="hi">लड़की </span><span class="gap" data-answer="जाती">___</span><span class="hi"> है</span> - মেয়ের জন্য ক্রিয়ার লেজ বদলাও।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt"><span class="hi">राम ___ किताब</span> - কোন রূপটি বসবে?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">का</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">की</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - किताब স্ত্রীলিঙ্গ, তাই की।" data-no="✗ না - সম্বন্ধের রূপ পরের বিশেষ্যের লিঙ্গ মানে। किताब স্ত্রী, তাই की।"></div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">राम </span><span class="gap" data-answer="का">___</span><span class="hi"> घर</span> - ‘রামের ঘর’। <span class="hi">घर</span> পুংলিঙ্গ।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">वह दूध </span><span class="gap" data-answer="पीती">___</span><span class="hi"> है।</span> - কর্তা স্ত্রীলিঙ্গ।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">‘আমি যাই না’ হিন্দিতে কোনটি ঠিক?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">मैं जाता नहीं</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">मैं नहीं जाता</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - नहीं ক্রিয়ার আগে বসে। বাংলার ‘না’ পরে বসে, এটাই উল্টো।" data-no="✗ না - বাংলার ক্রম মাথায় রেখো না। হিন্দিতে নেতিবাচক ক্রিয়ার আগে।"></div>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt">-<span class="hi">आ</span>-তে শেষ হওয়া বিশেষ্য সাধারণত কোন লিঙ্গ? একটা ব্যতিক্রম বলো।</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer">সাধারণত পুংলিঙ্গ (<span class="hi">लड़का</span>, <span class="hi">कमरा</span>)। কিন্তু <span class="hi">पानी</span> -<span class="hi">ई</span>-তে শেষ হয়েও পুংলিঙ্গ। তাই শব্দ শেখার সময়েই লিঙ্গ শেখো।</div>
+      </div>
+      <div class="q q-choice" data-answer="a">
+        <div class="q-prompt">‘ঘরে’ হিন্দিতে?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">घर में</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">घर से</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - में অধিকরণ (-তে/-এ), से অপাদান (-থেকে)।" data-no="✗ না - से মানে ‘থেকে’। ‘-তে’ = में।"></div>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt">‘কোথায়’, ‘কেন’, ‘কীভাবে’ - হিন্দিতে তিনটেই?</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">कहाँ</span> · <span class="hi">क्यों</span> · <span class="hi">कैसे</span>। বাংলার মতো এরাও সব ক-অক্ষরে শুরু।</div>
+      </div>
+      <button class="check-done" type="button">হয়ে গেছে ✓</button>
+    </div>
+
     <div class="khata">
       <h4>এই ধাপের খাতা - বাক্য, দুই ভাগে</h4>
       <p>শেষ ধাপ। এখানে শিরোরেখা শব্দের মাথায় একটানা চলে, শব্দ শেষ হলেই থামে - ওই ফাঁকটুকুই দেবনাগরীতে শব্দের সীমানা। সেটা ঠিক রাখাই আসল পরীক্ষা।</p>
@@ -1195,28 +1572,28 @@
   <div class="stage-body">
 
     <h3><span class="num">৬.১</span>পাঠ এক - পরিচয়</h3>
-    <div class="passage">
-      <div class="hi">नमस्कार। मेरा नाम अनिल है। मैं कोलकाता से हूँ, लेकिन अभी दिल्ली में रहता हूँ। मेरे घर में चार लोग हैं - माँ, पिताजी, बहन और मैं। मुझे हिन्दी सीखना पसंद है क्योंकि मेरी माँ की भाषा बांग्ला है।</div>
+    <div class="passage" data-stage="6" data-say="नमस्कार। मेरा नाम अनिल है। मैं कोलकाता से हूँ, लेकिन अभी दिल्ली में रहता हूँ। मेरे घर में चार लोग हैं - माँ, पिताजी, बहन और मैं। मुझे हिन्दी सीखना पसंद है क्योंकि मेरी माँ की भाषा बांग्ला है।">
+      <div class="hi" lang="hi">नमस्कार। मेरा नाम अनिल है। मैं कोलकाता से हूँ, लेकिन अभी दिल्ली में रहता हूँ। मेरे घर में चार लोग हैं - माँ, पिताजी, बहन और मैं। मुझे हिन्दी सीखना पसंद है क्योंकि मेरी माँ की भाषा बांग्ला है।</div>
+      <div class="pron">নমস্কার্। মেরা নাম্ অনিল্ হৈ। মৈঁ কোলকাতা সে হূঁ, লেকিন্ অভী দিল্লী মেঁ রহ্‌তা হূঁ। মেরে ঘর্ মেঁ চার্ লোগ্ হৈঁ - মাঁ, পিতাজী, বহন্ ঔর্ মৈঁ। মুঝে হিন্দী সীখ্‌না পসন্দ্ হৈ ক্যোঁকি মেরী মাঁ কী ভাষা বাংলা হৈ।</div>
       <div class="trans">namaskār. merā nām anil hai. maĩ kolkātā se hū̃, lekin abhī dillī mẽ rahtā hū̃. mere ghar mẽ cār log haĩ - mā̃, pitājī, bahan aur maĩ. mujhe hindī sīkhnā pasand hai kyõki merī mā̃ kī bhāṣā bānglā hai.</div>
       <div class="bn-gloss">নমস্কার। আমার নাম অনিল। আমি কলকাতা থেকে (এসেছি), কিন্তু এখন দিল্লিতে থাকি। আমার ঘরে চারজন মানুষ - মা, বাবা, বোন আর আমি। আমার হিন্দি শিখতে ভালো লাগে, কারণ আমার মায়ের ভাষা বাংলা।</div>
-      <div class="attrib">পরিচয়</div>
-    </div>
+      <div class="attrib">পরিচয়</div></div>
 
     <div class="aside"><strong>চেনা শব্দের ভিড়।</strong> এই অনুচ্ছেদে দেখো - <span class="hi">नमस्कार</span> (নমস্কার), <span class="hi">नाम</span> (নাম), <span class="hi">घर</span> (ঘর), <span class="hi">लोग</span> (লোক), <span class="hi">माँ</span> (মা), <span class="hi">बहन</span> (বোন), <span class="hi">भाषा</span> (ভাষা) - সব তৎসম বা তদ্ভব, বাংলায় এক। নতুন শুধু <span class="hi">लेकिन</span> (কিন্তু), <span class="hi">अभी</span> (এখনই), <span class="hi">मुझे</span> (আমাকে)।</div>
 
     <h3><span class="num">৬.২</span>পাঠ দুই - একটি দিন</h3>
-    <div class="passage">
-      <div class="hi">रोज़ सुबह मैं छह बजे उठता हूँ। पहले चाय पीता हूँ, फिर अख़बार पढ़ता हूँ। फिर मैं नहाता हूँ और नाश्ता करता हूँ। आठ बजे मैं काम पर जाता हूँ। दिन भर काम करता हूँ। शाम को घर लौटता हूँ, खाना खाता हूँ और थोड़ी देर किताब पढ़ता हूँ। रात को दस बजे सो जाता हूँ।</div>
+    <div class="passage" data-stage="6" data-say="रोज़ सुबह मैं छह बजे उठता हूँ। पहले चाय पीता हूँ, फिर अख़बार पढ़ता हूँ। फिर मैं नहाता हूँ और नाश्ता करता हूँ। आठ बजे मैं काम पर जाता हूँ। दिन भर काम करता हूँ। शाम को घर लौटता हूँ, खाना खाता हूँ और थोड़ी देर किताब पढ़ता ह">
+      <div class="hi" lang="hi">रोज़ सुबह मैं छह बजे उठता हूँ। पहले चाय पीता हूँ, फिर अख़बार पढ़ता हूँ। फिर मैं नहाता हूँ और नाश्ता करता हूँ। आठ बजे मैं काम पर जाता हूँ। दिन भर काम करता हूँ। शाम को घर लौटता हूँ, खाना खाता हूँ और थोड़ी देर किताब पढ़ता हूँ। रात को दस बजे सो जाता हूँ।</div>
+      <div class="pron">রোজ় সুবহ্ মৈঁ ছহ্ বজে উঠ্‌তা হূঁ। পহলে চায় পীতা হূঁ, ফির্ অখ়বার্ পঢ়্‌তা হূঁ। ফির্ মৈঁ নহাতা হূঁ ঔর্ নাশ্‌তা করতা হূঁ। আঠ্ বজে মৈঁ কাম্ পর্ জাতা হূঁ। দিন্ ভর্ কাম্ করতা হূঁ। শাম্ কো ঘর্ লৌট্‌তা হূঁ, খানা খাতা হূঁ ঔর্ থোড়ী দের্ কিতাব্ পঢ়্‌তা হূঁ। রাত্ কো দস্ বজে সো জাতা হূঁ।</div>
       <div class="trans">roz subah maĩ chah baje uṭhtā hū̃. pahle cāy pītā hū̃, phir akhbār paṛhtā hū̃. phir maĩ nahātā hū̃ aur nāśtā kartā hū̃. āṭh baje maĩ kām par jātā hū̃. din bhar kām kartā hū̃. śām ko ghar lauṭtā hū̃, khānā khātā hū̃ aur thoṛī der kitāb paṛhtā hū̃. rāt ko das baje so jātā hū̃.</div>
       <div class="bn-gloss">রোজ সকালে আমি ছয়টায় উঠি। প্রথমে চা খাই, তারপর খবরের কাগজ পড়ি। তারপর স্নান করি আর জলখাবার খাই। আটটায় আমি কাজে যাই। সারাদিন কাজ করি। সন্ধ্যায় ঘরে ফিরি, খাবার খাই আর কিছুক্ষণ বই পড়ি। রাতে দশটায় ঘুমিয়ে পড়ি।</div>
-      <div class="attrib">একজনের দিন</div>
-    </div>
+      <div class="attrib">একজনের দিন</div></div>
 
     <div class="aside"><strong>"রোজ" - দুই ভাষায় এক।</strong> বাংলা "রোজ সকালে" = হিন্দি <span class="hi">रोज़ सुबह</span>। ফার্সি 'রোজ' (দিন) দুই ভাষাতেই ঢুকেছে। "চা" আর "অখবার" (<span class="hi">चाय, अख़बार</span>) - দুটোই পূর্বপরিচিত। "কাজ" = <span class="hi">काम</span> (সংস্কৃত "কর্ম" থেকে দুই পথে)।</div>
 
     <h3><span class="num">৬.৩</span>পাঠ তিন - দুজনের কথা</h3>
-    <div class="passage">
-      <div class="hi">
+    <div class="passage" data-stage="6" data-say="- नमस्ते। आप कैसे हैं? - नमस्ते। मैं ठीक हूँ, धन्यवाद। आप? - मैं भी ठीक हूँ। आप कहाँ से हैं? - मैं बंगाल से हूँ। आप? - मैं दिल्ली से हूँ। क्या आप हिन्दी बोलते हैं? - हाँ, थोड़ी-थोड़ी। मैं सीख रहा हूँ। - बहुत अच्छा! आपकी ">
+      <div class="hi" lang="hi">
         - नमस्ते। आप कैसे हैं?<br/>
         - नमस्ते। मैं ठीक हूँ, धन्यवाद। आप?<br/>
         - मैं भी ठीक हूँ। आप कहाँ से हैं?<br/>
@@ -1226,6 +1603,14 @@
         - बहुत अच्छा! आपकी हिन्दी बहुत साफ़ है।<br/>
         - शुक्रिया। आपसे मिलकर ख़ुशी हुई।
       </div>
+      <div class="pron">- নমস্তে। আপ্ কৈসে হৈঁ?<br/>
+        - নমস্তে। মৈঁ ঠীক্ হূঁ, ধন্যবাদ্। আপ্?<br/>
+        - মৈঁ ভী ঠীক্ হূঁ। আপ্ কহাঁ সে হৈঁ?<br/>
+        - মৈঁ বংগাল্ সে হূঁ। আপ্?<br/>
+        - মৈঁ দিল্লী সে হূঁ। ক্যা আপ্ হিন্দী বোল্‌তে হৈঁ?<br/>
+        - হাঁ, থোড়ী-থোড়ী। মৈঁ সীখ্ রহা হূঁ।<br/>
+        - বহুত্ অচ্ছা! আপকী হিন্দী বহুত্ সাফ় হৈ।<br/>
+        - শুক্রিয়া। আপসে মিলকর্ খ়ুশী হুঈ।</div>
       <div class="trans">
         - namaste. āp kaise haĩ?<br/>
         - namaste. maĩ ṭhīk hū̃, dhanyavād. āp?<br/>
@@ -1246,10 +1631,46 @@
         - বেশ! আপনার হিন্দি খুব পরিষ্কার।<br/>
         - শুক্রিয়া (ধন্যবাদ)। আপনার সঙ্গে দেখা হয়ে খুশি হলাম।
       </div>
-      <div class="attrib">দুজনের পরিচয়</div>
-    </div>
+      <div class="attrib">দুজনের পরিচয়</div></div>
 
     <div class="aside"><strong>"সীখ রহা হূঁ" - বাংলার "শিখছি"।</strong> বর্তমান চলমানকাল - হিন্দিতে "ক্রিয়া-মূল + <span class="hi">रहा/रही/रहे</span> + <span class="hi">हूँ/है/हैं</span>"। বাংলায় "-ছি/-ছে" করে - শিখছি, শিখছে। একই অর্থ, আলাদা চাল।</div>
+<div class="anchor"><span class="anchor-tag">তোমার জগৎ থেকে</span> <strong>সত্যজিৎ রায়ের একমাত্র পূর্ণদৈর্ঘ্য হিন্দি-উর্দু ছবিটি প্রেমচন্দের গল্প থেকে।</strong> "শতরঞ্জ কে খিলাড়ি" (১৯৭৭) তৈরি মুনশি প্রেমচন্দের একটি ছোটগল্প থেকে। প্রেমচন্দ নিজেই গল্পটি দুই ভাষায় লিখেছিলেন - হিন্দিতে <span class="hi">शतरंज के खिलाड़ी</span>, উর্দুতে "শতরঞ্জ কী বাজ়ী" - দুটোই ছাপা হয় ১৯২৪ সালের অক্টোবরে, <em>মাধুরী</em> পত্রিকায়। পরে রায় প্রেমচন্দেরই আরেকটি গল্প থেকে করেন "সদ্‌গতি" (১৯৮১), সেটি হিন্দি টেলিছবি। একজন বাঙালি পরিচালক, একজন হিন্দি-উর্দু লেখক - সেতু দুদিকেই খোলা। নিচের তিনটি পাঠে তুমি ঠিক সেই হিন্দি গদ্যেই ঢুকছ।</div>
+    <div class="check" data-check="6">
+      <div class="check-title">নিজেকে যাচাই করো</div>
+      <p class="check-lede">আগে ভাবো, তারপর চাপো। সবকিছু এই ধাপ বা তার আগের ধাপ থেকেই।</p>
+      <div class="q q-reveal">
+        <div class="q-prompt"><span class="hi">लेकिन</span> আর <span class="hi">अभी</span> - দুটোর মানে কী?</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer">কিন্তু, আর এখনই। পাঠ একে দুটোই আছে: <span class="hi">लेकिन अभी दिल्ली में रहता हूँ</span>।</div>
+      </div>
+      <div class="q q-choice" data-answer="a">
+        <div class="q-prompt"><span class="hi">मुझे हिन्दी सीखना पसंद है</span> - এর মানে?</div>
+        <button class="q-opt" type="button" data-opt="a">আমার হিন্দি শিখতে ভালো লাগে</button>
+        <button class="q-opt" type="button" data-opt="b">আমি হিন্দি শিখে ফেলেছি</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - मुझे … पसंद है = ‘আমার ভালো লাগে’। বাংলার মতোই কর্তা ‘আমাকে’।" data-no="✗ না - এটা শেষ হওয়ার কথা বলছে না, ভালো লাগার কথা বলছে।"></div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">मैं सीख </span><span class="gap" data-answer="रहा">___</span><span class="hi"> हूँ।</span> - ‘আমি শিখছি’ (পুরুষ)।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt"><span class="hi">रोज़ सुबह</span> - মানে কী, আর <span class="hi">रोज़</span> শব্দটা কোথা থেকে এসেছে?</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer">রোজ সকালে। <span class="hi">रोज़</span> ফার্সি ‘রোজ়’ (দিন) - বাংলাতেও ঠিক একই পথে ঢুকেছে।</div>
+      </div>
+      <div class="q q-choice" data-answer="a">
+        <div class="q-prompt"><span class="hi">शुक्रिया</span> আর <span class="hi">धन्यवाद</span> - সম্পর্কটা কী?</div>
+        <button class="q-opt" type="button" data-opt="a">দুটোই ধন্যবাদ; একটি ফার্সি, একটি তৎসম</button>
+        <button class="q-opt" type="button" data-opt="b">দুটোর অর্থ আলাদা</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - বাংলাতেও দুটোই আছে: শুক্রিয়া আর ধন্যবাদ।" data-no="✗ না - অর্থ এক, উৎস আলাদা। ফার্সি शुक्रिया, সংস্কৃত धन्यवाद।"></div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">आप कहाँ </span><span class="gap" data-answer="से">___</span><span class="hi"> हैं?</span> - ‘আপনি কোথা থেকে?’</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <button class="check-done" type="button">হয়ে গেছে ✓</button>
+    </div>
+
   </div>
 </section>
 
@@ -1263,71 +1684,221 @@
   <div class="stage-body">
 
     <h3><span class="num">৭.১</span>আত্মীয়তা - কাকু, জেঠু, মামু</h3>
-    <p>বাংলা আর হিন্দি দুই ভাষাই পরিবারকে খুব খুঁটিয়ে দেখে - একটিমাত্র "uncle" নেই, আছে পাঁচ-সাতজন, কে কোন পক্ষের, ছোট না বড়, সেই হিসাবে।</p>
+    <p>বাংলা আর হিন্দি দুই ভাষাই পরিবারকে খুব খুঁটিয়ে দেখে - ইংরেজির মতো একটিমাত্র শব্দে সব কাকা-জেঠা-মামা সারে না - আছে পাঁচ-সাতজন, কে কোন পক্ষের, ছোট না বড়, সেই হিসাবে।</p>
 
     <div class="field-grid">
-      <div class="cell"><span class="hi">पिता / पापा</span><span class="bn-eq">বাবা</span><span class="trans">pitā / pāpā</span></div>
-      <div class="cell"><span class="hi">माँ / माता</span><span class="bn-eq">মা</span><span class="trans">mā̃ / mātā</span></div>
-      <div class="cell"><span class="hi">भाई / भैया</span><span class="bn-eq">দাদা / ভাই</span><span class="trans">bhāī / bhaiyā</span></div>
-      <div class="cell"><span class="hi">बहन / दीदी</span><span class="bn-eq">দিদি / বোন</span><span class="trans">bahan / dīdī</span></div>
-      <div class="cell"><span class="hi">दादा</span><span class="bn-eq">ঠাকুরদা (পিতৃ-পক্ষ)</span><span class="trans">dādā</span></div>
-      <div class="cell"><span class="hi">नाना</span><span class="bn-eq">দাদু (মাতৃ-পক্ষ)</span><span class="trans">nānā</span></div>
-      <div class="cell"><span class="hi">दादी</span><span class="bn-eq">ঠাকুমা (পিতৃ-পক্ষ)</span><span class="trans">dādī</span></div>
-      <div class="cell"><span class="hi">नानी</span><span class="bn-eq">দিদিমা (মাতৃ-পক্ষ)</span><span class="trans">nānī</span></div>
-      <div class="cell"><span class="hi">चाचा</span><span class="bn-eq">কাকা (বাবার ছোট ভাই)</span><span class="trans">cācā</span></div>
-      <div class="cell"><span class="hi">ताऊ</span><span class="bn-eq">জ্যাঠা (বাবার বড় ভাই)</span><span class="trans">tāū</span></div>
-      <div class="cell"><span class="hi">मामा</span><span class="bn-eq">মামা (মায়ের ভাই)</span><span class="trans">māmā</span></div>
-      <div class="cell"><span class="hi">मौसी</span><span class="bn-eq">মাসি (মায়ের বোন)</span><span class="trans">mausī</span></div>
-      <div class="cell"><span class="hi">बुआ / फूफी</span><span class="bn-eq">পিসি (বাবার বোন)</span><span class="trans">buā / phūphī</span></div>
+      <div class="cell" data-say="पिता"><span class="hi">पिता / पापा</span><span class="bn-eq">বাবা</span><span class="pron">পিতা / পাপা</span><span class="trans">pitā / pāpā</span></div>
+      <div class="cell" data-say="माँ"><span class="hi">माँ / माता</span><span class="bn-eq">মা</span><span class="pron">মাঁ / মাতা</span><span class="trans">mā̃ / mātā</span></div>
+      <div class="cell" data-say="भाई"><span class="hi">भाई</span><span class="bn-eq">দাদা / ভাই</span><span class="pron">ভাঈ</span><span class="trans">bhāī</span></div>
+      <div class="cell" data-say="बहन"><span class="hi">बहन</span><span class="bn-eq">দিদি / বোন</span><span class="pron">বহন্</span><span class="trans">bahan</span></div>
+      <div class="cell" data-say="दादा"><span class="hi">दादा</span><span class="bn-eq">ঠাকুরদা (পিতৃ-পক্ষ)</span><span class="pron">দাদা</span><span class="trans">dādā</span></div>
+      <div class="cell" data-say="नाना"><span class="hi">नाना</span><span class="bn-eq">দাদু (মাতৃ-পক্ষ)</span><span class="pron">নানা</span><span class="trans">nānā</span></div>
+      <div class="cell" data-say="दादी"><span class="hi">दादी</span><span class="bn-eq">ঠাকুমা (পিতৃ-পক্ষ)</span><span class="pron">দাদী</span><span class="trans">dādī</span></div>
+      <div class="cell" data-say="नानी"><span class="hi">नानी</span><span class="bn-eq">দিদিমা (মাতৃ-পক্ষ)</span><span class="pron">নানী</span><span class="trans">nānī</span></div>
+      <div class="cell" data-say="चाचा"><span class="hi">चाचा</span><span class="bn-eq">কাকা (বাবার ছোট ভাই)</span><span class="pron">চাচা</span><span class="trans">cācā</span></div>
+      <div class="cell" data-say="ताऊ"><span class="hi">ताऊ</span><span class="bn-eq">জ্যাঠা (বাবার বড় ভাই)</span><span class="pron">তাঊ</span><span class="trans">tāū</span></div>
+      <div class="cell" data-say="मामा"><span class="hi">मामा</span><span class="bn-eq">মামা (মায়ের ভাই)</span><span class="pron">মামা</span><span class="trans">māmā</span></div>
+      <div class="cell" data-say="मौसी"><span class="hi">मौसी</span><span class="bn-eq">মাসি (মায়ের বোন)</span><span class="pron">মৌসী</span><span class="trans">mausī</span></div>
+      <div class="cell" data-say="बुआ"><span class="hi">बुआ / फूफी</span><span class="bn-eq">পিসি (বাবার বোন)</span><span class="pron">বুআ / ফূফী</span><span class="trans">buā / phūphī</span></div>
     </div>
 
-    <div class="aside"><strong>দাদা - দুই ভাষায় দুই অর্থ!</strong> বাংলায় "দাদা" = বড় ভাই (বা সম্বোধন)। হিন্দিতে <span class="hi">दादा</span> = ঠাকুরদা (পিতৃ-পক্ষের দাদু)। এটা false friend - সাবধান! হিন্দিতে বড় ভাই <span class="hi">भाई</span> বা আদরে <span class="hi">भैया</span>। আবার বাংলার "দিদি" = হিন্দির <span class="hi">दीदी</span> - এই এক মিল!</div>
+    <div class="aside"><strong>দাদা - দুই ভাষায় দুই অর্থ!</strong> বাংলায় "দাদা" = বড় ভাই (বা সম্বোধন)। হিন্দিতে <span class="hi">दादा</span> = ঠাকুরদা (পিতৃ-পক্ষের দাদু)। এটা ভুয়ো বন্ধু - সাবধান, এরকম আরও বারোটি ৭.৫-এ! হিন্দিতে বড় ভাই <span class="hi">भाई</span> বা আদরে <span class="hi">भैया</span>। আবার বাংলার "দিদি" = হিন্দির <span class="hi">दीदी</span> - এই এক মিল!</div>
 
     <h3><span class="num">৭.২</span>সময় - "কাল"-এর জাদু</h3>
     <div class="field-grid">
-      <div class="cell"><span class="hi">आज</span><span class="bn-eq">আজ</span><span class="trans">āj</span></div>
-      <div class="cell"><span class="hi">कल</span><span class="bn-eq">কাল (গত/আগামী)</span><span class="trans">kal</span></div>
-      <div class="cell"><span class="hi">परसों</span><span class="bn-eq">পরশু (দুদিন আগে/পরে)</span><span class="trans">parsõ</span></div>
-      <div class="cell"><span class="hi">अभी</span><span class="bn-eq">এখন / এক্ষুনি</span><span class="trans">abhī</span></div>
-      <div class="cell"><span class="hi">सुबह</span><span class="bn-eq">সকাল</span><span class="trans">subah</span></div>
-      <div class="cell"><span class="hi">दोपहर</span><span class="bn-eq">দুপুর</span><span class="trans">dopahar</span></div>
-      <div class="cell"><span class="hi">शाम</span><span class="bn-eq">সন্ধ্যা</span><span class="trans">śām</span></div>
-      <div class="cell"><span class="hi">रात</span><span class="bn-eq">রাত</span><span class="trans">rāt</span></div>
+      <div class="cell" data-say="आज"><span class="hi">आज</span><span class="bn-eq">আজ</span><span class="pron">আজ্</span><span class="trans">āj</span></div>
+      <div class="cell" data-say="कल"><span class="hi">कल</span><span class="bn-eq">কাল (গত/আগামী)</span><span class="pron">কল্</span><span class="trans">kal</span></div>
+      <div class="cell" data-say="परसों"><span class="hi">परसों</span><span class="bn-eq">পরশু (দুদিন আগে/পরে)</span><span class="pron">পরসোঁ</span><span class="trans">parsõ</span></div>
+      <div class="cell" data-say="अभी"><span class="hi">अभी</span><span class="bn-eq">এখন / এক্ষুনি</span><span class="pron">অভী</span><span class="trans">abhī</span></div>
+      <div class="cell" data-say="सुबह"><span class="hi">सुबह</span><span class="bn-eq">সকাল</span><span class="pron">সুবহ্</span><span class="trans">subah</span></div>
+      <div class="cell" data-say="दोपहर"><span class="hi">दोपहर</span><span class="bn-eq">দুপুর</span><span class="pron">দোপহর্</span><span class="trans">dopahar</span></div>
+      <div class="cell" data-say="शाम"><span class="hi">शाम</span><span class="bn-eq">সন্ধ্যা</span><span class="pron">শাম্</span><span class="trans">śām</span></div>
+      <div class="cell" data-say="हफ़्ता"><span class="hi">हफ़्ता</span><span class="bn-eq">সপ্তাহ</span><span class="pron">হফ়্‌তা</span><span class="trans">haftā</span></div>
+      <div class="cell" data-say="महीना"><span class="hi">महीना</span><span class="bn-eq">মাস</span><span class="pron">মহীনা</span><span class="trans">mahīnā</span></div>
+      <div class="cell" data-say="साल"><span class="hi">साल</span><span class="bn-eq">বছর</span><span class="pron">সাল্</span><span class="trans">sāl</span></div>
     </div>
 
     <div class="aside"><strong>দুই ভাষায় "কাল" দুই দিকে!</strong> বাংলায় "কাল আসব" (আগামী) আর "কাল এসেছিলাম" (গত) - একই শব্দ, ক্রিয়ার সময় দেখে বুঝতে হয়। হিন্দির <span class="hi">कल</span>ও ঠিক তাই! <span class="hi">कल आऊँगा</span> = কাল আসব। <span class="hi">कल आया था</span> = কাল এসেছিলাম। তোমার বাংলা-মস্তিষ্ক ইতিমধ্যেই জানে কীভাবে এই অস্পষ্টতা সামলাতে হয়। এটা ইন্দো-আর্য মগজের একটা সুন্দর সাদৃশ্য।</div>
 
     <h3><span class="num">৭.৩</span>শরীর - জোড়াপদের কবিতা</h3>
     <div class="field-grid">
-      <div class="cell"><span class="hi">सिर</span><span class="bn-eq">মাথা</span><span class="trans">sir</span></div>
-      <div class="cell"><span class="hi">आँख</span><span class="bn-eq">চোখ</span><span class="trans">ā̃kh</span></div>
-      <div class="cell"><span class="hi">कान</span><span class="bn-eq">কান</span><span class="trans">kān</span></div>
-      <div class="cell"><span class="hi">नाक</span><span class="bn-eq">নাক</span><span class="trans">nāk</span></div>
-      <div class="cell"><span class="hi">मुँह</span><span class="bn-eq">মুখ</span><span class="trans">mũh</span></div>
-      <div class="cell"><span class="hi">दाँत</span><span class="bn-eq">দাঁত</span><span class="trans">dā̃t</span></div>
-      <div class="cell"><span class="hi">जीभ</span><span class="bn-eq">জিভ</span><span class="trans">jībh</span></div>
-      <div class="cell"><span class="hi">हाथ</span><span class="bn-eq">হাত</span><span class="trans">hāth</span></div>
-      <div class="cell"><span class="hi">पैर</span><span class="bn-eq">পা</span><span class="trans">pair</span></div>
-      <div class="cell"><span class="hi">पेट</span><span class="bn-eq">পেট</span><span class="trans">peṭ</span></div>
-      <div class="cell"><span class="hi">दिल</span><span class="bn-eq">দিল / হৃদয়</span><span class="trans">dil</span></div>
-      <div class="cell"><span class="hi">उँगली</span><span class="bn-eq">আঙুল</span><span class="trans">ũgalī</span></div>
+      <div class="cell" data-say="सिर"><span class="hi">सिर</span><span class="bn-eq">মাথা</span><span class="pron">সির্</span><span class="trans">sir</span></div>
+      <div class="cell" data-say="आँख"><span class="hi">आँख</span><span class="bn-eq">চোখ</span><span class="pron">আঁখ্</span><span class="trans">ā̃kh</span></div>
+      <div class="cell" data-say="कान"><span class="hi">कान</span><span class="bn-eq">কান</span><span class="pron">কান্</span><span class="trans">kān</span></div>
+      <div class="cell" data-say="नाक"><span class="hi">नाक</span><span class="bn-eq">নাক</span><span class="pron">নাক্</span><span class="trans">nāk</span></div>
+      <div class="cell" data-say="मुँह"><span class="hi">मुँह</span><span class="bn-eq">মুখ</span><span class="pron">মুঁহ্</span><span class="trans">mũh</span></div>
+      <div class="cell" data-say="दाँत"><span class="hi">दाँत</span><span class="bn-eq">দাঁত</span><span class="pron">দাঁত্</span><span class="trans">dā̃t</span></div>
+      <div class="cell" data-say="जीभ"><span class="hi">जीभ</span><span class="bn-eq">জিভ</span><span class="pron">জীভ্</span><span class="trans">jībh</span></div>
+      <div class="cell" data-say="हाथ"><span class="hi">हाथ</span><span class="bn-eq">হাত</span><span class="pron">হাথ্</span><span class="trans">hāth</span></div>
+      <div class="cell" data-say="पैर"><span class="hi">पैर</span><span class="bn-eq">পা</span><span class="pron">পৈর্</span><span class="trans">pair</span></div>
+      <div class="cell" data-say="पेट"><span class="hi">पेट</span><span class="bn-eq">পেট</span><span class="pron">পেট্</span><span class="trans">peṭ</span></div>
+      <div class="cell" data-say="दिल"><span class="hi">दिल</span><span class="bn-eq">দিল / হৃদয়</span><span class="pron">দিল্</span><span class="trans">dil</span></div>
+      <div class="cell" data-say="उँगली"><span class="hi">उँगली</span><span class="bn-eq">আঙুল</span><span class="pron">উঁগলী</span><span class="trans">ũgalī</span></div>
     </div>
 
     <div class="aside"><strong>প্রায় এক-এক মিল।</strong> শরীরের শব্দ সবচেয়ে পুরনো শব্দস্তর - হাজার হাজার বছর বদলায়নি। "হাত-পা-চোখ-কান-দাঁত-জিভ" বাংলা, "<span class="hi">हाथ-पैर-आँख-कान-दाँत-जीभ</span>" হিন্দি - প্রায় একই ধ্বনি। নতুন মুখস্থ করার কিছু নেই, শুধু দেবনাগরী রূপটা চিনে নাও।</div>
 
     <h3><span class="num">৭.৪</span>গতি ও দিক</h3>
     <div class="field-grid">
-      <div class="cell"><span class="hi">जाना</span><span class="bn-eq">যাওয়া</span><span class="trans">jānā</span></div>
-      <div class="cell"><span class="hi">आना</span><span class="bn-eq">আসা</span><span class="trans">ānā</span></div>
-      <div class="cell"><span class="hi">दौड़ना</span><span class="bn-eq">দৌড়ানো</span><span class="trans">dauṛnā</span></div>
-      <div class="cell"><span class="hi">चलना</span><span class="bn-eq">চলা / হাঁটা</span><span class="trans">calnā</span></div>
-      <div class="cell"><span class="hi">बैठना</span><span class="bn-eq">বসা</span><span class="trans">baiṭhnā</span></div>
-      <div class="cell"><span class="hi">उठना</span><span class="bn-eq">ওঠা</span><span class="trans">uṭhnā</span></div>
-      <div class="cell"><span class="hi">रुकना</span><span class="bn-eq">থামা</span><span class="trans">ruknā</span></div>
-      <div class="cell"><span class="hi">गिरना</span><span class="bn-eq">পড়া (নিচে)</span><span class="trans">girnā</span></div>
+      <div class="cell" data-say="पहुँचना"><span class="hi">पहुँचना</span><span class="bn-eq">পৌঁছানো</span><span class="pron">পহুঁচ্‌না</span><span class="trans">pahũcnā</span></div>
+      <div class="cell" data-say="निकलना"><span class="hi">निकलना</span><span class="bn-eq">বেরোনো</span><span class="pron">নিকল্‌না</span><span class="trans">nikalnā</span></div>
+      <div class="cell" data-say="दौड़ना"><span class="hi">दौड़ना</span><span class="bn-eq">দৌড়ানো</span><span class="pron">দৌড়্‌না</span><span class="trans">dauṛnā</span></div>
+      <div class="cell" data-say="चलना"><span class="hi">चलना</span><span class="bn-eq">চলা / হাঁটা</span><span class="pron">চল্‌না</span><span class="trans">calnā</span></div>
+      <div class="cell" data-say="बैठना"><span class="hi">बैठना</span><span class="bn-eq">বসা</span><span class="pron">বৈঠ্‌না</span><span class="trans">baiṭhnā</span></div>
+      <div class="cell" data-say="उठना"><span class="hi">उठना</span><span class="bn-eq">ওঠা</span><span class="pron">উঠ্‌না</span><span class="trans">uṭhnā</span></div>
+      <div class="cell" data-say="रुकना"><span class="hi">रुकना</span><span class="bn-eq">থামা</span><span class="pron">রুক্‌না</span><span class="trans">ruknā</span></div>
+      <div class="cell" data-say="गिरना"><span class="hi">गिरना</span><span class="bn-eq">পড়া (নিচে)</span><span class="pron">গির্‌না</span><span class="trans">girnā</span></div>
     </div>
 
     <div class="aside"><strong>"পড়া" দুই অর্থে।</strong> বাংলায় "পড়া" = (১) বই পড়া, (২) নিচে পড়ে যাওয়া। হিন্দিতে দুটো আলাদা ক্রিয়া - <span class="hi">पढ़ना</span> (paṛhnā, ঢ়-জাতীয় 'ড়') = বই পড়া, <span class="hi">गिरना</span> (girnā) = নিচে পড়া। দুটোর গ্লিফ আলাদা, যদিও দুটোরই শুরু একই রকম।</div>
+<div class="anchor"><span class="anchor-tag">তোমার জগৎ থেকে</span> <strong>"কাবুলিওয়ালা" - রবীন্দ্রনাথের গল্প, তপন সিংহের বাংলা ছবি, তারপর হিন্দি ছবি; প্রযোজক বাঙালি, সুরকারও।</strong> গল্পটি ছাপা হয় ১৮৯২ সালে। তপন সিংহ বাংলায় ছবি করেন ১৯৫৭-তে, রহমতের ভূমিকায় ছবি বিশ্বাস; ছবিটি শ্রেষ্ঠ চলচ্চিত্রের জাতীয় পুরস্কার পায় আর বার্লিনে বিচারকদের রুপোলি ভালুক। তারপর ১৯৬১ সালের ১৪ ডিসেম্বর মুক্তি পায় হিন্দি "কাবুলিওয়ালা" - পরিচালক হেমেন গুপ্ত, প্রযোজক বিমল রায়, আবদুর রহমান খানের ভূমিকায় বলরাজ সাহনি, সুর সলিল চৌধুরীর। গল্পের কেন্দ্রেই এই ধাপের প্রথম বিষয়: এক আফগান ফলওয়ালা অন্যের ছোট্ট মেয়েকে নিজের মেয়ের জায়গায় বসায়। আত্মীয়তার শব্দ দিয়ে অনাত্মীয়কে কাছে টানা - বাংলা আর হিন্দি দুই ভাষাই এটা করে।</div>
+    <h3><span class="num">৭.৫</span>ভুয়ো বন্ধু - যে শব্দগুলো চেনা মুখে অচেনা কথা বলে</h3>
+    <p>বাংলা আর হিন্দি একই সংস্কৃত ভাঁড়ার থেকে শব্দ তুলেছে, কিন্তু তুলে নিয়ে দুই দিকে হেঁটেছে। নিচের বারোটি শব্দ দুই ভাষাতেই আছে, বানানও প্রায় এক - অথচ অর্থ আলাদা। এগুলোই সবচেয়ে বেশি ভুল বোঝাবুঝি তৈরি করে, কারণ তুমি থামবে না; তুমি ধরে নেবে বুঝেছ।</p>
+    <div class="ff">
+      <div class="ff-row">
+        <div><span class="h" lang="hi">दादा</span> <span class="pron">দাদা</span></div>
+        <div><span class="b">দাদা</span></div>
+        <div class="hm">হিন্দিতে: ঠাকুরদা, বাবার বাবা; সম্মানিত বড় পুরুষ</div>
+        <div class="bm">বাংলায়: বড় ভাই বা তুতো দাদা; যে-কোনো বড় পুরুষ</div>
+        <div class="why">একই আদুরে শব্দ, দুই দিকে ছড়িয়েছে। কলকাতায় ঠাকুরদা = ঠাকুরদা/দাদু। বাংলাদেশে অবশ্য দাদা-ও ঠাকুরদা - তাই জোড়াটা পশ্চিমবঙ্গের বাংলার সঙ্গেই সবচেয়ে বেশি ঠোকে।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">अच्छा</span> <span class="pron">অচ্ছা</span></div>
+        <div><span class="b">আচ্ছা</span></div>
+        <div class="hm">হিন্দিতে: ভালো, সুন্দর (বিশেষণ); বাহ্! (বিস্ময়ে)</div>
+        <div class="bm">বাংলায়: ঠিক আছে, বেশ (শুধু সম্মতির শব্দ)</div>
+        <div class="why">সংস্কৃত থেকে পথটা ছিল ‘পরিষ্কার’ → ‘ভালো’ → ‘ঠিক আছে’। হিন্দি থেমেছে দ্বিতীয় ধাপে, বাংলা তৃতীয় ধাপে গেছে। হিন্দিতে ‘ভালো’ বলতে <span class="hi">अच्छा</span>, বাংলায় ‘ভালো’।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">घर</span> <span class="pron">ঘর্</span></div>
+        <div><span class="b">ঘর</span></div>
+        <div class="hm">হিন্দিতে: গোটা বাড়ি, বাসা</div>
+        <div class="bm">বাংলায়: কামরা; আবার বাড়িও</div>
+        <div class="why">বাংলা অংশটাকে গোটাটার নাম দিয়েছে, আর ‘বাড়ি’ শব্দটা আলাদা করে রেখেছে। হিন্দিতে কামরা = <span class="hi">कमरा</span>। ‘তিন ঘরের বাড়ি’ = <span class="hi">तीन कमरों का घर</span>।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">बाड़ी</span> <span class="pron">বাড়ী</span></div>
+        <div><span class="b">বাড়ি</span></div>
+        <div class="hm">হিন্দিতে: বাগান, ফলের বাগান; গোয়াল</div>
+        <div class="bm">বাংলায়: ঘরবাড়ি, বাসস্থান (আবার আঘাত, ঘা)</div>
+        <div class="why">দুটোই সংস্কৃত ‘বাটিকা’ (ঘেরা জায়গা) থেকে। হিন্দি ঘেরা-বাগানে থেমেছে, বাংলা ঘেরা-বসতিতে পৌঁছেছে। হিন্দিতে বাড়ি বলতে <span class="hi">घर</span>।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">बहू</span> <span class="pron">বহূ</span></div>
+        <div><span class="b">বউ</span></div>
+        <div class="hm">হিন্দিতে: পুত্রবধূ - এবং শুধু তাই</div>
+        <div class="bm">বাংলায়: স্ত্রী (মূল অর্থ); কনে; পুত্রবধূও</div>
+        <div class="why">দুটোই সংস্কৃত ‘বধূ’। বাংলা কনে → স্ত্রী-তে চওড়া হয়েছে, হিন্দি কনে → পুত্রবধূ-তে সরু হয়েছে। ‘আমার বউ’ হিন্দি কানে ‘আমার পুত্রবধূ’।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">बात</span> <span class="pron">বাত্</span></div>
+        <div><span class="b">বাত</span></div>
+        <div class="hm">হিন্দিতে: কথা, বিষয়, ব্যাপার</div>
+        <div class="bm">বাংলায়: বাতরোগ, গেঁটে বাত; আবার বায়ু</div>
+        <div class="why">এ দুটো আসলে আত্মীয়ই নয়। হিন্দি <span class="hi">बात</span> এসেছে ‘বার্তা’ থেকে, বাংলা ‘বাত’ এসেছে ‘বাত’ (বায়ু) থেকে। বাংলায় ‘ব’ আর ‘ৱ’ আলাদা নয় বলে দুটো এক চেহারায় এসে দাঁড়িয়েছে।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">चाल</span> <span class="pron">চাল্</span></div>
+        <div><span class="b">চাল</span></div>
+        <div class="hm">হিন্দিতে: চলন, ভঙ্গি; চাল (দাবার); ফন্দি</div>
+        <div class="bm">বাংলায়: অসিদ্ধ চাল, ভাত হওয়ার আগের দানা; আবার চলন; আবার ছাদ</div>
+        <div class="why">‘চলন’ অর্থটা দুই ভাষাতেই আছে - ওটুকু নিরাপদ। কিন্তু বাংলার প্রধান অর্থ, অসিদ্ধ চাল, হিন্দিতে <span class="hi">चावल</span>। ‘চাল কিনেছি’ বললে হিন্দিভাষী ভাববে তুমি চাল চেলেছ।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">अभिमान</span> <span class="pron">অভিমান্</span></div>
+        <div><span class="b">অভিমান</span></div>
+        <div class="hm">হিন্দিতে: অহংকার, দম্ভ - শুধু তাই</div>
+        <div class="bm">বাংলায়: মান-অভিমান, স্নেহের রাগ, ঠোঁট ফোলানো</div>
+        <div class="why">বাংলা একটা অহং-শব্দকে ঘনিষ্ঠতার শব্দ বানিয়ে ফেলেছে। হিন্দিতে এই ‘অভিমান’ বোঝানোর একক শব্দই নেই - বলতে হয় <span class="hi">रूठना</span> (রাগ করে সরে যাওয়া)।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">अपेक्षा</span> <span class="pron">অপেক্ষা</span></div>
+        <div><span class="b">অপেক্ষা</span></div>
+        <div class="hm">হিন্দিতে: প্রত্যাশা, চাহিদা; আবার ‘তুলনায়’</div>
+        <div class="bm">বাংলায়: অপেক্ষা করা, অর্থাৎ প্রতীক্ষা</div>
+        <div class="why">সংস্কৃতে ছিল ‘দৃষ্টি রাখা’। বাংলা সময়ের দিকে গেছে, হিন্দি প্রত্যাশার দিকে। ‘আমি অপেক্ষা করছি’ হিন্দি কানে ‘আমি প্রত্যাশা করছি’। হিন্দিতে অপেক্ষা = <span class="hi">इंतज़ार</span> বা <span class="hi">प्रतीक्षा</span>।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">दुष्ट</span> <span class="pron">দুষ্ট্</span></div>
+        <div><span class="b">দুষ্টু</span></div>
+        <div class="hm">হিন্দিতে: দুর্জন, পাজি, শয়তান - সত্যিকারের গালি</div>
+        <div class="bm">বাংলায়: দুরন্ত, ডানপিটে - আদর করে বলা কথা</div>
+        <div class="why">একই সংস্কৃত ‘দুষ্ট’। বাংলার ছোট রূপ ‘-উ’ শব্দটার ধার ভেঙে দিয়েছে। বাচ্চাকে <span class="hi">दुष्ट</span> বললে হিন্দিতে সেটা আদর নয়, অভিযোগ।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">दारुण</span> <span class="pron">দারুণ্</span></div>
+        <div><span class="b">দারুণ</span></div>
+        <div class="hm">হিন্দিতে: ভয়ংকর, নিষ্ঠুর, প্রচণ্ড (সাহিত্যিক)</div>
+        <div class="bm">বাংলায়: দারুণ ভালো, চমৎকার (চলতি কথায়)</div>
+        <div class="why">সংস্কৃতে ‘কঠিন’। বাংলা প্রথমে ‘দারুণ ভালো’ বলত, তারপর ‘ভালো’ বাদ দিয়ে শুধু ‘দারুণ’ রেখে দিয়েছে - আর তাতে অর্থ উল্টে গেছে। হিন্দি সেই লাফ দেয়নি।</div>
+      </div>
+      <div class="ff-row">
+        <div><span class="h" lang="hi">आदर</span> <span class="pron">আদর্</span></div>
+        <div><span class="b">আদর</span></div>
+        <div class="hm">হিন্দিতে: সম্মান, শ্রদ্ধা - উপরের দিকে</div>
+        <div class="bm">বাংলায়: স্নেহ, কোলে নেওয়া, গায়ে হাত বোলানো - নিচের দিকে</div>
+        <div class="why">একই সংস্কৃত ‘আদর’। বাংলা এতে শরীরের কোমলতা যোগ করেছে, হিন্দি করেনি। ‘বাচ্চাটাকে আদর করো’ হিন্দিতে শোনাবে ‘বাচ্চাটাকে সম্মান দেখাও’।</div>
+      </div>
+    </div>
+    <div class="aside"><strong>কীভাবে মনে রাখবে।</strong> খেয়াল করো, বারোটার মধ্যে আটটাই তৎসম - দুই ভাষা সংস্কৃত থেকে আলাদাভাবে শব্দটা তুলেছে, তারপর আলাদা দিকে টেনেছে। আর টানের দিকটাও একরকম: <em>বাংলা গেছে ঘরের দিকে, আবেগের দিকে</em> (অভিমান, আদর, দুষ্টু, দারুণ), <em>হিন্দি থেকে গেছে আনুষ্ঠানিক আর বিমূর্ত অর্থে</em>। এই নিয়মটা ধরে রাখলে নতুন তৎসম শব্দ দেখলেই সন্দেহ করতে পারবে।</div>
+    <div class="passage" data-stage="7">
+      <h3><span class="num">৭.৬</span>পড়ো - বাড়ির একটা দিন</h3>
+      <p>এই অনুচ্ছেদে আত্মীয়তা, সময় আর গতি - তিনটে ক্ষেত্রই একসাথে।</p>
+      <div class="sentence" data-say="दादा सुबह उठते हैं। दादी दोपहर में बैठती हैं। मामा शाम को घर पहुँचते हैं। भाई दौड़ता है, बहन चलती है। कल मौसी यहाँ आती हैं, लेकिन परसों नहीं।">
+        <div class="hi" lang="hi">दादा सुबह उठते हैं।<br/>दादी दोपहर में बैठती हैं।<br/>मामा शाम को घर पहुँचते हैं।<br/>भाई दौड़ता है, बहन चलती है।<br/>कल मौसी यहाँ आती हैं, लेकिन परसों नहीं।</div>
+        <div class="pron">দাদা সুবহ্ উঠ্‌তে হৈঁ।<br/>দাদী দোপহর্ মেঁ বৈঠ্‌তী হৈঁ।<br/>মামা শাম্ কো ঘর্ পহুঁচ্‌তে হৈঁ।<br/>ভাঈ দৌড়তা হৈ, বহন্ চলতী হৈ।<br/>কল্ মৌসী য়হাঁ আতী হৈঁ, লেকিন্ পরসোঁ নহীঁ।</div>
+        <div class="bn-gloss">ঠাকুরদা সকালে ওঠেন।<br/>ঠাকুমা দুপুরে বসেন।<br/>মামা সন্ধ্যায় ঘরে পৌঁছোন।<br/>ভাই দৌড়োয়, বোন হাঁটে।<br/>কাল মাসি এখানে আসেন, কিন্তু পরশু নয়।</div>
+        <div class="literal">লক্ষ্য করো: গুরুজনদের জন্য <span class="hi">उठते हैं</span>, <span class="hi">बैठती हैं</span> - বহুবচনের রূপ, সম্মানের জন্য; ঠিক যেমন বাংলায় ‘ওঠেন’, ‘বসেন’। আর শেষ বাক্যে <span class="hi">कल</span> মানে আগামীকাল - কারণ ক্রিয়া <span class="hi">आती हैं</span> বর্তমান-ভবিষ্যৎ। ক্রিয়াই দিক ঠিক করে, বাংলার মতোই।</div>
+      </div>
+    </div>
+    <div class="check" data-check="7">
+      <div class="check-title">নিজেকে যাচাই করো</div>
+      <p class="check-lede">আগে ভাবো, তারপর চাপো। সবকিছু এই ধাপ বা তার আগের ধাপ থেকেই।</p>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">হিন্দিতে <span class="hi">दादा</span> মানে কে?</div>
+        <button class="q-opt" type="button" data-opt="a">বড় ভাই</button>
+        <button class="q-opt" type="button" data-opt="b">ঠাকুরদা, বাবার বাবা</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - এটাই এই জোড়ার সবচেয়ে চালু ভুল। বড় ভাই = भाई।" data-no="✗ না - ওটা বাংলার ‘দাদা’। হিন্দির दादा মানে ঠাকুরদা।"></div>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt">‘মাসি’ আর ‘পিসি’ হিন্দিতে?</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">मौसी</span> (মায়ের বোন) আর <span class="hi">बुआ</span> / <span class="hi">फूफी</span> (বাবার বোন)। ভাগটা বাংলার মতোই খুঁটিয়ে।</div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">सुबह दोपहर </span><span class="gap" data-answer="शाम">___</span> - দিনের তৃতীয় ভাগ।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-choice" data-answer="a">
+        <div class="q-prompt">বাংলা ‘আচ্ছা’ আর হিন্দি <span class="hi">अच्छा</span> - এক জিনিস?</div>
+        <button class="q-opt" type="button" data-opt="a">না - হিন্দিতে এটি বিশেষণ, মানে ‘ভালো’</button>
+        <button class="q-opt" type="button" data-opt="b">হ্যাঁ, দুটোই ‘ঠিক আছে’</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - बहुत अच्छा = খুব ভালো। বাংলার ‘আচ্ছা’ শুধু সম্মতির শব্দ।" data-no="✗ না - বাংলা আচ্ছা সম্মতি, হিন্দি अच्छा বিশেষণ ‘ভালো’। এটাই ভুয়ো বন্ধু।"></div>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">বাংলা ‘বউ’ (স্ত্রী) হিন্দিতে <span class="hi">बहू</span> বললে কী দাঁড়াবে?</div>
+        <button class="q-opt" type="button" data-opt="a">ঠিকই বোঝাবে</button>
+        <button class="q-opt" type="button" data-opt="b">পুত্রবধূ বোঝাবে - অন্য মানুষ</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - बहू মানে পুত্রবধূ। স্ত্রী = पत्नी বা बीवी।" data-no="✗ না - দুটোই সংস্কৃত ‘বধূ’ থেকে, কিন্তু বাংলা গেছে ‘স্ত্রী’-র দিকে, হিন্দি ‘পুত্রবধূ’-র দিকে।"></div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">सिर आँख कान </span><span class="gap" data-answer="नाक">___</span> - মুখের চতুর্থটি।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt">হিন্দিতে ‘কাল’ কীভাবে দুদিকে কাজ করে?</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">कल</span> - <span class="hi">कल आऊँगा</span> (কাল আসব) আর <span class="hi">कल आया था</span> (কাল এসেছিলাম)। বাংলার মতোই ক্রিয়ার কাল দেখে ঠিক করো।</div>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">বাংলা ‘ঘর’ মানে যে কামরা, হিন্দিতে তার শব্দ কী?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">घर</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">कमरा</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - হিন্দি घर মানে গোটা বাড়ি; কামরা = कमरा।" data-no="✗ না - হিন্দি घर-এ ‘কামরা’ অর্থ নেই। ‘তিন ঘরের বাড়ি’ = तीन कमरों का घर।"></div>
+      </div>
+      <button class="check-done" type="button">হয়ে গেছে ✓</button>
+    </div>
+
   </div>
 </section>
 
@@ -1357,68 +1928,121 @@
 
     <h3><span class="num">৮.২</span>সাধারণ অভিবাদন</h3>
     <div class="words">
-      <div class="word"><span class="hi">नमस्कार / नमस्ते</span><span class="bn-eq">নমস্কার</span><span class="trans">namaskār / namaste</span><span class="note">হিন্দু ধাঁচে - হাত জোড় করে</span></div>
-      <div class="word"><span class="hi">आदाब</span><span class="bn-eq">আদাব</span><span class="trans">ādāb</span><span class="note">মুসলিম ধাঁচে - হাত কপালে</span></div>
-      <div class="word"><span class="hi">सलाम वालेकुम</span><span class="bn-eq">সালাম ওয়ালাইকুম</span><span class="trans">salām vālekum</span><span class="note">মুসলমানি শুভেচ্ছা</span></div>
-      <div class="word"><span class="hi">धन्यवाद</span><span class="bn-eq">ধন্যবাদ</span><span class="trans">dhanyavād <span class="tag">তৎসম</span></span></div>
-      <div class="word"><span class="hi">शुक्रिया</span><span class="bn-eq">শুক্রিয়া / ধন্যবাদ</span><span class="trans">śukriyā <span class="tag">ফার্সি</span></span></div>
-      <div class="word"><span class="hi">माफ़ कीजिए</span><span class="bn-eq">ক্ষমা করবেন / মাফ করবেন</span><span class="trans">māf kījiye</span></div>
-      <div class="word"><span class="hi">कृपया</span><span class="bn-eq">অনুগ্রহ করে</span><span class="trans">kṛpayā</span></div>
-    </div>
+      <div class="word" data-say="नमस्कार"><span class="hi">नमस्कार / नमस्ते</span><span class="bn-eq">নমস্কার</span><span class="pron">নমস্কার্ / নমস্তে</span><span class="trans">namaskār / namaste</span><span class="note">হিন্দু ধাঁচে - হাত জোড় করে</span></div>
+      <div class="word" data-say="आदाब"><span class="hi">आदाब</span><span class="bn-eq">আদাব</span><span class="pron">আদাব্</span><span class="trans">ādāb</span><span class="note">মুসলিম ধাঁচে - হাত কপালে</span></div>
+      <div class="word" data-say="सलाम वालेकुम"><span class="hi">सलाम वालेकुम</span><span class="bn-eq">সালাম ওয়ালাইকুম</span><span class="pron">সলাম্ বালেকুম্</span><span class="trans">salām vālekum</span><span class="note">মুসলমানি শুভেচ্ছা</span></div>
+      <div class="word" data-say="धन्यवाद"><span class="hi">धन्यवाद</span><span class="bn-eq">ধন্যবাদ</span><span class="pron">ধন্যবাদ্</span><span class="trans">dhanyavād <span class="tag">তৎসম</span></span></div>
+      <div class="word" data-say="शुक्रिया"><span class="hi">शुक्रिया</span><span class="bn-eq">শুক্রিয়া / ধন্যবাদ</span><span class="pron">শুক্রিয়া</span><span class="trans">śukriyā <span class="tag">ফার্সি</span></span></div>
+      <div class="word" data-say="माफ़ कीजिए"><span class="hi">माफ़ कीजिए</span><span class="bn-eq">ক্ষমা করবেন / মাফ করবেন</span><span class="pron">মাফ় কীজিয়ে</span><span class="trans">māf kījiye</span></div>
+      <div class="word" data-say="कृपया"><span class="hi">कृपया</span><span class="bn-eq">অনুগ্রহ করে</span><span class="pron">কৃপয়া</span><span class="trans">kṛpayā</span></div>
+      </div>
 
     <h3><span class="num">৮.৩</span>"কেমন আছ?"-র তিন রূপ</h3>
-    <div class="sentence">
-      <div class="hi">तू कैसा है? / तू कैसी है?</div>
+    <div class="sentence" data-say="तू कैसा है?">
+      <div class="hi" lang="hi">तू कैसा है? / तू कैसी है?</div>
+      <div class="pron">তূ কৈসা হৈ? / তূ কৈসী হৈ?</div>
       <div class="trans">tū kaisā hai? / tū kaisī hai?</div>
-      <div class="bn-gloss">তুই কেমন আছিস? (পুরুষ/স্ত্রী)</div>
-    </div>
-    <div class="sentence">
-      <div class="hi">तुम कैसे हो? / तुम कैसी हो?</div>
+      <div class="bn-gloss">তুই কেমন আছিস? (পুরুষ/স্ত্রী)</div></div>
+    <div class="sentence" data-say="तुम कैसे हो?">
+      <div class="hi" lang="hi">तुम कैसे हो? / तुम कैसी हो?</div>
+      <div class="pron">তুম্ কৈসে হো? / তুম্ কৈসী হো?</div>
       <div class="trans">tum kaise ho? / tum kaisī ho?</div>
-      <div class="bn-gloss">তুমি কেমন আছো?</div>
-    </div>
-    <div class="sentence">
-      <div class="hi">आप कैसे हैं? / आप कैसी हैं?</div>
+      <div class="bn-gloss">তুমি কেমন আছো?</div></div>
+    <div class="sentence" data-say="आप कैसे हैं?">
+      <div class="hi" lang="hi">आप कैसे हैं? / आप कैसी हैं?</div>
+      <div class="pron">আপ্ কৈসে হৈঁ? / আপ্ কৈসী হৈঁ?</div>
       <div class="trans">āp kaise haĩ? / āp kaisī haĩ?</div>
-      <div class="bn-gloss">আপনি কেমন আছেন?</div>
-    </div>
+      <div class="bn-gloss">আপনি কেমন আছেন?</div></div>
 
     <div class="aside"><strong>লিঙ্গ + সম্মান এক সাথে।</strong> বাংলায় "কেমন আছেন?" - সামনে পুরুষ কি স্ত্রী জানার দরকার নেই। হিন্দিতে একই প্রশ্নে লিঙ্গ জানতেই হবে - <span class="hi">कैसे</span> (পুরুষ) না <span class="hi">कैसी</span> (স্ত্রী)। প্রথমে কঠিন লাগবে, কিন্তু অভ্যাসে হয়ে যাবে। চোখে দেখার সাথে সাথে লিঙ্গ মাথায় চিপ করো।</div>
 
     <h3><span class="num">৮.৪</span>"খেয়েছ?" - বাংলার খাবার-অভিবাদন</h3>
     <p>বাংলায় বাড়িতে ঢুকলে প্রথম প্রশ্ন - "খেয়েছ?" / "ভাত খেয়েছ?"। হিন্দিতেও <span class="hi">खाना खाया?</span> (khānā khāyā? "খাবার খেয়েছ?") বলা হয়, কিন্তু ততটা সার্বজনীন নয় - দক্ষিণ বা পূর্ব ভারতের মতো এটা সবসময়ের অভিবাদন নয়। দিল্লিতে বরং <span class="hi">कैसे हो?</span>-ই বেশি।</p>
 
-    <div class="sentence">
-      <div class="hi">खाना खाया?</div>
+    <div class="sentence" data-say="खाना खाया?">
+      <div class="hi" lang="hi">खाना खाया?</div>
+      <div class="pron">খানা খায়া?</div>
       <div class="trans">khānā khāyā?</div>
-      <div class="bn-gloss">খাওয়া হয়েছে? / খেয়েছ?</div>
-    </div>
+      <div class="bn-gloss">খাওয়া হয়েছে? / খেয়েছ?</div></div>
 
     <h3><span class="num">৮.৫</span>নরম-করনেওয়ালা শব্দ: <span class="hi">ज़रा</span></h3>
     <p>বাংলায় "একটু" দিয়ে অনুরোধ নরম করো - "একটু শুনবেন?", "একটু দেখবেন?"। হিন্দিতে সেই কাজ করে <span class="hi">ज़रा</span> (জরা) - "এক চিমটি", "একটু"।</p>
-    <div class="sentence">
-      <div class="hi">ज़रा सुनिए।</div>
+    <div class="sentence" data-say="ज़रा सुनिए।">
+      <div class="hi" lang="hi">ज़रा सुनिए।</div>
+      <div class="pron">জ়রা সুনিয়ে।</div>
       <div class="trans">zarā suniye.</div>
-      <div class="bn-gloss">একটু শুনবেন।</div>
-    </div>
-    <div class="sentence">
-      <div class="hi">ज़रा पानी दीजिए।</div>
+      <div class="bn-gloss">একটু শুনবেন।</div></div>
+    <div class="sentence" data-say="ज़रा पानी दीजिए।">
+      <div class="hi" lang="hi">ज़रा पानी दीजिए।</div>
+      <div class="pron">জ়রা পানী দীজিয়ে।</div>
       <div class="trans">zarā pānī dījiye.</div>
-      <div class="bn-gloss">একটু পানি দেবেন।</div>
-    </div>
+      <div class="bn-gloss">একটু পানি দেবেন।</div></div>
 
     <div class="aside"><strong>"-ইয়ে" - বাংলার "-ুন"-এর ভাই।</strong> বাংলায় সম্মানজনক অনুরোধ "দেখুন, শুনুন, আসুন" - শেষে '-ুন'। হিন্দিতে "<span class="hi">दीजिए, सुनिए, आइए</span>" - শেষে <span class="hi">-िए</span>। ধ্বনিও কাছাকাছি, ভূমিকাও এক।</div>
 
     <h3><span class="num">৮.৬</span>অচেনাকে ডাকা</h3>
     <div class="words">
-      <div class="word"><span class="hi">भैया / भाई साहब</span><span class="bn-eq">দাদা / ভাই</span><span class="trans">bhaiyā / bhāī sāhab</span><span class="note">বড় পুরুষকে (দোকানদার, চালক, পথিক)</span></div>
-      <div class="word"><span class="hi">दीदी / बहनजी</span><span class="bn-eq">দিদি</span><span class="trans">dīdī / bahanjī</span><span class="note">বড় স্ত্রীলোককে</span></div>
-      <div class="word"><span class="hi">अंकल / बाबा</span><span class="bn-eq">কাকু / দাদু</span><span class="trans">ankal / bābā</span><span class="note">বয়স্ক পুরুষকে</span></div>
-      <div class="word"><span class="hi">आंटी / अम्माजी</span><span class="bn-eq">আন্টি / দিদিমা</span><span class="trans">āntī / ammājī</span><span class="note">বয়স্ক স্ত্রীলোককে</span></div>
-      <div class="word"><span class="hi">बेटा</span><span class="bn-eq">বাবা / সোনা (ছোটদের)</span><span class="trans">beṭā</span><span class="note">ছেলে/মেয়ে ছোটকে - বাংলা "বাবা" (নাতিকে) বলার মতো</span></div>
-    </div>
+      <div class="word" data-say="भैया"><span class="hi">भैया / भाई साहब</span><span class="bn-eq">দাদা / ভাই</span><span class="pron">ভৈয়া / ভাঈ সাহব্</span><span class="trans">bhaiyā / bhāī sāhab</span><span class="note">বড় পুরুষকে (দোকানদার, চালক, পথিক)</span></div>
+      <div class="word" data-say="दीदी"><span class="hi">दीदी / बहनजी</span><span class="bn-eq">দিদি</span><span class="pron">দীদী / বহন্‌জী</span><span class="trans">dīdī / bahanjī</span><span class="note">বড় স্ত্রীলোককে</span></div>
+      <div class="word" data-say="अंकल"><span class="hi">अंकल / बाबा</span><span class="bn-eq">কাকু / দাদু</span><span class="pron">অংকল্ / বাবা</span><span class="trans">ankal / bābā</span><span class="note">বয়স্ক পুরুষকে</span></div>
+      <div class="word" data-say="आंटी"><span class="hi">आंटी / अम्माजी</span><span class="bn-eq">আন্টি / দিদিমা</span><span class="pron">আংটী / অম্মাজী</span><span class="trans">āntī / ammājī</span><span class="note">বয়স্ক স্ত্রীলোককে</span></div>
+      <div class="word" data-say="बेटा"><span class="hi">बेटा</span><span class="bn-eq">বাবা / সোনা (ছোটদের)</span><span class="pron">বেটা</span><span class="trans">beṭā</span><span class="note">ছেলে/মেয়ে ছোটকে - বাংলা "বাবা" (নাতিকে) বলার মতো</span></div>
+      </div>
 
     <div class="aside"><strong>"ভাইয়া" - অপরিচিতের ছোট ভাই।</strong> হিন্দিবলয়ে অচেনা পুরুষকে <span class="hi">भैया</span> বলা সাধারণ - রিকশাওয়ালা, দোকানদার, পথিক। বাংলায় "দাদা" ঠিক সেই ভূমিকায় - "ও দাদা, একটু শুনবেন?"। দুই ভাষাই আত্মীয়তার ভাষা দিয়ে অপরিচিতকে কাছে আনে।</div>
+<div class="anchor"><span class="anchor-tag">তোমার জগৎ থেকে</span> <strong>দিল্লির চিত্তরঞ্জন পার্ক - যেখানে রোজ "দাদা" আর <span class="hi">भैया</span> পাশাপাশি বাজে।</strong> ১৯৫৪ সালে পূর্ববঙ্গ থেকে আসা উদ্বাস্তুদের একটি সংগঠন তৈরি হয়; ষাটের দশকে দক্ষিণ-পূর্ব দিল্লির একটি পাথুরে জমিতে তাঁদের ২,১৪৭টি প্লট বণ্টন করা হয়। কলোনির নাম ছিল "ইপিডিপি কলোনি" - পূর্ব পাকিস্তান থেকে বাস্তুচ্যুতদের কলোনি। আশির দশকে নাম বদলে হয় দেশবন্ধু চিত্তরঞ্জন দাশের নামে। আজ সেখানে মাছের বাজার, কলকাতা-ধাঁচের রাস্তার খাবার, মন্দির, আর বিখ্যাত দুর্গাপুজো - বি-ব্লক, কালীমন্দির, মেলা গ্রাউন্ড - পশ্চিমবঙ্গ ও বাংলাদেশ থেকে আসা শিল্পীদের অনুষ্ঠান নিয়ে। ওই পাড়ায় দাঁড়িয়েই এই ধাপের নিয়মটা কানে ঢোকে: পাড়ার লোককে "দাদা", রিকশাওয়ালাকে <span class="hi">भैया</span> - একই ভদ্রতা, দুই ভাষায়।</div>
+    <div class="passage" data-stage="8">
+      <h3><span class="num">৮.৭</span>পড়ো - রাস্তায় পাঁচটি কথা</h3>
+      <p>পাঁচটি ছোট কথা, যা দিল্লির যে-কোনো দিনে কাজে লাগবে। প্রতিটির শুরুতে একটা সম্বোধন - সেটাই এই ধাপের মূল কথা।</p>
+      <div class="sentence" data-say="भैया, ज़रा पानी दीजिए। दीदी, आप कैसी हैं? अंकल, आप कहाँ रहते हैं? बेटा, यह तुम्हारी किताब है? माफ़ कीजिए, आंटी - मैं अभी जाता हूँ।">
+        <div class="hi" lang="hi">भैया, ज़रा पानी दीजिए।<br/>दीदी, आप कैसी हैं?<br/>अंकल, आप कहाँ रहते हैं?<br/>बेटा, यह तुम्हारी किताब है?<br/>माफ़ कीजिए, आंटी - मैं अभी जाता हूँ।</div>
+        <div class="pron">ভৈয়া, জ়রা পানী দীজিয়ে।<br/>দীদী, আপ্ কৈসী হৈঁ?<br/>অংকল্, আপ্ কহাঁ রহ্‌তে হৈঁ?<br/>বেটা, য়হ্ তুম্হারী কিতাব্ হৈ?<br/>মাফ় কীজিয়ে, আংটী - মৈঁ অভী জাতা হূঁ।</div>
+        <div class="bn-gloss">ভাই, একটু জল দেবেন।<br/>দিদি, আপনি কেমন আছেন?<br/>কাকু, আপনি কোথায় থাকেন?<br/>খোকা, এটা কি তোমার বই?<br/>মাফ করবেন, আন্টি - আমি এক্ষুনি যাচ্ছি।</div>
+        <div class="literal">লক্ষ্য করো: পাঁচটির একটিও আত্মীয় নয়, তবু পাঁচটিতেই আত্মীয়তার শব্দ - <span class="hi">भैया, दीदी, अंकल, बेटा, आंटी</span>। বাংলাও ঠিক এই কাজ করে: ও দাদা, ও দিদি, কাকু। আর <span class="hi">कैसी</span> - মহিলাকে বলে বলে <span class="hi">कैसे</span> নয়; বাংলায় এই হিসেব রাখতে হয় না।</div>
+      </div>
+    </div>
+    <div class="check" data-check="8">
+      <div class="check-title">নিজেকে যাচাই করো</div>
+      <p class="check-lede">আগে ভাবো, তারপর চাপো। সবকিছু এই ধাপ বা তার আগের ধাপ থেকেই।</p>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">দিল্লির রাস্তায় অচেনা কাউকে কী বলে শুরু করবে?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">तू</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">आप</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - সন্দেহ হলে সবসময় आप।" data-no="✗ না - तू অপরিচিতকে বলা বাংলায় ‘তুই’ বলার মতোই - ঝগড়ার শুরু।"></div>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt">‘একটু শুনবেন’ হিন্দিতে কীভাবে বলবে?</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">ज़रा सुनिए।</span> - <span class="hi">ज़रा</span> বাংলার ‘একটু’-র কাজটাই করে, আর <span class="hi">-िए</span> বাংলার ‘-ুন’।</div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt"><span class="hi">आप कैसे हैं?</span> · কোনো মহিলাকে: <span class="hi">आप </span><span class="gap" data-answer="कैसी">___</span><span class="hi"> हैं?</span></div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-choice" data-answer="a">
+        <div class="q-prompt">দোকানদারকে ডাকবে কোন শব্দে?</div>
+        <button class="q-opt" type="button" data-opt="a"><span class="hi">भैया</span></button>
+        <button class="q-opt" type="button" data-opt="b"><span class="hi">बेटा</span></button>
+        <div class="q-feedback" data-ok="✓ ঠিক - বাংলার ‘ও দাদা’-র ঠিক সমান। बेटा বলা হয় নিজের চেয়ে ছোটকে।" data-no="✗ না - बेटा ছোটদের জন্য। বড় পুরুষকে भैया বা भाई साहब।"></div>
+      </div>
+      <div class="q q-reveal">
+        <div class="q-prompt">‘ক্ষমা করবেন’ আর ‘অনুগ্রহ করে’ - হিন্দিতে?</div>
+        <button class="q-btn" type="button">দেখাও</button>
+        <div class="q-answer"><span class="hi">माफ़ कीजिए</span> আর <span class="hi">कृपया</span>। প্রথমটি ফার্সি ‘মাফ়’, দ্বিতীয়টি তৎসম ‘কৃপয়া’ - বাংলাতেও দুটোই চালু।</div>
+      </div>
+      <div class="q q-gap">
+        <div class="q-prompt">হিন্দু ধাঁচে <span class="hi">नमस्ते</span>, মুসলিম ধাঁচে <span class="gap" data-answer="आदाब">___</span> - কপালে হাত।</div>
+        <button class="q-btn" type="button">ভরো</button>
+      </div>
+      <div class="q q-choice" data-answer="b">
+        <div class="q-prompt">‘খেয়েছ?’ বলে অভিবাদন - হিন্দিবলয়ে কেমন চলে?</div>
+        <button class="q-opt" type="button" data-opt="a">বাংলার মতোই সবসময়ের অভিবাদন</button>
+        <button class="q-opt" type="button" data-opt="b">বলা হয়, তবে ততটা সার্বজনীন নয়</button>
+        <div class="q-feedback" data-ok="✓ ঠিক - खाना खाया? বলা হয়, কিন্তু দিল্লিতে कैसे हो?-ই বেশি চলে।" data-no="✗ না - এটা বাংলার নিজস্ব অভ্যাস। হিন্দিতে আছে, কিন্তু ততটা সব জায়গায় নয়।"></div>
+      </div>
+      <button class="check-done" type="button">হয়ে গেছে ✓</button>
+    </div>
+
   </div>
 </section>
 
@@ -1432,37 +2056,37 @@
   <div class="stage-body">
 
     <h3><span class="num">৯.১</span>ভক্তি-কবিতা - কবীর ও লালন</h3>
-    <div class="passage">
-      <div class="hi">कस्तूरी कुंडल बसै, मृग ढूँढै बन माहिं।<br/>ऐसे घट घट राम हैं, दुनिया देखै नाहिं॥</div>
+    <div class="passage" data-say="कस्तूरी कुंडल बसै, मृग ढूँढै बन माहिं। ऐसे घट घट राम हैं, दुनिया देखै नाहिं॥">
+      <div class="hi" lang="hi">कस्तूरी कुंडल बसै, मृग ढूँढै बन माहिं।<br/>ऐसे घट घट राम हैं, दुनिया देखै नाहिं॥</div>
+      <div class="pron">কস্তূরী কুংডল্ বসৈ, মৃগ্ ঢূঁঢৈ বন্ মাহিঁ।<br/>ঐসে ঘট্ ঘট্ রাম্ হৈঁ, দুনিয়া দেখৈ নাহিঁ॥</div>
       <div class="trans">kastūrī kunḍal basai, mṛg ḍhū̃ḍhai ban māhĩ.<br/>aise ghaṭ ghaṭ rām haĩ, duniyā dekhai nāhĩ.</div>
       <div class="bn-gloss">কস্তুরী হরিণের নাভিতে বসত - হরিণ তবু বনে খুঁজে বেড়ায়। তেমনই প্রতিটি হৃদয়ে রাম, তবু দুনিয়া তাঁকে দেখে না।</div>
-      <div class="attrib">কবীর · ১৫শ শতক</div>
-    </div>
+      <div class="attrib">কবীর · ১৫শ শতক</div></div>
     <p><strong>সেতু - লালন ফকির।</strong> কবীর তাঁত বুনতেন, হিন্দু-মুসলিম দুই প্রাতিষ্ঠানিক ধর্মকেই চ্যালেঞ্জ জানিয়েছেন, জনতার ভাষায় লিখেছেন। বাংলার লালন ফকির সেই একই পথের পথিক - "খাঁচার ভিতর অচিন পাখি", "মিলন হবে কত দিনে" - একই প্রশ্ন, একই প্রাতিষ্ঠান-বিরোধ, একই মাটির ভাষা। কবীর পড়তে জানলে লালন ভালো বোঝো, লালন চিনলে কবীর অচেনা নয়।</p>
 
     <h3><span class="num">৯.২</span>উপন্যাস - প্রেমচন্দ ও শরৎচন্দ্র</h3>
-    <div class="passage">
-      <div class="hi">होरी के जीवन में इतनी कठिनाइयाँ थीं, फिर भी वह कभी निराश नहीं हुआ। गाय का सपना उसकी आँखों में हमेशा बना रहा।</div>
+    <div class="passage" data-say="होरी के जीवन में इतनी कठिनाइयाँ थीं, फिर भी वह कभी निराश नहीं हुआ। गाय का सपना उसकी आँखों में हमेशा बना रहा।">
+      <div class="hi" lang="hi">होरी के जीवन में इतनी कठिनाइयाँ थीं, फिर भी वह कभी निराश नहीं हुआ। गाय का सपना उसकी आँखों में हमेशा बना रहा।</div>
+      <div class="pron">হোরী কে জীবন্ মেঁ ইতনী কঠিনাইয়াঁ থীঁ, ফির্ ভী বহ্ কভী নিরাশ্ নহীঁ হুআ। গায় কা সপনা উসকী আঁখোঁ মেঁ হমেশা বনা রহা।</div>
       <div class="trans">horī ke jīvan mẽ itnī kaṭhināiyā̃ thī̃, phir bhī vah kabhī nirāś nahī̃ huā. gāy kā sapnā uskī ā̃khõ mẽ hameśā banā rahā.</div>
       <div class="bn-gloss">হোরির জীবনে এত কষ্ট ছিল, তবু সে কখনো হতাশ হয়নি। গরুর স্বপ্ন তার চোখে সারাজীবন লেগে ছিল।</div>
-      <div class="attrib">প্রেমচন্দ · "গোদান" থেকে · ১৯৩৬</div>
-    </div>
+      <div class="attrib">প্রেমচন্দ · "গোদান" থেকে · ১৯৩৬</div></div>
     <p><strong>সেতু - শরৎচন্দ্র চট্টোপাধ্যায়।</strong> প্রেমচন্দ-কে বলা হয় হিন্দি উপন্যাসের জনক - তাঁর "গোদান"-এ (১৯৩৬) দেখানো হয়েছে চাষি হোরির দারিদ্র্য, ঋণ, সম্মানের লড়াই। ঠিক সেই বছরগুলিতেই বাংলায় শরৎচন্দ্র লিখছিলেন "পল্লী-সমাজ", "পথের দাবী", "পণ্ডিত মশাই" - গ্রামের মানুষের বেদনা, নারীর অবস্থা, গরিবের অসম্মান। দুজনেই নিম্নবর্ণ-নিম্নবিত্তের জন্য কলম ধরেছিলেন, দুজনেই নীচের দিকে চোখ রেখে ভারতকে দেখেছেন।</p>
 
     <h3><span class="num">৯.৩</span>আধুনিক কবিতা - নিরালা ও জীবনানন্দ</h3>
-    <div class="passage">
-      <div class="hi">वह तोड़ती पत्थर -<br/>देखा मैंने उसे इलाहाबाद के पथ पर।<br/>कोई न छायादार वृक्ष, वह जिसके तले बैठी हुई स्वीकार -<br/>श्याम तन, भर बँधा यौवन, नत नयन, प्रिय-कर्म-रत मन।</div>
+    <div class="passage" data-say="वह तोड़ती पत्थर - देखा मैंने उसे इलाहाबाद के पथ पर। कोई न छायादार वृक्ष, वह जिसके तले बैठी हुई स्वीकार - श्याम तन, भर बँधा यौवन, नत नयन, प्रिय-कर्म-रत मन।">
+      <div class="hi" lang="hi">वह तोड़ती पत्थर -<br/>देखा मैंने उसे इलाहाबाद के पथ पर।<br/>कोई न छायादार वृक्ष, वह जिसके तले बैठी हुई स्वीकार -<br/>श्याम तन, भर बँधा यौवन, नत नयन, प्रिय-कर्म-रत मन।</div>
+      <div class="pron">বহ্ তোড়তী পত্থর্ -<br/>দেখা মৈঁনে উসে ইলাহাবাদ্ কে পথ্ পর্।<br/>কোঈ ন ছায়াদার্ বৃক্ষ, বহ্ জিসকে তলে বৈঠী হুঈ স্বীকার্ -<br/>শ্যাম্ তন্, ভর্ বঁধা যৌবন্, নত্ নয়ন্, প্রিয়-কর্ম-রত্ মন্।</div>
       <div class="trans">vah toṛtī patthar - dekhā maĩne use ilāhābād ke path par. koī na chāyādār vṛkṣ, vah jiske tale baiṭhī huī svīkār - śyām tan, bhar bã̄dhā yauvan, nat nayan, priya-karma-rat man.</div>
       <div class="bn-gloss">সে পাথর ভাঙছিল - দেখলাম আমি তাকে এলাহাবাদের রাস্তায়। কোনো ছায়া নেই, তবু বসে আছে, বসে নিয়েছে নিজের নিয়তিকে - শ্যামবর্ণ দেহ, যৌবনে বাঁধা, নত নয়ন, প্রিয় কাজে মগ্ন মন।</div>
-      <div class="attrib">নিরালা · "বহ তোড়তি পত্থর" · ১৯৩৫</div>
-    </div>
+      <div class="attrib">নিরালা · "বহ তোড়তী পত্থর" · রচনা আনুমানিক ১৯৩৫, সংকলিত "অনামিকা"-র দ্বিতীয় সংস্করণে</div></div>
     <p><strong>সেতু - জীবনানন্দ দাশ।</strong> সূর্যকান্ত ত্রিপাঠী 'নিরালা' ছিলেন হিন্দি কবিতার আধুনিকতার প্রবক্তা - ছন্দের নিয়ম ভেঙে, কঠিন বাস্তবকে দেখে, একলা লড়াই করেছেন। বাংলার জীবনানন্দ দাশও ঠিক সেই সময়ে কলকাতায় একা একা লিখছিলেন "বনলতা সেন", "রূপসী বাংলা" - প্রচলিত কবিতার বাইরে। দুজনেই নিঃসঙ্গ, দুজনেই দারিদ্র্যে, দুজনেই সমকাল তাঁদের পুরোপুরি চিনতে পারেনি। মৃত্যুর পরে নামডাক।</p>
 
     <h3><span class="num">৯.৪</span>মহাদেবী ভার্মা ও বেগম রোকেয়া</h3>
-    <p><strong>সেতু - রোকেয়া সাখাওয়াত হোসেন।</strong> মহাদেবী ভার্মা হিন্দি ছায়াবাদ যুগের চার প্রধান কবির একজন, নারীর আত্মার কণ্ঠস্বর, এবং শিক্ষাব্রতী। বাংলায় বেগম রোকেয়া ঠিক সেই কাজই করেছিলেন এক প্রজন্ম আগে - "সুলতানার স্বপ্ন"-এ নারী-শাসিত সমাজের ছবি এঁকেছিলেন, মেয়েদের স্কুল খুলেছিলেন। দুই নারী, দুই ভাষায়, একই আগুন।</p>
+    <p><strong>সেতু - রোকেয়া সাখাওয়াত হোসেন।</strong> মহাদেবী ভার্মা হিন্দি ছায়াবাদ যুগের চার প্রধান কবির একজন, নারীর আত্মার কণ্ঠস্বর, এবং শিক্ষাব্রতী। বাংলায় বেগম রোকেয়া ঠিক সেই কাজই করেছিলেন এক প্রজন্ম আগে - "সুলতানার স্বপ্ন" (১৯০৫) লিখেছিলেন মাদ্রাজের <em>ইন্ডিয়ান লেডিজ ম্যাগাজিন</em>-এ, ইংরেজিতে - পরে নিজেই সেটি বাংলায় অনুবাদ করেন - আর তাতে এঁকেছিলেন নারী-শাসিত সমাজের ছবি; মেয়েদের স্কুলও খুলেছিলেন। দুই নারী, দুই ভাষায়, একই আগুন।</p>
 
     <h3><span class="num">৯.৫</span>হরিবংশরায় বচ্চন ও কাজী নজরুল</h3>
-    <p><strong>সেতু - কাজী নজরুল ইসলাম।</strong> বচ্চন-এর "মধুশালা" (১৯৩৫) - মদের দোকান রূপকে গোটা জীবন, সব ধর্মের আড়াল সরিয়ে একত্ব। নজরুল-এর "বিদ্রোহী" (১৯২২), "সাম্যবাদী" - জাতি-ধর্ম-অসাম্যের বিরুদ্ধে আগুনের কলম। দুজনেই জনতার কবি, দুজনেই মঞ্চে পড়ার কবি, দুজনেই ধর্মের খোল ছাড়িয়ে মানুষকে দেখার কবি।</p>
+    <p><strong>সেতু - কাজী নজরুল ইসলাম।</strong> বচ্চন-এর "মধুশালা" (১৯৩৫) - মদের দোকান রূপকে গোটা জীবন, সব ধর্মের আড়াল সরিয়ে একত্ব। নজরুল-এর "বিদ্রোহী" (লেখা ১৯২১, ছাপা ১৯২২ সালের ৬ জানুয়ারি <em>বিজলী</em> পত্রিকায়), "সাম্যবাদী" - জাতি-ধর্ম-অসাম্যের বিরুদ্ধে আগুনের কলম। দুজনেই জনতার কবি, দুজনেই মঞ্চে পড়ার কবি, দুজনেই ধর্মের খোল ছাড়িয়ে মানুষকে দেখার কবি।</p>
 
     <h3><span class="num">৯.৬</span>মুনশি প্রেমচন্দের ভাষা-পরীক্ষা</h3>
     <p><strong>সেতু - বঙ্কিমচন্দ্র ও রবীন্দ্রনাথ।</strong> বঙ্কিমচন্দ্র বাংলা সাহিত্য-ভাষার পথ খুলে দিয়েছিলেন - সংস্কৃতকে ছেঁটে-মেজে কথ্য বাংলার কাছে এনেছিলেন। প্রেমচন্দ হিন্দিতে সেই কাজ করেছেন - উর্দু আর সংস্কৃত দুই প্রান্ত থেকে জনমানুষের হিন্দুস্তানিতে এনেছেন। রবীন্দ্রনাথ যেমন সাহিত্যিক বাংলা গঠন করেছেন, প্রেমচন্দ তেমনি আধুনিক হিন্দি গদ্য।</p>
@@ -1471,13 +2095,14 @@
     <p><strong>সেতু - বুদ্ধদেব বসু।</strong> সচ্চিদানন্দ হীরানন্দ বাৎস্যায়ন 'অগেয়' হিন্দিতে নতুন কবিতা আন্দোলনের (প্রয়োগ আন্দোলনের) পথিকৃৎ - বিদেশি প্রভাব আত্মস্থ করে, গদ্য-কবিতা চর্চা করে, 'তার সপ্তক' সংকলনে তরুণ কবিদের দাঁড় করিয়েছিলেন। বাংলায় বুদ্ধদেব বসু 'কবিতা' পত্রিকা চালিয়ে নতুন কবিদের তুলে এনেছেন, বিদেশি কবিতা অনুবাদ করেছেন, আধুনিকতার পতাকা বহন করেছেন। দুজনেই সম্পাদক-কবি, সেতু-মানুষ।</p>
 
     <div class="aside"><strong>শেষ কথা।</strong> হিন্দি শেখা মানে বাংলা ভুলে যাওয়া নয় - বরং বাংলা জানলে হিন্দি গভীরভাবে বোঝা। যখন প্রেমচন্দ পড়বে, শরৎচন্দ্র মনে পড়বে। যখন কবীর শুনবে, লালন কানে বাজবে। দুই ভাষা একসাথে থাকলে ভারতের দুই দিগন্ত একসাথে খোলে।</div>
+<div class="anchor"><span class="anchor-tag">তোমার জগৎ থেকে</span> <strong>রবীন্দ্রনাথের একটি বাংলা কবিতা থেকে হিন্দি সিনেমার একটি ক্লাসিক।</strong> বিমল রায়ের "দো বিঘা জমিন" (১৯৫৩) দাঁড়িয়ে আছে রবীন্দ্রনাথের কবিতা "দুই বিঘা জমি" আর সলিল চৌধুরীর গল্প "রিকশাওয়ালা"-র উপরে; সুর সলিল চৌধুরীর, গান শৈলেন্দ্রের, মুখ্য ভূমিকায় বলরাজ সাহনি। ১৯৫৪ সালের কান উৎসবে ছবিটি আন্তর্জাতিক পুরস্কার পায়, ফিল্মফেয়ারে শ্রেষ্ঠ ছবি ও শ্রেষ্ঠ পরিচালক। বাংলা কবিতা থেকে হিন্দি চিত্রনাট্য, হিন্দি চিত্রনাট্য থেকে পৃথিবীর পর্দা। এই কোর্সের শেষ কথাটাও তাই - হিন্দি শেখা মানে বাংলা ছেড়ে যাওয়া নয়, বাংলাকে আরও দূর পর্যন্ত নিয়ে যাওয়া।</div>
   </div>
 </section>
 
 <div class="progress">
-  <button id="prevBtn">← আগে</button>
+  <button id="prevBtn" disabled>← আগে</button>
   <div class="dots" id="dots"></div>
-  <button id="nextBtn">পরে →</button>
+  <button id="nextBtn" data-next="পরে →" data-last="শেষ">পরে →</button>
 </div>
 
 <footer class="colophon">
@@ -1493,70 +2118,150 @@
 </main>
 
 <script>
-(function() {
-  const tabs = document.querySelectorAll('.stage-tab');
-  const sections = document.querySelectorAll('section.stage');
+/* ═══════════════════ 4. STAGE ROUTER - JS (v2; replaces the v1 router) ═══════════════════
+   Hash routing (#s00…#sNN), saved stage, saved self-check completion, resume hint, tab scroll, keyboard arrows. */
+(function () {
+  const root = document.documentElement;
+  const PAIR = root.dataset.pair || 'course';
+  const KEY_STAGE = 'bhashasetu:' + PAIR + ':stage';
+  const KEY_DONE = 'bhashasetu:' + PAIR + ':done';
+  const tabs = Array.from(document.querySelectorAll('.stage-tab'));
+  const sections = Array.from(document.querySelectorAll('section.stage'));
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const dotsWrap = document.getElementById('dots');
   const scrollWrap = document.getElementById('stageScroll');
   const total = sections.length;
+  const NEXT = nextBtn.dataset.next || nextBtn.textContent;
+  const LAST = nextBtn.dataset.last || NEXT;
   let current = 0;
 
-  for (let i = 0; i < total; i++) {
-    const d = document.createElement('span');
-    d.className = 'dot';
-    dotsWrap.appendChild(d);
-  }
-  const dots = dotsWrap.querySelectorAll('.dot');
+  function load(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
+  function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  const done = new Set(load(KEY_DONE, []));
+  const pad = n => String(n).padStart(2, '0');
+  const fromHash = () => { const m = location.hash.match(/^#s(\d{1,2})$/); return m ? parseInt(m[1], 10) : null; };
 
-  function show(idx) {
+  for (let i = 0; i < total; i++) { const d = document.createElement('span'); d.className = 'dot'; dotsWrap.appendChild(d); }
+  const dots = dotsWrap.querySelectorAll('.dot');
+  function paintDots() { dots.forEach((d, i) => { d.classList.toggle('done', done.has(i)); d.classList.toggle('current', i === current); }); }
+
+  function show(idx, opts) {
+    opts = opts || {};
     current = Math.max(0, Math.min(total - 1, idx));
     tabs.forEach((t, i) => t.classList.toggle('active', i === current));
     sections.forEach((s, i) => s.classList.toggle('active', i === current));
-    dots.forEach((d, i) => {
-      d.classList.toggle('done', i < current);
-      d.classList.toggle('current', i === current);
-    });
+    paintDots();
     prevBtn.disabled = current === 0;
     nextBtn.disabled = current === total - 1;
-    nextBtn.textContent = current === total - 1 ? 'শেষ' : 'পরে →';
-
-    const activeTab = tabs[current];
-    if (activeTab && scrollWrap) {
-      const tabLeft = activeTab.offsetLeft;
-      const tabWidth = activeTab.offsetWidth;
-      const wrapWidth = scrollWrap.clientWidth;
-      scrollWrap.scrollTo({ left: tabLeft - wrapWidth / 2 + tabWidth / 2, behavior: 'smooth' });
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    nextBtn.textContent = current === total - 1 ? LAST : NEXT;
+    if (!opts.silent) history.replaceState(null, '', '#s' + pad(current));
+    save(KEY_STAGE, current);
+    const t = tabs[current];
+    if (t && scrollWrap) scrollWrap.scrollTo({ left: t.offsetLeft - scrollWrap.clientWidth / 2 + t.offsetWidth / 2, behavior: 'smooth' });
+    if (!opts.keepScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
   prevBtn.addEventListener('click', () => show(current - 1));
   nextBtn.addEventListener('click', () => show(current + 1));
-
   document.addEventListener('keydown', e => {
-    if (e.target.matches('input, textarea')) return;
+    if (e.target.matches('input, textarea, button')) return;
     if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
-    if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
   });
+  window.addEventListener('hashchange', () => { const h = fromHash(); if (h != null && h !== current) show(h, { silent: true }); });
+  document.addEventListener('bhashasetu:checkdone', e => { done.add(e.detail.stage); save(KEY_DONE, Array.from(done)); paintDots(); });
 
+  // Letter cards (v1 behaviour kept)
   document.querySelectorAll('.map-cell').forEach(card => {
     const hint = card.querySelector('.hint');
-    const hintText = card.dataset.hint;
-    if (hintText && hint) hint.textContent = hintText;
+    if (card.dataset.hint && hint) hint.textContent = card.dataset.hint;
     card.addEventListener('click', () => card.classList.toggle('expanded'));
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        card.classList.toggle('expanded');
-      }
-    });
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('expanded'); } });
   });
 
-  show(0);
+  // Resume hint on the first stage
+  const saved = load(KEY_STAGE, 0);
+  const hint = document.getElementById('resumeHint');
+  const h = fromHash();
+  if (hint && h == null && saved > 0 && saved < total) {
+    hint.hidden = false;
+    const n = hint.querySelector('[data-n]'); const num = tabs[saved] && tabs[saved].querySelector('.num');
+    if (n) n.textContent = num ? num.textContent : String(saved);
+    const a = hint.querySelector('a'); if (a) a.href = '#s' + pad(saved);
+  }
+  show(h != null ? h : 0, { silent: true, keepScroll: true });
 })();
+/* ═══════════════════ end 4 ═══════════════════ */
+
+/* ═══════════════════ 2. SELF-CHECK - JS (copy) ═══════════════════ */
+(function () {
+  const PAIR = document.documentElement.dataset.pair || 'course';
+  let doneList = []; try { doneList = JSON.parse(localStorage.getItem('bhashasetu:' + PAIR + ':done') || '[]'); } catch (e) {}
+  document.querySelectorAll('.check').forEach(box => {
+    const stage = parseInt(box.dataset.check, 10);
+    box.querySelectorAll('.q-reveal .q-btn').forEach(b => b.addEventListener('click', () => b.closest('.q').classList.add('open')));
+    box.querySelectorAll('.q-choice').forEach(q => {
+      const fb = q.querySelector('.q-feedback');
+      q.querySelectorAll('.q-opt').forEach(o => o.addEventListener('click', () => {
+        const ok = o.dataset.opt === q.dataset.answer;
+        q.classList.remove('ok', 'no'); q.classList.add(ok ? 'ok' : 'no');
+        q.querySelectorAll('.q-opt').forEach(x => x.classList.toggle('picked', x === o));
+        if (fb) fb.textContent = ok ? (fb.dataset.ok || '✓') : (fb.dataset.no || '✗');
+      }));
+    });
+    box.querySelectorAll('.q-gap').forEach(q => {
+      const b = q.querySelector('.q-btn');
+      b.addEventListener('click', () => { q.querySelectorAll('.gap').forEach(g => { g.textContent = g.dataset.answer; }); q.classList.add('open'); });
+    });
+    const doneBtn = box.querySelector('.check-done');
+    function markDone() { box.classList.add('done'); if (doneBtn) doneBtn.disabled = true; }
+    if (doneBtn) doneBtn.addEventListener('click', () => { markDone(); document.dispatchEvent(new CustomEvent('bhashasetu:checkdone', { detail: { stage } })); });
+    if (doneList.includes(stage)) markDone();
+  });
+})();
+/* ═══════════════════ end 2 ═══════════════════ */
+
+/* ═══════════════════ 3. SPEAK BUTTONS - JS (copy) ═══════════════════
+   Adds a speaker button to every [data-say] element. Prefers data-audio="clip.mp3" when present;
+   otherwise browser speech in data-target. Renders nothing when no voice and no clips exist. */
+(function () {
+  const root = document.documentElement;
+  const LANG = root.dataset.target || root.lang || 'hi-IN';
+  const LABEL = root.dataset.speakLabel || '🔊';
+  const els = Array.from(document.querySelectorAll('[data-say]'));
+  if (!els.length) return;
+  let voice = null, built = false;
+  function pick() {
+    if (!('speechSynthesis' in window)) return;
+    const vs = speechSynthesis.getVoices();
+    voice = vs.find(v => v.lang === LANG) || vs.find(v => v.lang.replace('_', '-').split('-')[0] === LANG.split('-')[0]) || null;
+  }
+  function say(el) {
+    const clip = el.dataset.audio;
+    if (clip) { new Audio(clip).play().catch(() => {}); return; }
+    if (!('speechSynthesis' in window)) return;
+    try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(el.dataset.say); u.lang = LANG; if (voice) u.voice = voice; u.rate = 0.85; speechSynthesis.speak(u); } catch (e) {}
+  }
+  function build() {
+    els.forEach(el => {
+      if (el.querySelector(':scope > .say-btn')) return;
+      if (!el.dataset.audio && !voice) return;
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'say-btn'; b.textContent = '🔊';
+      b.setAttribute('aria-label', LABEL); b.title = LABEL;
+      b.addEventListener('click', e => { e.stopPropagation(); say(el); });
+      b.addEventListener('keydown', e => e.stopPropagation());
+      el.appendChild(b);
+    });
+    built = true; root.classList.add('has-audio');
+  }
+  function maybeBuild() { pick(); if (!built && (voice || els.some(e => e.dataset.audio))) build(); }
+  if ('speechSynthesis' in window) speechSynthesis.addEventListener('voiceschanged', maybeBuild);
+  maybeBuild(); setTimeout(maybeBuild, 600);
+})();
+/* ═══════════════════ end 3 ═══════════════════ */
 </script>
 
 </body>

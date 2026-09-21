@@ -58,8 +58,46 @@ instructions (`.khata` blocks).
 
 ## 3. Modifications - documented now, attempt later
 
-### 3a. Rebuild existing v1 courses under the v2 brief
-All 57 courses carry `data-version="1"`. Rebuild order: thinnest first (they gain the most), strong ones last.
+### 3a. Convert existing v1 courses to the v2 brief
+
+58 courses carry `data-version="1"`. Conversion is cheaper than a rebuild where the v1
+prose is already good: keep the hand-written Bengali/Hindi/Tamil text, add the v2 layer.
+
+**What a conversion means, per course** (from `prompts/MASTER_BRIEF.md`):
+
+| # | Requirement |
+|---|---|
+| 1 | `data-version="2"`, `data-built`, `data-pair`, `data-target`, `data-speak-label`; meta tag; v2 badge |
+| 2 | Self-check at the end of every stage from 01 to the last before Literature, 5-8 items, 2+ formats |
+| 3 | Graded passage in every stage from 04 on, except the reading stage and Literature |
+| 4 | Vocabulary split: 04 function words and verbs, 07 semantic fields, 08 phrases only, no word twice |
+| 5 | Source-script transliteration primary, Roman secondary or dropped |
+| 6 | `data-say` on every card plus the speak script |
+| 7 | v2 router: hash routing, saved stage, saved completed checks, resume hint |
+| 8 | 8+ verified cultural anchors, one per stage where one exists |
+| 9 | 8+ false friends |
+| 10 | Numbers only with the working shown |
+| 11 | Sidecar `prompts/pair_knowledge/{pair}.json` |
+| 12 | `VERSIONS` entry in `index.html` bumped to v2 |
+| 13 | Passes `python3 prompts/check_course.py courses/{pair}.html` with no `--v1` |
+
+**Done**
+
+| Course | Corridor | Converted | Result |
+|---|---|---|---|
+| `bengali_to_hindi` | B (cross-script, same family) | 2026-09-21 | [x] 10 stages, 167 KB, 8 self-checks, 7 passages, 10 anchors, 183 `data-say`, 12 false friends. All six `.khata` blocks byte-identical. Checker PASS. |
+
+
+**Also fixed while converting `bengali_to_hindi`** (v1 content errors found by fact-checking):
+- Nirala's "Woh Todti Patthar" was dated 1935 without support; now hedged to composition c. 1935, collected in the second edition of *Anamika*
+- Begum Rokeya's *Sultana's Dream* was implied to be Bengali; it was written in English (1905, *Indian Ladies' Magazine*, Madras)
+- Nazrul's "Bidrohi" now carries both dates (written 1921, published January 1922)
+- Both YouTube embeds were dead `listType=search` URLs, which now need an API key; replaced with two oEmbed-verified IDs
+- Seven English words were sitting in learner-facing prose
+
+**Order for the rest.** Thinnest first, since they gain the most. Cross-family pairs
+(Indo-Aryan to Dravidian and back, 32 of the 56) should move to corridor C or D plans,
+12 or 11 stages, not the baseline 10.
 
 Tier 1 (under 800 lines, or off-structure):
 - [ ] `punjabi_to_telugu` (663) · [ ] `malayalam_to_tamil` (682) · [ ] `kannada_to_punjabi` (696) · [ ] `urdu_to_punjabi` (708)
@@ -68,13 +106,15 @@ Tier 1 (under 800 lines, or off-structure):
 - [ ] `malayalam_to_hindi` (795) · [ ] `urdu_to_bengali` (813) · [ ] `punjabi_to_hindi` (854) · [ ] `urdu_to_telugu` (877)
 - [ ] `punjabi_to_tamil` (1121, no `<h3>` sections)
 
-Tier 2 (800–1100 lines):
+Tier 2 (800-1100 lines):
 - [ ] `kannada_to_tamil` · [ ] `punjabi_to_malayalam` · [ ] `punjabi_to_urdu` · [ ] `kannada_to_urdu` · [ ] `urdu_to_hindi` · [ ] `urdu_to_kannada` · [ ] `punjabi_to_bengali` · [ ] `urdu_to_malayalam`
 
-Tier 3 (strong v1 courses; rebuild last, mostly to add v2 mechanics):
-- [ ] all Bengali-source (7) · [ ] all Hindi-source (7, plus `hindi_to_marathi`) · [ ] all Tamil-source (7) · [ ] all Telugu-source (7) · [ ] `punjabi_to_kannada` · [ ] `malayalam_to_urdu` · [ ] `kannada_to_bengali`
+Tier 3 (strong v1 courses; convert last, mostly to add the v2 mechanics):
+- [ ] remaining Bengali-source (6) · [ ] all Hindi-source (7, plus `hindi_to_marathi`) · [ ] all Tamil-source (7) · [ ] all Telugu-source (7) · [ ] `punjabi_to_kannada` · [ ] `malayalam_to_urdu` · [ ] `kannada_to_bengali`
 
-Cross-family v1 courses (Indo-Aryan↔Dravidian, 32 of the 56) should be rebuilt on corridor C or D plans (12 or 11 stages), not the baseline.
+**Two things learned converting the first one:**
+- Agent-written courses reintroduce em-dashes by default. The checker now fails on them; check after every conversion.
+- v1 courses carry their own bugs. `bengali_to_hindi` had a stray `</p>` that left `section` and `main` unclosed, and English "Stage 00" labels. Run the checker with `--v1` before converting to see what is pre-existing.
 
 ### 3b. Add cultural anchors to `hindi_to_marathi` (built before the anchors rule)
 - [ ] at least eight anchors; Sairat, Lata Mangeshkar, Natsamrat already in prose but not in anchor markup
