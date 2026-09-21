@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<title>শব্দ ২ - বাংলা থেকে হিন্দি হাতের লেখা</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  /* --- ruling geometry: change these to retune every sheet --- */
+  --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
+  --base:  19mm;       /* baseline - letters sit here            */
+  /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
+     (see calibrate_font.html). Fractions of the font size, from the baseline:
+       bare letter  shirorekha ....... 0.642 up
+       matras above (ि ी े ै) ........ 0.925 up
+       matras below (ु ू ृ) .......... 0.290 down
+     Only --head and --base are set by hand; everything else derives. */
+  --asc-ratio:  0.642;
+  --top-ratio:  0.283; /* 0.925 - 0.642: how far matras clear the headline */
+  --bot-ratio:  0.290;
+
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8;      /* solid ruling                           */
+  --line-soft:#c7d0da; /* dashed ruling                          */
+  --trace:#c9c9c9;     /* filled grey glyph, trace over it       */
+  --outline:#bdbdbd;   /* hollow outline glyph                   */
+  --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{
+  font-family:'Noto Serif Bengali','Noto Sans Bengali',serif;
+  color:var(--ink);
+  font-size:10pt;
+}
+.deva{ font-family:'Noto Serif Devanagari','Devanagari Sangam MN','Kohinoor Devanagari',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+/* ---------- page head ---------- */
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:22mm; line-height:0.95; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; color:var(--ink); }
+.ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); letter-spacing:.04em; }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-family:'JetBrains Mono',monospace; font-size:8pt; color:var(--faded); letter-spacing:.14em; }
+
+/* ---------- two-step shirorekha illustration ---------- */
+.steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm;
+       text-align:center; position:relative; }
+.step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
+.step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
+.step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
+.step .cap b{ color:var(--teal); }
+.steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
+.steps .note b{ color:var(--sindoor); }
+
+/* ---------- practice rows ---------- */
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm; display:flex;
+           justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+/* Only --head and --base differ between row types; the glyph size, the two
+   dashed guide lines and the row height all derive from them. */
+.row{ position:relative; margin-bottom:2.2mm;
+      --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
+      --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--bot-ratio) * var(--gs));
+      height: calc(var(--desc) + 1.5mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* The strut is an inline-block whose bottom edge sits on the text baseline,
+   so the baseline lands exactly on --base whatever the font's line metrics. */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; justify-content:flex-start; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
+
+/* word and sentence rows: tighter band so long strings fit the page width */
+.row.words{ --head:6.5mm; --base:14mm; }
+.row.words .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --head:5.5mm; --base:11.5mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); }
+.t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+/* vertical start ticks in blank rows */
+.row.blank .cells .c{ color:transparent; }
+.tick{ position:absolute; top:var(--head); height:calc(var(--base) - var(--head));
+       border-left:0.25mm dotted var(--line-soft); }
+
+/* ---------- cover ---------- */
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-family:'JetBrains Mono',monospace; font-size:9pt; letter-spacing:.3em;
+                text-transform:uppercase; color:var(--sindoor); }
+.cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
+.cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
+.rules{ text-align:left; max-width:150mm; margin:12mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.65; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:10mm auto 0; max-width:150mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:13mm; line-height:1.1; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+
+/* ---------- running footer ---------- */
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm;
+     font-size:8pt; color:var(--faded); }
+.pf .r{ font-family:'JetBrains Mono',monospace; letter-spacing:.1em; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">খাতা ৬</div>
+  <h1><span class="deva">शब्द</span>শব্দ ২</h1>
+  <p class="sub">কঠিন শব্দ। এখানে যুক্তাক্ষর (ক্ষ, জ্ঞ, ত্র, স্ত), নুক্তা (ড়, ঢ়, জ়, ফ়) আর লম্বা শব্দ। খাতা ৪ আর ৫ শেষ করে তবেই এখানে এসো।</p>
+  <div class="rules"><h2>লেখার আগে পাঁচটি কথা</h2><ol><li><b>শিরোরেখা সবার শেষে।</b> বাংলায় তুমি যেমন আগে অক্ষরের শরীর লেখো, তারপর মাথায় মাত্রা টানো - দেবনাগরীতেও ঠিক তাই। অভ্যাসটা তোমার আগে থেকেই আছে।</li><li><b>অক্ষর ঝোলে, বসে না।</b> মোটা উপরের রেখা থেকে অক্ষর <i>ঝুলে</i> থাকে, আর নিচের রেখায় পা রাখে। দুই রেখার মাঝখানটুকুই অক্ষরের শরীর।</li><li><b>উপরের-নিচের ছেঁড়া রেখা মাত্রার জন্য।</b> কি, কী, কে, কৈ উপরে যায়; কু, কূ, কৃ নিচে নামে। ওই দুটি ছেঁড়া রেখা তাদের সীমানা।</li><li><b>ধীরে। দিনে এক পাতা যথেষ্ট।</b> হাত শেখে পুনরাবৃত্তিতে, তাড়াহুড়োয় নয়। প্রতিটি সারি শেষ করে একবার জোরে উচ্চারণ করো।</li><li><b>পেনসিল দিয়ে শুরু করো।</b> ধূসর অক্ষরের উপর দিয়ে টানার সময় চাপ কম রাখো; ফাঁপা অক্ষরের ভেতরটা ভরার সময় প্রান্ত ছুঁয়ে থাকো।</li></ol></div>
+  <div class="legend"><h3>এই বইয়ে চার রকম লেখা</h3><div class="lg">
+        <div><span class="s deva t-model">क</span>নমুনা - দেখে নাও</div>
+        <div><span class="s deva t-trace">क</span>ধূসর - উপর দিয়ে টানো</div>
+        <div><span class="s deva t-out">क</span>ফাঁপা - ভেতরটা ভরো</div>
+        <div><span class="s deva t-faint">क</span>ক্ষীণ - প্রায় একা</div>
+        </div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>যুক্তাক্ষর - সংস্কৃত সেতু</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">01</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">पुस्तक</span> &nbsp; = &nbsp; <b>পুস্তক</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पुस्तक</span><span class="c deva t-trace"><i class="st"></i>पुस्तक</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">सत्य</span> &nbsp; = &nbsp; <b>সত্য</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>सत्य</span><span class="c deva t-trace"><i class="st"></i>सत्य</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">विद्या</span> &nbsp; = &nbsp; <b>বিদ্যা</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>विद्या</span><span class="c deva t-trace"><i class="st"></i>विद्या</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">शिक्षा</span> &nbsp; = &nbsp; <b>শিক্ষা</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>शिक्षा</span><span class="c deva t-trace"><i class="st"></i>शिक्षा</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 1</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>যুক্তাক্ষর - সংস্কৃত সেতু</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">02</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">ज्ञान</span> &nbsp; = &nbsp; <b>জ্ঞান</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज्ञान</span><span class="c deva t-trace"><i class="st"></i>ज्ञान</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मित्र</span> &nbsp; = &nbsp; <b>মিত্র</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मित्र</span><span class="c deva t-trace"><i class="st"></i>मित्र</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">चंद्र</span> &nbsp; = &nbsp; <b>চন্দ্র</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>चंद्र</span><span class="c deva t-trace"><i class="st"></i>चंद्र</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">शब्द</span> &nbsp; = &nbsp; <b>শব্দ</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>शब्द</span><span class="c deva t-trace"><i class="st"></i>शब्द</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 2</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>যুক্তাক্ষর - আরও</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">03</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">प्रेम</span> &nbsp; = &nbsp; <b>প্রেম</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>प्रेम</span><span class="c deva t-trace"><i class="st"></i>प्रेम</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">स्वप्न</span> &nbsp; = &nbsp; <b>স্বপ্ন</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>स्वप्न</span><span class="c deva t-trace"><i class="st"></i>स्वप्न</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">वस्त्र</span> &nbsp; = &nbsp; <b>বস্ত্র</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>वस्त्र</span><span class="c deva t-trace"><i class="st"></i>वस्त्र</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">धर्म</span> &nbsp; = &nbsp; <b>ধর্ম</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>धर्म</span><span class="c deva t-trace"><i class="st"></i>धर्म</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 3</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>যুক্তাক্ষর - আরও</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">04</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">कर्म</span> &nbsp; = &nbsp; <b>কর্ম</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कर्म</span><span class="c deva t-trace"><i class="st"></i>कर्म</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">पत्र</span> &nbsp; = &nbsp; <b>চিঠি</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पत्र</span><span class="c deva t-trace"><i class="st"></i>पत्र</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">कक्षा</span> &nbsp; = &nbsp; <b>শ্রেণি</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कक्षा</span><span class="c deva t-trace"><i class="st"></i>कक्षा</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">श्रम</span> &nbsp; = &nbsp; <b>শ্রম</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>श्रम</span><span class="c deva t-trace"><i class="st"></i>श्रम</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 4</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>নুক্তা - বাংলার ড় ঢ়</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">05</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">पढ़ना</span> &nbsp; = &nbsp; <b>পড়া</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पढ़ना</span><span class="c deva t-trace"><i class="st"></i>पढ़ना</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">बड़ा</span> &nbsp; = &nbsp; <b>বড়</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>बड़ा</span><span class="c deva t-trace"><i class="st"></i>बड़ा</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">पेड़</span> &nbsp; = &nbsp; <b>গাছ</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पेड़</span><span class="c deva t-trace"><i class="st"></i>पेड़</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">लड़का</span> &nbsp; = &nbsp; <b>ছেলে</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>लड़का</span><span class="c deva t-trace"><i class="st"></i>लड़का</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 5</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>নুক্তা - বাংলার ড় ঢ়</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">06</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">लड़की</span> &nbsp; = &nbsp; <b>মেয়ে</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>लड़की</span><span class="c deva t-trace"><i class="st"></i>लड़की</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">चढ़ना</span> &nbsp; = &nbsp; <b>চড়া</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>चढ़ना</span><span class="c deva t-trace"><i class="st"></i>चढ़ना</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">बढ़ना</span> &nbsp; = &nbsp; <b>বাড়া</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>बढ़ना</span><span class="c deva t-trace"><i class="st"></i>बढ़ना</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 6</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>নুক্তা - ফার্সি ধ্বনি</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">07</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">ज़मीन</span> &nbsp; = &nbsp; <b>জমি</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज़मीन</span><span class="c deva t-trace"><i class="st"></i>ज़मीन</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">ज़रूर</span> &nbsp; = &nbsp; <b>অবশ্যই</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज़रूर</span><span class="c deva t-trace"><i class="st"></i>ज़रूर</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">फ़ोन</span> &nbsp; = &nbsp; <b>ফোন</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>फ़ोन</span><span class="c deva t-trace"><i class="st"></i>फ़ोन</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">क़ानून</span> &nbsp; = &nbsp; <b>আইন</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>क़ानून</span><span class="c deva t-trace"><i class="st"></i>क़ानून</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 7</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>নুক্তা - ফার্সি ধ্বনি</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">08</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">ग़ज़ल</span> &nbsp; = &nbsp; <b>গজল</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ग़ज़ल</span><span class="c deva t-trace"><i class="st"></i>ग़ज़ल</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">बाज़ार</span> &nbsp; = &nbsp; <b>বাজার</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>बाज़ार</span><span class="c deva t-trace"><i class="st"></i>बाज़ार</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मेज़</span> &nbsp; = &nbsp; <b>টেবিল</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मेज़</span><span class="c deva t-trace"><i class="st"></i>मेज़</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 8</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ফার্সি-আরবি শব্দ</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">09</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">किताब</span> &nbsp; = &nbsp; <b>বই</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>किताब</span><span class="c deva t-trace"><i class="st"></i>किताब</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">कमरा</span> &nbsp; = &nbsp; <b>ঘর / কামরা</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कमरा</span><span class="c deva t-trace"><i class="st"></i>कमरा</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">दुकान</span> &nbsp; = &nbsp; <b>দোকান</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>दुकान</span><span class="c deva t-trace"><i class="st"></i>दुकान</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">कुर्सी</span> &nbsp; = &nbsp; <b>চেয়ার</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कुर्सी</span><span class="c deva t-trace"><i class="st"></i>कुर्सी</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 9</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ফার্সি-আরবি শব্দ</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">10</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">कपड़ा</span> &nbsp; = &nbsp; <b>কাপড়</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कपड़ा</span><span class="c deva t-trace"><i class="st"></i>कपड़ा</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">दोस्त</span> &nbsp; = &nbsp; <b>বন্ধু</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>दोस्त</span><span class="c deva t-trace"><i class="st"></i>दोस्त</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">हिसाब</span> &nbsp; = &nbsp; <b>হিসাব</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>हिसाब</span><span class="c deva t-trace"><i class="st"></i>हिसाब</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 10</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>দীর্ঘ শব্দ</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">11</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">नमस्ते</span> &nbsp; = &nbsp; <b>নমস্কার</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>नमस्ते</span><span class="c deva t-trace"><i class="st"></i>नमस्ते</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">धन्यवाद</span> &nbsp; = &nbsp; <b>ধন্যবাদ</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>धन्यवाद</span><span class="c deva t-trace"><i class="st"></i>धन्यवाद</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">विद्यालय</span> &nbsp; = &nbsp; <b>বিদ্যালয়</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>विद्यालय</span><span class="c deva t-trace"><i class="st"></i>विद्यालय</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">अस्पताल</span> &nbsp; = &nbsp; <b>হাসপাতাল</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>अस्पताल</span><span class="c deva t-trace"><i class="st"></i>अस्पताल</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 11</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>দীর্ঘ শব্দ</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">12</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">विद्यार्थी</span> &nbsp; = &nbsp; <b>বিদ্যার্থী</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>विद्यार्थी</span><span class="c deva t-trace"><i class="st"></i>विद्यार्थी</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">समाचार</span> &nbsp; = &nbsp; <b>সংবাদ</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>समाचार</span><span class="c deva t-trace"><i class="st"></i>समाचार</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">स्वतंत्रता</span> &nbsp; = &nbsp; <b>স্বাধীনতা</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>स्वतंत्रता</span><span class="c deva t-trace"><i class="st"></i>स्वतंत्रता</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 12</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>কঠিন ক্রিয়া</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">13</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">समझना</span> &nbsp; = &nbsp; <b>বোঝা</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>समझना</span><span class="c deva t-trace"><i class="st"></i>समझना</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">सीखना</span> &nbsp; = &nbsp; <b>শেখা</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>सीखना</span><span class="c deva t-trace"><i class="st"></i>सीखना</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">पहुँचना</span> &nbsp; = &nbsp; <b>পৌঁছানো</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पहुँचना</span><span class="c deva t-trace"><i class="st"></i>पहुँचना</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">छोड़ना</span> &nbsp; = &nbsp; <b>ছাড়া</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>छोड़ना</span><span class="c deva t-trace"><i class="st"></i>छोड़ना</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 13</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>কঠিন ক্রিয়া</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">14</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">खरीदना</span> &nbsp; = &nbsp; <b>কেনা</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>खरीदना</span><span class="c deva t-trace"><i class="st"></i>खरीदना</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">बेचना</span> &nbsp; = &nbsp; <b>বেচা</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>बेचना</span><span class="c deva t-trace"><i class="st"></i>बेचना</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मिलना</span> &nbsp; = &nbsp; <b>দেখা করা</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मिलना</span><span class="c deva t-trace"><i class="st"></i>मिलना</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 14</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ভাব ও গুণ</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">15</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">सुंदर</span> &nbsp; = &nbsp; <b>সুন্দর</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>सुंदर</span><span class="c deva t-trace"><i class="st"></i>सुंदर</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">लंबा</span> &nbsp; = &nbsp; <b>লম্বা</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>लंबा</span><span class="c deva t-trace"><i class="st"></i>लंबा</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मुश्किल</span> &nbsp; = &nbsp; <b>কঠিন</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मुश्किल</span><span class="c deva t-trace"><i class="st"></i>मुश्किल</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">आसान</span> &nbsp; = &nbsp; <b>সহজ</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>आसान</span><span class="c deva t-trace"><i class="st"></i>आसान</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 15</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ভাব ও গুণ</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">16</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">ज़रूरी</span> &nbsp; = &nbsp; <b>দরকারি</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज़रूरी</span><span class="c deva t-trace"><i class="st"></i>ज़रूरी</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">खुश</span> &nbsp; = &nbsp; <b>খুশি</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>खुश</span><span class="c deva t-trace"><i class="st"></i>खुश</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">दुखी</span> &nbsp; = &nbsp; <b>দুঃখী</b></span><span>শুরুটা দেওয়া আছে</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>दुखी</span><span class="c deva t-trace"><i class="st"></i>दुखी</span></div>
+</div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৬ · শব্দ ২</span><span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; 16</span></div>
+</div>
+</body>
+</html>
