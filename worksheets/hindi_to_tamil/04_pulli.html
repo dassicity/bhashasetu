@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>पुल्लि - हिन्दी से तमिल</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --base: 18mm;        /* the baseline - letters SIT on this */
+  --body: 0.497;      /* letter height above baseline, as a fraction of size */
+  --top:  0.81;       /* how far signs above reach */
+  --bot:  0.28;       /* how far signs below reach */
+  --gs:   20.12mm;        /* practice font size, derived so body = 10mm */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Devanagari',serif; color:var(--ink); font-size:10pt; }
+.tg{ font-family:'Noto Serif Tamil',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:20mm; line-height:1.35; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; } .ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.note{ font-size:9.5pt; line-height:1.65; margin:0 0 3mm; padding:2mm 3mm;
+       background:rgba(31,77,74,0.06); border-left:2mm solid var(--teal); }
+.note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --asc:  calc(var(--base) - var(--top) * var(--gs));
+      --bodyline: calc(var(--base) - var(--body) * var(--gs));
+      --desc: calc(var(--base) + var(--bot) * var(--gs));
+      height: calc(var(--desc) + 2mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);      border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--bodyline); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base);     border-top:0.45mm solid var(--line); }
+.ln.d{ top:var(--desc);     border-top:0.25mm dashed var(--line-soft); }
+/* strut pins the text baseline to --base whatever the font's line metrics */
+.row .cells{ position:absolute; left:0; right:0; top:0; display:flex; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-family:'Noto Serif Tamil',serif; font-size:var(--gs); line-height:0;
+         flex:0 0 auto; width:24mm; text-align:center; }
+.row.wide{ --base:14mm; --gs:15.69mm; }
+.row.wide .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --base:12mm; --gs:12.47mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:28pt; margin:6mm 0 2mm; line-height:1.3; }
+.cover h1 .tg{ display:block; font-size:32pt; margin-bottom:4mm; line-height:1.5; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:140mm; margin:0 auto; line-height:1.75; }
+.rules{ text-align:left; max-width:152mm; margin:11mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.7; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:9mm auto 0; max-width:152mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:12mm; line-height:1.4; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">कॉपी ४</div>
+  <h1><span class="tg">புள்ளி</span>पुल्लि</h1>
+  <p class="sub">पुल्लि वह बिंदु है जो व्यंजन के भीतर बैठे 'अ' को मार देता है - यानी ठीक वही काम जो हलन्त का है। इस कॉपी में आप वही बिंदु बार-बार बनाएँगे, और साथ में वे जोड़ भी जो तमिल में सबसे ज़्यादा मिलते हैं।</p>
+  <div class="rules"><h2>काग़ज़ पर लिखने के पाँच नियम</h2><ol><li><b>शिरोरेखा नहीं है।</b> देवनागरी लिखते वक़्त आपका हाथ ऊपर की लकीर से शुरू होता है और अक्षर उससे लटकते हैं; तमिल में क़लम नीचे की लकीर से शुरू होती है और अक्षर उस पर बैठते हैं। कॉपी की ऊपरवाली मोटी लकीर <b>मात्रा नहीं</b> है - वह सिर्फ़ ऊँचाई का नाप है।</li><li><b>चिह्न पहले, या दोनों तरफ़।</b> ெ ே ை अक्षर के <b>पहले</b> बैठते हैं और ொ ோ ௌ अक्षर के <b>दोनों तरफ़</b> फैलते हैं। पहलेवाली आदत आपकी पुरानी है - देवनागरी की ि भी पहले छपती है और बोली बाद में जाती है, और ो बाद में लगती है। दोनों तरफ़ फैलना ही अकेली नई बात है।</li><li><b>संयुक्ताक्षर हैं ही नहीं।</b> क्त, ज्ञ, त्र, द्ध, श्र - हिन्दी लिखना सीखने का सबसे कठिन हिस्सा तमिल में मौजूद ही नहीं। एक बिंदु, यानी पुल्लि, पूरा काम कर देता है और अक्षर अलग-अलग खड़े रहते हैं। कोई नई शक्ल याद नहीं करनी।</li><li><b>दिन में एक पन्ना काफ़ी है।</b> हर पंक्ति ख़त्म करके अक्षर को एक बार ज़ोर से बोलिए - तमिल में <b>जो लिखा है वह हमेशा वही नहीं जो बोला जाता है</b>।</li><li><b>पेंसिल से शुरू कीजिए, हाथ हल्का रखिए।</b> तमिल के घुमाव गोल हैं; क़लम ढीली रहेगी तो वे बनेंगे, दबाव डालेंगे तो कोने निकल आएँगे।</li></ol></div>
+  <div class="legend"><h3>धूसर पर खींचिए · खोखला भरिए · शुरुआत देखकर पंक्ति पूरी कीजिए · फिर अकेले लिखिए</h3><div class="lg">
+      <div><span class="s tg t-model">ப</span>नमूना</div>
+      <div><span class="s tg t-trace">ப</span>धूसर</div>
+      <div><span class="s tg t-out">ப</span>खोखला</div>
+      <div><span class="s tg t-faint">ப</span>हल्का</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>अकेला पुल्लि - अक्षर आधा होता है, जुड़ता नहीं</b></div>
+      <div class="ex">पुल्लि</div></div></div>
+    <div class="ph-r"><div class="grp">पुल्लि</div><div class="num">१</div></div>
+  </div>
+  <div class="note"><b>देवनागरी लिखना सीखने का सबसे कठिन हिस्सा तमिल में मौजूद ही नहीं।</b> हिन्दी में हलन्त लगाने के बाद अक्सर दोनों अक्षर मिलकर एक तीसरी शक्ल बना लेते हैं - क्त, ज्ञ, त्र, द्ध, श्र, क्ष - और यही संयुक्ताक्षर हैं। तमिल में ऐसी कोई नई शक्ल बनती ही नहीं: पुल्लि लगी रहती है, दोनों अक्षर अलग-अलग खड़े रहते हैं, और याद करने को कुछ नहीं बचता। पूरी लिपि में इकलौता अपवाद ஸ்ரீ है। और यहाँ भी वही मोटर-आदत बदलनी है: <b>हाथ नीचे की लकीर से शुरू होगा, ऊपर की शिरोरेखा से नहीं</b>।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">क्</span> = <span class="tg" style="font-size:15pt"><b>க்</b></span> &nbsp;&middot;&nbsp; <span class="tg">பக்கம்</span> (पन्ना, और बग़ल भी)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>க்</span><span class="c t-trace"><i class="st"></i>க்</span><span class="c t-trace"><i class="st"></i>க்</span><span class="c t-trace"><i class="st"></i>க்</span><span class="c t-trace"><i class="st"></i>க்</span><span class="c t-trace"><i class="st"></i>க்</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>க்</span><span class="c t-out"><i class="st"></i>க்</span><span class="c t-out"><i class="st"></i>க்</span><span class="c t-out"><i class="st"></i>க்</span><span class="c t-model"><i class="st"></i>க்</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>பக்கம்</span><span class="c t-trace"><i class="st"></i>பக்கம்</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ट्</span> = <span class="tg" style="font-size:15pt"><b>ட்</b></span> &nbsp;&middot;&nbsp; <span class="tg">பட்டம்</span> (पदवी, और पतंग भी)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ட்</span><span class="c t-trace"><i class="st"></i>ட்</span><span class="c t-trace"><i class="st"></i>ட்</span><span class="c t-trace"><i class="st"></i>ட்</span><span class="c t-trace"><i class="st"></i>ட்</span><span class="c t-trace"><i class="st"></i>ட்</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ட்</span><span class="c t-out"><i class="st"></i>ட்</span><span class="c t-out"><i class="st"></i>ட்</span><span class="c t-out"><i class="st"></i>ட்</span><span class="c t-model"><i class="st"></i>ட்</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>பட்டம்</span><span class="c t-trace"><i class="st"></i>பட்டம்</span></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · पुल्लि</span><span>BHASHASETU &middot; हिन्दी से तमिल &middot; १</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>अकेला पुल्लि - अक्षर आधा होता है, जुड़ता नहीं</b></div>
+      <div class="ex">पुल्लि</div></div></div>
+    <div class="ph-r"><div class="grp">पुल्लि</div><div class="num">२</div></div>
+  </div>
+  <div class="note"><b>देवनागरी लिखना सीखने का सबसे कठिन हिस्सा तमिल में मौजूद ही नहीं।</b> हिन्दी में हलन्त लगाने के बाद अक्सर दोनों अक्षर मिलकर एक तीसरी शक्ल बना लेते हैं - क्त, ज्ञ, त्र, द्ध, श्र, क्ष - और यही संयुक्ताक्षर हैं। तमिल में ऐसी कोई नई शक्ल बनती ही नहीं: पुल्लि लगी रहती है, दोनों अक्षर अलग-अलग खड़े रहते हैं, और याद करने को कुछ नहीं बचता। पूरी लिपि में इकलौता अपवाद ஸ்ரீ है। और यहाँ भी वही मोटर-आदत बदलनी है: <b>हाथ नीचे की लकीर से शुरू होगा, ऊपर की शिरोरेखा से नहीं</b>।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">प्</span> = <span class="tg" style="font-size:15pt"><b>ப்</b></span> &nbsp;&middot;&nbsp; <span class="tg">அப்பா</span> (पिता)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ப்</span><span class="c t-trace"><i class="st"></i>ப்</span><span class="c t-trace"><i class="st"></i>ப்</span><span class="c t-trace"><i class="st"></i>ப்</span><span class="c t-trace"><i class="st"></i>ப்</span><span class="c t-trace"><i class="st"></i>ப்</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ப்</span><span class="c t-out"><i class="st"></i>ப்</span><span class="c t-out"><i class="st"></i>ப்</span><span class="c t-out"><i class="st"></i>ப்</span><span class="c t-model"><i class="st"></i>ப்</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>அப்பா</span><span class="c t-trace"><i class="st"></i>அப்பா</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">म्</span> = <span class="tg" style="font-size:15pt"><b>ம்</b></span> &nbsp;&middot;&nbsp; <span class="tg">அம்மா</span> (माँ)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ம்</span><span class="c t-trace"><i class="st"></i>ம்</span><span class="c t-trace"><i class="st"></i>ம்</span><span class="c t-trace"><i class="st"></i>ம்</span><span class="c t-trace"><i class="st"></i>ம்</span><span class="c t-trace"><i class="st"></i>ம்</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ம்</span><span class="c t-out"><i class="st"></i>ம்</span><span class="c t-out"><i class="st"></i>ம்</span><span class="c t-out"><i class="st"></i>ம்</span><span class="c t-model"><i class="st"></i>ம்</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>அம்மா</span><span class="c t-trace"><i class="st"></i>அம்மா</span></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · पुल्लि</span><span>BHASHASETU &middot; हिन्दी से तमिल &middot; २</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>अकेला पुल्लि - अक्षर आधा होता है, जुड़ता नहीं</b></div>
+      <div class="ex">पुल्लि</div></div></div>
+    <div class="ph-r"><div class="grp">पुल्लि</div><div class="num">३</div></div>
+  </div>
+  <div class="note"><b>देवनागरी लिखना सीखने का सबसे कठिन हिस्सा तमिल में मौजूद ही नहीं।</b> हिन्दी में हलन्त लगाने के बाद अक्सर दोनों अक्षर मिलकर एक तीसरी शक्ल बना लेते हैं - क्त, ज्ञ, त्र, द्ध, श्र, क्ष - और यही संयुक्ताक्षर हैं। तमिल में ऐसी कोई नई शक्ल बनती ही नहीं: पुल्लि लगी रहती है, दोनों अक्षर अलग-अलग खड़े रहते हैं, और याद करने को कुछ नहीं बचता। पूरी लिपि में इकलौता अपवाद ஸ்ரீ है। और यहाँ भी वही मोटर-आदत बदलनी है: <b>हाथ नीचे की लकीर से शुरू होगा, ऊपर की शिरोरेखा से नहीं</b>।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">न् ⚡</span> = <span class="tg" style="font-size:15pt"><b>ன்</b></span> &nbsp;&middot;&nbsp; <span class="tg">என்ன</span> (क्या)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ன்</span><span class="c t-trace"><i class="st"></i>ன்</span><span class="c t-trace"><i class="st"></i>ன்</span><span class="c t-trace"><i class="st"></i>ன்</span><span class="c t-trace"><i class="st"></i>ன்</span><span class="c t-trace"><i class="st"></i>ன்</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ன்</span><span class="c t-out"><i class="st"></i>ன்</span><span class="c t-out"><i class="st"></i>ன்</span><span class="c t-out"><i class="st"></i>ன்</span><span class="c t-model"><i class="st"></i>ன்</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>என்ன</span><span class="c t-trace"><i class="st"></i>என்ன</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ल्</span> = <span class="tg" style="font-size:15pt"><b>ல்</b></span> &nbsp;&middot;&nbsp; <span class="tg">சொல்</span> (कहो; और शब्द भी)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ல்</span><span class="c t-trace"><i class="st"></i>ல்</span><span class="c t-trace"><i class="st"></i>ல்</span><span class="c t-trace"><i class="st"></i>ல்</span><span class="c t-trace"><i class="st"></i>ல்</span><span class="c t-trace"><i class="st"></i>ல்</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ல்</span><span class="c t-out"><i class="st"></i>ல்</span><span class="c t-out"><i class="st"></i>ல்</span><span class="c t-out"><i class="st"></i>ல்</span><span class="c t-model"><i class="st"></i>ல்</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>சொல்</span><span class="c t-trace"><i class="st"></i>சொல்</span></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · पुल्लि</span><span>BHASHASETU &middot; हिन्दी से तमिल &middot; ३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>अकेला पुल्लि - अक्षर आधा होता है, जुड़ता नहीं</b></div>
+      <div class="ex">पुल्लि</div></div></div>
+    <div class="ph-r"><div class="grp">पुल्लि</div><div class="num">४</div></div>
+  </div>
+  <div class="note"><b>देवनागरी लिखना सीखने का सबसे कठिन हिस्सा तमिल में मौजूद ही नहीं।</b> हिन्दी में हलन्त लगाने के बाद अक्सर दोनों अक्षर मिलकर एक तीसरी शक्ल बना लेते हैं - क्त, ज्ञ, त्र, द्ध, श्र, क्ष - और यही संयुक्ताक्षर हैं। तमिल में ऐसी कोई नई शक्ल बनती ही नहीं: पुल्लि लगी रहती है, दोनों अक्षर अलग-अलग खड़े रहते हैं, और याद करने को कुछ नहीं बचता। पूरी लिपि में इकलौता अपवाद ஸ்ரீ है। और यहाँ भी वही मोटर-आदत बदलनी है: <b>हाथ नीचे की लकीर से शुरू होगा, ऊपर की शिरोरेखा से नहीं</b>।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">र्</span> = <span class="tg" style="font-size:15pt"><b>ர்</b></span> &nbsp;&middot;&nbsp; <span class="tg">ஊர்</span> (गाँव, शहर)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ர்</span><span class="c t-trace"><i class="st"></i>ர்</span><span class="c t-trace"><i class="st"></i>ர்</span><span class="c t-trace"><i class="st"></i>ர்</span><span class="c t-trace"><i class="st"></i>ர்</span><span class="c t-trace"><i class="st"></i>ர்</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ர்</span><span class="c t-out"><i class="st"></i>ர்</span><span class="c t-out"><i class="st"></i>ர்</span><span class="c t-out"><i class="st"></i>ர்</span><span class="c t-model"><i class="st"></i>ர்</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ஊர்</span><span class="c t-trace"><i class="st"></i>ஊர்</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ऴ् ⚡</span> = <span class="tg" style="font-size:15pt"><b>ழ்</b></span> &nbsp;&middot;&nbsp; <span class="tg">தமிழ்</span> (तमिल भाषा)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ழ்</span><span class="c t-trace"><i class="st"></i>ழ்</span><span class="c t-trace"><i class="st"></i>ழ்</span><span class="c t-trace"><i class="st"></i>ழ்</span><span class="c t-trace"><i class="st"></i>ழ்</span><span class="c t-trace"><i class="st"></i>ழ்</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ழ்</span><span class="c t-out"><i class="st"></i>ழ்</span><span class="c t-out"><i class="st"></i>ழ்</span><span class="c t-out"><i class="st"></i>ழ்</span><span class="c t-model"><i class="st"></i>ழ்</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>தமிழ்</span><span class="c t-trace"><i class="st"></i>தமிழ்</span></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · पुल्लि</span><span>BHASHASETU &middot; हिन्दी से तमिल &middot; ४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>अकेला पुल्लि - अक्षर आधा होता है, जुड़ता नहीं</b></div>
+      <div class="ex">पुल्लि</div></div></div>
+    <div class="ph-r"><div class="grp">पुल्लि</div><div class="num">५</div></div>
+  </div>
+  <div class="note"><b>देवनागरी लिखना सीखने का सबसे कठिन हिस्सा तमिल में मौजूद ही नहीं।</b> हिन्दी में हलन्त लगाने के बाद अक्सर दोनों अक्षर मिलकर एक तीसरी शक्ल बना लेते हैं - क्त, ज्ञ, त्र, द्ध, श्र, क्ष - और यही संयुक्ताक्षर हैं। तमिल में ऐसी कोई नई शक्ल बनती ही नहीं: पुल्लि लगी रहती है, दोनों अक्षर अलग-अलग खड़े रहते हैं, और याद करने को कुछ नहीं बचता। पूरी लिपि में इकलौता अपवाद ஸ்ரீ है। और यहाँ भी वही मोटर-आदत बदलनी है: <b>हाथ नीचे की लकीर से शुरू होगा, ऊपर की शिरोरेखा से नहीं</b>।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ळ् ⚡</span> = <span class="tg" style="font-size:15pt"><b>ள்</b></span> &nbsp;&middot;&nbsp; <span class="tg">கள்</span> (बहुवचन का प्रत्यय)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ள்</span><span class="c t-trace"><i class="st"></i>ள்</span><span class="c t-trace"><i class="st"></i>ள்</span><span class="c t-trace"><i class="st"></i>ள்</span><span class="c t-trace"><i class="st"></i>ள்</span><span class="c t-trace"><i class="st"></i>ள்</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ள்</span><span class="c t-out"><i class="st"></i>ள்</span><span class="c t-out"><i class="st"></i>ள்</span><span class="c t-out"><i class="st"></i>ள்</span><span class="c t-model"><i class="st"></i>ள்</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>கள்</span><span class="c t-trace"><i class="st"></i>கள்</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ण्</span> = <span class="tg" style="font-size:15pt"><b>ண்</b></span> &nbsp;&middot;&nbsp; <span class="tg">மண்</span> (मिट्टी)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ண்</span><span class="c t-trace"><i class="st"></i>ண்</span><span class="c t-trace"><i class="st"></i>ண்</span><span class="c t-trace"><i class="st"></i>ண்</span><span class="c t-trace"><i class="st"></i>ண்</span><span class="c t-trace"><i class="st"></i>ண்</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ண்</span><span class="c t-out"><i class="st"></i>ண்</span><span class="c t-out"><i class="st"></i>ண்</span><span class="c t-out"><i class="st"></i>ண்</span><span class="c t-model"><i class="st"></i>ண்</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>மண்</span><span class="c t-trace"><i class="st"></i>மண்</span></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · पुल्लि</span><span>BHASHASETU &middot; हिन्दी से तमिल &middot; ५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>अनुनासिक के बाद - यहीं अक्षर नरम पड़ जाता है</b></div>
+      <div class="ex">पुल्लि</div></div></div>
+    <div class="ph-r"><div class="grp">पुल्लि</div><div class="num">६</div></div>
+  </div>
+  <div class="note"><b>देवनागरी लिखना सीखने का सबसे कठिन हिस्सा तमिल में मौजूद ही नहीं।</b> हिन्दी में हलन्त लगाने के बाद अक्सर दोनों अक्षर मिलकर एक तीसरी शक्ल बना लेते हैं - क्त, ज्ञ, त्र, द्ध, श्र, क्ष - और यही संयुक्ताक्षर हैं। तमिल में ऐसी कोई नई शक्ल बनती ही नहीं: पुल्लि लगी रहती है, दोनों अक्षर अलग-अलग खड़े रहते हैं, और याद करने को कुछ नहीं बचता। पूरी लिपि में इकलौता अपवाद ஸ்ரீ है। और यहाँ भी वही मोटर-आदत बदलनी है: <b>हाथ नीचे की लकीर से शुरू होगा, ऊपर की शिरोरेखा से नहीं</b>।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ङ्ग</span> = <span class="tg" style="font-size:15pt"><b>ங்க</b></span> &nbsp;&middot;&nbsp; <span class="tg">தங்கம்</span> (सोना)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ங்க</span><span class="c t-trace"><i class="st"></i>ங்க</span><span class="c t-trace"><i class="st"></i>ங்க</span><span class="c t-trace"><i class="st"></i>ங்க</span><span class="c t-trace"><i class="st"></i>ங்க</span><span class="c t-trace"><i class="st"></i>ங்க</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ங்க</span><span class="c t-out"><i class="st"></i>ங்க</span><span class="c t-out"><i class="st"></i>ங்க</span><span class="c t-out"><i class="st"></i>ங்க</span><span class="c t-model"><i class="st"></i>ங்க</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>தங்கம்</span><span class="c t-trace"><i class="st"></i>தங்கம்</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ञ्ज</span> = <span class="tg" style="font-size:15pt"><b>ஞ்ச</b></span> &nbsp;&middot;&nbsp; <span class="tg">மஞ்சள்</span> (हल्दी)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ஞ்ச</span><span class="c t-trace"><i class="st"></i>ஞ்ச</span><span class="c t-trace"><i class="st"></i>ஞ்ச</span><span class="c t-trace"><i class="st"></i>ஞ்ச</span><span class="c t-trace"><i class="st"></i>ஞ்ச</span><span class="c t-trace"><i class="st"></i>ஞ்ச</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ஞ்ச</span><span class="c t-out"><i class="st"></i>ஞ்ச</span><span class="c t-out"><i class="st"></i>ஞ்ச</span><span class="c t-out"><i class="st"></i>ஞ்ச</span><span class="c t-model"><i class="st"></i>ஞ்ச</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>மஞ்சள்</span><span class="c t-trace"><i class="st"></i>மஞ்சள்</span></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · पुल्लि</span><span>BHASHASETU &middot; हिन्दी से तमिल &middot; ६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>अनुनासिक के बाद - यहीं अक्षर नरम पड़ जाता है</b></div>
+      <div class="ex">पुल्लि</div></div></div>
+    <div class="ph-r"><div class="grp">पुल्लि</div><div class="num">७</div></div>
+  </div>
+  <div class="note"><b>देवनागरी लिखना सीखने का सबसे कठिन हिस्सा तमिल में मौजूद ही नहीं।</b> हिन्दी में हलन्त लगाने के बाद अक्सर दोनों अक्षर मिलकर एक तीसरी शक्ल बना लेते हैं - क्त, ज्ञ, त्र, द्ध, श्र, क्ष - और यही संयुक्ताक्षर हैं। तमिल में ऐसी कोई नई शक्ल बनती ही नहीं: पुल्लि लगी रहती है, दोनों अक्षर अलग-अलग खड़े रहते हैं, और याद करने को कुछ नहीं बचता। पूरी लिपि में इकलौता अपवाद ஸ்ரீ है। और यहाँ भी वही मोटर-आदत बदलनी है: <b>हाथ नीचे की लकीर से शुरू होगा, ऊपर की शिरोरेखा से नहीं</b>।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ण्ड</span> = <span class="tg" style="font-size:15pt"><b>ண்ட</b></span> &nbsp;&middot;&nbsp; <span class="tg">கண்டேன்</span> (मैंने देखा)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ண்ட</span><span class="c t-trace"><i class="st"></i>ண்ட</span><span class="c t-trace"><i class="st"></i>ண்ட</span><span class="c t-trace"><i class="st"></i>ண்ட</span><span class="c t-trace"><i class="st"></i>ண்ட</span><span class="c t-trace"><i class="st"></i>ண்ட</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ண்ட</span><span class="c t-out"><i class="st"></i>ண்ட</span><span class="c t-out"><i class="st"></i>ண்ட</span><span class="c t-out"><i class="st"></i>ண்ட</span><span class="c t-model"><i class="st"></i>ண்ட</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>கண்டேன்</span><span class="c t-trace"><i class="st"></i>கண்டேன்</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">न्द</span> = <span class="tg" style="font-size:15pt"><b>ந்த</b></span> &nbsp;&middot;&nbsp; <span class="tg">வந்தான்</span> (वह आया)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ந்த</span><span class="c t-trace"><i class="st"></i>ந்த</span><span class="c t-trace"><i class="st"></i>ந்த</span><span class="c t-trace"><i class="st"></i>ந்த</span><span class="c t-trace"><i class="st"></i>ந்த</span><span class="c t-trace"><i class="st"></i>ந்த</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ந்த</span><span class="c t-out"><i class="st"></i>ந்த</span><span class="c t-out"><i class="st"></i>ந்த</span><span class="c t-out"><i class="st"></i>ந்த</span><span class="c t-model"><i class="st"></i>ந்த</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>வந்தான்</span><span class="c t-trace"><i class="st"></i>வந்தான்</span></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · पुल्लि</span><span>BHASHASETU &middot; हिन्दी से तमिल &middot; ७</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>अनुनासिक के बाद - यहीं अक्षर नरम पड़ जाता है</b></div>
+      <div class="ex">पुल्लि</div></div></div>
+    <div class="ph-r"><div class="grp">पुल्लि</div><div class="num">८</div></div>
+  </div>
+  <div class="note"><b>देवनागरी लिखना सीखने का सबसे कठिन हिस्सा तमिल में मौजूद ही नहीं।</b> हिन्दी में हलन्त लगाने के बाद अक्सर दोनों अक्षर मिलकर एक तीसरी शक्ल बना लेते हैं - क्त, ज्ञ, त्र, द्ध, श्र, क्ष - और यही संयुक्ताक्षर हैं। तमिल में ऐसी कोई नई शक्ल बनती ही नहीं: पुल्लि लगी रहती है, दोनों अक्षर अलग-अलग खड़े रहते हैं, और याद करने को कुछ नहीं बचता। पूरी लिपि में इकलौता अपवाद ஸ்ரீ है। और यहाँ भी वही मोटर-आदत बदलनी है: <b>हाथ नीचे की लकीर से शुरू होगा, ऊपर की शिरोरेखा से नहीं</b>।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">म्ब</span> = <span class="tg" style="font-size:15pt"><b>ம்ப</b></span> &nbsp;&middot;&nbsp; <span class="tg">தம்பி</span> (छोटा भाई)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ம்ப</span><span class="c t-trace"><i class="st"></i>ம்ப</span><span class="c t-trace"><i class="st"></i>ம்ப</span><span class="c t-trace"><i class="st"></i>ம்ப</span><span class="c t-trace"><i class="st"></i>ம்ப</span><span class="c t-trace"><i class="st"></i>ம்ப</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ம்ப</span><span class="c t-out"><i class="st"></i>ம்ப</span><span class="c t-out"><i class="st"></i>ம்ப</span><span class="c t-out"><i class="st"></i>ம்ப</span><span class="c t-model"><i class="st"></i>ம்ப</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>தம்பி</span><span class="c t-trace"><i class="st"></i>தம்பி</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">श्री</span> = <span class="tg" style="font-size:15pt"><b>ஸ்ரீ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ஸ்ரீ</span> (श्री - नाम के आगे लगने वाला आदर-शब्द)</span><span>धूसर अक्षर के ऊपर से खींचिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ஸ்ரீ</span><span class="c t-trace"><i class="st"></i>ஸ்ரீ</span><span class="c t-trace"><i class="st"></i>ஸ்ரீ</span><span class="c t-trace"><i class="st"></i>ஸ்ரீ</span><span class="c t-trace"><i class="st"></i>ஸ்ரீ</span><span class="c t-trace"><i class="st"></i>ஸ்ரீ</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर का भीतर भरिए</span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ஸ்ரீ</span><span class="c t-out"><i class="st"></i>ஸ்ரீ</span><span class="c t-out"><i class="st"></i>ஸ்ரீ</span><span class="c t-out"><i class="st"></i>ஸ்ரீ</span><span class="c t-model"><i class="st"></i>ஸ்ரீ</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर</span><span>फिर अकेले</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ஸ்ரீ</span><span class="c t-trace"><i class="st"></i>ஸ்ரீ</span></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · पुल्लि</span><span>BHASHASETU &middot; हिन्दी से तमिल &middot; ८</span></div>
+</div>
+</body>
+</html>

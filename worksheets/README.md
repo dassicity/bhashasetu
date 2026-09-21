@@ -139,3 +139,77 @@ font's line-height metrics.
   the rule that actually matters, but there are no numbered stroke arrows - that
   needs per-glyph vector data this does not have.
 - Print at **100%**, not "fit to page", or the ruling will not match the glyph size.
+
+---
+
+## Architecture change, 21 Sept 2026: pairs are data, not code
+
+Before this, each generator carried its own pair data AND its own source-language prose
+hardcoded in Python. That was fine while every pair had Bengali as the source. It stopped
+being fine the moment a Kannada, Hindi or Telugu source appeared: adding a pair meant
+editing a generator, and five course agents working in parallel would have collided in
+the same file.
+
+Now a pair is a JSON file and nothing else.
+
+| File | Serves | Geometry |
+|---|---|---|
+| `gen_brahmic.py` | baseline-sitting Brahmic targets: Telugu, Tamil | `SCRIPTS` in the file, measured |
+| `gen_urdu.py` | Perso-Arabic targets: Urdu | one solid baseline, RTL |
+| `gen_worksheets.py` | Devanagari targets: Hindi, Marathi | not yet converted, see below |
+| `data/{pair}.json` | one pair: all source-language text, words, sentences | - |
+| `data/targets/{iso}.json` | one target script: the letter spine, already verified | - |
+| `data/SCHEMA.md` | what a pair file must contain | - |
+
+The split that matters: **geometry belongs to the script, not to the pair.** The measured
+`body`/`top`/`bot` ratios for Telugu were paid for once and every Telugu-target pair reuses
+them. That is why a new course with an already-calibrated target is cheap, and a course
+with a new target script is not.
+
+Likewise the letter inventory splits in two. The target-script half (the letters, their
+Roman values, example words, and for Urdu which letters join leftward) is verified once and
+shared. Only the source-language half (equivalent letter, gloss, family label) is written
+per pair, by the agent that built that course, since it is the one that knows what the
+course actually taught.
+
+### Adding a pair
+
+1. Write `data/{pair}.json` against `data/SCHEMA.md`.
+2. `python3 gen_brahmic.py {pair}` (or `gen_urdu.py`). If the file is incomplete the
+   generator refuses to build and prints exactly what is missing, rather than producing a
+   half-correct workbook.
+3. `./build_pdfs.sh {pair}`
+4. Check parity: the sheet count the generator prints must equal the PDF page count.
+   A mismatch means a sheet overflowed onto a second page.
+
+### Bridges are written per pair and never translated
+
+The same fact inverts depending on who is reading. A headline over the letters is an
+existing habit for a Bengali or Hindi writer, a new one for a Telugu writer, and absent
+in Urdu. Conjuncts are a familiar idea in Devanagari, always-below in Telugu, and not a
+category at all in Tamil, where the hardest chapter of Devanagari simply does not exist.
+Translating another pair's bridge produces something that is fluent and wrong.
+
+### Verification
+
+Both converted generators were checked by rebuilding the pairs that already shipped and
+comparing against the PDFs in the repo:
+
+| Pair | Books | Shipped pages | Rebuilt | Result |
+|---|---|---|---|---|
+| bengali_to_telugu | 8 | 138 | 138 | identical |
+| bengali_to_tamil | 8 | 121 | 121 | identical |
+| bengali_to_urdu | 8 | 136 | 136 | identical |
+
+One real bug surfaced during the conversion: word book 2 held 48 words in both Brahmic
+pairs, under the 50 to 60 the brief asks for. The generator now refuses to build a pair
+that is short, and both pairs were topped up to 52 (Telugu and Tamil books 6 are now 14
+pages, so those two PDFs changed).
+
+### Still to convert
+
+`gen_worksheets.py` (Devanagari targets) has not been moved to the JSON layout, because
+no pair in the current batch targets Devanagari. It should be converted before the next
+Hindi-target or Marathi-target course, using the same three steps: export the existing
+pairs to `data/`, splice out the hardcoded source strings, then prove page parity against
+the shipped PDFs before deleting anything.

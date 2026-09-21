@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8"/>
+<title>పదాలు ౨ - తెలుగు నుండి ఉర్దూ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --base: 17mm;         /* the baseline - letters SIT on this */
+  --gs:   15mm;         /* practice font size */
+  --asc-ratio:  0.714;  /* ا ل ک reach this far above the baseline */
+  --desc-ratio: 0.420;  /* م and the Nastaliq cascade reach this far below */
+  --x-ratio:    0.310;  /* x-height of ب س ر, drawn as a faint guide */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Telugu',serif; color:var(--ink); font-size:10pt; direction:ltr; }
+.ur{ font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:6mm; }
+.ph .big{ font-size:24mm; line-height:1.5; }
+.ph .meta{ padding-bottom:2mm; }
+.ph .eq{ font-size:13pt; } .ph .eq b{ color:var(--sindoor); }
+.ph .nm{ font-size:11pt; color:var(--teal); }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:2mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.note{ font-size:9.5pt; line-height:1.6; color:var(--ink); margin:0 0 3mm;
+       padding:2mm 3mm; background:rgba(31,77,74,0.06); border-right:2mm solid var(--teal); }
+.note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.4mm;
+      --asc:  calc(var(--base) - var(--asc-ratio) * var(--gs));
+      --xh:   calc(var(--base) - var(--x-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--desc-ratio) * var(--gs));
+      height: calc(var(--desc) + 2mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.x{ top:var(--xh);   border-top:0.2mm dotted #dde3ea; }
+.ln.b{ top:var(--base); border-top:0.45mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* right-to-left: cells run from the right edge; the strut pins the baseline */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; flex-direction:row; justify-content:flex-start;
+             direction:rtl; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-family:'Noto Nastaliq Urdu',serif; font-size:var(--gs); line-height:0;
+         flex:0 0 auto; padding-left:7mm; text-align:center; }
+/* word and joining rows: a tighter band so eight rows fit one page */
+.row.wide{ --base:13mm; --gs:12mm; }
+.row.wide .c{ padding-left:12mm; }
+.row.sent{ --gs:11mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; padding:0; text-align:right; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.25mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.forms{ display:flex; gap:3mm; margin:0 0 3mm; direction:rtl; }
+.formbox{ border:0.3mm dashed var(--line-soft); border-radius:1mm;
+          padding:1mm 4mm 0.5mm; text-align:center; flex:1; }
+.formbox .g{ font-family:'Noto Nastaliq Urdu',serif; font-size:13mm; line-height:2; }
+.formbox .cap{ font-size:8pt; color:var(--faded); direction:ltr; }
+.formbox .cap b{ color:var(--teal); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:28pt; margin:6mm 0 2mm; line-height:1.3; }
+.cover h1 .ur{ display:block; font-size:32pt; margin-bottom:5mm; line-height:2; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:140mm; margin:0 auto; line-height:1.75; }
+.rules{ text-align:left; max-width:152mm; margin:10mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.7; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">పుస్తకం ৬</div>
+  <h1><span class="ur">الفاظ</span>పదాలు ౨</h1>
+  <p class="sub">మొదటి గుంపులో మీకు ఇప్పటికే తెలిసిన మాటలే ఉన్నాయి - తేడా ఏమిటంటే అవి కచేరీ తెలుగులో కుదించుకుపోయిన అర్థంతో మీకు తెలుసు, ఉర్దూలో అవి ఇంకా విశాలంగానే ఉన్నాయి.</p>
+  <div class="rules"><h2>రాయడానికి ముందు ఐదు మాటలు</h2><ol><li><b>కుడి నుంచి ఎడమకు.</b> పేజీ కుడి అంచు నుంచి మొదలుపెట్టండి. కానీ సంఖ్యలు ఎడమ నుంచి కుడికే - ౨౦౨౬ ఉర్దూలోనూ ۲۰۲۶.</li><li><b>అక్షరం గీత మీద కూర్చుంటుంది.</b> తెలుగు అక్షరానికి తలకట్టు పైన, శరీరం కింద. ఉర్దూ అక్షరం ఒక దళసరి గీత మీద నిలబడుతుంది; ا ل ک పైకి లేస్తాయి, م ج ع ی తోకలు కిందికి దిగుతాయి.</li><li><b>ఒక అక్షరానికి నాలుగు ముఖాలు.</b> మొదట, మధ్య, చివర, ఒంటరిగా. తెలుగులో దీనికి సమానమైనది లేదు; ఇదే అసలు పాఠం.</li><li><b>తొమ్మిది అక్షరాలు ఎడమవైపు కలవవు:</b> ا د ڈ ذ ر ڑ ز ژ و. వాటి తరువాత కలం పైకి లేపాలి. పదం మధ్యలో పడే ఆ ఖాళీ తప్పు కాదు, నియమం.</li><li><b>హ్రస్వ అచ్చు సాధారణంగా రాయరు.</b> అందుకే ఈ పుస్తకాల్లో ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం.</li></ol></div>
+  <div class="legend"><h3>నమూనా · ధూసరం · బోలు · మసక · ఖాళీ</h3><div class="lg">
+      <div><span class="s ur t-model">ا</span>నమూనా</div>
+      <div><span class="s ur t-trace">ا</span>ధూసరం</div>
+      <div><span class="s ur t-out">ا</span>బోలు</div>
+      <div><span class="s ur t-faint">ا</span>మసక</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>తెలుగు ఇప్పటికే తీసుకున్న మాటలు - ఆకారమే కొత్తది</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">১</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">تاریخ</span> &nbsp; = &nbsp; <b>తేదీ, మరియు చరిత్ర</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>تاریخ</span><span class="c t-trace"><i class="st"></i>تاریخ</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">جواب</span> &nbsp; = &nbsp; <b>సమాధానం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>جواب</span><span class="c t-trace"><i class="st"></i>جواب</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">خبر</span> &nbsp; = &nbsp; <b>వార్త, తెలివిడి</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>خبر</span><span class="c t-trace"><i class="st"></i>خبر</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">نقل</span> &nbsp; = &nbsp; <b>కాపీ, అనుకరణ</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>نقل</span><span class="c t-trace"><i class="st"></i>نقل</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>తెలుగు ఇప్పటికే తీసుకున్న మాటలు - ఆకారమే కొత్తది</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">২</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">شرط</span> &nbsp; = &nbsp; <b>షరతు, పందెం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>شرط</span><span class="c t-trace"><i class="st"></i>شرط</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">سرکار</span> &nbsp; = &nbsp; <b>ప్రభుత్వం, అయ్యా</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>سرکار</span><span class="c t-trace"><i class="st"></i>سرکار</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">فریاد</span> &nbsp; = &nbsp; <b>ఆక్రందన, ఫిర్యాదు</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>فریاد</span><span class="c t-trace"><i class="st"></i>فریاد</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">عمل</span> &nbsp; = &nbsp; <b>చర్య, ఆచరణ</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>عمل</span><span class="c t-trace"><i class="st"></i>عمل</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>తెలుగు ఇప్పటికే తీసుకున్న మాటలు - ఆకారమే కొత్తది</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">৩</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">روانہ</span> &nbsp; = &nbsp; <b>బయలుదేరిన</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>روانہ</span><span class="c t-trace"><i class="st"></i>روانہ</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">ضابطہ</span> &nbsp; = &nbsp; <b>నియమం, ప్రక్రియ</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ضابطہ</span><span class="c t-trace"><i class="st"></i>ضابطہ</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>మహాప్రాణం - ھ కలిసిన అక్షరాలు</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">৪</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">پڑھنا</span> &nbsp; = &nbsp; <b>చదవడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>پڑھنا</span><span class="c t-trace"><i class="st"></i>پڑھنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">لکھنا</span> &nbsp; = &nbsp; <b>రాయడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>لکھنا</span><span class="c t-trace"><i class="st"></i>لکھنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">دیکھنا</span> &nbsp; = &nbsp; <b>చూడటం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>دیکھنا</span><span class="c t-trace"><i class="st"></i>دیکھنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">سمجھنا</span> &nbsp; = &nbsp; <b>అర్థం చేసుకోవడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>سمجھنا</span><span class="c t-trace"><i class="st"></i>سمجھنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>మహాప్రాణం - ھ కలిసిన అక్షరాలు</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">৫</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">آنکھ</span> &nbsp; = &nbsp; <b>కన్ను</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>آنکھ</span><span class="c t-trace"><i class="st"></i>آنکھ</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">ٹھیک</span> &nbsp; = &nbsp; <b>సరి, బాగు</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ٹھیک</span><span class="c t-trace"><i class="st"></i>ٹھیک</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">چھوٹا</span> &nbsp; = &nbsp; <b>చిన్న</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>چھوٹا</span><span class="c t-trace"><i class="st"></i>چھوٹا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">مچھلی</span> &nbsp; = &nbsp; <b>చేప</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>مچھلی</span><span class="c t-trace"><i class="st"></i>مچھلی</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>క్రియలు - మూలరూపం</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">৬</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">بولنا</span> &nbsp; = &nbsp; <b>మాట్లాడటం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بولنا</span><span class="c t-trace"><i class="st"></i>بولنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">سننا</span> &nbsp; = &nbsp; <b>వినడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>سننا</span><span class="c t-trace"><i class="st"></i>سننا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">پینا</span> &nbsp; = &nbsp; <b>తాగడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>پینا</span><span class="c t-trace"><i class="st"></i>پینا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">جانا</span> &nbsp; = &nbsp; <b>వెళ్ళడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>جانا</span><span class="c t-trace"><i class="st"></i>جانا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>క్రియలు - మూలరూపం</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">৭</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">آنا</span> &nbsp; = &nbsp; <b>రావడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>آنا</span><span class="c t-trace"><i class="st"></i>آنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">کرنا</span> &nbsp; = &nbsp; <b>చేయడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>کرنا</span><span class="c t-trace"><i class="st"></i>کرنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">ہونا</span> &nbsp; = &nbsp; <b>ఉండటం, అవడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ہونا</span><span class="c t-trace"><i class="st"></i>ہونا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">لینا</span> &nbsp; = &nbsp; <b>తీసుకోవడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>لینا</span><span class="c t-trace"><i class="st"></i>لینا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>క్రియలు - మూలరూపం</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">৮</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">دینا</span> &nbsp; = &nbsp; <b>ఇవ్వడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>دینا</span><span class="c t-trace"><i class="st"></i>دینا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">رہنا</span> &nbsp; = &nbsp; <b>నివసించడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>رہنا</span><span class="c t-trace"><i class="st"></i>رہنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>⚡ తెలుగు అక్షరమాలలో ఇల్లు లేని ధ్వనులు</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">৯</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">زبان</span> &nbsp; = &nbsp; <b>నాలుక, భాష</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>زبان</span><span class="c t-trace"><i class="st"></i>زبان</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">زمین</span> &nbsp; = &nbsp; <b>భూమి</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>زمین</span><span class="c t-trace"><i class="st"></i>زمین</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">غزل</span> &nbsp; = &nbsp; <b>గజల్</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>غزل</span><span class="c t-trace"><i class="st"></i>غزل</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">خوبصورت</span> &nbsp; = &nbsp; <b>అందమైన</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>خوبصورت</span><span class="c t-trace"><i class="st"></i>خوبصورت</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>⚡ తెలుగు అక్షరమాలలో ఇల్లు లేని ధ్వనులు</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">১০</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">ضرور</span> &nbsp; = &nbsp; <b>తప్పకుండా</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ضرور</span><span class="c t-trace"><i class="st"></i>ضرور</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">ظاہر</span> &nbsp; = &nbsp; <b>స్పష్టం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ظاہر</span><span class="c t-trace"><i class="st"></i>ظاہر</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">عمر</span> &nbsp; = &nbsp; <b>వయసు</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>عمر</span><span class="c t-trace"><i class="st"></i>عمر</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">فون</span> &nbsp; = &nbsp; <b>ఫోన్</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>فون</span><span class="c t-trace"><i class="st"></i>فون</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>బంధుత్వం, శరీరం</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">১১</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">چچا</span> &nbsp; = &nbsp; <b>చిన్నాన్న</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>چچا</span><span class="c t-trace"><i class="st"></i>چچا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">ماموں</span> &nbsp; = &nbsp; <b>మేనమామ</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ماموں</span><span class="c t-trace"><i class="st"></i>ماموں</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">دادا</span> &nbsp; = &nbsp; <b>నాన్న వైపు తాత</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>دادا</span><span class="c t-trace"><i class="st"></i>دادا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">نانا</span> &nbsp; = &nbsp; <b>అమ్మ వైపు తాత</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>نانا</span><span class="c t-trace"><i class="st"></i>نانا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>బంధుత్వం, శరీరం</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">১২</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">منہ</span> &nbsp; = &nbsp; <b>నోరు, ముఖం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>منہ</span><span class="c t-trace"><i class="st"></i>منہ</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">پاؤں</span> &nbsp; = &nbsp; <b>కాలు</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>پاؤں</span><span class="c t-trace"><i class="st"></i>پاؤں</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">دل</span> &nbsp; = &nbsp; <b>గుండె, మనసు</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>دل</span><span class="c t-trace"><i class="st"></i>دل</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">امی</span> &nbsp; = &nbsp; <b>అమ్మా</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>امی</span><span class="c t-trace"><i class="st"></i>امی</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>పలుకుబడులు, సంబోధనలు</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">১৩</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">آداب</span> &nbsp; = &nbsp; <b>నమస్కారం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>آداب</span><span class="c t-trace"><i class="st"></i>آداب</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">شکریہ</span> &nbsp; = &nbsp; <b>ధన్యవాదాలు</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>شکریہ</span><span class="c t-trace"><i class="st"></i>شکریہ</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">مہربانی</span> &nbsp; = &nbsp; <b>దయ</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>مہربانی</span><span class="c t-trace"><i class="st"></i>مہربانی</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">خدا حافظ</span> &nbsp; = &nbsp; <b>వెళ్ళొస్తాను</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>خدا حافظ</span><span class="c t-trace"><i class="st"></i>خدا حافظ</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>పలుకుబడులు, సంబోధనలు</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">১৪</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">جناب</span> &nbsp; = &nbsp; <b>శ్రీ</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>جناب</span><span class="c t-trace"><i class="st"></i>جناب</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">صاحب</span> &nbsp; = &nbsp; <b>-గారు</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>صاحب</span><span class="c t-trace"><i class="st"></i>صاحب</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">باجی</span> &nbsp; = &nbsp; <b>అక్కా</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>باجی</span><span class="c t-trace"><i class="st"></i>باجی</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">حضور</span> &nbsp; = &nbsp; <b>అయ్యా</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>حضور</span><span class="c t-trace"><i class="st"></i>حضور</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>కదలిక</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">১৫</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">چلنا</span> &nbsp; = &nbsp; <b>కదలడం, నడవడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>چلنا</span><span class="c t-trace"><i class="st"></i>چلنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">دوڑنا</span> &nbsp; = &nbsp; <b>పరిగెత్తడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>دوڑنا</span><span class="c t-trace"><i class="st"></i>دوڑنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">بیٹھنا</span> &nbsp; = &nbsp; <b>కూర్చోవడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بیٹھنا</span><span class="c t-trace"><i class="st"></i>بیٹھنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">اٹھنا</span> &nbsp; = &nbsp; <b>లేవడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>اٹھنا</span><span class="c t-trace"><i class="st"></i>اٹھنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>కదలిక</b></div>
+      <div class="ex">ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం - కాగితం మీద ఆ అచ్చులు ఉండవు.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">పదాలు</div><div class="num">১৬</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:13pt">چڑھنا</span> &nbsp; = &nbsp; <b>ఎక్కడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>چڑھنا</span><span class="c t-trace"><i class="st"></i>چڑھنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:13pt">اترنا</span> &nbsp; = &nbsp; <b>దిగడం</b></span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>اترنا</span><span class="c t-trace"><i class="st"></i>اترنا</span></div>
+</div><div class="rowlabel"><span></span><span>మీరే రాయండి</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>పుస్తకం ৬ · పదాలు ౨</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৬</span></div>
+</div>
+</body>
+</html>

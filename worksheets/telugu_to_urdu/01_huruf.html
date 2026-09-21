@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8"/>
+<title>అక్షరాలు - తెలుగు నుండి ఉర్దూ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --base: 17mm;         /* the baseline - letters SIT on this */
+  --gs:   15mm;         /* practice font size */
+  --asc-ratio:  0.714;  /* ا ل ک reach this far above the baseline */
+  --desc-ratio: 0.420;  /* م and the Nastaliq cascade reach this far below */
+  --x-ratio:    0.310;  /* x-height of ب س ر, drawn as a faint guide */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Telugu',serif; color:var(--ink); font-size:10pt; direction:ltr; }
+.ur{ font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:6mm; }
+.ph .big{ font-size:24mm; line-height:1.5; }
+.ph .meta{ padding-bottom:2mm; }
+.ph .eq{ font-size:13pt; } .ph .eq b{ color:var(--sindoor); }
+.ph .nm{ font-size:11pt; color:var(--teal); }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:2mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.note{ font-size:9.5pt; line-height:1.6; color:var(--ink); margin:0 0 3mm;
+       padding:2mm 3mm; background:rgba(31,77,74,0.06); border-right:2mm solid var(--teal); }
+.note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.4mm;
+      --asc:  calc(var(--base) - var(--asc-ratio) * var(--gs));
+      --xh:   calc(var(--base) - var(--x-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--desc-ratio) * var(--gs));
+      height: calc(var(--desc) + 2mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.x{ top:var(--xh);   border-top:0.2mm dotted #dde3ea; }
+.ln.b{ top:var(--base); border-top:0.45mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* right-to-left: cells run from the right edge; the strut pins the baseline */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; flex-direction:row; justify-content:flex-start;
+             direction:rtl; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-family:'Noto Nastaliq Urdu',serif; font-size:var(--gs); line-height:0;
+         flex:0 0 auto; padding-left:7mm; text-align:center; }
+/* word and joining rows: a tighter band so eight rows fit one page */
+.row.wide{ --base:13mm; --gs:12mm; }
+.row.wide .c{ padding-left:12mm; }
+.row.sent{ --gs:11mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; padding:0; text-align:right; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.25mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.forms{ display:flex; gap:3mm; margin:0 0 3mm; direction:rtl; }
+.formbox{ border:0.3mm dashed var(--line-soft); border-radius:1mm;
+          padding:1mm 4mm 0.5mm; text-align:center; flex:1; }
+.formbox .g{ font-family:'Noto Nastaliq Urdu',serif; font-size:13mm; line-height:2; }
+.formbox .cap{ font-size:8pt; color:var(--faded); direction:ltr; }
+.formbox .cap b{ color:var(--teal); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:28pt; margin:6mm 0 2mm; line-height:1.3; }
+.cover h1 .ur{ display:block; font-size:32pt; margin-bottom:5mm; line-height:2; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:140mm; margin:0 auto; line-height:1.75; }
+.rules{ text-align:left; max-width:152mm; margin:10mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.7; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">పుస్తకం ১</div>
+  <h1><span class="ur">حروف</span>అక్షరాలు</h1>
+  <p class="sub">బాలశిక్ష మీకు అక్షరాలను శబ్దం ప్రకారం పేర్చి ఇచ్చింది - క ఖ గ ఘ ఙ, ఒకే చోట పుట్టే ఐదు. ఈ పుస్తకం అక్షరాలను ఆకారం ప్రకారం పేరుస్తుంది: ب پ ت ٹ ث - ఒకే బొమ్మ, తేడా చుక్కల్లోనే. ఒక బొమ్మ చేతికి పట్టుబడితే ఐదు అక్షరాలు పట్టుబడినట్టే, కానీ చదివేటప్పుడు చుక్కలు లెక్కపెట్టడం అలవాటు చేసుకోవాలి.</p>
+  <div class="rules"><h2>రాయడానికి ముందు ఐదు మాటలు</h2><ol><li><b>కుడి నుంచి ఎడమకు.</b> పేజీ కుడి అంచు నుంచి మొదలుపెట్టండి. కానీ సంఖ్యలు ఎడమ నుంచి కుడికే - ౨౦౨౬ ఉర్దూలోనూ ۲۰۲۶.</li><li><b>అక్షరం గీత మీద కూర్చుంటుంది.</b> తెలుగు అక్షరానికి తలకట్టు పైన, శరీరం కింద. ఉర్దూ అక్షరం ఒక దళసరి గీత మీద నిలబడుతుంది; ا ل ک పైకి లేస్తాయి, م ج ع ی తోకలు కిందికి దిగుతాయి.</li><li><b>ఒక అక్షరానికి నాలుగు ముఖాలు.</b> మొదట, మధ్య, చివర, ఒంటరిగా. తెలుగులో దీనికి సమానమైనది లేదు; ఇదే అసలు పాఠం.</li><li><b>తొమ్మిది అక్షరాలు ఎడమవైపు కలవవు:</b> ا د ڈ ذ ر ڑ ز ژ و. వాటి తరువాత కలం పైకి లేపాలి. పదం మధ్యలో పడే ఆ ఖాళీ తప్పు కాదు, నియమం.</li><li><b>హ్రస్వ అచ్చు సాధారణంగా రాయరు.</b> అందుకే ఈ పుస్తకాల్లో ప్రతి పదానికీ తెలుగు ఉచ్చారణ <b>అచ్చులు నింపి</b> ఇచ్చాం.</li></ol></div>
+  <div class="legend"><h3>నమూనా · ధూసరం · బోలు · మసక · ఖాళీ</h3><div class="lg">
+      <div><span class="s ur t-model">ح</span>నమూనా</div>
+      <div><span class="s ur t-trace">ح</span>ధూసరం</div>
+      <div><span class="s ur t-out">ح</span>బోలు</div>
+      <div><span class="s ur t-faint">ح</span>మసక</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ا</div>
+      <div class="meta">
+        <div class="nm">ఆలిఫ్</div>
+        <div class="eq">= <b>అ / ఆ</b></div>
+        <div class="ex"><span class="ur">اب</span> &middot; ఇప్పుడు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ఆలిఫ్ కుటుంబం - నిటారు గీత</div><div class="num">১</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ا</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ا</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ا</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ا</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ا</span><span class="c t-trace"><i class="st"></i>ا</span><span class="c t-trace"><i class="st"></i>ا</span><span class="c t-trace"><i class="st"></i>ا</span><span class="c t-trace"><i class="st"></i>ا</span><span class="c t-trace"><i class="st"></i>ا</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ا</span><span class="c t-out"><i class="st"></i>ا</span><span class="c t-out"><i class="st"></i>ا</span><span class="c t-out"><i class="st"></i>ا</span><span class="c t-out"><i class="st"></i>ا</span><span class="c t-out"><i class="st"></i>ا</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ا</span><span class="c t-faint"><i class="st"></i>ا</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">اب</span> (ఇప్పుడు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>اب</span><span class="c t-trace"><i class="st"></i>اب</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">آ</div>
+      <div class="meta">
+        <div class="nm">ఆలిఫ్ మద్</div>
+        <div class="eq">= <b>ఆ</b></div>
+        <div class="ex"><span class="ur">آم</span> &middot; మామిడిపండు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ఆలిఫ్ కుటుంబం - నిటారు గీత</div><div class="num">২</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">آ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍آ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍آ</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">آ</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>آ</span><span class="c t-faint"><i class="st"></i>آ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">آم</span> (మామిడిపండు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>آم</span><span class="c t-trace"><i class="st"></i>آم</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ب</div>
+      <div class="meta">
+        <div class="nm">బే</div>
+        <div class="eq">= <b>బ</b></div>
+        <div class="ex"><span class="ur">بات</span> &middot; మాట</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">బే కుటుంబం - ఒకే పడవ, చుక్కలే తేడా</div><div class="num">৩</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ب</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ب</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ب‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ب‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ب</span><span class="c t-out"><i class="st"></i>ب</span><span class="c t-out"><i class="st"></i>ب</span><span class="c t-out"><i class="st"></i>ب</span><span class="c t-out"><i class="st"></i>ب</span><span class="c t-out"><i class="st"></i>ب</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ب</span><span class="c t-faint"><i class="st"></i>ب</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">بات</span> (మాట)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بات</span><span class="c t-trace"><i class="st"></i>بات</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">پ</div>
+      <div class="meta">
+        <div class="nm">పే</div>
+        <div class="eq">= <b>ప</b></div>
+        <div class="ex"><span class="ur">پانی</span> &middot; నీరు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">బే కుటుంబం - ఒకే పడవ, చుక్కలే తేడా</div><div class="num">৪</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">پ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍پ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍پ‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">پ‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>پ</span><span class="c t-out"><i class="st"></i>پ</span><span class="c t-out"><i class="st"></i>پ</span><span class="c t-out"><i class="st"></i>پ</span><span class="c t-out"><i class="st"></i>پ</span><span class="c t-out"><i class="st"></i>پ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>پ</span><span class="c t-faint"><i class="st"></i>پ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">پانی</span> (నీరు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>پانی</span><span class="c t-trace"><i class="st"></i>پانی</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ت</div>
+      <div class="meta">
+        <div class="nm">తే</div>
+        <div class="eq">= <b>త</b></div>
+        <div class="ex"><span class="ur">تین</span> &middot; మూడు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">బే కుటుంబం - ఒకే పడవ, చుక్కలే తేడా</div><div class="num">৫</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ت</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ت</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ت‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ت‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ت</span><span class="c t-out"><i class="st"></i>ت</span><span class="c t-out"><i class="st"></i>ت</span><span class="c t-out"><i class="st"></i>ت</span><span class="c t-out"><i class="st"></i>ت</span><span class="c t-out"><i class="st"></i>ت</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ت</span><span class="c t-faint"><i class="st"></i>ت</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">تین</span> (మూడు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>تین</span><span class="c t-trace"><i class="st"></i>تین</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ٹ</div>
+      <div class="meta">
+        <div class="nm">టే</div>
+        <div class="eq">= <b>ట</b></div>
+        <div class="ex"><span class="ur">ٹوپی</span> &middot; టోపీ</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">బే కుటుంబం - ఒకే పడవ, చుక్కలే తేడా</div><div class="num">৬</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ٹ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ٹ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ٹ‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ٹ‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ٹ</span><span class="c t-out"><i class="st"></i>ٹ</span><span class="c t-out"><i class="st"></i>ٹ</span><span class="c t-out"><i class="st"></i>ٹ</span><span class="c t-out"><i class="st"></i>ٹ</span><span class="c t-out"><i class="st"></i>ٹ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ٹ</span><span class="c t-faint"><i class="st"></i>ٹ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">ٹوپی</span> (టోపీ)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ٹوپی</span><span class="c t-trace"><i class="st"></i>ٹوپی</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ث</div>
+      <div class="meta">
+        <div class="nm">సే</div>
+        <div class="eq">= <b>స</b></div>
+        <div class="ex"><span class="ur">ثمر</span> &middot; ఫలం</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">బే కుటుంబం - ఒకే పడవ, చుక్కలే తేడా</div><div class="num">৭</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ث</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ث</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ث‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ث‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ث</span><span class="c t-out"><i class="st"></i>ث</span><span class="c t-out"><i class="st"></i>ث</span><span class="c t-out"><i class="st"></i>ث</span><span class="c t-out"><i class="st"></i>ث</span><span class="c t-out"><i class="st"></i>ث</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ث</span><span class="c t-faint"><i class="st"></i>ث</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">ثمر</span> (ఫలం)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ثمر</span><span class="c t-trace"><i class="st"></i>ثمر</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ج</div>
+      <div class="meta">
+        <div class="nm">జీమ్</div>
+        <div class="eq">= <b>జ</b></div>
+        <div class="ex"><span class="ur">جگہ</span> &middot; చోటు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">జీమ్ కుటుంబం - ఒకే వంపు, చుక్కలే తేడా</div><div class="num">৮</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ج</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ج</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ج‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ج‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ج</span><span class="c t-out"><i class="st"></i>ج</span><span class="c t-out"><i class="st"></i>ج</span><span class="c t-out"><i class="st"></i>ج</span><span class="c t-out"><i class="st"></i>ج</span><span class="c t-out"><i class="st"></i>ج</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ج</span><span class="c t-faint"><i class="st"></i>ج</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">جگہ</span> (చోటు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>جگہ</span><span class="c t-trace"><i class="st"></i>جگہ</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">چ</div>
+      <div class="meta">
+        <div class="nm">చే</div>
+        <div class="eq">= <b>చ</b></div>
+        <div class="ex"><span class="ur">چاند</span> &middot; చంద్రుడు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">జీమ్ కుటుంబం - ఒకే వంపు, చుక్కలే తేడా</div><div class="num">৯</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">چ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍چ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍چ‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">چ‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>چ</span><span class="c t-out"><i class="st"></i>چ</span><span class="c t-out"><i class="st"></i>چ</span><span class="c t-out"><i class="st"></i>چ</span><span class="c t-out"><i class="st"></i>چ</span><span class="c t-out"><i class="st"></i>چ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>چ</span><span class="c t-faint"><i class="st"></i>چ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">چاند</span> (చంద్రుడు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>چاند</span><span class="c t-trace"><i class="st"></i>چاند</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ح</div>
+      <div class="meta">
+        <div class="nm">బడీ హే</div>
+        <div class="eq">= <b>హ</b></div>
+        <div class="ex"><span class="ur">حال</span> &middot; స్థితి</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">జీమ్ కుటుంబం - ఒకే వంపు, చుక్కలే తేడా</div><div class="num">১০</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ح</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ح</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ح‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ح‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ح</span><span class="c t-out"><i class="st"></i>ح</span><span class="c t-out"><i class="st"></i>ح</span><span class="c t-out"><i class="st"></i>ح</span><span class="c t-out"><i class="st"></i>ح</span><span class="c t-out"><i class="st"></i>ح</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ح</span><span class="c t-faint"><i class="st"></i>ح</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">حال</span> (స్థితి)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>حال</span><span class="c t-trace"><i class="st"></i>حال</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">خ</div>
+      <div class="meta">
+        <div class="nm">ఖే</div>
+        <div class="eq">= <b>ఖ</b></div>
+        <div class="ex"><span class="ur">خبر</span> &middot; వార్త</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">జీమ్ కుటుంబం - ఒకే వంపు, చుక్కలే తేడా</div><div class="num">১১</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">خ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍خ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍خ‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">خ‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>خ</span><span class="c t-out"><i class="st"></i>خ</span><span class="c t-out"><i class="st"></i>خ</span><span class="c t-out"><i class="st"></i>خ</span><span class="c t-out"><i class="st"></i>خ</span><span class="c t-out"><i class="st"></i>خ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>خ</span><span class="c t-faint"><i class="st"></i>خ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">خبر</span> (వార్త)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>خبر</span><span class="c t-trace"><i class="st"></i>خبر</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">د</div>
+      <div class="meta">
+        <div class="nm">దాల్</div>
+        <div class="eq">= <b>ద</b></div>
+        <div class="ex"><span class="ur">دن</span> &middot; రోజు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">దాల్ కుటుంబం - ఎడమవైపు కలవవు</div><div class="num">১২</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">د</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍د</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍د</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">د</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>د</span><span class="c t-trace"><i class="st"></i>د</span><span class="c t-trace"><i class="st"></i>د</span><span class="c t-trace"><i class="st"></i>د</span><span class="c t-trace"><i class="st"></i>د</span><span class="c t-trace"><i class="st"></i>د</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>د</span><span class="c t-out"><i class="st"></i>د</span><span class="c t-out"><i class="st"></i>د</span><span class="c t-out"><i class="st"></i>د</span><span class="c t-out"><i class="st"></i>د</span><span class="c t-out"><i class="st"></i>د</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>د</span><span class="c t-faint"><i class="st"></i>د</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">دن</span> (రోజు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>دن</span><span class="c t-trace"><i class="st"></i>دن</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ڈ</div>
+      <div class="meta">
+        <div class="nm">డాల్</div>
+        <div class="eq">= <b>డ</b></div>
+        <div class="ex"><span class="ur">ڈر</span> &middot; భయం</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">దాల్ కుటుంబం - ఎడమవైపు కలవవు</div><div class="num">১৩</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ڈ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ڈ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ڈ</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ڈ</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ڈ</span><span class="c t-trace"><i class="st"></i>ڈ</span><span class="c t-trace"><i class="st"></i>ڈ</span><span class="c t-trace"><i class="st"></i>ڈ</span><span class="c t-trace"><i class="st"></i>ڈ</span><span class="c t-trace"><i class="st"></i>ڈ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ڈ</span><span class="c t-out"><i class="st"></i>ڈ</span><span class="c t-out"><i class="st"></i>ڈ</span><span class="c t-out"><i class="st"></i>ڈ</span><span class="c t-out"><i class="st"></i>ڈ</span><span class="c t-out"><i class="st"></i>ڈ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ڈ</span><span class="c t-faint"><i class="st"></i>ڈ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">ڈر</span> (భయం)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ڈر</span><span class="c t-trace"><i class="st"></i>ڈر</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ذ</div>
+      <div class="meta">
+        <div class="nm">జాల్</div>
+        <div class="eq">= <b>జ</b></div>
+        <div class="ex"><span class="ur">ذات</span> &middot; కులం, జాతి</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">దాల్ కుటుంబం - ఎడమవైపు కలవవు</div><div class="num">১৪</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ذ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ذ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ذ</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ذ</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ذ</span><span class="c t-trace"><i class="st"></i>ذ</span><span class="c t-trace"><i class="st"></i>ذ</span><span class="c t-trace"><i class="st"></i>ذ</span><span class="c t-trace"><i class="st"></i>ذ</span><span class="c t-trace"><i class="st"></i>ذ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ذ</span><span class="c t-out"><i class="st"></i>ذ</span><span class="c t-out"><i class="st"></i>ذ</span><span class="c t-out"><i class="st"></i>ذ</span><span class="c t-out"><i class="st"></i>ذ</span><span class="c t-out"><i class="st"></i>ذ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ذ</span><span class="c t-faint"><i class="st"></i>ذ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">ذات</span> (కులం, జాతి)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ذات</span><span class="c t-trace"><i class="st"></i>ذات</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ر</div>
+      <div class="meta">
+        <div class="nm">రే</div>
+        <div class="eq">= <b>ర</b></div>
+        <div class="ex"><span class="ur">رات</span> &middot; రాత్రి</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">రే కుటుంబం - ఎడమవైపు కలవవు</div><div class="num">১৫</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ر</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ر</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ر</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ر</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ر</span><span class="c t-trace"><i class="st"></i>ر</span><span class="c t-trace"><i class="st"></i>ر</span><span class="c t-trace"><i class="st"></i>ر</span><span class="c t-trace"><i class="st"></i>ر</span><span class="c t-trace"><i class="st"></i>ر</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ر</span><span class="c t-out"><i class="st"></i>ر</span><span class="c t-out"><i class="st"></i>ر</span><span class="c t-out"><i class="st"></i>ر</span><span class="c t-out"><i class="st"></i>ر</span><span class="c t-out"><i class="st"></i>ر</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ر</span><span class="c t-faint"><i class="st"></i>ر</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">رات</span> (రాత్రి)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>رات</span><span class="c t-trace"><i class="st"></i>رات</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ڑ</div>
+      <div class="meta">
+        <div class="nm">డే</div>
+        <div class="eq">= <b>డ (మడిచిన)</b></div>
+        <div class="ex"><span class="ur">بڑا</span> &middot; పెద్ద</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">రే కుటుంబం - ఎడమవైపు కలవవు</div><div class="num">১৬</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ڑ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ڑ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ڑ</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ڑ</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ڑ</span><span class="c t-trace"><i class="st"></i>ڑ</span><span class="c t-trace"><i class="st"></i>ڑ</span><span class="c t-trace"><i class="st"></i>ڑ</span><span class="c t-trace"><i class="st"></i>ڑ</span><span class="c t-trace"><i class="st"></i>ڑ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ڑ</span><span class="c t-out"><i class="st"></i>ڑ</span><span class="c t-out"><i class="st"></i>ڑ</span><span class="c t-out"><i class="st"></i>ڑ</span><span class="c t-out"><i class="st"></i>ڑ</span><span class="c t-out"><i class="st"></i>ڑ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ڑ</span><span class="c t-faint"><i class="st"></i>ڑ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">بڑا</span> (పెద్ద)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بڑا</span><span class="c t-trace"><i class="st"></i>بڑا</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ز</div>
+      <div class="meta">
+        <div class="nm">జే</div>
+        <div class="eq">= <b>జ</b></div>
+        <div class="ex"><span class="ur">زمین</span> &middot; భూమి</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">రే కుటుంబం - ఎడమవైపు కలవవు</div><div class="num">১৭</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ز</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ز</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ز</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ز</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ز</span><span class="c t-trace"><i class="st"></i>ز</span><span class="c t-trace"><i class="st"></i>ز</span><span class="c t-trace"><i class="st"></i>ز</span><span class="c t-trace"><i class="st"></i>ز</span><span class="c t-trace"><i class="st"></i>ز</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ز</span><span class="c t-out"><i class="st"></i>ز</span><span class="c t-out"><i class="st"></i>ز</span><span class="c t-out"><i class="st"></i>ز</span><span class="c t-out"><i class="st"></i>ز</span><span class="c t-out"><i class="st"></i>ز</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ز</span><span class="c t-faint"><i class="st"></i>ز</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">زمین</span> (భూమి)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>زمین</span><span class="c t-trace"><i class="st"></i>زمین</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ژ</div>
+      <div class="meta">
+        <div class="nm">ఝే</div>
+        <div class="eq">= <b>జ</b></div>
+        <div class="ex"><span class="ur">ژالہ</span> &middot; వడగళ్ళు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">రే కుటుంబం - ఎడమవైపు కలవవు</div><div class="num">১৮</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ژ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ژ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ژ</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ژ</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ژ</span><span class="c t-trace"><i class="st"></i>ژ</span><span class="c t-trace"><i class="st"></i>ژ</span><span class="c t-trace"><i class="st"></i>ژ</span><span class="c t-trace"><i class="st"></i>ژ</span><span class="c t-trace"><i class="st"></i>ژ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ژ</span><span class="c t-out"><i class="st"></i>ژ</span><span class="c t-out"><i class="st"></i>ژ</span><span class="c t-out"><i class="st"></i>ژ</span><span class="c t-out"><i class="st"></i>ژ</span><span class="c t-out"><i class="st"></i>ژ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ژ</span><span class="c t-faint"><i class="st"></i>ژ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">ژالہ</span> (వడగళ్ళు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ژالہ</span><span class="c t-trace"><i class="st"></i>ژالہ</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">س</div>
+      <div class="meta">
+        <div class="nm">సీన్</div>
+        <div class="eq">= <b>స</b></div>
+        <div class="ex"><span class="ur">سال</span> &middot; సంవత్సరం</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">సీన్ కుటుంబం - మూడు పళ్ళ దువ్వెన</div><div class="num">১৯</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">س</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍س</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍س‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">س‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>س</span><span class="c t-out"><i class="st"></i>س</span><span class="c t-out"><i class="st"></i>س</span><span class="c t-out"><i class="st"></i>س</span><span class="c t-out"><i class="st"></i>س</span><span class="c t-out"><i class="st"></i>س</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>س</span><span class="c t-faint"><i class="st"></i>س</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">سال</span> (సంవత్సరం)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>سال</span><span class="c t-trace"><i class="st"></i>سال</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ১৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ش</div>
+      <div class="meta">
+        <div class="nm">షీన్</div>
+        <div class="eq">= <b>ష</b></div>
+        <div class="ex"><span class="ur">شام</span> &middot; సాయంత్రం</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">సీన్ కుటుంబం - మూడు పళ్ళ దువ్వెన</div><div class="num">২০</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ش</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ش</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ش‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ش‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ش</span><span class="c t-out"><i class="st"></i>ش</span><span class="c t-out"><i class="st"></i>ش</span><span class="c t-out"><i class="st"></i>ش</span><span class="c t-out"><i class="st"></i>ش</span><span class="c t-out"><i class="st"></i>ش</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ش</span><span class="c t-faint"><i class="st"></i>ش</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">شام</span> (సాయంత్రం)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>شام</span><span class="c t-trace"><i class="st"></i>شام</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ص</div>
+      <div class="meta">
+        <div class="nm">సాద్</div>
+        <div class="eq">= <b>స</b></div>
+        <div class="ex"><span class="ur">صبح</span> &middot; ఉదయం</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">సాద్ కుటుంబం - కన్ను, తరువాత పళ్ళెం</div><div class="num">২১</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ص</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ص</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ص‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ص‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ص</span><span class="c t-out"><i class="st"></i>ص</span><span class="c t-out"><i class="st"></i>ص</span><span class="c t-out"><i class="st"></i>ص</span><span class="c t-out"><i class="st"></i>ص</span><span class="c t-out"><i class="st"></i>ص</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ص</span><span class="c t-faint"><i class="st"></i>ص</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">صبح</span> (ఉదయం)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>صبح</span><span class="c t-trace"><i class="st"></i>صبح</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ض</div>
+      <div class="meta">
+        <div class="nm">జ్వాద్</div>
+        <div class="eq">= <b>జ</b></div>
+        <div class="ex"><span class="ur">ضرور</span> &middot; తప్పకుండా</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">సాద్ కుటుంబం - కన్ను, తరువాత పళ్ళెం</div><div class="num">২২</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ض</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ض</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ض‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ض‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ض</span><span class="c t-out"><i class="st"></i>ض</span><span class="c t-out"><i class="st"></i>ض</span><span class="c t-out"><i class="st"></i>ض</span><span class="c t-out"><i class="st"></i>ض</span><span class="c t-out"><i class="st"></i>ض</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ض</span><span class="c t-faint"><i class="st"></i>ض</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">ضرور</span> (తప్పకుండా)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ضرور</span><span class="c t-trace"><i class="st"></i>ضرور</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ط</div>
+      <div class="meta">
+        <div class="nm">తోయే</div>
+        <div class="eq">= <b>త</b></div>
+        <div class="ex"><span class="ur">طوطا</span> &middot; చిలుక</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">తోయే కుటుంబం - నిలువు కర్ర ఉన్న పళ్ళెం</div><div class="num">২৩</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ط</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ط</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ط‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ط‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ط</span><span class="c t-out"><i class="st"></i>ط</span><span class="c t-out"><i class="st"></i>ط</span><span class="c t-out"><i class="st"></i>ط</span><span class="c t-out"><i class="st"></i>ط</span><span class="c t-out"><i class="st"></i>ط</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ط</span><span class="c t-faint"><i class="st"></i>ط</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">طوطا</span> (చిలుక)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>طوطا</span><span class="c t-trace"><i class="st"></i>طوطا</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ظ</div>
+      <div class="meta">
+        <div class="nm">జోయే</div>
+        <div class="eq">= <b>జ</b></div>
+        <div class="ex"><span class="ur">ظاہر</span> &middot; స్పష్టం</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">తోయే కుటుంబం - నిలువు కర్ర ఉన్న పళ్ళెం</div><div class="num">২৪</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ظ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ظ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ظ‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ظ‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ظ</span><span class="c t-out"><i class="st"></i>ظ</span><span class="c t-out"><i class="st"></i>ظ</span><span class="c t-out"><i class="st"></i>ظ</span><span class="c t-out"><i class="st"></i>ظ</span><span class="c t-out"><i class="st"></i>ظ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ظ</span><span class="c t-faint"><i class="st"></i>ظ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">ظاہر</span> (స్పష్టం)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ظاہر</span><span class="c t-trace"><i class="st"></i>ظاہر</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ع</div>
+      <div class="meta">
+        <div class="nm">ఐన్</div>
+        <div class="eq">= <b>(అచ్చుకు ఆసరా)</b></div>
+        <div class="ex"><span class="ur">عمر</span> &middot; వయసు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ఐన్ కుటుంబం - తెరిచిన నోరు</div><div class="num">২৫</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ع</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ع</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ع‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ع‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ع</span><span class="c t-out"><i class="st"></i>ع</span><span class="c t-out"><i class="st"></i>ع</span><span class="c t-out"><i class="st"></i>ع</span><span class="c t-out"><i class="st"></i>ع</span><span class="c t-out"><i class="st"></i>ع</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ع</span><span class="c t-faint"><i class="st"></i>ع</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">عمر</span> (వయసు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>عمر</span><span class="c t-trace"><i class="st"></i>عمر</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">غ</div>
+      <div class="meta">
+        <div class="nm">గైన్</div>
+        <div class="eq">= <b>గ</b></div>
+        <div class="ex"><span class="ur">غزل</span> &middot; గజల్</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ఐన్ కుటుంబం - తెరిచిన నోరు</div><div class="num">২৬</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">غ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍غ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍غ‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">غ‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>غ</span><span class="c t-out"><i class="st"></i>غ</span><span class="c t-out"><i class="st"></i>غ</span><span class="c t-out"><i class="st"></i>غ</span><span class="c t-out"><i class="st"></i>غ</span><span class="c t-out"><i class="st"></i>غ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>غ</span><span class="c t-faint"><i class="st"></i>غ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">غزل</span> (గజల్)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>غزل</span><span class="c t-trace"><i class="st"></i>غزل</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ف</div>
+      <div class="meta">
+        <div class="nm">ఫే</div>
+        <div class="eq">= <b>ఫ</b></div>
+        <div class="ex"><span class="ur">فون</span> &middot; ఫోన్</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ఫే కుటుంబం - వలయం మీద చుక్కలు</div><div class="num">২৭</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ف</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ف</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ف‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ف‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ف</span><span class="c t-out"><i class="st"></i>ف</span><span class="c t-out"><i class="st"></i>ف</span><span class="c t-out"><i class="st"></i>ف</span><span class="c t-out"><i class="st"></i>ف</span><span class="c t-out"><i class="st"></i>ف</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ف</span><span class="c t-faint"><i class="st"></i>ف</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">فون</span> (ఫోన్)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>فون</span><span class="c t-trace"><i class="st"></i>فون</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ق</div>
+      <div class="meta">
+        <div class="nm">ఖాఫ్</div>
+        <div class="eq">= <b>క</b></div>
+        <div class="ex"><span class="ur">قلم</span> &middot; కలం</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ఫే కుటుంబం - వలయం మీద చుక్కలు</div><div class="num">২৮</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ق</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ق</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ق‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ق‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ق</span><span class="c t-out"><i class="st"></i>ق</span><span class="c t-out"><i class="st"></i>ق</span><span class="c t-out"><i class="st"></i>ق</span><span class="c t-out"><i class="st"></i>ق</span><span class="c t-out"><i class="st"></i>ق</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ق</span><span class="c t-faint"><i class="st"></i>ق</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">قلم</span> (కలం)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>قلم</span><span class="c t-trace"><i class="st"></i>قلم</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ک</div>
+      <div class="meta">
+        <div class="nm">కాఫ్</div>
+        <div class="eq">= <b>క</b></div>
+        <div class="ex"><span class="ur">کتاب</span> &middot; పుస్తకం</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">కాఫ్ కుటుంబం - వాలిన గీత</div><div class="num">২৯</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ک</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ک</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ک‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ک‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ک</span><span class="c t-out"><i class="st"></i>ک</span><span class="c t-out"><i class="st"></i>ک</span><span class="c t-out"><i class="st"></i>ک</span><span class="c t-out"><i class="st"></i>ک</span><span class="c t-out"><i class="st"></i>ک</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ک</span><span class="c t-faint"><i class="st"></i>ک</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">کتاب</span> (పుస్తకం)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>کتاب</span><span class="c t-trace"><i class="st"></i>کتاب</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ২৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">گ</div>
+      <div class="meta">
+        <div class="nm">గాఫ్</div>
+        <div class="eq">= <b>గ</b></div>
+        <div class="ex"><span class="ur">گھر</span> &middot; ఇల్లు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">కాఫ్ కుటుంబం - వాలిన గీత</div><div class="num">৩০</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">گ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍گ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍گ‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">گ‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>گ</span><span class="c t-out"><i class="st"></i>گ</span><span class="c t-out"><i class="st"></i>گ</span><span class="c t-out"><i class="st"></i>گ</span><span class="c t-out"><i class="st"></i>گ</span><span class="c t-out"><i class="st"></i>گ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>گ</span><span class="c t-faint"><i class="st"></i>گ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">گھر</span> (ఇల్లు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>گھر</span><span class="c t-trace"><i class="st"></i>گھر</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ل</div>
+      <div class="meta">
+        <div class="nm">లామ్</div>
+        <div class="eq">= <b>ల</b></div>
+        <div class="ex"><span class="ur">لڑکا</span> &middot; అబ్బాయి</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">లామ్ - పొడవాటి కొక్కెం</div><div class="num">৩১</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ل</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ل</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ل‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ل‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ل</span><span class="c t-out"><i class="st"></i>ل</span><span class="c t-out"><i class="st"></i>ل</span><span class="c t-out"><i class="st"></i>ل</span><span class="c t-out"><i class="st"></i>ل</span><span class="c t-out"><i class="st"></i>ل</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ل</span><span class="c t-faint"><i class="st"></i>ل</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">لڑکا</span> (అబ్బాయి)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>لڑکا</span><span class="c t-trace"><i class="st"></i>لڑکا</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">م</div>
+      <div class="meta">
+        <div class="nm">మీమ్</div>
+        <div class="eq">= <b>మ</b></div>
+        <div class="ex"><span class="ur">مچھلی</span> &middot; చేప</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">మీమ్ - గుండ్రటి తల, దిగే తోక</div><div class="num">৩২</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">م</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍م</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍م‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">م‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>م</span><span class="c t-out"><i class="st"></i>م</span><span class="c t-out"><i class="st"></i>م</span><span class="c t-out"><i class="st"></i>م</span><span class="c t-out"><i class="st"></i>م</span><span class="c t-out"><i class="st"></i>م</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>م</span><span class="c t-faint"><i class="st"></i>م</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">مچھلی</span> (చేప)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>مچھلی</span><span class="c t-trace"><i class="st"></i>مچھلی</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ن</div>
+      <div class="meta">
+        <div class="nm">నూన్</div>
+        <div class="eq">= <b>న</b></div>
+        <div class="ex"><span class="ur">نام</span> &middot; పేరు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">నూన్ కుటుంబం - గిన్నె</div><div class="num">৩৩</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ن</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ن</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ن‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ن‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ن</span><span class="c t-out"><i class="st"></i>ن</span><span class="c t-out"><i class="st"></i>ن</span><span class="c t-out"><i class="st"></i>ن</span><span class="c t-out"><i class="st"></i>ن</span><span class="c t-out"><i class="st"></i>ن</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ن</span><span class="c t-faint"><i class="st"></i>ن</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">نام</span> (పేరు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>نام</span><span class="c t-trace"><i class="st"></i>نام</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ں</div>
+      <div class="meta">
+        <div class="nm">నూన్-ఎ-గున్నా</div>
+        <div class="eq">= <b>ం</b></div>
+        <div class="ex"><span class="ur">ماں</span> &middot; అమ్మ</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">నూన్ కుటుంబం - గిన్నె</div><div class="num">৩৪</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ں</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ں</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ں</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ں</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ں</span><span class="c t-trace"><i class="st"></i>ں</span><span class="c t-trace"><i class="st"></i>ں</span><span class="c t-trace"><i class="st"></i>ں</span><span class="c t-trace"><i class="st"></i>ں</span><span class="c t-trace"><i class="st"></i>ں</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ں</span><span class="c t-out"><i class="st"></i>ں</span><span class="c t-out"><i class="st"></i>ں</span><span class="c t-out"><i class="st"></i>ں</span><span class="c t-out"><i class="st"></i>ں</span><span class="c t-out"><i class="st"></i>ں</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ں</span><span class="c t-faint"><i class="st"></i>ں</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">ماں</span> (అమ్మ)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ماں</span><span class="c t-trace"><i class="st"></i>ماں</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">و</div>
+      <div class="meta">
+        <div class="nm">వావో</div>
+        <div class="eq">= <b>వ / ఊ / ఓ</b></div>
+        <div class="ex"><span class="ur">وقت</span> &middot; సమయం</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">వావో - ఎడమవైపు కలవదు</div><div class="num">৩৫</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">و</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍و</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍و</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">و</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>و</span><span class="c t-trace"><i class="st"></i>و</span><span class="c t-trace"><i class="st"></i>و</span><span class="c t-trace"><i class="st"></i>و</span><span class="c t-trace"><i class="st"></i>و</span><span class="c t-trace"><i class="st"></i>و</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>و</span><span class="c t-out"><i class="st"></i>و</span><span class="c t-out"><i class="st"></i>و</span><span class="c t-out"><i class="st"></i>و</span><span class="c t-out"><i class="st"></i>و</span><span class="c t-out"><i class="st"></i>و</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>و</span><span class="c t-faint"><i class="st"></i>و</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">وقت</span> (సమయం)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>وقت</span><span class="c t-trace"><i class="st"></i>وقت</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ہ</div>
+      <div class="meta">
+        <div class="nm">ఛోటీ హే</div>
+        <div class="eq">= <b>హ</b></div>
+        <div class="ex"><span class="ur">ہاتھ</span> &middot; చెయ్యి</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">హే కుటుంబం - రెండు హే</div><div class="num">৩৬</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ہ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ہ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ہ‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ہ‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ہ</span><span class="c t-out"><i class="st"></i>ہ</span><span class="c t-out"><i class="st"></i>ہ</span><span class="c t-out"><i class="st"></i>ہ</span><span class="c t-out"><i class="st"></i>ہ</span><span class="c t-out"><i class="st"></i>ہ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ہ</span><span class="c t-faint"><i class="st"></i>ہ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">ہاتھ</span> (చెయ్యి)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ہاتھ</span><span class="c t-trace"><i class="st"></i>ہاتھ</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ھ</div>
+      <div class="meta">
+        <div class="nm">దోచష్మీ హే</div>
+        <div class="eq">= <b>(మహాప్రాణ గుర్తు)</b></div>
+        <div class="ex"><span class="ur">بھائی</span> &middot; అన్న, తమ్ముడు</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">హే కుటుంబం - రెండు హే</div><div class="num">৩৭</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ھ</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ھ</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ھ‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ھ‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ھ</span><span class="c t-out"><i class="st"></i>ھ</span><span class="c t-out"><i class="st"></i>ھ</span><span class="c t-out"><i class="st"></i>ھ</span><span class="c t-out"><i class="st"></i>ھ</span><span class="c t-out"><i class="st"></i>ھ</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ھ</span><span class="c t-faint"><i class="st"></i>ھ</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">بھائی</span> (అన్న, తమ్ముడు)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بھائی</span><span class="c t-trace"><i class="st"></i>بھائی</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ی</div>
+      <div class="meta">
+        <div class="nm">ఛోటీ యే</div>
+        <div class="eq">= <b>య / ఈ</b></div>
+        <div class="ex"><span class="ur">یہ</span> &middot; ఇది</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">యే కుటుంబం - రెండు యే</div><div class="num">৩৮</div></div>
+  </div>
+  <div class="note">ఈ అక్షరం <b>ఎడమవైపు కలుస్తుంది</b> - తరువాతి అక్షరం దీనితో అతుక్కుంటుంది.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ی</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ی</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ی‍</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ی‍</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ی</span><span class="c t-out"><i class="st"></i>ی</span><span class="c t-out"><i class="st"></i>ی</span><span class="c t-out"><i class="st"></i>ی</span><span class="c t-out"><i class="st"></i>ی</span><span class="c t-out"><i class="st"></i>ی</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ی</span><span class="c t-faint"><i class="st"></i>ی</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">یہ</span> (ఇది)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>یہ</span><span class="c t-trace"><i class="st"></i>یہ</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ے</div>
+      <div class="meta">
+        <div class="nm">బడీ యే</div>
+        <div class="eq">= <b>ఏ</b></div>
+        <div class="ex"><span class="ur">کے</span> &middot; -యొక్క</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">యే కుటుంబం - రెండు యే</div><div class="num">৩৯</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ے</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ے</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ے</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ے</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ے</span><span class="c t-trace"><i class="st"></i>ے</span><span class="c t-trace"><i class="st"></i>ے</span><span class="c t-trace"><i class="st"></i>ے</span><span class="c t-trace"><i class="st"></i>ے</span><span class="c t-trace"><i class="st"></i>ے</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ے</span><span class="c t-out"><i class="st"></i>ے</span><span class="c t-out"><i class="st"></i>ے</span><span class="c t-out"><i class="st"></i>ے</span><span class="c t-out"><i class="st"></i>ے</span><span class="c t-out"><i class="st"></i>ے</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ے</span><span class="c t-faint"><i class="st"></i>ے</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">کے</span> (-యొక్క)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>کے</span><span class="c t-trace"><i class="st"></i>کے</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৩৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ء</div>
+      <div class="meta">
+        <div class="nm">హమ్జా</div>
+        <div class="eq">= <b>(అచ్చుల విరామం)</b></div>
+        <div class="ex"><span class="ur">کوئی</span> &middot; ఎవరైనా</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">హమ్జా - అక్షరం కాదు, గుర్తు</div><div class="num">৪০</div></div>
+  </div>
+  <div class="note">⚡ ఈ అక్షరం <b>ఎడమవైపు కలవదు</b>. దీని తరువాత కలం పైకి లేపాలి, పదం మధ్యలోనే ఖాళీ పడుతుంది. ఆ ఖాళీ తప్పు కాదు, నియమం.</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ء</div><div class="cap"><b>1</b> ఒంటరి</div></div><div class="formbox"><div class="g ur">‍ء</div><div class="cap"><b>2</b> చివర</div></div><div class="formbox"><div class="g ur">‍ء</div><div class="cap"><b>3</b> మధ్య</div></div><div class="formbox"><div class="g ur">ء</div><div class="cap"><b>4</b> మొదట</div></div></div>
+  <div class="rowlabel"><span>ధూసర అక్షరం <b>మీద</b> గీయండి</span><span>కుడి వైపు నుంచి మొదలు →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ء</span><span class="c t-trace"><i class="st"></i>ء</span><span class="c t-trace"><i class="st"></i>ء</span><span class="c t-trace"><i class="st"></i>ء</span><span class="c t-trace"><i class="st"></i>ء</span><span class="c t-trace"><i class="st"></i>ء</span></div>
+</div>
+  <div class="rowlabel"><span>బోలు అక్షరాన్ని <b>నింపండి</b></span><span>ఆరు సార్లు</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ء</span><span class="c t-out"><i class="st"></i>ء</span><span class="c t-out"><i class="st"></i>ء</span><span class="c t-out"><i class="st"></i>ء</span><span class="c t-out"><i class="st"></i>ء</span><span class="c t-out"><i class="st"></i>ء</span></div>
+</div>
+  <div class="rowlabel"><span>మొదలు ఇచ్చాం - <b>మిగతాది మీరే</b></span><span>వరుస పూర్తి చేయండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ء</span><span class="c t-faint"><i class="st"></i>ء</span></div>
+</div>
+  <div class="rowlabel"><span>మీరే రాయండి</span><span>వరుస నింపండి</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>పదంలో పెట్టండి - <span class="ur">کوئی</span> (ఎవరైనా)</span><span>తరువాత మీరే</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>کوئی</span><span class="c t-trace"><i class="st"></i>کوئی</span></div>
+</div>
+  <div class="pf"><span>పుస్తకం ১ · అక్షరాలు</span><span>BHASHASETU &middot; తెలుగు నుండి ఉర్దూ &middot; ৪০</span></div>
+</div>
+</body>
+</html>

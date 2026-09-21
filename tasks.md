@@ -26,10 +26,11 @@ Progress tracker inside each course (saved stage, per-stage "done" button, dots)
 All six pass `prompts/check_course.py` and were checked live in the browser (desktop + 375px, hash routing, self-checks, speak buttons, no console errors). Each has a sidecar in `prompts/pair_knowledge/` recording its aha moments, anchors with verification URLs, and what was dropped for lack of evidence.
 
 
-## 2b. Handwriting worksheets - five pairs done
+## 2b. Handwriting worksheets - ten pairs
 
 Static A4 PDFs, built once, sent on request. Three generators, because three script
-families sit on the page differently. All rendered by `worksheets/build_pdfs.sh`
+families sit on the page differently. Since 2026-09-21 a pair is a JSON file in
+`worksheets/data/`, not code: see `worksheets/README.md`. All rendered by `worksheets/build_pdfs.sh`
 with headless Chrome.
 
 | Pair | Target script | Generator | Pages | Linked into course |
@@ -38,7 +39,12 @@ with headless Chrome.
 | `telugu_to_hindi` | Devanagari | `gen_worksheets.py` | 169 | [x] stages 0,1,2,3,4,6 |
 | `bengali_to_urdu` | Perso-Arabic | `gen_worksheets_urdu.py` | 136 | [x] stages 0-5 |
 | `bengali_to_telugu` | Telugu | `gen_worksheets_brahmic.py` | 138 | [x] stages 0,1,2,3,4,6 |
-| `bengali_to_tamil` | Tamil | `gen_worksheets_brahmic.py` | 121 | [x] stages 0,1,2,3,4,6 |
+| `bengali_to_tamil` | Tamil | `gen_brahmic.py` | 121 | [x] stages 0,1,2,3,4,6 |
+| `telugu_to_urdu` | Perso-Arabic | `gen_urdu.py` | 138 | [x] 6 blocks |
+| `telugu_to_tamil` | Tamil | `gen_brahmic.py` | 126 | [x] 7 blocks |
+| `hindi_to_telugu` | Telugu | `gen_brahmic.py` | 141 | [x] 6 blocks |
+| `hindi_to_tamil` | Tamil | `gen_brahmic.py` | 125 | [x] 7 blocks |
+| `kannada_to_telugu` | Telugu | `gen_brahmic.py` | 142 | [x] 6 blocks |
 
 Books 1, 2 and 5-8 are the same everywhere: vowels, consonants, easy words, harder
 words, short sentences, longer sentences. **Books 3 and 4 are where scripts diverge:**
@@ -110,6 +116,11 @@ prose is already good: keep the hand-written Bengali/Hindi/Tamil text, add the v
 | `bengali_to_telugu` | **C (Indo-Aryan to Dravidian)** | 2026-09-21 | [x] **10 stages to 12** - the one grammar stage split into নাম ও বিভক্তি (cases, oblique, dative subject), ক্রিয়া (tenses, the negative as its own paradigm) and বাক্যের ছাঁচ (relative and verbal participles). 202 KB, 10 self-checks, 9 passages, 14 anchors, 218 `data-say`, 20 false friends from the DSAL research. Six `.khata` blocks added after. Checker PASS. |
 | `bengali_to_tamil` | **C (Indo-Aryan to Dravidian)** | 2026-09-21 | [x] **10 stages to 12**, same three-way grammar split. 218 KB, 10 self-checks, 9 passages, 13 anchors, 249 `data-say`, 10 false friends from DSAL. The Bengali pronunciation line does real work here: Tamil writes one letter for k/g and t/d, so it shows what is *heard* (நன்றி = নন্দ্রি), which Roman "naṉṟi" hides. Six `.khata` blocks added after. Checker PASS. |
 
+| `telugu_to_urdu` | **E (Perso-Arabic target)** | 2026-09-21 | [x] Stages 01-03 rewritten for the abjad. 10 stages, 8 self-checks, 11 anchors, 226 `data-say`, 10 false friends verified in Platts and Brown. The Deccan history is the spine and is genuinely shared ground: Charminar, the Northern Circars from *sarkar*, Osmania's 1917 firman, Makhdoom, Dasarathi's *Ghalib Geetalu*. The Bengali course's 1952 framing was deliberately NOT imported. 6 `.khata` blocks, 138 pages. Checker PASS. |
+| `telugu_to_tamil` | B (cross-script, same family) | 2026-09-21 | [x] Both Dravidian, so the grammar skeleton is shared and the stages go to the script and the sound system. Tamil writes one letter for k/g, t/d, p/b, so stage 02 is a four-position voicing table and the Telugu line shows what is *heard*. Book 4 is the pulli book, not an ottu book, because Tamil has no ottu: the hardest habit in Telugu handwriting is simply absent. 10 anchors, 225 `data-say`, 10 DSAL-verified false friends. 7 `.khata` blocks, 126 pages. Checker PASS. |
+| `hindi_to_telugu` | **C (Indo-Aryan to Dravidian)** | 2026-09-21 | [x] **10 stages to 12.** Agglutination owns stage 05 alone, verbs 06, sentence patterns 07. Every noun card carries a mahat/amahat tag. Three bridges exist only for a Hindi source: मुझे = నాకు one-to-one, -इए = -ండి, -कर = -ఇ. 12 anchors, 274 `data-say`, 17 false friends. Cut three v1 numbers that could not be derived, including "47 of 44 phonemes", which is impossible on its face. 6 `.khata` blocks, 141 pages. Checker PASS. |
+| `hindi_to_tamil` | **C (Indo-Aryan to Dravidian)** | 2026-09-21 | [x] **10 stages to 12.** Devanagari already owns ऴ ळ ऱ ऎ ऒ, so unlike the Bengali course nothing had to be collapsed; only ன has no honest Devanagari letter and the course says so. The oblique stem, the dative subject and -कर carry the corridor. Voicing is anchored on Hindi's own spellings: मदुरै, इडली, पोंगल already encode it. 13 anchors, 243 `data-say`, 12 false friends. Language politics in stage 10 carries both halves, the 1965 agitation and Gandhi's Madras Hindi Prachar Sabha, and lands on the learner: chosen and imposed are not the same thing. 7 `.khata` blocks, 125 pages. Checker PASS. |
+| `kannada_to_telugu` | B (cross-script, same family) | 2026-09-21 | [x] Sibling scripts, so similarity is the trap rather than the gift: a Telugu word transposed letter-for-letter into Kannada often spells a real, different Kannada word. Stages 01-03 cover the eight drifted shapes, the four look-alike pairs, and the fact that Telugu's upper vowel signs swallow the talakattu where Kannada's merely attach. 10 anchors, 269 `data-say`, 12 false friends from Kittel and Brown. 6 `.khata` blocks, 142 pages. Its cover rules overran the fixed-height cover and added a page to every book; trimmed from 1334 to 781 characters with all five findings intact, and the generator now guards the limit. Also caught a class collision the reference would have caused: `.kn` is already this course's Kannada font class, and the reference's `.kn` rule sets a monospace face with no Kannada glyphs, so the book numbers would have rendered as tofu. Renamed to `.kbn`. Checker PASS. |
 
 **Operational note for conversions (learned the hard way, 2026-09-21).** The
 `bengali_to_telugu` and `bengali_to_tamil` agents stalled on a 600s no-progress
@@ -181,3 +192,30 @@ course with one grammar stage is still a v1 course no matter how good its prose 
 ### 3d. Index
 - [ ] Per-source "coming soon" for foreign targets is automatic; revisit when more sources get foreign courses
 - [ ] Consider a v2 filter/legend count on the index once several v2 courses exist
+
+**What this batch taught (2026-09-21, five courses in parallel).** The stall advice above
+held: capping web calls at two per block and forbidding subagents meant no agent stalled
+once in five. Three new lessons, all of them things a checker caught and a reading would
+not have:
+
+- **Sheet count against PDF page count is the test that matters.** Every `kannada_to_telugu`
+  book came out exactly one page longer than its sheet count. A uniform offset means the
+  cover, the one page every book shares: 1334 characters of cover rules against the
+  reference's 649 spilled onto a second page, and all eight books inherited it. The
+  generator now refuses to build when the rules exceed what the cover holds.
+- **Check the fonts actually embedded, not just that the PDF renders.** `pdffonts` showed
+  the Telugu-source Urdu workbook embedding Noto Serif Bengali and rendering its Telugu in
+  a macOS system fallback, because both generators requested the Bengali family whatever
+  the source was. It would have printed differently on any other machine. The font now
+  follows `source_iso`.
+- **Reference data carries the reference's language.** The Tamil letter spine handed to the
+  agents had its `parts` column pre-filled with Bengali, because it was extracted from the
+  Bengali course without noticing that column is source-language for Tamil. An agent caught
+  it in its own copy. Any new spine should be checked for source-script leakage before it
+  goes out, with a plain codepoint-range count.
+
+**Worth doing before the next batch.** Agents delivered courses and worksheet data reliably,
+but none of them produced the six source-language worksheet strings (`same_sign`,
+`words_hint`, `sent_seq`, `sent_head`, `sent_hint`, `rules`) without being asked in a second
+round, because those were added to the schema after they had started. Put them in the brief
+from the start and the batch is one round shorter.
