@@ -2,20 +2,223 @@
 """
 BHASHASETU handwriting worksheets - generator.
 
-Builds print-ready A4 HTML workbooks that teach a Bengali speaker to WRITE
-Devanagari, in the order the bengali_to_hindi course teaches it:
-letters -> vowel signs -> words -> sentences.
+Builds print-ready A4 HTML workbooks that teach an Indian-language speaker to
+WRITE Devanagari, in the order the matching course teaches it:
+letters -> vowel signs -> conjuncts -> words -> sentences.
 
-Every instruction is in Bengali. Output: worksheets/<pair>/*.html
-PDFs are produced from those with headless Chrome (see build_pdfs.sh).
+The TARGET is Devanagari for every pair here, so the ruling geometry and the
+font metrics are shared. What changes per pair is the source language: the
+letter equivalents, the glosses, the interface strings, and - importantly -
+which bridges are true. A Bengali writer already draws a headline last; a
+Telugu writer does not, and is told so.
 
-Tunables live in CSS custom properties at the top of STYLE so the ruling and
-glyph placement can be adjusted in one place after looking at a printed page.
+Usage:  python3 gen_worksheets.py [pair ...]      (default: all pairs)
+PDFs are rendered from the HTML by build_pdfs.sh (headless Chrome).
 """
-import os, html, json
+import os, html, sys
 
-PAIR = "bengali_to_hindi"
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), PAIR)
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+# ---------------------------------------------------------------- pairs
+# Per-source-language configuration. Only the source changes; the Devanagari
+# target data below is shared.
+LANGS = {
+ "bengali_to_hindi": {
+   "iso": "bn", "font": "Noto Serif Bengali", "script_cls": "bn",
+   "digits": "০১২৩৪৫৬৭৮৯",
+   "title": "হাতের লেখার খাতা", "book": "খাতা",
+   "sub": "বাংলা থেকে হিন্দি",
+   "primer": "বর্ণপরিচয়",
+   "ui": {
+     "trace": "ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো", "times": "সাত বার",
+     "fill": "ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b>",
+     "start_given": "শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b>", "finish_row": "সারি শেষ করো",
+     "self": "নিজে লেখো", "fill_row": "সারি ভরাও",
+     "in_word": "শব্দে বসাও", "then_self": "তারপর নিজে",
+     "step1": "শরীর", "step2": "শিরোরেখা",
+     "model": "নমুনা - দেখে নাও", "grey": "ধূসর - উপর দিয়ে টানো",
+     "hollow": "ফাঁপা - ভেতরটা ভরো", "faint": "ক্ষীণ - প্রায় একা",
+     "legend": "এই বইয়ে চার রকম লেখা",
+     "before": "লেখার আগে পাঁচটি কথা",
+     "vowels": "স্বরবর্ণ", "consonants": "ব্যঞ্জনবর্ণ", "matra": "মাত্রা",
+     "conj": "যুক্তাক্ষর", "words": "শব্দ", "sentences": "বাক্য",
+     "easy": "সহজ", "hard": "কঠিন",
+     "conj_intro": "বাংলাতেও যুক্তাক্ষর আছে - ক্ষ = ক + ষ, জ্ঞ = জ + ঞ। ধারণাটা তোমার জানা; এখানে শুধু চেহারা নতুন।",
+     "word_intro": "প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।",
+     "sent_intro": "একটানা শিরোরেখা শব্দের শেষ পর্যন্ত - তারপর ফাঁক। ওটাই দেবনাগরীর ছন্দ。",
+     "sent_flow": "নমুনা &rarr; ধূসর &rarr; নিজে",
+     "sent_head": "বাক্য লেখা",
+     "matra_rule": "বাংলায় ক + া = কা। হিন্দিতে {b} + চিহ্ন = {f}। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন।",
+     "apply": "একই চিহ্ন <b>অন্য ব্যঞ্জনে</b>",
+   },
+ },
+ "telugu_to_hindi": {
+   "iso": "te", "font": "Noto Serif Telugu", "script_cls": "te",
+   "digits": "౦౧౨౩౪౫౬౭౮౯",
+   "title": "చేతిరాత పుస్తకాలు", "book": "పుస్తకం",
+   "sub": "తెలుగు నుండి హిందీ",
+   "primer": "బాలశిక్ష",
+   "ui": {
+     "trace": "బూడిదరంగు అక్షరం <b>మీద గీయండి</b>", "times": "ఏడు సార్లు",
+     "fill": "డొల్ల అక్షరం <b>లోపల నింపండి</b>",
+     "start_given": "మొదటిది ఇచ్చాము - <b>మిగిలింది మీరే</b>", "finish_row": "వరుస పూర్తి చేయండి",
+     "self": "మీరే రాయండి", "fill_row": "వరుస నింపండి",
+     "in_word": "పదంలో పెట్టండి", "then_self": "తరువాత మీరే",
+     "step1": "శరీరం", "step2": "శిరోరేఖ",
+     "model": "నమూనా - చూడండి", "grey": "బూడిద - మీద గీయండి",
+     "hollow": "డొల్ల - లోపల నింపండి", "faint": "పలుచన - దాదాపు ఒంటరిగా",
+     "legend": "ఈ పుస్తకంలో నాలుగు రకాల రాత",
+     "before": "రాయడానికి ముందు ఐదు మాటలు",
+     "vowels": "అచ్చులు", "consonants": "హల్లులు", "matra": "గుణింతాలు",
+     "conj": "సంయుక్తాక్షరాలు", "words": "పదాలు", "sentences": "వాక్యాలు",
+     "easy": "సులభం", "hard": "కష్టం",
+     "conj_intro": "తెలుగులోనూ ఒత్తులు ఉన్నాయి - క్ష = క + ష, జ్ఞ = జ + ఞ. ధారణ మీకు తెలుసు. కానీ <b>తేడా ఒకటి ఉంది</b>: తెలుగు రెండో అక్షరాన్ని <b>కింద</b> పెడుతుంది, దేవనాగరి <b>పక్కన</b> పెడుతుంది.",
+     "word_intro": "మొదటి రెండు ఇచ్చాము - నమూనా, బూడిద. తరువాత వరుసలో మిగిలింది మీదే.",
+     "sent_intro": "శిరోరేఖ పదం చివరి వరకు ఆగకుండా సాగుతుంది - తరువాత ఖాళీ. అదే దేవనాగరి లయ.",
+     "sent_flow": "నమూనా &rarr; బూడిద &rarr; మీరే",
+     "sent_head": "వాక్యం రాయడం",
+     "matra_rule": "తెలుగులో క + ా = కా. హిందీలో {b} + గుర్తు = {f}. <b>నియమం మీకు తెలుసు</b> - రూపం మాత్రమే కొత్తది.",
+     "apply": "అదే గుర్తు <b>వేరే హల్లుపై</b>",
+   },
+ },
+}
+
+def D(pair, n):
+    """Render an integer in the source language's digits."""
+    d = LANGS[pair]["digits"]
+    return "".join(d[int(c)] for c in str(n))
+
+
+# ---------------------------------------------------------------- telugu layer
+# The Devanagari spine below is shared. These dictionaries carry what changes
+# for a Telugu reader: the nearest Telugu letter, and the gloss.
+# Notes that matter and are NOT true for Bengali:
+#   - Telugu has no shirorekha. The headline is genuinely new here.
+#   - Telugu has short e/o (ఎ ఒ); Hindi has only the long ए ओ.
+#   - Telugu has no d-ra / dh-ra flap, so ड़ and ढ़ are new sounds, not familiar ones.
+#   - Telugu stacks a conjunct's second consonant BELOW (ottu); Devanagari puts it beside.
+EQ_TE = {
+ "अ":"అ","आ":"ఆ","इ":"ఇ","ई":"ఈ","उ":"ఉ","ऊ":"ఊ","ऋ":"ఋ","ए":"ఏ","ऐ":"ఐ","ओ":"ఓ","औ":"ఔ",
+ "अं":"అం","अः":"అః",
+ "क":"క","ख":"ఖ","ग":"గ","घ":"ఘ","ङ":"ఙ","च":"చ","छ":"ఛ","ज":"జ","झ":"ఝ","ञ":"ఞ",
+ "ट":"ట","ठ":"ఠ","ड":"డ","ढ":"ఢ","ण":"ణ","त":"త","थ":"థ","द":"ద","ध":"ధ","न":"న",
+ "प":"ప","फ":"ఫ","ब":"బ","भ":"భ","म":"మ","य":"య","र":"ర","ल":"ల","व":"వ",
+ "श":"శ","ष":"ష","स":"స","ह":"హ",
+ # nukta: none of these exist in Telugu, so they are marked new
+ "ड़":"డ ⚡","ढ़":"ఢ ⚡","क़":"క ⚡","ख़":"ఖ ⚡","ग़":"గ ⚡","ज़":"జ ⚡","फ़":"ఫ ⚡",
+}
+MATRA_TE = {
+ "क":("క","అంతర్గత 'అ' - గుర్తు అవసరం లేదు"),
+ "का":("కా","ఆ-కారం: కుడివైపు ఒక నిలువు గీత"),
+ "कि":("కి","ఇ-కారం: ఎడమవైపు కూర్చుంటుంది, కానీ చదివేది తరువాత"),
+ "की":("కీ","ఈ-కారం: కుడివైపు"),
+ "कु":("కు","ఉ-కారం: కింద"),
+ "कू":("కూ","ఊ-కారం: కింద"),
+ "कृ":("కృ","ఋ-కారం: కింద"),
+ "के":("కే","ఏ-కారం: శిరోరేఖ పైన"),
+ "कै":("కై","ఐ-కారం: పైన రెండు"),
+ "को":("కో","ఓ-కారం: నిలువు గీత + పైన ఒకటి"),
+ "कौ":("కౌ","ఔ-కారం: నిలువు గీత + పైన రెండు"),
+ "कं":("కం","సున్న / అనుస్వారం"),
+ "कः":("కః","విసర్గం"),
+}
+CONJ_GROUP_TE = {
+ "দ্বিত্ব - একই অক্ষর দুবার":"ద్విత్వం - ఒకే అక్షరం రెండుసార్లు",
+ "আধা অক্ষর - দাঁড়ি কেটে":"సగం అక్షరం - నిలువు గీత కోసి",
+ "রেফ - র উপরে বসে":"రేఫం - ర పైన కూర్చుంటుంది",
+ "পায়ে র - নিচে হেলানো দাগ":"ర ఒత్తు - కింద వాలిన గీత",
+ "পায়ে র - তিন অক্ষরের জোড়":"ర ఒత్తు - మూడు అక్షరాల జోడు",
+ "বিশেষ রূপ - মুখস্থ করতে হয়":"ప్రత్యేక రూపం - కంఠస్థం చేయాలి",
+ "য-ফলা":"య ఒత్తు",
+ "ব-ফলা":"వ ఒత్తు",
+ "নাসিক্য জোড় - অনুস্বারেও লেখা চলে":"అనునాసిక జోడు - సున్నతోనూ రాయవచ్చు",
+}
+# Hindi word -> Telugu gloss. Covers example words, conjunct examples and both word books.
+GLOSS_TE = {
+ "अब":"ఇప్పుడు","आम":"మామిడి","इधर":"ఇటు","ईख":"చెరకు","उधर":"అటు","ऊन":"ఉన్ని","ऋषि":"ఋషి",
+ "एक":"ఒకటి","ऐनक":"కళ్లద్దాలు","ओर":"వైపు","औषधि":"ఔషధం","हंस":"హంస","दुःख":"దుఃఖం",
+ "कमल":"కమలం","खग":"పక్షి","गगन":"ఆకాశం","घर":"ఇల్లు","रंग":"రంగు","चंद्र":"చంద్రుడు",
+ "छत्र":"గొడుగు","जल":"నీరు","झरना":"జలపాతం","ज्ञान":"జ్ఞానం","टमाटर":"టమాటా","ठंड":"చలి",
+ "डंडा":"కర్ర","ढोल":"ఢోలు","प्राण":"ప్రాణం","तारा":"నక్షత్రం","थाली":"పళ్ళెం","दिन":"రోజు",
+ "धन":"ధనం","नाम":"పేరు","पुस्तक":"పుస్తకం","फल":"పండు","बाबा":"నాన్న","भाषा":"భాష","माँ":"అమ్మ",
+ "यह":"ఇది","राम":"రాముడు","लाल":"ఎరుపు","वन":"అడవి","शांति":"శాంతి","षट्":"ఆరు","सत्य":"సత్యం",
+ "हाथ":"చేయి","पढ़ना":"చదవడం","बूढ़ा":"ముసలి","क़ानून":"చట్టం","ख़त":"ఉత్తరం","ग़ज़ल":"గజల్",
+ "ज़रूर":"తప్పకుండా","फ़ोन":"ఫోన్",
+ # conjunct examples
+ "पक्का":"పక్కా","बच्चा":"పిల్లవాడు","अच्छा":"మంచిది","सज्जन":"సజ్జనుడు","पत्ता":"ఆకు",
+ "गद्दा":"పరుపు","अन्न":"అన్నం","चप्पल":"చెప్పులు","डिब्बा":"డబ్బా","चम्मच":"చెంచా",
+ "बिल्ली":"పిల్లి","रस्सी":"తాడు","स्थान":"స్థానం","स्नान":"స్నానం","स्वर":"స్వరం",
+ "स्मरण":"స్మరణ","स्कूल":"బడి","विश्व":"విశ్వం","दृश्य":"దృశ్యం","कष्ट":"కష్టం","श्रेष्ठ":"శ్రేష్ఠం",
+ "धर्म":"ధర్మం","तर्क":"తర్కం","सूर्य":"సూర్యుడు","वर्ष":"సంవత్సరం","अर्थ":"అర్థం","वर्ण":"వర్ణం",
+ "प्रेम":"ప్రేమ","क्रम":"క్రమం","ग्राम":"గ్రామం","ब्रज":"బ్రజ","पत्र":"ఉత్తరం","श्रम":"శ్రమ",
+ "वस्त्र":"వస్త్రం","क्षमा":"క్షమ","विद्या":"విద్య","द्वार":"ద్వారం","बुद्ध":"బుద్ధుడు","पद्म":"పద్మం",
+ "ब्रह्म":"బ్రహ్మ","सह्य":"సహ్యం","चिह्न":"చిహ్నం","चिट्ठी":"ఉత్తరం","क्या":"ఏమిటి","मुख्य":"ముఖ్యం",
+ "तथ्य":"వాస్తవం","ध्यान":"ధ్యానం","अन्य":"ఇతర","रम्य":"రమ్యం","व्यक्ति":"వ్యక్తి","तत्व":"తత్త్వం",
+ "ध्वनि":"ధ్వని","ज्वर":"జ్వరం","पक्व":"పక్వం","अन्त / अंत":"అంతం","वन्दे / वंदे":"వందే",
+ "अन्धा / अंधा":"గుడ్డి","कम्पन / कंपन":"కంపనం","अम्बर / अंबर":"అంబరం","स्तम्भ / स्तंभ":"స్తంభం",
+ "दण्ड / दंड":"దండం","पञ्च / पंच":"పంచ",
+ # words book 1
+ "मैं":"నేను","तू":"నువ్వు","तुम":"నువ్వు (మిత్ర)","आप":"మీరు","वह":"అతను / ఆమె","हम":"మేము","वे":"వాళ్ళు",
+ "पानी":"నీరు","रात":"రాత్రి","दूध":"పాలు","चावल":"బియ్యం","रोटी":"రొట్టె","हवा":"గాలి","आग":"నిప్పు",
+ "फूल":"పువ్వు","पैर":"కాలు","सिर":"తల","मुँह":"నోరు","नाक":"ముక్కు","कान":"చెవి","आँख":"కన్ను",
+ "दाँत":"పన్ను","पिता":"తండ్రి","भाई":"అన్న / తమ్ముడు","बहन":"అక్క / చెల్లి","बेटा":"కొడుకు",
+ "बेटी":"కూతురు","दादा":"తాత","नाना":"అమ్మమ్మ వైపు తాత","काला":"నలుపు","हरा":"ఆకుపచ్చ",
+ "पीला":"పసుపు","नीला":"నీలం","छोटा":"చిన్న","गरम":"వేడి","ठीक":"సరే","दो":"రెండు","तीन":"మూడు",
+ "चार":"నాలుగు","पाँच":"ఐదు","छह":"ఆరు","सात":"ఏడు","आठ":"ఎనిమిది","नौ":"తొమ్మిది","दस":"పది",
+ "आना":"రావడం","जाना":"వెళ్ళడం","खाना":"తినడం","पीना":"తాగడం","देखना":"చూడటం","सुनना":"వినడం",
+ "बोलना":"మాట్లాడటం","चलना":"నడవడం","उठना":"లేవడం","सोना":"నిద్రపోవడం",
+ # words book 2
+ "शिक्षा":"విద్య","शब्द":"పదం","स्वप्न":"కల","कर्म":"కర్మ","कक्षा":"తరగతి","बड़ा":"పెద్ద",
+ "पेड़":"చెట్టు","लड़का":"అబ్బాయి","लड़की":"అమ్మాయి","चढ़ना":"ఎక్కడం","बढ़ना":"పెరగడం",
+ "ज़मीन":"భూమి","बाज़ार":"బజారు","मेज़":"బల్ల","किताब":"పుస్తకం","कमरा":"గది","दुकान":"దుకాణం",
+ "कुर्सी":"కుర్చీ","कपड़ा":"బట్ట","दोस्त":"స్నేహితుడు","हिसाब":"లెక్క","नमस्ते":"నమస్తే",
+ "धन्यवाद":"ధన్యవాదాలు","विद्यालय":"పాఠశాల","अस्पताल":"ఆసుపత్రి","विद्यार्थी":"విద్యార్థి",
+ "समाचार":"వార్తలు","स्वतंत्रता":"స్వాతంత్ర్యం","समझना":"అర్థం చేసుకోవడం","सीखना":"నేర్చుకోవడం",
+ "पहुँचना":"చేరుకోవడం","छोड़ना":"వదలడం","खरीदना":"కొనడం","बेचना":"అమ్మడం","मिलना":"కలవడం",
+ "सुंदर":"అందమైన","लंबा":"పొడవు","मुश्किल":"కష్టం","आसान":"సులభం","ज़रूरी":"అవసరం",
+ "खुश":"సంతోషం","दुखी":"దుఃఖం","समय":"సమయం","मित्र":"మిత్రుడు","मेरा":"నా",
+}
+def eqv(pair, deva, default):
+    return EQ_TE.get(deva, default) if LANGS[pair]["iso"] == "te" else default
+def glv(pair, word, default):
+    return GLOSS_TE.get(word, default) if LANGS[pair]["iso"] == "te" else default
+def grpv(pair, g):
+    return CONJ_GROUP_TE.get(g, g) if LANGS[pair]["iso"] == "te" else g
+
+
+# Hindi sentence -> Telugu gloss (both sentence books).
+SENT_TE = {
+ "मेरा नाम राम है।":"నా పేరు రాము.","यह मेरा घर है।":"ఇది నా ఇల్లు.",
+ "मैं पानी पीता हूँ।":"నేను నీళ్ళు తాగుతాను.","वह रोटी खाता है।":"అతను రొట్టె తింటాడు.",
+ "तुम कहाँ हो?":"నువ్వు ఎక్కడ ఉన్నావు?","मैं घर जाता हूँ।":"నేను ఇంటికి వెళ్తాను.",
+ "यह फूल लाल है।":"ఈ పువ్వు ఎరుపు.","मेरी माँ आती है।":"మా అమ్మ వస్తుంది.",
+ "वह मेरा भाई है।":"అతను నా అన్న.","आपका नाम क्या है?":"మీ పేరు ఏమిటి?",
+ "दूध गरम है।":"పాలు వేడిగా ఉన్నాయి.","वह नहीं आता।":"అతను రాడు.",
+ "मुझे पानी दो।":"నాకు నీళ్ళు ఇవ్వు.","यहाँ आओ।":"ఇక్కడికి రా.",
+ "वहाँ मत जाओ।":"అక్కడికి వెళ్ళకు.","मेरे दो भाई हैं।":"నాకు ఇద్దరు అన్నలు.",
+ "हम सुबह आते हैं।":"మేము ఉదయం వస్తాము.","तुम भी चलो।":"నువ్వూ రా.",
+ "मेरा हाथ छोटा है।":"నా చేయి చిన్నది.","पानी ठंडा है।":"నీళ్ళు చల్లగా ఉన్నాయి.",
+ "बेटा सोता है।":"కొడుకు నిద్రపోతాడు.","यह मेरा फल है।":"ఇది నా పండు.",
+ "आज रात है।":"ఈ రోజు రాత్రి.","वह गाना गाती है।":"ఆమె పాట పాడుతుంది.",
+ "मैं हिंदी सीखता हूँ।":"నేను హిందీ నేర్చుకుంటాను.","यह घर नया है।":"ఈ ఇల్లు కొత్తది.",
+ "हवा ठंडी है।":"గాలి చల్లగా ఉంది.","मैं आज नहीं जाऊँगा।":"నేను ఈ రోజు వెళ్ళను.",
+ "मैं कोलकाता से हूँ।":"నేను కోల్‌కతా నుండి.","मैं रोज़ किताब पढ़ता हूँ।":"నేను రోజూ పుస్తకం చదువుతాను.",
+ "वह विद्यालय में पढ़ती है।":"ఆమె పాఠశాలలో చదువుతుంది.","क्या आप हिंदी बोलते हैं?":"మీరు హిందీ మాట్లాడతారా?",
+ "मुझे यह शहर पसंद है।":"నాకు ఈ నగరం ఇష్టం.","कृपया थोड़ा पानी दीजिए।":"దయచేసి కొంచెం నీళ్ళు ఇవ్వండి.",
+ "आज मौसम अच्छा है।":"ఈ రోజు వాతావరణం బాగుంది.","मेरे मित्र का नाम अर्जुन है।":"నా మిత్రుడి పేరు అర్జున్.",
+ "हम कल बाज़ार जाएँगे।":"మేము రేపు బజారుకు వెళ్తాము.","उसने मुझे पत्र लिखा।":"అతను నాకు ఉత్తరం రాశాడు.",
+ "यह पुस्तक सुंदर है।":"ఈ పుస్తకం అందంగా ఉంది.","क्या तुमने खाना खाया?":"నువ్వు అన్నం తిన్నావా?",
+ "वह अस्पताल में काम करता है।":"అతను ఆసుపత్రిలో పని చేస్తాడు.","मुझे हिंदी सीखनी है।":"నేను హిందీ నేర్చుకోవాలి.",
+ "तुम्हारा घर कहाँ है?":"నీ ఇల్లు ఎక్కడ ఉంది?","वे मिलकर काम करते हैं।":"వాళ్ళు కలిసి పని చేస్తారు.",
+ "इस कमरे में तीन कुर्सियाँ हैं।":"ఈ గదిలో మూడు కుర్చీలు ఉన్నాయి.","बच्चे बगीचे में खेल रहे हैं।":"పిల్లలు తోటలో ఆడుతున్నారు.",
+ "मैंने समाचार नहीं पढ़ा।":"నేను వార్తలు చదవలేదు.","उसे संगीत सुनना पसंद है।":"అతనికి సంగీతం వినడం ఇష్టం.",
+ "हमें समय पर पहुँचना चाहिए।":"మనం సమయానికి చేరుకోవాలి.","यह प्रश्न मुश्किल है।":"ఈ ప్రశ్న కష్టం.",
+ "दुकान नौ बजे खुलती है।":"దుకాణం తొమ్మిది గంటలకు తెరుస్తారు.","मेरी बहन डॉक्टर है।":"నా చెల్లి డాక్టర్.",
+ "स्वतंत्रता हमारा अधिकार है।":"స్వాతంత్ర్యం మన హక్కు.","धन्यवाद, आपकी बहुत कृपा।":"ధన్యవాదాలు, మీ దయ.",
+ "मैं आपसे बाद में मिलूँगा।":"నేను మిమ్మల్ని తరువాత కలుస్తాను.","क्षमा कीजिए, मुझे देर हुई।":"క్షమించండి, నాకు ఆలస్యం అయింది.",
+}
+def snt(pair, hi, default):
+    return SENT_TE.get(hi, default) if LANGS[pair]["iso"] == "te" else default
 
 # ---------------------------------------------------------------- data
 # (devanagari, bengali equivalent, transliteration, example word, example gloss)
@@ -283,42 +486,34 @@ SENTENCES2 = [
 ]
 
 # ---------------------------------------------------------------- css
+# Geometry is target-script (Devanagari) driven and therefore shared.
+# {SRC_FONT} is substituted per pair.
 STYLE = """
 :root{
-  /* --- ruling geometry: change these to retune every sheet --- */
   --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
   --base:  19mm;       /* baseline - letters sit here            */
   /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
      (see calibrate_font.html). Fractions of the font size, from the baseline:
        bare letter  shirorekha ....... 0.642 up
-       matras above (ि ी े ै) ........ 0.925 up
-       matras below (ु ू ृ) .......... 0.290 down
-     Only --head and --base are set by hand; everything else derives. */
+       matras above ..................  0.925 up
+       matras below ..................  0.290 down */
   --asc-ratio:  0.642;
-  --top-ratio:  0.283; /* 0.925 - 0.642: how far matras clear the headline */
+  --top-ratio:  0.283;
   --bot-ratio:  0.290;
 
   --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
-  --line:#9aa8b8;      /* solid ruling                           */
-  --line-soft:#c7d0da; /* dashed ruling                          */
-  --trace:#c9c9c9;     /* filled grey glyph, trace over it       */
-  --outline:#bdbdbd;   /* hollow outline glyph                   */
-  --faint:#e3e3e3;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
 }
 @page{ size:A4; margin:11mm 10mm 12mm 10mm; }
 *{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 html,body{ margin:0; padding:0; background:#fff; }
-body{
-  font-family:'Noto Serif Bengali','Noto Sans Bengali',serif;
-  color:var(--ink);
-  font-size:10pt;
-}
-.deva{ font-family:'Noto Serif Devanagari','Devanagari Sangam MN','Kohinoor Devanagari',serif; }
+body{ font-family:'{SRC_FONT}',serif; color:var(--ink); font-size:10pt; }
+.deva{ font-family:'Noto Serif Devanagari','Devanagari Sangam MN',serif; }
 
 .sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
 .sheet:last-child{ page-break-after:auto; break-after:auto; }
 
-/* ---------- page head ---------- */
 .ph{ display:flex; align-items:flex-end; justify-content:space-between;
      border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
 .ph-l{ display:flex; align-items:flex-end; gap:5mm; }
@@ -330,12 +525,10 @@ body{
 .ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
 .ph-r{ text-align:right; padding-bottom:1.5mm; }
 .ph-r .grp{ font-size:9pt; color:var(--faded); }
-.ph-r .num{ font-family:'JetBrains Mono',monospace; font-size:8pt; color:var(--faded); letter-spacing:.14em; }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
 
-/* ---------- two-step shirorekha illustration ---------- */
 .steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
-.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm;
-       text-align:center; position:relative; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm; text-align:center; }
 .step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
 .step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
 .step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
@@ -343,12 +536,9 @@ body{
 .steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
 .steps .note b{ color:var(--sindoor); }
 
-/* ---------- practice rows ---------- */
-.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm; display:flex;
-           justify-content:space-between; align-items:baseline; }
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
 .rowlabel b{ color:var(--teal); font-weight:600; }
-/* Only --head and --base differ between row types; the glyph size, the two
-   dashed guide lines and the row height all derive from them. */
 .row{ position:relative; margin-bottom:2.2mm;
       --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
       --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
@@ -359,34 +549,24 @@ body{
 .ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
 .ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
 .ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
-/* The strut is an inline-block whose bottom edge sits on the text baseline,
-   so the baseline lands exactly on --base whatever the font's line metrics. */
+/* strut: an inline-block whose bottom edge sits on the text baseline, so the
+   baseline lands on --base whatever the font's line metrics say */
 .row .cells{ position:absolute; left:0; right:0; top:0;
              display:flex; justify-content:flex-start; line-height:0; }
 .st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
 .row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
-
-/* word and sentence rows: tighter band so long strings fit the page width */
 .row.words{ --head:6.5mm; --base:14mm; }
 .row.words .c{ width:auto; padding-right:10mm; text-align:left; }
 .row.sent{ --head:5.5mm; --base:11.5mm; }
 .row.sent .cells{ display:block; }
 .row.sent .c{ display:block; width:auto; text-align:left; }
 
-.t-model{ color:var(--ink); }
-.t-trace{ color:var(--trace); }
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
 .t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
 .t-faint{ color:var(--faint); }
 
-/* vertical start ticks in blank rows */
-.row.blank .cells .c{ color:transparent; }
-.tick{ position:absolute; top:var(--head); height:calc(var(--base) - var(--head));
-       border-left:0.25mm dotted var(--line-soft); }
-
-/* ---------- cover ---------- */
 .cover{ text-align:center; padding-top:22mm; }
-.cover .kicker{ font-family:'JetBrains Mono',monospace; font-size:9pt; letter-spacing:.3em;
-                text-transform:uppercase; color:var(--sindoor); }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
 .cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
 .cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
 .cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
@@ -405,28 +585,63 @@ body{
               font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
               text-transform:uppercase; color:var(--sindoor); }
 
-/* ---------- running footer ---------- */
 .pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
-     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm;
-     font-size:8pt; color:var(--faded); }
-.pf .r{ font-family:'JetBrains Mono',monospace; letter-spacing:.1em; }
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+.pf .r{ letter-spacing:.06em; }
 """
 
 FONTS = ("https://fonts.googleapis.com/css2?"
          "family=Noto+Serif+Bengali:wght@400;500;600;700"
+         "&family=Noto+Serif+Telugu:wght@400;500;600;700"
          "&family=Noto+Serif+Devanagari:wght@400;500;600;700"
          "&family=JetBrains+Mono:wght@400;500&display=swap")
 
-def page_head(title):
+# The one rule that is NOT shared. A Bengali writer already draws a headline
+# last; a Telugu writer has never drawn one at all.
+RULES = {
+ "bn": [
+  "<b>শিরোরেখা সবার শেষে।</b> বাংলায় তুমি যেমন আগে অক্ষরের শরীর লেখো, তারপর মাথায় মাত্রা টানো - দেবনাগরীতেও ঠিক তাই। অভ্যাসটা তোমার আগে থেকেই আছে।",
+  "<b>অক্ষর ঝোলে, বসে না।</b> মোটা উপরের রেখা থেকে অক্ষর <i>ঝুলে</i> থাকে, আর নিচের রেখায় পা রাখে। দুই রেখার মাঝখানটুকুই অক্ষরের শরীর।",
+  "<b>উপরের-নিচের ছেঁড়া রেখা মাত্রার জন্য।</b> কি, কী, কে, কৈ উপরে যায়; কু, কূ, কৃ নিচে নামে। ওই দুটি ছেঁড়া রেখা তাদের সীমানা।",
+  "<b>ধীরে। দিনে এক পাতা যথেষ্ট।</b> হাত শেখে পুনরাবৃত্তিতে, তাড়াহুড়োয় নয়। প্রতিটি সারি শেষ করে একবার জোরে উচ্চারণ করো।",
+  "<b>পেনসিল দিয়ে শুরু করো।</b> ধূসর অক্ষরের উপর দিয়ে টানার সময় চাপ কম রাখো; ফাঁপা অক্ষরের ভেতরটা ভরার সময় প্রান্ত ছুঁয়ে থাকো।",
+ ],
+ "te": [
+  "<b>శిరోరేఖ మీకు కొత్తది.</b> తెలుగు అక్షరాలు విడివిడిగా నిలబడతాయి, పైన గీత ఉండదు. దేవనాగరిలో పదం మొత్తం ఒకే గీత కింద వేలాడుతుంది. అక్షరం శరీరం ముందు రాయండి, <b>గీత చివరన</b> - ఇది కొత్త అలవాటు, రోజూ సాధన కావాలి.",
+  "<b>అక్షరం వేలాడుతుంది, కూర్చోదు.</b> పై మందపాటి గీత నుండి అక్షరం <i>వేలాడుతుంది</i>, కింది గీతపై పాదం మోపుతుంది. రెండు గీతల మధ్య భాగమే అక్షరం శరీరం.",
+  "<b>చుక్కల గీతలు గుణింతాల కోసం.</b> కి, కీ, కే, కై పైకి వెళ్తాయి; కు, కూ, కృ కిందికి దిగుతాయి. ఆ రెండు చుక్కల గీతలే వాటి హద్దు.",
+  "<b>నెమ్మదిగా. రోజుకు ఒక పేజీ చాలు.</b> చెయ్యి పునరావృతంతో నేర్చుకుంటుంది, తొందరతో కాదు. ప్రతి వరుస పూర్తి చేసిన తరువాత ఒకసారి గట్టిగా పలకండి.",
+  "<b>పెన్సిల్‌తో మొదలుపెట్టండి.</b> బూడిదరంగు అక్షరం మీద గీసేటప్పుడు ఒత్తిడి తక్కువ ఉంచండి; డొల్ల అక్షరం నింపేటప్పుడు అంచును తాకుతూ ఉండండి.",
+ ],
+}
+CONJ_RULES = {
+ "bn": [
+  "<b>নিয়ম শেখো, তালিকা নয়।</b> দেবনাগরীতে ৩৩টি ব্যঞ্জনের জোড়া হাজারের বেশি হতে পারে - সব লেখা অসম্ভব, দরকারও নেই। এই খাতায় চারটি <b>নিয়ম</b> আর তাদের প্রতিটি চালু জোড় আছে।",
+  "<b>এক: দাঁড়ি কেটে (আধা অক্ষর)।</b> বাঁদিকের অক্ষরের খাড়া দাঁড়িটা কেটে দাও, তারপর পরেরটা জুড়ে দাও - স + ত = স্ত।",
+  "<b>দুই: র-এর দুই চেহারা।</b> র <i>আগে</i> থাকলে পরের অক্ষরের মাথায় উঠে যায় - ধর্ম। র <i>পরে</i> থাকলে আগের অক্ষরের পায়ে হেলানো দাগ হয় - প্রেম।",
+  "<b>তিন: কয়েকটা মুখস্থ।</b> ক্ষ, জ্ঞ, ত্র, শ্র, দ্য, দ্ধ - এদের চেহারায় টুকরো দুটো আর চেনা যায় না।",
+  "<b>চার: বাংলা তোমাকে এগিয়ে রেখেছে।</b> যুক্তাক্ষর বাংলারও আছে, আর অনেকগুলো <i>একই জোড়</i> - ক্ষ = ক্ষ, জ্ঞ = জ্ঞ, স্ত = স্ত।",
+ ],
+ "te": [
+  "<b>నియమం నేర్చుకోండి, జాబితా కాదు.</b> దేవనాగరిలో ౩౩ హల్లుల జోడీలు వెయ్యికి పైగా కావచ్చు - అన్నీ రాయడం అసాధ్యం, అవసరం కూడా లేదు. ఈ పుస్తకంలో నాలుగు <b>నియమాలు</b>, వాటి ప్రతి వాడుకలోని జోడు ఉన్నాయి.",
+  "<b>ఒకటి: పక్కన, కింద కాదు.</b> ఇదే అతి ముఖ్యమైన తేడా. తెలుగులో రెండో హల్లు <b>కింద</b> ఒత్తుగా కూర్చుంటుంది - క్ + క = క్క. దేవనాగరిలో మొదటి అక్షరం నిలువు గీత కోసేసి, రెండోది <b>పక్కన</b> చేరుతుంది - स + त = स्त. ధారణ ఒకటే, దిశ వేరు.",
+  "<b>రెండు: ర రెండు రూపాలు.</b> ర <i>ముందు</i> ఉంటే తరువాతి అక్షరం తలపైకి ఎక్కుతుంది - धर्म. ర <i>తరువాత</i> ఉంటే ముందరి అక్షరం పాదానికి వాలిన గీత అవుతుంది - प्रेम.",
+  "<b>మూడు: కొన్ని కంఠస్థం.</b> क्ष, ज्ञ, त्र, श्र, द्य, द्ध - వీటి రూపంలో ముక్కలు రెండూ ఇక కనిపించవు. తెలుగులో క్ష, జ్ఞ కూడా అలాగే - ధారణ పరిచయమే.",
+  "<b>నాలుగు: సంస్కృత వారధి.</b> క్షమ = क्षमा, జ్ఞానం = ज्ञान, పుస్తకం = पुस्तक - ఒకే జోడు, ఒకే పదం, రెండు లిపులు.",
+ ],
+}
+
+def page_head(pair, title):
+    cfg = LANGS[pair]
     return f"""<!DOCTYPE html>
-<html lang="bn">
+<html lang="{cfg['iso']}">
 <head>
 <meta charset="UTF-8"/>
 <title>{html.escape(title)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="{FONTS}" rel="stylesheet"/>
-<style>{STYLE}</style>
+<style>{STYLE.replace('{SRC_FONT}', cfg['font'])}</style>
 </head>
 <body>
 """
@@ -441,310 +656,296 @@ def row(cells_html, label_left, label_right="", cls=""):
 def cells(glyph, n, cls):
     return "".join(f'<span class="c deva {cls}"><i class="st"></i>{glyph}</span>' for _ in range(n))
 
-def footer(book, n):
-    return (f'<div class="pf"><span>{html.escape(book)}</span>'
-            f'<span class="r">BHASHASETU &middot; বাংলা থেকে হিন্দি &middot; {n}</span></div>')
+def one(glyph, cls):
+    return f'<span class="c deva {cls}"><i class="st"></i>{glyph}</span>'
 
-def cover(book_no, deva_title, bn_title, sub, rules, extra_legend=True):
-    lg = ""
-    if extra_legend:
-        lg = """<div class="legend"><h3>এই বইয়ে চার রকম লেখা</h3><div class="lg">
-        <div><span class="s deva t-model">क</span>নমুনা - দেখে নাও</div>
-        <div><span class="s deva t-trace">क</span>ধূসর - উপর দিয়ে টানো</div>
-        <div><span class="s deva t-out">क</span>ফাঁপা - ভেতরটা ভরো</div>
-        <div><span class="s deva t-faint">क</span>ক্ষীণ - প্রায় একা</div>
-        </div></div>"""
+def footer(pair, book, n):
+    cfg = LANGS[pair]
+    return (f'<div class="pf"><span>{html.escape(book)}</span>'
+            f'<span class="r">BHASHASETU &middot; {cfg["sub"]} &middot; {D(pair, n)}</span></div>')
+
+ADVANCE = 0.55
+def check_width(text, band_mm, label):
+    gs = band_mm / 0.642
+    est = len(text) * ADVANCE * gs
+    if est > 185:
+        print(f"  !! too wide ({est:.0f}mm > 185mm): {label} :: {text}")
+
+def cover(pair, book_no, deva_title, src_title, sub, rules):
+    U = LANGS[pair]["ui"]
+    lg = f"""<div class="legend"><h3>{U['legend']}</h3><div class="lg">
+      <div><span class="s deva t-model">क</span>{U['model']}</div>
+      <div><span class="s deva t-trace">क</span>{U['grey']}</div>
+      <div><span class="s deva t-out">क</span>{U['hollow']}</div>
+      <div><span class="s deva t-faint">क</span>{U['faint']}</div>
+      </div></div>"""
     ol = "".join(f"<li>{r}</li>" for r in rules)
     return f"""<div class="sheet cover">
-  <div class="kicker">খাতা {book_no}</div>
-  <h1><span class="deva">{deva_title}</span>{bn_title}</h1>
+  <div class="kicker">{LANGS[pair]['book']} {book_no}</div>
+  <h1><span class="deva">{deva_title}</span>{src_title}</h1>
   <p class="sub">{sub}</p>
-  <div class="rules"><h2>লেখার আগে পাঁচটি কথা</h2><ol>{ol}</ol></div>
+  <div class="rules"><h2>{U['before']}</h2><ol>{ol}</ol></div>
   {lg}
   <div class="foot">made by Nil &middot; using Claude</div>
 </div>"""
 
-
-CONJUNCT_RULES = [
-    "<b>নিয়ম শেখো, তালিকা নয়।</b> দেবনাগরীতে ৩৩টি ব্যঞ্জনের জোড়া হাজারের বেশি হতে পারে - সব লেখা অসম্ভব, দরকারও নেই। এই খাতায় চারটি <b>নিয়ম</b> আর তাদের প্রতিটি চালু জোড় আছে। নিয়ম ধরলে বাকিগুলো নিজেই আসবে।",
-    "<b>এক: দাঁড়ি কেটে (আধা অক্ষর)।</b> বাঁদিকের অক্ষরের খাড়া দাঁড়িটা কেটে দাও, তারপর পরেরটা জুড়ে দাও - স + ত = স্ত। যাদের দাঁড়ি নেই (ট, ড, ঠ), তারা একটার নিচে আরেকটা বসে।",
-    "<b>দুই: র-এর দুই চেহারা।</b> র <i>আগে</i> থাকলে পরের অক্ষরের মাথায় উঠে যায় - ধর্ম। র <i>পরে</i> থাকলে আগের অক্ষরের পায়ে হেলানো দাগ হয় - প্রেম।",
-    "<b>তিন: কয়েকটা মুখস্থ।</b> ক্ষ, জ্ঞ, ত্র, শ্র, দ্য, দ্ধ - এদের চেহারায় টুকরো দুটো আর চেনা যায় না। বাংলাতেও ঠিক তাই: ক্ষ দেখে ক আর ষ আলাদা বোঝা যায় না।",
-    "<b>চার: বাংলা তোমাকে এগিয়ে রেখেছে।</b> যুক্তাক্ষর বাংলারও আছে, আর অনেকগুলো <i>একই জোড়</i> - ক্ষ = ক্ষ, জ্ঞ = জ্ঞ, স্ত = স্ত। ধারণা এক, শুধু আঁকার ভঙ্গি আলাদা।",
-]
-
-COMMON_RULES = [
-    "<b>শিরোরেখা সবার শেষে।</b> বাংলায় তুমি যেমন আগে অক্ষরের শরীর লেখো, তারপর মাথায় মাত্রা টানো - দেবনাগরীতেও ঠিক তাই। অভ্যাসটা তোমার আগে থেকেই আছে।",
-    "<b>অক্ষর ঝোলে, বসে না।</b> মোটা উপরের রেখা থেকে অক্ষর <i>ঝুলে</i> থাকে, আর নিচের রেখায় পা রাখে। দুই রেখার মাঝখানটুকুই অক্ষরের শরীর।",
-    "<b>উপরের-নিচের ছেঁড়া রেখা মাত্রার জন্য।</b> কি, কী, কে, কৈ উপরে যায়; কু, কূ, কৃ নিচে নামে। ওই দুটি ছেঁড়া রেখা তাদের সীমানা।",
-    "<b>ধীরে। দিনে এক পাতা যথেষ্ট।</b> হাত শেখে পুনরাবৃত্তিতে, তাড়াহুড়োয় নয়। প্রতিটি সারি শেষ করে একবার জোরে উচ্চারণ করো।",
-    "<b>পেনসিল দিয়ে শুরু করো।</b> ধূসর অক্ষরের উপর দিয়ে টানার সময় চাপ কম রাখো; ফাঁপা অক্ষরের ভেতরটা ভরার সময় প্রান্ত ছুঁয়ে থাকো।",
-]
-
-
-# Rough advance width of Devanagari in Noto Serif Devanagari, as a fraction of
-# the font size. Used only to warn when a sentence would overrun the ruling.
-ADVANCE = 0.55
-def check_width(text, band_mm, label):
-    gs = band_mm / 0.642            # same derivation the CSS uses
-    est = len(text) * ADVANCE * gs
-    if est > 185:
-        print(f"  !! too wide ({est:.0f}mm > 185mm): {label} :: {text}")
-        return False
-    return True
-
-# ---------------------------------------------------------------- pages
-def letter_sheet(book, n, deva, bn, tr, ex, exgloss, group, note=None):
-    steps_note = note or ("বাংলার মতোই: আগে অক্ষরের <b>শরীর</b>, সবার শেষে মাথার "
-                          "<b>শিরোরেখা</b>। ডানদিকের দুটি বাক্স সেই ক্রম দেখাচ্ছে।")
+def letter_sheet(pair, book, n, deva, bn_eq, tr, ex, bn_gloss, group, note=None):
+    U = LANGS[pair]["ui"]
+    eq, gloss = eqv(pair, deva, bn_eq), glv(pair, ex, bn_gloss)
+    if note is None:
+        note = (("বাংলার মতোই: আগে অক্ষরের <b>শরীর</b>, সবার শেষে মাথার <b>শিরোরেখা</b>। "
+                 "ডানদিকের দুটি বাক্স সেই ক্রম দেখাচ্ছে।") if LANGS[pair]["iso"] == "bn" else
+                ("ముందు అక్షరం <b>శరీరం</b>, చివరన పైన <b>శిరోరేఖ</b>. తెలుగులో ఈ గీత లేదు - "
+                 "ఇది కొత్త అలవాటు. కుడివైపు రెండు పెట్టెలు ఆ క్రమం చూపిస్తున్నాయి."))
     return f"""<div class="sheet">
   <div class="ph">
     <div class="ph-l">
       <div class="big deva">{deva}</div>
       <div class="meta">
-        <div class="eq">= <b>{bn}</b></div>
+        <div class="eq">= <b>{eq}</b></div>
         <div class="tr">{tr}</div>
-        <div class="ex"><span class="deva">{ex}</span> &middot; {exgloss}</div>
+        <div class="ex"><span class="deva">{ex}</span> &middot; {gloss}</div>
       </div>
     </div>
-    <div class="ph-r"><div class="grp">{group}</div><div class="num">{n:02d}</div></div>
+    <div class="ph-r"><div class="grp">{group}</div><div class="num">{D(pair, n)}</div></div>
   </div>
-
   <div class="steps">
     <div class="step"><span class="g deva">{deva}<span class="mask"></span></span>
-      <div class="cap"><b>১</b> শরীর</div></div>
+      <div class="cap"><b>{D(pair,1)}</b> {U['step1']}</div></div>
     <div class="step"><span class="g deva">{deva}</span>
-      <div class="cap"><b>২</b> শিরোরেখা</div></div>
-    <div class="note">{steps_note}</div>
+      <div class="cap"><b>{D(pair,2)}</b> {U['step2']}</div></div>
+    <div class="note">{note}</div>
   </div>
-
-  {row(cells(deva,7,'t-trace'), 'ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো', 'সাত বার')}
-  {row(cells(deva,7,'t-out'), 'ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b>', 'সাত বার')}
-  {row('<span class="c deva t-model"><i class="st"></i>'+deva+'</span><span class="c deva t-faint"><i class="st"></i>'+deva+'</span>',
-       'শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b>', 'সারি শেষ করো')}
-  {row('', 'নিজে লেখো', 'সারি ভরাও')}
-  {row('', 'নিজে লেখো', '')}
-
-  {row('<span class="c deva t-model"><i class="st"></i>'+ex+'</span><span class="c deva t-trace"><i class="st"></i>'+ex+'</span>'+('<span class="c deva t-out"><i class="st"></i>'+ex+'</span>' if len(ex)<=4 else ''),
-       f'শব্দে বসাও - <span class="deva">{ex}</span> ({exgloss})', 'তারপর নিজে', 'words')}
-  {footer(book, n)}
+  {row(cells(deva,7,'t-trace'), U['trace'], U['times'])}
+  {row(cells(deva,7,'t-out'), U['fill'], U['times'])}
+  {row(one(deva,'t-model')+one(deva,'t-faint'), U['start_given'], U['finish_row'])}
+  {row('', U['self'], U['fill_row'])}
+  {row('', U['self'], '')}
+  {row(one(ex,'t-model')+one(ex,'t-trace')+(one(ex,'t-out') if len(ex)<=4 else ''),
+       f"{U['in_word']} - <span class=\"deva\">{ex}</span> ({gloss})", U['then_self'], 'words')}
+  {footer(pair, book, n)}
 </div>"""
 
-def matra_sheet(book, n, form, bn, tr, note):
-    others = ["ख","ग","म","स"]
-    base = form[0]
-    sign = form[1:]
-    applied = "".join(f'<span class="c deva t-model"><i class="st"></i>{c}{sign}</span>'
-                      f'<span class="c deva t-trace"><i class="st"></i>{c}{sign}</span>'
-                      f'<span class="c deva t-out"><i class="st"></i>{c}{sign}</span>' for c in others[:2])
+def matra_sheet(pair, book, n, form, bn_eq, tr, bn_note):
+    U = LANGS[pair]["ui"]
+    eq, note = (MATRA_TE[form] if LANGS[pair]["iso"] == "te" and form in MATRA_TE else (bn_eq, bn_note))
+    base, sign = form[0], form[1:]
+    applied = "".join(one(c+sign,'t-model')+one(c+sign,'t-trace')+one(c+sign,'t-out') for c in ["ख","ग"])
+    rule = U['matra_rule'].replace('{b}', f'<span class="deva">{base}</span>').replace('{f}', f'<span class="deva">{form}</span>')
     return f"""<div class="sheet">
   <div class="ph">
     <div class="ph-l">
       <div class="big deva">{form}</div>
-      <div class="meta">
-        <div class="eq">= <b>{bn}</b></div>
-        <div class="tr">{tr}</div>
-        <div class="ex">{note}</div>
-      </div>
+      <div class="meta"><div class="eq">= <b>{eq}</b></div><div class="tr">{tr}</div>
+        <div class="ex">{note}</div></div>
     </div>
-    <div class="ph-r"><div class="grp">মাত্রা / বারাখড়ি</div><div class="num">{n:02d}</div></div>
+    <div class="ph-r"><div class="grp">{U['matra']}</div><div class="num">{D(pair, n)}</div></div>
   </div>
-
   <div class="steps">
-    <div class="step"><span class="g deva">{base}</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
-    <div class="step"><span class="g deva">{form}</span><div class="cap"><b>২</b> + চিহ্ন</div></div>
-    <div class="note">বাংলায় ক + া = কা। হিন্দিতে <span class="deva">{base}</span> + চিহ্ন =
-      <span class="deva">{form}</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন।</div>
+    <div class="step"><span class="g deva">{base}</span><div class="cap"><b>{D(pair,1)}</b> {U['consonants']}</div></div>
+    <div class="step"><span class="g deva">{form}</span><div class="cap"><b>{D(pair,2)}</b> + {U['matra']}</div></div>
+    <div class="note">{rule}</div>
   </div>
-
-  {row(cells(form,7,'t-trace'), 'ধূসরের <b>উপর দিয়ে</b>', 'সাত বার')}
-  {row(cells(form,7,'t-out'), '<b>ভেতরটা ভরো</b>', 'সাত বার')}
-  {row('<span class="c deva t-model"><i class="st"></i>'+form+'</span><span class="c deva t-faint"><i class="st"></i>'+form+'</span>',
-       'শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b>', 'সারি শেষ করো')}
-  {row(applied, 'একই চিহ্ন <b>অন্য ব্যঞ্জনে</b>', 'তারপর নিজে')}
-  {row('', 'নিজে লেখো', '')}
-  {footer(book, n)}
+  {row(cells(form,7,'t-trace'), U['trace'], U['times'])}
+  {row(cells(form,7,'t-out'), U['fill'], U['times'])}
+  {row(one(form,'t-model')+one(form,'t-faint'), U['start_given'], U['finish_row'])}
+  {row(applied, U['apply'], U['then_self'])}
+  {row('', U['self'], '')}
+  {footer(pair, book, n)}
 </div>"""
 
-
-def conjunct_sheet(book, n, items):
+def conjunct_sheet(pair, book, n, items):
+    U = LANGS[pair]["ui"]
     blocks = ""
-    for cj, a, bpart, ex, gloss, grp in items:
-        check_width(ex, 7.5, f"যুক্তাক্ষর {n}")
+    for cj, a, bpart, ex, bn_gloss, grp in items:
+        gloss = glv(pair, ex, bn_gloss)
+        check_width(ex, 7.5, f"conjunct {n}")
         label = (f'<span class="deva" style="font-size:13pt">{a}</span> + '
                  f'<span class="deva" style="font-size:13pt">{bpart}</span> = '
                  f'<span class="deva" style="font-size:15pt"><b>{cj}</b></span>'
                  f' &nbsp;&middot;&nbsp; <span class="deva">{ex}</span> ({gloss})')
-        blocks += row(cells(cj, 7, 't-trace'), label, 'ধূসরের উপর দিয়ে')
-        blocks += row(cells(cj, 4, 't-out') +
-                      '<span class="c deva t-model"><i class="st"></i>' + cj + '</span>',
-                      'ভেতরটা ভরো, তারপর নিজে', '')
-        blocks += row('<span class="c deva t-model"><i class="st"></i>' + ex + '</span>'
-                      '<span class="c deva t-trace"><i class="st"></i>' + ex + '</span>',
-                      f'শব্দে বসাও', 'তারপর নিজে', 'words')
-        blocks += row('', '', 'নিজে লেখো', 'words')
-    grp = items[0][5]
+        blocks += row(cells(cj, 7, 't-trace'), label, U['trace'])
+        blocks += row(cells(cj, 4, 't-out') + one(cj,'t-model'), U['fill'], U['then_self'])
+        blocks += row(one(ex,'t-model')+one(ex,'t-trace'), U['in_word'], U['then_self'], 'words')
+        blocks += row('', '', U['self'], 'words')
     return f"""<div class="sheet">
   <div class="ph">
     <div class="ph-l"><div class="meta">
-      <div class="eq" style="font-size:15pt"><b>{grp}</b></div>
-      <div class="ex">বাংলাতেও যুক্তাক্ষর আছে - ক্ষ = ক + ষ, জ্ঞ = জ + ঞ। ধারণাটা তোমার জানা; এখানে শুধু চেহারা নতুন।</div>
+      <div class="eq" style="font-size:15pt"><b>{grpv(pair, items[0][5])}</b></div>
+      <div class="ex">{U['conj_intro']}</div>
     </div></div>
-    <div class="ph-r"><div class="grp">যুক্তাক্ষর</div><div class="num">{n:02d}</div></div>
+    <div class="ph-r"><div class="grp">{U['conj']}</div><div class="num">{D(pair, n)}</div></div>
   </div>
   {blocks}
-  {footer(book, n)}
+  {footer(pair, book, n)}
 </div>"""
 
-def words_sheet(book, n, group, items):
+def words_sheet(pair, book, n, group, items):
+    U = LANGS[pair]["ui"]
     blocks = ""
-    for w, g in items:
-        blocks += row(f'<span class="c deva t-model"><i class="st"></i>{w}</span>'
-                      f'<span class="c deva t-trace"><i class="st"></i>{w}</span>',
-                      f'<span class="deva" style="font-size:12pt">{w}</span> &nbsp; = &nbsp; <b>{g}</b>',
-                      'শুরুটা দেওয়া আছে', 'words')
-        blocks += row('', '', 'নিজে লেখো', 'words')
+    for w, bn_gloss in items:
+        gloss = glv(pair, w, bn_gloss)
+        blocks += row(one(w,'t-model')+one(w,'t-trace'),
+                      f'<span class="deva" style="font-size:12pt">{w}</span> &nbsp; = &nbsp; <b>{gloss}</b>',
+                      U['start_given'], 'words')
+        blocks += row('', '', U['self'], 'words')
     return f"""<div class="sheet">
   <div class="ph">
     <div class="ph-l"><div class="meta">
       <div class="eq" style="font-size:16pt"><b>{group}</b></div>
-      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div>
+      <div class="ex">{U['word_intro']}</div>
     </div></div>
-    <div class="ph-r"><div class="grp">শব্দ</div><div class="num">{n:02d}</div></div>
+    <div class="ph-r"><div class="grp">{U['words']}</div><div class="num">{D(pair, n)}</div></div>
   </div>
   {blocks}
-  {footer(book, n)}
+  {footer(pair, book, n)}
 </div>"""
 
-def sentence_sheet(book, n, items):
+def sentence_sheet(pair, book, n, items):
+    U = LANGS[pair]["ui"]
     blocks = ""
-    for hi, bn in items:
-        check_width(hi, 6.0, f"বাক্য {n}")   # .row.sent band = 11.5 - 5.5 mm
-        blocks += f'<div class="rowlabel"><span><b>{bn}</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div>'
-        blocks += row(f'<span class="c deva t-model"><i class="st"></i>{hi}</span>', '', '', 'sent')
-        blocks += row(f'<span class="c deva t-trace"><i class="st"></i>{hi}</span>', 'ধূসরের উপর দিয়ে', '', 'sent')
-        blocks += row('', 'নিজে লেখো', '', 'sent')
+    for hi, bn_gloss in items:
+        gloss = snt(pair, hi, bn_gloss)
+        check_width(hi, 6.0, f"sentence {n}")
+        blocks += f'<div class="rowlabel"><span><b>{gloss}</b></span><span>{U["sent_flow"]}</span></div>'
+        blocks += row(one(hi,'t-model'), '', '', 'sent')
+        blocks += row(one(hi,'t-trace'), U['trace'], '', 'sent')
+        blocks += row('', U['self'], '', 'sent')
         blocks += row('', '', '', 'sent')
         blocks += row('', '', '', 'sent')
     return f"""<div class="sheet">
   <div class="ph">
     <div class="ph-l"><div class="meta">
-      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
-      <div class="ex">একটানা শিরোরেখা শব্দের শেষ পর্যন্ত - তারপর ফাঁক। ওটাই দেবনাগরীর ছন্দ।</div>
+      <div class="eq" style="font-size:16pt"><b>{U['sent_head']}</b></div>
+      <div class="ex">{U['sent_intro']}</div>
     </div></div>
-    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">{n:02d}</div></div>
+    <div class="ph-r"><div class="grp">{U['sentences']}</div><div class="num">{D(pair, n)}</div></div>
   </div>
   {blocks}
-  {footer(book, n)}
+  {footer(pair, book, n)}
 </div>"""
 
 # ---------------------------------------------------------------- books
-def build():
-    os.makedirs(OUT, exist_ok=True)
+def build(pair):
+    cfg, U = LANGS[pair], LANGS[pair]["ui"]
+    iso = cfg["iso"]
+    out = os.path.join(HERE, pair)
+    os.makedirs(out, exist_ok=True)
     made = []
+    B = cfg["book"]
+    def n_(i): return D(pair, i)
 
-    # ---- book 1: vowels
-    b = "খাতা ১ · স্বরবর্ণ"
-    p = [cover("১", "स्वर", "স্বরবর্ণ",
-               "তেরোটি স্বরবর্ণ। বাংলায় তুমি এগুলো চেনো - এখানে শুধু নতুন চেহারা। "
-               "প্রতিটি পাতায় একটি অক্ষর, ছয়টি সারি।", COMMON_RULES)]
+    # 1 vowels
+    b = f"{B} {n_(1)} · {U['vowels']}"
+    p = [cover(pair, n_(1), "स्वर", U['vowels'],
+               ("তেরোটি স্বরবর্ণ। বাংলায় তুমি এগুলো চেনো - এখানে শুধু নতুন চেহারা।"
+                if iso=="bn" else
+                "పదమూడు అచ్చులు. తెలుగులో మీకు ఇవి తెలుసు - ఇక్కడ రూపం మాత్రమే కొత్తది. "
+                "ఒక గమనిక: తెలుగులో ఉన్న హ్రస్వ ఎ, ఒ హిందీలో లేవు."), RULES[iso])]
     for i, (d, bn, tr, ex, g) in enumerate(VOWELS, 1):
-        p.append(letter_sheet(b, i, d, bn, tr, ex, g, "স্বরবর্ণ"))
-    made.append(("01_svarabarna", "স্বরবর্ণ", p))
+        p.append(letter_sheet(pair, b, i, d, bn, tr, ex, g, U['vowels']))
+    made.append(("01_svarabarna" if iso=="bn" else "01_achchulu", U['vowels'], p))
 
-    # ---- book 2: consonants
-    b = "খাতা ২ · ব্যঞ্জনবর্ণ"
-    p = [cover("২", "व्यंजन", "ব্যঞ্জনবর্ণ",
-               "তেত্রিশটি ব্যঞ্জন, বর্গ অনুসারে - ঠিক বর্ণপরিচয়ের ক্রমে। "
-               "শেষে সাতটি নুক্তা-অক্ষর, যার দুটি তোমার চেনা ড় আর ঢ়।", COMMON_RULES)]
+    # 2 consonants
+    b = f"{B} {n_(2)} · {U['consonants']}"
+    p = [cover(pair, n_(2), "व्यंजन", U['consonants'],
+               ("তেত্রিশটি ব্যঞ্জন, বর্গ অনুসারে। শেষে সাতটি নুক্তা-অক্ষর, যার দুটি তোমার চেনা ড় আর ঢ়।"
+                if iso=="bn" else
+                "ముప్పై మూడు హల్లులు, వర్గం ప్రకారం. చివరన ఏడు నుక్తా అక్షరాలు - "
+                "వీటిలో ड़, ढ़ ధ్వనులు తెలుగులో లేవు, పూర్తిగా కొత్తవి."), RULES[iso])]
     for i, (d, bn, tr, ex, g, varga) in enumerate(CONSONANTS, 1):
-        p.append(letter_sheet(b, i, d, bn, tr, ex, g, varga))
+        p.append(letter_sheet(pair, b, i, d, bn, tr, ex, g, varga))
     for j, (d, bn, tr, ex, g, varga) in enumerate(NUKTA, len(CONSONANTS)+1):
-        note = ("বাংলার <b>ড়</b> / <b>ঢ়</b> হিন্দিতে নিচে একটি বিন্দু দিয়ে লেখা হয় - "
-                "<b>নুক্তা</b>। বিন্দুটি সবার শেষে বসাও।") if d in ("ड़","ढ़") else \
-               ("নুক্তা = নিচে একটি বিন্দু। শরীর আগে, শিরোরেখা তারপর, <b>বিন্দু সবার শেষে</b>।")
-        p.append(letter_sheet(b, j, d, bn, tr, ex, g, varga, note))
-    made.append(("02_byanjanbarna", "ব্যঞ্জনবর্ণ", p))
+        if iso == "bn":
+            note = ("বাংলার <b>ড়</b> / <b>ঢ়</b> হিন্দিতে নিচে একটি বিন্দু দিয়ে লেখা হয় - "
+                    "<b>নুক্তা</b>। বিন্দুটি সবার শেষে বসাও।") if d in ("ड़","ढ़") else \
+                   "নুক্তা = নিচে একটি বিন্দু। শরীর আগে, শিরোরেখা তারপর, <b>বিন্দু সবার শেষে</b>।"
+        else:
+            note = ("<b>ఈ ధ్వని తెలుగులో లేదు.</b> నాలుక వెనక్కి మడిచి డ పలకండి - "
+                    "కింద చుక్క (<b>నుక్తా</b>) అదే సూచిస్తుంది. చుక్క చివరన పెట్టండి.") if d in ("ड़","ढ़") else \
+                   "నుక్తా = కింద ఒక చుక్క. ముందు శరీరం, తరువాత శిరోరేఖ, <b>చుక్క చివరన</b>."
+        p.append(letter_sheet(pair, b, j, d, bn, tr, ex, g, varga, note))
+    made.append(("02_byanjanbarna" if iso=="bn" else "02_hallulu", U['consonants'], p))
 
-    # ---- book 3: matra
-    b = "খাতা ৩ · মাত্রা"
-    p = [cover("৩", "मात्रा", "স্বরচিহ্ন / বারাখড়ি",
-               "বিদ্যাসাগরের চাল: বারোটি চিহ্ন শিখলে তেত্রিশটি ব্যঞ্জনে বসিয়ে "
-               "চারশোর বেশি অক্ষর পাওয়া যায়। এখানে ক-এর বারাখড়ি।", COMMON_RULES)]
+    # 3 matra
+    b = f"{B} {n_(3)} · {U['matra']}"
+    p = [cover(pair, n_(3), "मात्रा", U['matra'],
+               ("বারোটি চিহ্ন শিখলে তেত্রিশটি ব্যঞ্জনে বসিয়ে চারশোর বেশি অক্ষর পাওয়া যায়।"
+                if iso=="bn" else
+                "పన్నెండు గుర్తులు నేర్చుకుంటే ముప్పై మూడు హల్లులపై పెట్టి నాలుగు వందలకు పైగా "
+                "అక్షరాలు వస్తాయి. తెలుగు గుణింతం ఇదే పని చేస్తుంది."), RULES[iso])]
     for i, (f, bn, tr, note) in enumerate(MATRA, 1):
-        p.append(matra_sheet(b, i, f, bn, tr, note))
-    made.append(("03_matra", "মাত্রা", p))
+        p.append(matra_sheet(pair, b, i, f, bn, tr, note))
+    made.append(("03_matra" if iso=="bn" else "03_gunintalu", U['matra'], p))
 
-    # ---- book 4: conjuncts, grouped by the rule that forms them
-    b = "খাতা ৪ · যুক্তাক্ষর"
-    p = [cover("৪", "संयुक्ताक्षर", "যুক্তাক্ষর",
-               "দুই ব্যঞ্জন এক শ্বাসে - অচ্ছা-র চ্ছ, ক্ষমা-র ক্ষ। ছেষট্টিটি জোড়, "
-               "নিয়ম অনুসারে সাজানো। নিয়মটা ধরতে পারলে তালিকায় না-থাকা জোড়ও লিখতে পারবে।",
-               CONJUNCT_RULES)]
-    i = 1
-    grouped = {}
-    for c in CONJUNCTS:
-        grouped.setdefault(c[5], []).append(c)
+    # 4 conjuncts
+    b = f"{B} {n_(4)} · {U['conj']}"
+    p = [cover(pair, n_(4), "संयुक्ताक्षर", U['conj'],
+               ("দুই ব্যঞ্জন এক শ্বাসে। ছেষট্টিটি জোড়, নিয়ম অনুসারে সাজানো।"
+                if iso=="bn" else
+                "రెండు హల్లులు ఒకే శ్వాసలో. అరవై ఆరు జోడులు, నియమం ప్రకారం అమర్చినవి. "
+                "తెలుగు ఒత్తు కింద కూర్చుంటుంది; దేవనాగరి పక్కన పెడుతుంది - అదే అసలు తేడా."),
+               CONJ_RULES[iso])]
+    i = 1; grouped = {}
+    for c in CONJUNCTS: grouped.setdefault(c[5], []).append(c)
     for grp, items in grouped.items():
         for k in range(0, len(items), 2):
-            p.append(conjunct_sheet(b, i, items[k:k+2])); i += 1
-    made.append(("04_juktakshar", "যুক্তাক্ষর", p))
+            p.append(conjunct_sheet(pair, b, i, items[k:k+2])); i += 1
+    made.append(("04_juktakshar" if iso=="bn" else "04_samyuktakshara", U['conj'], p))
 
-    # ---- books 5 and 6: words, easy then hard
-    word_books = [
-        ("05_shabda_1", "শব্দ ১", "৫", WORDS1,
-         "সহজ শব্দ। কোনো যুক্তাক্ষর নেই, কোনো নুক্তা নেই - সব ছোট শব্দ, "
-         "সরল মাত্রা। প্রতিটি সারিতে প্রথম দুটি দেওয়া আছে।",
-         "শব্দ ১ · সহজ"),
-        ("06_shabda_2", "শব্দ ২", "৬", WORDS2,
-         "কঠিন শব্দ। এখানে যুক্তাক্ষর (ক্ষ, জ্ঞ, ত্র, স্ত), নুক্তা (ড়, ঢ়, জ়, ফ়) "
-         "আর লম্বা শব্দ। খাতা ৪ আর ৫ শেষ করে তবেই এখানে এসো।",
-         "শব্দ ২ · কঠিন"),
-    ]
-    for slug, title, num, data, sub, running in word_books:
-        b = f"খাতা {num} · {title}"
-        p = [cover(num, "शब्द", title, sub, COMMON_RULES)]
+    # 5 and 6 words
+    for idx, (slug_bn, slug_te, data, easy) in enumerate(
+            [("05_shabda_1","05_padalu_1",WORDS1,True), ("06_shabda_2","06_padalu_2",WORDS2,False)]):
+        num = n_(5+idx)
+        title = f"{U['words']} {n_(1+idx)}"
+        sub = (("সহজ শব্দ। কোনো যুক্তাক্ষর নেই, কোনো নুক্তা নেই।" if easy else
+                "কঠিন শব্দ। যুক্তাক্ষর, নুক্তা আর লম্বা শব্দ।") if iso=="bn" else
+               ("సులభమైన పదాలు. సంయుక్తాక్షరాలు లేవు, నుక్తా లేదు." if easy else
+                "కష్టమైన పదాలు. సంయుక్తాక్షరాలు, నుక్తా, పొడవైన పదాలు."))
+        b = f"{B} {num} · {title}"
+        p = [cover(pair, num, "शब्द", title, sub, RULES[iso])]
         i = 1
         for group, items in data.items():
             for k in range(0, len(items), 4):
-                p.append(words_sheet(b, i, group, items[k:k+4])); i += 1
-        made.append((slug, title, p))
+                p.append(words_sheet(pair, b, i, group, items[k:k+4])); i += 1
+        made.append((slug_bn if iso=="bn" else slug_te, title, p))
 
-    # ---- books 7 and 8: sentences, easy then hard
-    sent_books = [
-        ("07_bakya_1", "বাক্য ১", "৭", SENTENCES1,
-         "সহজ বাক্য - তিন থেকে পাঁচটি শব্দ। প্রতিটি শব্দ তুমি খাতা ৫-এ লিখেছ। "
-         "একটানা শিরোরেখা শব্দের শেষ পর্যন্ত, তারপর ফাঁক।"),
-        ("08_bakya_2", "বাক্য ২", "৮", SENTENCES2,
-         "লম্বা বাক্য - প্রশ্ন, নাকার, যুক্তাক্ষর। শব্দগুলো খাতা ৬ থেকে। "
-         "ধীরে লেখো; শব্দের ফাঁক ঠিক রাখাই এখানে আসল পরীক্ষা।"),
-    ]
-    for slug, title, num, data, sub in sent_books:
-        b = f"খাতা {num} · {title}"
-        p = [cover(num, "वाक्य", title, sub, COMMON_RULES)]
+    # 7 and 8 sentences
+    for idx, (slug_bn, slug_te, data, easy) in enumerate(
+            [("07_bakya_1","07_vakyalu_1",SENTENCES1,True), ("08_bakya_2","08_vakyalu_2",SENTENCES2,False)]):
+        num = n_(7+idx)
+        title = f"{U['sentences']} {n_(1+idx)}"
+        sub = (("সহজ বাক্য - তিন থেকে পাঁচটি শব্দ।" if easy else
+                "লম্বা বাক্য - প্রশ্ন, নাকার, যুক্তাক্ষর।") if iso=="bn" else
+               ("సులభమైన వాక్యాలు - మూడు నుండి ఐదు పదాలు." if easy else
+                "పొడవైన వాక్యాలు - ప్రశ్నలు, నిషేధం, సంయుక్తాక్షరాలు."))
+        b = f"{B} {num} · {title}"
+        p = [cover(pair, num, "वाक्य", title, sub, RULES[iso])]
         for i in range(0, len(data), 2):
-            p.append(sentence_sheet(b, i//2 + 1, data[i:i+2]))
-        made.append((slug, title, p))
+            p.append(sentence_sheet(pair, b, i//2 + 1, data[i:i+2]))
+        made.append((slug_bn if iso=="bn" else slug_te, title, p))
 
-    index_rows = ""
+    rows = ""
     for slug, title, pages in made:
         fn = f"{slug}.html"
-        open(os.path.join(OUT, fn), "w", encoding="utf-8").write(
-            page_head(f"{title} - বাংলা থেকে হিন্দি হাতের লেখা") + "\n".join(pages) + "\n</body>\n</html>")
+        open(os.path.join(out, fn), "w", encoding="utf-8").write(
+            page_head(pair, f"{title} - {cfg['sub']}") + "\n".join(pages) + "\n</body>\n</html>")
         print(f"  {fn:<26} {len(pages):>3} pages")
-        index_rows += (f'<tr><td><b>{title}</b></td><td>{len(pages)}</td>'
-                       f'<td><a href="{slug}.pdf">PDF</a></td>'
-                       f'<td><a href="{fn}">HTML</a></td></tr>')
-    open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(
-        page_head("হাতের লেখার খাতা - বাংলা থেকে হিন্দি") +
+        rows += (f'<tr><td><b>{title}</b></td><td>{D(pair,len(pages))}</td>'
+                 f'<td><a href="{slug}.pdf">PDF</a></td><td><a href="{fn}">HTML</a></td></tr>')
+    note = ("ছাপিয়ে নাও (A4, ১০০% আকারে, \"fit to page\" বন্ধ রেখো)।" if iso=="bn"
+            else "ప్రింట్ చేయండి (A4, ౧౦౦% పరిమాణంలో, \"fit to page\" ఆపివేయండి).")
+    open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(
+        page_head(pair, f"{cfg['title']} - {cfg['sub']}") +
         f"""<div style="max-width:150mm;margin:20mm auto;font-size:11pt">
-        <h1 style="font-size:20pt">হাতের লেখার খাতা</h1>
-        <p style="color:#6B5B48;line-height:1.7">বাংলা থেকে হিন্দি - দেবনাগরী লেখা শেখার আটটি খাতা।
-        ছাপিয়ে নাও (A4, ১০০% আকারে, "fit to page" বন্ধ রেখো)।</p>
-        <table style="width:100%;border-collapse:collapse;margin-top:8mm">{index_rows}</table></div>
+        <h1 style="font-size:20pt">{cfg['title']}</h1>
+        <p style="color:#6B5B48;line-height:1.7">{cfg['sub']}. {note}</p>
+        <table style="width:100%;border-collapse:collapse;margin-top:8mm">{rows}</table></div>
         </body></html>""")
-    total = sum(len(p) for _, _, p in made)
-    print(f"  total {total} pages")
+    print(f"  total {sum(len(p) for _,_,p in made)} pages")
 
 if __name__ == "__main__":
-    build()
+    pairs = sys.argv[1:] or list(LANGS)
+    for pr in pairs:
+        print(f"{pr}:")
+        build(pr)

@@ -9,47 +9,43 @@ a learner on request - nothing is generated on the fly.
 
 ## What is here
 
-| Book | File | Pages | Contents |
-|---|---|---|---|
-| ১ স্বরবর্ণ | `01_svarabarna.pdf` | 14 | 13 vowels, one per page |
-| ২ ব্যঞ্জনবর্ণ | `02_byanjanbarna.pdf` | 41 | 33 consonants by varga + 7 nukta letters |
-| ৩ মাত্রা | `03_matra.pdf` | 14 | the 13 forms of the ক barakhadi |
-| ৪ যুক্তাক্ষর | `04_juktakshar.pdf` | 35 | 66 conjuncts, grouped by the rule that forms them |
-| ৫ শব্দ ১ | `05_shabda_1.pdf` | 18 | 64 easy words - no conjuncts, no nukta |
-| ৬ শব্দ ২ | `06_shabda_2.pdf` | 17 | 58 harder words - conjuncts, nukta, long forms |
-| ৭ বাক্য ১ | `07_bakya_1.pdf` | 15 | 28 short sentences built from শব্দ ১ |
-| ৮ বাক্য ২ | `08_bakya_2.pdf` | 15 | 28 longer sentences built from শব্দ ২ |
+Two pairs so far, both teaching **Devanagari**, 169 pages each.
 
-169 pages total. `index.html` links them all.
+| Book | bengali_to_hindi | telugu_to_hindi | Pages | Contents |
+|---|---|---|---|---|
+| 1 | `01_svarabarna` | `01_achchulu` | 14 | 13 vowels |
+| 2 | `02_byanjanbarna` | `02_hallulu` | 41 | 33 consonants by varga + 7 nukta |
+| 3 | `03_matra` | `03_gunintalu` | 14 | the 13 forms of the क barakhadi |
+| 4 | `04_juktakshar` | `04_samyuktakshara` | 35 | 66 conjuncts grouped by formation rule |
+| 5 | `05_shabda_1` | `05_padalu_1` | 18 | 64 easy words (no conjunct, no nukta) |
+| 6 | `06_shabda_2` | `06_padalu_2` | 17 | 58 harder words |
+| 7 | `07_bakya_1` | `07_vakyalu_1` | 15 | 28 short sentences |
+| 8 | `08_bakya_2` | `08_vakyalu_2` | 15 | 28 longer sentences |
 
-## How the two parts are graded
+Each pair has its own `index.html`.
 
-Difficulty is defined by what the hand has to *draw*, not by meaning:
+## Same target, different bridges
 
-- **Part 1** - no conjunct, no nukta, short words, simple matras.
-- **Part 2** - conjuncts (ক্ষ জ্ঞ ত্র স্ত), nukta (ড় ঢ় জ় ফ়), longer words, and
-  sentences with questions, negation and postpositions.
+The target is Devanagari for both pairs, so the ruling geometry, the font metrics
+and the Hindi content are shared. What changes is not just the language of the
+instructions but **which bridges are actually true**:
 
-Sentence books are built only from words that appear in the matching word book,
-so nothing arrives that the hand has not already practised.
+| | Bengali source | Telugu source |
+|---|---|---|
+| শিরোরেখা / శిరోరేఖ | Already drawn last, as the মাত্রা. A habit to transfer. | **New.** Telugu letters stand separately with no headline. Said plainly on every letter page. |
+| Conjuncts | Same concept, many *identical* pairs (ক্ষ, জ্ঞ, স্ত). | Same concept, **opposite direction**. Telugu stacks the second consonant below as an ottu; Devanagari cuts the stem and puts it beside. |
+| ड़ / ढ़ | Familiar - Bengali has ড় and ঢ়. | **New sounds.** Not in Telugu; taught as a retroflex flap. |
+| Short e / o | Neither writes them. | Telugu has ఎ and ఒ; Hindi has only the long ए and ओ. Noted on the vowel cover. |
 
-## Conjuncts: rules, not a thousand pairs
+Getting these backwards would teach a Telugu learner something false, so they are
+encoded per pair in `RULES`, `CONJ_RULES` and the per-letter notes, not translated.
 
-33 consonants make over a thousand theoretical pairs. Listing them all would be
-useless, so book 4 teaches the four systems that generate them, with every
-conjunct that actually occurs in Hindi:
+## Adding a pair
 
-1. **Half-form** - the left letter loses its vertical stem (স + ত = স্ত).
-   Stemless letters (ট ড ঠ) stack vertically instead.
-2. **The two faces of র** - before a consonant it climbs on top as the reph
-   (ধর্ম); after one it hangs below as a slanted stroke (প্রেম).
-3. **Irregular ligatures** - ক্ষ জ্ঞ ত্র শ্র দ্য দ্ধ, where the parts are no longer
-   visible and the shape has to be memorised.
-4. **য-ফলা and ব-ফলা**, and nasal clusters that may also be written with anusvara
-   (অন্ত / অংত), both forms shown.
-
-The bridge: Bengali has conjuncts too, and many are the *same* pair - ক্ষ, জ্ঞ,
-স্ত. The concept transfers; only the drawing is new.
+For another Devanagari target, add an entry to `LANGS` (font, digits, interface
+strings), extend `EQ_TE`-style equivalents, glosses and sentence translations, and
+write the two rule sets. For a different target script you would also need to
+remeasure the three font-metric ratios with `calibrate_font.html`.
 
 ## The page design
 
@@ -72,8 +68,9 @@ it is a bridge the learner already owns: Bengali writes the মাত্রা l
 ## Rebuilding
 
 ```bash
-python3 gen_worksheets.py   # writes the HTML
-./build_pdfs.sh             # renders A4 PDFs with headless Chrome
+python3 gen_worksheets.py                  # every pair
+python3 gen_worksheets.py telugu_to_hindi  # just one
+./build_pdfs.sh                            # renders A4 PDFs with headless Chrome
 ```
 
 Chrome does the rendering because it shapes Devanagari correctly (matras,
