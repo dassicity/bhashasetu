@@ -9,57 +9,55 @@ a learner on request - nothing is generated on the fly.
 
 ## What is here
 
-Three pairs. Two teach **Devanagari** and share a generator; one teaches the
-**Perso-Arabic** script and has its own, because almost nothing carries over.
+Five pairs, three generators, because three script families sit on the page in
+three different ways.
 
-### Devanagari targets - `gen_worksheets.py`, 169 pages each
-
-| Book | bengali_to_hindi | telugu_to_hindi | Pages | Contents |
-|---|---|---|---|---|
-| 1 | `01_svarabarna` | `01_achchulu` | 14 | 13 vowels |
-| 2 | `02_byanjanbarna` | `02_hallulu` | 41 | 33 consonants + 7 nukta |
-| 3 | `03_matra` | `03_gunintalu` | 14 | the क barakhadi |
-| 4 | `04_juktakshar` | `04_samyuktakshara` | 35 | 66 conjuncts by rule |
-| 5 | `05_shabda_1` | `05_padalu_1` | 18 | 64 easy words |
-| 6 | `06_shabda_2` | `06_padalu_2` | 17 | 58 harder words |
-| 7 | `07_bakya_1` | `07_vakyalu_1` | 15 | 28 short sentences |
-| 8 | `08_bakya_2` | `08_vakyalu_2` | 15 | 28 longer sentences |
-
-### Perso-Arabic target - `gen_worksheets_urdu.py`, 136 pages
-
-`bengali_to_urdu`. The book structure had to change, because an abjad does not
-have vowels, matras or conjuncts to practise:
-
-| Book | File | Pages | Contents |
+| Generator | Target | Pairs | Pages each |
 |---|---|---|---|
-| 1 | `01_huruf` | 41 | 40 letters, grouped **by shape** (ب پ ت ٹ ث together), each with its four positional forms |
-| 2 | `02_char_shakal` | 10 | the four forms drilled on their own - the lesson with no Bengali parallel |
-| 3 | `03_harakat` | 13 | zabar, zer, pesh, jazm, tashdid; long vowels as letters; do-chashmi he |
-| 4 | `04_jor` | 9 | joining: the nine letters that never join leftward, and common ligatures |
-| 5 | `05_alfaz_1` | 18 | 64 easy words |
-| 6 | `06_alfaz_2` | 15 | 56 harder words, opening with words Bengali already borrowed |
-| 7 | `07_jumle_1` | 15 | 28 short sentences |
-| 8 | `08_jumle_2` | 15 | 28 longer sentences |
+| `gen_worksheets.py` | Devanagari | `bengali_to_hindi`, `telugu_to_hindi` | 169 |
+| `gen_worksheets_urdu.py` | Perso-Arabic | `bengali_to_urdu` | 136 |
+| `gen_worksheets_brahmic.py` | Telugu, Tamil | `bengali_to_telugu` (138), `bengali_to_tamil` (121) | |
 
-## Two rulings, because two scripts sit differently
+Every pair has eight books and its own `index.html`. Books 1, 2 and 5 to 8 are the
+same idea everywhere: vowels, consonants, easy words, harder words, short
+sentences, longer sentences. **Books 3 and 4 are where the scripts diverge**, because
+each family joins letters differently:
 
-Devanagari **hangs from** a headline; Arabic script **sits on** a baseline.
-
-```
-Devanagari                     Perso-Arabic (Nastaliq)
-- - - - - matras above         - - - - - ascenders  ا ل ک
-_________ SHIRO-REKHA          ......... x-height   ب س ر
-_________ baseline             _________ BASELINE
-- - - - - matras below         - - - - - descenders م ج ع ی
-```
-
-Two solid lines for Devanagari, one for Urdu. Metrics were measured per font
-with canvas `TextMetrics` (`calibrate_font.html`, `calibrate_nastaliq.html`):
-
-| | Devanagari | Nastaliq |
+| Pair | Book 3 | Book 4 |
 |---|---|---|
-| ascender | 0.642 (the headline) | 0.714 (ا ل ک) |
-| descender | 0.290 | 0.420 (م is deepest at 0.383, plus the Nastaliq cascade) |
+| to Devanagari | matras (the क barakhadi) | 66 conjuncts grouped by formation rule |
+| to Urdu | harakat, and which are normally unwritten | joining, and the nine letters that never join leftward |
+| to Telugu | గుణింతం | ఒత్తు, the subscript consonant |
+| to Tamil | உயிர்மெய் | புள்ளி, which is **not** a conjunct at all |
+
+## Three rulings, because the scripts sit differently
+
+Devanagari **hangs from** a headline. Arabic script **sits on** a baseline and runs
+right to left. Telugu and Tamil sit on a baseline too, but left to right and with
+no headline at all, so their top solid line is a **height guide, not a connector** -
+calling it a headline would teach a Devanagari habit these scripts do not have.
+
+```
+Devanagari              Nastaliq (RTL)          Telugu / Tamil
+- - - matras above      - - - ascenders         - - - signs above
+_____ SHIRO-REKHA       ..... x-height          _____ height guide
+_____ baseline          _____ BASELINE          _____ baseline
+- - - matras below      - - - descenders        - - - signs below
+```
+
+All metrics measured per font with canvas `TextMetrics` (`calibrate_font.html`,
+`calibrate_nastaliq.html`, `calibrate_brahmic.html`), as fractions of the font size
+from the baseline:
+
+| | body / ascender | signs above | signs below |
+|---|---|---|---|
+| Devanagari | 0.642 (the headline) | 0.925 | 0.290 |
+| Nastaliq | 0.714 (ا ل ک) | | 0.420 (م is 0.383, plus the cascade) |
+| Telugu | 0.772 | 1.003 | 0.444 (ottu hangs deep) |
+| Tamil | 0.497 | 0.787 | 0.250 |
+
+Tamil's body is barely half Telugu's, so the same letter height needs a much larger
+font size. Guessing instead of measuring would have made one of them wrong.
 
 ## What is genuinely new for an Urdu learner
 
