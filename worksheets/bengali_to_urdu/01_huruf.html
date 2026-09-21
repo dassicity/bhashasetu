@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<title>হরফ - বাংলা থেকে উর্দু হাতের লেখা</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --base: 17mm;         /* the baseline - letters SIT on this */
+  --gs:   15mm;         /* practice font size */
+  --asc-ratio:  0.714;  /* ا ل ک reach this far above the baseline */
+  --desc-ratio: 0.420;  /* م and the Nastaliq cascade reach this far below */
+  --x-ratio:    0.310;  /* x-height of ب س ر, drawn as a faint guide */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Bengali',serif; color:var(--ink); font-size:10pt; direction:ltr; }
+.ur{ font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:6mm; }
+.ph .big{ font-size:24mm; line-height:1.5; }
+.ph .meta{ padding-bottom:2mm; }
+.ph .eq{ font-size:13pt; } .ph .eq b{ color:var(--sindoor); }
+.ph .nm{ font-size:11pt; color:var(--teal); }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:2mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.note{ font-size:9.5pt; line-height:1.6; color:var(--ink); margin:0 0 3mm;
+       padding:2mm 3mm; background:rgba(31,77,74,0.06); border-right:2mm solid var(--teal); }
+.note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.4mm;
+      --asc:  calc(var(--base) - var(--asc-ratio) * var(--gs));
+      --xh:   calc(var(--base) - var(--x-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--desc-ratio) * var(--gs));
+      height: calc(var(--desc) + 2mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.x{ top:var(--xh);   border-top:0.2mm dotted #dde3ea; }
+.ln.b{ top:var(--base); border-top:0.45mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* right-to-left: cells run from the right edge; the strut pins the baseline */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; flex-direction:row; justify-content:flex-start;
+             direction:rtl; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-family:'Noto Nastaliq Urdu',serif; font-size:var(--gs); line-height:0;
+         flex:0 0 auto; padding-left:7mm; text-align:center; }
+/* word and joining rows: a tighter band so eight rows fit one page */
+.row.wide{ --base:13mm; --gs:12mm; }
+.row.wide .c{ padding-left:12mm; }
+.row.sent{ --gs:11mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; padding:0; text-align:right; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.25mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.forms{ display:flex; gap:3mm; margin:0 0 3mm; direction:rtl; }
+.formbox{ border:0.3mm dashed var(--line-soft); border-radius:1mm;
+          padding:1mm 4mm 0.5mm; text-align:center; flex:1; }
+.formbox .g{ font-family:'Noto Nastaliq Urdu',serif; font-size:13mm; line-height:2; }
+.formbox .cap{ font-size:8pt; color:var(--faded); direction:ltr; }
+.formbox .cap b{ color:var(--teal); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:28pt; margin:6mm 0 2mm; line-height:1.3; }
+.cover h1 .ur{ display:block; font-size:32pt; margin-bottom:5mm; line-height:2; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:140mm; margin:0 auto; line-height:1.75; }
+.rules{ text-align:left; max-width:152mm; margin:10mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.7; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">খাতা ১</div>
+  <h1><span class="ur">حروف</span>হরফ - বর্ণমালা</h1>
+  <p class="sub">চল্লিশটি হরফ, <b>আকার অনুসারে</b> সাজানো - বাংলা বর্ণক্রমে নয়। ب پ ت ٹ ث একই আকার, শুধু নুক্তা আলাদা; একটি চিনলে পাঁচটি চেনা হয়ে যায়।</p>
+  <div class="rules"><h2>লেখার আগে পাঁচটি কথা</h2><ol><li><b>ডান থেকে বাঁয়ে।</b> এটাই প্রথম আর সবচেয়ে বড় বদল। বাংলা বাঁ থেকে ডানে চলে; উর্দু ঠিক উল্টো। পাতার <b>ডান ধার</b> থেকে শুরু করো। কিন্তু সংখ্যা বাঁ থেকে ডানে - ২০২৬ উর্দুতেও ২০২৬।</li><li><b>অক্ষর রেখার উপরে বসে, ঝোলে না।</b> বাংলায় অক্ষর মাত্রা থেকে ঝোলে। উর্দুতে অক্ষর মোটা রেখার <b>উপরে</b> বসে; ا ل ک উপরে ওঠে, আর م ج ع ی-র লেজ নিচে নামে। উপরের-নিচের ছেঁড়া রেখা সেই দুই সীমানা।</li><li><b>এক অক্ষরের চার চেহারা।</b> শব্দের শুরুতে, মাঝে, শেষে আর একা - একই অক্ষর চার রকম দেখায়। এটাই উর্দু লেখার আসল পাঠ, আর বাংলায় এর কোনো সমান্তরাল নেই।</li><li><b>নয়টি অক্ষর বাঁয়ে জোড়া লাগে না।</b> ا د ڈ ذ ر ڑ ز ژ و - এদের পরে কলম তুলতে হয়, শব্দের মাঝেই ফাঁক পড়ে। এই ফাঁক ভুল নয়, নিয়ম।</li><li><b>হ্রস্ব স্বর সাধারণত লেখাই হয় না।</b> জ়বর, জ়ের, পেশ - এই তিন চিহ্ন বই আর কোরআন ছাড়া কোথাও বসে না। পড়ার সময় অনুমান করতে হয়। তাই এই খাতায় প্রতিটি শব্দের বাংলা উচ্চারণ <b>স্বর ভরে</b> দেওয়া আছে।</li></ol></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ا</div>
+      <div class="meta">
+        <div class="nm">আলিফ</div>
+        <div class="eq">= <b>আ / অ</b></div>
+        <div class="ex"><span class="ur">اب</span> &middot; এখন</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">আলিফ ও মদ</div><div class="num">১</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ا</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ا</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ا</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ا</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ا</span><span class="c t-trace"><i class="st"></i>ا</span><span class="c t-trace"><i class="st"></i>ا</span><span class="c t-trace"><i class="st"></i>ا</span><span class="c t-trace"><i class="st"></i>ا</span><span class="c t-trace"><i class="st"></i>ا</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ا</span><span class="c t-out"><i class="st"></i>ا</span><span class="c t-out"><i class="st"></i>ا</span><span class="c t-out"><i class="st"></i>ا</span><span class="c t-out"><i class="st"></i>ا</span><span class="c t-out"><i class="st"></i>ا</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ا</span><span class="c t-faint"><i class="st"></i>ا</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">اب</span> (এখন)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>اب</span><span class="c t-trace"><i class="st"></i>اب</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">آ</div>
+      <div class="meta">
+        <div class="nm">আলিফ মদ</div>
+        <div class="eq">= <b>আ</b></div>
+        <div class="ex"><span class="ur">آم</span> &middot; আম</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">আলিফ ও মদ</div><div class="num">২</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">آ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍آ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍آ</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">آ</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>آ</span><span class="c t-faint"><i class="st"></i>آ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">آم</span> (আম)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>آم</span><span class="c t-trace"><i class="st"></i>آم</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ب</div>
+      <div class="meta">
+        <div class="nm">বে</div>
+        <div class="eq">= <b>ব</b></div>
+        <div class="ex"><span class="ur">بات</span> &middot; কথা</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">বে-পরিবার - এক আকার, ভিন্ন নুক্তা</div><div class="num">৩</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ب</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ب</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ب‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ب‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ب</span><span class="c t-out"><i class="st"></i>ب</span><span class="c t-out"><i class="st"></i>ب</span><span class="c t-out"><i class="st"></i>ب</span><span class="c t-out"><i class="st"></i>ب</span><span class="c t-out"><i class="st"></i>ب</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ب</span><span class="c t-faint"><i class="st"></i>ب</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">بات</span> (কথা)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بات</span><span class="c t-trace"><i class="st"></i>بات</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">پ</div>
+      <div class="meta">
+        <div class="nm">পে</div>
+        <div class="eq">= <b>প</b></div>
+        <div class="ex"><span class="ur">پانی</span> &middot; জল</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">বে-পরিবার - এক আকার, ভিন্ন নুক্তা</div><div class="num">৪</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">پ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍پ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍پ‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">پ‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>پ</span><span class="c t-out"><i class="st"></i>پ</span><span class="c t-out"><i class="st"></i>پ</span><span class="c t-out"><i class="st"></i>پ</span><span class="c t-out"><i class="st"></i>پ</span><span class="c t-out"><i class="st"></i>پ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>پ</span><span class="c t-faint"><i class="st"></i>پ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">پانی</span> (জল)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>پانی</span><span class="c t-trace"><i class="st"></i>پانی</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ت</div>
+      <div class="meta">
+        <div class="nm">তে</div>
+        <div class="eq">= <b>ত</b></div>
+        <div class="ex"><span class="ur">تین</span> &middot; তিন</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">বে-পরিবার - এক আকার, ভিন্ন নুক্তা</div><div class="num">৫</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ت</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ت</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ت‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ت‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ت</span><span class="c t-out"><i class="st"></i>ت</span><span class="c t-out"><i class="st"></i>ت</span><span class="c t-out"><i class="st"></i>ت</span><span class="c t-out"><i class="st"></i>ت</span><span class="c t-out"><i class="st"></i>ت</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ت</span><span class="c t-faint"><i class="st"></i>ت</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">تین</span> (তিন)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>تین</span><span class="c t-trace"><i class="st"></i>تین</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ٹ</div>
+      <div class="meta">
+        <div class="nm">টে</div>
+        <div class="eq">= <b>ট</b></div>
+        <div class="ex"><span class="ur">ٹوپی</span> &middot; টুপি</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">বে-পরিবার - এক আকার, ভিন্ন নুক্তা</div><div class="num">৬</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ٹ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ٹ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ٹ‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ٹ‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ٹ</span><span class="c t-out"><i class="st"></i>ٹ</span><span class="c t-out"><i class="st"></i>ٹ</span><span class="c t-out"><i class="st"></i>ٹ</span><span class="c t-out"><i class="st"></i>ٹ</span><span class="c t-out"><i class="st"></i>ٹ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ٹ</span><span class="c t-faint"><i class="st"></i>ٹ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">ٹوپی</span> (টুপি)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ٹوپی</span><span class="c t-trace"><i class="st"></i>ٹوپی</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ث</div>
+      <div class="meta">
+        <div class="nm">সে</div>
+        <div class="eq">= <b>স</b></div>
+        <div class="ex"><span class="ur">ثمر</span> &middot; ফল</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">বে-পরিবার - এক আকার, ভিন্ন নুক্তা</div><div class="num">৭</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ث</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ث</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ث‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ث‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ث</span><span class="c t-out"><i class="st"></i>ث</span><span class="c t-out"><i class="st"></i>ث</span><span class="c t-out"><i class="st"></i>ث</span><span class="c t-out"><i class="st"></i>ث</span><span class="c t-out"><i class="st"></i>ث</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ث</span><span class="c t-faint"><i class="st"></i>ث</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">ثمر</span> (ফল)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ثمر</span><span class="c t-trace"><i class="st"></i>ثمر</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ج</div>
+      <div class="meta">
+        <div class="nm">জিম</div>
+        <div class="eq">= <b>জ</b></div>
+        <div class="ex"><span class="ur">جگہ</span> &middot; জায়গা</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">জিম-পরিবার</div><div class="num">৮</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ج</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ج</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ج‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ج‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ج</span><span class="c t-out"><i class="st"></i>ج</span><span class="c t-out"><i class="st"></i>ج</span><span class="c t-out"><i class="st"></i>ج</span><span class="c t-out"><i class="st"></i>ج</span><span class="c t-out"><i class="st"></i>ج</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ج</span><span class="c t-faint"><i class="st"></i>ج</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">جگہ</span> (জায়গা)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>جگہ</span><span class="c t-trace"><i class="st"></i>جگہ</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">چ</div>
+      <div class="meta">
+        <div class="nm">চে</div>
+        <div class="eq">= <b>চ</b></div>
+        <div class="ex"><span class="ur">چاند</span> &middot; চাঁদ</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">জিম-পরিবার</div><div class="num">৯</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">چ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍چ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍چ‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">چ‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>چ</span><span class="c t-out"><i class="st"></i>چ</span><span class="c t-out"><i class="st"></i>چ</span><span class="c t-out"><i class="st"></i>چ</span><span class="c t-out"><i class="st"></i>چ</span><span class="c t-out"><i class="st"></i>چ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>چ</span><span class="c t-faint"><i class="st"></i>چ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">چاند</span> (চাঁদ)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>چاند</span><span class="c t-trace"><i class="st"></i>چاند</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ح</div>
+      <div class="meta">
+        <div class="nm">বড়ি হে</div>
+        <div class="eq">= <b>হ</b></div>
+        <div class="ex"><span class="ur">حال</span> &middot; অবস্থা</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">জিম-পরিবার</div><div class="num">১০</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ح</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ح</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ح‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ح‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ح</span><span class="c t-out"><i class="st"></i>ح</span><span class="c t-out"><i class="st"></i>ح</span><span class="c t-out"><i class="st"></i>ح</span><span class="c t-out"><i class="st"></i>ح</span><span class="c t-out"><i class="st"></i>ح</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ح</span><span class="c t-faint"><i class="st"></i>ح</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">حال</span> (অবস্থা)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>حال</span><span class="c t-trace"><i class="st"></i>حال</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">خ</div>
+      <div class="meta">
+        <div class="nm">খে</div>
+        <div class="eq">= <b>খ</b></div>
+        <div class="ex"><span class="ur">خبر</span> &middot; খবর</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">জিম-পরিবার</div><div class="num">১১</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">خ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍خ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍خ‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">خ‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>خ</span><span class="c t-out"><i class="st"></i>خ</span><span class="c t-out"><i class="st"></i>خ</span><span class="c t-out"><i class="st"></i>خ</span><span class="c t-out"><i class="st"></i>خ</span><span class="c t-out"><i class="st"></i>خ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>خ</span><span class="c t-faint"><i class="st"></i>خ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">خبر</span> (খবর)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>خبر</span><span class="c t-trace"><i class="st"></i>خبر</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">د</div>
+      <div class="meta">
+        <div class="nm">দাল</div>
+        <div class="eq">= <b>দ</b></div>
+        <div class="ex"><span class="ur">دن</span> &middot; দিন</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">দাল-পরিবার - বাঁয়ে জোড়া লাগে না</div><div class="num">১২</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">د</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍د</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍د</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">د</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>د</span><span class="c t-trace"><i class="st"></i>د</span><span class="c t-trace"><i class="st"></i>د</span><span class="c t-trace"><i class="st"></i>د</span><span class="c t-trace"><i class="st"></i>د</span><span class="c t-trace"><i class="st"></i>د</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>د</span><span class="c t-out"><i class="st"></i>د</span><span class="c t-out"><i class="st"></i>د</span><span class="c t-out"><i class="st"></i>د</span><span class="c t-out"><i class="st"></i>د</span><span class="c t-out"><i class="st"></i>د</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>د</span><span class="c t-faint"><i class="st"></i>د</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">دن</span> (দিন)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>دن</span><span class="c t-trace"><i class="st"></i>دن</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ڈ</div>
+      <div class="meta">
+        <div class="nm">ডাল</div>
+        <div class="eq">= <b>ড</b></div>
+        <div class="ex"><span class="ur">ڈر</span> &middot; ভয়</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">দাল-পরিবার - বাঁয়ে জোড়া লাগে না</div><div class="num">১৩</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ڈ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ڈ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ڈ</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ڈ</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ڈ</span><span class="c t-trace"><i class="st"></i>ڈ</span><span class="c t-trace"><i class="st"></i>ڈ</span><span class="c t-trace"><i class="st"></i>ڈ</span><span class="c t-trace"><i class="st"></i>ڈ</span><span class="c t-trace"><i class="st"></i>ڈ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ڈ</span><span class="c t-out"><i class="st"></i>ڈ</span><span class="c t-out"><i class="st"></i>ڈ</span><span class="c t-out"><i class="st"></i>ڈ</span><span class="c t-out"><i class="st"></i>ڈ</span><span class="c t-out"><i class="st"></i>ڈ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ڈ</span><span class="c t-faint"><i class="st"></i>ڈ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">ڈر</span> (ভয়)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ڈر</span><span class="c t-trace"><i class="st"></i>ڈر</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ذ</div>
+      <div class="meta">
+        <div class="nm">জাল</div>
+        <div class="eq">= <b>জ</b></div>
+        <div class="ex"><span class="ur">ذات</span> &middot; জাত</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">দাল-পরিবার - বাঁয়ে জোড়া লাগে না</div><div class="num">১৪</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ذ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ذ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ذ</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ذ</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ذ</span><span class="c t-trace"><i class="st"></i>ذ</span><span class="c t-trace"><i class="st"></i>ذ</span><span class="c t-trace"><i class="st"></i>ذ</span><span class="c t-trace"><i class="st"></i>ذ</span><span class="c t-trace"><i class="st"></i>ذ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ذ</span><span class="c t-out"><i class="st"></i>ذ</span><span class="c t-out"><i class="st"></i>ذ</span><span class="c t-out"><i class="st"></i>ذ</span><span class="c t-out"><i class="st"></i>ذ</span><span class="c t-out"><i class="st"></i>ذ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ذ</span><span class="c t-faint"><i class="st"></i>ذ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">ذات</span> (জাত)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ذات</span><span class="c t-trace"><i class="st"></i>ذات</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ر</div>
+      <div class="meta">
+        <div class="nm">রে</div>
+        <div class="eq">= <b>র</b></div>
+        <div class="ex"><span class="ur">رات</span> &middot; রাত</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">রে-পরিবার - বাঁয়ে জোড়া লাগে না</div><div class="num">১৫</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ر</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ر</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ر</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ر</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ر</span><span class="c t-trace"><i class="st"></i>ر</span><span class="c t-trace"><i class="st"></i>ر</span><span class="c t-trace"><i class="st"></i>ر</span><span class="c t-trace"><i class="st"></i>ر</span><span class="c t-trace"><i class="st"></i>ر</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ر</span><span class="c t-out"><i class="st"></i>ر</span><span class="c t-out"><i class="st"></i>ر</span><span class="c t-out"><i class="st"></i>ر</span><span class="c t-out"><i class="st"></i>ر</span><span class="c t-out"><i class="st"></i>ر</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ر</span><span class="c t-faint"><i class="st"></i>ر</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">رات</span> (রাত)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>رات</span><span class="c t-trace"><i class="st"></i>رات</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ڑ</div>
+      <div class="meta">
+        <div class="nm">ড়ে</div>
+        <div class="eq">= <b>ড়</b></div>
+        <div class="ex"><span class="ur">بڑا</span> &middot; বড়</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">রে-পরিবার - বাঁয়ে জোড়া লাগে না</div><div class="num">১৬</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ڑ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ڑ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ڑ</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ڑ</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ڑ</span><span class="c t-trace"><i class="st"></i>ڑ</span><span class="c t-trace"><i class="st"></i>ڑ</span><span class="c t-trace"><i class="st"></i>ڑ</span><span class="c t-trace"><i class="st"></i>ڑ</span><span class="c t-trace"><i class="st"></i>ڑ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ڑ</span><span class="c t-out"><i class="st"></i>ڑ</span><span class="c t-out"><i class="st"></i>ڑ</span><span class="c t-out"><i class="st"></i>ڑ</span><span class="c t-out"><i class="st"></i>ڑ</span><span class="c t-out"><i class="st"></i>ڑ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ڑ</span><span class="c t-faint"><i class="st"></i>ڑ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">بڑا</span> (বড়)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بڑا</span><span class="c t-trace"><i class="st"></i>بڑا</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ز</div>
+      <div class="meta">
+        <div class="nm">জে</div>
+        <div class="eq">= <b>জ</b></div>
+        <div class="ex"><span class="ur">زمین</span> &middot; জমি</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">রে-পরিবার - বাঁয়ে জোড়া লাগে না</div><div class="num">১৭</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ز</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ز</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ز</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ز</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ز</span><span class="c t-trace"><i class="st"></i>ز</span><span class="c t-trace"><i class="st"></i>ز</span><span class="c t-trace"><i class="st"></i>ز</span><span class="c t-trace"><i class="st"></i>ز</span><span class="c t-trace"><i class="st"></i>ز</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ز</span><span class="c t-out"><i class="st"></i>ز</span><span class="c t-out"><i class="st"></i>ز</span><span class="c t-out"><i class="st"></i>ز</span><span class="c t-out"><i class="st"></i>ز</span><span class="c t-out"><i class="st"></i>ز</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ز</span><span class="c t-faint"><i class="st"></i>ز</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">زمین</span> (জমি)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>زمین</span><span class="c t-trace"><i class="st"></i>زمین</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ژ</div>
+      <div class="meta">
+        <div class="nm">ঝে</div>
+        <div class="eq">= <b>ঝ</b></div>
+        <div class="ex"><span class="ur">ژالہ</span> &middot; শিলাবৃষ্টি</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">রে-পরিবার - বাঁয়ে জোড়া লাগে না</div><div class="num">১৮</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ژ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ژ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ژ</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ژ</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ژ</span><span class="c t-trace"><i class="st"></i>ژ</span><span class="c t-trace"><i class="st"></i>ژ</span><span class="c t-trace"><i class="st"></i>ژ</span><span class="c t-trace"><i class="st"></i>ژ</span><span class="c t-trace"><i class="st"></i>ژ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ژ</span><span class="c t-out"><i class="st"></i>ژ</span><span class="c t-out"><i class="st"></i>ژ</span><span class="c t-out"><i class="st"></i>ژ</span><span class="c t-out"><i class="st"></i>ژ</span><span class="c t-out"><i class="st"></i>ژ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ژ</span><span class="c t-faint"><i class="st"></i>ژ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">ژالہ</span> (শিলাবৃষ্টি)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ژالہ</span><span class="c t-trace"><i class="st"></i>ژالہ</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">س</div>
+      <div class="meta">
+        <div class="nm">সিন</div>
+        <div class="eq">= <b>স</b></div>
+        <div class="ex"><span class="ur">سال</span> &middot; বছর</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">সিন-পরিবার</div><div class="num">১৯</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">س</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍س</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍س‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">س‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>س</span><span class="c t-out"><i class="st"></i>س</span><span class="c t-out"><i class="st"></i>س</span><span class="c t-out"><i class="st"></i>س</span><span class="c t-out"><i class="st"></i>س</span><span class="c t-out"><i class="st"></i>س</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>س</span><span class="c t-faint"><i class="st"></i>س</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">سال</span> (বছর)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>سال</span><span class="c t-trace"><i class="st"></i>سال</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ش</div>
+      <div class="meta">
+        <div class="nm">শিন</div>
+        <div class="eq">= <b>শ</b></div>
+        <div class="ex"><span class="ur">شام</span> &middot; সন্ধ্যা</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">সিন-পরিবার</div><div class="num">২০</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ش</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ش</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ش‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ش‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ش</span><span class="c t-out"><i class="st"></i>ش</span><span class="c t-out"><i class="st"></i>ش</span><span class="c t-out"><i class="st"></i>ش</span><span class="c t-out"><i class="st"></i>ش</span><span class="c t-out"><i class="st"></i>ش</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ش</span><span class="c t-faint"><i class="st"></i>ش</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">شام</span> (সন্ধ্যা)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>شام</span><span class="c t-trace"><i class="st"></i>شام</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ص</div>
+      <div class="meta">
+        <div class="nm">সোয়াদ</div>
+        <div class="eq">= <b>স</b></div>
+        <div class="ex"><span class="ur">صبح</span> &middot; সকাল</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">সোয়াদ ও তোয়ে</div><div class="num">২১</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ص</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ص</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ص‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ص‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ص</span><span class="c t-out"><i class="st"></i>ص</span><span class="c t-out"><i class="st"></i>ص</span><span class="c t-out"><i class="st"></i>ص</span><span class="c t-out"><i class="st"></i>ص</span><span class="c t-out"><i class="st"></i>ص</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ص</span><span class="c t-faint"><i class="st"></i>ص</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">صبح</span> (সকাল)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>صبح</span><span class="c t-trace"><i class="st"></i>صبح</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ض</div>
+      <div class="meta">
+        <div class="nm">জোয়াদ</div>
+        <div class="eq">= <b>জ</b></div>
+        <div class="ex"><span class="ur">ضرور</span> &middot; অবশ্যই</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">সোয়াদ ও তোয়ে</div><div class="num">২২</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ض</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ض</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ض‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ض‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ض</span><span class="c t-out"><i class="st"></i>ض</span><span class="c t-out"><i class="st"></i>ض</span><span class="c t-out"><i class="st"></i>ض</span><span class="c t-out"><i class="st"></i>ض</span><span class="c t-out"><i class="st"></i>ض</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ض</span><span class="c t-faint"><i class="st"></i>ض</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">ضرور</span> (অবশ্যই)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ضرور</span><span class="c t-trace"><i class="st"></i>ضرور</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ط</div>
+      <div class="meta">
+        <div class="nm">তোয়ে</div>
+        <div class="eq">= <b>ত</b></div>
+        <div class="ex"><span class="ur">طوطا</span> &middot; টিয়া</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">সোয়াদ ও তোয়ে</div><div class="num">২৩</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ط</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ط</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ط‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ط‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ط</span><span class="c t-out"><i class="st"></i>ط</span><span class="c t-out"><i class="st"></i>ط</span><span class="c t-out"><i class="st"></i>ط</span><span class="c t-out"><i class="st"></i>ط</span><span class="c t-out"><i class="st"></i>ط</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ط</span><span class="c t-faint"><i class="st"></i>ط</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">طوطا</span> (টিয়া)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>طوطا</span><span class="c t-trace"><i class="st"></i>طوطا</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ظ</div>
+      <div class="meta">
+        <div class="nm">জোয়ে</div>
+        <div class="eq">= <b>জ</b></div>
+        <div class="ex"><span class="ur">ظاہر</span> &middot; প্রকাশ্য</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">সোয়াদ ও তোয়ে</div><div class="num">২৪</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ظ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ظ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ظ‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ظ‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ظ</span><span class="c t-out"><i class="st"></i>ظ</span><span class="c t-out"><i class="st"></i>ظ</span><span class="c t-out"><i class="st"></i>ظ</span><span class="c t-out"><i class="st"></i>ظ</span><span class="c t-out"><i class="st"></i>ظ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ظ</span><span class="c t-faint"><i class="st"></i>ظ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">ظاہر</span> (প্রকাশ্য)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ظاہر</span><span class="c t-trace"><i class="st"></i>ظاہر</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ع</div>
+      <div class="meta">
+        <div class="nm">আইন</div>
+        <div class="eq">= <b>আ / অ</b></div>
+        <div class="ex"><span class="ur">عمر</span> &middot; বয়স</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">আইন-পরিবার</div><div class="num">২৫</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ع</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ع</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ع‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ع‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ع</span><span class="c t-out"><i class="st"></i>ع</span><span class="c t-out"><i class="st"></i>ع</span><span class="c t-out"><i class="st"></i>ع</span><span class="c t-out"><i class="st"></i>ع</span><span class="c t-out"><i class="st"></i>ع</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ع</span><span class="c t-faint"><i class="st"></i>ع</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">عمر</span> (বয়স)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>عمر</span><span class="c t-trace"><i class="st"></i>عمر</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">غ</div>
+      <div class="meta">
+        <div class="nm">গাইন</div>
+        <div class="eq">= <b>গ</b></div>
+        <div class="ex"><span class="ur">غزل</span> &middot; গজল</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">আইন-পরিবার</div><div class="num">২৬</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">غ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍غ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍غ‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">غ‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>غ</span><span class="c t-out"><i class="st"></i>غ</span><span class="c t-out"><i class="st"></i>غ</span><span class="c t-out"><i class="st"></i>غ</span><span class="c t-out"><i class="st"></i>غ</span><span class="c t-out"><i class="st"></i>غ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>غ</span><span class="c t-faint"><i class="st"></i>غ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">غزل</span> (গজল)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>غزل</span><span class="c t-trace"><i class="st"></i>غزل</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ف</div>
+      <div class="meta">
+        <div class="nm">ফে</div>
+        <div class="eq">= <b>ফ</b></div>
+        <div class="ex"><span class="ur">فون</span> &middot; ফোন</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ফে ও ক়াফ</div><div class="num">২৭</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ف</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ف</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ف‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ف‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ف</span><span class="c t-out"><i class="st"></i>ف</span><span class="c t-out"><i class="st"></i>ف</span><span class="c t-out"><i class="st"></i>ف</span><span class="c t-out"><i class="st"></i>ف</span><span class="c t-out"><i class="st"></i>ف</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ف</span><span class="c t-faint"><i class="st"></i>ف</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">فون</span> (ফোন)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>فون</span><span class="c t-trace"><i class="st"></i>فون</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ق</div>
+      <div class="meta">
+        <div class="nm">ক়াফ</div>
+        <div class="eq">= <b>ক</b></div>
+        <div class="ex"><span class="ur">قلم</span> &middot; কলম</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ফে ও ক়াফ</div><div class="num">২৮</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ق</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ق</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ق‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ق‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ق</span><span class="c t-out"><i class="st"></i>ق</span><span class="c t-out"><i class="st"></i>ق</span><span class="c t-out"><i class="st"></i>ق</span><span class="c t-out"><i class="st"></i>ق</span><span class="c t-out"><i class="st"></i>ق</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ق</span><span class="c t-faint"><i class="st"></i>ق</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">قلم</span> (কলম)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>قلم</span><span class="c t-trace"><i class="st"></i>قلم</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ک</div>
+      <div class="meta">
+        <div class="nm">কাফ</div>
+        <div class="eq">= <b>ক</b></div>
+        <div class="ex"><span class="ur">کتاب</span> &middot; বই</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">কাফ ও গাফ</div><div class="num">২৯</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ک</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ک</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ک‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ک‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ک</span><span class="c t-out"><i class="st"></i>ک</span><span class="c t-out"><i class="st"></i>ک</span><span class="c t-out"><i class="st"></i>ک</span><span class="c t-out"><i class="st"></i>ک</span><span class="c t-out"><i class="st"></i>ک</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ک</span><span class="c t-faint"><i class="st"></i>ک</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">کتاب</span> (বই)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>کتاب</span><span class="c t-trace"><i class="st"></i>کتاب</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">گ</div>
+      <div class="meta">
+        <div class="nm">গাফ</div>
+        <div class="eq">= <b>গ</b></div>
+        <div class="ex"><span class="ur">گھر</span> &middot; ঘর</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">কাফ ও গাফ</div><div class="num">৩০</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">گ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍گ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍گ‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">گ‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>گ</span><span class="c t-out"><i class="st"></i>گ</span><span class="c t-out"><i class="st"></i>گ</span><span class="c t-out"><i class="st"></i>گ</span><span class="c t-out"><i class="st"></i>گ</span><span class="c t-out"><i class="st"></i>گ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>گ</span><span class="c t-faint"><i class="st"></i>گ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">گھر</span> (ঘর)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>گھر</span><span class="c t-trace"><i class="st"></i>گھر</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ل</div>
+      <div class="meta">
+        <div class="nm">লাম</div>
+        <div class="eq">= <b>ল</b></div>
+        <div class="ex"><span class="ur">لڑکا</span> &middot; ছেলে</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">লাম, মিম, নুন</div><div class="num">৩১</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ل</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ل</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ل‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ل‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ل</span><span class="c t-out"><i class="st"></i>ل</span><span class="c t-out"><i class="st"></i>ل</span><span class="c t-out"><i class="st"></i>ل</span><span class="c t-out"><i class="st"></i>ل</span><span class="c t-out"><i class="st"></i>ل</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ل</span><span class="c t-faint"><i class="st"></i>ل</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">لڑکا</span> (ছেলে)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>لڑکا</span><span class="c t-trace"><i class="st"></i>لڑکا</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">م</div>
+      <div class="meta">
+        <div class="nm">মিম</div>
+        <div class="eq">= <b>ম</b></div>
+        <div class="ex"><span class="ur">مچھلی</span> &middot; মাছ</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">লাম, মিম, নুন</div><div class="num">৩২</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">م</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍م</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍م‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">م‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>م</span><span class="c t-out"><i class="st"></i>م</span><span class="c t-out"><i class="st"></i>م</span><span class="c t-out"><i class="st"></i>م</span><span class="c t-out"><i class="st"></i>م</span><span class="c t-out"><i class="st"></i>م</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>م</span><span class="c t-faint"><i class="st"></i>م</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">مچھلی</span> (মাছ)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>مچھلی</span><span class="c t-trace"><i class="st"></i>مچھلی</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ن</div>
+      <div class="meta">
+        <div class="nm">নুন</div>
+        <div class="eq">= <b>ন</b></div>
+        <div class="ex"><span class="ur">نام</span> &middot; নাম</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">লাম, মিম, নুন</div><div class="num">৩৩</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ن</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ن</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ن‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ن‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ن</span><span class="c t-out"><i class="st"></i>ن</span><span class="c t-out"><i class="st"></i>ن</span><span class="c t-out"><i class="st"></i>ن</span><span class="c t-out"><i class="st"></i>ن</span><span class="c t-out"><i class="st"></i>ن</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ن</span><span class="c t-faint"><i class="st"></i>ن</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">نام</span> (নাম)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>نام</span><span class="c t-trace"><i class="st"></i>نام</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ں</div>
+      <div class="meta">
+        <div class="nm">নুন গুন্না</div>
+        <div class="eq">= <b>ং</b></div>
+        <div class="ex"><span class="ur">ماں</span> &middot; মা</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">লাম, মিম, নুন</div><div class="num">৩৪</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ں</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ں</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ں</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ں</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ں</span><span class="c t-trace"><i class="st"></i>ں</span><span class="c t-trace"><i class="st"></i>ں</span><span class="c t-trace"><i class="st"></i>ں</span><span class="c t-trace"><i class="st"></i>ں</span><span class="c t-trace"><i class="st"></i>ں</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ں</span><span class="c t-out"><i class="st"></i>ں</span><span class="c t-out"><i class="st"></i>ں</span><span class="c t-out"><i class="st"></i>ں</span><span class="c t-out"><i class="st"></i>ں</span><span class="c t-out"><i class="st"></i>ں</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ں</span><span class="c t-faint"><i class="st"></i>ں</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">ماں</span> (মা)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ماں</span><span class="c t-trace"><i class="st"></i>ماں</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">و</div>
+      <div class="meta">
+        <div class="nm">ওয়াও</div>
+        <div class="eq">= <b>ও / ব</b></div>
+        <div class="ex"><span class="ur">وقت</span> &middot; সময়</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ওয়াও - বাঁয়ে জোড়া লাগে না</div><div class="num">৩৫</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">و</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍و</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍و</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">و</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>و</span><span class="c t-trace"><i class="st"></i>و</span><span class="c t-trace"><i class="st"></i>و</span><span class="c t-trace"><i class="st"></i>و</span><span class="c t-trace"><i class="st"></i>و</span><span class="c t-trace"><i class="st"></i>و</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>و</span><span class="c t-out"><i class="st"></i>و</span><span class="c t-out"><i class="st"></i>و</span><span class="c t-out"><i class="st"></i>و</span><span class="c t-out"><i class="st"></i>و</span><span class="c t-out"><i class="st"></i>و</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>و</span><span class="c t-faint"><i class="st"></i>و</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">وقت</span> (সময়)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>وقت</span><span class="c t-trace"><i class="st"></i>وقت</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ہ</div>
+      <div class="meta">
+        <div class="nm">ছোটি হে</div>
+        <div class="eq">= <b>হ</b></div>
+        <div class="ex"><span class="ur">ہاتھ</span> &middot; হাত</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">হে-পরিবার</div><div class="num">৩৬</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ہ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ہ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ہ‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ہ‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ہ</span><span class="c t-out"><i class="st"></i>ہ</span><span class="c t-out"><i class="st"></i>ہ</span><span class="c t-out"><i class="st"></i>ہ</span><span class="c t-out"><i class="st"></i>ہ</span><span class="c t-out"><i class="st"></i>ہ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ہ</span><span class="c t-faint"><i class="st"></i>ہ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">ہاتھ</span> (হাত)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ہاتھ</span><span class="c t-trace"><i class="st"></i>ہاتھ</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ھ</div>
+      <div class="meta">
+        <div class="nm">দোচশমি হে</div>
+        <div class="eq">= <b>্হ (মহাপ্রাণ)</b></div>
+        <div class="ex"><span class="ur">بھائی</span> &middot; ভাই</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">হে-পরিবার</div><div class="num">৩৭</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ھ</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ھ</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ھ‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ھ‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ھ</span><span class="c t-out"><i class="st"></i>ھ</span><span class="c t-out"><i class="st"></i>ھ</span><span class="c t-out"><i class="st"></i>ھ</span><span class="c t-out"><i class="st"></i>ھ</span><span class="c t-out"><i class="st"></i>ھ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ھ</span><span class="c t-faint"><i class="st"></i>ھ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">بھائی</span> (ভাই)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بھائی</span><span class="c t-trace"><i class="st"></i>بھائی</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ی</div>
+      <div class="meta">
+        <div class="nm">ছোটি ইয়ে</div>
+        <div class="eq">= <b>ই / য়</b></div>
+        <div class="ex"><span class="ur">یہ</span> &middot; এটা</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ইয়ে-পরিবার</div><div class="num">৩৮</div></div>
+  </div>
+  <div class="note">এই অক্ষর <b>বাঁয়ে জোড়া লাগে</b> - পরের অক্ষর এর সাথে যুক্ত হবে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ی</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ی</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ی‍</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ی‍</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ی</span><span class="c t-out"><i class="st"></i>ی</span><span class="c t-out"><i class="st"></i>ی</span><span class="c t-out"><i class="st"></i>ی</span><span class="c t-out"><i class="st"></i>ی</span><span class="c t-out"><i class="st"></i>ی</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ی</span><span class="c t-faint"><i class="st"></i>ی</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">یہ</span> (এটা)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>یہ</span><span class="c t-trace"><i class="st"></i>یہ</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ے</div>
+      <div class="meta">
+        <div class="nm">বড়ি ইয়ে</div>
+        <div class="eq">= <b>এ</b></div>
+        <div class="ex"><span class="ur">کے</span> &middot; -এর</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ইয়ে-পরিবার</div><div class="num">৩৯</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ے</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ے</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ے</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ے</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ے</span><span class="c t-trace"><i class="st"></i>ے</span><span class="c t-trace"><i class="st"></i>ے</span><span class="c t-trace"><i class="st"></i>ے</span><span class="c t-trace"><i class="st"></i>ے</span><span class="c t-trace"><i class="st"></i>ے</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ے</span><span class="c t-out"><i class="st"></i>ے</span><span class="c t-out"><i class="st"></i>ے</span><span class="c t-out"><i class="st"></i>ے</span><span class="c t-out"><i class="st"></i>ے</span><span class="c t-out"><i class="st"></i>ے</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ے</span><span class="c t-faint"><i class="st"></i>ے</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">کے</span> (-এর)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>کے</span><span class="c t-trace"><i class="st"></i>کے</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">ء</div>
+      <div class="meta">
+        <div class="nm">হামজ়া</div>
+        <div class="eq">= <b>(বিরতি)</b></div>
+        <div class="ex"><span class="ur">کوئی</span> &middot; কেউ</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">হে-পরিবার</div><div class="num">৪০</div></div>
+  </div>
+  <div class="note">⚡ এই অক্ষর <b>বাঁয়ে জোড়া লাগে না</b>। এর পরে কলম তুলতে হবে, শব্দের মাঝেই ফাঁক পড়বে।</div>
+  <div class="forms"><div class="formbox"><div class="g ur">ء</div><div class="cap"><b>1</b> একা</div></div><div class="formbox"><div class="g ur">‍ء</div><div class="cap"><b>2</b> শেষে</div></div><div class="formbox"><div class="g ur">‍ء</div><div class="cap"><b>3</b> মাঝে</div></div><div class="formbox"><div class="g ur">ء</div><div class="cap"><b>4</b> শুরুতে</div></div></div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>ডান দিক থেকে শুরু →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ء</span><span class="c t-trace"><i class="st"></i>ء</span><span class="c t-trace"><i class="st"></i>ء</span><span class="c t-trace"><i class="st"></i>ء</span><span class="c t-trace"><i class="st"></i>ء</span><span class="c t-trace"><i class="st"></i>ء</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>ছয় বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ء</span><span class="c t-out"><i class="st"></i>ء</span><span class="c t-out"><i class="st"></i>ء</span><span class="c t-out"><i class="st"></i>ء</span><span class="c t-out"><i class="st"></i>ء</span><span class="c t-out"><i class="st"></i>ء</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ء</span><span class="c t-faint"><i class="st"></i>ء</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>শব্দে বসাও - <span class="ur">کوئی</span> (কেউ)</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>کوئی</span><span class="c t-trace"><i class="st"></i>کوئی</span></div>
+</div>
+  <div class="pf"><span>খাতা ১ · হরফ</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৪০</span></div>
+</div>
+</body>
+</html>

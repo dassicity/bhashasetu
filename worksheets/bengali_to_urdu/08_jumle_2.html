@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<title>বাক্য ২ - বাংলা থেকে উর্দু হাতের লেখা</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --base: 17mm;         /* the baseline - letters SIT on this */
+  --gs:   15mm;         /* practice font size */
+  --asc-ratio:  0.714;  /* ا ل ک reach this far above the baseline */
+  --desc-ratio: 0.420;  /* م and the Nastaliq cascade reach this far below */
+  --x-ratio:    0.310;  /* x-height of ب س ر, drawn as a faint guide */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Bengali',serif; color:var(--ink); font-size:10pt; direction:ltr; }
+.ur{ font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:6mm; }
+.ph .big{ font-size:24mm; line-height:1.5; }
+.ph .meta{ padding-bottom:2mm; }
+.ph .eq{ font-size:13pt; } .ph .eq b{ color:var(--sindoor); }
+.ph .nm{ font-size:11pt; color:var(--teal); }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:2mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.note{ font-size:9.5pt; line-height:1.6; color:var(--ink); margin:0 0 3mm;
+       padding:2mm 3mm; background:rgba(31,77,74,0.06); border-right:2mm solid var(--teal); }
+.note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.4mm;
+      --asc:  calc(var(--base) - var(--asc-ratio) * var(--gs));
+      --xh:   calc(var(--base) - var(--x-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--desc-ratio) * var(--gs));
+      height: calc(var(--desc) + 2mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.x{ top:var(--xh);   border-top:0.2mm dotted #dde3ea; }
+.ln.b{ top:var(--base); border-top:0.45mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* right-to-left: cells run from the right edge; the strut pins the baseline */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; flex-direction:row; justify-content:flex-start;
+             direction:rtl; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-family:'Noto Nastaliq Urdu',serif; font-size:var(--gs); line-height:0;
+         flex:0 0 auto; padding-left:7mm; text-align:center; }
+/* word and joining rows: a tighter band so eight rows fit one page */
+.row.wide{ --base:13mm; --gs:12mm; }
+.row.wide .c{ padding-left:12mm; }
+.row.sent{ --gs:11mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; padding:0; text-align:right; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.25mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.forms{ display:flex; gap:3mm; margin:0 0 3mm; direction:rtl; }
+.formbox{ border:0.3mm dashed var(--line-soft); border-radius:1mm;
+          padding:1mm 4mm 0.5mm; text-align:center; flex:1; }
+.formbox .g{ font-family:'Noto Nastaliq Urdu',serif; font-size:13mm; line-height:2; }
+.formbox .cap{ font-size:8pt; color:var(--faded); direction:ltr; }
+.formbox .cap b{ color:var(--teal); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:28pt; margin:6mm 0 2mm; line-height:1.3; }
+.cover h1 .ur{ display:block; font-size:32pt; margin-bottom:5mm; line-height:2; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:140mm; margin:0 auto; line-height:1.75; }
+.rules{ text-align:left; max-width:152mm; margin:10mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.7; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">খাতা ৮</div>
+  <h1><span class="ur">جملے</span>বাক্য ২</h1>
+  <p class="sub">লম্বা বাক্য - প্রশ্ন, নাকার, লম্বা জোড়। শব্দগুলো খাতা ৬ থেকে।</p>
+  <div class="rules"><h2>লেখার আগে পাঁচটি কথা</h2><ol><li><b>ডান থেকে বাঁয়ে।</b> এটাই প্রথম আর সবচেয়ে বড় বদল। বাংলা বাঁ থেকে ডানে চলে; উর্দু ঠিক উল্টো। পাতার <b>ডান ধার</b> থেকে শুরু করো। কিন্তু সংখ্যা বাঁ থেকে ডানে - ২০২৬ উর্দুতেও ২০২৬।</li><li><b>অক্ষর রেখার উপরে বসে, ঝোলে না।</b> বাংলায় অক্ষর মাত্রা থেকে ঝোলে। উর্দুতে অক্ষর মোটা রেখার <b>উপরে</b> বসে; ا ل ک উপরে ওঠে, আর م ج ع ی-র লেজ নিচে নামে। উপরের-নিচের ছেঁড়া রেখা সেই দুই সীমানা।</li><li><b>এক অক্ষরের চার চেহারা।</b> শব্দের শুরুতে, মাঝে, শেষে আর একা - একই অক্ষর চার রকম দেখায়। এটাই উর্দু লেখার আসল পাঠ, আর বাংলায় এর কোনো সমান্তরাল নেই।</li><li><b>নয়টি অক্ষর বাঁয়ে জোড়া লাগে না।</b> ا د ڈ ذ ر ڑ ز ژ و - এদের পরে কলম তুলতে হয়, শব্দের মাঝেই ফাঁক পড়ে। এই ফাঁক ভুল নয়, নিয়ম।</li><li><b>হ্রস্ব স্বর সাধারণত লেখাই হয় না।</b> জ়বর, জ়ের, পেশ - এই তিন চিহ্ন বই আর কোরআন ছাড়া কোথাও বসে না। পড়ার সময় অনুমান করতে হয়। তাই এই খাতায় প্রতিটি শব্দের বাংলা উচ্চারণ <b>স্বর ভরে</b> দেওয়া আছে।</li></ol></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">১</div></div>
+  </div>
+  <div class="rowlabel"><span><b>আমি কলকাতা থেকে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>میں کولکاتا سے ہوں۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>میں کولکاتا سے ہوں۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>আমি রোজ বই পড়ি।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>میں روز کتاب پڑھتا ہوں۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>میں روز کتاب پڑھتا ہوں۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">২</div></div>
+  </div>
+  <div class="rowlabel"><span><b>সে স্কুলে পড়ে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>وہ اسکول میں پڑھتی ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>وہ اسکول میں پڑھتی ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>আপনি কি উর্দু বলেন?</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>کیا آپ اردو بولتے ہیں؟</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>کیا آپ اردو بولتے ہیں؟</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">৩</div></div>
+  </div>
+  <div class="rowlabel"><span><b>আমার এই শহর ভালো লাগে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>مجھے یہ شہر پسند ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>مجھے یہ شہر پسند ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>একটু জল দিন।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>تھوڑا پانی دیجیے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>تھوڑا پانی دیجیے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">৪</div></div>
+  </div>
+  <div class="rowlabel"><span><b>আজ আবহাওয়া ভালো।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>آج موسم اچھا ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>آج موسم اچھا ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>আমার বন্ধুর নাম অর্জুন।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>میرے دوست کا نام ارجن ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>میرے دوست کا نام ارجن ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">৫</div></div>
+  </div>
+  <div class="rowlabel"><span><b>আমরা কাল বাজার যাব।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ہم کل بازار جائیں گے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ہم کل بازار جائیں گے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>সে আমাকে চিঠি লিখেছে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>اس نے مجھے خط لکھا۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>اس نے مجھے خط لکھا۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">৬</div></div>
+  </div>
+  <div class="rowlabel"><span><b>এই বই সুন্দর।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>یہ کتاب خوبصورت ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>یہ کتاب خوبصورت ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>তুমি কি খেয়েছ?</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>کیا تم نے کھانا کھایا؟</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>کیا تم نے کھانا کھایا؟</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">৭</div></div>
+  </div>
+  <div class="rowlabel"><span><b>সে হাসপাতালে কাজ করে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>وہ ہسپتال میں کام کرتا ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>وہ ہسپتال میں کام کرتا ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>আমাকে উর্দু শিখতে হবে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>مجھے اردو سیکھنی ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>مجھے اردو سیکھنی ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">৮</div></div>
+  </div>
+  <div class="rowlabel"><span><b>তোমার ঘর কোথায়?</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>تمہارا گھر کہاں ہے؟</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>تمہارا گھر کہاں ہے؟</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>তারা একসাথে কাজ করে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>وہ مل کر کام کرتے ہیں۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>وہ مل کر کام کرتے ہیں۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">৯</div></div>
+  </div>
+  <div class="rowlabel"><span><b>এই ঘরে তিনটি চেয়ার আছে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>اس کمرے میں تین کرسیاں ہیں۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>اس کمرے میں تین کرسیاں ہیں۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>বাচ্চারা বাগানে খেলছে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بچے باغ میں کھیل رہے ہیں۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بچے باغ میں کھیل رہے ہیں۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">১০</div></div>
+  </div>
+  <div class="rowlabel"><span><b>আমি খবর পড়িনি।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>میں نے خبر نہیں پڑھی۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>میں نے خبر نہیں پڑھی۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>তার গান শুনতে ভালো লাগে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>اسے موسیقی سننا پسند ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>اسے موسیقی سننا پسند ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">১১</div></div>
+  </div>
+  <div class="rowlabel"><span><b>আমাদের সময়মতো পৌঁছাতে হবে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ہمیں وقت پر پہنچنا چاہیے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ہمیں وقت پر پہنچنا چاہیے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>এই প্রশ্ন কঠিন।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>یہ سوال مشکل ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>یہ سوال مشکل ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">১২</div></div>
+  </div>
+  <div class="rowlabel"><span><b>দোকান নয়টায় খোলে।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>دکان نو بجے کھلتی ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>دکان نو بجے کھلتی ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>আমার বোন ডাক্তার।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>میری بہن ڈاکٹر ہے۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>میری بہن ڈاکٹر ہے۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">১৩</div></div>
+  </div>
+  <div class="rowlabel"><span><b>শুক্রিয়া, আপনার মেহেরবানি।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>شکریہ، آپ کی مہربانی۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>شکریہ، آپ کی مہربانی۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>আমি পরে দেখা করব।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>میں بعد میں ملوں گا۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>میں بعد میں ملوں گا۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>বাক্য লেখা</b></div>
+      <div class="ex">ডান ধার থেকে শুরু। শব্দের মাঝে ফাঁক, আর নাস্তালিকের ঢাল নিচের দিকে।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">বাক্য</div><div class="num">১৪</div></div>
+  </div>
+  <div class="rowlabel"><span><b>মাফ করবেন, দেরি হল।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>معاف کیجیے، دیر ہوئی۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>معاف کیجیے، دیر ہوئی۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>উর্দু আর বাংলা দুই বোন।</b></span><span>নমুনা &rarr; ধূসর &rarr; নিজে</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>اردو اور بنگالی بہنیں ہیں۔</span></div>
+</div><div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>اردو اور بنگالی بہنیں ہیں۔</span></div>
+</div><div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৮ · বাক্য ২</span><span>BHASHASETU &middot; বাংলা থেকে উর্দু &middot; ১৪</span></div>
+</div>
+</body>
+</html>

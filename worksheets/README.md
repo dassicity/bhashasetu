@@ -9,43 +9,75 @@ a learner on request - nothing is generated on the fly.
 
 ## What is here
 
-Two pairs so far, both teaching **Devanagari**, 169 pages each.
+Three pairs. Two teach **Devanagari** and share a generator; one teaches the
+**Perso-Arabic** script and has its own, because almost nothing carries over.
+
+### Devanagari targets - `gen_worksheets.py`, 169 pages each
 
 | Book | bengali_to_hindi | telugu_to_hindi | Pages | Contents |
 |---|---|---|---|---|
 | 1 | `01_svarabarna` | `01_achchulu` | 14 | 13 vowels |
-| 2 | `02_byanjanbarna` | `02_hallulu` | 41 | 33 consonants by varga + 7 nukta |
-| 3 | `03_matra` | `03_gunintalu` | 14 | the 13 forms of the क barakhadi |
-| 4 | `04_juktakshar` | `04_samyuktakshara` | 35 | 66 conjuncts grouped by formation rule |
-| 5 | `05_shabda_1` | `05_padalu_1` | 18 | 64 easy words (no conjunct, no nukta) |
+| 2 | `02_byanjanbarna` | `02_hallulu` | 41 | 33 consonants + 7 nukta |
+| 3 | `03_matra` | `03_gunintalu` | 14 | the क barakhadi |
+| 4 | `04_juktakshar` | `04_samyuktakshara` | 35 | 66 conjuncts by rule |
+| 5 | `05_shabda_1` | `05_padalu_1` | 18 | 64 easy words |
 | 6 | `06_shabda_2` | `06_padalu_2` | 17 | 58 harder words |
 | 7 | `07_bakya_1` | `07_vakyalu_1` | 15 | 28 short sentences |
 | 8 | `08_bakya_2` | `08_vakyalu_2` | 15 | 28 longer sentences |
 
-Each pair has its own `index.html`.
+### Perso-Arabic target - `gen_worksheets_urdu.py`, 136 pages
 
-## Same target, different bridges
+`bengali_to_urdu`. The book structure had to change, because an abjad does not
+have vowels, matras or conjuncts to practise:
 
-The target is Devanagari for both pairs, so the ruling geometry, the font metrics
-and the Hindi content are shared. What changes is not just the language of the
-instructions but **which bridges are actually true**:
+| Book | File | Pages | Contents |
+|---|---|---|---|
+| 1 | `01_huruf` | 41 | 40 letters, grouped **by shape** (ب پ ت ٹ ث together), each with its four positional forms |
+| 2 | `02_char_shakal` | 10 | the four forms drilled on their own - the lesson with no Bengali parallel |
+| 3 | `03_harakat` | 13 | zabar, zer, pesh, jazm, tashdid; long vowels as letters; do-chashmi he |
+| 4 | `04_jor` | 9 | joining: the nine letters that never join leftward, and common ligatures |
+| 5 | `05_alfaz_1` | 18 | 64 easy words |
+| 6 | `06_alfaz_2` | 15 | 56 harder words, opening with words Bengali already borrowed |
+| 7 | `07_jumle_1` | 15 | 28 short sentences |
+| 8 | `08_jumle_2` | 15 | 28 longer sentences |
 
-| | Bengali source | Telugu source |
+## Two rulings, because two scripts sit differently
+
+Devanagari **hangs from** a headline; Arabic script **sits on** a baseline.
+
+```
+Devanagari                     Perso-Arabic (Nastaliq)
+- - - - - matras above         - - - - - ascenders  ا ل ک
+_________ SHIRO-REKHA          ......... x-height   ب س ر
+_________ baseline             _________ BASELINE
+- - - - - matras below         - - - - - descenders م ج ع ی
+```
+
+Two solid lines for Devanagari, one for Urdu. Metrics were measured per font
+with canvas `TextMetrics` (`calibrate_font.html`, `calibrate_nastaliq.html`):
+
+| | Devanagari | Nastaliq |
 |---|---|---|
-| শিরোরেখা / శిరోరేఖ | Already drawn last, as the মাত্রা. A habit to transfer. | **New.** Telugu letters stand separately with no headline. Said plainly on every letter page. |
-| Conjuncts | Same concept, many *identical* pairs (ক্ষ, জ্ঞ, স্ত). | Same concept, **opposite direction**. Telugu stacks the second consonant below as an ottu; Devanagari cuts the stem and puts it beside. |
-| ड़ / ढ़ | Familiar - Bengali has ড় and ঢ়. | **New sounds.** Not in Telugu; taught as a retroflex flap. |
-| Short e / o | Neither writes them. | Telugu has ఎ and ఒ; Hindi has only the long ए and ओ. Noted on the vowel cover. |
+| ascender | 0.642 (the headline) | 0.714 (ا ل ک) |
+| descender | 0.290 | 0.420 (م is deepest at 0.383, plus the Nastaliq cascade) |
 
-Getting these backwards would teach a Telugu learner something false, so they are
-encoded per pair in `RULES`, `CONJ_RULES` and the per-letter notes, not translated.
+## What is genuinely new for an Urdu learner
 
-## Adding a pair
+Right to left, but numerals still left to right. Letters take **four shapes**
+depending on position, which Bengali has no parallel for at all. **Nine letters
+never join leftward** (ا د ڈ ذ ر ڑ ز ژ و), so a gap mid-word is a rule, not a
+mistake. And short vowels are marks that are **normally not written**, so every
+word in these books carries a Bengali pronunciation with the vowels supplied.
 
-For another Devanagari target, add an entry to `LANGS` (font, digits, interface
-strings), extend `EQ_TE`-style equivalents, glosses and sentence translations, and
-write the two rule sets. For a different target script you would also need to
-remeasure the three font-metric ratios with `calibrate_font.html`.
+The positional forms are generated with ZWJ rather than hardcoded, so they stay
+correct if the font changes.
+
+## Known limits
+
+- **Nastaliq cascades diagonally** inside a ligature, so a word does not sit flat
+  on the baseline. The descender zone is sized to absorb it, but the ruling
+  cannot show the slope; the covers say so instead.
+- **No true stroke order** in any pair. Needs per-glyph vector data.
 
 ## The page design
 
@@ -68,9 +100,10 @@ it is a bridge the learner already owns: Bengali writes the মাত্রা l
 ## Rebuilding
 
 ```bash
-python3 gen_worksheets.py                  # every pair
+python3 gen_worksheets.py                  # both Devanagari pairs
 python3 gen_worksheets.py telugu_to_hindi  # just one
-./build_pdfs.sh                            # renders A4 PDFs with headless Chrome
+python3 gen_worksheets_urdu.py             # the Perso-Arabic pair
+./build_pdfs.sh                            # renders A4 PDFs for every pair
 ```
 
 Chrome does the rendering because it shapes Devanagari correctly (matras,
