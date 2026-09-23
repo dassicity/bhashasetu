@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<title>কূট্টাক্ষরম্ - বাংলা থেকে মালায়ালম</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --base: 18mm;        /* the baseline - letters SIT on this */
+  --body: 0.524;      /* letter height above baseline, as a fraction of size */
+  --top:  0.767;       /* how far signs above reach */
+  --bot:  0.297;       /* how far signs below reach */
+  --gs:   19.08mm;        /* practice font size, derived so body = 10mm */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Bengali',serif; color:var(--ink); font-size:10pt; }
+.tg{ font-family:'Noto Serif Malayalam',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:20mm; line-height:1.35; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; } .ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.note{ font-size:9.5pt; line-height:1.65; margin:0 0 3mm; padding:2mm 3mm;
+       background:rgba(31,77,74,0.06); border-left:2mm solid var(--teal); }
+.note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --asc:  calc(var(--base) - var(--top) * var(--gs));
+      --bodyline: calc(var(--base) - var(--body) * var(--gs));
+      --desc: calc(var(--base) + var(--bot) * var(--gs));
+      height: calc(var(--desc) + 2mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);      border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--bodyline); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base);     border-top:0.45mm solid var(--line); }
+.ln.d{ top:var(--desc);     border-top:0.25mm dashed var(--line-soft); }
+/* strut pins the text baseline to --base whatever the font's line metrics */
+.row .cells{ position:absolute; left:0; right:0; top:0; display:flex; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-family:'Noto Serif Malayalam',serif; font-size:var(--gs); line-height:0;
+         flex:0 0 auto; width:24mm; text-align:center; }
+.row.wide{ --base:14mm; --gs:14.89mm; }
+.row.wide .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --base:12mm; --gs:11.83mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:28pt; margin:6mm 0 2mm; line-height:1.3; }
+.cover h1 .tg{ display:block; font-size:32pt; margin-bottom:4mm; line-height:1.5; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:140mm; margin:0 auto; line-height:1.75; }
+.rules{ text-align:left; max-width:152mm; margin:11mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.7; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:9mm auto 0; max-width:152mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:12mm; line-height:1.4; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">খাতা ৪</div>
+  <h1><span class="tg">കൂട്ടക്ഷരം</span>কূট্টাক্ষরম্</h1>
+  <p class="sub">যুক্তাক্ষর। মালায়ালমে এদের সংখ্যা ভারতের যেকোনো লিপির চেয়ে বেশি - কিন্তু নীতিটা বর্ণপরিচয়ের সেই একই: ব্যঞ্জন + হসন্ত + ব্যঞ্জন।</p>
+  <div class="rules"><h2>লেখার আগে পাঁচটি কথা</h2><ol><li><b>মাত্রা নেই - এটাই প্রথম স্বস্তি।</b> বাংলায় প্রতিটি অক্ষরের মাথায় মাত্রা টানতে হয়; মালায়ালমে টানতে হয় না। উপরের মোটা রেখা <b>মাত্রা নয়</b> - ওটা শুধু উচ্চতার মাপ।</li><li><b>অক্ষর নিচের রেখায় পা রাখে।</b> নিচের মোটা রেখাই মাটি। উপরের-নিচের ছেঁড়া রেখা দুটি চিহ্নের সীমানা - স্বরচিহ্ন উপরে ওঠে, কিছু কূট্টাক্ষরম্ নিচে নামে।</li><li><b>গোল হাতে লেখো।</b> বাংলার সোজা টান আর কোণ ভুলে যাও। মালায়ালম অক্ষর বৃত্তের টুকরো দিয়ে গড়া - কলম না থামিয়ে ঘুরিয়ে দাও, শেষে পাকটা বন্ধ করো।</li><li><b>চন্দ্রক্কল ছোট রাখো।</b> ് হলো বাংলার হসন্ত, কিন্তু বসে অক্ষরের মাথার ডানদিকে। বড় করলে স্বরচিহ্ন মনে হবে।</li><li><b>ধীরে, পেনসিলে, দিনে এক পাতা।</b> প্রতিটি সারি শেষ করে অক্ষরটা একবার জোরে বলো - হাত আর কান একসাথে শেখে।</li></ol></div>
+  <div class="legend"><h3>এই বইয়ে চার রকম লেখা</h3><div class="lg">
+      <div><span class="s tg t-model">ക</span>নমুনা</div>
+      <div><span class="s tg t-trace">ക</span>ধূসর - উপর দিয়ে</div>
+      <div><span class="s tg t-out">ക</span>ফাঁপা - ভেতরটা ভরো</div>
+      <div><span class="s tg t-faint">ക</span>ক্ষীণ - প্রায় একা</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>দ্বিত্ব - একই ব্যঞ্জন দুবার</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">১</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ക് + ക</span> = <span class="tg" style="font-size:15pt"><b>ക്ക</b></span> &nbsp;&middot;&nbsp; <span class="tg">ചക്ക</span> (কাঁঠাল)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ക്ക</span><span class="c t-trace"><i class="st"></i>ക്ക</span><span class="c t-trace"><i class="st"></i>ക്ക</span><span class="c t-trace"><i class="st"></i>ക്ക</span><span class="c t-trace"><i class="st"></i>ക്ക</span><span class="c t-trace"><i class="st"></i>ക്ക</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ക്ക</span><span class="c t-out"><i class="st"></i>ക്ക</span><span class="c t-out"><i class="st"></i>ക്ക</span><span class="c t-out"><i class="st"></i>ക്ക</span><span class="c t-model"><i class="st"></i>ക്ക</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ചക്ക</span><span class="c t-trace"><i class="st"></i>ചക്ക</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ച് + ച</span> = <span class="tg" style="font-size:15pt"><b>ച്ച</b></span> &nbsp;&middot;&nbsp; <span class="tg">ഈച്ച</span> (মাছি)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ച്ച</span><span class="c t-trace"><i class="st"></i>ച്ച</span><span class="c t-trace"><i class="st"></i>ച്ച</span><span class="c t-trace"><i class="st"></i>ച്ച</span><span class="c t-trace"><i class="st"></i>ച്ച</span><span class="c t-trace"><i class="st"></i>ച്ച</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ച്ച</span><span class="c t-out"><i class="st"></i>ച്ച</span><span class="c t-out"><i class="st"></i>ച്ച</span><span class="c t-out"><i class="st"></i>ച്ച</span><span class="c t-model"><i class="st"></i>ച്ച</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഈച്ച</span><span class="c t-trace"><i class="st"></i>ഈച്ച</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>দ্বিত্ব - একই ব্যঞ্জন দুবার</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">২</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ട് + ട</span> = <span class="tg" style="font-size:15pt"><b>ട്ട</b></span> &nbsp;&middot;&nbsp; <span class="tg">കുട്ടി</span> (শিশু)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ട്ട</span><span class="c t-trace"><i class="st"></i>ട്ട</span><span class="c t-trace"><i class="st"></i>ട്ട</span><span class="c t-trace"><i class="st"></i>ട്ട</span><span class="c t-trace"><i class="st"></i>ട്ട</span><span class="c t-trace"><i class="st"></i>ട്ട</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ട്ട</span><span class="c t-out"><i class="st"></i>ട്ട</span><span class="c t-out"><i class="st"></i>ട്ട</span><span class="c t-out"><i class="st"></i>ട്ട</span><span class="c t-model"><i class="st"></i>ട്ട</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>കുട്ടി</span><span class="c t-trace"><i class="st"></i>കുട്ടി</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ത് + ത</span> = <span class="tg" style="font-size:15pt"><b>ത്ത</b></span> &nbsp;&middot;&nbsp; <span class="tg">പത്ത്</span> (দশ)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ത്ത</span><span class="c t-trace"><i class="st"></i>ത്ത</span><span class="c t-trace"><i class="st"></i>ത്ത</span><span class="c t-trace"><i class="st"></i>ത്ത</span><span class="c t-trace"><i class="st"></i>ത്ത</span><span class="c t-trace"><i class="st"></i>ത്ത</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ത്ത</span><span class="c t-out"><i class="st"></i>ത്ത</span><span class="c t-out"><i class="st"></i>ത്ത</span><span class="c t-out"><i class="st"></i>ത്ത</span><span class="c t-model"><i class="st"></i>ത്ത</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>പത്ത്</span><span class="c t-trace"><i class="st"></i>പത്ത്</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>দ্বিত্ব - একই ব্যঞ্জন দুবার</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">৩</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ന് + ന</span> = <span class="tg" style="font-size:15pt"><b>ന്ന</b></span> &nbsp;&middot;&nbsp; <span class="tg">ഒന്ന്</span> (এক)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ന്ന</span><span class="c t-trace"><i class="st"></i>ന്ന</span><span class="c t-trace"><i class="st"></i>ന്ന</span><span class="c t-trace"><i class="st"></i>ന്ന</span><span class="c t-trace"><i class="st"></i>ന്ന</span><span class="c t-trace"><i class="st"></i>ന്ന</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ന്ന</span><span class="c t-out"><i class="st"></i>ന്ന</span><span class="c t-out"><i class="st"></i>ന്ന</span><span class="c t-out"><i class="st"></i>ന്ന</span><span class="c t-model"><i class="st"></i>ന്ന</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഒന്ന്</span><span class="c t-trace"><i class="st"></i>ഒന്ന്</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">പ് + പ</span> = <span class="tg" style="font-size:15pt"><b>പ്പ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ഉപ്പ്</span> (নুন)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>പ്പ</span><span class="c t-trace"><i class="st"></i>പ്പ</span><span class="c t-trace"><i class="st"></i>പ്പ</span><span class="c t-trace"><i class="st"></i>പ്പ</span><span class="c t-trace"><i class="st"></i>പ്പ</span><span class="c t-trace"><i class="st"></i>പ്പ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>പ്പ</span><span class="c t-out"><i class="st"></i>പ്പ</span><span class="c t-out"><i class="st"></i>പ്പ</span><span class="c t-out"><i class="st"></i>പ്പ</span><span class="c t-model"><i class="st"></i>പ്പ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഉപ്പ്</span><span class="c t-trace"><i class="st"></i>ഉപ്പ്</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>দ্বিত্ব - একই ব্যঞ্জন দুবার</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">৪</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">മ് + മ</span> = <span class="tg" style="font-size:15pt"><b>മ്മ</b></span> &nbsp;&middot;&nbsp; <span class="tg">അമ്മ</span> (মা)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>മ്മ</span><span class="c t-trace"><i class="st"></i>മ്മ</span><span class="c t-trace"><i class="st"></i>മ്മ</span><span class="c t-trace"><i class="st"></i>മ്മ</span><span class="c t-trace"><i class="st"></i>മ്മ</span><span class="c t-trace"><i class="st"></i>മ്മ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>മ്മ</span><span class="c t-out"><i class="st"></i>മ്മ</span><span class="c t-out"><i class="st"></i>മ്മ</span><span class="c t-out"><i class="st"></i>മ്മ</span><span class="c t-model"><i class="st"></i>മ്മ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>അമ്മ</span><span class="c t-trace"><i class="st"></i>അമ്മ</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ള് + ള</span> = <span class="tg" style="font-size:15pt"><b>ള്ള</b></span> &nbsp;&middot;&nbsp; <span class="tg">വെള്ളം</span> (জল)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ള്ള</span><span class="c t-trace"><i class="st"></i>ള്ള</span><span class="c t-trace"><i class="st"></i>ള്ള</span><span class="c t-trace"><i class="st"></i>ള്ള</span><span class="c t-trace"><i class="st"></i>ള്ള</span><span class="c t-trace"><i class="st"></i>ള്ള</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ള്ള</span><span class="c t-out"><i class="st"></i>ള്ള</span><span class="c t-out"><i class="st"></i>ള്ള</span><span class="c t-out"><i class="st"></i>ള്ള</span><span class="c t-model"><i class="st"></i>ള്ള</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>വെള്ളം</span><span class="c t-trace"><i class="st"></i>വെള്ളം</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>দ্বিত্ব - একই ব্যঞ্জন দুবার</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">৫</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ണ് + ണ</span> = <span class="tg" style="font-size:15pt"><b>ണ്ണ</b></span> &nbsp;&middot;&nbsp; <span class="tg">പെണ്ണ്</span> (মেয়ে)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ണ്ണ</span><span class="c t-trace"><i class="st"></i>ണ്ണ</span><span class="c t-trace"><i class="st"></i>ണ്ണ</span><span class="c t-trace"><i class="st"></i>ണ്ണ</span><span class="c t-trace"><i class="st"></i>ണ്ണ</span><span class="c t-trace"><i class="st"></i>ണ്ണ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ണ്ണ</span><span class="c t-out"><i class="st"></i>ണ്ണ</span><span class="c t-out"><i class="st"></i>ണ്ണ</span><span class="c t-out"><i class="st"></i>ണ്ണ</span><span class="c t-model"><i class="st"></i>ണ്ണ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>പെണ്ണ്</span><span class="c t-trace"><i class="st"></i>പെണ്ണ്</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ഞ് + ഞ</span> = <span class="tg" style="font-size:15pt"><b>ഞ്ഞ</b></span> &nbsp;&middot;&nbsp; <span class="tg">കഴിഞ്ഞു</span> (শেষ হলো)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ഞ്ഞ</span><span class="c t-trace"><i class="st"></i>ഞ്ഞ</span><span class="c t-trace"><i class="st"></i>ഞ്ഞ</span><span class="c t-trace"><i class="st"></i>ഞ്ഞ</span><span class="c t-trace"><i class="st"></i>ഞ്ഞ</span><span class="c t-trace"><i class="st"></i>ഞ്ഞ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ഞ്ഞ</span><span class="c t-out"><i class="st"></i>ഞ്ഞ</span><span class="c t-out"><i class="st"></i>ഞ്ഞ</span><span class="c t-out"><i class="st"></i>ഞ്ഞ</span><span class="c t-model"><i class="st"></i>ഞ്ഞ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>കഴിഞ്ഞു</span><span class="c t-trace"><i class="st"></i>കഴിഞ്ഞു</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>দ্বিত্ব - একই ব্যঞ্জন দুবার</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">৬</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ങ് + ങ</span> = <span class="tg" style="font-size:15pt"><b>ങ്ങ</b></span> &nbsp;&middot;&nbsp; <span class="tg">മാങ്ങ</span> (আম)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ങ്ങ</span><span class="c t-trace"><i class="st"></i>ങ്ങ</span><span class="c t-trace"><i class="st"></i>ങ്ങ</span><span class="c t-trace"><i class="st"></i>ങ്ങ</span><span class="c t-trace"><i class="st"></i>ങ്ങ</span><span class="c t-trace"><i class="st"></i>ങ്ങ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ങ്ങ</span><span class="c t-out"><i class="st"></i>ങ്ങ</span><span class="c t-out"><i class="st"></i>ങ്ങ</span><span class="c t-out"><i class="st"></i>ങ്ങ</span><span class="c t-model"><i class="st"></i>ങ്ങ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>മാങ്ങ</span><span class="c t-trace"><i class="st"></i>മാങ്ങ</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">റ് + റ</span> = <span class="tg" style="font-size:15pt"><b>റ്റ</b></span> &nbsp;&middot;&nbsp; <span class="tg">കാറ്റ്</span> (হাওয়া - পড়তে হয় 'ট্ট', দাঁতের গোড়ায়)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>റ്റ</span><span class="c t-trace"><i class="st"></i>റ്റ</span><span class="c t-trace"><i class="st"></i>റ്റ</span><span class="c t-trace"><i class="st"></i>റ്റ</span><span class="c t-trace"><i class="st"></i>റ്റ</span><span class="c t-trace"><i class="st"></i>റ്റ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>റ്റ</span><span class="c t-out"><i class="st"></i>റ്റ</span><span class="c t-out"><i class="st"></i>റ്റ</span><span class="c t-out"><i class="st"></i>റ്റ</span><span class="c t-model"><i class="st"></i>റ്റ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>കാറ്റ്</span><span class="c t-trace"><i class="st"></i>കാറ്റ്</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>অনুনাসিক + বর্গের অক্ষর</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">৭</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ങ് + ക</span> = <span class="tg" style="font-size:15pt"><b>ങ്ക</b></span> &nbsp;&middot;&nbsp; <span class="tg">ശങ്ക</span> (সন্দেহ, শঙ্কা)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ങ്ക</span><span class="c t-trace"><i class="st"></i>ങ്ക</span><span class="c t-trace"><i class="st"></i>ങ്ക</span><span class="c t-trace"><i class="st"></i>ങ്ക</span><span class="c t-trace"><i class="st"></i>ങ്ക</span><span class="c t-trace"><i class="st"></i>ങ്ക</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ങ്ക</span><span class="c t-out"><i class="st"></i>ങ്ക</span><span class="c t-out"><i class="st"></i>ങ്ക</span><span class="c t-out"><i class="st"></i>ങ്ക</span><span class="c t-model"><i class="st"></i>ങ്ക</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ശങ്ക</span><span class="c t-trace"><i class="st"></i>ശങ്ക</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ഞ് + ച</span> = <span class="tg" style="font-size:15pt"><b>ഞ്ച</b></span> &nbsp;&middot;&nbsp; <span class="tg">അഞ്ച്</span> (পাঁচ)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ഞ്ച</span><span class="c t-trace"><i class="st"></i>ഞ്ച</span><span class="c t-trace"><i class="st"></i>ഞ്ച</span><span class="c t-trace"><i class="st"></i>ഞ്ച</span><span class="c t-trace"><i class="st"></i>ഞ്ച</span><span class="c t-trace"><i class="st"></i>ഞ്ച</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ഞ്ച</span><span class="c t-out"><i class="st"></i>ഞ്ച</span><span class="c t-out"><i class="st"></i>ഞ്ച</span><span class="c t-out"><i class="st"></i>ഞ്ച</span><span class="c t-model"><i class="st"></i>ഞ്ച</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>അഞ്ച്</span><span class="c t-trace"><i class="st"></i>അഞ്ച്</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>অনুনাসিক + বর্গের অক্ষর</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">৮</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ണ് + ട</span> = <span class="tg" style="font-size:15pt"><b>ണ്ട</b></span> &nbsp;&middot;&nbsp; <span class="tg">രണ്ട്</span> (দুই)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ണ്ട</span><span class="c t-trace"><i class="st"></i>ണ്ട</span><span class="c t-trace"><i class="st"></i>ണ്ട</span><span class="c t-trace"><i class="st"></i>ണ്ട</span><span class="c t-trace"><i class="st"></i>ണ്ട</span><span class="c t-trace"><i class="st"></i>ണ്ട</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ണ്ട</span><span class="c t-out"><i class="st"></i>ണ്ട</span><span class="c t-out"><i class="st"></i>ണ്ട</span><span class="c t-out"><i class="st"></i>ണ്ട</span><span class="c t-model"><i class="st"></i>ണ്ട</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>രണ്ട്</span><span class="c t-trace"><i class="st"></i>രണ്ട്</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ന് + ത</span> = <span class="tg" style="font-size:15pt"><b>ന്ത</b></span> &nbsp;&middot;&nbsp; <span class="tg">സന്തോഷം</span> (আনন্দ, সন্তোষ)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ന്ത</span><span class="c t-trace"><i class="st"></i>ന്ത</span><span class="c t-trace"><i class="st"></i>ന്ത</span><span class="c t-trace"><i class="st"></i>ന്ത</span><span class="c t-trace"><i class="st"></i>ന്ത</span><span class="c t-trace"><i class="st"></i>ന്ത</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ന്ത</span><span class="c t-out"><i class="st"></i>ന്ത</span><span class="c t-out"><i class="st"></i>ന്ത</span><span class="c t-out"><i class="st"></i>ന്ത</span><span class="c t-model"><i class="st"></i>ന്ത</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>സന്തോഷം</span><span class="c t-trace"><i class="st"></i>സന്തോഷം</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>অনুনাসিক + বর্গের অক্ষর</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">৯</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">മ് + പ</span> = <span class="tg" style="font-size:15pt"><b>മ്പ</b></span> &nbsp;&middot;&nbsp; <span class="tg">അമ്പ്</span> (তির)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>മ്പ</span><span class="c t-trace"><i class="st"></i>മ്പ</span><span class="c t-trace"><i class="st"></i>മ്പ</span><span class="c t-trace"><i class="st"></i>മ്പ</span><span class="c t-trace"><i class="st"></i>മ്പ</span><span class="c t-trace"><i class="st"></i>മ്പ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>മ്പ</span><span class="c t-out"><i class="st"></i>മ്പ</span><span class="c t-out"><i class="st"></i>മ്പ</span><span class="c t-out"><i class="st"></i>മ്പ</span><span class="c t-model"><i class="st"></i>മ്പ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>അമ്പ്</span><span class="c t-trace"><i class="st"></i>അമ്പ്</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ന് + റ</span> = <span class="tg" style="font-size:15pt"><b>ന്റ</b></span> &nbsp;&middot;&nbsp; <span class="tg">എന്റെ</span> (আমার - পড়তে হয় 'এন্তে')</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ന്റ</span><span class="c t-trace"><i class="st"></i>ന്റ</span><span class="c t-trace"><i class="st"></i>ന്റ</span><span class="c t-trace"><i class="st"></i>ന്റ</span><span class="c t-trace"><i class="st"></i>ന്റ</span><span class="c t-trace"><i class="st"></i>ന്റ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ന്റ</span><span class="c t-out"><i class="st"></i>ന്റ</span><span class="c t-out"><i class="st"></i>ന്റ</span><span class="c t-out"><i class="st"></i>ന്റ</span><span class="c t-model"><i class="st"></i>ന്റ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>എന്റെ</span><span class="c t-trace"><i class="st"></i>എന്റെ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>সংস্কৃত সেতুর যুক্তাক্ষর</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">১০</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ക് + ത</span> = <span class="tg" style="font-size:15pt"><b>ക്ത</b></span> &nbsp;&middot;&nbsp; <span class="tg">ഭക്തൻ</span> (ভক্ত)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ക്ത</span><span class="c t-trace"><i class="st"></i>ക്ത</span><span class="c t-trace"><i class="st"></i>ക്ത</span><span class="c t-trace"><i class="st"></i>ക്ത</span><span class="c t-trace"><i class="st"></i>ക്ത</span><span class="c t-trace"><i class="st"></i>ക്ത</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ക്ത</span><span class="c t-out"><i class="st"></i>ക്ത</span><span class="c t-out"><i class="st"></i>ക്ത</span><span class="c t-out"><i class="st"></i>ക്ത</span><span class="c t-model"><i class="st"></i>ക്ത</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഭക്തൻ</span><span class="c t-trace"><i class="st"></i>ഭക്തൻ</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">സ് + ത</span> = <span class="tg" style="font-size:15pt"><b>സ്ത</b></span> &nbsp;&middot;&nbsp; <span class="tg">പുസ്തകം</span> (পুস্তক)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>സ്ത</span><span class="c t-trace"><i class="st"></i>സ്ത</span><span class="c t-trace"><i class="st"></i>സ്ത</span><span class="c t-trace"><i class="st"></i>സ്ത</span><span class="c t-trace"><i class="st"></i>സ്ത</span><span class="c t-trace"><i class="st"></i>സ്ത</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>സ്ത</span><span class="c t-out"><i class="st"></i>സ്ത</span><span class="c t-out"><i class="st"></i>സ്ത</span><span class="c t-out"><i class="st"></i>സ്ത</span><span class="c t-model"><i class="st"></i>സ്ത</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>പുസ്തകം</span><span class="c t-trace"><i class="st"></i>പുസ്തകം</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ১০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>সংস্কৃত সেতুর যুক্তাক্ষর</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">১১</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ജ് + ഞ</span> = <span class="tg" style="font-size:15pt"><b>ജ്ഞ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ജ്ഞാനം</span> (জ্ঞান)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ജ്ഞ</span><span class="c t-trace"><i class="st"></i>ജ്ഞ</span><span class="c t-trace"><i class="st"></i>ജ്ഞ</span><span class="c t-trace"><i class="st"></i>ജ്ഞ</span><span class="c t-trace"><i class="st"></i>ജ്ഞ</span><span class="c t-trace"><i class="st"></i>ജ്ഞ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ജ്ഞ</span><span class="c t-out"><i class="st"></i>ജ്ഞ</span><span class="c t-out"><i class="st"></i>ജ്ഞ</span><span class="c t-out"><i class="st"></i>ജ്ഞ</span><span class="c t-model"><i class="st"></i>ജ്ഞ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ജ്ഞാനം</span><span class="c t-trace"><i class="st"></i>ജ്ഞാനം</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ക് + ഷ</span> = <span class="tg" style="font-size:15pt"><b>ക്ഷ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ക്ഷേത്രം</span> (ক্ষেত্র, মন্দির)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ക്ഷ</span><span class="c t-trace"><i class="st"></i>ക്ഷ</span><span class="c t-trace"><i class="st"></i>ക്ഷ</span><span class="c t-trace"><i class="st"></i>ക്ഷ</span><span class="c t-trace"><i class="st"></i>ക്ഷ</span><span class="c t-trace"><i class="st"></i>ക്ഷ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ക്ഷ</span><span class="c t-out"><i class="st"></i>ക്ഷ</span><span class="c t-out"><i class="st"></i>ക്ഷ</span><span class="c t-out"><i class="st"></i>ക്ഷ</span><span class="c t-model"><i class="st"></i>ക്ഷ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ക്ഷേത്രം</span><span class="c t-trace"><i class="st"></i>ക്ഷേത്രം</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ১১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>সংস্কৃত সেতুর যুক্তাক্ষর</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">১২</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">സ് + ന</span> = <span class="tg" style="font-size:15pt"><b>സ്ന</b></span> &nbsp;&middot;&nbsp; <span class="tg">സ്നേഹം</span> (স্নেহ)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>സ്ന</span><span class="c t-trace"><i class="st"></i>സ്ന</span><span class="c t-trace"><i class="st"></i>സ്ന</span><span class="c t-trace"><i class="st"></i>സ്ന</span><span class="c t-trace"><i class="st"></i>സ്ന</span><span class="c t-trace"><i class="st"></i>സ്ന</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>സ്ന</span><span class="c t-out"><i class="st"></i>സ്ന</span><span class="c t-out"><i class="st"></i>സ്ന</span><span class="c t-out"><i class="st"></i>സ്ന</span><span class="c t-model"><i class="st"></i>സ്ന</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>സ്നേഹം</span><span class="c t-trace"><i class="st"></i>സ്നേഹം</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ദ് + ധ</span> = <span class="tg" style="font-size:15pt"><b>ദ്ധ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ബുദ്ധി</span> (বুদ্ধি)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ദ്ധ</span><span class="c t-trace"><i class="st"></i>ദ്ധ</span><span class="c t-trace"><i class="st"></i>ദ്ധ</span><span class="c t-trace"><i class="st"></i>ദ്ധ</span><span class="c t-trace"><i class="st"></i>ദ്ധ</span><span class="c t-trace"><i class="st"></i>ദ്ധ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ദ്ധ</span><span class="c t-out"><i class="st"></i>ദ്ധ</span><span class="c t-out"><i class="st"></i>ദ്ധ</span><span class="c t-out"><i class="st"></i>ദ്ധ</span><span class="c t-model"><i class="st"></i>ദ്ധ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ബുദ്ധി</span><span class="c t-trace"><i class="st"></i>ബുദ്ധി</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ১২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>র-যুক্ত</b></div>
+      <div class="ex">কূট্টাক্ষরম্</div></div></div>
+    <div class="ph-r"><div class="grp">কূট্টাক্ষরম্</div><div class="num">১৩</div></div>
+  </div>
+  <div class="note">বাংলায় ক্ + ত = ক্ত। মালায়ালমে ക് + ത = ക്ത। <b>একই নীতি</b>। তফাৎ শুধু সংখ্যায় - মালায়ালম দ্বিত্ব ভালোবাসে, তাই ക്ക ട്ട ത്ത ന്ന പ്പ മ്മ ള്ള റ്റ রোজ চোখে পড়বে। এগুলো আগে হাতে বসাও।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ത് + ര</span> = <span class="tg" style="font-size:15pt"><b>ത്ര</b></span> &nbsp;&middot;&nbsp; <span class="tg">രാത്രി</span> (রাত্রি)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ത്ര</span><span class="c t-trace"><i class="st"></i>ത്ര</span><span class="c t-trace"><i class="st"></i>ത്ര</span><span class="c t-trace"><i class="st"></i>ത്ര</span><span class="c t-trace"><i class="st"></i>ത്ര</span><span class="c t-trace"><i class="st"></i>ത്ര</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ത്ര</span><span class="c t-out"><i class="st"></i>ത്ര</span><span class="c t-out"><i class="st"></i>ത്ര</span><span class="c t-out"><i class="st"></i>ത്ര</span><span class="c t-model"><i class="st"></i>ത്ര</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>രാത്രി</span><span class="c t-trace"><i class="st"></i>രാത്രി</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">പ് + ര</span> = <span class="tg" style="font-size:15pt"><b>പ്ര</b></span> &nbsp;&middot;&nbsp; <span class="tg">പ്രശ്നം</span> (সমস্যা, প্রশ্ন)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>പ്ര</span><span class="c t-trace"><i class="st"></i>പ്ര</span><span class="c t-trace"><i class="st"></i>പ്ര</span><span class="c t-trace"><i class="st"></i>പ്ര</span><span class="c t-trace"><i class="st"></i>പ്ര</span><span class="c t-trace"><i class="st"></i>പ്ര</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>പ്ര</span><span class="c t-out"><i class="st"></i>പ്ര</span><span class="c t-out"><i class="st"></i>പ്ര</span><span class="c t-out"><i class="st"></i>പ്ര</span><span class="c t-model"><i class="st"></i>പ്ര</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>പ്രശ്നം</span><span class="c t-trace"><i class="st"></i>പ്രശ്നം</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · কূট্টাক্ষরম্</span><span>BHASHASETU &middot; বাংলা থেকে মালায়ালম &middot; ১৩</span></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Headline-hanging script metrics</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500&family=Noto+Serif+Bengali:wght@400;500&family=Noto+Serif+Gurmukhi:wght@400;500&display=swap" rel="stylesheet">
+<style>body{font:14px/1.6 system-ui;margin:24px}pre{background:#f4f1ea;padding:12px}</style>
+</head><body><h1>Headline-hanging metrics</h1><pre id="out">measuring...</pre>
+<script>
+// Devanagari, Bengali and Gurmukhi all hang their letters from a headline. The geometry
+// that matters is therefore: where the headline sits (the top of the plain letter body),
+// how far signs rise ABOVE that headline, and how far they drop below the baseline.
+// Devanagari is measured too, as a control against the numbers already shipped.
+const SETS = {
+  hi: { font:"Noto Serif Devanagari",
+        base:["क","ख","ग","च","ट","त","प","य","ल","स"],
+        above:["कि","की","के","कै","को","कौ","कं","कँ"],
+        below:["कु","कू","कृ","क्क","ह्म","क्र"] },
+  bn: { font:"Noto Serif Bengali",
+        base:["ক","খ","গ","চ","ট","ত","প","য","ল","স"],
+        above:["কি","কী","কে","কৈ","কো","কৌ","কং","কঁ"],
+        below:["কু","কূ","কৃ","ক্ক","ক্ষ","জ্ঞ"] },
+  pa: { font:"Noto Serif Gurmukhi",
+        base:["ਕ","ਖ","ਗ","ਚ","ਟ","ਤ","ਪ","ਯ","ਲ","ਸ"],
+        above:["ਕਿ","ਕੀ","ਕੇ","ਕੈ","ਕੋ","ਕੌ","ਕਂ","ਕੱ"],
+        below:["ਕੁ","ਕੂ","ਕ੍ਹ","ਸ੍ਤ","ਕ੍ਰ","ਗ੍ਰ"] },
+};
+const SIZE = 200;
+function mx(ctx, font, list){ let a=0,d=0; for (const s of list){ ctx.font=`${SIZE}px "${font}"`;
+  const m=ctx.measureText(s); a=Math.max(a,m.actualBoundingBoxAscent); d=Math.max(d,m.actualBoundingBoxDescent);} return {a:a/SIZE,d:d/SIZE}; }
+(async () => {
+  await document.fonts.ready;
+  for (const k of Object.keys(SETS)) await document.fonts.load(`${SIZE}px "${SETS[k].font}"`);
+  const c=document.createElement("canvas"); c.width=c.height=900; const ctx=c.getContext("2d");
+  const res={};
+  for (const [iso,s] of Object.entries(SETS)){
+    const b=mx(ctx,s.font,s.base), up=mx(ctx,s.font,s.above), dn=mx(ctx,s.font,s.below);
+    res[iso]={ font:s.font, head:+b.a.toFixed(3), top:+Math.max(up.a,b.a).toFixed(3),
+               bot:+Math.max(dn.d,b.d).toFixed(3) };
+  }
+  document.getElementById("out").textContent=JSON.stringify(res,null,2);
+})();
+</script></body></html>

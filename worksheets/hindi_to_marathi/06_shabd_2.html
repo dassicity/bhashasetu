@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>शब्द २ - हिन्दी से मराठी</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
+  --base:  19mm;       /* baseline - letters sit here            */
+  /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
+     (see calibrate_font.html). Fractions of the font size, from the baseline:
+       bare letter  shirorekha ....... 0.642 up
+       matras above ..................  0.925 up
+       matras below ..................  0.290 down */
+  --asc-ratio:  0.642;
+  --top-ratio:  0.283;
+  --bot-ratio:  0.29;
+
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Devanagari',serif; color:var(--ink); font-size:10pt; }
+.deva{ font-family:'Noto Serif Devanagari',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:22mm; line-height:0.95; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; color:var(--ink); }
+.ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); letter-spacing:.04em; }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm; text-align:center; }
+.step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
+.step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
+.step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
+.step .cap b{ color:var(--teal); }
+.steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
+.steps .note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
+      --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--bot-ratio) * var(--gs));
+      height: calc(var(--desc) + 1.5mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* strut: an inline-block whose bottom edge sits on the text baseline, so the
+   baseline lands on --base whatever the font's line metrics say */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; justify-content:flex-start; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
+.row.words{ --head:6.5mm; --base:14mm; }
+.row.words .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --head:5.5mm; --base:11.5mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
+.cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
+.rules{ text-align:left; max-width:150mm; margin:12mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.65; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:10mm auto 0; max-width:150mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:13mm; line-height:1.1; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+.pf .r{ letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">कॉपी ६</div>
+  <h1><span class="deva">कठीण शब्द</span>शब्द २</h1>
+  <p class="sub">वही शब्द जो सबसे ज़्यादा फिसलते हैं: ळ वाले, हर क्रिया का -णे, रिश्तों के नाम जिनमें 'दादा' का धोखा बैठा है, चिपकी हुई विभक्तियाँ, और वे झूठे दोस्त जो जाने-पहचाने लगते हैं और इसीलिए ख़तरनाक हैं।</p>
+  <div class="rules"><h2>काग़ज़ पर उतरने से पहले पाँच बातें</h2><ol><li><b>अक्षर आपके हैं, आवाज़ नहीं।</b> यह कॉपी लिखना नहीं सिखाती - लिखना आप जानते हैं। यह हाथ को वे गिनी-चुनी जगहें दिखाती है जहाँ मराठी अलग चलती है। हर सतर पूरी करके शब्द एक बार ज़ोर से बोलिए, वरना काग़ज़ पर सही और मुँह में ग़लत रह जाएगा।</li><li><b>ळ इकलौता नया आकार है।</b> हाथ को 'ल' की आदत है और वह चुपचाप 'ल' बना देगा। ळ को धीरे बनाइए, और हर बार 'ल' और 'ळ' आमने-सामने लिखकर मिलाइए - जब तक दोनों अलग न दिखें, अगली सतर पर मत जाइए।</li><li><b>किताब २ का हर 'च' और 'ज' धोखा देगा।</b> चार, जग, झाड - हाथ ठीक लिखेगा, पर मुँह हिन्दी वाला 'च' बोल देगा। लिखिए, फिर उसी शब्द को दंत्य आवाज़ में बोलिए: त्सार, द्ज़ग, द्झाड।</li><li><b>नुक़्ता उठाना है।</b> हिन्दी का हाथ 'घोड़ा' लिखते ही नीचे बिंदु लगा देता है। मराठी सात में से एक भी नुक़्ता नहीं लिखती - घोडा, जमीन, फक्त, खूप। पन्ना पूरा करके एक बार बिंदु ढूँढ़िए; मिले तो काट दीजिए।</li><li><b>धीरे, रोज़ एक पन्ना।</b> शिरोरेखा और बारहखड़ी आपकी अपनी हैं, इसलिए आकार पर नहीं, नियम पर समय दीजिए। पेंसिल से शुरू कीजिए और धूसर अक्षर पर हल्के हाथ से चलिए।</li></ol></div>
+  <div class="legend"><h3>इस कॉपी में चार तरह की लिखाई</h3><div class="lg">
+      <div><span class="s deva t-model">क</span>नमूना - देखिए</div>
+      <div><span class="s deva t-trace">क</span>धूसर - ऊपर से चलाइए</div>
+      <div><span class="s deva t-out">क</span>खोखला - भीतर भरिए</div>
+      <div><span class="s deva t-faint">क</span>फीका - लगभग अकेले</div>
+      </div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ळ वाले शब्द</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">कमळ</span> &nbsp; = &nbsp; <b>कमल</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कमळ</span><span class="c deva t-trace"><i class="st"></i>कमळ</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">डोळा</span> &nbsp; = &nbsp; <b>आँख (पु.)</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>डोळा</span><span class="c deva t-trace"><i class="st"></i>डोळा</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">सकाळ</span> &nbsp; = &nbsp; <b>सुबह (स्त्री.)</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>सकाळ</span><span class="c deva t-trace"><i class="st"></i>सकाळ</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">खेळ</span> &nbsp; = &nbsp; <b>खेल</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>खेळ</span><span class="c deva t-trace"><i class="st"></i>खेळ</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ळ वाले शब्द</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">२</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">सोळा</span> &nbsp; = &nbsp; <b>सोलह</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>सोळा</span><span class="c deva t-trace"><i class="st"></i>सोळा</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मंगळवार</span> &nbsp; = &nbsp; <b>मंगलवार</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मंगळवार</span><span class="c deva t-trace"><i class="st"></i>मंगळवार</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">काळजी</span> &nbsp; = &nbsp; <b>फ़िक्र, ख़याल</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>काळजी</span><span class="c deva t-trace"><i class="st"></i>काळजी</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">संध्याकाळ</span> &nbsp; = &nbsp; <b>शाम (स्त्री.)</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>संध्याकाळ</span><span class="c deva t-trace"><i class="st"></i>संध्याकाळ</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; २</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ळ वाले शब्द</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">३</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">पोळी</span> &nbsp; = &nbsp; <b>गेहूँ की रोटी (स्त्री.)</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पोळी</span><span class="c deva t-trace"><i class="st"></i>पोळी</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">हळू</span> &nbsp; = &nbsp; <b>धीरे</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>हळू</span><span class="c deva t-trace"><i class="st"></i>हळू</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>क्रियाएँ - हिन्दी का -ना, मराठी का -णे</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">४</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">असणे</span> &nbsp; = &nbsp; <b>होना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>असणे</span><span class="c deva t-trace"><i class="st"></i>असणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">करणे</span> &nbsp; = &nbsp; <b>करना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>करणे</span><span class="c deva t-trace"><i class="st"></i>करणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">जाणे</span> &nbsp; = &nbsp; <b>जाना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>जाणे</span><span class="c deva t-trace"><i class="st"></i>जाणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">येणे</span> &nbsp; = &nbsp; <b>आना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>येणे</span><span class="c deva t-trace"><i class="st"></i>येणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>क्रियाएँ - हिन्दी का -ना, मराठी का -णे</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">५</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">खाणे</span> &nbsp; = &nbsp; <b>खाना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>खाणे</span><span class="c deva t-trace"><i class="st"></i>खाणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">जेवणे</span> &nbsp; = &nbsp; <b>भोजन करना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>जेवणे</span><span class="c deva t-trace"><i class="st"></i>जेवणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">पिणे</span> &nbsp; = &nbsp; <b>पीना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पिणे</span><span class="c deva t-trace"><i class="st"></i>पिणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">पाहणे</span> &nbsp; = &nbsp; <b>देखना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पाहणे</span><span class="c deva t-trace"><i class="st"></i>पाहणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>क्रियाएँ - हिन्दी का -ना, मराठी का -णे</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">६</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">ऐकणे</span> &nbsp; = &nbsp; <b>सुनना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ऐकणे</span><span class="c deva t-trace"><i class="st"></i>ऐकणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">वाचणे</span> &nbsp; = &nbsp; <b>पढ़ना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>वाचणे</span><span class="c deva t-trace"><i class="st"></i>वाचणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">लिहिणे</span> &nbsp; = &nbsp; <b>लिखना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>लिहिणे</span><span class="c deva t-trace"><i class="st"></i>लिहिणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">बोलणे</span> &nbsp; = &nbsp; <b>बोलना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>बोलणे</span><span class="c deva t-trace"><i class="st"></i>बोलणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>क्रियाएँ - हिन्दी का -ना, मराठी का -णे</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">७</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">म्हणणे</span> &nbsp; = &nbsp; <b>कहना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>म्हणणे</span><span class="c deva t-trace"><i class="st"></i>म्हणणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">शिकणे</span> &nbsp; = &nbsp; <b>सीखना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>शिकणे</span><span class="c deva t-trace"><i class="st"></i>शिकणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">समजणे</span> &nbsp; = &nbsp; <b>समझना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>समजणे</span><span class="c deva t-trace"><i class="st"></i>समजणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">देणे</span> &nbsp; = &nbsp; <b>देना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>देणे</span><span class="c deva t-trace"><i class="st"></i>देणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ७</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>क्रियाएँ - हिन्दी का -ना, मराठी का -णे</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">८</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">घेणे</span> &nbsp; = &nbsp; <b>लेना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>घेणे</span><span class="c deva t-trace"><i class="st"></i>घेणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">आवडणे</span> &nbsp; = &nbsp; <b>पसंद आना</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>आवडणे</span><span class="c deva t-trace"><i class="st"></i>आवडणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ८</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>नाते - और 'दादा' का धोखा</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">९</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">आई</span> &nbsp; = &nbsp; <b>माँ (स्त्री.)</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>आई</span><span class="c deva t-trace"><i class="st"></i>आई</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">बाबा</span> &nbsp; = &nbsp; <b>पिता (पु.)</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>बाबा</span><span class="c deva t-trace"><i class="st"></i>बाबा</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">भाऊ</span> &nbsp; = &nbsp; <b>भाई (पु.)</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>भाऊ</span><span class="c deva t-trace"><i class="st"></i>भाऊ</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">बहीण</span> &nbsp; = &nbsp; <b>बहन (स्त्री.)</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>बहीण</span><span class="c deva t-trace"><i class="st"></i>बहीण</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ९</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>नाते - और 'दादा' का धोखा</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१०</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">दादा</span> &nbsp; = &nbsp; <b>बड़ा भाई - दादाजी नहीं</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>दादा</span><span class="c deva t-trace"><i class="st"></i>दादा</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">ताई</span> &nbsp; = &nbsp; <b>बड़ी बहन, दीदी</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ताई</span><span class="c deva t-trace"><i class="st"></i>ताई</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">आजोबा</span> &nbsp; = &nbsp; <b>दादा और नाना, दोनों</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>आजोबा</span><span class="c deva t-trace"><i class="st"></i>आजोबा</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">आजी</span> &nbsp; = &nbsp; <b>दादी और नानी, दोनों</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>आजी</span><span class="c deva t-trace"><i class="st"></i>आजी</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १०</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>नाते - और 'दादा' का धोखा</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">११</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">मावशी</span> &nbsp; = &nbsp; <b>मौसी</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मावशी</span><span class="c deva t-trace"><i class="st"></i>मावशी</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">आत्या</span> &nbsp; = &nbsp; <b>बुआ</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>आत्या</span><span class="c deva t-trace"><i class="st"></i>आत्या</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मुलगा</span> &nbsp; = &nbsp; <b>लड़का, बेटा</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मुलगा</span><span class="c deva t-trace"><i class="st"></i>मुलगा</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मुलगी</span> &nbsp; = &nbsp; <b>लड़की, बेटी</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मुलगी</span><span class="c deva t-trace"><i class="st"></i>मुलगी</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ११</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>झूठे दोस्त - जाने-पहचाने शब्द जो गिराएँगे</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१२</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">मूल</span> &nbsp; = &nbsp; <b>बच्चा - जड़ नहीं</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मूल</span><span class="c deva t-trace"><i class="st"></i>मूल</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">पाठ</span> &nbsp; = &nbsp; <b>पीठ - सबक़ नहीं</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पाठ</span><span class="c deva t-trace"><i class="st"></i>पाठ</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">तोंड</span> &nbsp; = &nbsp; <b>मुँह, चेहरा - तोंद नहीं</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>तोंड</span><span class="c deva t-trace"><i class="st"></i>तोंड</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">कोण</span> &nbsp; = &nbsp; <b>कौन - कोना नहीं</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कोण</span><span class="c deva t-trace"><i class="st"></i>कोण</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १२</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>झूठे दोस्त - जाने-पहचाने शब्द जो गिराएँगे</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१३</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">वर</span> &nbsp; = &nbsp; <b>ऊपर, पर - दूल्हा नहीं</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>वर</span><span class="c deva t-trace"><i class="st"></i>वर</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">काल</span> &nbsp; = &nbsp; <b>कल, सिर्फ़ बीता हुआ</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>काल</span><span class="c deva t-trace"><i class="st"></i>काल</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मात्र</span> &nbsp; = &nbsp; <b>केवल - और बोलचाल में 'लेकिन'</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मात्र</span><span class="c deva t-trace"><i class="st"></i>मात्र</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">गोष्ट</span> &nbsp; = &nbsp; <b>बात, चीज़, कहानी</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>गोष्ट</span><span class="c deva t-trace"><i class="st"></i>गोष्ट</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>झूठे दोस्त - जाने-पहचाने शब्द जो गिराएँगे</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१४</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">मीठ</span> &nbsp; = &nbsp; <b>नमक - मीठा नहीं</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मीठ</span><span class="c deva t-trace"><i class="st"></i>मीठ</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मोठा</span> &nbsp; = &nbsp; <b>बड़ा - मोटा नहीं</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मोठा</span><span class="c deva t-trace"><i class="st"></i>मोठा</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>चिपकी हुई विभक्तियाँ</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१५</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">घरात</span> &nbsp; = &nbsp; <b>घर में</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>घरात</span><span class="c deva t-trace"><i class="st"></i>घरात</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">पुण्यात</span> &nbsp; = &nbsp; <b>पुणे में</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पुण्यात</span><span class="c deva t-trace"><i class="st"></i>पुण्यात</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">शाळेत</span> &nbsp; = &nbsp; <b>पाठशाला में</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>शाळेत</span><span class="c deva t-trace"><i class="st"></i>शाळेत</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मुलाला</span> &nbsp; = &nbsp; <b>लड़के को</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मुलाला</span><span class="c deva t-trace"><i class="st"></i>मुलाला</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>चिपकी हुई विभक्तियाँ</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१६</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">मला</span> &nbsp; = &nbsp; <b>मुझे</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मला</span><span class="c deva t-trace"><i class="st"></i>मला</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">तुला</span> &nbsp; = &nbsp; <b>तुझे</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>तुला</span><span class="c deva t-trace"><i class="st"></i>तुला</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">झाडावर</span> &nbsp; = &nbsp; <b>पेड़ पर</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>झाडावर</span><span class="c deva t-trace"><i class="st"></i>झाडावर</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मुंबईहून</span> &nbsp; = &nbsp; <b>मुंबई से</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मुंबईहून</span><span class="c deva t-trace"><i class="st"></i>मुंबईहून</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>चिपकी हुई विभक्तियाँ</b></div>
+      <div class="ex">पहले दो दिए हैं - नमूना और धूसर। उसके बाद की सतर आपकी।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१७</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">मुलासाठी</span> &nbsp; = &nbsp; <b>बच्चे के लिए</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मुलासाठी</span><span class="c deva t-trace"><i class="st"></i>मुलासाठी</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">मित्राबरोबर</span> &nbsp; = &nbsp; <b>दोस्त के साथ</b></span><span>पहला दे दिया - <b>बाक़ी आपका</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>मित्राबरोबर</span><span class="c deva t-trace"><i class="st"></i>मित्राबरोबर</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १७</span></div>
+</div>
+</body>
+</html>

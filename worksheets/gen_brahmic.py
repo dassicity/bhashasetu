@@ -26,6 +26,15 @@ SCRIPTS = {
         "signs":"gunintam", "combo":"ottu",   "others":("\u0c16","\u0c17")},
  "ta": {"font":"Noto Serif Tamil",  "cls":"ta", "body":0.497, "top":0.810, "bot":0.280,
         "signs":"uyirmei",  "combo":"pulli",  "others":("\u0bb8","\u0baa")},
+ # Measured 2026-09-22 with calibrate_kn_ml.html, same canvas TextMetrics method as above.
+ # That run also re-measured Telugu as a control and reproduced body 0.772 exactly, with
+ # top 1.003 and bot 0.444 against the shipped 1.020 and 0.460: the shipped numbers carry
+ # about 0.016 of deliberate headroom. The same headroom is added here.
+ # Raw: kn body 0.790 top 0.809 bot 0.415 | ml body 0.524 top 0.750 bot 0.281
+ "kn": {"font":"Noto Serif Kannada",   "cls":"kn", "body":0.790, "top":0.826, "bot":0.431,
+        "signs":"gunitakshara", "combo":"ottakshara", "others":("\u0c96","\u0c97")},
+ "ml": {"font":"Noto Serif Malayalam", "cls":"ml", "body":0.524, "top":0.767, "bot":0.297,
+        "signs":"svarachihnam", "combo":"koottaksharam", "others":("\u0d16","\u0d17")},
 }
 
 REQUIRED_UI = ["trace","times","fill","start_given","finish_row","self","fill_row",
@@ -275,7 +284,10 @@ def letter_sheet(pair, book, n, ch, eq, tr, ex, gloss, group):
 
 def sign_sheet(pair, book, n, form, eq, tr, note):
     bk = BOOK(pair,2)
-    others = ("ఖ","గ") if C(pair)["target_iso"]=="te" else ("ச","ப")
+    # The two consonants the vowel sign is demonstrated on. Per TARGET script,
+    # from SCRIPTS: this was hardcoded te-or-Tamil, so a Kannada or Malayalam
+    # target printed Tamil letters on every sheet of book 3.
+    others = GEOM(pair)["others"]
     sign = form[1:]
     applied = "".join(one(c+sign,'t-model')+one(c+sign,'t-trace') for c in others)
     return f"""<div class="sheet">

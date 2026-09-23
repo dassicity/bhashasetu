@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<title>বানানের নিয়ম - বাংলা থেকে স্প্যানিশ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da; --paper:#FDFBF6;
+}
+@page{ size:A4; margin:12mm 10mm; }
+*{ box-sizing:border-box; }
+body{ font-family:'Noto Serif Bengali',serif; color:var(--ink); font-size:10pt; margin:0;
+      background:var(--paper); }
+.sheet{ page-break-after:always; break-after:page; padding:0 2mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+.es{ font-family:'Noto Serif',serif; }
+
+.ph{ display:flex; justify-content:space-between; align-items:flex-start;
+     border-bottom:0.4mm solid var(--line-soft); padding-bottom:2.5mm; margin-bottom:3.5mm; }
+.ph-l{ display:flex; gap:6mm; align-items:flex-start; }
+.big{ font-size:24mm; line-height:1.05; font-family:'Noto Serif',serif; }
+.meta{ padding-top:1.5mm; }
+.meta .eq{ font-size:12.5pt; }
+.meta .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--faded);
+           letter-spacing:.08em; margin-top:1mm; }
+.meta .ex{ font-size:10pt; color:var(--faded); margin-top:1.5mm; }
+.ph-r{ text-align:right; max-width:62mm; }
+.grp{ font-size:9pt; color:var(--teal); }
+.num{ font-size:14pt; color:var(--faded); margin-top:1mm; }
+.note{ font-size:9.5pt; color:var(--faded); background:#F4F1EA; border-left:1mm solid var(--ochre);
+       padding:2mm 3mm; margin:0 0 3mm; line-height:1.6; }
+.pair{ font-size:10pt; color:var(--sindoor); margin:0 0 2.5mm; }
+
+/* ---- the four rules of a Latin copybook ---- */
+.rowlabel{ display:flex; justify-content:space-between; font-size:8.5pt; color:var(--faded);
+           margin:0 0 0.8mm; }
+.row{ position:relative; height:14.64mm; margin-bottom:3mm; }
+.row.w{ height:11.69mm; }
+.ln{ position:absolute; left:0; right:0; }
+.ln.a{ top:1.54mm;  border-top:0.22mm dashed var(--line-soft); }
+.ln.x{ top:4.00mm;   border-top:0.22mm dashed var(--line-soft); }
+.ln.b{ top:10.00mm; border-top:0.38mm solid var(--line); }
+.ln.d{ top:12.64mm; border-top:0.22mm dashed var(--line-soft); }
+.row.w .ln.a{ top:2.24mm; } .row.w .ln.x{ top:4.00mm; }
+.row.w .ln.b{ top:8.30mm; } .row.w .ln.d{ top:10.19mm; }
+.cells{ position:absolute; left:0; top:0; right:0; white-space:nowrap; }
+.c{ font-family:'Noto Serif',serif; font-size:10.99mm; line-height:0; margin-right:3.5mm; }
+.row.w .c{ font-size:7.88mm; margin-right:2.5mm; }
+/* zero-width strut: pins the text baseline to --base whatever the font's line metrics say */
+.st{ display:inline-block; width:0; height:10.00mm; vertical-align:baseline; }
+.row.w .st{ height:8.30mm; }
+.t-model{ color:var(--ink); }
+.t-trace{ color:#BFB6A6; }
+.t-out{ color:transparent; -webkit-text-stroke:0.2mm #BFB6A6; }
+.t-faint{ color:#E7E1D3; }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-family:'JetBrains Mono',monospace; font-size:9pt; letter-spacing:.2em;
+                color:var(--sindoor); }
+.cover h1{ font-size:24pt; margin:4mm 0 2mm; font-weight:600; }
+.cover h1 .es{ display:block; font-size:32pt; margin-bottom:3mm; }
+.cover .sub{ font-size:11pt; color:var(--faded); max-width:132mm; margin:0 auto 8mm; line-height:1.8; }
+.rules{ max-width:140mm; margin:0 auto; text-align:left; }
+.rules h2{ font-size:11pt; color:var(--teal); margin:0 0 3mm; }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ font-size:10pt; line-height:1.85; margin-bottom:2.5mm; color:var(--faded); }
+.rules li b{ color:var(--ink); }
+.legend{ max-width:140mm; margin:8mm auto 0; text-align:left; }
+.legend h3{ font-size:10pt; color:var(--teal); margin:0 0 2mm; }
+.lg{ display:flex; gap:7mm; }
+.lg div{ font-size:8.5pt; color:var(--faded); text-align:center; }
+.lg .s{ display:block; font-size:11mm; line-height:1.2; font-family:'Noto Serif',serif; }
+.foot{ margin-top:12mm; font-family:'JetBrains Mono',monospace; font-size:8pt;
+       letter-spacing:.14em; color:var(--faded); }
+.pf{ display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace;
+     font-size:7.5pt; letter-spacing:.1em; color:#B9AE9B; margin-top:3mm;
+     border-top:0.3mm solid var(--line-soft); padding-top:1.5mm; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">খাতা ৪</div>
+  <h1><span class="es">la ortografía</span>বানানের নিয়ম</h1>
+  <p class="sub">স্কুলে ইংরেজি বানান তুমি মুখস্থ করে শিখেছ, কারণ ইংরেজিতে নিয়ম নেই। স্প্যানিশে আছে - ফাঁদ মাত্র কয়েকটা: নীরব h, যে u লেখা হয় কিন্তু পড়া হয় না, এক ধ্বনির দুই হরফ b আর v, দুই হরফের জোড় ll আর rr, আর e/i-র আগে চেহারা-বদল।</p>
+  <div class="rules"><h2>লেখার আগে পাঁচটি কথা</h2><ol><li><b>চিহ্নটা সাজসজ্জা নয়।</b> ওজনের চিহ্ন সবসময় স্বরের মাথায় বসে - a e i o u, কখনো ব্যঞ্জনে নয়। আর হেলে থাকে একদিকেই: নিচে-বাঁয়ে থেকে উপরে-ডানে। উল্টো দিকে টানলে ওটা আর স্প্যানিশ চিহ্ন নয়।</li><li><b>ñ-এর ঢেউ হরফের অংশ</b>, উপরে বসানো বাড়তি কিছু নয়। n আর ñ দুটো আলাদা হরফ, যেমন ব আর ভ আলাদা। ঢেউটা বাঁ থেকে ডানে, এক টানে, n-এর মাথার ঠিক উপরে - año আর ano এক শব্দ নয়।</li><li><b>¿ আর ¡ বাক্যের শুরুতে বসে, শেষে নয়।</b> মানে শেষটা না জেনেই শুরুতে বসাতে হয় - তাই কলম ছোঁয়ানোর আগে ভাবো: এটা কি প্রশ্ন? হলে প্রথম হরফের আগেই ¿, আর বাঁকটা নিচের দিকে।</li><li><b>চিহ্ন বাদ দিলে বানান ভুল</b> - ঐচ্ছিক নয়। el আর él, tu আর tú আলাদা শব্দ। হরফটা পুরো শেষ করে তবেই মাথার চিহ্ন বসাও; মাঝপথে বসাতে গেলে হাত আটকায় আর শেষে ভুলে যাবে।</li><li><b>হাত রোমান হরফ আগে থেকেই জানে</b> - তাই লক্ষ্য গতি নয়, নির্ভুলতা। পেনসিলে লেখো, দিনে এক পাতা, আর প্রতি সারি শেষে শব্দটা জোরে বলো - ওজন কোথায় পড়ছে কানে শুনে নাও।</li></ol></div>
+  <div class="legend"><h3>এই বইয়ে চার রকম লেখা</h3><div class="lg">
+      <div><span class="s es t-model">l</span>নমুনা</div>
+      <div><span class="s es t-trace">l</span>ধূসর - উপর দিয়ে</div>
+      <div><span class="s es t-out">l</span>ফাঁপা - ভেতরটা ভরো</div>
+      <div><span class="s es t-faint">l</span>ক্ষীণ - প্রায় একা</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">que</div>
+      <div class="meta"><div class="eq">= <b>কে</b></div><div class="tr">k</div><div class="ex"><span class="es">queso</span> &middot; পনির</div></div></div>
+    <div class="ph-r"><div class="grp">u লেখো, কিন্তু পোড়ো না</div><div class="num">১</div></div>
+  </div>
+  
+  <div class="note">e-র আগে ক-ধ্বনি লিখতে qu লাগে। u-টা চুপ - 'কুয়েসো' নয়, কেসো।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>que</span><span class="c t-trace"><i class="st"></i>que</span><span class="c t-trace"><i class="st"></i>que</span><span class="c t-trace"><i class="st"></i>que</span><span class="c t-trace"><i class="st"></i>que</span><span class="c t-trace"><i class="st"></i>que</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>que</span><span class="c t-out"><i class="st"></i>que</span><span class="c t-out"><i class="st"></i>que</span><span class="c t-out"><i class="st"></i>que</span><span class="c t-out"><i class="st"></i>que</span><span class="c t-out"><i class="st"></i>que</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>que</span><span class="c t-faint"><i class="st"></i>que</span><span class="c t-faint"><i class="st"></i>que</span><span class="c t-faint"><i class="st"></i>que</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">qui</div>
+      <div class="meta"><div class="eq">= <b>কি</b></div><div class="tr">k</div><div class="ex"><span class="es">quiero</span> &middot; আমি চাই</div></div></div>
+    <div class="ph-r"><div class="grp">u লেখো, কিন্তু পোড়ো না</div><div class="num">২</div></div>
+  </div>
+  
+  <div class="note">ইংরেজি পড়ার অভ্যাসে 'কুই' পড়ে ফেলো না। স্প্যানিশে qui = কি, সবসময়, ব্যতিক্রম নেই।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>qui</span><span class="c t-trace"><i class="st"></i>qui</span><span class="c t-trace"><i class="st"></i>qui</span><span class="c t-trace"><i class="st"></i>qui</span><span class="c t-trace"><i class="st"></i>qui</span><span class="c t-trace"><i class="st"></i>qui</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>qui</span><span class="c t-out"><i class="st"></i>qui</span><span class="c t-out"><i class="st"></i>qui</span><span class="c t-out"><i class="st"></i>qui</span><span class="c t-out"><i class="st"></i>qui</span><span class="c t-out"><i class="st"></i>qui</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>qui</span><span class="c t-faint"><i class="st"></i>qui</span><span class="c t-faint"><i class="st"></i>qui</span><span class="c t-faint"><i class="st"></i>qui</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">gui</div>
+      <div class="meta"><div class="eq">= <b>গি</b></div><div class="tr">g</div><div class="ex"><span class="es">guitarra</span> &middot; গিটার</div></div></div>
+    <div class="ph-r"><div class="grp">u লেখো, কিন্তু পোড়ো না</div><div class="num">৩</div></div>
+  </div>
+  
+  <div class="note">gue-তেও একই নিয়ম: e আর i-র আগে গ-ধ্বনি রাখতে হলে একটা নীরব u গুঁজে দিতে হয়।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>gui</span><span class="c t-trace"><i class="st"></i>gui</span><span class="c t-trace"><i class="st"></i>gui</span><span class="c t-trace"><i class="st"></i>gui</span><span class="c t-trace"><i class="st"></i>gui</span><span class="c t-trace"><i class="st"></i>gui</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>gui</span><span class="c t-out"><i class="st"></i>gui</span><span class="c t-out"><i class="st"></i>gui</span><span class="c t-out"><i class="st"></i>gui</span><span class="c t-out"><i class="st"></i>gui</span><span class="c t-out"><i class="st"></i>gui</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>gui</span><span class="c t-faint"><i class="st"></i>gui</span><span class="c t-faint"><i class="st"></i>gui</span><span class="c t-faint"><i class="st"></i>gui</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">güe</div>
+      <div class="meta"><div class="eq">= <b>গুয়ে</b></div><div class="tr">gu</div><div class="ex"><span class="es">vergüenza</span> &middot; লজ্জা</div></div></div>
+    <div class="ph-r"><div class="grp">u লেখো, কিন্তু পোড়ো না</div><div class="num">৪</div></div>
+  </div>
+  
+  <div class="note">দুটো বিন্দু মানে এই u চুপ নয়। বিন্দু না দিলে পড়া হত 'বের্গেন্সা'।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>güe</span><span class="c t-trace"><i class="st"></i>güe</span><span class="c t-trace"><i class="st"></i>güe</span><span class="c t-trace"><i class="st"></i>güe</span><span class="c t-trace"><i class="st"></i>güe</span><span class="c t-trace"><i class="st"></i>güe</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>güe</span><span class="c t-out"><i class="st"></i>güe</span><span class="c t-out"><i class="st"></i>güe</span><span class="c t-out"><i class="st"></i>güe</span><span class="c t-out"><i class="st"></i>güe</span><span class="c t-out"><i class="st"></i>güe</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>güe</span><span class="c t-faint"><i class="st"></i>güe</span><span class="c t-faint"><i class="st"></i>güe</span><span class="c t-faint"><i class="st"></i>güe</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">güi</div>
+      <div class="meta"><div class="eq">= <b>গুই</b></div><div class="tr">gu</div><div class="ex"><span class="es">pingüino</span> &middot; পেঙ্গুইন</div></div></div>
+    <div class="ph-r"><div class="grp">u লেখো, কিন্তু পোড়ো না</div><div class="num">৫</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>güi</span><span class="c t-trace"><i class="st"></i>güi</span><span class="c t-trace"><i class="st"></i>güi</span><span class="c t-trace"><i class="st"></i>güi</span><span class="c t-trace"><i class="st"></i>güi</span><span class="c t-trace"><i class="st"></i>güi</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>güi</span><span class="c t-out"><i class="st"></i>güi</span><span class="c t-out"><i class="st"></i>güi</span><span class="c t-out"><i class="st"></i>güi</span><span class="c t-out"><i class="st"></i>güi</span><span class="c t-out"><i class="st"></i>güi</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>güi</span><span class="c t-faint"><i class="st"></i>güi</span><span class="c t-faint"><i class="st"></i>güi</span><span class="c t-faint"><i class="st"></i>güi</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="meta"><div class="eq">= <b>পোকিতো</b></div><div class="tr">k</div><div class="ex"><span class="es">un poquito</span> &middot; একটুখানি</div></div></div>
+    <div class="ph-r"><div class="grp">u লেখো, কিন্তু পোড়ো না</div><div class="num">৬</div></div>
+  </div>
+  
+  <div class="note">poco + ito। ধ্বনি ক রাখতে বানানে c বদলে qu হয়ে গেল - নিয়মই বানান ঠিক করছে।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>poquito</span><span class="c t-trace"><i class="st"></i>poquito</span><span class="c t-trace"><i class="st"></i>poquito</span><span class="c t-trace"><i class="st"></i>poquito</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>poquito</span><span class="c t-out"><i class="st"></i>poquito</span><span class="c t-out"><i class="st"></i>poquito</span><span class="c t-out"><i class="st"></i>poquito</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>poquito</span><span class="c t-faint"><i class="st"></i>poquito</span><span class="c t-faint"><i class="st"></i>poquito</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">hola</div>
+      <div class="meta"><div class="eq">= <b>ওলা</b></div><div class="tr">-</div><div class="ex"><span class="es">¡Hola!</span> &middot; নমস্কার!</div></div></div>
+    <div class="ph-r"><div class="grp">যে h কখনো শোনা যায় না - তবু লিখতেই হবে</div><div class="num">৭</div></div>
+  </div>
+  
+  <div class="note">h নীরব, সবসময়, কোনো ব্যতিক্রম নেই। hola আর ola কানে এক; বানানই তফাত করে।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>hola</span><span class="c t-trace"><i class="st"></i>hola</span><span class="c t-trace"><i class="st"></i>hola</span><span class="c t-trace"><i class="st"></i>hola</span><span class="c t-trace"><i class="st"></i>hola</span><span class="c t-trace"><i class="st"></i>hola</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>hola</span><span class="c t-out"><i class="st"></i>hola</span><span class="c t-out"><i class="st"></i>hola</span><span class="c t-out"><i class="st"></i>hola</span><span class="c t-out"><i class="st"></i>hola</span><span class="c t-out"><i class="st"></i>hola</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>hola</span><span class="c t-faint"><i class="st"></i>hola</span><span class="c t-faint"><i class="st"></i>hola</span><span class="c t-faint"><i class="st"></i>hola</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="meta"><div class="eq">= <b>এর্মানো</b></div><div class="tr">-</div><div class="ex"><span class="es">mi hermano</span> &middot; আমার ভাই</div></div></div>
+    <div class="ph-r"><div class="grp">যে h কখনো শোনা যায় না - তবু লিখতেই হবে</div><div class="num">৮</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>hermano</span><span class="c t-trace"><i class="st"></i>hermano</span><span class="c t-trace"><i class="st"></i>hermano</span><span class="c t-trace"><i class="st"></i>hermano</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>hermano</span><span class="c t-out"><i class="st"></i>hermano</span><span class="c t-out"><i class="st"></i>hermano</span><span class="c t-out"><i class="st"></i>hermano</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>hermano</span><span class="c t-faint"><i class="st"></i>hermano</span><span class="c t-faint"><i class="st"></i>hermano</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">huevo</div>
+      <div class="meta"><div class="eq">= <b>উয়েবো</b></div><div class="tr">-</div><div class="ex"><span class="es">un huevo</span> &middot; একটা ডিম</div></div></div>
+    <div class="ph-r"><div class="grp">যে h কখনো শোনা যায় না - তবু লিখতেই হবে</div><div class="num">৯</div></div>
+  </div>
+  
+  <div class="note">শুরুর h বাদ দিলে শব্দটা ue দিয়ে শুরু হত - স্প্যানিশ বানান সেটা করে না, তাই h বসে।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>huevo</span><span class="c t-trace"><i class="st"></i>huevo</span><span class="c t-trace"><i class="st"></i>huevo</span><span class="c t-trace"><i class="st"></i>huevo</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>huevo</span><span class="c t-out"><i class="st"></i>huevo</span><span class="c t-out"><i class="st"></i>huevo</span><span class="c t-out"><i class="st"></i>huevo</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>huevo</span><span class="c t-faint"><i class="st"></i>huevo</span><span class="c t-faint"><i class="st"></i>huevo</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ahora</div>
+      <div class="meta"><div class="eq">= <b>আওরা</b></div><div class="tr">-</div><div class="ex"><span class="es">ahora estoy en casa</span> &middot; এখন আমি বাড়িতে আছি</div></div></div>
+    <div class="ph-r"><div class="grp">যে h কখনো শোনা যায় না - তবু লিখতেই হবে</div><div class="num">১০</div></div>
+  </div>
+  
+  <div class="note">শব্দের মাঝেও h নীরব: আ-ও-রা, তিন অক্ষর।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>ahora</span><span class="c t-trace"><i class="st"></i>ahora</span><span class="c t-trace"><i class="st"></i>ahora</span><span class="c t-trace"><i class="st"></i>ahora</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>ahora</span><span class="c t-out"><i class="st"></i>ahora</span><span class="c t-out"><i class="st"></i>ahora</span><span class="c t-out"><i class="st"></i>ahora</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>ahora</span><span class="c t-faint"><i class="st"></i>ahora</span><span class="c t-faint"><i class="st"></i>ahora</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">hoy</div>
+      <div class="meta"><div class="eq">= <b>ওই</b></div><div class="tr">-</div><div class="ex"><span class="es">hoy es lunes</span> &middot; আজ সোমবার</div></div></div>
+    <div class="ph-r"><div class="grp">যে h কখনো শোনা যায় না - তবু লিখতেই হবে</div><div class="num">১১</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>hoy</span><span class="c t-trace"><i class="st"></i>hoy</span><span class="c t-trace"><i class="st"></i>hoy</span><span class="c t-trace"><i class="st"></i>hoy</span><span class="c t-trace"><i class="st"></i>hoy</span><span class="c t-trace"><i class="st"></i>hoy</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>hoy</span><span class="c t-out"><i class="st"></i>hoy</span><span class="c t-out"><i class="st"></i>hoy</span><span class="c t-out"><i class="st"></i>hoy</span><span class="c t-out"><i class="st"></i>hoy</span><span class="c t-out"><i class="st"></i>hoy</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>hoy</span><span class="c t-faint"><i class="st"></i>hoy</span><span class="c t-faint"><i class="st"></i>hoy</span><span class="c t-faint"><i class="st"></i>hoy</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">hay</div>
+      <div class="meta"><div class="eq">= <b>আই</b></div><div class="tr">-</div><div class="ex"><span class="es">hay agua</span> &middot; জল আছে</div></div></div>
+    <div class="ph-r"><div class="grp">যে h কখনো শোনা যায় না - তবু লিখতেই হবে</div><div class="num">১২</div></div>
+  </div>
+  
+  <div class="note">তিন হরফ, দুটো পড়া হয়। শেষের y = ই।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>hay</span><span class="c t-trace"><i class="st"></i>hay</span><span class="c t-trace"><i class="st"></i>hay</span><span class="c t-trace"><i class="st"></i>hay</span><span class="c t-trace"><i class="st"></i>hay</span><span class="c t-trace"><i class="st"></i>hay</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>hay</span><span class="c t-out"><i class="st"></i>hay</span><span class="c t-out"><i class="st"></i>hay</span><span class="c t-out"><i class="st"></i>hay</span><span class="c t-out"><i class="st"></i>hay</span><span class="c t-out"><i class="st"></i>hay</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>hay</span><span class="c t-faint"><i class="st"></i>hay</span><span class="c t-faint"><i class="st"></i>hay</span><span class="c t-faint"><i class="st"></i>hay</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">vaca</div>
+      <div class="meta"><div class="eq">= <b>বাকা</b></div><div class="tr">b</div><div class="ex"><span class="es">una vaca</span> &middot; একটা গরু</div></div></div>
+    <div class="ph-r"><div class="grp">এক ধ্বনি, দুই হরফ - b আর v</div><div class="num">১৩</div></div>
+  </div>
+  
+  <div class="note">v-কে কখনো ইংরেজির মতো দাঁত-ঠোঁটে ঘষো না। ধ্বনি ব, হরফ v - মেলানোর কিছু নেই, মুখস্থ।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>vaca</span><span class="c t-trace"><i class="st"></i>vaca</span><span class="c t-trace"><i class="st"></i>vaca</span><span class="c t-trace"><i class="st"></i>vaca</span><span class="c t-trace"><i class="st"></i>vaca</span><span class="c t-trace"><i class="st"></i>vaca</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>vaca</span><span class="c t-out"><i class="st"></i>vaca</span><span class="c t-out"><i class="st"></i>vaca</span><span class="c t-out"><i class="st"></i>vaca</span><span class="c t-out"><i class="st"></i>vaca</span><span class="c t-out"><i class="st"></i>vaca</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>vaca</span><span class="c t-faint"><i class="st"></i>vaca</span><span class="c t-faint"><i class="st"></i>vaca</span><span class="c t-faint"><i class="st"></i>vaca</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">boca</div>
+      <div class="meta"><div class="eq">= <b>বোকা</b></div><div class="tr">b</div><div class="ex"><span class="es">la boca</span> &middot; মুখ (খাওয়ার)</div></div></div>
+    <div class="ph-r"><div class="grp">এক ধ্বনি, দুই হরফ - b আর v</div><div class="num">১৪</div></div>
+  </div>
+  
+  <div class="note">vaca আর boca কানে প্রায় এক, লেখায় নয়। শব্দটা শেখার সময় হরফটাও শেখো।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>boca</span><span class="c t-trace"><i class="st"></i>boca</span><span class="c t-trace"><i class="st"></i>boca</span><span class="c t-trace"><i class="st"></i>boca</span><span class="c t-trace"><i class="st"></i>boca</span><span class="c t-trace"><i class="st"></i>boca</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>boca</span><span class="c t-out"><i class="st"></i>boca</span><span class="c t-out"><i class="st"></i>boca</span><span class="c t-out"><i class="st"></i>boca</span><span class="c t-out"><i class="st"></i>boca</span><span class="c t-out"><i class="st"></i>boca</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>boca</span><span class="c t-faint"><i class="st"></i>boca</span><span class="c t-faint"><i class="st"></i>boca</span><span class="c t-faint"><i class="st"></i>boca</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">vivir</div>
+      <div class="meta"><div class="eq">= <b>বিবির্</b></div><div class="tr">b</div><div class="ex"><span class="es">vivir en Calcuta</span> &middot; কলকাতায় থাকা</div></div></div>
+    <div class="ph-r"><div class="grp">এক ধ্বনি, দুই হরফ - b আর v</div><div class="num">১৫</div></div>
+  </div>
+  
+  <div class="note">দুটো v, দুটোই ব। 'ভিভির্' বললে ইংরেজি ঢুকে পড়ল।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>vivir</span><span class="c t-trace"><i class="st"></i>vivir</span><span class="c t-trace"><i class="st"></i>vivir</span><span class="c t-trace"><i class="st"></i>vivir</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>vivir</span><span class="c t-out"><i class="st"></i>vivir</span><span class="c t-out"><i class="st"></i>vivir</span><span class="c t-out"><i class="st"></i>vivir</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>vivir</span><span class="c t-faint"><i class="st"></i>vivir</span><span class="c t-faint"><i class="st"></i>vivir</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">beber</div>
+      <div class="meta"><div class="eq">= <b>বেবের্</b></div><div class="tr">b</div><div class="ex"><span class="es">beber agua</span> &middot; জল পান করা</div></div></div>
+    <div class="ph-r"><div class="grp">এক ধ্বনি, দুই হরফ - b আর v</div><div class="num">১৬</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>beber</span><span class="c t-trace"><i class="st"></i>beber</span><span class="c t-trace"><i class="st"></i>beber</span><span class="c t-trace"><i class="st"></i>beber</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>beber</span><span class="c t-out"><i class="st"></i>beber</span><span class="c t-out"><i class="st"></i>beber</span><span class="c t-out"><i class="st"></i>beber</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>beber</span><span class="c t-faint"><i class="st"></i>beber</span><span class="c t-faint"><i class="st"></i>beber</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">calle</div>
+      <div class="meta"><div class="eq">= <b>কায়ে</b></div><div class="tr">y</div><div class="ex"><span class="es">en la calle</span> &middot; রাস্তায়</div></div></div>
+    <div class="ph-r"><div class="grp">দুই হরফ মিলে এক - ll, rr, ch</div><div class="num">১৭</div></div>
+  </div>
+  
+  <div class="note">ll একটাই ধ্বনি, য়। 'কাল্লে' নয়। দুটো l লিখতেই হবে, পড়তে হবে একবার।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>calle</span><span class="c t-trace"><i class="st"></i>calle</span><span class="c t-trace"><i class="st"></i>calle</span><span class="c t-trace"><i class="st"></i>calle</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>calle</span><span class="c t-out"><i class="st"></i>calle</span><span class="c t-out"><i class="st"></i>calle</span><span class="c t-out"><i class="st"></i>calle</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>calle</span><span class="c t-faint"><i class="st"></i>calle</span><span class="c t-faint"><i class="st"></i>calle</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">llave</div>
+      <div class="meta"><div class="eq">= <b>য়াবে</b></div><div class="tr">y</div><div class="ex"><span class="es">una llave</span> &middot; একটা চাবি</div></div></div>
+    <div class="ph-r"><div class="grp">দুই হরফ মিলে এক - ll, rr, ch</div><div class="num">১৮</div></div>
+  </div>
+  
+  <div class="note">শব্দের শুরুতেও ll - বাংলা হরফে লিখতে গেলে একটাই হরফ লাগে, স্প্যানিশে দুটো।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>llave</span><span class="c t-trace"><i class="st"></i>llave</span><span class="c t-trace"><i class="st"></i>llave</span><span class="c t-trace"><i class="st"></i>llave</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>llave</span><span class="c t-out"><i class="st"></i>llave</span><span class="c t-out"><i class="st"></i>llave</span><span class="c t-out"><i class="st"></i>llave</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>llave</span><span class="c t-faint"><i class="st"></i>llave</span><span class="c t-faint"><i class="st"></i>llave</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">perro</div>
+      <div class="meta"><div class="eq">= <b>পের্‌রো</b></div><div class="tr">rr</div><div class="ex"><span class="es">un perro</span> &middot; একটা কুকুর</div></div></div>
+    <div class="ph-r"><div class="grp">দুই হরফ মিলে এক - ll, rr, ch</div><div class="num">১৯</div></div>
+  </div>
+  
+  <div class="note">pero (কিন্তু) আর perro (কুকুর) - একটা r বাদ দিলে অন্য শব্দ। বানানের ভুলটা এখানে মানের ভুল।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>perro</span><span class="c t-trace"><i class="st"></i>perro</span><span class="c t-trace"><i class="st"></i>perro</span><span class="c t-trace"><i class="st"></i>perro</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>perro</span><span class="c t-out"><i class="st"></i>perro</span><span class="c t-out"><i class="st"></i>perro</span><span class="c t-out"><i class="st"></i>perro</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>perro</span><span class="c t-faint"><i class="st"></i>perro</span><span class="c t-faint"><i class="st"></i>perro</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ১৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">carro</div>
+      <div class="meta"><div class="eq">= <b>কার্‌রো</b></div><div class="tr">rr</div><div class="ex"><span class="es">un carro</span> &middot; একটা গাড়ি</div></div></div>
+    <div class="ph-r"><div class="grp">দুই হরফ মিলে এক - ll, rr, ch</div><div class="num">২০</div></div>
+  </div>
+  
+  <div class="note">caro = দামি, carro = গাড়ি। আবার একই ফাঁদ।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>carro</span><span class="c t-trace"><i class="st"></i>carro</span><span class="c t-trace"><i class="st"></i>carro</span><span class="c t-trace"><i class="st"></i>carro</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>carro</span><span class="c t-out"><i class="st"></i>carro</span><span class="c t-out"><i class="st"></i>carro</span><span class="c t-out"><i class="st"></i>carro</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>carro</span><span class="c t-faint"><i class="st"></i>carro</span><span class="c t-faint"><i class="st"></i>carro</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ২০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">arroz</div>
+      <div class="meta"><div class="eq">= <b>আর্‌রোস্</b></div><div class="tr">rr</div><div class="ex"><span class="es">como arroz</span> &middot; আমি ভাত খাই</div></div></div>
+    <div class="ph-r"><div class="grp">দুই হরফ মিলে এক - ll, rr, ch</div><div class="num">২১</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>arroz</span><span class="c t-trace"><i class="st"></i>arroz</span><span class="c t-trace"><i class="st"></i>arroz</span><span class="c t-trace"><i class="st"></i>arroz</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>arroz</span><span class="c t-out"><i class="st"></i>arroz</span><span class="c t-out"><i class="st"></i>arroz</span><span class="c t-out"><i class="st"></i>arroz</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>arroz</span><span class="c t-faint"><i class="st"></i>arroz</span><span class="c t-faint"><i class="st"></i>arroz</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ২১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">mucho</div>
+      <div class="meta"><div class="eq">= <b>মুচো</b></div><div class="tr">ch</div><div class="ex"><span class="es">muchas gracias</span> &middot; অনেক ধন্যবাদ</div></div></div>
+    <div class="ph-r"><div class="grp">দুই হরফ মিলে এক - ll, rr, ch</div><div class="num">২২</div></div>
+  </div>
+  
+  <div class="note">ch = চ, এক ধ্বনি। ইংরেজিতে এই জোড়া কখনো ক হয়ে যায়; স্প্যানিশে কখনো নয়।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>mucho</span><span class="c t-trace"><i class="st"></i>mucho</span><span class="c t-trace"><i class="st"></i>mucho</span><span class="c t-trace"><i class="st"></i>mucho</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>mucho</span><span class="c t-out"><i class="st"></i>mucho</span><span class="c t-out"><i class="st"></i>mucho</span><span class="c t-out"><i class="st"></i>mucho</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>mucho</span><span class="c t-faint"><i class="st"></i>mucho</span><span class="c t-faint"><i class="st"></i>mucho</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ২২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">cinco</div>
+      <div class="meta"><div class="eq">= <b>সিঙ্কো</b></div><div class="tr">s</div><div class="ex"><span class="es">cinco libros</span> &middot; পাঁচটা বই</div></div></div>
+    <div class="ph-r"><div class="grp">e আর i-এর আগে চেহারা বদলায়</div><div class="num">২৩</div></div>
+  </div>
+  
+  <div class="note">একই হরফ c: a/o/u-র আগে ক (casa), e/i-র আগে স (cinco)। পরের স্বরটা দেখে ঠিক করো।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>cinco</span><span class="c t-trace"><i class="st"></i>cinco</span><span class="c t-trace"><i class="st"></i>cinco</span><span class="c t-trace"><i class="st"></i>cinco</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>cinco</span><span class="c t-out"><i class="st"></i>cinco</span><span class="c t-out"><i class="st"></i>cinco</span><span class="c t-out"><i class="st"></i>cinco</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>cinco</span><span class="c t-faint"><i class="st"></i>cinco</span><span class="c t-faint"><i class="st"></i>cinco</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ২৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">zapato</div>
+      <div class="meta"><div class="eq">= <b>সাপাতো</b></div><div class="tr">s</div><div class="ex"><span class="es">un zapato</span> &middot; একটা জুতো</div></div></div>
+    <div class="ph-r"><div class="grp">e আর i-এর আগে চেহারা বদলায়</div><div class="num">২৪</div></div>
+  </div>
+  
+  <div class="note">z = স, কখনো জ নয়। ইংরেজিতে z যেভাবে পড়ো, সেটা এখানে ভুলে যাও।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>zapato</span><span class="c t-trace"><i class="st"></i>zapato</span><span class="c t-trace"><i class="st"></i>zapato</span><span class="c t-trace"><i class="st"></i>zapato</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>zapato</span><span class="c t-out"><i class="st"></i>zapato</span><span class="c t-out"><i class="st"></i>zapato</span><span class="c t-out"><i class="st"></i>zapato</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>zapato</span><span class="c t-faint"><i class="st"></i>zapato</span><span class="c t-faint"><i class="st"></i>zapato</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ২৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">luces</div>
+      <div class="meta"><div class="eq">= <b>লুসেস্</b></div><div class="tr">s</div><div class="ex"><span class="es">las luces</span> &middot; আলোগুলো</div></div></div>
+    <div class="ph-r"><div class="grp">e আর i-এর আগে চেহারা বদলায়</div><div class="num">২৫</div></div>
+  </div>
+  
+  <div class="note">luz-এর বহুবচন। ধ্বনি বদলায়নি, বানান বদলেছে - e-র আগে স লিখতে c লাগে, z নয়।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>luces</span><span class="c t-trace"><i class="st"></i>luces</span><span class="c t-trace"><i class="st"></i>luces</span><span class="c t-trace"><i class="st"></i>luces</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>luces</span><span class="c t-out"><i class="st"></i>luces</span><span class="c t-out"><i class="st"></i>luces</span><span class="c t-out"><i class="st"></i>luces</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>luces</span><span class="c t-faint"><i class="st"></i>luces</span><span class="c t-faint"><i class="st"></i>luces</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ২৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">gente</div>
+      <div class="meta"><div class="eq">= <b>খেন্তে</b></div><div class="tr">j</div><div class="ex"><span class="es">la gente</span> &middot; লোকজন</div></div></div>
+    <div class="ph-r"><div class="grp">e আর i-এর আগে চেহারা বদলায়</div><div class="num">২৬</div></div>
+  </div>
+  
+  <div class="note">g-ও পরের স্বর দেখে বদলায়: gato = গাতো, gente = খেন্তে।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>gente</span><span class="c t-trace"><i class="st"></i>gente</span><span class="c t-trace"><i class="st"></i>gente</span><span class="c t-trace"><i class="st"></i>gente</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>gente</span><span class="c t-out"><i class="st"></i>gente</span><span class="c t-out"><i class="st"></i>gente</span><span class="c t-out"><i class="st"></i>gente</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>gente</span><span class="c t-faint"><i class="st"></i>gente</span><span class="c t-faint"><i class="st"></i>gente</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ২৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">gato</div>
+      <div class="meta"><div class="eq">= <b>গাতো</b></div><div class="tr">g</div><div class="ex"><span class="es">un gato</span> &middot; একটা বেড়াল</div></div></div>
+    <div class="ph-r"><div class="grp">e আর i-এর আগে চেহারা বদলায়</div><div class="num">২৭</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>gato</span><span class="c t-trace"><i class="st"></i>gato</span><span class="c t-trace"><i class="st"></i>gato</span><span class="c t-trace"><i class="st"></i>gato</span><span class="c t-trace"><i class="st"></i>gato</span><span class="c t-trace"><i class="st"></i>gato</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>gato</span><span class="c t-out"><i class="st"></i>gato</span><span class="c t-out"><i class="st"></i>gato</span><span class="c t-out"><i class="st"></i>gato</span><span class="c t-out"><i class="st"></i>gato</span><span class="c t-out"><i class="st"></i>gato</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>gato</span><span class="c t-faint"><i class="st"></i>gato</span><span class="c t-faint"><i class="st"></i>gato</span><span class="c t-faint"><i class="st"></i>gato</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ২৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">jabón</div>
+      <div class="meta"><div class="eq">= <b>খাবোন্</b></div><div class="tr">j</div><div class="ex"><span class="es">el jabón</span> &middot; সাবানটা</div></div></div>
+    <div class="ph-r"><div class="grp">e আর i-এর আগে চেহারা বদলায়</div><div class="num">২৮</div></div>
+  </div>
+  
+  <div class="note">j সব স্বরের আগেই গলার খ - এটার কোনো শর্ত নেই। শর্ত শুধু g আর c-এর।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>jabón</span><span class="c t-trace"><i class="st"></i>jabón</span><span class="c t-trace"><i class="st"></i>jabón</span><span class="c t-trace"><i class="st"></i>jabón</span></div></div>
+  <div class="rowlabel"><span>ফাঁপা হরফ <b>ভরো</b></span><span>পাঁচ বার</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>jabón</span><span class="c t-out"><i class="st"></i>jabón</span><span class="c t-out"><i class="st"></i>jabón</span><span class="c t-out"><i class="st"></i>jabón</span></div></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>jabón</span><span class="c t-faint"><i class="st"></i>jabón</span><span class="c t-faint"><i class="st"></i>jabón</span></div></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ঢেকে লেখা</span><span>স্প্যানিশ কলামটা কাগজ দিয়ে ঢাকো। বাংলা দেখে স্প্যানিশ লেখো, তারপর সরিয়ে মিলিয়ে নাও।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>খাতা ৪ · বানানের নিয়ম</span><span>BHASHASETU &middot; বাংলা থেকে স্প্যানিশ &middot; ২৮</span></div>
+</div>
+</body>
+</html>

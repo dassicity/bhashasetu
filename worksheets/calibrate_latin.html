@@ -1,0 +1,27 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Latin copybook metrics</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{font:14px/1.6 system-ui;margin:24px}pre{background:#f4f1ea;padding:12px}</style>
+</head><body><h1>Latin copybook metrics</h1><pre id="out">measuring...</pre>
+<script>
+// A Latin copybook has FOUR rules: ascender, x-height, baseline, descender. Spanish adds a
+// fifth concern, the accent, which must sit between x-height and ascender without colliding
+// with either. These are the numbers that place those lines.
+const SIZE=200, F="Noto Serif";
+const m=(x,s)=>{x.font=`${SIZE}px "${F}"`;const t=x.measureText(s);
+  return {a:t.actualBoundingBoxAscent/SIZE, d:t.actualBoundingBoxDescent/SIZE};};
+const mx=(x,list,k)=>Math.max(...list.map(s=>m(x,s)[k]));
+(async()=>{
+  await document.fonts.ready; await document.fonts.load(`${SIZE}px "${F}"`);
+  const c=document.createElement("canvas"); c.width=c.height=800; const x=c.getContext("2d");
+  const r={
+    xheight:  +mx(x,["x","n","o","a","e","c","s","u"],"a").toFixed(3),
+    ascender: +mx(x,["b","d","f","h","k","l","t"],"a").toFixed(3),
+    capital:  +mx(x,["A","E","M","Q","S"],"a").toFixed(3),
+    descender:+mx(x,["p","q","g","j","y"],"d").toFixed(3),
+    accent:   +mx(x,["á","é","í","ó","ú","ü","ñ"],"a").toFixed(3),
+    invMark:  +mx(x,["¿","¡"],"d").toFixed(3),
+    invUp:    +mx(x,["¿","¡"],"a").toFixed(3),
+  };
+  document.getElementById("out").textContent=JSON.stringify(r,null,2);
+})();
+</script></body></html>

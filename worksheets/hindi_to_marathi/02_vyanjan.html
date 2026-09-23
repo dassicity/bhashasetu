@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>व्यंजन - हिन्दी से मराठी</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
+  --base:  19mm;       /* baseline - letters sit here            */
+  /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
+     (see calibrate_font.html). Fractions of the font size, from the baseline:
+       bare letter  shirorekha ....... 0.642 up
+       matras above ..................  0.925 up
+       matras below ..................  0.290 down */
+  --asc-ratio:  0.642;
+  --top-ratio:  0.283;
+  --bot-ratio:  0.29;
+
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Devanagari',serif; color:var(--ink); font-size:10pt; }
+.deva{ font-family:'Noto Serif Devanagari',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:22mm; line-height:0.95; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; color:var(--ink); }
+.ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); letter-spacing:.04em; }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm; text-align:center; }
+.step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
+.step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
+.step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
+.step .cap b{ color:var(--teal); }
+.steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
+.steps .note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
+      --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--bot-ratio) * var(--gs));
+      height: calc(var(--desc) + 1.5mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* strut: an inline-block whose bottom edge sits on the text baseline, so the
+   baseline lands on --base whatever the font's line metrics say */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; justify-content:flex-start; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
+.row.words{ --head:6.5mm; --base:14mm; }
+.row.words .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --head:5.5mm; --base:11.5mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
+.cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
+.rules{ text-align:left; max-width:150mm; margin:12mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.65; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:10mm auto 0; max-width:150mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:13mm; line-height:1.1; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+.pf .r{ letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">कॉपी २</div>
+  <h1><span class="deva">ळ आणि दोन चेहरे</span>व्यंजन</h1>
+  <p class="sub">यह इस पूरी कॉपी की सबसे ज़रूरी किताब है। पहले तीन पन्ने उस अकेले अक्षर के हैं जो आपने कभी नहीं लिखा - ळ। बाक़ी हर पन्ने पर वही अक्षर है जो आप बचपन से लिख रहे हैं, पर जिसे मराठी अलग बोलती है या जिस पर से नुक़्ता उतर जाता है। हाथ को यहाँ भूलना है, सीखना कम।</p>
+  <div class="rules"><h2>काग़ज़ पर उतरने से पहले पाँच बातें</h2><ol><li><b>अक्षर आपके हैं, आवाज़ नहीं।</b> यह कॉपी लिखना नहीं सिखाती - लिखना आप जानते हैं। यह हाथ को वे गिनी-चुनी जगहें दिखाती है जहाँ मराठी अलग चलती है। हर सतर पूरी करके शब्द एक बार ज़ोर से बोलिए, वरना काग़ज़ पर सही और मुँह में ग़लत रह जाएगा।</li><li><b>ळ इकलौता नया आकार है।</b> हाथ को 'ल' की आदत है और वह चुपचाप 'ल' बना देगा। ळ को धीरे बनाइए, और हर बार 'ल' और 'ळ' आमने-सामने लिखकर मिलाइए - जब तक दोनों अलग न दिखें, अगली सतर पर मत जाइए।</li><li><b>किताब २ का हर 'च' और 'ज' धोखा देगा।</b> चार, जग, झाड - हाथ ठीक लिखेगा, पर मुँह हिन्दी वाला 'च' बोल देगा। लिखिए, फिर उसी शब्द को दंत्य आवाज़ में बोलिए: त्सार, द्ज़ग, द्झाड।</li><li><b>नुक़्ता उठाना है।</b> हिन्दी का हाथ 'घोड़ा' लिखते ही नीचे बिंदु लगा देता है। मराठी सात में से एक भी नुक़्ता नहीं लिखती - घोडा, जमीन, फक्त, खूप। पन्ना पूरा करके एक बार बिंदु ढूँढ़िए; मिले तो काट दीजिए।</li><li><b>धीरे, रोज़ एक पन्ना।</b> शिरोरेखा और बारहखड़ी आपकी अपनी हैं, इसलिए आकार पर नहीं, नियम पर समय दीजिए। पेंसिल से शुरू कीजिए और धूसर अक्षर पर हल्के हाथ से चलिए।</li></ol></div>
+  <div class="legend"><h3>इस कॉपी में चार तरह की लिखाई</h3><div class="lg">
+      <div><span class="s deva t-model">क</span>नमूना - देखिए</div>
+      <div><span class="s deva t-trace">क</span>धूसर - ऊपर से चलाइए</div>
+      <div><span class="s deva t-out">क</span>खोखला - भीतर भरिए</div>
+      <div><span class="s deva t-faint">क</span>फीका - लगभग अकेले</div>
+      </div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ळ</div>
+      <div class="meta">
+        <div class="eq">= <b>ल ⚡ मूर्धन्य</b></div>
+        <div class="tr">ḷa</div>
+        <div class="ex"><span class="deva">कमळ</span> &middot; कमल</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">⚡ पूरी वर्णमाला का अकेला नया अक्षर - मूर्धन्य ळ</div><div class="num">१</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ळ<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ळ</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note">बनाने का क्रम आपको आता है - पहले अक्षर का शरीर, आख़िर में ऊपर की शिरोरेखा। इसलिए यहाँ ध्यान आकार पर नहीं, <b>ऊपर लिखी आवाज़ पर</b> दीजिए: हर सतर ख़त्म करके शब्द एक बार ज़ोर से बोलिए।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ळ</span><span class="c deva t-trace"><i class="st"></i>ळ</span><span class="c deva t-trace"><i class="st"></i>ळ</span><span class="c deva t-trace"><i class="st"></i>ळ</span><span class="c deva t-trace"><i class="st"></i>ळ</span><span class="c deva t-trace"><i class="st"></i>ळ</span><span class="c deva t-trace"><i class="st"></i>ळ</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ळ</span><span class="c deva t-out"><i class="st"></i>ळ</span><span class="c deva t-out"><i class="st"></i>ळ</span><span class="c deva t-out"><i class="st"></i>ळ</span><span class="c deva t-out"><i class="st"></i>ळ</span><span class="c deva t-out"><i class="st"></i>ळ</span><span class="c deva t-out"><i class="st"></i>ळ</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ळ</span><span class="c deva t-faint"><i class="st"></i>ळ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">कमळ</span> (कमल)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कमळ</span><span class="c deva t-trace"><i class="st"></i>कमळ</span><span class="c deva t-out"><i class="st"></i>कमळ</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ळा</div>
+      <div class="meta">
+        <div class="eq">= <b>ला ⚡</b></div>
+        <div class="tr">ḷā</div>
+        <div class="ex"><span class="deva">शाळा</span> &middot; पाठशाला, स्कूल</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">⚡ पूरी वर्णमाला का अकेला नया अक्षर - मूर्धन्य ळ</div><div class="num">२</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ळा<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ळा</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note">बनाने का क्रम आपको आता है - पहले अक्षर का शरीर, आख़िर में ऊपर की शिरोरेखा। इसलिए यहाँ ध्यान आकार पर नहीं, <b>ऊपर लिखी आवाज़ पर</b> दीजिए: हर सतर ख़त्म करके शब्द एक बार ज़ोर से बोलिए।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ळा</span><span class="c deva t-trace"><i class="st"></i>ळा</span><span class="c deva t-trace"><i class="st"></i>ळा</span><span class="c deva t-trace"><i class="st"></i>ळा</span><span class="c deva t-trace"><i class="st"></i>ळा</span><span class="c deva t-trace"><i class="st"></i>ळा</span><span class="c deva t-trace"><i class="st"></i>ळा</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ळा</span><span class="c deva t-out"><i class="st"></i>ळा</span><span class="c deva t-out"><i class="st"></i>ळा</span><span class="c deva t-out"><i class="st"></i>ळा</span><span class="c deva t-out"><i class="st"></i>ळा</span><span class="c deva t-out"><i class="st"></i>ळा</span><span class="c deva t-out"><i class="st"></i>ळा</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ळा</span><span class="c deva t-faint"><i class="st"></i>ळा</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">शाळा</span> (पाठशाला, स्कूल)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>शाळा</span><span class="c deva t-trace"><i class="st"></i>शाळा</span><span class="c deva t-out"><i class="st"></i>शाळा</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; २</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ळी</div>
+      <div class="meta">
+        <div class="eq">= <b>ली ⚡</b></div>
+        <div class="tr">ḷī</div>
+        <div class="ex"><span class="deva">पोळी</span> &middot; गेहूँ की रोटी, चपाती</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">⚡ पूरी वर्णमाला का अकेला नया अक्षर - मूर्धन्य ळ</div><div class="num">३</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ळी<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ळी</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note">बनाने का क्रम आपको आता है - पहले अक्षर का शरीर, आख़िर में ऊपर की शिरोरेखा। इसलिए यहाँ ध्यान आकार पर नहीं, <b>ऊपर लिखी आवाज़ पर</b> दीजिए: हर सतर ख़त्म करके शब्द एक बार ज़ोर से बोलिए।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ळी</span><span class="c deva t-trace"><i class="st"></i>ळी</span><span class="c deva t-trace"><i class="st"></i>ळी</span><span class="c deva t-trace"><i class="st"></i>ळी</span><span class="c deva t-trace"><i class="st"></i>ळी</span><span class="c deva t-trace"><i class="st"></i>ळी</span><span class="c deva t-trace"><i class="st"></i>ळी</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ळी</span><span class="c deva t-out"><i class="st"></i>ळी</span><span class="c deva t-out"><i class="st"></i>ळी</span><span class="c deva t-out"><i class="st"></i>ळी</span><span class="c deva t-out"><i class="st"></i>ळी</span><span class="c deva t-out"><i class="st"></i>ळी</span><span class="c deva t-out"><i class="st"></i>ळी</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ळी</span><span class="c deva t-faint"><i class="st"></i>ळी</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">पोळी</span> (गेहूँ की रोटी, चपाती)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पोळी</span><span class="c deva t-trace"><i class="st"></i>पोळी</span><span class="c deva t-out"><i class="st"></i>पोळी</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">च</div>
+      <div class="meta">
+        <div class="eq">= <b>त्स ⚡ दंत्य</b></div>
+        <div class="tr">tsa</div>
+        <div class="ex"><span class="deva">चार</span> &middot; चार - बोलिए त्सार</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">च का दंत्य चेहरा - अ आ उ ऊ ओ औ से पहले</div><div class="num">४</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">च<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">च</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note">बनाने का क्रम आपको आता है - पहले अक्षर का शरीर, आख़िर में ऊपर की शिरोरेखा। इसलिए यहाँ ध्यान आकार पर नहीं, <b>ऊपर लिखी आवाज़ पर</b> दीजिए: हर सतर ख़त्म करके शब्द एक बार ज़ोर से बोलिए।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>च</span><span class="c deva t-faint"><i class="st"></i>च</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">चार</span> (चार - बोलिए त्सार)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>चार</span><span class="c deva t-trace"><i class="st"></i>चार</span><span class="c deva t-out"><i class="st"></i>चार</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">च</div>
+      <div class="meta">
+        <div class="eq">= <b>च - हिन्दी जैसा</b></div>
+        <div class="tr">cha</div>
+        <div class="ex"><span class="deva">चिमणी</span> &middot; गौरैया - यहाँ 'च' तालव्य है</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">च का तालव्य चेहरा - इ ई ए ऐ से पहले</div><div class="num">५</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">च<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">च</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note">बनाने का क्रम आपको आता है - पहले अक्षर का शरीर, आख़िर में ऊपर की शिरोरेखा। इसलिए यहाँ ध्यान आकार पर नहीं, <b>ऊपर लिखी आवाज़ पर</b> दीजिए: हर सतर ख़त्म करके शब्द एक बार ज़ोर से बोलिए।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>च</span><span class="c deva t-faint"><i class="st"></i>च</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">चिमणी</span> (गौरैया - यहाँ 'च' तालव्य है)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>चिमणी</span><span class="c deva t-trace"><i class="st"></i>चिमणी</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ज</div>
+      <div class="meta">
+        <div class="eq">= <b>द्ज़ ⚡ दंत्य</b></div>
+        <div class="tr">dza</div>
+        <div class="ex"><span class="deva">जग</span> &middot; दुनिया - बोलिए द्ज़ग</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ज का दंत्य चेहरा - अ आ उ ऊ ओ औ से पहले</div><div class="num">६</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ज<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ज</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note">बनाने का क्रम आपको आता है - पहले अक्षर का शरीर, आख़िर में ऊपर की शिरोरेखा। इसलिए यहाँ ध्यान आकार पर नहीं, <b>ऊपर लिखी आवाज़ पर</b> दीजिए: हर सतर ख़त्म करके शब्द एक बार ज़ोर से बोलिए।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज</span><span class="c deva t-faint"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">जग</span> (दुनिया - बोलिए द्ज़ग)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>जग</span><span class="c deva t-trace"><i class="st"></i>जग</span><span class="c deva t-out"><i class="st"></i>जग</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ज</div>
+      <div class="meta">
+        <div class="eq">= <b>ज - हिन्दी जैसा</b></div>
+        <div class="tr">ja</div>
+        <div class="ex"><span class="deva">जेवण</span> &middot; भोजन - यहाँ 'ज' तालव्य है</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">ज का तालव्य चेहरा - इ ई ए ऐ से पहले</div><div class="num">७</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ज<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ज</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note">बनाने का क्रम आपको आता है - पहले अक्षर का शरीर, आख़िर में ऊपर की शिरोरेखा। इसलिए यहाँ ध्यान आकार पर नहीं, <b>ऊपर लिखी आवाज़ पर</b> दीजिए: हर सतर ख़त्म करके शब्द एक बार ज़ोर से बोलिए।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज</span><span class="c deva t-faint"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">जेवण</span> (भोजन - यहाँ 'ज' तालव्य है)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>जेवण</span><span class="c deva t-trace"><i class="st"></i>जेवण</span><span class="c deva t-out"><i class="st"></i>जेवण</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ७</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">झ</div>
+      <div class="meta">
+        <div class="eq">= <b>द्झ ⚡ दंत्य</b></div>
+        <div class="tr">dzha</div>
+        <div class="ex"><span class="deva">झाड</span> &middot; पेड़ - बोलिए द्झाड</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">झ का दंत्य चेहरा - अ आ उ ऊ ओ औ से पहले</div><div class="num">८</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">झ<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">झ</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note">बनाने का क्रम आपको आता है - पहले अक्षर का शरीर, आख़िर में ऊपर की शिरोरेखा। इसलिए यहाँ ध्यान आकार पर नहीं, <b>ऊपर लिखी आवाज़ पर</b> दीजिए: हर सतर ख़त्म करके शब्द एक बार ज़ोर से बोलिए।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>झ</span><span class="c deva t-faint"><i class="st"></i>झ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">झाड</span> (पेड़ - बोलिए द्झाड)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>झाड</span><span class="c deva t-trace"><i class="st"></i>झाड</span><span class="c deva t-out"><i class="st"></i>झाड</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ८</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ण</div>
+      <div class="meta">
+        <div class="eq">= <b>ण</b></div>
+        <div class="tr">ṇa</div>
+        <div class="ex"><span class="deva">जाणे</span> &middot; जाना - हिन्दी का -ना यहाँ -णे है</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">मूर्धन्य ण - मराठी की हर क्रिया के आख़िर में</div><div class="num">९</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ण<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ण</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note">बनाने का क्रम आपको आता है - पहले अक्षर का शरीर, आख़िर में ऊपर की शिरोरेखा। इसलिए यहाँ ध्यान आकार पर नहीं, <b>ऊपर लिखी आवाज़ पर</b> दीजिए: हर सतर ख़त्म करके शब्द एक बार ज़ोर से बोलिए।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ण</span><span class="c deva t-faint"><i class="st"></i>ण</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">जाणे</span> (जाना - हिन्दी का -ना यहाँ -णे है)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>जाणे</span><span class="c deva t-trace"><i class="st"></i>जाणे</span><span class="c deva t-out"><i class="st"></i>जाणे</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ९</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ड</div>
+      <div class="meta">
+        <div class="eq">= <b>ड़</b></div>
+        <div class="tr">ḍa</div>
+        <div class="ex"><span class="deva">घोडा</span> &middot; घोड़ा</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">सात नुक़्ते जो उतर जाते हैं</div><div class="num">१०</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ड<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ड</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note"><b>यह अक्षर भी आपका, यह बिंदु भी आपका।</b> पर मराठी में इस बिंदु का काम ख़त्म है - सातों नुक़्ते मराठी नहीं लिखती। नीचे वाली सतर में शब्द पूरा लिखिए और <b>बिंदु मत लगाइए</b>। हाथ को यही भूलना है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ड</span><span class="c deva t-faint"><i class="st"></i>ड</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">घोडा</span> (घोड़ा)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>घोडा</span><span class="c deva t-trace"><i class="st"></i>घोडा</span><span class="c deva t-out"><i class="st"></i>घोडा</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १०</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ढ</div>
+      <div class="meta">
+        <div class="eq">= <b>ढ़</b></div>
+        <div class="tr">ḍha</div>
+        <div class="ex"><span class="deva">वाढणे</span> &middot; परोसना</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">सात नुक़्ते जो उतर जाते हैं</div><div class="num">११</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ढ<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ढ</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note"><b>यह अक्षर भी आपका, यह बिंदु भी आपका।</b> पर मराठी में इस बिंदु का काम ख़त्म है - सातों नुक़्ते मराठी नहीं लिखती। नीचे वाली सतर में शब्द पूरा लिखिए और <b>बिंदु मत लगाइए</b>। हाथ को यही भूलना है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ढ</span><span class="c deva t-faint"><i class="st"></i>ढ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">वाढणे</span> (परोसना)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>वाढणे</span><span class="c deva t-trace"><i class="st"></i>वाढणे</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ११</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ज</div>
+      <div class="meta">
+        <div class="eq">= <b>ज़</b></div>
+        <div class="tr">ja</div>
+        <div class="ex"><span class="deva">जमीन</span> &middot; ज़मीन - बिंदु नहीं, फिर भी आवाज़ में 'ज़'</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">सात नुक़्ते जो उतर जाते हैं</div><div class="num">१२</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ज<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ज</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note"><b>यह अक्षर भी आपका, यह बिंदु भी आपका।</b> पर मराठी में इस बिंदु का काम ख़त्म है - सातों नुक़्ते मराठी नहीं लिखती। नीचे वाली सतर में शब्द पूरा लिखिए और <b>बिंदु मत लगाइए</b>। हाथ को यही भूलना है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज</span><span class="c deva t-faint"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">जमीन</span> (ज़मीन - बिंदु नहीं, फिर भी आवाज़ में 'ज़')</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>जमीन</span><span class="c deva t-trace"><i class="st"></i>जमीन</span><span class="c deva t-out"><i class="st"></i>जमीन</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १२</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">फ</div>
+      <div class="meta">
+        <div class="eq">= <b>फ़</b></div>
+        <div class="tr">pha</div>
+        <div class="ex"><span class="deva">फक्त</span> &middot; केवल, सिर्फ़</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">सात नुक़्ते जो उतर जाते हैं</div><div class="num">१३</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">फ<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">फ</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note"><b>यह अक्षर भी आपका, यह बिंदु भी आपका।</b> पर मराठी में इस बिंदु का काम ख़त्म है - सातों नुक़्ते मराठी नहीं लिखती। नीचे वाली सतर में शब्द पूरा लिखिए और <b>बिंदु मत लगाइए</b>। हाथ को यही भूलना है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>फ</span><span class="c deva t-faint"><i class="st"></i>फ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">फक्त</span> (केवल, सिर्फ़)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>फक्त</span><span class="c deva t-trace"><i class="st"></i>फक्त</span><span class="c deva t-out"><i class="st"></i>फक्त</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">क</div>
+      <div class="meta">
+        <div class="eq">= <b>क़</b></div>
+        <div class="tr">ka</div>
+        <div class="ex"><span class="deva">किल्ला</span> &middot; क़िला</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">सात नुक़्ते जो उतर जाते हैं</div><div class="num">१४</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">क<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">क</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note"><b>यह अक्षर भी आपका, यह बिंदु भी आपका।</b> पर मराठी में इस बिंदु का काम ख़त्म है - सातों नुक़्ते मराठी नहीं लिखती। नीचे वाली सतर में शब्द पूरा लिखिए और <b>बिंदु मत लगाइए</b>। हाथ को यही भूलना है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>क</span><span class="c deva t-faint"><i class="st"></i>क</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">किल्ला</span> (क़िला)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>किल्ला</span><span class="c deva t-trace"><i class="st"></i>किल्ला</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ख</div>
+      <div class="meta">
+        <div class="eq">= <b>ख़</b></div>
+        <div class="tr">kha</div>
+        <div class="ex"><span class="deva">खूप</span> &middot; बहुत - हिन्दी का 'ख़ूब'</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">सात नुक़्ते जो उतर जाते हैं</div><div class="num">१५</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ख<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ख</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note"><b>यह अक्षर भी आपका, यह बिंदु भी आपका।</b> पर मराठी में इस बिंदु का काम ख़त्म है - सातों नुक़्ते मराठी नहीं लिखती। नीचे वाली सतर में शब्द पूरा लिखिए और <b>बिंदु मत लगाइए</b>। हाथ को यही भूलना है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ख</span><span class="c deva t-faint"><i class="st"></i>ख</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">खूप</span> (बहुत - हिन्दी का 'ख़ूब')</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>खूप</span><span class="c deva t-trace"><i class="st"></i>खूप</span><span class="c deva t-out"><i class="st"></i>खूप</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ग</div>
+      <div class="meta">
+        <div class="eq">= <b>ग़</b></div>
+        <div class="tr">ga</div>
+        <div class="ex"><span class="deva">गरीब</span> &middot; ग़रीब</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">सात नुक़्ते जो उतर जाते हैं</div><div class="num">१६</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ग<span class="mask"></span></span>
+      <div class="cap"><b>१</b> अक्षर का शरीर</div></div>
+    <div class="step"><span class="g deva">ग</span>
+      <div class="cap"><b>२</b> ऊपर शिरोरेखा</div></div>
+    <div class="note"><b>यह अक्षर भी आपका, यह बिंदु भी आपका।</b> पर मराठी में इस बिंदु का काम ख़त्म है - सातों नुक़्ते मराठी नहीं लिखती। नीचे वाली सतर में शब्द पूरा लिखिए और <b>बिंदु मत लगाइए</b>। हाथ को यही भूलना है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ग</span><span class="c deva t-faint"><i class="st"></i>ग</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span>सतर भरिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>शब्द के भीतर रखिए - <span class="deva">गरीब</span> (ग़रीब)</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>गरीब</span><span class="c deva t-trace"><i class="st"></i>गरीब</span><span class="c deva t-out"><i class="st"></i>गरीब</span></div>
+</div>
+  <div class="pf"><span>कॉपी २ · व्यंजन</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १६</span></div>
+</div>
+</body>
+</html>

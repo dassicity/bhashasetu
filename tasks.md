@@ -219,3 +219,55 @@ but none of them produced the six source-language worksheet strings (`same_sign`
 `words_hint`, `sent_seq`, `sent_head`, `sent_hint`, `rules`) without being asked in a second
 round, because those were added to the schema after they had started. Put them in the brief
 from the start and the batch is one round shorter.
+
+## 2c. Infrastructure and discoverability (2026-09-22)
+
+**Worksheet discoverability, decided.** The `.khata` blocks sit at the bottom of each stage,
+which is why the Telugu-to-Hindi workbooks looked missing once. All ten worksheet courses now
+also carry a persistent `.khata-ptr` pill under the masthead, outside every `section.stage`
+so the stage router cannot hide it, linking to that pair's workbook index with its real page
+count in the source script. Verified on all ten: pointer present, placed before the first
+stage section, claimed page count equal to the actual sum of the PDFs, all links resolving,
+zero em-dashes, checker PASS.
+
+**All three generators are now JSON-driven.** `gen_worksheets.py` became `gen_deva.py` and is
+deleted; `gen_brahmic.py` and `gen_urdu.py` were converted the day before. A pair is now a
+file in `worksheets/data/`, and adding a pair touches no Python. Each conversion was proved by
+rebuilding the already-shipped pairs and matching the PDFs book for book: 169, 169, 139, 122,
+136 pages, no mismatches.
+
+**Kannada and Malayalam calibrated as target scripts** (see `worksheets/README.md` for the
+table and the method). Telugu was re-measured as a control and reproduced `body` 0.772
+exactly, which also revealed that the shipped `top`/`bot` numbers carry about 0.016 of
+deliberate headroom; the same was applied to the new scripts. Neither has a letter spine yet,
+and the first agent to build a course with that target should produce one.
+
+### Four bugs found, three of them already shipped
+
+- **Telugu learners were being shown Bengali.** `gen_worksheets.py` held two pairs at once,
+  with a Telugu override map over Bengali defaults. The overrides covered letter equivalents
+  and glosses but not the word-group headings or the consonant varga labels, so the printed
+  `telugu_to_hindi` workbooks carried about 200 runs of Bengali across three books: a Telugu
+  word book headed সর্বনাম, শরীর, পরিবার. Two of the 23 labels were also wrong in content,
+  not just language, telling a Telugu reader that "Bengali's ড় ঢ় are right here" when Telugu
+  has no such sound. All 23 rewritten in Telugu, PDFs rebuilt, 169 pages unchanged.
+- **`telugu_to_urdu.html` had a duplicated `<style>` tag** at lines 13-14, in the committed
+  file. The inner tag was parsed as CSS text, which invalidated the selector of the whole
+  `:root` block, so **every CSS variable in that course was undefined at runtime** and the
+  page rendered with none of its palette. One line deleted. All 63 courses and `index.html`
+  were scanned; no other file is unbalanced.
+- **Wrong fonts embedded in the PDFs.** Both generators requested Noto Serif Bengali whatever
+  the source language was, so a Telugu or Hindi source silently fell back to a system font and
+  would print differently on another machine. Caught with `pdffonts`, not by looking. The font
+  now follows `source_iso`.
+- **Stale page counts inside two courses.** Topping up word book 2 from 48 to 52 words grew
+  book 6 by a page; the PDFs were rebuilt but the numbers printed inside
+  `bengali_to_telugu` and `bengali_to_tamil` were not. Both now sum correctly.
+
+### The check that keeps paying
+
+Sheet count against PDF page count catches things reading never will: the cover overflow that
+added a page to all eight Kannada books, and the conjunct batching error during the Brahmic
+conversion. `audit()` now also refuses to build a pair file containing characters from any
+Indic script other than its own source, which is the mechanical form of the Bengali-labels bug.
+

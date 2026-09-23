@@ -82,9 +82,6 @@ def audit(pair):
 
 ZWJ  = "‍"
 
-def D(n):
-    return "".join("০১২৩৪৫৬৭৮৯"[int(c)] for c in str(n))
-
 def forms(ch, joins_left=True):
     """The four positional shapes, composed with ZWJ rather than hardcoded."""
     if not joins_left:                      # ا د ڈ ذ ر ڑ ز ژ و join only to the right
@@ -271,7 +268,7 @@ def forms_sheet(book, n, items):
         iso, fin, med, ini = forms(ch, joins)
         seq = [(ini,U("pos_ini")),(med,U("pos_med")),(fin,U("pos_fin")),(iso,U("pos_iso"))]
         lab = (f'<span class="ur" style="font-size:12pt">{ch}</span> &nbsp; {name} &nbsp; = &nbsp; <b>{eq}</b>'
-               + ("" if joins else ' &nbsp; <b style="color:#A83024">{U("no_join_tag")}</b>'))
+               + ("" if joins else f' &nbsp; <b style="color:#A83024">{U("no_join_tag")}</b>'))
         blocks += row("".join(one(g,'t-model')+one(g,'t-trace') for g,_ in seq), lab, U("forms_head"), 'wide')
         blocks += row('', '', U("self"), 'wide')
     return f"""<div class="sheet">

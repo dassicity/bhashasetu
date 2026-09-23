@@ -1,0 +1,25 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Hangul block metrics</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{font:14px/1.6 system-ui;margin:24px}pre{background:#f4f1ea;padding:12px}</style>
+</head><body><h1>Hangul block metrics</h1><pre id="out">measuring...</pre>
+<script>
+// A Hangul syllable is drawn inside a notional square, so the workbook uses square cells
+// (the 원고지 grid) rather than ruled lines. What matters is how much of the em a full
+// block actually occupies, so the glyph can be centred in the cell.
+const SIZE=200, F="Noto Serif KR";
+const TALL=["국","꽃","없","읽","육","찮","떠","아"];  // with batchim
+const PLAIN=["가","고","나","주","기","회","과","의"]; // no batchim
+const JAMO=["ㄱ","ㄴ","ㅁ","ㅅ","ㅇ","ㅏ","ㅗ","ㅡ"];  // bare jamo
+(async()=>{
+  await document.fonts.ready; await document.fonts.load(`${SIZE}px "${F}"`);
+  const c=document.createElement("canvas"); c.width=c.height=800; const x=c.getContext("2d");
+  const m=(list)=>{let a=0,d=0,w=0; for(const s of list){x.font=`${SIZE}px "${F}"`;
+    const t=x.measureText(s); a=Math.max(a,t.actualBoundingBoxAscent);
+    d=Math.max(d,t.actualBoundingBoxDescent); w=Math.max(w,t.width);} 
+    return {asc:+(a/SIZE).toFixed(3), desc:+(d/SIZE).toFixed(3), adv:+(w/SIZE).toFixed(3)};};
+  const r={withBatchim:m(TALL), noBatchim:m(PLAIN), bareJamo:m(JAMO)};
+  r.blockHeight=+(r.withBatchim.asc+r.withBatchim.desc).toFixed(3);
+  r.advance=r.withBatchim.adv;
+  document.getElementById("out").textContent=JSON.stringify(r,null,2);
+})();
+</script></body></html>

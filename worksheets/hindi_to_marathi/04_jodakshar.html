@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>जोडाक्षर - हिन्दी से मराठी</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
+  --base:  19mm;       /* baseline - letters sit here            */
+  /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
+     (see calibrate_font.html). Fractions of the font size, from the baseline:
+       bare letter  shirorekha ....... 0.642 up
+       matras above ..................  0.925 up
+       matras below ..................  0.290 down */
+  --asc-ratio:  0.642;
+  --top-ratio:  0.283;
+  --bot-ratio:  0.29;
+
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Devanagari',serif; color:var(--ink); font-size:10pt; }
+.deva{ font-family:'Noto Serif Devanagari',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:22mm; line-height:0.95; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; color:var(--ink); }
+.ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); letter-spacing:.04em; }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm; text-align:center; }
+.step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
+.step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
+.step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
+.step .cap b{ color:var(--teal); }
+.steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
+.steps .note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
+      --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--bot-ratio) * var(--gs));
+      height: calc(var(--desc) + 1.5mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* strut: an inline-block whose bottom edge sits on the text baseline, so the
+   baseline lands on --base whatever the font's line metrics say */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; justify-content:flex-start; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
+.row.words{ --head:6.5mm; --base:14mm; }
+.row.words .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --head:5.5mm; --base:11.5mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
+.cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
+.rules{ text-align:left; max-width:150mm; margin:12mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.65; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:10mm auto 0; max-width:150mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:13mm; line-height:1.1; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+.pf .r{ letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">कॉपी ४</div>
+  <h1><span class="deva">जोडाक्षरं</span>जोडाक्षर</h1>
+  <p class="sub">संयुक्ताक्षर बनाना आपको आता है और मराठी उसे बिलकुल उसी तरह बनाती है। इसलिए यह किताब जोड़ों की सूची नहीं है - यह सिर्फ़ चार आदतों की है जो मराठी में अलग हैं, और उनमें से एक चिह्न ऐसा है जो हिन्दी, संस्कृत, नेपाली - किसी के पास नहीं।</p>
+  <div class="rules"><h2>काग़ज़ पर उतरने से पहले पाँच बातें</h2><ol><li><b>जोड़ने का ढंग आपका अपना है।</b> पहले अक्षर की खड़ी लकीर कटती है और दूसरा बग़ल में आ जुड़ता है - स् + त = स्त। मराठी में यह हूबहू वही है। यह कॉपी सिर्फ़ उन जोड़ों की है जहाँ मराठी की आदत अलग है।</li><li><b>पापणी - यह चिह्न सिर्फ़ मराठी के पास है।</b> 'र' के बाद 'य' या 'ह' आए और 'र' अलग सुनाई दे, तो ऊपर रेफ़ नहीं लगता; अक्षर के आगे पलक जैसी एक छोटी लकीर लगती है: दऱ्या, कुऱ्हाड।</li><li><b>रेफ़ कब, पापणी कब।</b> संस्कृत से आया शब्द तो ऊपर रेफ़ - सूर्य, कार्य, वर्ष। ठेठ मराठी शब्द जिसमें 'र' अलग सुनाई दे तो पापणी - दऱ्या, वाऱ्याने। एक ही जोड़, दो रूप, और चुनाव शब्द की जड़ से होता है।</li><li><b>'ह' शब्द के आगे आ जाता है।</b> हिन्दी में म्ह, न्ह, ल्ह बीच में आते हैं - तुम्हारा, कुम्हार। मराठी उन्हें शब्द की शुरुआत में ले आती है: म्हणणे, न्हाणे, व्हायचं। नियम नया नहीं है, जगह नई है।</li><li><b>ज्ञ लिखिए, 'द्न्य' बोलिए।</b> हिन्दी 'ग्यान' पढ़ती है, मराठी 'द्न्यान'। और संयुक्ताक्षर के बाद अंत का 'अ' लौट आता है: मित्र = मित्-र, रात्र = रात्-र।</li></ol></div>
+  <div class="legend"><h3>इस कॉपी में चार तरह की लिखाई</h3><div class="lg">
+      <div><span class="s deva t-model">क</span>नमूना - देखिए</div>
+      <div><span class="s deva t-trace">क</span>धूसर - ऊपर से चलाइए</div>
+      <div><span class="s deva t-out">क</span>खोखला - भीतर भरिए</div>
+      <div><span class="s deva t-faint">क</span>फीका - लगभग अकेले</div>
+      </div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>⚡ पापणी - यह चिह्न सिर्फ़ मराठी के पास है</b></div>
+      <div class="ex">जोड़ने का ढंग आपका अपना है। यहाँ सिर्फ़ वे जोड़ हैं जहाँ <b>मराठी की आदत हिन्दी से अलग</b> है।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">जोडाक्षर</div><div class="num">१</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ऱ्</span> + <span class="deva" style="font-size:13pt">य</span> = <span class="deva" style="font-size:15pt"><b>ऱ्य</b></span> &nbsp;&middot;&nbsp; <span class="deva">दऱ्या</span> (घाटियाँ)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ऱ्य</span><span class="c deva t-trace"><i class="st"></i>ऱ्य</span><span class="c deva t-trace"><i class="st"></i>ऱ्य</span><span class="c deva t-trace"><i class="st"></i>ऱ्य</span><span class="c deva t-trace"><i class="st"></i>ऱ्य</span><span class="c deva t-trace"><i class="st"></i>ऱ्य</span><span class="c deva t-trace"><i class="st"></i>ऱ्य</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ऱ्य</span><span class="c deva t-out"><i class="st"></i>ऱ्य</span><span class="c deva t-out"><i class="st"></i>ऱ्य</span><span class="c deva t-out"><i class="st"></i>ऱ्य</span><span class="c deva t-model"><i class="st"></i>ऱ्य</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>दऱ्या</span><span class="c deva t-trace"><i class="st"></i>दऱ्या</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ऱ्</span> + <span class="deva" style="font-size:13pt">ह</span> = <span class="deva" style="font-size:15pt"><b>ऱ्ह</b></span> &nbsp;&middot;&nbsp; <span class="deva">कुऱ्हाड</span> (कुल्हाड़ी)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ऱ्ह</span><span class="c deva t-trace"><i class="st"></i>ऱ्ह</span><span class="c deva t-trace"><i class="st"></i>ऱ्ह</span><span class="c deva t-trace"><i class="st"></i>ऱ्ह</span><span class="c deva t-trace"><i class="st"></i>ऱ्ह</span><span class="c deva t-trace"><i class="st"></i>ऱ्ह</span><span class="c deva t-trace"><i class="st"></i>ऱ्ह</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ऱ्ह</span><span class="c deva t-out"><i class="st"></i>ऱ्ह</span><span class="c deva t-out"><i class="st"></i>ऱ्ह</span><span class="c deva t-out"><i class="st"></i>ऱ्ह</span><span class="c deva t-model"><i class="st"></i>ऱ्ह</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कुऱ्हाड</span><span class="c deva t-trace"><i class="st"></i>कुऱ्हाड</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · जोडाक्षर</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; १</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>रेफ़ - संस्कृत से आए शब्दों में, हिन्दी की तरह</b></div>
+      <div class="ex">जोड़ने का ढंग आपका अपना है। यहाँ सिर्फ़ वे जोड़ हैं जहाँ <b>मराठी की आदत हिन्दी से अलग</b> है।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">जोडाक्षर</div><div class="num">२</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">र्</span> + <span class="deva" style="font-size:13pt">य</span> = <span class="deva" style="font-size:15pt"><b>र्य</b></span> &nbsp;&middot;&nbsp; <span class="deva">कार्य</span> (काम, कार्य)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>र्य</span><span class="c deva t-trace"><i class="st"></i>र्य</span><span class="c deva t-trace"><i class="st"></i>र्य</span><span class="c deva t-trace"><i class="st"></i>र्य</span><span class="c deva t-trace"><i class="st"></i>र्य</span><span class="c deva t-trace"><i class="st"></i>र्य</span><span class="c deva t-trace"><i class="st"></i>र्य</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>र्य</span><span class="c deva t-out"><i class="st"></i>र्य</span><span class="c deva t-out"><i class="st"></i>र्य</span><span class="c deva t-out"><i class="st"></i>र्य</span><span class="c deva t-model"><i class="st"></i>र्य</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कार्य</span><span class="c deva t-trace"><i class="st"></i>कार्य</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">र्</span> + <span class="deva" style="font-size:13pt">ष</span> = <span class="deva" style="font-size:15pt"><b>र्ष</b></span> &nbsp;&middot;&nbsp; <span class="deva">वर्ष</span> (साल)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>र्ष</span><span class="c deva t-trace"><i class="st"></i>र्ष</span><span class="c deva t-trace"><i class="st"></i>र्ष</span><span class="c deva t-trace"><i class="st"></i>र्ष</span><span class="c deva t-trace"><i class="st"></i>र्ष</span><span class="c deva t-trace"><i class="st"></i>र्ष</span><span class="c deva t-trace"><i class="st"></i>र्ष</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>र्ष</span><span class="c deva t-out"><i class="st"></i>र्ष</span><span class="c deva t-out"><i class="st"></i>र्ष</span><span class="c deva t-out"><i class="st"></i>र्ष</span><span class="c deva t-model"><i class="st"></i>र्ष</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>वर्ष</span><span class="c deva t-trace"><i class="st"></i>वर्ष</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · जोडाक्षर</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; २</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>'ह' का जोड़ - मराठी उसे शब्द के आगे ले आती है</b></div>
+      <div class="ex">जोड़ने का ढंग आपका अपना है। यहाँ सिर्फ़ वे जोड़ हैं जहाँ <b>मराठी की आदत हिन्दी से अलग</b> है।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">जोडाक्षर</div><div class="num">३</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">म्</span> + <span class="deva" style="font-size:13pt">ह</span> = <span class="deva" style="font-size:15pt"><b>म्ह</b></span> &nbsp;&middot;&nbsp; <span class="deva">म्हणणे</span> (कहना)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>म्ह</span><span class="c deva t-trace"><i class="st"></i>म्ह</span><span class="c deva t-trace"><i class="st"></i>म्ह</span><span class="c deva t-trace"><i class="st"></i>म्ह</span><span class="c deva t-trace"><i class="st"></i>म्ह</span><span class="c deva t-trace"><i class="st"></i>म्ह</span><span class="c deva t-trace"><i class="st"></i>म्ह</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>म्ह</span><span class="c deva t-out"><i class="st"></i>म्ह</span><span class="c deva t-out"><i class="st"></i>म्ह</span><span class="c deva t-out"><i class="st"></i>म्ह</span><span class="c deva t-model"><i class="st"></i>म्ह</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>म्हणणे</span><span class="c deva t-trace"><i class="st"></i>म्हणणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">न्</span> + <span class="deva" style="font-size:13pt">ह</span> = <span class="deva" style="font-size:15pt"><b>न्ह</b></span> &nbsp;&middot;&nbsp; <span class="deva">न्हाणे</span> (नहाना)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>न्ह</span><span class="c deva t-trace"><i class="st"></i>न्ह</span><span class="c deva t-trace"><i class="st"></i>न्ह</span><span class="c deva t-trace"><i class="st"></i>न्ह</span><span class="c deva t-trace"><i class="st"></i>न्ह</span><span class="c deva t-trace"><i class="st"></i>न्ह</span><span class="c deva t-trace"><i class="st"></i>न्ह</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>न्ह</span><span class="c deva t-out"><i class="st"></i>न्ह</span><span class="c deva t-out"><i class="st"></i>न्ह</span><span class="c deva t-out"><i class="st"></i>न्ह</span><span class="c deva t-model"><i class="st"></i>न्ह</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>न्हाणे</span><span class="c deva t-trace"><i class="st"></i>न्हाणे</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · जोडाक्षर</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>'ह' का जोड़ - मराठी उसे शब्द के आगे ले आती है</b></div>
+      <div class="ex">जोड़ने का ढंग आपका अपना है। यहाँ सिर्फ़ वे जोड़ हैं जहाँ <b>मराठी की आदत हिन्दी से अलग</b> है।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">जोडाक्षर</div><div class="num">४</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ल्</span> + <span class="deva" style="font-size:13pt">ह</span> = <span class="deva" style="font-size:15pt"><b>ल्ह</b></span> &nbsp;&middot;&nbsp; <span class="deva">कोल्हापूर</span> (कोल्हापुर)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ल्ह</span><span class="c deva t-trace"><i class="st"></i>ल्ह</span><span class="c deva t-trace"><i class="st"></i>ल्ह</span><span class="c deva t-trace"><i class="st"></i>ल्ह</span><span class="c deva t-trace"><i class="st"></i>ल्ह</span><span class="c deva t-trace"><i class="st"></i>ल्ह</span><span class="c deva t-trace"><i class="st"></i>ल्ह</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ल्ह</span><span class="c deva t-out"><i class="st"></i>ल्ह</span><span class="c deva t-out"><i class="st"></i>ल्ह</span><span class="c deva t-out"><i class="st"></i>ल्ह</span><span class="c deva t-model"><i class="st"></i>ल्ह</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कोल्हापूर</span><span class="c deva t-trace"><i class="st"></i>कोल्हापूर</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">व्</span> + <span class="deva" style="font-size:13pt">ह</span> = <span class="deva" style="font-size:15pt"><b>व्ह</b></span> &nbsp;&middot;&nbsp; <span class="deva">व्हायचं</span> (होना है)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>व्ह</span><span class="c deva t-trace"><i class="st"></i>व्ह</span><span class="c deva t-trace"><i class="st"></i>व्ह</span><span class="c deva t-trace"><i class="st"></i>व्ह</span><span class="c deva t-trace"><i class="st"></i>व्ह</span><span class="c deva t-trace"><i class="st"></i>व्ह</span><span class="c deva t-trace"><i class="st"></i>व्ह</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>व्ह</span><span class="c deva t-out"><i class="st"></i>व्ह</span><span class="c deva t-out"><i class="st"></i>व्ह</span><span class="c deva t-out"><i class="st"></i>व्ह</span><span class="c deva t-model"><i class="st"></i>व्ह</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>व्हायचं</span><span class="c deva t-trace"><i class="st"></i>व्हायचं</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · जोडाक्षर</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ज्ञ - अक्षर वही, पढ़ाई 'द्न्य'</b></div>
+      <div class="ex">जोड़ने का ढंग आपका अपना है। यहाँ सिर्फ़ वे जोड़ हैं जहाँ <b>मराठी की आदत हिन्दी से अलग</b> है।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">जोडाक्षर</div><div class="num">५</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ज्</span> + <span class="deva" style="font-size:13pt">ञ</span> = <span class="deva" style="font-size:15pt"><b>ज्ञ</b></span> &nbsp;&middot;&nbsp; <span class="deva">ज्ञान</span> (ज्ञान - बोलिए द्न्यान)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ज्ञ</span><span class="c deva t-trace"><i class="st"></i>ज्ञ</span><span class="c deva t-trace"><i class="st"></i>ज्ञ</span><span class="c deva t-trace"><i class="st"></i>ज्ञ</span><span class="c deva t-trace"><i class="st"></i>ज्ञ</span><span class="c deva t-trace"><i class="st"></i>ज्ञ</span><span class="c deva t-trace"><i class="st"></i>ज्ञ</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ज्ञ</span><span class="c deva t-out"><i class="st"></i>ज्ञ</span><span class="c deva t-out"><i class="st"></i>ज्ञ</span><span class="c deva t-out"><i class="st"></i>ज्ञ</span><span class="c deva t-model"><i class="st"></i>ज्ञ</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज्ञान</span><span class="c deva t-trace"><i class="st"></i>ज्ञान</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · जोडाक्षर</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>संस्कृत के जोडाक्षर - हिन्दी जैसे ही लिखे जाते हैं</b></div>
+      <div class="ex">जोड़ने का ढंग आपका अपना है। यहाँ सिर्फ़ वे जोड़ हैं जहाँ <b>मराठी की आदत हिन्दी से अलग</b> है।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">जोडाक्षर</div><div class="num">६</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">क्</span> + <span class="deva" style="font-size:13pt">ष</span> = <span class="deva" style="font-size:15pt"><b>क्ष</b></span> &nbsp;&middot;&nbsp; <span class="deva">क्षण</span> (पल, क्षण)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>क्ष</span><span class="c deva t-trace"><i class="st"></i>क्ष</span><span class="c deva t-trace"><i class="st"></i>क्ष</span><span class="c deva t-trace"><i class="st"></i>क्ष</span><span class="c deva t-trace"><i class="st"></i>क्ष</span><span class="c deva t-trace"><i class="st"></i>क्ष</span><span class="c deva t-trace"><i class="st"></i>क्ष</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>क्ष</span><span class="c deva t-out"><i class="st"></i>क्ष</span><span class="c deva t-out"><i class="st"></i>क्ष</span><span class="c deva t-out"><i class="st"></i>क्ष</span><span class="c deva t-model"><i class="st"></i>क्ष</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>क्षण</span><span class="c deva t-trace"><i class="st"></i>क्षण</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">त्</span> + <span class="deva" style="font-size:13pt">र</span> = <span class="deva" style="font-size:15pt"><b>त्र</b></span> &nbsp;&middot;&nbsp; <span class="deva">रात्र</span> (रात - बोलिए रात्-र)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>त्र</span><span class="c deva t-trace"><i class="st"></i>त्र</span><span class="c deva t-trace"><i class="st"></i>त्र</span><span class="c deva t-trace"><i class="st"></i>त्र</span><span class="c deva t-trace"><i class="st"></i>त्र</span><span class="c deva t-trace"><i class="st"></i>त्र</span><span class="c deva t-trace"><i class="st"></i>त्र</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>त्र</span><span class="c deva t-out"><i class="st"></i>त्र</span><span class="c deva t-out"><i class="st"></i>त्र</span><span class="c deva t-out"><i class="st"></i>त्र</span><span class="c deva t-model"><i class="st"></i>त्र</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>रात्र</span><span class="c deva t-trace"><i class="st"></i>रात्र</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · जोडाक्षर</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>संस्कृत के जोडाक्षर - हिन्दी जैसे ही लिखे जाते हैं</b></div>
+      <div class="ex">जोड़ने का ढंग आपका अपना है। यहाँ सिर्फ़ वे जोड़ हैं जहाँ <b>मराठी की आदत हिन्दी से अलग</b> है।</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">जोडाक्षर</div><div class="num">७</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">द्</span> + <span class="deva" style="font-size:13pt">ध</span> = <span class="deva" style="font-size:15pt"><b>द्ध</b></span> &nbsp;&middot;&nbsp; <span class="deva">बुद्ध</span> (बुद्ध)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>द्ध</span><span class="c deva t-trace"><i class="st"></i>द्ध</span><span class="c deva t-trace"><i class="st"></i>द्ध</span><span class="c deva t-trace"><i class="st"></i>द्ध</span><span class="c deva t-trace"><i class="st"></i>द्ध</span><span class="c deva t-trace"><i class="st"></i>द्ध</span><span class="c deva t-trace"><i class="st"></i>द्ध</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>द्ध</span><span class="c deva t-out"><i class="st"></i>द्ध</span><span class="c deva t-out"><i class="st"></i>द्ध</span><span class="c deva t-out"><i class="st"></i>द्ध</span><span class="c deva t-model"><i class="st"></i>द्ध</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>बुद्ध</span><span class="c deva t-trace"><i class="st"></i>बुद्ध</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">द्</span> + <span class="deva" style="font-size:13pt">य</span> = <span class="deva" style="font-size:15pt"><b>द्य</b></span> &nbsp;&middot;&nbsp; <span class="deva">विद्यार्थी</span> (विद्यार्थी)</span><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>द्य</span><span class="c deva t-trace"><i class="st"></i>द्य</span><span class="c deva t-trace"><i class="st"></i>द्य</span><span class="c deva t-trace"><i class="st"></i>द्य</span><span class="c deva t-trace"><i class="st"></i>द्य</span><span class="c deva t-trace"><i class="st"></i>द्य</span><span class="c deva t-trace"><i class="st"></i>द्य</span></div>
+</div><div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>द्य</span><span class="c deva t-out"><i class="st"></i>द्य</span><span class="c deva t-out"><i class="st"></i>द्य</span><span class="c deva t-out"><i class="st"></i>द्य</span><span class="c deva t-model"><i class="st"></i>द्य</span></div>
+</div><div class="rowlabel"><span>शब्द के भीतर रखिए</span><span>फिर अकेले</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>विद्यार्थी</span><span class="c deva t-trace"><i class="st"></i>विद्यार्थी</span></div>
+</div><div class="rowlabel"><span></span><span>अब अकेले लिखिए</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ४ · जोडाक्षर</span><span class="r">BHASHASETU &middot; हिन्दी से मराठी &middot; ७</span></div>
+</div>
+</body>
+</html>

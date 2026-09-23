@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<title>শব্দ ১ - বাংলা থেকে কোরিয়ান</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --cell: 15mm;             /* one syllable square, letter books */
+  --gs:   12.50mm;             /* block size, derived so the glyph fills FILL of the cell */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da; --paper:#FDFBF6;
+}
+@page{ size:A4; margin:12mm 10mm; }
+*{ box-sizing:border-box; }
+body{ font-family:'Noto Serif Bengali',serif; color:var(--ink); font-size:10pt; margin:0;
+      background:var(--paper); }
+.sheet{ page-break-after:always; break-after:page; padding:0 2mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+.ko{ font-family:'Noto Serif KR',serif; }
+
+/* ---- page head ---- */
+.ph{ display:flex; justify-content:space-between; align-items:flex-start;
+     border-bottom:0.4mm solid var(--line-soft); padding-bottom:2.5mm; margin-bottom:4mm; }
+.ph-l{ display:flex; gap:6mm; align-items:flex-start; }
+.big{ font-size:26mm; line-height:1; font-family:'Noto Serif KR',serif; }
+.meta{ padding-top:2mm; }
+.meta .eq{ font-size:13pt; }
+.meta .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--faded);
+           letter-spacing:.08em; margin-top:1mm; }
+.meta .ex{ font-size:10pt; color:var(--faded); margin-top:1.5mm; }
+.ph-r{ text-align:right; }
+.grp{ font-size:9pt; color:var(--teal); max-width:60mm; }
+.num{ font-size:14pt; color:var(--faded); margin-top:1mm; }
+.note{ font-size:9.5pt; color:var(--faded); background:#F4F1EA; border-left:1mm solid var(--ochre);
+       padding:2mm 3mm; margin:0 0 3.5mm; line-height:1.6; }
+
+/* ---- the grid: one syllable per square, with the faint cross-hairs of practice paper ---- */
+.rowlabel{ display:flex; justify-content:space-between; font-size:8.5pt; color:var(--faded);
+           margin:0 0 1mm; }
+.grid{ display:flex; flex-wrap:wrap; gap:0; margin-bottom:3.5mm; }
+/* Word and sentence rows stack three grids per item, so they get a tighter square. */
+.grid.w{ --cell:12mm; --gs:10.00mm; margin-bottom:0; }
+.grid.s{ --cell:11mm; --gs:9.17mm; margin-bottom:0; }
+.grid.w:last-of-type, .grid.s:last-of-type{ margin-bottom:3mm; }
+.cell{ width:var(--cell); height:var(--cell); border:0.25mm solid var(--line-soft);
+       margin:-0.125mm 0 0 -0.125mm; display:flex; align-items:center; justify-content:center;
+       font-family:'Noto Serif KR',serif; font-size:var(--gs); line-height:1; overflow:hidden;
+       background-image:
+         linear-gradient(to bottom, transparent calc(50% - 0.06mm), var(--line-soft) calc(50% - 0.06mm),
+                         var(--line-soft) calc(50% + 0.06mm), transparent calc(50% + 0.06mm)),
+         linear-gradient(to right,  transparent calc(50% - 0.06mm), var(--line-soft) calc(50% - 0.06mm),
+                         var(--line-soft) calc(50% + 0.06mm), transparent calc(50% + 0.06mm)); }
+.cell.gap{ border-color:transparent; background-image:none; }
+.t-model{ color:var(--ink); }
+.t-trace{ color:#BFB6A6; }
+.t-out{ color:transparent; -webkit-text-stroke:0.22mm #BFB6A6; }
+.t-faint{ color:#E4DECF; }
+
+/* ---- covers ---- */
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-family:'JetBrains Mono',monospace; font-size:9pt; letter-spacing:.2em;
+                color:var(--sindoor); }
+.cover h1{ font-size:24pt; margin:4mm 0 2mm; font-weight:600; }
+.cover h1 .ko{ display:block; font-size:34pt; margin-bottom:3mm; }
+.cover .sub{ font-size:11pt; color:var(--faded); max-width:130mm; margin:0 auto 8mm;
+             line-height:1.8; }
+.rules{ max-width:140mm; margin:0 auto; text-align:left; }
+.rules h2{ font-size:11pt; color:var(--teal); margin:0 0 3mm; }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ font-size:10pt; line-height:1.85; margin-bottom:2.5mm; color:var(--faded); }
+.rules li b{ color:var(--ink); }
+.legend{ max-width:140mm; margin:8mm auto 0; text-align:left; }
+.legend h3{ font-size:10pt; color:var(--teal); margin:0 0 2mm; }
+.lg{ display:flex; gap:6mm; }
+.lg div{ font-size:8.5pt; color:var(--faded); text-align:center; }
+.lg .s{ display:block; font-size:13mm; line-height:1.1; font-family:'Noto Serif KR',serif; }
+.foot{ margin-top:12mm; font-family:'JetBrains Mono',monospace; font-size:8pt;
+       letter-spacing:.14em; color:var(--faded); }
+.pf{ display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace;
+     font-size:7.5pt; letter-spacing:.1em; color:#B9AE9B; margin-top:3mm;
+     border-top:0.3mm solid var(--line-soft); padding-top:1.5mm; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">খাতা ৫</div>
+  <h1><span class="ko">말</span>শব্দ ১</h1>
+  <p class="sub">সহজ শব্দ - ছোট, রোজকার, বেশির ভাগই এক বা দুই বাক্সের। প্রতিটি শব্দ পাঠে তুমি আগে দেখেছ।</p>
+  <div class="rules"><h2>লেখার আগে পাঁচটি কথা</h2><ol><li><b>একটি অক্ষর = একটি চৌকো বাক্স।</b> ভেতরে দুটি জামো থাক বা তিনটি, বাক্সের মাপ একই - ভেতরের টুকরোগুলোই চেপে বসে জায়গা করে নেয়। 가 আর 곰 কাগজে সমান জায়গা নেয়। তাই খাতার ঘরগুলো সব সমান মাপের।</li><li><b>টান উপর থেকে নিচে, বাঁ থেকে ডানে।</b> বাক্সের ভেতরেও সেই ক্রম - আগে প্রথম ব্যঞ্জন, তারপর স্বর, সবশেষে নিচের 받침। প্রতিটি জামোর ভেতরেও তাই: আগের দাগ উপরে বা বাঁয়ে, পরের দাগ নিচে বা ডানে।</li><li><b>মাত্রা নেই - হাত যেন টানতে না যায়।</b> বাংলায় অক্ষরের মাথায় যে রেখা তুমি টানো, হাঙ্গুলে তার কিছুই নেই; কোনো অক্ষর পাশের অক্ষরের সঙ্গে রেখায় জোড়া লাগে না। উপরের মোটা রেখা <b>মাত্রা নয়</b> - ওটা শুধু বাক্সের ছাদ।</li><li><b>সবচেয়ে বড় ভুল: জামো সারিতে লেখা।</b> ㄱㅗㅁ নয়, 곰। বাংলা অক্ষর একের পর এক ডানদিকে বসে; হাঙ্গুলের জামো বাক্সে জমা হয়, উপর-নিচ আর বাঁ-ডান দুই দিকেই। লেখার আগে মনে মনে চৌকোটা আঁকো, তারপর ভেতরে ভরো।</li><li><b>ধীরে, পেনসিলে।</b> দিনে এক পাতা যথেষ্ট। ধূসরের উপর দিয়ে টানার সময় চাপ কম রাখো, আর সারি শেষ করে বাক্সটা একবার জোরে পড়ো - চোখ আর মুখ একসঙ্গে শেখে।</li></ol></div>
+  <div class="legend"><h3>এই বইয়ে চার রকম লেখা</h3><div class="lg">
+      <div><span class="s ko t-model">말</span>নমুনা</div>
+      <div><span class="s ko t-trace">말</span>ধূসর - উপর দিয়ে</div>
+      <div><span class="s ko t-out">말</span>ফাঁপা - ভেতরটা ভরো</div>
+      <div><span class="s ko t-faint">말</span>ক্ষীণ - প্রায় একা</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>সর্বনাম ও নির্দেশক</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">১</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">저</span> &nbsp;=&nbsp; <b>আমি (নম্র)</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">저</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">저</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">나</span> &nbsp;=&nbsp; <b>আমি (সাধারণ)</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">나</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">나</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">우리</span> &nbsp;=&nbsp; <b>আমরা / আমাদের</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">우</span><span class="cell t-model">리</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">우</span><span class="cell t-trace">리</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">너</span> &nbsp;=&nbsp; <b>তুই</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">너</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">너</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>সর্বনাম ও নির্দেশক</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">২</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">이것</span> &nbsp;=&nbsp; <b>এটা</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">이</span><span class="cell t-model">것</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">이</span><span class="cell t-trace">것</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">그것</span> &nbsp;=&nbsp; <b>সেটা</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">그</span><span class="cell t-model">것</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">그</span><span class="cell t-trace">것</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">저것</span> &nbsp;=&nbsp; <b>ওটা</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">저</span><span class="cell t-model">것</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">저</span><span class="cell t-trace">것</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">누구</span> &nbsp;=&nbsp; <b>কে</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">누</span><span class="cell t-model">구</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">누</span><span class="cell t-trace">구</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>রোজকার বিশেষ্য</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">৩</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">집</span> &nbsp;=&nbsp; <b>বাড়ি</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">집</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">집</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">물</span> &nbsp;=&nbsp; <b>জল</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">물</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">물</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">밥</span> &nbsp;=&nbsp; <b>ভাত / খাবার</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">밥</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">밥</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">책</span> &nbsp;=&nbsp; <b>বই</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">책</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">책</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>রোজকার বিশেষ্য</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">৪</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">학교</span> &nbsp;=&nbsp; <b>স্কুল</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">학</span><span class="cell t-model">교</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">학</span><span class="cell t-trace">교</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">친구</span> &nbsp;=&nbsp; <b>বন্ধু</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">친</span><span class="cell t-model">구</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">친</span><span class="cell t-trace">구</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">이름</span> &nbsp;=&nbsp; <b>নাম</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">이</span><span class="cell t-model">름</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">이</span><span class="cell t-trace">름</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">사람</span> &nbsp;=&nbsp; <b>মানুষ / লোক</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">사</span><span class="cell t-model">람</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">사</span><span class="cell t-trace">람</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>রোজকার বিশেষ্য</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">৫</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">돈</span> &nbsp;=&nbsp; <b>টাকা-পয়সা</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">돈</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">돈</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">나라</span> &nbsp;=&nbsp; <b>দেশ</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">나</span><span class="cell t-model">라</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">나</span><span class="cell t-trace">라</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>খাবার ও পানীয়</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">৬</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">국</span> &nbsp;=&nbsp; <b>ঝোল / স্যুপ</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">국</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">국</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">고기</span> &nbsp;=&nbsp; <b>মাংস</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">고</span><span class="cell t-model">기</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">고</span><span class="cell t-trace">기</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">과일</span> &nbsp;=&nbsp; <b>ফল</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">과</span><span class="cell t-model">일</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">과</span><span class="cell t-trace">일</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">사과</span> &nbsp;=&nbsp; <b>আপেল</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">사</span><span class="cell t-model">과</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">사</span><span class="cell t-trace">과</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>খাবার ও পানীয়</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">৭</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">우유</span> &nbsp;=&nbsp; <b>দুধ</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">우</span><span class="cell t-model">유</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">우</span><span class="cell t-trace">유</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">차</span> &nbsp;=&nbsp; <b>চা</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">차</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">차</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">빵</span> &nbsp;=&nbsp; <b>পাউরুটি</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">빵</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">빵</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>শরীর</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">৮</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">머리</span> &nbsp;=&nbsp; <b>মাথা / চুল</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">머</span><span class="cell t-model">리</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">머</span><span class="cell t-trace">리</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">눈</span> &nbsp;=&nbsp; <b>চোখ (তুষারও)</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">눈</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">눈</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">코</span> &nbsp;=&nbsp; <b>নাক</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">코</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">코</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">입</span> &nbsp;=&nbsp; <b>মুখ</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">입</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">입</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>শরীর</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">৯</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">귀</span> &nbsp;=&nbsp; <b>কান</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">귀</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">귀</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">손</span> &nbsp;=&nbsp; <b>হাত</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">손</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">손</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">발</span> &nbsp;=&nbsp; <b>পা (পাতা)</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">발</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">발</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">배</span> &nbsp;=&nbsp; <b>পেট</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">배</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">배</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>পরিবার</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">১০</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">어머니</span> &nbsp;=&nbsp; <b>মা</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">어</span><span class="cell t-model">머</span><span class="cell t-model">니</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">어</span><span class="cell t-trace">머</span><span class="cell t-trace">니</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">아버지</span> &nbsp;=&nbsp; <b>বাবা</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">아</span><span class="cell t-model">버</span><span class="cell t-model">지</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">아</span><span class="cell t-trace">버</span><span class="cell t-trace">지</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">언니</span> &nbsp;=&nbsp; <b>দিদি (মেয়ে বলছে)</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">언</span><span class="cell t-model">니</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">언</span><span class="cell t-trace">니</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">오빠</span> &nbsp;=&nbsp; <b>দাদা (মেয়ে বলছে)</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">오</span><span class="cell t-model">빠</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">오</span><span class="cell t-trace">빠</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>পরিবার</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">১১</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">형</span> &nbsp;=&nbsp; <b>দাদা (ছেলে বলছে)</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">형</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">형</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">누나</span> &nbsp;=&nbsp; <b>দিদি (ছেলে বলছে)</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">누</span><span class="cell t-model">나</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">누</span><span class="cell t-trace">나</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">동생</span> &nbsp;=&nbsp; <b>ছোট ভাই / ছোট বোন</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">동</span><span class="cell t-model">생</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">동</span><span class="cell t-trace">생</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">가족</span> &nbsp;=&nbsp; <b>পরিবার</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">가</span><span class="cell t-model">족</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">가</span><span class="cell t-trace">족</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>দেশি সংখ্যা - গোনার জন্য</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">১২</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">하나</span> &nbsp;=&nbsp; <b>এক</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">하</span><span class="cell t-model">나</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">하</span><span class="cell t-trace">나</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">둘</span> &nbsp;=&nbsp; <b>দুই</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">둘</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">둘</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">셋</span> &nbsp;=&nbsp; <b>তিন</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">셋</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">셋</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">넷</span> &nbsp;=&nbsp; <b>চার</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">넷</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">넷</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>দেশি সংখ্যা - গোনার জন্য</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">১৩</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">다섯</span> &nbsp;=&nbsp; <b>পাঁচ</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">다</span><span class="cell t-model">섯</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">다</span><span class="cell t-trace">섯</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">여섯</span> &nbsp;=&nbsp; <b>ছয়</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">여</span><span class="cell t-model">섯</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">여</span><span class="cell t-trace">섯</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">일곱</span> &nbsp;=&nbsp; <b>সাত</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">일</span><span class="cell t-model">곱</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">일</span><span class="cell t-trace">곱</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">여덟</span> &nbsp;=&nbsp; <b>আট</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">여</span><span class="cell t-model">덟</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">여</span><span class="cell t-trace">덟</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>দেশি সংখ্যা - গোনার জন্য</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">১৪</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">아홉</span> &nbsp;=&nbsp; <b>নয়</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">아</span><span class="cell t-model">홉</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">아</span><span class="cell t-trace">홉</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">열</span> &nbsp;=&nbsp; <b>দশ</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">열</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">열</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>সময়</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">১৫</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">오늘</span> &nbsp;=&nbsp; <b>আজ</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">오</span><span class="cell t-model">늘</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">오</span><span class="cell t-trace">늘</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">어제</span> &nbsp;=&nbsp; <b>গতকাল</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">어</span><span class="cell t-model">제</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">어</span><span class="cell t-trace">제</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">내일</span> &nbsp;=&nbsp; <b>আগামীকাল</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">내</span><span class="cell t-model">일</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">내</span><span class="cell t-trace">일</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">지금</span> &nbsp;=&nbsp; <b>এখন</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">지</span><span class="cell t-model">금</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">지</span><span class="cell t-trace">금</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:15pt"><b>সময়</b></div>
+      <div class="ex">প্রথম দুটি দেওয়া আছে - নমুনা আর ধূসর। তারপর সারির বাকিটা তোমার।</div></div></div>
+    <div class="ph-r"><div class="grp">প্রতিটি বাক্স সমান মাপের - ভেতরে যা-ই থাকুক।</div>
+      <div class="num">১৬</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="ko" style="font-size:12pt">아침</span> &nbsp;=&nbsp; <b>সকাল</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">아</span><span class="cell t-model">침</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">아</span><span class="cell t-trace">침</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">점심</span> &nbsp;=&nbsp; <b>দুপুর</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">점</span><span class="cell t-model">심</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">점</span><span class="cell t-trace">심</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">저녁</span> &nbsp;=&nbsp; <b>সন্ধ্যা</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">저</span><span class="cell t-model">녁</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">저</span><span class="cell t-trace">녁</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span><span class="cell "></span></div><div class="rowlabel"><span><span class="ko" style="font-size:12pt">밤</span> &nbsp;=&nbsp; <b>রাত</b></span><span>নমুনা</span></div><div class="grid w"><span class="cell t-model">밤</span></div><div class="rowlabel"><span></span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div><div class="grid w"><span class="cell t-trace">밤</span></div><div class="rowlabel"><span></span><span>নিজে লেখো</span></div><div class="grid w"><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৫ · শব্দ ১</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৬</span></div>
+</div>
+</body>
+</html>

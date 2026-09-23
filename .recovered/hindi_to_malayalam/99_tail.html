@@ -1,0 +1,159 @@
+<div class="progress">
+  <button id="prevBtn" disabled>← पिछला</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn" data-next="अगला →" data-last="समाप्त">अगला →</button>
+</div>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span class="ml" lang="ml">മലയാളം പഠിക്കാം</span>
+    बारहखड़ी की पद्धति पर एक प्राइमर · यत्न से बना · २०२६<br/>
+    एक समय में एक ही अनजानी चीज़ · आकार पहले अर्थ बाद में · सूची नहीं व्यवस्था<br/>
+    <span style="display:inline-block;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sindoor);">made by Nil <span class="sep">·</span> using Claude</span>
+  </div>
+</footer>
+
+</div>
+</main>
+
+<script>
+/* STAGE ROUTER - hash routing, saved stage, saved self-check completion, resume hint, tab scroll, keyboard arrows */
+(function () {
+  const root = document.documentElement;
+  const PAIR = root.dataset.pair || 'course';
+  const KEY_STAGE = 'bhashasetu:' + PAIR + ':stage';
+  const KEY_DONE = 'bhashasetu:' + PAIR + ':done';
+  const tabs = Array.from(document.querySelectorAll('.stage-tab'));
+  const sections = Array.from(document.querySelectorAll('section.stage'));
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  const scrollWrap = document.getElementById('stageScroll');
+  const total = sections.length;
+  const NEXT = nextBtn.dataset.next || nextBtn.textContent;
+  const LAST = nextBtn.dataset.last || NEXT;
+  let current = 0;
+
+  function load(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
+  function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  const done = new Set(load(KEY_DONE, []));
+  const pad = n => String(n).padStart(2, '0');
+  const fromHash = () => { const m = location.hash.match(/^#s(\d{1,2})$/); return m ? parseInt(m[1], 10) : null; };
+
+  for (let i = 0; i < total; i++) { const d = document.createElement('span'); d.className = 'dot'; dotsWrap.appendChild(d); }
+  const dots = dotsWrap.querySelectorAll('.dot');
+  function paintDots() { dots.forEach((d, i) => { d.classList.toggle('done', done.has(i)); d.classList.toggle('current', i === current); }); }
+
+  function show(idx, opts) {
+    opts = opts || {};
+    current = Math.max(0, Math.min(total - 1, idx));
+    tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+    sections.forEach((s, i) => s.classList.toggle('active', i === current));
+    paintDots();
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    nextBtn.textContent = current === total - 1 ? LAST : NEXT;
+    if (!opts.silent) history.replaceState(null, '', '#s' + pad(current));
+    save(KEY_STAGE, current);
+    const t = tabs[current];
+    if (t && scrollWrap) scrollWrap.scrollTo({ left: t.offsetLeft - scrollWrap.clientWidth / 2 + t.offsetWidth / 2, behavior: 'smooth' });
+    if (!opts.keepScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  prevBtn.addEventListener('click', () => show(current - 1));
+  nextBtn.addEventListener('click', () => show(current + 1));
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input, textarea, button')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
+  });
+  window.addEventListener('hashchange', () => { const h = fromHash(); if (h != null && h !== current) show(h, { silent: true }); });
+  document.addEventListener('bhashasetu:checkdone', e => { done.add(e.detail.stage); save(KEY_DONE, Array.from(done)); paintDots(); });
+
+  document.querySelectorAll('.map-cell').forEach(card => {
+    const hint = card.querySelector('.hint');
+    if (card.dataset.hint && hint && !hint.textContent.trim()) hint.textContent = card.dataset.hint;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('expanded'); } });
+  });
+
+  const saved = load(KEY_STAGE, 0);
+  const hint = document.getElementById('resumeHint');
+  const h = fromHash();
+  if (hint && h == null && saved > 0 && saved < total) {
+    hint.hidden = false;
+    const n = hint.querySelector('[data-n]'); const num = tabs[saved] && tabs[saved].querySelector('.num');
+    if (n) n.textContent = num ? num.textContent : String(saved);
+    const a = hint.querySelector('a'); if (a) a.href = '#s' + pad(saved);
+  }
+  show(h != null ? h : 0, { silent: true, keepScroll: true });
+})();
+
+/* SELF-CHECK */
+(function () {
+  const PAIR = document.documentElement.dataset.pair || 'course';
+  let doneList = []; try { doneList = JSON.parse(localStorage.getItem('bhashasetu:' + PAIR + ':done') || '[]'); } catch (e) {}
+  document.querySelectorAll('.check').forEach(box => {
+    const stage = parseInt(box.dataset.check, 10);
+    box.querySelectorAll('.q-reveal .q-btn').forEach(b => b.addEventListener('click', () => b.closest('.q').classList.add('open')));
+    box.querySelectorAll('.q-choice').forEach(q => {
+      const fb = q.querySelector('.q-feedback');
+      q.querySelectorAll('.q-opt').forEach(o => o.addEventListener('click', () => {
+        const ok = o.dataset.opt === q.dataset.answer;
+        q.classList.remove('ok', 'no'); q.classList.add(ok ? 'ok' : 'no');
+        q.querySelectorAll('.q-opt').forEach(x => x.classList.toggle('picked', x === o));
+        if (fb) fb.textContent = ok ? (fb.dataset.ok || '✓') : (fb.dataset.no || '✗');
+      }));
+    });
+    box.querySelectorAll('.q-gap').forEach(q => {
+      const b = q.querySelector('.q-btn');
+      b.addEventListener('click', () => { q.querySelectorAll('.gap').forEach(g => { g.textContent = g.dataset.answer; }); q.classList.add('open'); });
+    });
+    const doneBtn = box.querySelector('.check-done');
+    function markDone() { box.classList.add('done'); if (doneBtn) doneBtn.disabled = true; }
+    if (doneBtn) doneBtn.addEventListener('click', () => { markDone(); document.dispatchEvent(new CustomEvent('bhashasetu:checkdone', { detail: { stage } })); });
+    if (doneList.includes(stage)) markDone();
+  });
+})();
+
+/* SPEAK BUTTONS */
+(function () {
+  const root = document.documentElement;
+  const LANG = root.dataset.target || root.lang || 'ml-IN';
+  const LABEL = root.dataset.speakLabel || '🔊';
+  const els = Array.from(document.querySelectorAll('[data-say]'));
+  if (!els.length) return;
+  let voice = null, built = false;
+  function pick() {
+    if (!('speechSynthesis' in window)) return;
+    const vs = speechSynthesis.getVoices();
+    voice = vs.find(v => v.lang === LANG) || vs.find(v => v.lang.replace('_', '-').split('-')[0] === LANG.split('-')[0]) || null;
+  }
+  function say(el) {
+    const clip = el.dataset.audio;
+    if (clip) { new Audio(clip).play().catch(() => {}); return; }
+    if (!('speechSynthesis' in window)) return;
+    try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(el.dataset.say); u.lang = LANG; if (voice) u.voice = voice; u.rate = 0.85; speechSynthesis.speak(u); } catch (e) {}
+  }
+  function build() {
+    els.forEach(el => {
+      if (el.querySelector(':scope > .say-btn')) return;
+      if (!el.dataset.audio && !voice) return;
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'say-btn'; b.textContent = '🔊';
+      b.setAttribute('aria-label', LABEL); b.title = LABEL;
+      b.addEventListener('click', e => { e.stopPropagation(); say(el); });
+      b.addEventListener('keydown', e => e.stopPropagation());
+      el.appendChild(b);
+    });
+    built = true; root.classList.add('has-audio');
+  }
+  function maybeBuild() { pick(); if (!built && (voice || els.some(e => e.dataset.audio))) build(); }
+  if ('speechSynthesis' in window) speechSynthesis.addEventListener('voiceschanged', maybeBuild);
+  maybeBuild(); setTimeout(maybeBuild, 600);
+})();
+</script>
+
+</body>
+</html>

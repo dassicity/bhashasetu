@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<title>받침 - নিচের খোপ - বাংলা থেকে কোরিয়ান</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --cell: 15mm;             /* one syllable square, letter books */
+  --gs:   12.50mm;             /* block size, derived so the glyph fills FILL of the cell */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da; --paper:#FDFBF6;
+}
+@page{ size:A4; margin:12mm 10mm; }
+*{ box-sizing:border-box; }
+body{ font-family:'Noto Serif Bengali',serif; color:var(--ink); font-size:10pt; margin:0;
+      background:var(--paper); }
+.sheet{ page-break-after:always; break-after:page; padding:0 2mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+.ko{ font-family:'Noto Serif KR',serif; }
+
+/* ---- page head ---- */
+.ph{ display:flex; justify-content:space-between; align-items:flex-start;
+     border-bottom:0.4mm solid var(--line-soft); padding-bottom:2.5mm; margin-bottom:4mm; }
+.ph-l{ display:flex; gap:6mm; align-items:flex-start; }
+.big{ font-size:26mm; line-height:1; font-family:'Noto Serif KR',serif; }
+.meta{ padding-top:2mm; }
+.meta .eq{ font-size:13pt; }
+.meta .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--faded);
+           letter-spacing:.08em; margin-top:1mm; }
+.meta .ex{ font-size:10pt; color:var(--faded); margin-top:1.5mm; }
+.ph-r{ text-align:right; }
+.grp{ font-size:9pt; color:var(--teal); max-width:60mm; }
+.num{ font-size:14pt; color:var(--faded); margin-top:1mm; }
+.note{ font-size:9.5pt; color:var(--faded); background:#F4F1EA; border-left:1mm solid var(--ochre);
+       padding:2mm 3mm; margin:0 0 3.5mm; line-height:1.6; }
+
+/* ---- the grid: one syllable per square, with the faint cross-hairs of practice paper ---- */
+.rowlabel{ display:flex; justify-content:space-between; font-size:8.5pt; color:var(--faded);
+           margin:0 0 1mm; }
+.grid{ display:flex; flex-wrap:wrap; gap:0; margin-bottom:3.5mm; }
+/* Word and sentence rows stack three grids per item, so they get a tighter square. */
+.grid.w{ --cell:12mm; --gs:10.00mm; margin-bottom:0; }
+.grid.s{ --cell:11mm; --gs:9.17mm; margin-bottom:0; }
+.grid.w:last-of-type, .grid.s:last-of-type{ margin-bottom:3mm; }
+.cell{ width:var(--cell); height:var(--cell); border:0.25mm solid var(--line-soft);
+       margin:-0.125mm 0 0 -0.125mm; display:flex; align-items:center; justify-content:center;
+       font-family:'Noto Serif KR',serif; font-size:var(--gs); line-height:1; overflow:hidden;
+       background-image:
+         linear-gradient(to bottom, transparent calc(50% - 0.06mm), var(--line-soft) calc(50% - 0.06mm),
+                         var(--line-soft) calc(50% + 0.06mm), transparent calc(50% + 0.06mm)),
+         linear-gradient(to right,  transparent calc(50% - 0.06mm), var(--line-soft) calc(50% - 0.06mm),
+                         var(--line-soft) calc(50% + 0.06mm), transparent calc(50% + 0.06mm)); }
+.cell.gap{ border-color:transparent; background-image:none; }
+.t-model{ color:var(--ink); }
+.t-trace{ color:#BFB6A6; }
+.t-out{ color:transparent; -webkit-text-stroke:0.22mm #BFB6A6; }
+.t-faint{ color:#E4DECF; }
+
+/* ---- covers ---- */
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-family:'JetBrains Mono',monospace; font-size:9pt; letter-spacing:.2em;
+                color:var(--sindoor); }
+.cover h1{ font-size:24pt; margin:4mm 0 2mm; font-weight:600; }
+.cover h1 .ko{ display:block; font-size:34pt; margin-bottom:3mm; }
+.cover .sub{ font-size:11pt; color:var(--faded); max-width:130mm; margin:0 auto 8mm;
+             line-height:1.8; }
+.rules{ max-width:140mm; margin:0 auto; text-align:left; }
+.rules h2{ font-size:11pt; color:var(--teal); margin:0 0 3mm; }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ font-size:10pt; line-height:1.85; margin-bottom:2.5mm; color:var(--faded); }
+.rules li b{ color:var(--ink); }
+.legend{ max-width:140mm; margin:8mm auto 0; text-align:left; }
+.legend h3{ font-size:10pt; color:var(--teal); margin:0 0 2mm; }
+.lg{ display:flex; gap:6mm; }
+.lg div{ font-size:8.5pt; color:var(--faded); text-align:center; }
+.lg .s{ display:block; font-size:13mm; line-height:1.1; font-family:'Noto Serif KR',serif; }
+.foot{ margin-top:12mm; font-family:'JetBrains Mono',monospace; font-size:8pt;
+       letter-spacing:.14em; color:var(--faded); }
+.pf{ display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace;
+     font-size:7.5pt; letter-spacing:.1em; color:#B9AE9B; margin-top:3mm;
+     border-top:0.3mm solid var(--line-soft); padding-top:1.5mm; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">খাতা ৪</div>
+  <h1><span class="ko">받침</span>받침 - নিচের খোপ</h1>
+  <p class="sub">বাক্সের তৃতীয় খোপ, একেবারে নিচে - এইটুকুই বাংলায় নেই। নিচে যে কোনো ব্যঞ্জন লেখা যায়, এমনকি দুটো পাশাপাশি, কিন্তু মুখে বেরোয় মাত্র সাতটি ধ্বনি। তাই এই খাতায় প্রতিটি সারিতে দুটো জিনিস: কী লেখো, আর কী শোনো। সংযোগ আর নাসিক্যীভবনও এখানেই।</p>
+  <div class="rules"><h2>লেখার আগে পাঁচটি কথা</h2><ol><li><b>একটি অক্ষর = একটি চৌকো বাক্স।</b> ভেতরে দুটি জামো থাক বা তিনটি, বাক্সের মাপ একই - ভেতরের টুকরোগুলোই চেপে বসে জায়গা করে নেয়। 가 আর 곰 কাগজে সমান জায়গা নেয়। তাই খাতার ঘরগুলো সব সমান মাপের।</li><li><b>টান উপর থেকে নিচে, বাঁ থেকে ডানে।</b> বাক্সের ভেতরেও সেই ক্রম - আগে প্রথম ব্যঞ্জন, তারপর স্বর, সবশেষে নিচের 받침। প্রতিটি জামোর ভেতরেও তাই: আগের দাগ উপরে বা বাঁয়ে, পরের দাগ নিচে বা ডানে।</li><li><b>মাত্রা নেই - হাত যেন টানতে না যায়।</b> বাংলায় অক্ষরের মাথায় যে রেখা তুমি টানো, হাঙ্গুলে তার কিছুই নেই; কোনো অক্ষর পাশের অক্ষরের সঙ্গে রেখায় জোড়া লাগে না। উপরের মোটা রেখা <b>মাত্রা নয়</b> - ওটা শুধু বাক্সের ছাদ।</li><li><b>সবচেয়ে বড় ভুল: জামো সারিতে লেখা।</b> ㄱㅗㅁ নয়, 곰। বাংলা অক্ষর একের পর এক ডানদিকে বসে; হাঙ্গুলের জামো বাক্সে জমা হয়, উপর-নিচ আর বাঁ-ডান দুই দিকেই। লেখার আগে মনে মনে চৌকোটা আঁকো, তারপর ভেতরে ভরো।</li><li><b>ধীরে, পেনসিলে।</b> দিনে এক পাতা যথেষ্ট। ধূসরের উপর দিয়ে টানার সময় চাপ কম রাখো, আর সারি শেষ করে বাক্সটা একবার জোরে পড়ো - চোখ আর মুখ একসঙ্গে শেখে।</li></ol></div>
+  <div class="legend"><h3>এই বইয়ে চার রকম লেখা</h3><div class="lg">
+      <div><span class="s ko t-model">받</span>নমুনা</div>
+      <div><span class="s ko t-trace">받</span>ধূসর - উপর দিয়ে</div>
+      <div><span class="s ko t-out">받</span>ফাঁপা - ভেতরটা ভরো</div>
+      <div><span class="s ko t-faint">받</span>ক্ষীণ - প্রায় একা</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">국</div>
+      <div class="meta"><div class="eq">= <b>কুক্</b></div><div class="tr">guk</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㄱ + ㅜ + ㄱ</span></div>
+        <div class="ex"><span class="ko">국</span> &middot; ঝোল / স্যুপ</div></div></div>
+    <div class="ph-r"><div class="grp">সাতটি শেষ-ধ্বনি - নিচের খোপে একটি জামো</div><div class="num">১</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচের ㄱ = ক্, ছাড়া হয় না। ㅋ আর ㄲ নিচে বসলেও একই ক্।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">국</span><span class="cell t-trace">국</span><span class="cell t-trace">국</span><span class="cell t-trace">국</span><span class="cell t-trace">국</span><span class="cell t-trace">국</span><span class="cell t-trace">국</span><span class="cell t-trace">국</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">국</span><span class="cell t-out">국</span><span class="cell t-out">국</span><span class="cell t-out">국</span><span class="cell t-out">국</span><span class="cell t-out">국</span><span class="cell t-out">국</span><span class="cell t-out">국</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">국</span><span class="cell t-faint">국</span><span class="cell t-faint">국</span><span class="cell t-faint">국</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">산</div>
+      <div class="meta"><div class="eq">= <b>সান</b></div><div class="tr">san</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅅ + ㅏ + ㄴ</span></div>
+        <div class="ex"><span class="ko">산</span> &middot; পাহাড়</div></div></div>
+    <div class="ph-r"><div class="grp">সাতটি শেষ-ধ্বনি - নিচের খোপে একটি জামো</div><div class="num">২</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচের ㄴ = ন। বাক্স এখন তিন তলা: ㅅ বাঁয়ে, ㅏ ডানে, ㄴ নিচে পুরো চওড়ায়।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">산</span><span class="cell t-trace">산</span><span class="cell t-trace">산</span><span class="cell t-trace">산</span><span class="cell t-trace">산</span><span class="cell t-trace">산</span><span class="cell t-trace">산</span><span class="cell t-trace">산</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">산</span><span class="cell t-out">산</span><span class="cell t-out">산</span><span class="cell t-out">산</span><span class="cell t-out">산</span><span class="cell t-out">산</span><span class="cell t-out">산</span><span class="cell t-out">산</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">산</span><span class="cell t-faint">산</span><span class="cell t-faint">산</span><span class="cell t-faint">산</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">옷</div>
+      <div class="meta"><div class="eq">= <b>ওত্</b></div><div class="tr">ot</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅇ + ㅗ + ㅅ</span></div>
+        <div class="ex"><span class="ko">옷</span> &middot; কাপড়</div></div></div>
+    <div class="ph-r"><div class="grp">সাতটি শেষ-ধ্বনি - নিচের খোপে একটি জামো</div><div class="num">৩</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; লেখা ㅅ, শোনা ত্। তিনটে জামোই শোয়ানো তাকে তাকে বসে।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">옷</span><span class="cell t-trace">옷</span><span class="cell t-trace">옷</span><span class="cell t-trace">옷</span><span class="cell t-trace">옷</span><span class="cell t-trace">옷</span><span class="cell t-trace">옷</span><span class="cell t-trace">옷</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">옷</span><span class="cell t-out">옷</span><span class="cell t-out">옷</span><span class="cell t-out">옷</span><span class="cell t-out">옷</span><span class="cell t-out">옷</span><span class="cell t-out">옷</span><span class="cell t-out">옷</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">옷</span><span class="cell t-faint">옷</span><span class="cell t-faint">옷</span><span class="cell t-faint">옷</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">물</div>
+      <div class="meta"><div class="eq">= <b>মুল</b></div><div class="tr">mul</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅁ + ㅜ + ㄹ</span></div>
+        <div class="ex"><span class="ko">물</span> &middot; জল</div></div></div>
+    <div class="ph-r"><div class="grp">সাতটি শেষ-ধ্বনি - নিচের খোপে একটি জামো</div><div class="num">৪</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচের ㄹ = ল, র নয়। তিন তলার বাক্স, ㄹ সবচেয়ে চ্যাপ্টা।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">물</span><span class="cell t-trace">물</span><span class="cell t-trace">물</span><span class="cell t-trace">물</span><span class="cell t-trace">물</span><span class="cell t-trace">물</span><span class="cell t-trace">물</span><span class="cell t-trace">물</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">물</span><span class="cell t-out">물</span><span class="cell t-out">물</span><span class="cell t-out">물</span><span class="cell t-out">물</span><span class="cell t-out">물</span><span class="cell t-out">물</span><span class="cell t-out">물</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">물</span><span class="cell t-faint">물</span><span class="cell t-faint">물</span><span class="cell t-faint">물</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">김</div>
+      <div class="meta"><div class="eq">= <b>কিম</b></div><div class="tr">gim</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㄱ + ㅣ + ㅁ</span></div>
+        <div class="ex"><span class="ko">김</span> &middot; সমুদ্র-শৈবাল / কিম পদবি</div></div></div>
+    <div class="ph-r"><div class="grp">সাতটি শেষ-ধ্বনি - নিচের খোপে একটি জামো</div><div class="num">৫</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচের ㅁ = ম। উপরের ㄱ আর ㅣ পাশাপাশি, ㅁ তাদের নিচে।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">김</span><span class="cell t-trace">김</span><span class="cell t-trace">김</span><span class="cell t-trace">김</span><span class="cell t-trace">김</span><span class="cell t-trace">김</span><span class="cell t-trace">김</span><span class="cell t-trace">김</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">김</span><span class="cell t-out">김</span><span class="cell t-out">김</span><span class="cell t-out">김</span><span class="cell t-out">김</span><span class="cell t-out">김</span><span class="cell t-out">김</span><span class="cell t-out">김</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">김</span><span class="cell t-faint">김</span><span class="cell t-faint">김</span><span class="cell t-faint">김</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">밥</div>
+      <div class="meta"><div class="eq">= <b>বাপ্</b></div><div class="tr">bap</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅂ + ㅏ + ㅂ</span></div>
+        <div class="ex"><span class="ko">밥</span> &middot; ভাত / খাবার</div></div></div>
+    <div class="ph-r"><div class="grp">সাতটি শেষ-ধ্বনি - নিচের খোপে একটি জামো</div><div class="num">৬</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; একই ㅂ উপরে আর নিচে - উপরেরটা লম্বা, নিচেরটা চ্যাপ্টা। ㅍ নিচে বসলেও প্।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">밥</span><span class="cell t-trace">밥</span><span class="cell t-trace">밥</span><span class="cell t-trace">밥</span><span class="cell t-trace">밥</span><span class="cell t-trace">밥</span><span class="cell t-trace">밥</span><span class="cell t-trace">밥</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">밥</span><span class="cell t-out">밥</span><span class="cell t-out">밥</span><span class="cell t-out">밥</span><span class="cell t-out">밥</span><span class="cell t-out">밥</span><span class="cell t-out">밥</span><span class="cell t-out">밥</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">밥</span><span class="cell t-faint">밥</span><span class="cell t-faint">밥</span><span class="cell t-faint">밥</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">강</div>
+      <div class="meta"><div class="eq">= <b>কাং</b></div><div class="tr">gang</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㄱ + ㅏ + ㅇ</span></div>
+        <div class="ex"><span class="ko">강</span> &middot; নদী</div></div></div>
+    <div class="ph-r"><div class="grp">সাতটি শেষ-ধ্বনি - নিচের খোপে একটি জামো</div><div class="num">৭</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; উপরে ㅇ নীরব, নিচে ㅇ = ং। গোলটা চ্যাপ্টা করে নিচের খোপে ভরো।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">강</span><span class="cell t-trace">강</span><span class="cell t-trace">강</span><span class="cell t-trace">강</span><span class="cell t-trace">강</span><span class="cell t-trace">강</span><span class="cell t-trace">강</span><span class="cell t-trace">강</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">강</span><span class="cell t-out">강</span><span class="cell t-out">강</span><span class="cell t-out">강</span><span class="cell t-out">강</span><span class="cell t-out">강</span><span class="cell t-out">강</span><span class="cell t-out">강</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">강</span><span class="cell t-faint">강</span><span class="cell t-faint">강</span><span class="cell t-faint">강</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">꽃</div>
+      <div class="meta"><div class="eq">= <b>ক্কোত্</b></div><div class="tr">kkot</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㄲ + ㅗ + ㅊ</span></div>
+        <div class="ex"><span class="ko">꽃</span> &middot; ফুল</div></div></div>
+    <div class="ph-r"><div class="grp">একই ধ্বনি, অন্য জামো - বানান শিকড় মনে রাখে</div><div class="num">৮</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; লেখা ㅊ, শোনা ত্। স্বর পেলে আসল ছ ফেরে - তাই বানানে ㅊ থাকে।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">꽃</span><span class="cell t-trace">꽃</span><span class="cell t-trace">꽃</span><span class="cell t-trace">꽃</span><span class="cell t-trace">꽃</span><span class="cell t-trace">꽃</span><span class="cell t-trace">꽃</span><span class="cell t-trace">꽃</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">꽃</span><span class="cell t-out">꽃</span><span class="cell t-out">꽃</span><span class="cell t-out">꽃</span><span class="cell t-out">꽃</span><span class="cell t-out">꽃</span><span class="cell t-out">꽃</span><span class="cell t-out">꽃</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">꽃</span><span class="cell t-faint">꽃</span><span class="cell t-faint">꽃</span><span class="cell t-faint">꽃</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">몇</div>
+      <div class="meta"><div class="eq">= <b>মিয়অত্</b></div><div class="tr">myeot</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅁ + ㅕ + ㅊ</span></div>
+        <div class="ex"><span class="ko">몇</span> &middot; কয়(টা) - গণকের আগে</div></div></div>
+    <div class="ph-r"><div class="grp">একই ধ্বনি, অন্য জামো - বানান শিকড় মনে রাখে</div><div class="num">৯</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচে ㅊ, মুখে ত্।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">몇</span><span class="cell t-trace">몇</span><span class="cell t-trace">몇</span><span class="cell t-trace">몇</span><span class="cell t-trace">몇</span><span class="cell t-trace">몇</span><span class="cell t-trace">몇</span><span class="cell t-trace">몇</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">몇</span><span class="cell t-out">몇</span><span class="cell t-out">몇</span><span class="cell t-out">몇</span><span class="cell t-out">몇</span><span class="cell t-out">몇</span><span class="cell t-out">몇</span><span class="cell t-out">몇</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">몇</span><span class="cell t-faint">몇</span><span class="cell t-faint">몇</span><span class="cell t-faint">몇</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">못</div>
+      <div class="meta"><div class="eq">= <b>মোত্</b></div><div class="tr">mot</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅁ + ㅗ + ㅅ</span></div>
+        <div class="ex"><span class="ko">못</span> &middot; পারি না (ক্রিয়ার আগে)</div></div></div>
+    <div class="ph-r"><div class="grp">একই ধ্বনি, অন্য জামো - বানান শিকড় মনে রাখে</div><div class="num">১০</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচে ㅅ, মুখে ত্।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">못</span><span class="cell t-trace">못</span><span class="cell t-trace">못</span><span class="cell t-trace">못</span><span class="cell t-trace">못</span><span class="cell t-trace">못</span><span class="cell t-trace">못</span><span class="cell t-trace">못</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">못</span><span class="cell t-out">못</span><span class="cell t-out">못</span><span class="cell t-out">못</span><span class="cell t-out">못</span><span class="cell t-out">못</span><span class="cell t-out">못</span><span class="cell t-out">못</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">못</span><span class="cell t-faint">못</span><span class="cell t-faint">못</span><span class="cell t-faint">못</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">있</div>
+      <div class="meta"><div class="eq">= <b>ইত্</b></div><div class="tr">it</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅇ + ㅣ + ㅆ</span></div>
+        <div class="ex"><span class="ko">있어요</span> &middot; আছে</div></div></div>
+    <div class="ph-r"><div class="grp">একই ধ্বনি, অন্য জামো - বানান শিকড় মনে রাখে</div><div class="num">১১</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচে টান-জামো ㅆ, একা থাকলে ত্। স্বর পেলে ইস্‌সঅ।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">있</span><span class="cell t-trace">있</span><span class="cell t-trace">있</span><span class="cell t-trace">있</span><span class="cell t-trace">있</span><span class="cell t-trace">있</span><span class="cell t-trace">있</span><span class="cell t-trace">있</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">있</span><span class="cell t-out">있</span><span class="cell t-out">있</span><span class="cell t-out">있</span><span class="cell t-out">있</span><span class="cell t-out">있</span><span class="cell t-out">있</span><span class="cell t-out">있</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">있</span><span class="cell t-faint">있</span><span class="cell t-faint">있</span><span class="cell t-faint">있</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">좋</div>
+      <div class="meta"><div class="eq">= <b>চোত্</b></div><div class="tr">jot</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅈ + ㅗ + ㅎ</span></div>
+        <div class="ex"><span class="ko">좋아해요</span> &middot; পছন্দ করি</div></div></div>
+    <div class="ph-r"><div class="grp">একই ধ্বনি, অন্য জামো - বানান শিকড় মনে রাখে</div><div class="num">১২</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচে ㅎ, একা থাকলে ত্। স্বর পেলে প্রায় মিলিয়ে যায়: চোআহেয়ো।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">좋</span><span class="cell t-trace">좋</span><span class="cell t-trace">좋</span><span class="cell t-trace">좋</span><span class="cell t-trace">좋</span><span class="cell t-trace">좋</span><span class="cell t-trace">좋</span><span class="cell t-trace">좋</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">좋</span><span class="cell t-out">좋</span><span class="cell t-out">좋</span><span class="cell t-out">좋</span><span class="cell t-out">좋</span><span class="cell t-out">좋</span><span class="cell t-out">좋</span><span class="cell t-out">좋</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">좋</span><span class="cell t-faint">좋</span><span class="cell t-faint">좋</span><span class="cell t-faint">좋</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">없</div>
+      <div class="meta"><div class="eq">= <b>অপ্</b></div><div class="tr">eop</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅇ + ㅓ + ㅂㅅ</span></div>
+        <div class="ex"><span class="ko">없어요</span> &middot; নেই</div></div></div>
+    <div class="ph-r"><div class="grp">জোড়া 받침 - নিচে দুটি জামো, শোনা যায় একটি</div><div class="num">১৩</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচে দুটো জামো পাশাপাশি - ㅂ আর ㅅ - দুটোই খুব সরু। একা থাকলে শোনা যায় শুধু প্।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">없</span><span class="cell t-trace">없</span><span class="cell t-trace">없</span><span class="cell t-trace">없</span><span class="cell t-trace">없</span><span class="cell t-trace">없</span><span class="cell t-trace">없</span><span class="cell t-trace">없</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">없</span><span class="cell t-out">없</span><span class="cell t-out">없</span><span class="cell t-out">없</span><span class="cell t-out">없</span><span class="cell t-out">없</span><span class="cell t-out">없</span><span class="cell t-out">없</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">없</span><span class="cell t-faint">없</span><span class="cell t-faint">없</span><span class="cell t-faint">없</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">읽</div>
+      <div class="meta"><div class="eq">= <b>ইক্</b></div><div class="tr">ik</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅇ + ㅣ + ㄹㄱ</span></div>
+        <div class="ex"><span class="ko">읽어요</span> &middot; পড়ি</div></div></div>
+    <div class="ph-r"><div class="grp">জোড়া 받침 - নিচে দুটি জামো, শোনা যায় একটি</div><div class="num">১৪</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচে ㄹ আর ㄱ। একা থাকলে ক্, স্বর পেলে দুটোই শোনা যায়: ইলগঅয়ো।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">읽</span><span class="cell t-trace">읽</span><span class="cell t-trace">읽</span><span class="cell t-trace">읽</span><span class="cell t-trace">읽</span><span class="cell t-trace">읽</span><span class="cell t-trace">읽</span><span class="cell t-trace">읽</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">읽</span><span class="cell t-out">읽</span><span class="cell t-out">읽</span><span class="cell t-out">읽</span><span class="cell t-out">읽</span><span class="cell t-out">읽</span><span class="cell t-out">읽</span><span class="cell t-out">읽</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">읽</span><span class="cell t-faint">읽</span><span class="cell t-faint">읽</span><span class="cell t-faint">읽</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">앉</div>
+      <div class="meta"><div class="eq">= <b>আন</b></div><div class="tr">an</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅇ + ㅏ + ㄴㅈ</span></div>
+        <div class="ex"><span class="ko">앉으세요</span> &middot; বসুন</div></div></div>
+    <div class="ph-r"><div class="grp">জোড়া 받침 - নিচে দুটি জামো, শোনা যায় একটি</div><div class="num">১৫</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচে ㄴ আর ㅈ। একা থাকলে ন, স্বর পেলে আনজউ।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">앉</span><span class="cell t-trace">앉</span><span class="cell t-trace">앉</span><span class="cell t-trace">앉</span><span class="cell t-trace">앉</span><span class="cell t-trace">앉</span><span class="cell t-trace">앉</span><span class="cell t-trace">앉</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">앉</span><span class="cell t-out">앉</span><span class="cell t-out">앉</span><span class="cell t-out">앉</span><span class="cell t-out">앉</span><span class="cell t-out">앉</span><span class="cell t-out">앉</span><span class="cell t-out">앉</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">앉</span><span class="cell t-faint">앉</span><span class="cell t-faint">앉</span><span class="cell t-faint">앉</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">많</div>
+      <div class="meta"><div class="eq">= <b>মান</b></div><div class="tr">man</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅁ + ㅏ + ㄴㅎ</span></div>
+        <div class="ex"><span class="ko">많이</span> &middot; অনেক</div></div></div>
+    <div class="ph-r"><div class="grp">জোড়া 받침 - নিচে দুটি জামো, শোনা যায় একটি</div><div class="num">১৬</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচে ㄴ আর ㅎ। ㅎ মিলিয়ে যায়: মানি।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">많</span><span class="cell t-trace">많</span><span class="cell t-trace">많</span><span class="cell t-trace">많</span><span class="cell t-trace">많</span><span class="cell t-trace">많</span><span class="cell t-trace">많</span><span class="cell t-trace">많</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">많</span><span class="cell t-out">많</span><span class="cell t-out">많</span><span class="cell t-out">많</span><span class="cell t-out">많</span><span class="cell t-out">많</span><span class="cell t-out">많</span><span class="cell t-out">많</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">많</span><span class="cell t-faint">많</span><span class="cell t-faint">많</span><span class="cell t-faint">많</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">덟</div>
+      <div class="meta"><div class="eq">= <b>দঅল</b></div><div class="tr">deol</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㄷ + ㅓ + ㄹㅂ</span></div>
+        <div class="ex"><span class="ko">여덟</span> &middot; আট</div></div></div>
+    <div class="ph-r"><div class="grp">জোড়া 받침 - নিচে দুটি জামো, শোনা যায় একটি</div><div class="num">১৭</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচে ㄹ আর ㅂ - তিনটে তলার সবচেয়ে ভিড় বাক্স। শোনা যায় শুধু ল।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">덟</span><span class="cell t-trace">덟</span><span class="cell t-trace">덟</span><span class="cell t-trace">덟</span><span class="cell t-trace">덟</span><span class="cell t-trace">덟</span><span class="cell t-trace">덟</span><span class="cell t-trace">덟</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">덟</span><span class="cell t-out">덟</span><span class="cell t-out">덟</span><span class="cell t-out">덟</span><span class="cell t-out">덟</span><span class="cell t-out">덟</span><span class="cell t-out">덟</span><span class="cell t-out">덟</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">덟</span><span class="cell t-faint">덟</span><span class="cell t-faint">덟</span><span class="cell t-faint">덟</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">찮</div>
+      <div class="meta"><div class="eq">= <b>ছান</b></div><div class="tr">chan</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">ㅊ + ㅏ + ㄴㅎ</span></div>
+        <div class="ex"><span class="ko">괜찮아요</span> &middot; ঠিক আছে / কিছু হয়নি</div></div></div>
+    <div class="ph-r"><div class="grp">জোড়া 받침 - নিচে দুটি জামো, শোনা যায় একটি</div><div class="num">১৮</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচে ㄴ আর ㅎ। পুরো শব্দে: কোয়েনছানায়ো।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">찮</span><span class="cell t-trace">찮</span><span class="cell t-trace">찮</span><span class="cell t-trace">찮</span><span class="cell t-trace">찮</span><span class="cell t-trace">찮</span><span class="cell t-trace">찮</span><span class="cell t-trace">찮</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">찮</span><span class="cell t-out">찮</span><span class="cell t-out">찮</span><span class="cell t-out">찮</span><span class="cell t-out">찮</span><span class="cell t-out">찮</span><span class="cell t-out">찮</span><span class="cell t-out">찮</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">찮</span><span class="cell t-faint">찮</span><span class="cell t-faint">찮</span><span class="cell t-faint">찮</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">밥이</div>
+      <div class="meta"><div class="eq">= <b>বাবি</b></div><div class="tr">babi</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">밥 + 이</span></div>
+        <div class="ex"><span class="ko">밥이</span> &middot; ভাত (কর্তা-বিভক্তি সহ)</div></div></div>
+    <div class="ph-r"><div class="grp">সংযোগ - 연음: শেষ ব্যঞ্জন পরের স্বরে গড়িয়ে যায়</div><div class="num">১৯</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; নিচের প্ লাফ দিয়ে পরের বাক্সে গেল, আর দুই স্বরের মাঝে পড়ে ব হলো। বানান বদলায় না।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">밥이</span><span class="cell t-trace">밥이</span><span class="cell t-trace">밥이</span><span class="cell t-trace">밥이</span><span class="cell t-trace">밥이</span><span class="cell t-trace">밥이</span><span class="cell t-trace">밥이</span><span class="cell t-trace">밥이</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">밥이</span><span class="cell t-out">밥이</span><span class="cell t-out">밥이</span><span class="cell t-out">밥이</span><span class="cell t-out">밥이</span><span class="cell t-out">밥이</span><span class="cell t-out">밥이</span><span class="cell t-out">밥이</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">밥이</span><span class="cell t-faint">밥이</span><span class="cell t-faint">밥이</span><span class="cell t-faint">밥이</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ১৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">집에</div>
+      <div class="meta"><div class="eq">= <b>চিবে</b></div><div class="tr">jibe</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">집 + 에</span></div>
+        <div class="ex"><span class="ko">집에</span> &middot; বাড়িতে</div></div></div>
+    <div class="ph-r"><div class="grp">সংযোগ - 연음: শেষ ব্যঞ্জন পরের স্বরে গড়িয়ে যায়</div><div class="num">২০</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; বাংলায় 'কাক্ + এ = কাকে' - ঠিক সেই গড়ানো।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">집에</span><span class="cell t-trace">집에</span><span class="cell t-trace">집에</span><span class="cell t-trace">집에</span><span class="cell t-trace">집에</span><span class="cell t-trace">집에</span><span class="cell t-trace">집에</span><span class="cell t-trace">집에</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">집에</span><span class="cell t-out">집에</span><span class="cell t-out">집에</span><span class="cell t-out">집에</span><span class="cell t-out">집에</span><span class="cell t-out">집에</span><span class="cell t-out">집에</span><span class="cell t-out">집에</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">집에</span><span class="cell t-faint">집에</span><span class="cell t-faint">집에</span><span class="cell t-faint">집에</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ২০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">한국어</div>
+      <div class="meta"><div class="eq">= <b>হানগুগঅ</b></div><div class="tr">hangugeo</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">한국 + 어</span></div>
+        <div class="ex"><span class="ko">한국어</span> &middot; কোরিয়ান ভাষা</div></div></div>
+    <div class="ph-r"><div class="grp">সংযোগ - 연음: শেষ ব্যঞ্জন পরের স্বরে গড়িয়ে যায়</div><div class="num">২১</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; 국-এর ক্ গড়িয়ে 어-তে গিয়ে গ হলো।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">한국어</span><span class="cell t-trace">한국어</span><span class="cell t-trace">한국어</span><span class="cell t-trace">한국어</span><span class="cell t-trace">한국어</span><span class="cell t-trace">한국어</span><span class="cell t-trace">한국어</span><span class="cell t-trace">한국어</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">한국어</span><span class="cell t-out">한국어</span><span class="cell t-out">한국어</span><span class="cell t-out">한국어</span><span class="cell t-out">한국어</span><span class="cell t-out">한국어</span><span class="cell t-out">한국어</span><span class="cell t-out">한국어</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">한국어</span><span class="cell t-faint">한국어</span><span class="cell t-faint">한국어</span><span class="cell t-faint">한국어</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ২১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">꽃이</div>
+      <div class="meta"><div class="eq">= <b>ক্কোছি</b></div><div class="tr">kkochi</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">꽃 + 이</span></div>
+        <div class="ex"><span class="ko">꽃이</span> &middot; ফুল (কর্তা-বিভক্তি সহ)</div></div></div>
+    <div class="ph-r"><div class="grp">সংযোগ - 연음: শেষ ব্যঞ্জন পরের স্বরে গড়িয়ে যায়</div><div class="num">২২</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; একা থাকলে ত্, স্বর পেলে আসল ছ ফিরে এল - এই জন্যই বানানে ㅊ।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">꽃이</span><span class="cell t-trace">꽃이</span><span class="cell t-trace">꽃이</span><span class="cell t-trace">꽃이</span><span class="cell t-trace">꽃이</span><span class="cell t-trace">꽃이</span><span class="cell t-trace">꽃이</span><span class="cell t-trace">꽃이</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">꽃이</span><span class="cell t-out">꽃이</span><span class="cell t-out">꽃이</span><span class="cell t-out">꽃이</span><span class="cell t-out">꽃이</span><span class="cell t-out">꽃이</span><span class="cell t-out">꽃이</span><span class="cell t-out">꽃이</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">꽃이</span><span class="cell t-faint">꽃이</span><span class="cell t-faint">꽃이</span><span class="cell t-faint">꽃이</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ২২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">옷이</div>
+      <div class="meta"><div class="eq">= <b>ওশি</b></div><div class="tr">osi</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">옷 + 이</span></div>
+        <div class="ex"><span class="ko">옷이</span> &middot; কাপড় (কর্তা-বিভক্তি সহ)</div></div></div>
+    <div class="ph-r"><div class="grp">সংযোগ - 연음: শেষ ব্যঞ্জন পরের স্বরে গড়িয়ে যায়</div><div class="num">২৩</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; ㅅ ফিরে এল, আর ㅣ-র আগে বলে শ।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">옷이</span><span class="cell t-trace">옷이</span><span class="cell t-trace">옷이</span><span class="cell t-trace">옷이</span><span class="cell t-trace">옷이</span><span class="cell t-trace">옷이</span><span class="cell t-trace">옷이</span><span class="cell t-trace">옷이</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">옷이</span><span class="cell t-out">옷이</span><span class="cell t-out">옷이</span><span class="cell t-out">옷이</span><span class="cell t-out">옷이</span><span class="cell t-out">옷이</span><span class="cell t-out">옷이</span><span class="cell t-out">옷이</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">옷이</span><span class="cell t-faint">옷이</span><span class="cell t-faint">옷이</span><span class="cell t-faint">옷이</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ২৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">한국말</div>
+      <div class="meta"><div class="eq">= <b>হানগুংমাল</b></div><div class="tr">hangungmal</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">한국 + 말</span></div>
+        <div class="ex"><span class="ko">한국말</span> &middot; কোরিয়ান ভাষা (দেশি শব্দে)</div></div></div>
+    <div class="ph-r"><div class="grp">নাসিক্যীভবন - 비음화: ন/ম-এর আগে নাকে চলে যায়</div><div class="num">২৪</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; ক্ + ম → ং + ম। সংস্কৃতে বাক্ + ময় = বাঙ্ময় - সেই একই সন্ধি।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">한국말</span><span class="cell t-trace">한국말</span><span class="cell t-trace">한국말</span><span class="cell t-trace">한국말</span><span class="cell t-trace">한국말</span><span class="cell t-trace">한국말</span><span class="cell t-trace">한국말</span><span class="cell t-trace">한국말</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">한국말</span><span class="cell t-out">한국말</span><span class="cell t-out">한국말</span><span class="cell t-out">한국말</span><span class="cell t-out">한국말</span><span class="cell t-out">한국말</span><span class="cell t-out">한국말</span><span class="cell t-out">한국말</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">한국말</span><span class="cell t-faint">한국말</span><span class="cell t-faint">한국말</span><span class="cell t-faint">한국말</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ২৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">국물</div>
+      <div class="meta"><div class="eq">= <b>কুংমুল</b></div><div class="tr">gungmul</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">국 + 물</span></div>
+        <div class="ex"><span class="ko">국물</span> &middot; ঝোলের জল</div></div></div>
+    <div class="ph-r"><div class="grp">নাসিক্যীভবন - 비음화: ন/ম-এর আগে নাকে চলে যায়</div><div class="num">২৫</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; ক্ + ম → ং + ম। লেখায় দেখানো হয় না, শুধু মুখে।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">국물</span><span class="cell t-trace">국물</span><span class="cell t-trace">국물</span><span class="cell t-trace">국물</span><span class="cell t-trace">국물</span><span class="cell t-trace">국물</span><span class="cell t-trace">국물</span><span class="cell t-trace">국물</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">국물</span><span class="cell t-out">국물</span><span class="cell t-out">국물</span><span class="cell t-out">국물</span><span class="cell t-out">국물</span><span class="cell t-out">국물</span><span class="cell t-out">국물</span><span class="cell t-out">국물</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">국물</span><span class="cell t-faint">국물</span><span class="cell t-faint">국물</span><span class="cell t-faint">국물</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ২৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">십만</div>
+      <div class="meta"><div class="eq">= <b>শিম্মান</b></div><div class="tr">simman</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">십 + 만</span></div>
+        <div class="ex"><span class="ko">십만</span> &middot; এক লক্ষ</div></div></div>
+    <div class="ph-r"><div class="grp">নাসিক্যীভবন - 비음화: ন/ম-এর আগে নাকে চলে যায়</div><div class="num">২৬</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; প্ + ম → ম + ম।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">십만</span><span class="cell t-trace">십만</span><span class="cell t-trace">십만</span><span class="cell t-trace">십만</span><span class="cell t-trace">십만</span><span class="cell t-trace">십만</span><span class="cell t-trace">십만</span><span class="cell t-trace">십만</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">십만</span><span class="cell t-out">십만</span><span class="cell t-out">십만</span><span class="cell t-out">십만</span><span class="cell t-out">십만</span><span class="cell t-out">십만</span><span class="cell t-out">십만</span><span class="cell t-out">십만</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">십만</span><span class="cell t-faint">십만</span><span class="cell t-faint">십만</span><span class="cell t-faint">십만</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ২৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">학교</div>
+      <div class="meta"><div class="eq">= <b>হাক্কিয়ো</b></div><div class="tr">hakgyo</div>
+        <div class="ex"><b>জামো ভেঙে দেখো:</b> <span class="ko">학 + 교</span></div>
+        <div class="ex"><span class="ko">학교</span> &middot; স্কুল</div></div></div>
+    <div class="ph-r"><div class="grp">নাসিক্যীভবন - 비음화: ন/ম-এর আগে নাকে চলে যায়</div><div class="num">২৭</div></div>
+  </div>
+  <div class="note"><b>নিচের খোপ - 받침</b> &middot; ক্-এর পরে লঘু ㄱ টান হয়ে যায়। শিখতে হয় না, হয়েই যায় - শুধু শুনে চমকে যেও না।</div>
+  <div class="rowlabel"><span>ধূসরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div><div class="grid "><span class="cell t-trace">학교</span><span class="cell t-trace">학교</span><span class="cell t-trace">학교</span><span class="cell t-trace">학교</span><span class="cell t-trace">학교</span><span class="cell t-trace">학교</span><span class="cell t-trace">학교</span><span class="cell t-trace">학교</span></div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>জোড়ো - <b>এক বাক্সে</b></span></div><div class="grid "><span class="cell t-out">학교</span><span class="cell t-out">학교</span><span class="cell t-out">학교</span><span class="cell t-out">학교</span><span class="cell t-out">학교</span><span class="cell t-out">학교</span><span class="cell t-out">학교</span><span class="cell t-out">학교</span></div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div><div class="grid "><span class="cell t-model">학교</span><span class="cell t-faint">학교</span><span class="cell t-faint">학교</span><span class="cell t-faint">학교</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span>সারি ভরাও</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>খাতা ৪ · 받침 - নিচের খোপ</span><span>BHASHASETU &middot; বাংলা থেকে কোরিয়ান &middot; ২৭</span></div>
+</div>
+</body>
+</html>

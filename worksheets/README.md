@@ -156,7 +156,7 @@ Now a pair is a JSON file and nothing else.
 |---|---|---|
 | `gen_brahmic.py` | baseline-sitting Brahmic targets: Telugu, Tamil | `SCRIPTS` in the file, measured |
 | `gen_urdu.py` | Perso-Arabic targets: Urdu | one solid baseline, RTL |
-| `gen_worksheets.py` | Devanagari targets: Hindi, Marathi | not yet converted, see below |
+| `gen_deva.py` | Devanagari targets: Hindi, Marathi | headline-hanging, converted 2026-09-22 |
 | `data/{pair}.json` | one pair: all source-language text, words, sentences | - |
 | `data/targets/{iso}.json` | one target script: the letter spine, already verified | - |
 | `data/SCHEMA.md` | what a pair file must contain | - |
@@ -206,10 +206,126 @@ pairs, under the 50 to 60 the brief asks for. The generator now refuses to build
 that is short, and both pairs were topped up to 52 (Telugu and Tamil books 6 are now 14
 pages, so those two PDFs changed).
 
-### Still to convert
+### All three generators are now JSON-driven
 
-`gen_worksheets.py` (Devanagari targets) has not been moved to the JSON layout, because
-no pair in the current batch targets Devanagari. It should be converted before the next
-Hindi-target or Marathi-target course, using the same three steps: export the existing
-pairs to `data/`, splice out the hardcoded source strings, then prove page parity against
-the shipped PDFs before deleting anything.
+`gen_deva.py` replaced `gen_worksheets.py` on 2026-09-22 and the conversion found a shipped
+bug worth recording. That generator held two pairs at once: a Bengali default set with a
+Telugu override map layered on top. The overrides covered the letter equivalents and the
+glosses, but **not the word-group headings and not the consonant varga labels**, because
+nothing forced them to. So the printed `telugu_to_hindi` workbooks carried about 200 runs of
+Bengali text, showing a Telugu learner Bengali category names for three books.
+
+One pair per file makes that impossible to express. `audit()` also now compares every string
+in a pair file against the Unicode range of every OTHER Indic script and refuses to build
+when it finds a foreign one, so the class of bug fails loudly rather than printing.
+
+Verification for the conversion, same as the other two: `bengali_to_hindi` rebuilt to 169
+pages, matching all eight shipped PDFs book for book. `telugu_to_hindi` correctly refused to
+build until its 23 labels were written in Telugu.
+
+### Calibrated target scripts
+
+| Script | body | top | bot | Measured |
+|---|---|---|---|---|
+| Telugu | 0.772 | 1.020 | 0.460 | 2026-09-21 |
+| Tamil | 0.497 | 0.810 | 0.280 | 2026-09-21 |
+| Kannada | 0.790 | 0.826 | 0.431 | 2026-09-22 |
+| Malayalam | 0.524 | 0.767 | 0.297 | 2026-09-22 |
+
+Measured with `calibrate_kn_ml.html`: canvas `TextMetrics`, `actualBoundingBoxAscent` and
+`actualBoundingBoxDescent` over a set of base consonants, consonants carrying an above sign,
+and consonants carrying a below sign, at 200px, divided by the size. That run re-measured
+Telugu as a control and reproduced `body` 0.772 exactly, with `top` 1.003 and `bot` 0.444
+against the shipped 1.020 and 0.460, which shows the shipped numbers carry about 0.016 of
+deliberate headroom. The same headroom was added to the two new scripts.
+
+Do not re-measure per pair. Geometry is a property of the script, so every pair sharing a
+target reuses it, and that is what makes a new course with an existing target cheap.
+
+### Still needed for Kannada and Malayalam targets
+
+The geometry is done, but neither has a letter spine yet: `data/targets/kn.json` and
+`data/targets/ml.json` do not exist. The spine is the target-script half of the inventory,
+verified once and shared by every pair with that target (letters, Roman values, example
+words). The first agent to build a Kannada-target or Malayalam-target course should produce
+it in the shape of `targets/te.json`, and every later pair fills only the source-language
+columns. Check any new spine for foreign-script leakage before it goes out: the Tamil one
+shipped with a Bengali column because it was extracted from the Bengali course.
+
+---
+
+## Non-Indic targets, 2026-09-22
+
+Two generators were added for targets that are neither abugida nor abjad, and both needed a
+different page, not just different numbers.
+
+### `gen_hangul.py` - Korean
+
+A Hangul syllable is drawn inside a notional square and every syllable gets the same square
+whatever it holds, so Korean practice paper is a grid (wongoji), not a set of baselines. The
+sheets draw that grid with the faint cross-hairs children's practice paper uses, and put
+**one syllable per cell all the way through**, including the word and sentence books. That
+is deliberate: writing jamo in a row like Bengali letters instead of stacking them into a
+block is exactly the mistake a Brahmic-trained hand makes, and a page of squares prevents it
+in a way a sentence of instructions does not.
+
+Measured (calibrate_hangul.html): a block with a batchim runs 0.804 up and 0.084 down, and
+the widest blocks advance 0.966, so a block is very nearly square and fills the em. The only
+tunable is `fill`, how much of the cell the glyph should occupy.
+
+Two bugs are worth remembering. The word and sentence books overflowed by about 80 percent,
+because three stacked 15mm grids per item do not fit A4; cell size is now per grid type. And
+the "write it yourself" row was **invisible**, because it was built out of spaces and a space
+renders as a borderless gap cell. Page counts were perfectly consistent while the most
+important row on the page had no boxes in it. Only rendering the page showed it.
+
+### `gen_latin.py` - Spanish
+
+This one is deliberately not a handwriting book. An Indian learner who has been to school
+already writes the Latin alphabet from English, so four books of tracing a b c would be
+busywork. The pair file decides the books and declares a `kind` on each; the generator
+renders whatever is declared. For Spanish that came out as: the letters English does not
+have, the inverted opening marks, the written accent as a stress RULE with minimal pairs,
+and the spelling patterns an Indian English speaker gets wrong by transfer. Dictation is the
+mode of the word books rather than a ninth book.
+
+Ruling is the four-line copybook - ascender, x-height, baseline, descender. Measured in Noto
+Serif: x-height 0.546, ascender 0.770, capital 0.725, descender 0.240. The useful finding is
+that an accented vowel tops out at 0.766, within 0.004 of the ascender, so the accent bounds
+itself and no fifth rule is needed.
+
+Because one book mixes bare marks, whole words and whole sentences in the same inventory,
+repetition count is derived from the length of the thing being practised rather than fixed.
+
+| Pair | Books | Pages | Parity |
+|---|---|---|---|
+| bengali_to_korean | 8 | 158 | verified |
+| bengali_to_spanish | 8 | 150 | verified |
+
+### Generators now
+
+| File | Targets | Page |
+|---|---|---|
+| `gen_deva.py` | Hindi, Marathi, Bengali, Punjabi | hangs from a headline |
+| `gen_brahmic.py` | Telugu, Tamil, Kannada, Malayalam | sits on a baseline |
+| `gen_urdu.py` | Urdu | one baseline, right to left |
+| `gen_hangul.py` | Korean | square grid |
+| `gen_latin.py` | Spanish | four-line copybook |
+
+### A limitation worth knowing, found building hindi_to_marathi
+
+`gen_deva.py` is data-driven about CONTENT but not about book SHAPE. Books 1 to 4 are wired
+to `letters.vowels`, `letters.cons` plus `nukta`, `letters.matra` and `letters.conjuncts`,
+and the audit insists on exactly eight books with all five inventories non-empty. So a pair
+that needs a different set of books cannot express it here, unlike `gen_latin.py`, where each
+book declares its own `kind` and the generator renders whatever is declared.
+
+The Hindi to Marathi agent worked within the constraint rather than around it, and the result
+is better than a generic workbook: it filled the fixed slots with difference-only content.
+Five vowels instead of thirteen, because only five behave differently. Five barakhadi rows
+instead of twelve. And the consonant book gives च two pages, one dental and one palatal, so
+the central teaching of the pair sits in the page structure itself. Books 1 and 3 are six
+pages each and their bridges say plainly that this is the point.
+
+If a future same-script pair needs genuinely different books, port the `kind`/`rows`
+dispatch from `gen_latin.py` rather than padding inventories to fit the slots.

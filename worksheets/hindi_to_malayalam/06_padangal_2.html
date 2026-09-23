@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>शब्द २ - हिन्दी से मलयालम</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --base: 18mm;        /* the baseline - letters SIT on this */
+  --body: 0.524;      /* letter height above baseline, as a fraction of size */
+  --top:  0.767;       /* how far signs above reach */
+  --bot:  0.297;       /* how far signs below reach */
+  --gs:   19.08mm;        /* practice font size, derived so body = 10mm */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Devanagari',serif; color:var(--ink); font-size:10pt; }
+.tg{ font-family:'Noto Serif Malayalam',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:20mm; line-height:1.35; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; } .ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.note{ font-size:9.5pt; line-height:1.65; margin:0 0 3mm; padding:2mm 3mm;
+       background:rgba(31,77,74,0.06); border-left:2mm solid var(--teal); }
+.note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --asc:  calc(var(--base) - var(--top) * var(--gs));
+      --bodyline: calc(var(--base) - var(--body) * var(--gs));
+      --desc: calc(var(--base) + var(--bot) * var(--gs));
+      height: calc(var(--desc) + 2mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);      border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--bodyline); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base);     border-top:0.45mm solid var(--line); }
+.ln.d{ top:var(--desc);     border-top:0.25mm dashed var(--line-soft); }
+/* strut pins the text baseline to --base whatever the font's line metrics */
+.row .cells{ position:absolute; left:0; right:0; top:0; display:flex; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-family:'Noto Serif Malayalam',serif; font-size:var(--gs); line-height:0;
+         flex:0 0 auto; width:24mm; text-align:center; }
+.row.wide{ --base:14mm; --gs:14.89mm; }
+.row.wide .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --base:12mm; --gs:11.83mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:28pt; margin:6mm 0 2mm; line-height:1.3; }
+.cover h1 .tg{ display:block; font-size:32pt; margin-bottom:4mm; line-height:1.5; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:140mm; margin:0 auto; line-height:1.75; }
+.rules{ text-align:left; max-width:152mm; margin:11mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.7; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:9mm auto 0; max-width:152mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:12mm; line-height:1.4; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">कॉपी ६</div>
+  <h1><span class="tg">പദങ്ങൾ</span>शब्द २</h1>
+  <p class="sub">कठिन शब्द - संस्कृत के पुल वाले शब्द, कूट्टाक्षरम् वाले शब्द, चिल्लु पर ख़त्म होने वाले शब्द, और वे द्राविड़ जड़ें जिनका हिन्दी तक कोई पुल नहीं।</p>
+  <div class="rules"><h2>लिखने से पहले पाँच बातें</h2><ol><li><b>शिरोरेखा नहीं खींचनी।</b> देवनागरी में हर अक्षर ऊपर की लकीर से लटकता है; मलयालम में वह लकीर है ही नहीं। ऊपर की मोटी रेखा <b>शिरोरेखा नहीं</b> है, वह सिर्फ़ ऊँचाई का नाप है।</li><li><b>अक्षर नीचे की रेखा पर पैर रखता है।</b> नीचे की मोटी रेखा ज़मीन है। ऊपर-नीचे की टूटी रेखाएँ चिह्नों की सीमा हैं: स्वर-चिह्न ऊपर उठते हैं, कुछ कूट्टाक्षरम् नीचे उतरते हैं।</li><li><b>हाथ गोल चलाइए।</b> देवनागरी का सीधा डंडा और नुकीला कोना यहाँ भूल जाइए। मलयालम अक्षर वृत्त के टुकड़ों से बना है - क़लम रोके बिना घुमाइए, और आख़िर में पाक बंद कीजिए।</li><li><b>चंद्रक्कल छोटा रखिए।</b> ് वही काम करता है जो हिन्दी का हलंत, पर बैठता है अक्षर के सिर की दाहिनी ओर। बड़ा बना दिया तो स्वर-चिह्न जैसा लगेगा।</li><li><b>धीरे, पेंसिल से, दिन में एक पन्ना।</b> हर सतर ख़त्म करके अक्षर एक बार ज़ोर से बोलिए - हाथ और कान साथ-साथ सीखते हैं।</li></ol></div>
+  <div class="legend"><h3>इस कॉपी में चार तरह की लिखाई है</h3><div class="lg">
+      <div><span class="s tg t-model">പ</span>नमूना</div>
+      <div><span class="s tg t-trace">പ</span>धूसर - ऊपर से</div>
+      <div><span class="s tg t-out">പ</span>खोखला - भीतर भरिए</div>
+      <div><span class="s tg t-faint">പ</span>क्षीण - लगभग अकेले</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>संस्कृत का पुल - मुफ़्त</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">സമയം</span> &nbsp; = &nbsp; <b>समय</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>സമയം</span><span class="c t-trace"><i class="st"></i>സമയം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഭാഷ</span> &nbsp; = &nbsp; <b>भाषा</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഭാഷ</span><span class="c t-trace"><i class="st"></i>ഭാഷ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ജ്ഞാനം</span> &nbsp; = &nbsp; <b>ज्ञान</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ജ്ഞാനം</span><span class="c t-trace"><i class="st"></i>ജ്ഞാനം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">സ്നേഹം</span> &nbsp; = &nbsp; <b>स्नेह</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>സ്നേഹം</span><span class="c t-trace"><i class="st"></i>സ്നേഹം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; १</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>संस्कृत का पुल - मुफ़्त</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">२</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">സന്തോഷം</span> &nbsp; = &nbsp; <b>संतोष, ख़ुशी</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>സന്തോഷം</span><span class="c t-trace"><i class="st"></i>സന്തോഷം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ദുഃഖം</span> &nbsp; = &nbsp; <b>दुःख</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ദുഃഖം</span><span class="c t-trace"><i class="st"></i>ദുഃഖം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഔഷധം</span> &nbsp; = &nbsp; <b>औषध</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഔഷധം</span><span class="c t-trace"><i class="st"></i>ഔഷധം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ആകാശം</span> &nbsp; = &nbsp; <b>आकाश</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ആകാശം</span><span class="c t-trace"><i class="st"></i>ആകാശം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; २</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>संस्कृत का पुल - मुफ़्त</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">३</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഭൂമി</span> &nbsp; = &nbsp; <b>भूमि</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഭൂമി</span><span class="c t-trace"><i class="st"></i>ഭൂമി</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ചന്ദ്രൻ</span> &nbsp; = &nbsp; <b>चंद्र</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ചന്ദ്രൻ</span><span class="c t-trace"><i class="st"></i>ചന്ദ്രൻ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">സൂര്യൻ</span> &nbsp; = &nbsp; <b>सूर्य</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>സൂര്യൻ</span><span class="c t-trace"><i class="st"></i>സൂര്യൻ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">രാത്രി</span> &nbsp; = &nbsp; <b>रात्रि</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>രാത്രി</span><span class="c t-trace"><i class="st"></i>രാത്രി</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; ३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>कूट्टाक्षरम् वाले शब्द</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">४</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">മുട്ട</span> &nbsp; = &nbsp; <b>अंडा</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>മുട്ട</span><span class="c t-trace"><i class="st"></i>മുട്ട</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഇറച്ചി</span> &nbsp; = &nbsp; <b>गोश्त</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഇറച്ചി</span><span class="c t-trace"><i class="st"></i>ഇറച്ചി</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">പച്ചക്കറി</span> &nbsp; = &nbsp; <b>सब्ज़ी</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>പച്ചക്കറി</span><span class="c t-trace"><i class="st"></i>പച്ചക്കറി</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">അടുക്കള</span> &nbsp; = &nbsp; <b>रसोई</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>അടുക്കള</span><span class="c t-trace"><i class="st"></i>അടുക്കള</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; ४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>कूट्टाक्षरम् वाले शब्द</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">५</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">പുഴ</span> &nbsp; = &nbsp; <b>नदी</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>പുഴ</span><span class="c t-trace"><i class="st"></i>പുഴ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">കാറ്റ്</span> &nbsp; = &nbsp; <b>हवा</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>കാറ്റ്</span><span class="c t-trace"><i class="st"></i>കാറ്റ്</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഉപ്പ്</span> &nbsp; = &nbsp; <b>नमक</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഉപ്പ്</span><span class="c t-trace"><i class="st"></i>ഉപ്പ്</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">മത്സ്യം</span> &nbsp; = &nbsp; <b>मत्स्य, मछली</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>മത്സ്യം</span><span class="c t-trace"><i class="st"></i>മത്സ്യം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; ५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>कूट्टाक्षरम् वाले शब्द</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">६</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">ചക്ക</span> &nbsp; = &nbsp; <b>कटहल</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ചക്ക</span><span class="c t-trace"><i class="st"></i>ചക്ക</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">നക്ഷത്രം</span> &nbsp; = &nbsp; <b>नक्षत्र</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>നക്ഷത്രം</span><span class="c t-trace"><i class="st"></i>നക്ഷത്രം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; ६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>⚡ द्राविड़ जड़ - कोई पुल नहीं</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">७</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">മീൻ</span> &nbsp; = &nbsp; <b>मछली</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>മീൻ</span><span class="c t-trace"><i class="st"></i>മീൻ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">പൂച്ച</span> &nbsp; = &nbsp; <b>बिल्ली</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>പൂച്ച</span><span class="c t-trace"><i class="st"></i>പൂച്ച</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">നായ</span> &nbsp; = &nbsp; <b>कुत्ता</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>നായ</span><span class="c t-trace"><i class="st"></i>നായ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ആന</span> &nbsp; = &nbsp; <b>हाथी</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ആന</span><span class="c t-trace"><i class="st"></i>ആന</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; ७</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>⚡ द्राविड़ जड़ - कोई पुल नहीं</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">८</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">കിളി</span> &nbsp; = &nbsp; <b>चिड़िया</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>കിളി</span><span class="c t-trace"><i class="st"></i>കിളി</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">പഴം</span> &nbsp; = &nbsp; <b>फल, केला</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>പഴം</span><span class="c t-trace"><i class="st"></i>പഴം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">നാളെ</span> &nbsp; = &nbsp; <b>आने वाला कल</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>നാളെ</span><span class="c t-trace"><i class="st"></i>നാളെ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഇന്നലെ</span> &nbsp; = &nbsp; <b>बीता हुआ कल</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഇന്നലെ</span><span class="c t-trace"><i class="st"></i>ഇന്നലെ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; ८</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>⚡ द्राविड़ जड़ - कोई पुल नहीं</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">९</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഇന്ന്</span> &nbsp; = &nbsp; <b>आज</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഇന്ന്</span><span class="c t-trace"><i class="st"></i>ഇന്ന്</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">രാവിലെ</span> &nbsp; = &nbsp; <b>सुबह</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>രാവിലെ</span><span class="c t-trace"><i class="st"></i>രാവിലെ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">വൈകുന്നേരം</span> &nbsp; = &nbsp; <b>शाम</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>വൈകുന്നേരം</span><span class="c t-trace"><i class="st"></i>വൈകുന്നേരം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഊണ്</span> &nbsp; = &nbsp; <b>दोपहर का भात</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഊണ്</span><span class="c t-trace"><i class="st"></i>ഊണ്</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; ९</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>चिल्लु पर ख़त्म - बिना स्वर का व्यंजन</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१०</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">പാൽ</span> &nbsp; = &nbsp; <b>दूध</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>പാൽ</span><span class="c t-trace"><i class="st"></i>പാൽ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">നാൾ</span> &nbsp; = &nbsp; <b>दिन</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>നാൾ</span><span class="c t-trace"><i class="st"></i>നാൾ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">തോൾ</span> &nbsp; = &nbsp; <b>कंधा</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>തോൾ</span><span class="c t-trace"><i class="st"></i>തോൾ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">വാൽ</span> &nbsp; = &nbsp; <b>पूँछ</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>വാൽ</span><span class="c t-trace"><i class="st"></i>വാൽ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; १०</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>चिल्लु पर ख़त्म - बिना स्वर का व्यंजन</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">११</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">കോൽ</span> &nbsp; = &nbsp; <b>छड़ी</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>കോൽ</span><span class="c t-trace"><i class="st"></i>കോൽ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">മാൻ</span> &nbsp; = &nbsp; <b>हिरन</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>മാൻ</span><span class="c t-trace"><i class="st"></i>മാൻ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ആൾ</span> &nbsp; = &nbsp; <b>आदमी, व्यक्ति</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ആൾ</span><span class="c t-trace"><i class="st"></i>ആൾ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">തേൻ</span> &nbsp; = &nbsp; <b>शहद</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>തേൻ</span><span class="c t-trace"><i class="st"></i>തേൻ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; ११</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>भाव और हाल</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१२</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഇഷ്ടം</span> &nbsp; = &nbsp; <b>अच्छा लगना</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഇഷ്ടം</span><span class="c t-trace"><i class="st"></i>ഇഷ്ടം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">വിശപ്പ്</span> &nbsp; = &nbsp; <b>भूख</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>വിശപ്പ്</span><span class="c t-trace"><i class="st"></i>വിശപ്പ്</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ദാഹം</span> &nbsp; = &nbsp; <b>प्यास</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ദാഹം</span><span class="c t-trace"><i class="st"></i>ദാഹം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">സുഖം</span> &nbsp; = &nbsp; <b>कुशल, तबीयत ठीक होना</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>സുഖം</span><span class="c t-trace"><i class="st"></i>സുഖം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; १२</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>भाव और हाल</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१३</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഭയം</span> &nbsp; = &nbsp; <b>डर</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഭയം</span><span class="c t-trace"><i class="st"></i>ഭയം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ദേഷ്യം</span> &nbsp; = &nbsp; <b>ग़ुस्सा</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ദേഷ്യം</span><span class="c t-trace"><i class="st"></i>ദേഷ്യം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ചിരി</span> &nbsp; = &nbsp; <b>हँसी</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ചിരി</span><span class="c t-trace"><i class="st"></i>ചിരി</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">കരച്ചിൽ</span> &nbsp; = &nbsp; <b>रोना</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>കരച്ചിൽ</span><span class="c t-trace"><i class="st"></i>കരച്ചിൽ</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; १३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>भाव और हाल</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१४</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഉറക്കം</span> &nbsp; = &nbsp; <b>नींद</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഉറക്കം</span><span class="c t-trace"><i class="st"></i>ഉറക്കം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; १४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>लंबे शब्द - साँस रोककर</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१५</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">വിദ്യാലയം</span> &nbsp; = &nbsp; <b>विद्यालय</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>വിദ്യാലയം</span><span class="c t-trace"><i class="st"></i>വിദ്യാലയം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ആശുപത്രി</span> &nbsp; = &nbsp; <b>अस्पताल</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ആശുപത്രി</span><span class="c t-trace"><i class="st"></i>ആശുപത്രി</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">തീവണ്ടി</span> &nbsp; = &nbsp; <b>रेलगाड़ी</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>തീവണ്ടി</span><span class="c t-trace"><i class="st"></i>തീവണ്ടി</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">കളിസ്ഥലം</span> &nbsp; = &nbsp; <b>खेल का मैदान</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>കളിസ്ഥലം</span><span class="c t-trace"><i class="st"></i>കളിസ്ഥലം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; १५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>लंबे शब्द - साँस रोककर</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१६</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">മലയാളം</span> &nbsp; = &nbsp; <b>मलयालम</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>മലയാളം</span><span class="c t-trace"><i class="st"></i>മലയാളം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">ഓണാഘോഷം</span> &nbsp; = &nbsp; <b>ओणम् का उत्सव</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ഓണാഘോഷം</span><span class="c t-trace"><i class="st"></i>ഓണാഘോഷം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">വായനശാല</span> &nbsp; = &nbsp; <b>वाचनालय</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>വായനശാല</span><span class="c t-trace"><i class="st"></i>വായനശാല</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:12pt">നമസ്കാരം</span> &nbsp; = &nbsp; <b>नमस्कार</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>നമസ്കാരം</span><span class="c t-trace"><i class="st"></i>നമസ്കാരം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; १६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta"><div class="eq" style="font-size:16pt"><b>लंबे शब्द - साँस रोककर</b></div>
+      <div class="ex">पहले दो दिए हुए हैं - नमूना और धूसर। उसके बाद सतर की बाक़ी आपकी।</div></div></div>
+    <div class="ph-r"><div class="grp">शब्द</div><div class="num">१७</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:12pt">അടുക്കളത്തോട്ടം</span> &nbsp; = &nbsp; <b>रसोई का बग़ीचा</b></span><span>शुरुआत दी हुई है - <b>बाक़ी ख़ुद</b></span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>അടുക്കളത്തോട്ടം</span><span class="c t-trace"><i class="st"></i>അടുക്കളത്തോട്ടം</span></div>
+</div><div class="rowlabel"><span></span><span>ख़ुद लिखिए</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ६ · शब्द २</span><span>BHASHASETU &middot; हिन्दी से मलयालम &middot; १७</span></div>
+</div>
+</body>
+</html>

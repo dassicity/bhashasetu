@@ -1,0 +1,54 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Brahmic metrics: Kannada and Malayalam</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500&display=swap" rel="stylesheet">
+<style>body{font:14px/1.6 system-ui;margin:24px} pre{background:#f4f1ea;padding:12px}</style>
+</head><body>
+<h1>Measured metrics</h1><pre id="out">measuring...</pre>
+<script>
+// Geometry is a property of the SCRIPT, so it is measured once per target script and
+// reused by every pair with that target. Same method as the Telugu and Tamil numbers:
+// canvas TextMetrics, not eyeballing a PDF raster.
+const SETS = {
+  kn: { font: "Noto Serif Kannada",
+        base: ["ಕ","ಖ","ಗ","ಚ","ಟ","ತ","ಪ","ಯ","ಳ","ಸ"],
+        above:["ಕಿ","ಕೀ","ಕೆ","ಕೇ","ಕೈ","ಕೊ","ಕೋ","ಕ್"],
+        below:["ಕು","ಕೂ","ಕೃ","ಕ್ಕ","ಸ್ತ","ಕ್ಕೂ"] },
+  ml: { font: "Noto Serif Malayalam",
+        base: ["ക","ഖ","ഗ","ച","ട","ത","പ","യ","ള","സ"],
+        above:["കി","കീ","കെ","കേ","കൈ","കൊ","കോ","ക്"],
+        below:["കു","കൂ","കൃ","ക്ക","സ്ത","ന്ത"] },
+  te: { font: "Noto Serif Telugu",   // control: must reproduce the known 0.772/1.020/0.460
+        base: ["క","ఖ","గ","చ","ట","త","ప","య","ళ","స"],
+        above:["కి","కీ","కె","కే","కై","కొ","కో","క్"],
+        below:["కు","కూ","కృ","క్క","స్త","క్కూ"] },
+};
+const SIZE = 200;
+function measure(ctx, font, list){
+  let a = 0, d = 0;
+  for (const s of list){
+    ctx.font = `${SIZE}px "${font}"`;
+    const m = ctx.measureText(s);
+    a = Math.max(a, m.actualBoundingBoxAscent);
+    d = Math.max(d, m.actualBoundingBoxDescent);
+  }
+  return { asc: a / SIZE, desc: d / SIZE };
+}
+(async () => {
+  await document.fonts.ready;
+  for (const k of Object.keys(SETS)) await document.fonts.load(`${SIZE}px "${SETS[k].font}"`);
+  const c = document.createElement("canvas"); c.width = c.height = 800;
+  const ctx = c.getContext("2d");
+  const res = {};
+  for (const [iso, s] of Object.entries(SETS)){
+    const b = measure(ctx, s.font, s.base);
+    const up = measure(ctx, s.font, s.above);
+    const dn = measure(ctx, s.font, s.below);
+    res[iso] = { font: s.font,
+                 body: +b.asc.toFixed(3),
+                 top:  +Math.max(up.asc, b.asc).toFixed(3),
+                 bot:  +Math.max(dn.desc, b.desc).toFixed(3) };
+  }
+  document.getElementById("out").textContent = JSON.stringify(res, null, 2);
+  window.__METRICS__ = res;
+})();
+</script></body></html>

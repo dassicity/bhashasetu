@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<title>ওত্তক্ষর - বাংলা থেকে কন্নড</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --base: 18mm;        /* the baseline - letters SIT on this */
+  --body: 0.79;      /* letter height above baseline, as a fraction of size */
+  --top:  0.826;       /* how far signs above reach */
+  --bot:  0.431;       /* how far signs below reach */
+  --gs:   12.66mm;        /* practice font size, derived so body = 10mm */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Bengali',serif; color:var(--ink); font-size:10pt; }
+.tg{ font-family:'Noto Serif Kannada',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:20mm; line-height:1.35; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; } .ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.note{ font-size:9.5pt; line-height:1.65; margin:0 0 3mm; padding:2mm 3mm;
+       background:rgba(31,77,74,0.06); border-left:2mm solid var(--teal); }
+.note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --asc:  calc(var(--base) - var(--top) * var(--gs));
+      --bodyline: calc(var(--base) - var(--body) * var(--gs));
+      --desc: calc(var(--base) + var(--bot) * var(--gs));
+      height: calc(var(--desc) + 2mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);      border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--bodyline); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base);     border-top:0.45mm solid var(--line); }
+.ln.d{ top:var(--desc);     border-top:0.25mm dashed var(--line-soft); }
+/* strut pins the text baseline to --base whatever the font's line metrics */
+.row .cells{ position:absolute; left:0; right:0; top:0; display:flex; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-family:'Noto Serif Kannada',serif; font-size:var(--gs); line-height:0;
+         flex:0 0 auto; width:24mm; text-align:center; }
+.row.wide{ --base:14mm; --gs:9.87mm; }
+.row.wide .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --base:12mm; --gs:7.85mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:28pt; margin:6mm 0 2mm; line-height:1.3; }
+.cover h1 .tg{ display:block; font-size:32pt; margin-bottom:4mm; line-height:1.5; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:140mm; margin:0 auto; line-height:1.75; }
+.rules{ text-align:left; max-width:152mm; margin:11mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.7; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:9mm auto 0; max-width:152mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:12mm; line-height:1.4; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">খাতা ৪</div>
+  <h1><span class="tg">ಒತ್ತಕ್ಷರ</span>ওত্তক্ষর</h1>
+  <p class="sub">বাংলায় ক্ + ষ = ক্ষ, একেবারে নতুন আকৃতি। কন্নডে প্রথম অক্ষর আস্ত থাকে আর দ্বিতীয়টি ছোট হয়ে নিচে ঝোলে - একটাই নিয়ম, ব্যতিক্রম নেই।</p>
+  <div class="rules"><h2>লেখার আগে পাঁচটি কথা</h2><ol><li><b>মাত্রা নেই - কিন্তু স্বস্তি পেয়ো না।</b> বাংলায় মাত্রাই অক্ষরকে ঝুলিয়ে রাখে; কন্নডে অক্ষর নিচের রেখায় পা রাখে। কলম নিচ থেকে শুরু করে উপরে ওঠে - উল্টো অভ্যাস, আর এটাই এই খাতার আসল কাজ।</li><li><b>উপরের মোটা রেখা মাত্রা নয়।</b> ওটা শুধু উচ্চতার মাপ, যাতে সব অক্ষর সমান বড় হয়। কলম ওখানে ছোঁয়াবে, ঝোলাবে না।</li><li><b>গোল হাতে লেখো।</b> কন্নড অক্ষর গোলাকার, কোণ নেই। মাথায় ছোট বাঁক (ತಲೆಕಟ್ಟು) - ওটাই কন্নডের চেহারা।</li><li><b>ওত্তু নিচে, মাঝ বরাবর।</b> যুক্তাক্ষরের দ্বিতীয় অক্ষর সবসময় নিচে ঝোলে, উপরের অক্ষরের ঠিক মাঝে, আকারে দুই-তৃতীয়াংশ।</li><li><b>ধীরে, পেনসিলে।</b> দিনে এক পাতা যথেষ্ট। প্রতিটি সারি শেষ করে অক্ষরটা একবার জোরে বলো।</li></ol></div>
+  <div class="legend"><h3>এই বইয়ে চার রকম লেখা</h3><div class="lg">
+      <div><span class="s tg t-model">ಒ</span>নমুনা</div>
+      <div><span class="s tg t-trace">ಒ</span>ধূসর - উপর দিয়ে</div>
+      <div><span class="s tg t-out">ಒ</span>ফাঁপা - ভেতরটা ভরো</div>
+      <div><span class="s tg t-faint">ಒ</span>ক্ষীণ - প্রায় একা</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - দ্বিত্ব, একই অক্ষর দুবার</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">১</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಕ್ + ಕ</span> = <span class="tg" style="font-size:15pt"><b>ಕ್ಕ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಅಕ್ಕ</span> (দিদি)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಕ್ಕ</span><span class="c t-trace"><i class="st"></i>ಕ್ಕ</span><span class="c t-trace"><i class="st"></i>ಕ್ಕ</span><span class="c t-trace"><i class="st"></i>ಕ್ಕ</span><span class="c t-trace"><i class="st"></i>ಕ್ಕ</span><span class="c t-trace"><i class="st"></i>ಕ್ಕ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಕ್ಕ</span><span class="c t-out"><i class="st"></i>ಕ್ಕ</span><span class="c t-out"><i class="st"></i>ಕ್ಕ</span><span class="c t-out"><i class="st"></i>ಕ್ಕ</span><span class="c t-model"><i class="st"></i>ಕ್ಕ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಅಕ್ಕ</span><span class="c t-trace"><i class="st"></i>ಅಕ್ಕ</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಗ್ + ಗ</span> = <span class="tg" style="font-size:15pt"><b>ಗ್ಗ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಬೆಳಿಗ್ಗೆ</span> (সকাল)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಗ್ಗ</span><span class="c t-trace"><i class="st"></i>ಗ್ಗ</span><span class="c t-trace"><i class="st"></i>ಗ್ಗ</span><span class="c t-trace"><i class="st"></i>ಗ್ಗ</span><span class="c t-trace"><i class="st"></i>ಗ್ಗ</span><span class="c t-trace"><i class="st"></i>ಗ್ಗ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಗ್ಗ</span><span class="c t-out"><i class="st"></i>ಗ್ಗ</span><span class="c t-out"><i class="st"></i>ಗ್ಗ</span><span class="c t-out"><i class="st"></i>ಗ್ಗ</span><span class="c t-model"><i class="st"></i>ಗ್ಗ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಬೆಳಿಗ್ಗೆ</span><span class="c t-trace"><i class="st"></i>ಬೆಳಿಗ್ಗೆ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - দ্বিত্ব, একই অক্ষর দুবার</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">২</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಚ್ + ಚ</span> = <span class="tg" style="font-size:15pt"><b>ಚ್ಚ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಹೆಚ್ಚು</span> (বেশি)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಚ್ಚ</span><span class="c t-trace"><i class="st"></i>ಚ್ಚ</span><span class="c t-trace"><i class="st"></i>ಚ್ಚ</span><span class="c t-trace"><i class="st"></i>ಚ್ಚ</span><span class="c t-trace"><i class="st"></i>ಚ್ಚ</span><span class="c t-trace"><i class="st"></i>ಚ್ಚ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಚ್ಚ</span><span class="c t-out"><i class="st"></i>ಚ್ಚ</span><span class="c t-out"><i class="st"></i>ಚ್ಚ</span><span class="c t-out"><i class="st"></i>ಚ್ಚ</span><span class="c t-model"><i class="st"></i>ಚ್ಚ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಹೆಚ್ಚು</span><span class="c t-trace"><i class="st"></i>ಹೆಚ್ಚು</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಜ್ + ಜ</span> = <span class="tg" style="font-size:15pt"><b>ಜ್ಜ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಅಜ್ಜ</span> (ঠাকুরদা)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಜ್ಜ</span><span class="c t-trace"><i class="st"></i>ಜ್ಜ</span><span class="c t-trace"><i class="st"></i>ಜ್ಜ</span><span class="c t-trace"><i class="st"></i>ಜ್ಜ</span><span class="c t-trace"><i class="st"></i>ಜ್ಜ</span><span class="c t-trace"><i class="st"></i>ಜ್ಜ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಜ್ಜ</span><span class="c t-out"><i class="st"></i>ಜ್ಜ</span><span class="c t-out"><i class="st"></i>ಜ್ಜ</span><span class="c t-out"><i class="st"></i>ಜ್ಜ</span><span class="c t-model"><i class="st"></i>ಜ್ಜ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಅಜ್ಜ</span><span class="c t-trace"><i class="st"></i>ಅಜ್ಜ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - দ্বিত্ব, একই অক্ষর দুবার</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">৩</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಟ್ + ಟ</span> = <span class="tg" style="font-size:15pt"><b>ಟ್ಟ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಹೊಟ್ಟೆ</span> (পেট)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಟ್ಟ</span><span class="c t-trace"><i class="st"></i>ಟ್ಟ</span><span class="c t-trace"><i class="st"></i>ಟ್ಟ</span><span class="c t-trace"><i class="st"></i>ಟ್ಟ</span><span class="c t-trace"><i class="st"></i>ಟ್ಟ</span><span class="c t-trace"><i class="st"></i>ಟ್ಟ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಟ್ಟ</span><span class="c t-out"><i class="st"></i>ಟ್ಟ</span><span class="c t-out"><i class="st"></i>ಟ್ಟ</span><span class="c t-out"><i class="st"></i>ಟ್ಟ</span><span class="c t-model"><i class="st"></i>ಟ್ಟ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಹೊಟ್ಟೆ</span><span class="c t-trace"><i class="st"></i>ಹೊಟ್ಟೆ</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಡ್ + ಡ</span> = <span class="tg" style="font-size:15pt"><b>ಡ್ಡ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ದೊಡ್ಡ</span> (বড়)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಡ್ಡ</span><span class="c t-trace"><i class="st"></i>ಡ್ಡ</span><span class="c t-trace"><i class="st"></i>ಡ್ಡ</span><span class="c t-trace"><i class="st"></i>ಡ್ಡ</span><span class="c t-trace"><i class="st"></i>ಡ್ಡ</span><span class="c t-trace"><i class="st"></i>ಡ್ಡ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಡ್ಡ</span><span class="c t-out"><i class="st"></i>ಡ್ಡ</span><span class="c t-out"><i class="st"></i>ಡ್ಡ</span><span class="c t-out"><i class="st"></i>ಡ್ಡ</span><span class="c t-model"><i class="st"></i>ಡ್ಡ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ದೊಡ್ಡ</span><span class="c t-trace"><i class="st"></i>ದೊಡ್ಡ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - দ্বিত্ব, একই অক্ষর দুবার</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">৪</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಣ್ + ಣ</span> = <span class="tg" style="font-size:15pt"><b>ಣ್ಣ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಕಣ್ಣು</span> (চোখ)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಣ್ಣ</span><span class="c t-trace"><i class="st"></i>ಣ್ಣ</span><span class="c t-trace"><i class="st"></i>ಣ್ಣ</span><span class="c t-trace"><i class="st"></i>ಣ್ಣ</span><span class="c t-trace"><i class="st"></i>ಣ್ಣ</span><span class="c t-trace"><i class="st"></i>ಣ್ಣ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಣ್ಣ</span><span class="c t-out"><i class="st"></i>ಣ್ಣ</span><span class="c t-out"><i class="st"></i>ಣ್ಣ</span><span class="c t-out"><i class="st"></i>ಣ್ಣ</span><span class="c t-model"><i class="st"></i>ಣ್ಣ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಕಣ್ಣು</span><span class="c t-trace"><i class="st"></i>ಕಣ್ಣು</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ತ್ + ತ</span> = <span class="tg" style="font-size:15pt"><b>ತ್ತ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಹತ್ತು</span> (দশ)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ತ್ತ</span><span class="c t-trace"><i class="st"></i>ತ್ತ</span><span class="c t-trace"><i class="st"></i>ತ್ತ</span><span class="c t-trace"><i class="st"></i>ತ್ತ</span><span class="c t-trace"><i class="st"></i>ತ್ತ</span><span class="c t-trace"><i class="st"></i>ತ್ತ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ತ್ತ</span><span class="c t-out"><i class="st"></i>ತ್ತ</span><span class="c t-out"><i class="st"></i>ತ್ತ</span><span class="c t-out"><i class="st"></i>ತ್ತ</span><span class="c t-model"><i class="st"></i>ತ್ತ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಹತ್ತು</span><span class="c t-trace"><i class="st"></i>ಹತ್ತು</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - দ্বিত্ব, একই অক্ষর দুবার</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">৫</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ದ್ + ದ</span> = <span class="tg" style="font-size:15pt"><b>ದ್ದ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಮುದ್ದು</span> (আদর)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ದ್ದ</span><span class="c t-trace"><i class="st"></i>ದ್ದ</span><span class="c t-trace"><i class="st"></i>ದ್ದ</span><span class="c t-trace"><i class="st"></i>ದ್ದ</span><span class="c t-trace"><i class="st"></i>ದ್ದ</span><span class="c t-trace"><i class="st"></i>ದ್ದ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ದ್ದ</span><span class="c t-out"><i class="st"></i>ದ್ದ</span><span class="c t-out"><i class="st"></i>ದ್ದ</span><span class="c t-out"><i class="st"></i>ದ್ದ</span><span class="c t-model"><i class="st"></i>ದ್ದ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಮುದ್ದು</span><span class="c t-trace"><i class="st"></i>ಮುದ್ದು</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ನ್ + ನ</span> = <span class="tg" style="font-size:15pt"><b>ನ್ನ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಅನ್ನ</span> (ভাত)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ನ್ನ</span><span class="c t-trace"><i class="st"></i>ನ್ನ</span><span class="c t-trace"><i class="st"></i>ನ್ನ</span><span class="c t-trace"><i class="st"></i>ನ್ನ</span><span class="c t-trace"><i class="st"></i>ನ್ನ</span><span class="c t-trace"><i class="st"></i>ನ್ನ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ನ್ನ</span><span class="c t-out"><i class="st"></i>ನ್ನ</span><span class="c t-out"><i class="st"></i>ನ್ನ</span><span class="c t-out"><i class="st"></i>ನ್ನ</span><span class="c t-model"><i class="st"></i>ನ್ನ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಅನ್ನ</span><span class="c t-trace"><i class="st"></i>ಅನ್ನ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - দ্বিত্ব, একই অক্ষর দুবার</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">৬</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಪ್ + ಪ</span> = <span class="tg" style="font-size:15pt"><b>ಪ್ಪ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಅಪ್ಪ</span> (বাবা)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಪ್ಪ</span><span class="c t-trace"><i class="st"></i>ಪ್ಪ</span><span class="c t-trace"><i class="st"></i>ಪ್ಪ</span><span class="c t-trace"><i class="st"></i>ಪ್ಪ</span><span class="c t-trace"><i class="st"></i>ಪ್ಪ</span><span class="c t-trace"><i class="st"></i>ಪ್ಪ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಪ್ಪ</span><span class="c t-out"><i class="st"></i>ಪ್ಪ</span><span class="c t-out"><i class="st"></i>ಪ್ಪ</span><span class="c t-out"><i class="st"></i>ಪ್ಪ</span><span class="c t-model"><i class="st"></i>ಪ್ಪ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಅಪ್ಪ</span><span class="c t-trace"><i class="st"></i>ಅಪ್ಪ</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಬ್ + ಬ</span> = <span class="tg" style="font-size:15pt"><b>ಬ್ಬ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಹಬ್ಬ</span> (উৎসব)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಬ್ಬ</span><span class="c t-trace"><i class="st"></i>ಬ್ಬ</span><span class="c t-trace"><i class="st"></i>ಬ್ಬ</span><span class="c t-trace"><i class="st"></i>ಬ್ಬ</span><span class="c t-trace"><i class="st"></i>ಬ್ಬ</span><span class="c t-trace"><i class="st"></i>ಬ್ಬ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಬ್ಬ</span><span class="c t-out"><i class="st"></i>ಬ್ಬ</span><span class="c t-out"><i class="st"></i>ಬ್ಬ</span><span class="c t-out"><i class="st"></i>ಬ್ಬ</span><span class="c t-model"><i class="st"></i>ಬ್ಬ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಹಬ್ಬ</span><span class="c t-trace"><i class="st"></i>ಹಬ್ಬ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - দ্বিত্ব, একই অক্ষর দুবার</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">৭</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಮ್ + ಮ</span> = <span class="tg" style="font-size:15pt"><b>ಮ್ಮ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಅಮ್ಮ</span> (মা)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಮ್ಮ</span><span class="c t-trace"><i class="st"></i>ಮ್ಮ</span><span class="c t-trace"><i class="st"></i>ಮ್ಮ</span><span class="c t-trace"><i class="st"></i>ಮ್ಮ</span><span class="c t-trace"><i class="st"></i>ಮ್ಮ</span><span class="c t-trace"><i class="st"></i>ಮ್ಮ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಮ್ಮ</span><span class="c t-out"><i class="st"></i>ಮ್ಮ</span><span class="c t-out"><i class="st"></i>ಮ್ಮ</span><span class="c t-out"><i class="st"></i>ಮ್ಮ</span><span class="c t-model"><i class="st"></i>ಮ್ಮ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಅಮ್ಮ</span><span class="c t-trace"><i class="st"></i>ಅಮ್ಮ</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಲ್ + ಲ</span> = <span class="tg" style="font-size:15pt"><b>ಲ್ಲ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಇಲ್ಲ</span> (নেই)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಲ್ಲ</span><span class="c t-trace"><i class="st"></i>ಲ್ಲ</span><span class="c t-trace"><i class="st"></i>ಲ್ಲ</span><span class="c t-trace"><i class="st"></i>ಲ್ಲ</span><span class="c t-trace"><i class="st"></i>ಲ್ಲ</span><span class="c t-trace"><i class="st"></i>ಲ್ಲ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಲ್ಲ</span><span class="c t-out"><i class="st"></i>ಲ್ಲ</span><span class="c t-out"><i class="st"></i>ಲ್ಲ</span><span class="c t-out"><i class="st"></i>ಲ್ಲ</span><span class="c t-model"><i class="st"></i>ಲ್ಲ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಇಲ್ಲ</span><span class="c t-trace"><i class="st"></i>ಇಲ್ಲ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - দ্বিত্ব, একই অক্ষর দুবার</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">৮</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಳ್ + ಳ</span> = <span class="tg" style="font-size:15pt"><b>ಳ್ಳ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಬೆಳ್ಳಿ</span> (রুপো)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಳ್ಳ</span><span class="c t-trace"><i class="st"></i>ಳ್ಳ</span><span class="c t-trace"><i class="st"></i>ಳ್ಳ</span><span class="c t-trace"><i class="st"></i>ಳ್ಳ</span><span class="c t-trace"><i class="st"></i>ಳ್ಳ</span><span class="c t-trace"><i class="st"></i>ಳ್ಳ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಳ್ಳ</span><span class="c t-out"><i class="st"></i>ಳ್ಳ</span><span class="c t-out"><i class="st"></i>ಳ್ಳ</span><span class="c t-out"><i class="st"></i>ಳ್ಳ</span><span class="c t-model"><i class="st"></i>ಳ್ಳ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಬೆಳ್ಳಿ</span><span class="c t-trace"><i class="st"></i>ಬೆಳ್ಳಿ</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಸ್ + ತ</span> = <span class="tg" style="font-size:15pt"><b>ಸ್ತ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಪುಸ್ತಕ</span> (পুস্তক)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಸ್ತ</span><span class="c t-trace"><i class="st"></i>ಸ್ತ</span><span class="c t-trace"><i class="st"></i>ಸ್ತ</span><span class="c t-trace"><i class="st"></i>ಸ್ತ</span><span class="c t-trace"><i class="st"></i>ಸ್ತ</span><span class="c t-trace"><i class="st"></i>ಸ್ತ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಸ್ತ</span><span class="c t-out"><i class="st"></i>ಸ್ತ</span><span class="c t-out"><i class="st"></i>ಸ್ತ</span><span class="c t-out"><i class="st"></i>ಸ್ತ</span><span class="c t-model"><i class="st"></i>ಸ್ತ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಪುಸ್ತಕ</span><span class="c t-trace"><i class="st"></i>ಪುಸ್ತಕ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - ভিন্ন দুই ব্যঞ্জন</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">৯</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಸ್ + ವ</span> = <span class="tg" style="font-size:15pt"><b>ಸ್ವ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಸ್ವಲ್ಪ</span> (একটু)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಸ್ವ</span><span class="c t-trace"><i class="st"></i>ಸ್ವ</span><span class="c t-trace"><i class="st"></i>ಸ್ವ</span><span class="c t-trace"><i class="st"></i>ಸ್ವ</span><span class="c t-trace"><i class="st"></i>ಸ್ವ</span><span class="c t-trace"><i class="st"></i>ಸ್ವ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಸ್ವ</span><span class="c t-out"><i class="st"></i>ಸ್ವ</span><span class="c t-out"><i class="st"></i>ಸ್ವ</span><span class="c t-out"><i class="st"></i>ಸ್ವ</span><span class="c t-model"><i class="st"></i>ಸ್ವ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಸ್ವಲ್ಪ</span><span class="c t-trace"><i class="st"></i>ಸ್ವಲ್ಪ</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ರ್ + ಯ</span> = <span class="tg" style="font-size:15pt"><b>ರ್ಯ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಸೂರ್ಯ</span> (সূর্য)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ರ್ಯ</span><span class="c t-trace"><i class="st"></i>ರ್ಯ</span><span class="c t-trace"><i class="st"></i>ರ್ಯ</span><span class="c t-trace"><i class="st"></i>ರ್ಯ</span><span class="c t-trace"><i class="st"></i>ರ್ಯ</span><span class="c t-trace"><i class="st"></i>ರ್ಯ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ರ್ಯ</span><span class="c t-out"><i class="st"></i>ರ್ಯ</span><span class="c t-out"><i class="st"></i>ರ್ಯ</span><span class="c t-out"><i class="st"></i>ರ್ಯ</span><span class="c t-model"><i class="st"></i>ರ್ಯ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಸೂರ್ಯ</span><span class="c t-trace"><i class="st"></i>ಸೂರ್ಯ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - ভিন্ন দুই ব্যঞ্জন</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">১০</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಷ್ + ಯ</span> = <span class="tg" style="font-size:15pt"><b>ಷ್ಯ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಮನುಷ್ಯ</span> (মানুষ)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಷ್ಯ</span><span class="c t-trace"><i class="st"></i>ಷ್ಯ</span><span class="c t-trace"><i class="st"></i>ಷ್ಯ</span><span class="c t-trace"><i class="st"></i>ಷ್ಯ</span><span class="c t-trace"><i class="st"></i>ಷ್ಯ</span><span class="c t-trace"><i class="st"></i>ಷ್ಯ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಷ್ಯ</span><span class="c t-out"><i class="st"></i>ಷ್ಯ</span><span class="c t-out"><i class="st"></i>ಷ್ಯ</span><span class="c t-out"><i class="st"></i>ಷ್ಯ</span><span class="c t-model"><i class="st"></i>ಷ್ಯ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಮನುಷ್ಯ</span><span class="c t-trace"><i class="st"></i>ಮನುಷ್ಯ</span></div>
+</div><div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಕ್ + ಷ</span> = <span class="tg" style="font-size:15pt"><b>ಕ್ಷ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಅಕ್ಷರ</span> (অক্ষর)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಕ್ಷ</span><span class="c t-trace"><i class="st"></i>ಕ್ಷ</span><span class="c t-trace"><i class="st"></i>ಕ್ಷ</span><span class="c t-trace"><i class="st"></i>ಕ್ಷ</span><span class="c t-trace"><i class="st"></i>ಕ್ಷ</span><span class="c t-trace"><i class="st"></i>ಕ್ಷ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಕ್ಷ</span><span class="c t-out"><i class="st"></i>ಕ್ಷ</span><span class="c t-out"><i class="st"></i>ಕ್ಷ</span><span class="c t-out"><i class="st"></i>ಕ್ಷ</span><span class="c t-model"><i class="st"></i>ಕ್ಷ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಅಕ್ಷರ</span><span class="c t-trace"><i class="st"></i>ಅಕ್ಷರ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ১০</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ಒತ್ತಕ್ಷರ - ভিন্ন দুই ব্যঞ্জন</b></div>
+      <div class="ex">ওত্তক্ষর</div></div></div>
+    <div class="ph-r"><div class="grp">ওত্তক্ষর</div><div class="num">১১</div></div>
+  </div>
+  <div class="note">বাংলার যুক্তাক্ষর অননুমেয়; কন্নডের নিয়ম একটাই - <b>দ্বিতীয় ব্যঞ্জন সবসময় নিচে</b>। ওত্তুটা উপরের অক্ষরের ঠিক মাঝ বরাবর বসে, আকারে প্রায় দুই-তৃতীয়াংশ।</div>
+  <div class="rowlabel"><span><span class="tg" style="font-size:13pt">ಜ್ + ಞ</span> = <span class="tg" style="font-size:15pt"><b>ಜ್ಞ</b></span> &nbsp;&middot;&nbsp; <span class="tg">ಜ್ಞಾನ</span> (জ্ঞান)</span><span>ধূসরের <b>উপর দিয়ে</b> টানো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>ಜ್ಞ</span><span class="c t-trace"><i class="st"></i>ಜ್ಞ</span><span class="c t-trace"><i class="st"></i>ಜ್ಞ</span><span class="c t-trace"><i class="st"></i>ಜ್ಞ</span><span class="c t-trace"><i class="st"></i>ಜ್ಞ</span><span class="c t-trace"><i class="st"></i>ಜ್ಞ</span></div>
+</div><div class="rowlabel"><span>ফাঁপা অক্ষর <b>ভরো</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>ಜ್ಞ</span><span class="c t-out"><i class="st"></i>ಜ್ಞ</span><span class="c t-out"><i class="st"></i>ಜ್ಞ</span><span class="c t-out"><i class="st"></i>ಜ್ಞ</span><span class="c t-model"><i class="st"></i>ಜ್ಞ</span></div>
+</div><div class="rowlabel"><span>শব্দে বসাও</span><span>তারপর নিজে</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ಜ್ಞಾನ</span><span class="c t-trace"><i class="st"></i>ಜ್ಞಾನ</span></div>
+</div>
+  <div class="pf"><span>খাতা ৪ · ওত্তক্ষর</span><span>BHASHASETU &middot; বাংলা থেকে কন্নড &middot; ১১</span></div>
+</div>
+</body>
+</html>
