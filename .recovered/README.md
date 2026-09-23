@@ -13,26 +13,25 @@ one file per stage, and in some cases a tail (progress bar, router, colophon).
   `NN_name.html` series and an `sNN.html` series; `hindi_to_bengali` and `bengali_to_punjabi`
   likewise have `NN_` and `pNN_` series. Concatenating everything produces duplicate
   `<html>`, `<body>` and `<style>` tags. Pick ONE series.
-- **Every one has its full stage set.** Corridor B pairs carry stages 0 to 9, corridor C
-  pairs 0 to 11. What is missing from each is only the TAIL: the closing `</div></main>`,
-  the v2 router script, the progress bar and the colophon, then `</body></html>`.
-  `prompts/kit/03_router_and_footer.html` is exactly that block, but its footer prose is
-  Bengali, so the router can be copied as-is while the button labels and colophon must be
-  rewritten in the course's own source language.
+- **None of them is complete.** An earlier version of this file said all four had their full
+  stage sets. That was wrong: it counted every `data-stage` attribute, and the tab buttons in
+  each head carry those too. Counting real `<section class="stage">` elements gives:
 
-### Which series to use
-
-| pair | series | files | stages | what it needs |
+| pair | needs | best series | real stages | still to write |
 |---|---|---|---|---|
-| bengali_to_punjabi | `pNN_` | 14 | 0-9 | tail, and one stray unclosed div |
-| hindi_to_bengali | `pNN_` | 10 | 0-9 | tail, and one stray unclosed div |
-| hindi_to_kannada | `NN_` | 7 | 0-11 | tail, and one stray unclosed div |
-| hindi_to_malayalam | `sNN` | 10 | 0-9 | balanced already, needs head check plus tail |
+| bengali_to_punjabi | 0-9 | `pNN_stageNN` + `p00_head_a` (attempt B) | 0-5 | stages 6-9, tail, sidecar, workbook data |
+| hindi_to_bengali | 0-9 | `pNN_` | 0-8 | stage 9, tail, sidecar, workbook data |
+| hindi_to_kannada | 0-11 | `NN_` | 0-5 | stages 6-11, tail, sidecar (workbook data exists) |
+| hindi_to_malayalam | 0-11 | `sNN` | 0-9 | stages 10-11, tail, sidecar (workbook data exists) |
 
-Assemble by sorting the chosen series by filename, concatenating, then appending the tail.
-Run `python3 prompts/check_course.py` afterwards: it will name anything still missing.
-- The research behind them is the expensive part and it is embedded in the prose: verified
-  anchors, dictionary citations, example words. That is what is worth recovering.
+- **Series cannot be mixed.** Where two attempts exist they split the stages differently, and
+  each head's tab titles match only its own attempt. In `bengali_to_punjabi` both attempts use
+  a `p` prefix and interleave by filename: attempt B is `p00_head_a` plus `pNN_stageNN`, attempt
+  A is `p01_head` plus `pNN_sN`. In attempt B, `p03_stage02a` leaves a section and a div open and
+  `p03_stage02b` closes them.
+- **Do not overwrite a working v1 with fewer stages.** Every v1 here has its full stage count.
+  Replacing it with a partial v2 removes content from the live course. Finish the missing
+  stages first, using the v1's own later stages as the content source.
 
 ## Why they stalled
 

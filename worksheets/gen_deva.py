@@ -68,13 +68,15 @@ def audit(pair):
         if tot > 1200 or longest > 280:
             miss.append(f"rules too long for the cover: {tot} chars, longest {longest}")
     # the leak this rewrite exists to kill: source-language text from ANOTHER script
-    RANGES = {"bn":(0x980,0x9FF),"te":(0xC00,0xC7F),"kn":(0xC80,0xCFF),"ta":(0xB80,0xBFF),
+    RANGES = {"hi":(0x900,0x97F),"bn":(0x980,0x9FF),"te":(0xC00,0xC7F),"kn":(0xC80,0xCFF),"ta":(0xB80,0xBFF),
               "ml":(0xD00,0xD7F),"pa":(0xA00,0xA7F)}
     iso = c.get("source_iso")
+    own = {SCRIPTS.get(iso, {}).get("script", iso),
+           SCRIPTS.get(c.get("target_iso"), {}).get("script", c.get("target_iso"))}
     blob = json.dumps({k:v for k,v in c.items() if k != "letters"}, ensure_ascii=False)
     blob += json.dumps(c.get("letters",{}).get("cons",[]), ensure_ascii=False)
     for other,(lo,hi) in RANGES.items():
-        if other == iso: continue
+        if other in own or other == iso: continue
         hits = [ch for ch in blob if lo <= ord(ch) <= hi and ord(ch) not in SHARED_PUNCT]
         if hits:
             miss.append(f"{len(hits)} characters of {other} script in a {iso} pair file "
@@ -99,10 +101,14 @@ def audit(pair):
 # 169-page books. Re-measuring them in 2026-09 reproduced asc 0.642 and bot 0.290 exactly,
 # which is what validated the method for the two scripts added below.
 SCRIPTS = {
- "hi": {"font":"Noto Serif Devanagari", "asc":0.642, "top":0.283, "bot":0.290},
- "mr": {"font":"Noto Serif Devanagari", "asc":0.642, "top":0.283, "bot":0.290},
- "bn": {"font":"Noto Serif Bengali",    "asc":0.935, "top":0.039, "bot":0.353},
- "pa": {"font":"Noto Serif Gurmukhi",   "asc":0.577, "top":0.280, "bot":0.295},
+ "hi": {"font":"Noto Serif Devanagari", "asc":0.642, "top":0.283, "bot":0.290,
+        "script":"hi", "sample":"\u0915", "others":("\u0916","\u0917")},
+ "mr": {"font":"Noto Serif Devanagari", "asc":0.642, "top":0.283, "bot":0.290,
+        "script":"hi", "sample":"\u0915", "others":("\u0916","\u0917")},
+ "bn": {"font":"Noto Serif Bengali",    "asc":0.935, "top":0.039, "bot":0.353,
+        "script":"bn", "sample":"\u0995", "others":("\u0996","\u0997")},
+ "pa": {"font":"Noto Serif Gurmukhi",   "asc":0.577, "top":0.280, "bot":0.295,
+        "script":"pa", "sample":"\u0A15", "others":("\u0A16","\u0A17")},
 }
 
 STYLE = """
@@ -254,10 +260,10 @@ def check_width(text, band_mm, label):
 def cover(pair, book_no, deva_title, src_title, sub, rules):
     U = C(pair)["ui"]
     lg = f"""<div class="legend"><h3>{U['legend']}</h3><div class="lg">
-      <div><span class="s deva t-model">क</span>{U['model']}</div>
-      <div><span class="s deva t-trace">क</span>{U['grey']}</div>
-      <div><span class="s deva t-out">क</span>{U['hollow']}</div>
-      <div><span class="s deva t-faint">क</span>{U['faint']}</div>
+      <div><span class="s deva t-model">{SCRIPTS[C(pair)["target_iso"]]["sample"]}</span>{U['model']}</div>
+      <div><span class="s deva t-trace">{SCRIPTS[C(pair)["target_iso"]]["sample"]}</span>{U['grey']}</div>
+      <div><span class="s deva t-out">{SCRIPTS[C(pair)["target_iso"]]["sample"]}</span>{U['hollow']}</div>
+      <div><span class="s deva t-faint">{SCRIPTS[C(pair)["target_iso"]]["sample"]}</span>{U['faint']}</div>
       </div></div>"""
     ol = "".join(f"<li>{r}</li>" for r in rules)
     return f"""<div class="sheet cover">
@@ -307,7 +313,7 @@ def matra_sheet(pair, book, n, form, bn_eq, tr, bn_note):
     U = C(pair)["ui"]
     eq, note = bn_eq, bn_note
     base, sign = form[0], form[1:]
-    applied = "".join(one(c+sign,'t-model')+one(c+sign,'t-trace')+one(c+sign,'t-out') for c in ["ख","ग"])
+    applied = "".join(one(c+sign,'t-model')+one(c+sign,'t-trace')+one(c+sign,'t-out') for c in SCRIPTS[C(pair)["target_iso"]]["others"])
     rule = U['matra_rule'].replace('{b}', f'<span class="deva">{base}</span>').replace('{f}', f'<span class="deva">{form}</span>')
     return f"""<div class="sheet">
   <div class="ph">

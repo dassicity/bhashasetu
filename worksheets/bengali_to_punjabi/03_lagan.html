@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<title>লগাঁ-মাত্রা - বাংলা থেকে পাঞ্জাবি</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Noto+Serif+Gurmukhi:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
+  --base:  19mm;       /* baseline - letters sit here            */
+  /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
+     (see calibrate_font.html). Fractions of the font size, from the baseline:
+       bare letter  shirorekha ....... 0.642 up
+       matras above ..................  0.925 up
+       matras below ..................  0.290 down */
+  --asc-ratio:  0.577;
+  --top-ratio:  0.28;
+  --bot-ratio:  0.295;
+
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Bengali',serif; color:var(--ink); font-size:10pt; }
+.deva{ font-family:'Noto Serif Gurmukhi',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:22mm; line-height:0.95; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; color:var(--ink); }
+.ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); letter-spacing:.04em; }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm; text-align:center; }
+.step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
+.step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
+.step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
+.step .cap b{ color:var(--teal); }
+.steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
+.steps .note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
+      --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--bot-ratio) * var(--gs));
+      height: calc(var(--desc) + 1.5mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* strut: an inline-block whose bottom edge sits on the text baseline, so the
+   baseline lands on --base whatever the font's line metrics say */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; justify-content:flex-start; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
+.row.words{ --head:6.5mm; --base:14mm; }
+.row.words .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --head:5.5mm; --base:11.5mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
+.cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
+.rules{ text-align:left; max-width:150mm; margin:12mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.65; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:10mm auto 0; max-width:150mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:13mm; line-height:1.1; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+.pf .r{ letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">খাতা ৩</div>
+  <h1><span class="deva">ਲਗਾਂ ਮਾਤਰਾਂ</span>লগাঁ-মাত্রা</h1>
+  <p class="sub">দশটি রূপ, একটি চিহ্নহীন। বাংলার কার-চিহ্নের মতোই, শুধু এ-কার আর ও-কার মাথায় ওঠে।</p>
+  <div class="rules"><h2>লেখার আগে পাঁচটি কথা</h2><ol><li><b>শরীর আগে, মাথার রেখা পরে।</b> বাংলায় যেমন আগে অক্ষর, তারপর মাত্রা টানো - গুরুমুখীতেও তাই। হাত এই অভ্যাস আগে থেকেই জানে।</li><li><b>অক্ষর ঝোলে, বসে না।</b> মাথার মোটা রেখা থেকে অক্ষর ঝুলে থাকে, নিচের রেখায় পা রাখে। দুই রেখার মাঝখানটাই অক্ষরের শরীর।</li><li><b>⚡ পাঁচটি অক্ষর হাতে চেনা, মুখে নয়।</b> ਘ ਝ ਢ ਧ ਭ লিখতে বাংলার ঘ ঝ ঢ ধ ভ মনে পড়বে; মুখে এরা ক চ ট ত প, গলা নামিয়ে। লিখতে লিখতে জোরে বলো।</li><li><b>এ-কার আর ও-কার মাথায়।</b> বাংলায় ে বাঁদিকে, ো দুই পাশে; গুরুমুখীতে দুটোই উপরে। প্রথম দিকে হাত বাঁদিকে যেতে চাইবে - থামাও।</li><li><b>আগে আকার, পরে গতি।</b> প্রতিটি অক্ষর একই উচ্চতায়, ধূসর অক্ষর দেখে। দ্রুত লেখা পরে আসবে।</li></ol></div>
+  <div class="legend"><h3>এই বইয়ে চার রকম লেখা</h3><div class="lg">
+      <div><span class="s deva t-model">ਕ</span>নমুনা - দেখে নাও</div>
+      <div><span class="s deva t-trace">ਕ</span>ধূসর - উপর দিয়ে টানো</div>
+      <div><span class="s deva t-out">ਕ</span>ফাঁপা - ভেতরটা ভরো</div>
+      <div><span class="s deva t-faint">ਕ</span>ক্ষীণ - প্রায় একা</div>
+      </div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ਕ</div>
+      <div class="meta"><div class="eq">= <b>ক</b></div><div class="tr">ka</div>
+        <div class="ex">ਮੁਕਤਾ - কোনো চিহ্ন নেই, অন্তর্নিহিত অ</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">লগাঁ-মাত্রা</div><div class="num">১</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>২</b> + লগাঁ-মাত্রা</div></div>
+    <div class="note">বাংলায় ক + া = কা। গুরুমুখীতে <span class="deva">ਕ</span> + চিহ্ন = <span class="deva">ਕ</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন, আর এ-কার ও-কার বাঁদিকে নয়, মাথায়।</div>
+  </div>
+  <div class="rowlabel"><span>ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ਕ</span><span class="c deva t-trace"><i class="st"></i>ਕ</span><span class="c deva t-trace"><i class="st"></i>ਕ</span><span class="c deva t-trace"><i class="st"></i>ਕ</span><span class="c deva t-trace"><i class="st"></i>ਕ</span><span class="c deva t-trace"><i class="st"></i>ਕ</span><span class="c deva t-trace"><i class="st"></i>ਕ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b></span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ਕ</span><span class="c deva t-out"><i class="st"></i>ਕ</span><span class="c deva t-out"><i class="st"></i>ਕ</span><span class="c deva t-out"><i class="st"></i>ਕ</span><span class="c deva t-out"><i class="st"></i>ਕ</span><span class="c deva t-out"><i class="st"></i>ਕ</span><span class="c deva t-out"><i class="st"></i>ਕ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਕ</span><span class="c deva t-faint"><i class="st"></i>ਕ</span></div>
+</div>
+  <div class="rowlabel"><span>একই চিহ্ন <b>অন্য ব্যঞ্জনে</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਖ</span><span class="c deva t-trace"><i class="st"></i>ਖ</span><span class="c deva t-out"><i class="st"></i>ਖ</span><span class="c deva t-model"><i class="st"></i>ਗ</span><span class="c deva t-trace"><i class="st"></i>ਗ</span><span class="c deva t-out"><i class="st"></i>ਗ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৩ · লগাঁ-মাত্রা</span><span class="r">BHASHASETU &middot; বাংলা থেকে পাঞ্জাবি &middot; ১</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ਕਾ</div>
+      <div class="meta"><div class="eq">= <b>কা</b></div><div class="tr">kā</div>
+        <div class="ex">ਕੰਨਾ - ডানদিকে দাঁড়ি, বাংলার আ-কার</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">লগাঁ-মাত্রা</div><div class="num">২</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
+    <div class="step"><span class="g deva">ਕਾ</span><div class="cap"><b>২</b> + লগাঁ-মাত্রা</div></div>
+    <div class="note">বাংলায় ক + া = কা। গুরুমুখীতে <span class="deva">ਕ</span> + চিহ্ন = <span class="deva">ਕਾ</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন, আর এ-কার ও-কার বাঁদিকে নয়, মাথায়।</div>
+  </div>
+  <div class="rowlabel"><span>ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ਕਾ</span><span class="c deva t-trace"><i class="st"></i>ਕਾ</span><span class="c deva t-trace"><i class="st"></i>ਕਾ</span><span class="c deva t-trace"><i class="st"></i>ਕਾ</span><span class="c deva t-trace"><i class="st"></i>ਕਾ</span><span class="c deva t-trace"><i class="st"></i>ਕਾ</span><span class="c deva t-trace"><i class="st"></i>ਕਾ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b></span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ਕਾ</span><span class="c deva t-out"><i class="st"></i>ਕਾ</span><span class="c deva t-out"><i class="st"></i>ਕਾ</span><span class="c deva t-out"><i class="st"></i>ਕਾ</span><span class="c deva t-out"><i class="st"></i>ਕਾ</span><span class="c deva t-out"><i class="st"></i>ਕਾ</span><span class="c deva t-out"><i class="st"></i>ਕਾ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਕਾ</span><span class="c deva t-faint"><i class="st"></i>ਕਾ</span></div>
+</div>
+  <div class="rowlabel"><span>একই চিহ্ন <b>অন্য ব্যঞ্জনে</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਖਾ</span><span class="c deva t-trace"><i class="st"></i>ਖਾ</span><span class="c deva t-out"><i class="st"></i>ਖਾ</span><span class="c deva t-model"><i class="st"></i>ਗਾ</span><span class="c deva t-trace"><i class="st"></i>ਗਾ</span><span class="c deva t-out"><i class="st"></i>ਗਾ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৩ · লগাঁ-মাত্রা</span><span class="r">BHASHASETU &middot; বাংলা থেকে পাঞ্জাবি &middot; ২</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ਕਿ</div>
+      <div class="meta"><div class="eq">= <b>কি</b></div><div class="tr">ki</div>
+        <div class="ex">ਸਿਹਾਰੀ - আগে লেখা, পরে পড়া, বাংলার ই-কারের মতোই</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">লগাঁ-মাত্রা</div><div class="num">৩</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
+    <div class="step"><span class="g deva">ਕਿ</span><div class="cap"><b>২</b> + লগাঁ-মাত্রা</div></div>
+    <div class="note">বাংলায় ক + া = কা। গুরুমুখীতে <span class="deva">ਕ</span> + চিহ্ন = <span class="deva">ਕਿ</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন, আর এ-কার ও-কার বাঁদিকে নয়, মাথায়।</div>
+  </div>
+  <div class="rowlabel"><span>ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ਕਿ</span><span class="c deva t-trace"><i class="st"></i>ਕਿ</span><span class="c deva t-trace"><i class="st"></i>ਕਿ</span><span class="c deva t-trace"><i class="st"></i>ਕਿ</span><span class="c deva t-trace"><i class="st"></i>ਕਿ</span><span class="c deva t-trace"><i class="st"></i>ਕਿ</span><span class="c deva t-trace"><i class="st"></i>ਕਿ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b></span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ਕਿ</span><span class="c deva t-out"><i class="st"></i>ਕਿ</span><span class="c deva t-out"><i class="st"></i>ਕਿ</span><span class="c deva t-out"><i class="st"></i>ਕਿ</span><span class="c deva t-out"><i class="st"></i>ਕਿ</span><span class="c deva t-out"><i class="st"></i>ਕਿ</span><span class="c deva t-out"><i class="st"></i>ਕਿ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਕਿ</span><span class="c deva t-faint"><i class="st"></i>ਕਿ</span></div>
+</div>
+  <div class="rowlabel"><span>একই চিহ্ন <b>অন্য ব্যঞ্জনে</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਖਿ</span><span class="c deva t-trace"><i class="st"></i>ਖਿ</span><span class="c deva t-out"><i class="st"></i>ਖਿ</span><span class="c deva t-model"><i class="st"></i>ਗਿ</span><span class="c deva t-trace"><i class="st"></i>ਗਿ</span><span class="c deva t-out"><i class="st"></i>ਗਿ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৩ · লগাঁ-মাত্রা</span><span class="r">BHASHASETU &middot; বাংলা থেকে পাঞ্জাবি &middot; ৩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ਕੀ</div>
+      <div class="meta"><div class="eq">= <b>কী</b></div><div class="tr">kī</div>
+        <div class="ex">ਬਿਹਾਰੀ - ডানদিকে, বাংলার ঈ-কার</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">লগাঁ-মাত্রা</div><div class="num">৪</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
+    <div class="step"><span class="g deva">ਕੀ</span><div class="cap"><b>২</b> + লগাঁ-মাত্রা</div></div>
+    <div class="note">বাংলায় ক + া = কা। গুরুমুখীতে <span class="deva">ਕ</span> + চিহ্ন = <span class="deva">ਕੀ</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন, আর এ-কার ও-কার বাঁদিকে নয়, মাথায়।</div>
+  </div>
+  <div class="rowlabel"><span>ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ਕੀ</span><span class="c deva t-trace"><i class="st"></i>ਕੀ</span><span class="c deva t-trace"><i class="st"></i>ਕੀ</span><span class="c deva t-trace"><i class="st"></i>ਕੀ</span><span class="c deva t-trace"><i class="st"></i>ਕੀ</span><span class="c deva t-trace"><i class="st"></i>ਕੀ</span><span class="c deva t-trace"><i class="st"></i>ਕੀ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b></span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ਕੀ</span><span class="c deva t-out"><i class="st"></i>ਕੀ</span><span class="c deva t-out"><i class="st"></i>ਕੀ</span><span class="c deva t-out"><i class="st"></i>ਕੀ</span><span class="c deva t-out"><i class="st"></i>ਕੀ</span><span class="c deva t-out"><i class="st"></i>ਕੀ</span><span class="c deva t-out"><i class="st"></i>ਕੀ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਕੀ</span><span class="c deva t-faint"><i class="st"></i>ਕੀ</span></div>
+</div>
+  <div class="rowlabel"><span>একই চিহ্ন <b>অন্য ব্যঞ্জনে</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਖੀ</span><span class="c deva t-trace"><i class="st"></i>ਖੀ</span><span class="c deva t-out"><i class="st"></i>ਖੀ</span><span class="c deva t-model"><i class="st"></i>ਗੀ</span><span class="c deva t-trace"><i class="st"></i>ਗੀ</span><span class="c deva t-out"><i class="st"></i>ਗੀ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৩ · লগাঁ-মাত্রা</span><span class="r">BHASHASETU &middot; বাংলা থেকে পাঞ্জাবি &middot; ৪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ਕੁ</div>
+      <div class="meta"><div class="eq">= <b>কু</b></div><div class="tr">ku</div>
+        <div class="ex">ਔਂਕੜ - পায়ের নিচে, বাংলার উ-কার</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">লগাঁ-মাত্রা</div><div class="num">৫</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
+    <div class="step"><span class="g deva">ਕੁ</span><div class="cap"><b>২</b> + লগাঁ-মাত্রা</div></div>
+    <div class="note">বাংলায় ক + া = কা। গুরুমুখীতে <span class="deva">ਕ</span> + চিহ্ন = <span class="deva">ਕੁ</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন, আর এ-কার ও-কার বাঁদিকে নয়, মাথায়।</div>
+  </div>
+  <div class="rowlabel"><span>ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ਕੁ</span><span class="c deva t-trace"><i class="st"></i>ਕੁ</span><span class="c deva t-trace"><i class="st"></i>ਕੁ</span><span class="c deva t-trace"><i class="st"></i>ਕੁ</span><span class="c deva t-trace"><i class="st"></i>ਕੁ</span><span class="c deva t-trace"><i class="st"></i>ਕੁ</span><span class="c deva t-trace"><i class="st"></i>ਕੁ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b></span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ਕੁ</span><span class="c deva t-out"><i class="st"></i>ਕੁ</span><span class="c deva t-out"><i class="st"></i>ਕੁ</span><span class="c deva t-out"><i class="st"></i>ਕੁ</span><span class="c deva t-out"><i class="st"></i>ਕੁ</span><span class="c deva t-out"><i class="st"></i>ਕੁ</span><span class="c deva t-out"><i class="st"></i>ਕੁ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਕੁ</span><span class="c deva t-faint"><i class="st"></i>ਕੁ</span></div>
+</div>
+  <div class="rowlabel"><span>একই চিহ্ন <b>অন্য ব্যঞ্জনে</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਖੁ</span><span class="c deva t-trace"><i class="st"></i>ਖੁ</span><span class="c deva t-out"><i class="st"></i>ਖੁ</span><span class="c deva t-model"><i class="st"></i>ਗੁ</span><span class="c deva t-trace"><i class="st"></i>ਗੁ</span><span class="c deva t-out"><i class="st"></i>ਗੁ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৩ · লগাঁ-মাত্রা</span><span class="r">BHASHASETU &middot; বাংলা থেকে পাঞ্জাবি &middot; ৫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ਕੂ</div>
+      <div class="meta"><div class="eq">= <b>কূ</b></div><div class="tr">kū</div>
+        <div class="ex">ਦੁਲੈਂਕੜ - পায়ের নিচে জোড়া দাগ, ঊ-কার</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">লগাঁ-মাত্রা</div><div class="num">৬</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
+    <div class="step"><span class="g deva">ਕੂ</span><div class="cap"><b>২</b> + লগাঁ-মাত্রা</div></div>
+    <div class="note">বাংলায় ক + া = কা। গুরুমুখীতে <span class="deva">ਕ</span> + চিহ্ন = <span class="deva">ਕੂ</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন, আর এ-কার ও-কার বাঁদিকে নয়, মাথায়।</div>
+  </div>
+  <div class="rowlabel"><span>ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ਕੂ</span><span class="c deva t-trace"><i class="st"></i>ਕੂ</span><span class="c deva t-trace"><i class="st"></i>ਕੂ</span><span class="c deva t-trace"><i class="st"></i>ਕੂ</span><span class="c deva t-trace"><i class="st"></i>ਕੂ</span><span class="c deva t-trace"><i class="st"></i>ਕੂ</span><span class="c deva t-trace"><i class="st"></i>ਕੂ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b></span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ਕੂ</span><span class="c deva t-out"><i class="st"></i>ਕੂ</span><span class="c deva t-out"><i class="st"></i>ਕੂ</span><span class="c deva t-out"><i class="st"></i>ਕੂ</span><span class="c deva t-out"><i class="st"></i>ਕੂ</span><span class="c deva t-out"><i class="st"></i>ਕੂ</span><span class="c deva t-out"><i class="st"></i>ਕੂ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਕੂ</span><span class="c deva t-faint"><i class="st"></i>ਕੂ</span></div>
+</div>
+  <div class="rowlabel"><span>একই চিহ্ন <b>অন্য ব্যঞ্জনে</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਖੂ</span><span class="c deva t-trace"><i class="st"></i>ਖੂ</span><span class="c deva t-out"><i class="st"></i>ਖੂ</span><span class="c deva t-model"><i class="st"></i>ਗੂ</span><span class="c deva t-trace"><i class="st"></i>ਗੂ</span><span class="c deva t-out"><i class="st"></i>ਗੂ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৩ · লগাঁ-মাত্রা</span><span class="r">BHASHASETU &middot; বাংলা থেকে পাঞ্জাবি &middot; ৬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ਕੇ</div>
+      <div class="meta"><div class="eq">= <b>কে</b></div><div class="tr">ke</div>
+        <div class="ex">ਲਾਂਵ - মাথায় বসে, বাংলার মতো বাঁদিকে নয়</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">লগাঁ-মাত্রা</div><div class="num">৭</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
+    <div class="step"><span class="g deva">ਕੇ</span><div class="cap"><b>২</b> + লগাঁ-মাত্রা</div></div>
+    <div class="note">বাংলায় ক + া = কা। গুরুমুখীতে <span class="deva">ਕ</span> + চিহ্ন = <span class="deva">ਕੇ</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন, আর এ-কার ও-কার বাঁদিকে নয়, মাথায়।</div>
+  </div>
+  <div class="rowlabel"><span>ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ਕੇ</span><span class="c deva t-trace"><i class="st"></i>ਕੇ</span><span class="c deva t-trace"><i class="st"></i>ਕੇ</span><span class="c deva t-trace"><i class="st"></i>ਕੇ</span><span class="c deva t-trace"><i class="st"></i>ਕੇ</span><span class="c deva t-trace"><i class="st"></i>ਕੇ</span><span class="c deva t-trace"><i class="st"></i>ਕੇ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b></span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ਕੇ</span><span class="c deva t-out"><i class="st"></i>ਕੇ</span><span class="c deva t-out"><i class="st"></i>ਕੇ</span><span class="c deva t-out"><i class="st"></i>ਕੇ</span><span class="c deva t-out"><i class="st"></i>ਕੇ</span><span class="c deva t-out"><i class="st"></i>ਕੇ</span><span class="c deva t-out"><i class="st"></i>ਕੇ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਕੇ</span><span class="c deva t-faint"><i class="st"></i>ਕੇ</span></div>
+</div>
+  <div class="rowlabel"><span>একই চিহ্ন <b>অন্য ব্যঞ্জনে</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਖੇ</span><span class="c deva t-trace"><i class="st"></i>ਖੇ</span><span class="c deva t-out"><i class="st"></i>ਖੇ</span><span class="c deva t-model"><i class="st"></i>ਗੇ</span><span class="c deva t-trace"><i class="st"></i>ਗੇ</span><span class="c deva t-out"><i class="st"></i>ਗੇ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৩ · লগাঁ-মাত্রা</span><span class="r">BHASHASETU &middot; বাংলা থেকে পাঞ্জাবি &middot; ৭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ਕੈ</div>
+      <div class="meta"><div class="eq">= <b>ক্যা (কৈ নয়)</b></div><div class="tr">kai</div>
+        <div class="ex">ਦੁਲਾਂਵ - মাথায় জোড়া দাগ, একটানা অ্যা</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">লগাঁ-মাত্রা</div><div class="num">৮</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
+    <div class="step"><span class="g deva">ਕੈ</span><div class="cap"><b>২</b> + লগাঁ-মাত্রা</div></div>
+    <div class="note">বাংলায় ক + া = কা। গুরুমুখীতে <span class="deva">ਕ</span> + চিহ্ন = <span class="deva">ਕੈ</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন, আর এ-কার ও-কার বাঁদিকে নয়, মাথায়।</div>
+  </div>
+  <div class="rowlabel"><span>ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ਕੈ</span><span class="c deva t-trace"><i class="st"></i>ਕੈ</span><span class="c deva t-trace"><i class="st"></i>ਕੈ</span><span class="c deva t-trace"><i class="st"></i>ਕੈ</span><span class="c deva t-trace"><i class="st"></i>ਕੈ</span><span class="c deva t-trace"><i class="st"></i>ਕੈ</span><span class="c deva t-trace"><i class="st"></i>ਕੈ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b></span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ਕੈ</span><span class="c deva t-out"><i class="st"></i>ਕੈ</span><span class="c deva t-out"><i class="st"></i>ਕੈ</span><span class="c deva t-out"><i class="st"></i>ਕੈ</span><span class="c deva t-out"><i class="st"></i>ਕੈ</span><span class="c deva t-out"><i class="st"></i>ਕੈ</span><span class="c deva t-out"><i class="st"></i>ਕੈ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਕੈ</span><span class="c deva t-faint"><i class="st"></i>ਕੈ</span></div>
+</div>
+  <div class="rowlabel"><span>একই চিহ্ন <b>অন্য ব্যঞ্জনে</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਖੈ</span><span class="c deva t-trace"><i class="st"></i>ਖੈ</span><span class="c deva t-out"><i class="st"></i>ਖੈ</span><span class="c deva t-model"><i class="st"></i>ਗੈ</span><span class="c deva t-trace"><i class="st"></i>ਗੈ</span><span class="c deva t-out"><i class="st"></i>ਗੈ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৩ · লগাঁ-মাত্রা</span><span class="r">BHASHASETU &middot; বাংলা থেকে পাঞ্জাবি &middot; ৮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ਕੋ</div>
+      <div class="meta"><div class="eq">= <b>কো</b></div><div class="tr">ko</div>
+        <div class="ex">ਹੋੜਾ - মাথায় বসে, বাংলার মতো দুই পাশে নয়</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">লগাঁ-মাত্রা</div><div class="num">৯</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
+    <div class="step"><span class="g deva">ਕੋ</span><div class="cap"><b>২</b> + লগাঁ-মাত্রা</div></div>
+    <div class="note">বাংলায় ক + া = কা। গুরুমুখীতে <span class="deva">ਕ</span> + চিহ্ন = <span class="deva">ਕੋ</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন, আর এ-কার ও-কার বাঁদিকে নয়, মাথায়।</div>
+  </div>
+  <div class="rowlabel"><span>ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ਕੋ</span><span class="c deva t-trace"><i class="st"></i>ਕੋ</span><span class="c deva t-trace"><i class="st"></i>ਕੋ</span><span class="c deva t-trace"><i class="st"></i>ਕੋ</span><span class="c deva t-trace"><i class="st"></i>ਕੋ</span><span class="c deva t-trace"><i class="st"></i>ਕੋ</span><span class="c deva t-trace"><i class="st"></i>ਕੋ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b></span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ਕੋ</span><span class="c deva t-out"><i class="st"></i>ਕੋ</span><span class="c deva t-out"><i class="st"></i>ਕੋ</span><span class="c deva t-out"><i class="st"></i>ਕੋ</span><span class="c deva t-out"><i class="st"></i>ਕੋ</span><span class="c deva t-out"><i class="st"></i>ਕੋ</span><span class="c deva t-out"><i class="st"></i>ਕੋ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਕੋ</span><span class="c deva t-faint"><i class="st"></i>ਕੋ</span></div>
+</div>
+  <div class="rowlabel"><span>একই চিহ্ন <b>অন্য ব্যঞ্জনে</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਖੋ</span><span class="c deva t-trace"><i class="st"></i>ਖੋ</span><span class="c deva t-out"><i class="st"></i>ਖੋ</span><span class="c deva t-model"><i class="st"></i>ਗੋ</span><span class="c deva t-trace"><i class="st"></i>ਗੋ</span><span class="c deva t-out"><i class="st"></i>ਗੋ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৩ · লগাঁ-মাত্রা</span><span class="r">BHASHASETU &middot; বাংলা থেকে পাঞ্জাবি &middot; ৯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ਕੌ</div>
+      <div class="meta"><div class="eq">= <b>ক, টানা (কৌ নয়)</b></div><div class="tr">kau</div>
+        <div class="ex">ਕਨੌੜਾ - মাথায়, বাংলার অ-ধ্বনি টানা</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">লগাঁ-মাত্রা</div><div class="num">১০</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ਕ</span><div class="cap"><b>১</b> ব্যঞ্জন</div></div>
+    <div class="step"><span class="g deva">ਕੌ</span><div class="cap"><b>২</b> + লগাঁ-মাত্রা</div></div>
+    <div class="note">বাংলায় ক + া = কা। গুরুমুখীতে <span class="deva">ਕ</span> + চিহ্ন = <span class="deva">ਕੌ</span>। <b>নিয়মটা তোমার জানা</b> - শুধু চেহারা নতুন, আর এ-কার ও-কার বাঁদিকে নয়, মাথায়।</div>
+  </div>
+  <div class="rowlabel"><span>ধূসর অক্ষরের <b>উপর দিয়ে</b> টানো</span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ਕੌ</span><span class="c deva t-trace"><i class="st"></i>ਕੌ</span><span class="c deva t-trace"><i class="st"></i>ਕੌ</span><span class="c deva t-trace"><i class="st"></i>ਕੌ</span><span class="c deva t-trace"><i class="st"></i>ਕੌ</span><span class="c deva t-trace"><i class="st"></i>ਕੌ</span><span class="c deva t-trace"><i class="st"></i>ਕੌ</span></div>
+</div>
+  <div class="rowlabel"><span>ফাঁপা অক্ষরের <b>ভেতরটা ভরো</b></span><span>সাত বার</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ਕੌ</span><span class="c deva t-out"><i class="st"></i>ਕੌ</span><span class="c deva t-out"><i class="st"></i>ਕੌ</span><span class="c deva t-out"><i class="st"></i>ਕੌ</span><span class="c deva t-out"><i class="st"></i>ਕੌ</span><span class="c deva t-out"><i class="st"></i>ਕੌ</span><span class="c deva t-out"><i class="st"></i>ਕੌ</span></div>
+</div>
+  <div class="rowlabel"><span>শুরুটা দেওয়া আছে - <b>বাকিটা নিজে</b></span><span>সারি শেষ করো</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਕੌ</span><span class="c deva t-faint"><i class="st"></i>ਕੌ</span></div>
+</div>
+  <div class="rowlabel"><span>একই চিহ্ন <b>অন্য ব্যঞ্জনে</b></span><span>তারপর নিজে</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ਖੌ</span><span class="c deva t-trace"><i class="st"></i>ਖੌ</span><span class="c deva t-out"><i class="st"></i>ਖੌ</span><span class="c deva t-model"><i class="st"></i>ਗੌ</span><span class="c deva t-trace"><i class="st"></i>ਗੌ</span><span class="c deva t-out"><i class="st"></i>ਗੌ</span></div>
+</div>
+  <div class="rowlabel"><span>নিজে লেখো</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>খাতা ৩ · লগাঁ-মাত্রা</span><span class="r">BHASHASETU &middot; বাংলা থেকে পাঞ্জাবি &middot; ১০</span></div>
+</div>
+</body>
+</html>
