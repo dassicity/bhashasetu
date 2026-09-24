@@ -135,6 +135,12 @@ body{ font-family:'{SRC_FONT}',serif; color:var(--ink); font-size:10pt; }
 .deva{ font-family:'{TFONT}',serif; }
 
 .sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+/* Headroom ONLY on sheets that open with the big header glyph (letter and matra sheets).
+   Its line-height is 0.95, so tall letters (Bengali independent i, ii and u, Devanagari ii, Gurmukhi iri) rise
+   above their line box, and as the first thing on a sheet that ink printed in the previous
+   page's bottom margin. Applying it to every sheet instead pushed the dense Gurmukhi
+   conjunct sheets onto a second page (book 4 went from 10 pages to 18). */
+.sheet.tall{ padding-top:5mm; min-height:257mm; }
 .sheet:last-child{ page-break-after:auto; break-after:auto; }
 
 .ph{ display:flex; align-items:flex-end; justify-content:space-between;
@@ -280,7 +286,7 @@ def letter_sheet(pair, book, n, deva, bn_eq, tr, ex, bn_gloss, group, note=None)
     eq, gloss = bn_eq, bn_gloss          # pre-resolved in the pair file
     if note is None:
         note = U["letter_note"]
-    return f"""<div class="sheet">
+    return f"""<div class="sheet tall">
   <div class="ph">
     <div class="ph-l">
       <div class="big deva">{deva}</div>
@@ -315,7 +321,7 @@ def matra_sheet(pair, book, n, form, bn_eq, tr, bn_note):
     base, sign = form[0], form[1:]
     applied = "".join(one(c+sign,'t-model')+one(c+sign,'t-trace')+one(c+sign,'t-out') for c in SCRIPTS[C(pair)["target_iso"]]["others"])
     rule = U['matra_rule'].replace('{b}', f'<span class="deva">{base}</span>').replace('{f}', f'<span class="deva">{form}</span>')
-    return f"""<div class="sheet">
+    return f"""<div class="sheet tall">
   <div class="ph">
     <div class="ph-l">
       <div class="big deva">{form}</div>

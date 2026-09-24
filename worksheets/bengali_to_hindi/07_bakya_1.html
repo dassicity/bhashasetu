@@ -30,6 +30,12 @@ body{ font-family:'Noto Serif Bengali',serif; color:var(--ink); font-size:10pt; 
 .deva{ font-family:'Noto Serif Devanagari',serif; }
 
 .sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+/* Headroom ONLY on sheets that open with the big header glyph (letter and matra sheets).
+   Its line-height is 0.95, so tall letters (Bengali independent i, ii and u, Devanagari ii, Gurmukhi iri) rise
+   above their line box, and as the first thing on a sheet that ink printed in the previous
+   page's bottom margin. Applying it to every sheet instead pushed the dense Gurmukhi
+   conjunct sheets onto a second page (book 4 went from 10 pages to 18). */
+.sheet.tall{ padding-top:5mm; min-height:257mm; }
 .sheet:last-child{ page-break-after:auto; break-after:auto; }
 
 .ph{ display:flex; align-items:flex-end; justify-content:space-between;

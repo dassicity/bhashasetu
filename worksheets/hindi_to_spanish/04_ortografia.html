@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>वर्तनी के नियम - हिन्दी से स्पेनिश</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da; --paper:#FDFBF6;
+}
+@page{ size:A4; margin:12mm 10mm; }
+*{ box-sizing:border-box; }
+body{ font-family:'Noto Serif Devanagari',serif; color:var(--ink); font-size:10pt; margin:0;
+      background:var(--paper); }
+.sheet{ page-break-after:always; break-after:page; padding:0 2mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+.es{ font-family:'Noto Serif',serif; }
+
+.ph{ display:flex; justify-content:space-between; align-items:flex-start;
+     border-bottom:0.4mm solid var(--line-soft); padding-bottom:2.5mm; margin-bottom:3.5mm; }
+.ph-l{ display:flex; gap:6mm; align-items:flex-start; }
+.big{ font-size:24mm; line-height:1.05; font-family:'Noto Serif',serif; }
+.meta{ padding-top:1.5mm; }
+.meta .eq{ font-size:12.5pt; }
+.meta .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--faded);
+           letter-spacing:.08em; margin-top:1mm; }
+.meta .ex{ font-size:10pt; color:var(--faded); margin-top:1.5mm; }
+.ph-r{ text-align:right; max-width:62mm; }
+.grp{ font-size:9pt; color:var(--teal); }
+.num{ font-size:14pt; color:var(--faded); margin-top:1mm; }
+.note{ font-size:9.5pt; color:var(--faded); background:#F4F1EA; border-left:1mm solid var(--ochre);
+       padding:2mm 3mm; margin:0 0 3mm; line-height:1.6; }
+.pair{ font-size:10pt; color:var(--sindoor); margin:0 0 2.5mm; }
+
+/* ---- the four rules of a Latin copybook ---- */
+.rowlabel{ display:flex; justify-content:space-between; font-size:8.5pt; color:var(--faded);
+           margin:0 0 0.8mm; }
+.row{ position:relative; height:14.64mm; margin-bottom:3mm; }
+.row.w{ height:11.69mm; }
+.ln{ position:absolute; left:0; right:0; }
+.ln.a{ top:1.54mm;  border-top:0.22mm dashed var(--line-soft); }
+.ln.x{ top:4.00mm;   border-top:0.22mm dashed var(--line-soft); }
+.ln.b{ top:10.00mm; border-top:0.38mm solid var(--line); }
+.ln.d{ top:12.64mm; border-top:0.22mm dashed var(--line-soft); }
+.row.w .ln.a{ top:2.24mm; } .row.w .ln.x{ top:4.00mm; }
+.row.w .ln.b{ top:8.30mm; } .row.w .ln.d{ top:10.19mm; }
+.cells{ position:absolute; left:0; top:0; right:0; white-space:nowrap; }
+.c{ font-family:'Noto Serif',serif; font-size:10.99mm; line-height:0; margin-right:3.5mm; }
+.row.w .c{ font-size:7.88mm; margin-right:2.5mm; }
+/* zero-width strut: pins the text baseline to --base whatever the font's line metrics say */
+.st{ display:inline-block; width:0; height:10.00mm; vertical-align:baseline; }
+.row.w .st{ height:8.30mm; }
+.t-model{ color:var(--ink); }
+.t-trace{ color:#BFB6A6; }
+.t-out{ color:transparent; -webkit-text-stroke:0.2mm #BFB6A6; }
+.t-faint{ color:#E7E1D3; }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-family:'JetBrains Mono',monospace; font-size:9pt; letter-spacing:.2em;
+                color:var(--sindoor); }
+.cover h1{ font-size:24pt; margin:4mm 0 2mm; font-weight:600; }
+.cover h1 .es{ display:block; font-size:32pt; margin-bottom:3mm; }
+.cover .sub{ font-size:11pt; color:var(--faded); max-width:132mm; margin:0 auto 8mm; line-height:1.8; }
+.rules{ max-width:140mm; margin:0 auto; text-align:left; }
+.rules h2{ font-size:11pt; color:var(--teal); margin:0 0 3mm; }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ font-size:10pt; line-height:1.85; margin-bottom:2.5mm; color:var(--faded); }
+.rules li b{ color:var(--ink); }
+.legend{ max-width:140mm; margin:8mm auto 0; text-align:left; }
+.legend h3{ font-size:10pt; color:var(--teal); margin:0 0 2mm; }
+.lg{ display:flex; gap:7mm; }
+.lg div{ font-size:8.5pt; color:var(--faded); text-align:center; }
+.lg .s{ display:block; font-size:11mm; line-height:1.2; font-family:'Noto Serif',serif; }
+.foot{ margin-top:12mm; font-family:'JetBrains Mono',monospace; font-size:8pt;
+       letter-spacing:.14em; color:var(--faded); }
+.pf{ display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace;
+     font-size:7.5pt; letter-spacing:.1em; color:#B9AE9B; margin-top:3mm;
+     border-top:0.3mm solid var(--line-soft); padding-top:1.5mm; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">कॉपी ४</div>
+  <h1><span class="es">la ortografía</span>वर्तनी के नियम</h1>
+  <p class="sub">अंग्रेज़ी वर्तनी आपने रटकर सीखी, क्योंकि वहाँ नियम नहीं। स्पेनिश में है: जो लिखा, वही पढ़ा - देवनागरी की तरह। फंदे गिने-चुने हैं: चुप h, न पढ़ा जाने वाला u, एक ध्वनि के दो अक्षर b और v, जोड़े ll, rr, ch, और e/i से पहले बदलते c और g।</p>
+  <div class="rules"><h2>लिखने से पहले पाँच बातें</h2><ol><li><b>चिह्न सजावट नहीं।</b> ज़ोर का चिह्न हमेशा स्वर पर बैठता है - a e i o u - व्यंजन पर कभी नहीं। झुकाव एक ही तरफ़: नीचे-बाएँ से ऊपर-दाएँ। उलटा खींचा तो वह स्पेनिश चिह्न नहीं रहा।</li><li><b>ñ की लहर अक्षर का हिस्सा है</b>, ऊपर रखा गहना नहीं। n और ñ दो अलग अक्षर हैं, जैसे न और ण। लहर बाएँ से दाएँ, एक बार में, n के ठीक ऊपर। लहर छूटी तो शब्द बदल गया।</li><li><b>¿ और ¡ वाक्य की शुरुआत में।</b> हिन्दी "क्या" प्रश्न को पहले शब्द से खोल देता है; स्पेनिश यह काम ¿ से करती है। क़लम रखने से पहले सोचिए: प्रश्न है? तो पहले अक्षर से पहले ¿, मोड़ नीचे की ओर।</li><li><b>चिह्न छोड़ा तो वर्तनी ग़लत</b> - यह मर्ज़ी की बात नहीं। el और él, tu और tú, papa और papá अलग शब्द हैं। अक्षर पूरा करके ही ऊपर का चिह्न लगाइए; बीच में लगाया तो हाथ अटकेगा।</li><li><b>हाथ रोमन अक्षर पहले से जानता है</b> - लक्ष्य रफ़्तार नहीं, सही वर्तनी। पेंसिल से लिखिए, दिन में एक पन्ना, और हर सतर के बाद शब्द ज़ोर से बोलिए - ज़ोर कहाँ पड़ा, कान से सुनिए।</li></ol></div>
+  <div class="legend"><h3>इस कॉपी में चार तरह की लिखावट</h3><div class="lg">
+      <div><span class="s es t-model">l</span>नमूना</div>
+      <div><span class="s es t-trace">l</span>धूसर - ऊपर से</div>
+      <div><span class="s es t-out">l</span>खोखला - भीतर भरिए</div>
+      <div><span class="s es t-faint">l</span>हल्का - लगभग अकेले</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">que</div>
+      <div class="meta"><div class="eq">= <b>के</b></div><div class="tr">k</div><div class="ex"><span class="es">queso</span> &middot; पनीर</div></div></div>
+    <div class="ph-r"><div class="grp">u लिखिए, पढ़िए नहीं</div><div class="num">१</div></div>
+  </div>
+  
+  <div class="note">e से पहले क की ध्वनि के लिए qu। u चुप है - "क्वेसो" नहीं, केसो।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>que</span><span class="c t-trace"><i class="st"></i>que</span><span class="c t-trace"><i class="st"></i>que</span><span class="c t-trace"><i class="st"></i>que</span><span class="c t-trace"><i class="st"></i>que</span><span class="c t-trace"><i class="st"></i>que</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>que</span><span class="c t-out"><i class="st"></i>que</span><span class="c t-out"><i class="st"></i>que</span><span class="c t-out"><i class="st"></i>que</span><span class="c t-out"><i class="st"></i>que</span><span class="c t-out"><i class="st"></i>que</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>que</span><span class="c t-faint"><i class="st"></i>que</span><span class="c t-faint"><i class="st"></i>que</span><span class="c t-faint"><i class="st"></i>que</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; १</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">qui</div>
+      <div class="meta"><div class="eq">= <b>कि</b></div><div class="tr">k</div><div class="ex"><span class="es">quiero</span> &middot; मैं चाहता हूँ</div></div></div>
+    <div class="ph-r"><div class="grp">u लिखिए, पढ़िए नहीं</div><div class="num">२</div></div>
+  </div>
+  
+  <div class="note">अंग्रेज़ी पढ़ने की आदत से "क्वि" मत पढ़िए। स्पेनिश में qui = कि, हमेशा।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>qui</span><span class="c t-trace"><i class="st"></i>qui</span><span class="c t-trace"><i class="st"></i>qui</span><span class="c t-trace"><i class="st"></i>qui</span><span class="c t-trace"><i class="st"></i>qui</span><span class="c t-trace"><i class="st"></i>qui</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>qui</span><span class="c t-out"><i class="st"></i>qui</span><span class="c t-out"><i class="st"></i>qui</span><span class="c t-out"><i class="st"></i>qui</span><span class="c t-out"><i class="st"></i>qui</span><span class="c t-out"><i class="st"></i>qui</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>qui</span><span class="c t-faint"><i class="st"></i>qui</span><span class="c t-faint"><i class="st"></i>qui</span><span class="c t-faint"><i class="st"></i>qui</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; २</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">gui</div>
+      <div class="meta"><div class="eq">= <b>गि</b></div><div class="tr">g</div><div class="ex"><span class="es">guitarra</span> &middot; गिटार</div></div></div>
+    <div class="ph-r"><div class="grp">u लिखिए, पढ़िए नहीं</div><div class="num">३</div></div>
+  </div>
+  
+  <div class="note">e और i से पहले ग बचाना हो तो बीच में एक चुप u।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>gui</span><span class="c t-trace"><i class="st"></i>gui</span><span class="c t-trace"><i class="st"></i>gui</span><span class="c t-trace"><i class="st"></i>gui</span><span class="c t-trace"><i class="st"></i>gui</span><span class="c t-trace"><i class="st"></i>gui</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>gui</span><span class="c t-out"><i class="st"></i>gui</span><span class="c t-out"><i class="st"></i>gui</span><span class="c t-out"><i class="st"></i>gui</span><span class="c t-out"><i class="st"></i>gui</span><span class="c t-out"><i class="st"></i>gui</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>gui</span><span class="c t-faint"><i class="st"></i>gui</span><span class="c t-faint"><i class="st"></i>gui</span><span class="c t-faint"><i class="st"></i>gui</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; ३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">güi</div>
+      <div class="meta"><div class="eq">= <b>ग्वि</b></div><div class="tr">gu</div><div class="ex"><span class="es">pingüino</span> &middot; पेंगुइन</div></div></div>
+    <div class="ph-r"><div class="grp">u लिखिए, पढ़िए नहीं</div><div class="num">४</div></div>
+  </div>
+  
+  <div class="note">दो बिंदु लगे तो u बोला जाता है।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>güi</span><span class="c t-trace"><i class="st"></i>güi</span><span class="c t-trace"><i class="st"></i>güi</span><span class="c t-trace"><i class="st"></i>güi</span><span class="c t-trace"><i class="st"></i>güi</span><span class="c t-trace"><i class="st"></i>güi</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>güi</span><span class="c t-out"><i class="st"></i>güi</span><span class="c t-out"><i class="st"></i>güi</span><span class="c t-out"><i class="st"></i>güi</span><span class="c t-out"><i class="st"></i>güi</span><span class="c t-out"><i class="st"></i>güi</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>güi</span><span class="c t-faint"><i class="st"></i>güi</span><span class="c t-faint"><i class="st"></i>güi</span><span class="c t-faint"><i class="st"></i>güi</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; ४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">hola</div>
+      <div class="meta"><div class="eq">= <b><b>ओ</b>ला</b></div><div class="tr">-</div></div></div>
+    <div class="ph-r"><div class="grp">चुप h - फिर भी लिखना है</div><div class="num">५</div></div>
+  </div>
+  
+  <div class="note">h कभी नहीं बोला जाता, पर वर्तनी से कभी नहीं जाता।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>hola</span><span class="c t-trace"><i class="st"></i>hola</span><span class="c t-trace"><i class="st"></i>hola</span><span class="c t-trace"><i class="st"></i>hola</span><span class="c t-trace"><i class="st"></i>hola</span><span class="c t-trace"><i class="st"></i>hola</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>hola</span><span class="c t-out"><i class="st"></i>hola</span><span class="c t-out"><i class="st"></i>hola</span><span class="c t-out"><i class="st"></i>hola</span><span class="c t-out"><i class="st"></i>hola</span><span class="c t-out"><i class="st"></i>hola</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>hola</span><span class="c t-faint"><i class="st"></i>hola</span><span class="c t-faint"><i class="st"></i>hola</span><span class="c t-faint"><i class="st"></i>hola</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; ५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">hoy</div>
+      <div class="meta"><div class="eq">= <b>ओइ</b></div><div class="tr">-</div></div></div>
+    <div class="ph-r"><div class="grp">चुप h - फिर भी लिखना है</div><div class="num">६</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>hoy</span><span class="c t-trace"><i class="st"></i>hoy</span><span class="c t-trace"><i class="st"></i>hoy</span><span class="c t-trace"><i class="st"></i>hoy</span><span class="c t-trace"><i class="st"></i>hoy</span><span class="c t-trace"><i class="st"></i>hoy</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>hoy</span><span class="c t-out"><i class="st"></i>hoy</span><span class="c t-out"><i class="st"></i>hoy</span><span class="c t-out"><i class="st"></i>hoy</span><span class="c t-out"><i class="st"></i>hoy</span><span class="c t-out"><i class="st"></i>hoy</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>hoy</span><span class="c t-faint"><i class="st"></i>hoy</span><span class="c t-faint"><i class="st"></i>hoy</span><span class="c t-faint"><i class="st"></i>hoy</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; ६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">hablar</div>
+      <div class="meta"><div class="eq">= <b>आ<b>ब्लार्</b></b></div><div class="tr">-</div></div></div>
+    <div class="ph-r"><div class="grp">चुप h - फिर भी लिखना है</div><div class="num">७</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>hablar</span><span class="c t-trace"><i class="st"></i>hablar</span><span class="c t-trace"><i class="st"></i>hablar</span><span class="c t-trace"><i class="st"></i>hablar</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>hablar</span><span class="c t-out"><i class="st"></i>hablar</span><span class="c t-out"><i class="st"></i>hablar</span><span class="c t-out"><i class="st"></i>hablar</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>hablar</span><span class="c t-faint"><i class="st"></i>hablar</span><span class="c t-faint"><i class="st"></i>hablar</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; ७</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">vaca</div>
+      <div class="meta"><div class="eq">= <b><b>बा</b>का</b></div><div class="tr">b</div></div></div>
+    <div class="ph-r"><div class="grp">एक ध्वनि, दो अक्षर - b और v</div><div class="num">८</div></div>
+  </div>
+  
+  <div class="note">v भी ब। कौन-सा अक्षर लिखना है, यह सिर्फ़ याद से - कान से पता नहीं चलता।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>vaca</span><span class="c t-trace"><i class="st"></i>vaca</span><span class="c t-trace"><i class="st"></i>vaca</span><span class="c t-trace"><i class="st"></i>vaca</span><span class="c t-trace"><i class="st"></i>vaca</span><span class="c t-trace"><i class="st"></i>vaca</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>vaca</span><span class="c t-out"><i class="st"></i>vaca</span><span class="c t-out"><i class="st"></i>vaca</span><span class="c t-out"><i class="st"></i>vaca</span><span class="c t-out"><i class="st"></i>vaca</span><span class="c t-out"><i class="st"></i>vaca</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>vaca</span><span class="c t-faint"><i class="st"></i>vaca</span><span class="c t-faint"><i class="st"></i>vaca</span><span class="c t-faint"><i class="st"></i>vaca</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; ८</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">vamos</div>
+      <div class="meta"><div class="eq">= <b><b>बा</b>मोस्</b></div><div class="tr">b</div></div></div>
+    <div class="ph-r"><div class="grp">एक ध्वनि, दो अक्षर - b और v</div><div class="num">९</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>vamos</span><span class="c t-trace"><i class="st"></i>vamos</span><span class="c t-trace"><i class="st"></i>vamos</span><span class="c t-trace"><i class="st"></i>vamos</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>vamos</span><span class="c t-out"><i class="st"></i>vamos</span><span class="c t-out"><i class="st"></i>vamos</span><span class="c t-out"><i class="st"></i>vamos</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>vamos</span><span class="c t-faint"><i class="st"></i>vamos</span><span class="c t-faint"><i class="st"></i>vamos</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; ९</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">bien</div>
+      <div class="meta"><div class="eq">= <b>ब्येन्</b></div><div class="tr">b</div></div></div>
+    <div class="ph-r"><div class="grp">एक ध्वनि, दो अक्षर - b और v</div><div class="num">१०</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>bien</span><span class="c t-trace"><i class="st"></i>bien</span><span class="c t-trace"><i class="st"></i>bien</span><span class="c t-trace"><i class="st"></i>bien</span><span class="c t-trace"><i class="st"></i>bien</span><span class="c t-trace"><i class="st"></i>bien</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>bien</span><span class="c t-out"><i class="st"></i>bien</span><span class="c t-out"><i class="st"></i>bien</span><span class="c t-out"><i class="st"></i>bien</span><span class="c t-out"><i class="st"></i>bien</span><span class="c t-out"><i class="st"></i>bien</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>bien</span><span class="c t-faint"><i class="st"></i>bien</span><span class="c t-faint"><i class="st"></i>bien</span><span class="c t-faint"><i class="st"></i>bien</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; १०</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">calle</div>
+      <div class="meta"><div class="eq">= <b><b>का</b>ये</b></div><div class="tr">y</div></div></div>
+    <div class="ph-r"><div class="grp">दो अक्षर मिलकर एक - ll, rr, ch</div><div class="num">११</div></div>
+  </div>
+  
+  <div class="note">ll एक अक्षर है, य। "काल्ले" नहीं।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>calle</span><span class="c t-trace"><i class="st"></i>calle</span><span class="c t-trace"><i class="st"></i>calle</span><span class="c t-trace"><i class="st"></i>calle</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>calle</span><span class="c t-out"><i class="st"></i>calle</span><span class="c t-out"><i class="st"></i>calle</span><span class="c t-out"><i class="st"></i>calle</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>calle</span><span class="c t-faint"><i class="st"></i>calle</span><span class="c t-faint"><i class="st"></i>calle</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; ११</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">yo</div>
+      <div class="meta"><div class="eq">= <b>यो</b></div><div class="tr">y</div></div></div>
+    <div class="ph-r"><div class="grp">दो अक्षर मिलकर एक - ll, rr, ch</div><div class="num">१२</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>yo</span><span class="c t-trace"><i class="st"></i>yo</span><span class="c t-trace"><i class="st"></i>yo</span><span class="c t-trace"><i class="st"></i>yo</span><span class="c t-trace"><i class="st"></i>yo</span><span class="c t-trace"><i class="st"></i>yo</span><span class="c t-trace"><i class="st"></i>yo</span><span class="c t-trace"><i class="st"></i>yo</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>yo</span><span class="c t-out"><i class="st"></i>yo</span><span class="c t-out"><i class="st"></i>yo</span><span class="c t-out"><i class="st"></i>yo</span><span class="c t-out"><i class="st"></i>yo</span><span class="c t-out"><i class="st"></i>yo</span><span class="c t-out"><i class="st"></i>yo</span><span class="c t-out"><i class="st"></i>yo</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>yo</span><span class="c t-faint"><i class="st"></i>yo</span><span class="c t-faint"><i class="st"></i>yo</span><span class="c t-faint"><i class="st"></i>yo</span><span class="c t-faint"><i class="st"></i>yo</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; १२</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">perro</div>
+      <div class="meta"><div class="eq">= <b><b>पे</b>र्रो</b></div><div class="tr">rr</div></div></div>
+    <div class="ph-r"><div class="grp">दो अक्षर मिलकर एक - ll, rr, ch</div><div class="num">१३</div></div>
+  </div>
+  
+  <div class="note">rr = काँपती जीभ। एक r लिखा तो pero - "लेकिन"।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>perro</span><span class="c t-trace"><i class="st"></i>perro</span><span class="c t-trace"><i class="st"></i>perro</span><span class="c t-trace"><i class="st"></i>perro</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>perro</span><span class="c t-out"><i class="st"></i>perro</span><span class="c t-out"><i class="st"></i>perro</span><span class="c t-out"><i class="st"></i>perro</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>perro</span><span class="c t-faint"><i class="st"></i>perro</span><span class="c t-faint"><i class="st"></i>perro</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; १३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">carro</div>
+      <div class="meta"><div class="eq">= <b><b>का</b>र्रो</b></div><div class="tr">rr</div></div></div>
+    <div class="ph-r"><div class="grp">दो अक्षर मिलकर एक - ll, rr, ch</div><div class="num">१४</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>carro</span><span class="c t-trace"><i class="st"></i>carro</span><span class="c t-trace"><i class="st"></i>carro</span><span class="c t-trace"><i class="st"></i>carro</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>carro</span><span class="c t-out"><i class="st"></i>carro</span><span class="c t-out"><i class="st"></i>carro</span><span class="c t-out"><i class="st"></i>carro</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>carro</span><span class="c t-faint"><i class="st"></i>carro</span><span class="c t-faint"><i class="st"></i>carro</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; १४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">mucho</div>
+      <div class="meta"><div class="eq">= <b><b>मु</b>चो</b></div><div class="tr">ch</div></div></div>
+    <div class="ph-r"><div class="grp">दो अक्षर मिलकर एक - ll, rr, ch</div><div class="num">१५</div></div>
+  </div>
+  
+  <div class="note">ch = च, हमेशा। श कभी नहीं।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>mucho</span><span class="c t-trace"><i class="st"></i>mucho</span><span class="c t-trace"><i class="st"></i>mucho</span><span class="c t-trace"><i class="st"></i>mucho</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>mucho</span><span class="c t-out"><i class="st"></i>mucho</span><span class="c t-out"><i class="st"></i>mucho</span><span class="c t-out"><i class="st"></i>mucho</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>mucho</span><span class="c t-faint"><i class="st"></i>mucho</span><span class="c t-faint"><i class="st"></i>mucho</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; १५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="meta"><div class="eq">= <b>चोको<b>ला</b>ते</b></div><div class="tr">ch</div></div></div>
+    <div class="ph-r"><div class="grp">दो अक्षर मिलकर एक - ll, rr, ch</div><div class="num">१६</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>chocolate</span><span class="c t-trace"><i class="st"></i>chocolate</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>chocolate</span><span class="c t-out"><i class="st"></i>chocolate</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>chocolate</span><span class="c t-faint"><i class="st"></i>chocolate</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; १६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">cinco</div>
+      <div class="meta"><div class="eq">= <b><b>सिन्</b>को</b></div><div class="tr">s</div></div></div>
+    <div class="ph-r"><div class="grp">e और i से पहले रूप बदलता है</div><div class="num">१७</div></div>
+  </div>
+  
+  <div class="note">i से पहले c = स; a, o, u से पहले c = क। एक ही शब्द में दोनों।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>cinco</span><span class="c t-trace"><i class="st"></i>cinco</span><span class="c t-trace"><i class="st"></i>cinco</span><span class="c t-trace"><i class="st"></i>cinco</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>cinco</span><span class="c t-out"><i class="st"></i>cinco</span><span class="c t-out"><i class="st"></i>cinco</span><span class="c t-out"><i class="st"></i>cinco</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>cinco</span><span class="c t-faint"><i class="st"></i>cinco</span><span class="c t-faint"><i class="st"></i>cinco</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; १७</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">zapato</div>
+      <div class="meta"><div class="eq">= <b>सा<b>पा</b>तो</b></div><div class="tr">s</div></div></div>
+    <div class="ph-r"><div class="grp">e और i से पहले रूप बदलता है</div><div class="num">१८</div></div>
+  </div>
+  
+  <div class="note">z हमेशा स, ज़ कभी नहीं।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>zapato</span><span class="c t-trace"><i class="st"></i>zapato</span><span class="c t-trace"><i class="st"></i>zapato</span><span class="c t-trace"><i class="st"></i>zapato</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>zapato</span><span class="c t-out"><i class="st"></i>zapato</span><span class="c t-out"><i class="st"></i>zapato</span><span class="c t-out"><i class="st"></i>zapato</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>zapato</span><span class="c t-faint"><i class="st"></i>zapato</span><span class="c t-faint"><i class="st"></i>zapato</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; १८</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">gente</div>
+      <div class="meta"><div class="eq">= <b><b>ख़ेन्</b>ते</b></div><div class="tr">j</div></div></div>
+    <div class="ph-r"><div class="grp">e और i से पहले रूप बदलता है</div><div class="num">१९</div></div>
+  </div>
+  
+  <div class="note">e से पहले g = ख़।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>gente</span><span class="c t-trace"><i class="st"></i>gente</span><span class="c t-trace"><i class="st"></i>gente</span><span class="c t-trace"><i class="st"></i>gente</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>gente</span><span class="c t-out"><i class="st"></i>gente</span><span class="c t-out"><i class="st"></i>gente</span><span class="c t-out"><i class="st"></i>gente</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>gente</span><span class="c t-faint"><i class="st"></i>gente</span><span class="c t-faint"><i class="st"></i>gente</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; १९</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">gato</div>
+      <div class="meta"><div class="eq">= <b><b>गा</b>तो</b></div><div class="tr">g</div></div></div>
+    <div class="ph-r"><div class="grp">e और i से पहले रूप बदलता है</div><div class="num">२०</div></div>
+  </div>
+  
+  
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>gato</span><span class="c t-trace"><i class="st"></i>gato</span><span class="c t-trace"><i class="st"></i>gato</span><span class="c t-trace"><i class="st"></i>gato</span><span class="c t-trace"><i class="st"></i>gato</span><span class="c t-trace"><i class="st"></i>gato</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>gato</span><span class="c t-out"><i class="st"></i>gato</span><span class="c t-out"><i class="st"></i>gato</span><span class="c t-out"><i class="st"></i>gato</span><span class="c t-out"><i class="st"></i>gato</span><span class="c t-out"><i class="st"></i>gato</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>gato</span><span class="c t-faint"><i class="st"></i>gato</span><span class="c t-faint"><i class="st"></i>gato</span><span class="c t-faint"><i class="st"></i>gato</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; २०</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">José</div>
+      <div class="meta"><div class="eq">= <b>ख़ो<b>से</b></b></div><div class="tr">j</div></div></div>
+    <div class="ph-r"><div class="grp">अंग्रेज़ी की आदत छोड़िए</div><div class="num">२१</div></div>
+  </div>
+  
+  <div class="note">j = ख़, हर जगह। अंग्रेज़ी वाला ज नहीं।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>José</span><span class="c t-trace"><i class="st"></i>José</span><span class="c t-trace"><i class="st"></i>José</span><span class="c t-trace"><i class="st"></i>José</span><span class="c t-trace"><i class="st"></i>José</span><span class="c t-trace"><i class="st"></i>José</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>José</span><span class="c t-out"><i class="st"></i>José</span><span class="c t-out"><i class="st"></i>José</span><span class="c t-out"><i class="st"></i>José</span><span class="c t-out"><i class="st"></i>José</span><span class="c t-out"><i class="st"></i>José</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>José</span><span class="c t-faint"><i class="st"></i>José</span><span class="c t-faint"><i class="st"></i>José</span><span class="c t-faint"><i class="st"></i>José</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; २१</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">tomate</div>
+      <div class="meta"><div class="eq">= <b>तो<b>मा</b>ते</b></div><div class="tr">t</div></div></div>
+    <div class="ph-r"><div class="grp">अंग्रेज़ी की आदत छोड़िए</div><div class="num">२२</div></div>
+  </div>
+  
+  <div class="note">t दंत्य त - टमाटर वाला ट नहीं।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>tomate</span><span class="c t-trace"><i class="st"></i>tomate</span><span class="c t-trace"><i class="st"></i>tomate</span><span class="c t-trace"><i class="st"></i>tomate</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>tomate</span><span class="c t-out"><i class="st"></i>tomate</span><span class="c t-out"><i class="st"></i>tomate</span><span class="c t-out"><i class="st"></i>tomate</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>tomate</span><span class="c t-faint"><i class="st"></i>tomate</span><span class="c t-faint"><i class="st"></i>tomate</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; २२</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">nada</div>
+      <div class="meta"><div class="eq">= <b><b>ना</b>दा</b></div><div class="tr">d</div></div></div>
+    <div class="ph-r"><div class="grp">अंग्रेज़ी की आदत छोड़िए</div><div class="num">२३</div></div>
+  </div>
+  
+  <div class="note">दो स्वरों के बीच d नरम।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> लिखिए</span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-trace"><i class="st"></i>nada</span><span class="c t-trace"><i class="st"></i>nada</span><span class="c t-trace"><i class="st"></i>nada</span><span class="c t-trace"><i class="st"></i>nada</span><span class="c t-trace"><i class="st"></i>nada</span><span class="c t-trace"><i class="st"></i>nada</span></div></div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>भरिए</b></span><span>पाँच बार</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-out"><i class="st"></i>nada</span><span class="c t-out"><i class="st"></i>nada</span><span class="c t-out"><i class="st"></i>nada</span><span class="c t-out"><i class="st"></i>nada</span><span class="c t-out"><i class="st"></i>nada</span><span class="c t-out"><i class="st"></i>nada</span></div></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>सतर पूरी कीजिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"><span class="c t-model"><i class="st"></i>nada</span><span class="c t-faint"><i class="st"></i>nada</span><span class="c t-faint"><i class="st"></i>nada</span><span class="c t-faint"><i class="st"></i>nada</span></div></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>सतर भरिए</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="rowlabel"><span>ढककर लिखिए</span><span>स्पेनिश वाला हिस्सा काग़ज़ से ढकिए। हिन्दी देखकर स्पेनिश लिखिए, फिर हटाकर मिलाइए।</span></div><div class="row"><div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div><div class="cells"></div></div>
+  <div class="pf"><span>कॉपी ४ · वर्तनी के नियम</span><span>BHASHASETU &middot; हिन्दी से स्पेनिश &middot; २३</span></div>
+</div>
+</body>
+</html>

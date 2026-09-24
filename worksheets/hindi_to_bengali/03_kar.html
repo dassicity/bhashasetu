@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>कार-चिह्न - हिन्दी से बांग्ला</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
+  --base:  19mm;       /* baseline - letters sit here            */
+  /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
+     (see calibrate_font.html). Fractions of the font size, from the baseline:
+       bare letter  shirorekha ....... 0.642 up
+       matras above ..................  0.925 up
+       matras below ..................  0.290 down */
+  --asc-ratio:  0.935;
+  --top-ratio:  0.039;
+  --bot-ratio:  0.353;
+
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Devanagari',serif; color:var(--ink); font-size:10pt; }
+.deva{ font-family:'Noto Serif Bengali',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+/* Headroom ONLY on sheets that open with the big header glyph (letter and matra sheets).
+   Its line-height is 0.95, so tall letters (Bengali independent i, ii and u, Devanagari ii, Gurmukhi iri) rise
+   above their line box, and as the first thing on a sheet that ink printed in the previous
+   page's bottom margin. Applying it to every sheet instead pushed the dense Gurmukhi
+   conjunct sheets onto a second page (book 4 went from 10 pages to 18). */
+.sheet.tall{ padding-top:5mm; min-height:257mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:22mm; line-height:0.95; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; color:var(--ink); }
+.ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); letter-spacing:.04em; }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm; text-align:center; }
+.step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
+.step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
+.step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
+.step .cap b{ color:var(--teal); }
+.steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
+.steps .note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
+      --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--bot-ratio) * var(--gs));
+      height: calc(var(--desc) + 1.5mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* strut: an inline-block whose bottom edge sits on the text baseline, so the
+   baseline lands on --base whatever the font's line metrics say */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; justify-content:flex-start; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
+.row.words{ --head:6.5mm; --base:14mm; }
+.row.words .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --head:5.5mm; --base:11.5mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
+.cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
+.rules{ text-align:left; max-width:150mm; margin:12mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.65; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:10mm auto 0; max-width:150mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:13mm; line-height:1.1; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+.pf .r{ letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">कॉपी ३</div>
+  <h1><span class="deva">কার-চিহ্ন</span>कार-चिह्न</h1>
+  <p class="sub">कार-चिह्न गिनती में आपके बराबर हैं, और क्रम भी वही। उन्नीस पन्ने: ক की पूरी बारहखड़ी, हसन्त, अनुस्वार, विसर्ग, चंद्रबिंदु, और वे चार अक्षर जिन पर उ-कार अपनी शक्ल बदल लेता है।</p>
+  <div class="rules"><h2>काग़ज़ पर उतरने से पहले पाँच बातें</h2><ol><li><b>शिरोरेखा सबसे आख़िर में।</b> देवनागरी में आप पहले अक्षर का शरीर बनाते हैं और तब ऊपर लकीर खींचते हैं। बांग्ला में भी यही क्रम है, और रेखा का नाम भी वही है - মাত্রা। आदत बदलनी नहीं है।</li><li><b>कोना नहीं, गोलाई।</b> बांग्ला के कई अक्षर नीचे मुड़ते हैं - ক, ব, র। जहाँ देवनागरी का हाथ रुककर कोना बनाता है, वहाँ क़लम को बिना रुके घुमाइए।</li><li><b>हर अक्षर पर पूरी रेखा नहीं।</b> এ, ঐ, ও, ঔ, ঙ, ঞ के सिर पर रेखा नहीं खिंचती, और ঋ पर अधूरी रहती है। देवनागरी का हाथ आदत से वहाँ भी लकीर खींच देगा - वहीं रुकिए।</li><li><b>लिखने का क्रम, पढ़ने का क्रम।</b> आप कि में ि पहले लिखते हैं और बाद में पढ़ते हैं। बांग्ला में <b>কে</b>, <b>কৈ</b>, <b>কো</b> के लिए भी बाईं वाली मात्रा पहले लिखी जाती है, फिर अक्षर।</li><li><b>धीरे, रोज़ एक पन्ना।</b> पेंसिल से शुरू कीजिए और धूसर अक्षर पर हल्के हाथ से चलिए। हर सतर पूरी करके अक्षर एक बार ज़ोर से बोलिए - अ को ऑ, स को श।</li></ol></div>
+  <div class="legend"><h3>इस कॉपी में चार तरह की लिखाई</h3><div class="lg">
+      <div><span class="s deva t-model">ক</span>नमूना - देखिए</div>
+      <div><span class="s deva t-trace">ক</span>धूसर - ऊपर से चलाइए</div>
+      <div><span class="s deva t-out">ক</span>खोखला - भीतर भरिए</div>
+      <div><span class="s deva t-faint">ক</span>फीका - लगभग अकेले</div>
+      </div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ক</div>
+      <div class="meta"><div class="eq">= <b>क</b></div><div class="tr">kô</div>
+        <div class="ex">कोई चिह्न नहीं - अंतर्निहित स्वर, जो बांग्ला में ऑ बोला जाता है</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">१</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">ক</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ক</span><span class="c deva t-trace"><i class="st"></i>ক</span><span class="c deva t-trace"><i class="st"></i>ক</span><span class="c deva t-trace"><i class="st"></i>ক</span><span class="c deva t-trace"><i class="st"></i>ক</span><span class="c deva t-trace"><i class="st"></i>ক</span><span class="c deva t-trace"><i class="st"></i>ক</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ক</span><span class="c deva t-out"><i class="st"></i>ক</span><span class="c deva t-out"><i class="st"></i>ক</span><span class="c deva t-out"><i class="st"></i>ক</span><span class="c deva t-out"><i class="st"></i>ক</span><span class="c deva t-out"><i class="st"></i>ক</span><span class="c deva t-out"><i class="st"></i>ক</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ক</span><span class="c deva t-faint"><i class="st"></i>ক</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খ</span><span class="c deva t-trace"><i class="st"></i>খ</span><span class="c deva t-out"><i class="st"></i>খ</span><span class="c deva t-model"><i class="st"></i>গ</span><span class="c deva t-trace"><i class="st"></i>গ</span><span class="c deva t-out"><i class="st"></i>গ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; १</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কা</div>
+      <div class="meta"><div class="eq">= <b>का</b></div><div class="tr">kā</div>
+        <div class="ex">আ-कार: दाएँ एक खड़ी पाई - हूबहू आपकी</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">२</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কা</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কা</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কা</span><span class="c deva t-trace"><i class="st"></i>কা</span><span class="c deva t-trace"><i class="st"></i>কা</span><span class="c deva t-trace"><i class="st"></i>কা</span><span class="c deva t-trace"><i class="st"></i>কা</span><span class="c deva t-trace"><i class="st"></i>কা</span><span class="c deva t-trace"><i class="st"></i>কা</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কা</span><span class="c deva t-out"><i class="st"></i>কা</span><span class="c deva t-out"><i class="st"></i>কা</span><span class="c deva t-out"><i class="st"></i>কা</span><span class="c deva t-out"><i class="st"></i>কা</span><span class="c deva t-out"><i class="st"></i>কা</span><span class="c deva t-out"><i class="st"></i>কা</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কা</span><span class="c deva t-faint"><i class="st"></i>কা</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খা</span><span class="c deva t-trace"><i class="st"></i>খা</span><span class="c deva t-out"><i class="st"></i>খা</span><span class="c deva t-model"><i class="st"></i>গা</span><span class="c deva t-trace"><i class="st"></i>গা</span><span class="c deva t-out"><i class="st"></i>গা</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; २</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কি</div>
+      <div class="meta"><div class="eq">= <b>कि</b></div><div class="tr">ki</div>
+        <div class="ex">ই-कार: बाएँ बैठता है, पढ़ा बाद में जाता है - आपकी ि की तरह</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">३</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কি</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কি</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কি</span><span class="c deva t-trace"><i class="st"></i>কি</span><span class="c deva t-trace"><i class="st"></i>কি</span><span class="c deva t-trace"><i class="st"></i>কি</span><span class="c deva t-trace"><i class="st"></i>কি</span><span class="c deva t-trace"><i class="st"></i>কি</span><span class="c deva t-trace"><i class="st"></i>কি</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কি</span><span class="c deva t-out"><i class="st"></i>কি</span><span class="c deva t-out"><i class="st"></i>কি</span><span class="c deva t-out"><i class="st"></i>কি</span><span class="c deva t-out"><i class="st"></i>কি</span><span class="c deva t-out"><i class="st"></i>কি</span><span class="c deva t-out"><i class="st"></i>কি</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কি</span><span class="c deva t-faint"><i class="st"></i>কি</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খি</span><span class="c deva t-trace"><i class="st"></i>খি</span><span class="c deva t-out"><i class="st"></i>খি</span><span class="c deva t-model"><i class="st"></i>গি</span><span class="c deva t-trace"><i class="st"></i>গি</span><span class="c deva t-out"><i class="st"></i>গি</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; ३</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কী</div>
+      <div class="meta"><div class="eq">= <b>की</b></div><div class="tr">kī</div>
+        <div class="ex">ঈ-कार: दाएँ; बोलने में ই-कार जैसा ही</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">४</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কী</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কী</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কী</span><span class="c deva t-trace"><i class="st"></i>কী</span><span class="c deva t-trace"><i class="st"></i>কী</span><span class="c deva t-trace"><i class="st"></i>কী</span><span class="c deva t-trace"><i class="st"></i>কী</span><span class="c deva t-trace"><i class="st"></i>কী</span><span class="c deva t-trace"><i class="st"></i>কী</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কী</span><span class="c deva t-out"><i class="st"></i>কী</span><span class="c deva t-out"><i class="st"></i>কী</span><span class="c deva t-out"><i class="st"></i>কী</span><span class="c deva t-out"><i class="st"></i>কী</span><span class="c deva t-out"><i class="st"></i>কী</span><span class="c deva t-out"><i class="st"></i>কী</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কী</span><span class="c deva t-faint"><i class="st"></i>কী</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খী</span><span class="c deva t-trace"><i class="st"></i>খী</span><span class="c deva t-out"><i class="st"></i>খী</span><span class="c deva t-model"><i class="st"></i>গী</span><span class="c deva t-trace"><i class="st"></i>গী</span><span class="c deva t-out"><i class="st"></i>গী</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; ४</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কু</div>
+      <div class="meta"><div class="eq">= <b>कु</b></div><div class="tr">ku</div>
+        <div class="ex">উ-कार: अक्षर के नीचे</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">५</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কু</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কু</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কু</span><span class="c deva t-trace"><i class="st"></i>কু</span><span class="c deva t-trace"><i class="st"></i>কু</span><span class="c deva t-trace"><i class="st"></i>কু</span><span class="c deva t-trace"><i class="st"></i>কু</span><span class="c deva t-trace"><i class="st"></i>কু</span><span class="c deva t-trace"><i class="st"></i>কু</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কু</span><span class="c deva t-out"><i class="st"></i>কু</span><span class="c deva t-out"><i class="st"></i>কু</span><span class="c deva t-out"><i class="st"></i>কু</span><span class="c deva t-out"><i class="st"></i>কু</span><span class="c deva t-out"><i class="st"></i>কু</span><span class="c deva t-out"><i class="st"></i>কু</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কু</span><span class="c deva t-faint"><i class="st"></i>কু</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খু</span><span class="c deva t-trace"><i class="st"></i>খু</span><span class="c deva t-out"><i class="st"></i>খু</span><span class="c deva t-model"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; ५</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কূ</div>
+      <div class="meta"><div class="eq">= <b>कू</b></div><div class="tr">kū</div>
+        <div class="ex">ঊ-कार: नीचे; बोलने में উ-कार जैसा ही</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">६</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কূ</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কূ</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কূ</span><span class="c deva t-trace"><i class="st"></i>কূ</span><span class="c deva t-trace"><i class="st"></i>কূ</span><span class="c deva t-trace"><i class="st"></i>কূ</span><span class="c deva t-trace"><i class="st"></i>কূ</span><span class="c deva t-trace"><i class="st"></i>কূ</span><span class="c deva t-trace"><i class="st"></i>কূ</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কূ</span><span class="c deva t-out"><i class="st"></i>কূ</span><span class="c deva t-out"><i class="st"></i>কূ</span><span class="c deva t-out"><i class="st"></i>কূ</span><span class="c deva t-out"><i class="st"></i>কূ</span><span class="c deva t-out"><i class="st"></i>কূ</span><span class="c deva t-out"><i class="st"></i>কূ</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কূ</span><span class="c deva t-faint"><i class="st"></i>কূ</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খূ</span><span class="c deva t-trace"><i class="st"></i>খূ</span><span class="c deva t-out"><i class="st"></i>খূ</span><span class="c deva t-model"><i class="st"></i>গূ</span><span class="c deva t-trace"><i class="st"></i>গূ</span><span class="c deva t-out"><i class="st"></i>গূ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; ६</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কৃ</div>
+      <div class="meta"><div class="eq">= <b>कृ</b></div><div class="tr">kri</div>
+        <div class="ex">ঋ-कार: नीचे; 'रि' बोलिए</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">७</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কৃ</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কৃ</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কৃ</span><span class="c deva t-trace"><i class="st"></i>কৃ</span><span class="c deva t-trace"><i class="st"></i>কৃ</span><span class="c deva t-trace"><i class="st"></i>কৃ</span><span class="c deva t-trace"><i class="st"></i>কৃ</span><span class="c deva t-trace"><i class="st"></i>কৃ</span><span class="c deva t-trace"><i class="st"></i>কৃ</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কৃ</span><span class="c deva t-out"><i class="st"></i>কৃ</span><span class="c deva t-out"><i class="st"></i>কৃ</span><span class="c deva t-out"><i class="st"></i>কৃ</span><span class="c deva t-out"><i class="st"></i>কৃ</span><span class="c deva t-out"><i class="st"></i>কৃ</span><span class="c deva t-out"><i class="st"></i>কৃ</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কৃ</span><span class="c deva t-faint"><i class="st"></i>কৃ</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খৃ</span><span class="c deva t-trace"><i class="st"></i>খৃ</span><span class="c deva t-out"><i class="st"></i>খৃ</span><span class="c deva t-model"><i class="st"></i>গৃ</span><span class="c deva t-trace"><i class="st"></i>গৃ</span><span class="c deva t-out"><i class="st"></i>গৃ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; ७</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কে</div>
+      <div class="meta"><div class="eq">= <b>के</b></div><div class="tr">ke</div>
+        <div class="ex">⚡ এ-कार: अक्षर से पहले, बाईं तरफ़ - हिन्दी की तरह ऊपर नहीं</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">८</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কে</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কে</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কে</span><span class="c deva t-trace"><i class="st"></i>কে</span><span class="c deva t-trace"><i class="st"></i>কে</span><span class="c deva t-trace"><i class="st"></i>কে</span><span class="c deva t-trace"><i class="st"></i>কে</span><span class="c deva t-trace"><i class="st"></i>কে</span><span class="c deva t-trace"><i class="st"></i>কে</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কে</span><span class="c deva t-out"><i class="st"></i>কে</span><span class="c deva t-out"><i class="st"></i>কে</span><span class="c deva t-out"><i class="st"></i>কে</span><span class="c deva t-out"><i class="st"></i>কে</span><span class="c deva t-out"><i class="st"></i>কে</span><span class="c deva t-out"><i class="st"></i>কে</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কে</span><span class="c deva t-faint"><i class="st"></i>কে</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খে</span><span class="c deva t-trace"><i class="st"></i>খে</span><span class="c deva t-out"><i class="st"></i>খে</span><span class="c deva t-model"><i class="st"></i>গে</span><span class="c deva t-trace"><i class="st"></i>গে</span><span class="c deva t-out"><i class="st"></i>গে</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; ८</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কৈ</div>
+      <div class="meta"><div class="eq">= <b>कै</b></div><div class="tr">koi</div>
+        <div class="ex">⚡ ঐ-कार: बाईं तरफ़, ऊपर एक घुंडी के साथ; 'ओइ' बोलिए</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">९</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কৈ</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কৈ</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কৈ</span><span class="c deva t-trace"><i class="st"></i>কৈ</span><span class="c deva t-trace"><i class="st"></i>কৈ</span><span class="c deva t-trace"><i class="st"></i>কৈ</span><span class="c deva t-trace"><i class="st"></i>কৈ</span><span class="c deva t-trace"><i class="st"></i>কৈ</span><span class="c deva t-trace"><i class="st"></i>কৈ</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কৈ</span><span class="c deva t-out"><i class="st"></i>কৈ</span><span class="c deva t-out"><i class="st"></i>কৈ</span><span class="c deva t-out"><i class="st"></i>কৈ</span><span class="c deva t-out"><i class="st"></i>কৈ</span><span class="c deva t-out"><i class="st"></i>কৈ</span><span class="c deva t-out"><i class="st"></i>কৈ</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কৈ</span><span class="c deva t-faint"><i class="st"></i>কৈ</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খৈ</span><span class="c deva t-trace"><i class="st"></i>খৈ</span><span class="c deva t-out"><i class="st"></i>খৈ</span><span class="c deva t-model"><i class="st"></i>গৈ</span><span class="c deva t-trace"><i class="st"></i>গৈ</span><span class="c deva t-out"><i class="st"></i>গৈ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; ९</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কো</div>
+      <div class="meta"><div class="eq">= <b>को</b></div><div class="tr">ko</div>
+        <div class="ex">⚡ ও-कार: ে बाएँ + া दाएँ, अक्षर को दोनों तरफ़ से घेरता है</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">१०</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কো</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কো</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কো</span><span class="c deva t-trace"><i class="st"></i>কো</span><span class="c deva t-trace"><i class="st"></i>কো</span><span class="c deva t-trace"><i class="st"></i>কো</span><span class="c deva t-trace"><i class="st"></i>কো</span><span class="c deva t-trace"><i class="st"></i>কো</span><span class="c deva t-trace"><i class="st"></i>কো</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কো</span><span class="c deva t-out"><i class="st"></i>কো</span><span class="c deva t-out"><i class="st"></i>কো</span><span class="c deva t-out"><i class="st"></i>কো</span><span class="c deva t-out"><i class="st"></i>কো</span><span class="c deva t-out"><i class="st"></i>কো</span><span class="c deva t-out"><i class="st"></i>কো</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কো</span><span class="c deva t-faint"><i class="st"></i>কো</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খো</span><span class="c deva t-trace"><i class="st"></i>খো</span><span class="c deva t-out"><i class="st"></i>খো</span><span class="c deva t-model"><i class="st"></i>গো</span><span class="c deva t-trace"><i class="st"></i>গো</span><span class="c deva t-out"><i class="st"></i>গো</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; १०</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কৌ</div>
+      <div class="meta"><div class="eq">= <b>कौ</b></div><div class="tr">kou</div>
+        <div class="ex">⚡ ঔ-कार: ে बाएँ + ৗ दाएँ; 'ओउ' बोलिए</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">११</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কৌ</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কৌ</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কৌ</span><span class="c deva t-trace"><i class="st"></i>কৌ</span><span class="c deva t-trace"><i class="st"></i>কৌ</span><span class="c deva t-trace"><i class="st"></i>কৌ</span><span class="c deva t-trace"><i class="st"></i>কৌ</span><span class="c deva t-trace"><i class="st"></i>কৌ</span><span class="c deva t-trace"><i class="st"></i>কৌ</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কৌ</span><span class="c deva t-out"><i class="st"></i>কৌ</span><span class="c deva t-out"><i class="st"></i>কৌ</span><span class="c deva t-out"><i class="st"></i>কৌ</span><span class="c deva t-out"><i class="st"></i>কৌ</span><span class="c deva t-out"><i class="st"></i>কৌ</span><span class="c deva t-out"><i class="st"></i>কৌ</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কৌ</span><span class="c deva t-faint"><i class="st"></i>কৌ</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খৌ</span><span class="c deva t-trace"><i class="st"></i>খৌ</span><span class="c deva t-out"><i class="st"></i>খৌ</span><span class="c deva t-model"><i class="st"></i>গৌ</span><span class="c deva t-trace"><i class="st"></i>গৌ</span><span class="c deva t-out"><i class="st"></i>গৌ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; ११</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ক্</div>
+      <div class="meta"><div class="eq">= <b>क्</b></div><div class="tr">k</div>
+        <div class="ex">हसन्त: नीचे छोटी तिरछी लकीर - वही हलंत, वही काम</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">१२</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">ক্</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">ক্</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ক্</span><span class="c deva t-trace"><i class="st"></i>ক্</span><span class="c deva t-trace"><i class="st"></i>ক্</span><span class="c deva t-trace"><i class="st"></i>ক্</span><span class="c deva t-trace"><i class="st"></i>ক্</span><span class="c deva t-trace"><i class="st"></i>ক্</span><span class="c deva t-trace"><i class="st"></i>ক্</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ক্</span><span class="c deva t-out"><i class="st"></i>ক্</span><span class="c deva t-out"><i class="st"></i>ক্</span><span class="c deva t-out"><i class="st"></i>ক্</span><span class="c deva t-out"><i class="st"></i>ক্</span><span class="c deva t-out"><i class="st"></i>ক্</span><span class="c deva t-out"><i class="st"></i>ক্</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ক্</span><span class="c deva t-faint"><i class="st"></i>ক্</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খ্</span><span class="c deva t-trace"><i class="st"></i>খ্</span><span class="c deva t-out"><i class="st"></i>খ্</span><span class="c deva t-model"><i class="st"></i>গ্</span><span class="c deva t-trace"><i class="st"></i>গ্</span><span class="c deva t-out"><i class="st"></i>গ্</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; १२</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কং</div>
+      <div class="meta"><div class="eq">= <b>कं</b></div><div class="tr">kông</div>
+        <div class="ex">अनुस्वार ং: अक्षर के बाद बगल में लिखा जाता है, सिर पर बिंदु नहीं</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">१३</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কং</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কং</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কং</span><span class="c deva t-trace"><i class="st"></i>কং</span><span class="c deva t-trace"><i class="st"></i>কং</span><span class="c deva t-trace"><i class="st"></i>কং</span><span class="c deva t-trace"><i class="st"></i>কং</span><span class="c deva t-trace"><i class="st"></i>কং</span><span class="c deva t-trace"><i class="st"></i>কং</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কং</span><span class="c deva t-out"><i class="st"></i>কং</span><span class="c deva t-out"><i class="st"></i>কং</span><span class="c deva t-out"><i class="st"></i>কং</span><span class="c deva t-out"><i class="st"></i>কং</span><span class="c deva t-out"><i class="st"></i>কং</span><span class="c deva t-out"><i class="st"></i>কং</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কং</span><span class="c deva t-faint"><i class="st"></i>কং</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খং</span><span class="c deva t-trace"><i class="st"></i>খং</span><span class="c deva t-out"><i class="st"></i>খং</span><span class="c deva t-model"><i class="st"></i>গং</span><span class="c deva t-trace"><i class="st"></i>গং</span><span class="c deva t-out"><i class="st"></i>গং</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; १३</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কঃ</div>
+      <div class="meta"><div class="eq">= <b>कः</b></div><div class="tr">kôḥ</div>
+        <div class="ex">विसर्ग ঃ: अक्षर के बाद दो छोटे घेरे - आपका ः</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">१४</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কঃ</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কঃ</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কঃ</span><span class="c deva t-trace"><i class="st"></i>কঃ</span><span class="c deva t-trace"><i class="st"></i>কঃ</span><span class="c deva t-trace"><i class="st"></i>কঃ</span><span class="c deva t-trace"><i class="st"></i>কঃ</span><span class="c deva t-trace"><i class="st"></i>কঃ</span><span class="c deva t-trace"><i class="st"></i>কঃ</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কঃ</span><span class="c deva t-out"><i class="st"></i>কঃ</span><span class="c deva t-out"><i class="st"></i>কঃ</span><span class="c deva t-out"><i class="st"></i>কঃ</span><span class="c deva t-out"><i class="st"></i>কঃ</span><span class="c deva t-out"><i class="st"></i>কঃ</span><span class="c deva t-out"><i class="st"></i>কঃ</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কঃ</span><span class="c deva t-faint"><i class="st"></i>কঃ</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খঃ</span><span class="c deva t-trace"><i class="st"></i>খঃ</span><span class="c deva t-out"><i class="st"></i>খঃ</span><span class="c deva t-model"><i class="st"></i>গঃ</span><span class="c deva t-trace"><i class="st"></i>গঃ</span><span class="c deva t-out"><i class="st"></i>গঃ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; १४</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">কঁ</div>
+      <div class="meta"><div class="eq">= <b>कँ</b></div><div class="tr">kõ</div>
+        <div class="ex">चंद्रबिंदु ঁ: ऊपर चाँद और बिंदु - नाम भी वही, काम भी वही</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">१५</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ক</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">কঁ</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">ক</span> + चिह्न = <span class="deva">কঁ</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কঁ</span><span class="c deva t-trace"><i class="st"></i>কঁ</span><span class="c deva t-trace"><i class="st"></i>কঁ</span><span class="c deva t-trace"><i class="st"></i>কঁ</span><span class="c deva t-trace"><i class="st"></i>কঁ</span><span class="c deva t-trace"><i class="st"></i>কঁ</span><span class="c deva t-trace"><i class="st"></i>কঁ</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>কঁ</span><span class="c deva t-out"><i class="st"></i>কঁ</span><span class="c deva t-out"><i class="st"></i>কঁ</span><span class="c deva t-out"><i class="st"></i>কঁ</span><span class="c deva t-out"><i class="st"></i>কঁ</span><span class="c deva t-out"><i class="st"></i>কঁ</span><span class="c deva t-out"><i class="st"></i>কঁ</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কঁ</span><span class="c deva t-faint"><i class="st"></i>কঁ</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খঁ</span><span class="c deva t-trace"><i class="st"></i>খঁ</span><span class="c deva t-out"><i class="st"></i>খঁ</span><span class="c deva t-model"><i class="st"></i>গঁ</span><span class="c deva t-trace"><i class="st"></i>গঁ</span><span class="c deva t-out"><i class="st"></i>গঁ</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; १५</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">গু</div>
+      <div class="meta"><div class="eq">= <b>गु</b></div><div class="tr">gu</div>
+        <div class="ex">⚡ ख़ास शक्ल: उ-कार ग के पेट में समा जाता है</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">१६</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">গ</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">গু</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">গ</span> + चिह्न = <span class="deva">গু</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>গু</span><span class="c deva t-faint"><i class="st"></i>গু</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খু</span><span class="c deva t-trace"><i class="st"></i>খু</span><span class="c deva t-out"><i class="st"></i>খু</span><span class="c deva t-model"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; १६</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">রু</div>
+      <div class="meta"><div class="eq">= <b>रु</b></div><div class="tr">ru</div>
+        <div class="ex">⚡ ख़ास शक्ल: उ-कार र की पूँछ बन जाता है</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">१७</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">র</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">রু</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">র</span> + चिह्न = <span class="deva">রু</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>রু</span><span class="c deva t-trace"><i class="st"></i>রু</span><span class="c deva t-trace"><i class="st"></i>রু</span><span class="c deva t-trace"><i class="st"></i>রু</span><span class="c deva t-trace"><i class="st"></i>রু</span><span class="c deva t-trace"><i class="st"></i>রু</span><span class="c deva t-trace"><i class="st"></i>রু</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>রু</span><span class="c deva t-out"><i class="st"></i>রু</span><span class="c deva t-out"><i class="st"></i>রু</span><span class="c deva t-out"><i class="st"></i>রু</span><span class="c deva t-out"><i class="st"></i>রু</span><span class="c deva t-out"><i class="st"></i>রু</span><span class="c deva t-out"><i class="st"></i>রু</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>রু</span><span class="c deva t-faint"><i class="st"></i>রু</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খু</span><span class="c deva t-trace"><i class="st"></i>খু</span><span class="c deva t-out"><i class="st"></i>খু</span><span class="c deva t-model"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; १७</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">শু</div>
+      <div class="meta"><div class="eq">= <b>शु</b></div><div class="tr">shu</div>
+        <div class="ex">⚡ ख़ास शक्ल: उ-कार नीचे नहीं, श से चिपककर लिखा जाता है</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">१८</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">শ</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">শু</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">শ</span> + चिह्न = <span class="deva">শু</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>শু</span><span class="c deva t-trace"><i class="st"></i>শু</span><span class="c deva t-trace"><i class="st"></i>শু</span><span class="c deva t-trace"><i class="st"></i>শু</span><span class="c deva t-trace"><i class="st"></i>শু</span><span class="c deva t-trace"><i class="st"></i>শু</span><span class="c deva t-trace"><i class="st"></i>শু</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>শু</span><span class="c deva t-out"><i class="st"></i>শু</span><span class="c deva t-out"><i class="st"></i>শু</span><span class="c deva t-out"><i class="st"></i>শু</span><span class="c deva t-out"><i class="st"></i>শু</span><span class="c deva t-out"><i class="st"></i>শু</span><span class="c deva t-out"><i class="st"></i>শু</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>শু</span><span class="c deva t-faint"><i class="st"></i>শু</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খু</span><span class="c deva t-trace"><i class="st"></i>খু</span><span class="c deva t-out"><i class="st"></i>খু</span><span class="c deva t-model"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; १८</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">হু</div>
+      <div class="meta"><div class="eq">= <b>हु</b></div><div class="tr">hu</div>
+        <div class="ex">⚡ ख़ास शक्ल: उ-कार नीचे नहीं, ह से चिपककर लिखा जाता है</div></div>
+    </div>
+    <div class="ph-r"><div class="grp">कार-चिह्न</div><div class="num">१९</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">হ</span><div class="cap"><b>१</b> व्यंजनवर्ण</div></div>
+    <div class="step"><span class="g deva">হু</span><div class="cap"><b>२</b> + कार-चिह्न</div></div>
+    <div class="note"><span class="deva">হ</span> + चिह्न = <span class="deva">হু</span> - जोड़ने का नियम आपका अपना है। नया सिर्फ़ यह देखना है कि <b>चिह्न कहाँ बैठता है</b>: ऊपर का नोट वही बताता है।</div>
+  </div>
+  <div class="rowlabel"><span>धूसर अक्षर <b>पर क़लम चलाइए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>হু</span><span class="c deva t-trace"><i class="st"></i>হু</span><span class="c deva t-trace"><i class="st"></i>হু</span><span class="c deva t-trace"><i class="st"></i>হু</span><span class="c deva t-trace"><i class="st"></i>হু</span><span class="c deva t-trace"><i class="st"></i>হু</span><span class="c deva t-trace"><i class="st"></i>হু</span></div>
+</div>
+  <div class="rowlabel"><span>खोखले अक्षर <b>के भीतर भरिए</b></span><span>सात बार</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>হু</span><span class="c deva t-out"><i class="st"></i>হু</span><span class="c deva t-out"><i class="st"></i>হু</span><span class="c deva t-out"><i class="st"></i>হু</span><span class="c deva t-out"><i class="st"></i>হু</span><span class="c deva t-out"><i class="st"></i>হু</span><span class="c deva t-out"><i class="st"></i>হু</span></div>
+</div>
+  <div class="rowlabel"><span>पहला दे दिया - <b>बाक़ी आपका</b></span><span>सतर पूरी कीजिए</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>হু</span><span class="c deva t-faint"><i class="st"></i>হু</span></div>
+</div>
+  <div class="rowlabel"><span>वही चिह्न <b>दूसरे व्यंजन पर</b></span><span>फिर अकेले</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খু</span><span class="c deva t-trace"><i class="st"></i>খু</span><span class="c deva t-out"><i class="st"></i>খু</span><span class="c deva t-model"><i class="st"></i>গু</span><span class="c deva t-trace"><i class="st"></i>গু</span><span class="c deva t-out"><i class="st"></i>গু</span></div>
+</div>
+  <div class="rowlabel"><span>अब अकेले लिखिए</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>कॉपी ३ · कार-चिह्न</span><span class="r">BHASHASETU &middot; हिन्दी से बांग्ला &middot; १९</span></div>
+</div>
+</body>
+</html>

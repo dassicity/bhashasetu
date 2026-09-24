@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>स्वर - हिन्दी से कोरियाई</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --cell: 15mm;             /* one syllable square, letter books */
+  --gs:   12.50mm;             /* block size, derived so the glyph fills FILL of the cell */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da; --paper:#FDFBF6;
+}
+@page{ size:A4; margin:12mm 10mm; }
+*{ box-sizing:border-box; }
+body{ font-family:'Noto Serif Devanagari',serif; color:var(--ink); font-size:10pt; margin:0;
+      background:var(--paper); }
+.sheet{ page-break-after:always; break-after:page; padding:0 2mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+.ko{ font-family:'Noto Serif KR',serif; }
+
+/* ---- page head ---- */
+.ph{ display:flex; justify-content:space-between; align-items:flex-start;
+     border-bottom:0.4mm solid var(--line-soft); padding-bottom:2.5mm; margin-bottom:4mm; }
+.ph-l{ display:flex; gap:6mm; align-items:flex-start; }
+.big{ font-size:26mm; line-height:1; font-family:'Noto Serif KR',serif; }
+.meta{ padding-top:2mm; }
+.meta .eq{ font-size:13pt; }
+.meta .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--faded);
+           letter-spacing:.08em; margin-top:1mm; }
+.meta .ex{ font-size:10pt; color:var(--faded); margin-top:1.5mm; }
+.ph-r{ text-align:right; }
+.grp{ font-size:9pt; color:var(--teal); max-width:60mm; }
+.num{ font-size:14pt; color:var(--faded); margin-top:1mm; }
+.note{ font-size:9.5pt; color:var(--faded); background:#F4F1EA; border-left:1mm solid var(--ochre);
+       padding:2mm 3mm; margin:0 0 3.5mm; line-height:1.6; }
+
+/* ---- the grid: one syllable per square, with the faint cross-hairs of practice paper ---- */
+.rowlabel{ display:flex; justify-content:space-between; font-size:8.5pt; color:var(--faded);
+           margin:0 0 1mm; }
+.grid{ display:flex; flex-wrap:wrap; gap:0; margin-bottom:3.5mm; }
+/* Word and sentence rows stack three grids per item, so they get a tighter square. */
+.grid.w{ --cell:12mm; --gs:10.00mm; margin-bottom:0; }
+.grid.s{ --cell:11mm; --gs:9.17mm; margin-bottom:0; }
+.grid.w:last-of-type, .grid.s:last-of-type{ margin-bottom:3mm; }
+.cell{ width:var(--cell); height:var(--cell); border:0.25mm solid var(--line-soft);
+       margin:-0.125mm 0 0 -0.125mm; display:flex; align-items:center; justify-content:center;
+       font-family:'Noto Serif KR',serif; font-size:var(--gs); line-height:1; overflow:hidden;
+       background-image:
+         linear-gradient(to bottom, transparent calc(50% - 0.06mm), var(--line-soft) calc(50% - 0.06mm),
+                         var(--line-soft) calc(50% + 0.06mm), transparent calc(50% + 0.06mm)),
+         linear-gradient(to right,  transparent calc(50% - 0.06mm), var(--line-soft) calc(50% - 0.06mm),
+                         var(--line-soft) calc(50% + 0.06mm), transparent calc(50% + 0.06mm)); }
+.cell.gap{ border-color:transparent; background-image:none; }
+.t-model{ color:var(--ink); }
+.t-trace{ color:#BFB6A6; }
+.t-out{ color:transparent; -webkit-text-stroke:0.22mm #BFB6A6; }
+.t-faint{ color:#E4DECF; }
+
+/* ---- covers ---- */
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-family:'JetBrains Mono',monospace; font-size:9pt; letter-spacing:.2em;
+                color:var(--sindoor); }
+.cover h1{ font-size:24pt; margin:4mm 0 2mm; font-weight:600; }
+.cover h1 .ko{ display:block; font-size:34pt; margin-bottom:3mm; }
+.cover .sub{ font-size:11pt; color:var(--faded); max-width:130mm; margin:0 auto 8mm;
+             line-height:1.8; }
+.rules{ max-width:140mm; margin:0 auto; text-align:left; }
+.rules h2{ font-size:11pt; color:var(--teal); margin:0 0 3mm; }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ font-size:10pt; line-height:1.85; margin-bottom:2.5mm; color:var(--faded); }
+.rules li b{ color:var(--ink); }
+.legend{ max-width:140mm; margin:8mm auto 0; text-align:left; }
+.legend h3{ font-size:10pt; color:var(--teal); margin:0 0 2mm; }
+.lg{ display:flex; gap:6mm; }
+.lg div{ font-size:8.5pt; color:var(--faded); text-align:center; }
+.lg .s{ display:block; font-size:13mm; line-height:1.1; font-family:'Noto Serif KR',serif; }
+.foot{ margin-top:12mm; font-family:'JetBrains Mono',monospace; font-size:8pt;
+       letter-spacing:.14em; color:var(--faded); }
+.pf{ display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace;
+     font-size:7.5pt; letter-spacing:.1em; color:#B9AE9B; margin-top:3mm;
+     border-top:0.3mm solid var(--line-soft); padding-top:1.5mm; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">कॉपी २</div>
+  <h1><span class="ko">모음</span>स्वर</h1>
+  <p class="sub">दस मूल स्वर, फिर ग्यारह जोड़-स्वर। रटना नहीं है - सब बिंदु, धरती और मनुष्य से बने हैं। पर इस कॉपी का असली काम दूसरा है: स्वर खड़ा है या लेटा, यही तय करता है कि व्यंजन उसके बाईं ओर बैठेगा या ऊपर। इसलिए दो दलों में लिखिए।</p>
+  <div class="rules"><h2>लिखने से पहले पाँच बातें</h2><ol><li><b>एक अक्षर-खंड = एक चौकोर खाना।</b> भीतर दो टुकड़े हों या तीन, खाने का नाप वही रहता है - टुकड़े ख़ुद सिकुड़कर जगह बनाते हैं। 가 और 곰 काग़ज़ पर बराबर जगह लेते हैं।</li><li><b>रेखा ऊपर से नीचे, बाएँ से दाएँ।</b> खाने के भीतर भी यही क्रम: पहले ऊपर का व्यंजन, फिर स्वर, सबसे आख़िर में नीचे का 받침।</li><li><b>शिरोरेखा नहीं - हाथ को खींचने मत दीजिए।</b> देवनागरी में आप अक्षर के ऊपर जो रेखा खींचते हैं, हंगुल में वह नहीं है; कोई खंड अगले खंड से रेखा से नहीं जुड़ता। ऊपर की मोटी रेखा सिर्फ़ खाने की छत है।</li><li><b>सबसे बड़ी भूल: टुकड़ों को पंक्ति में लिखना।</b> ㄱㅗㅁ नहीं, 곰। देवनागरी के अक्षर दाईं ओर बढ़ते हैं; हंगुल के टुकड़े खाने में जमा होते हैं - ऊपर-नीचे भी, बाएँ-दाएँ भी।</li><li><b>धीरे, पेंसिल से।</b> दिन में एक पन्ना काफ़ी है। धूसर के ऊपर हल्का हाथ रखिए, और पंक्ति पूरी करके खंड को एक बार ज़ोर से पढ़िए।</li></ol></div>
+  <div class="legend"><h3>इस कॉपी में चार तरह की लिखाई</h3><div class="lg">
+      <div><span class="s ko t-model">모</span>नमूना</div>
+      <div><span class="s ko t-trace">모</span>धूसर - ऊपर से</div>
+      <div><span class="s ko t-out">모</span>खोखला - भीतर भरिए</div>
+      <div><span class="s ko t-faint">모</span>हल्का - लगभग अकेले</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅏ</div>
+      <div class="meta"><div class="eq">= <b>आ</b></div><div class="tr">a</div>
+        <div class="ex"><span class="ko">사람</span> &middot; व्यक्ति</div></div></div>
+    <div class="ph-r"><div class="grp">खड़ा स्वर - व्यंजन के दाईं ओर बैठता है</div><div class="num">१</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; दो रेखाएँ: पहले लंबी खड़ी, फिर बीच की ऊँचाई पर छोटी रेखा बाएँ से दाएँ। डंडी दाईं ओर, इसलिए 'उजला' स्वर।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅏ</span><span class="cell t-trace">ㅏ</span><span class="cell t-trace">ㅏ</span><span class="cell t-trace">ㅏ</span><span class="cell t-trace">ㅏ</span><span class="cell t-trace">ㅏ</span><span class="cell t-trace">ㅏ</span><span class="cell t-trace">ㅏ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅏ</span><span class="cell t-out">ㅏ</span><span class="cell t-out">ㅏ</span><span class="cell t-out">ㅏ</span><span class="cell t-out">ㅏ</span><span class="cell t-out">ㅏ</span><span class="cell t-out">ㅏ</span><span class="cell t-out">ㅏ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅏ</span><span class="cell t-faint">ㅏ</span><span class="cell t-faint">ㅏ</span><span class="cell t-faint">ㅏ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; १</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅑ</div>
+      <div class="meta"><div class="eq">= <b>या</b></div><div class="tr">ya</div>
+        <div class="ex"><span class="ko">야</span> &middot; अरे! (दोस्त को)</div></div></div>
+    <div class="ph-r"><div class="grp">खड़ा स्वर - व्यंजन के दाईं ओर बैठता है</div><div class="num">२</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅏ की दो छोटी डंडियाँ: पहले खड़ी रेखा, फिर ऊपर की डंडी, फिर नीचे की।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅑ</span><span class="cell t-trace">ㅑ</span><span class="cell t-trace">ㅑ</span><span class="cell t-trace">ㅑ</span><span class="cell t-trace">ㅑ</span><span class="cell t-trace">ㅑ</span><span class="cell t-trace">ㅑ</span><span class="cell t-trace">ㅑ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅑ</span><span class="cell t-out">ㅑ</span><span class="cell t-out">ㅑ</span><span class="cell t-out">ㅑ</span><span class="cell t-out">ㅑ</span><span class="cell t-out">ㅑ</span><span class="cell t-out">ㅑ</span><span class="cell t-out">ㅑ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅑ</span><span class="cell t-faint">ㅑ</span><span class="cell t-faint">ㅑ</span><span class="cell t-faint">ㅑ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; २</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅓ</div>
+      <div class="meta"><div class="eq">= <b>ऑ ⚡</b></div><div class="tr">eo</div>
+        <div class="ex"><span class="ko">어머니</span> &middot; माँ</div></div></div>
+    <div class="ph-r"><div class="grp">खड़ा स्वर - व्यंजन के दाईं ओर बैठता है</div><div class="num">३</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; छोटी डंडी बाईं ओर, इसलिए वही पहले, फिर लंबी खड़ी रेखा। बोलते समय होंठ गोल नहीं।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅓ</span><span class="cell t-trace">ㅓ</span><span class="cell t-trace">ㅓ</span><span class="cell t-trace">ㅓ</span><span class="cell t-trace">ㅓ</span><span class="cell t-trace">ㅓ</span><span class="cell t-trace">ㅓ</span><span class="cell t-trace">ㅓ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅓ</span><span class="cell t-out">ㅓ</span><span class="cell t-out">ㅓ</span><span class="cell t-out">ㅓ</span><span class="cell t-out">ㅓ</span><span class="cell t-out">ㅓ</span><span class="cell t-out">ㅓ</span><span class="cell t-out">ㅓ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅓ</span><span class="cell t-faint">ㅓ</span><span class="cell t-faint">ㅓ</span><span class="cell t-faint">ㅓ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; ३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅕ</div>
+      <div class="meta"><div class="eq">= <b>यॉ</b></div><div class="tr">yeo</div>
+        <div class="ex"><span class="ko">여우</span> &middot; लोमड़ी</div></div></div>
+    <div class="ph-r"><div class="grp">खड़ा स्वर - व्यंजन के दाईं ओर बैठता है</div><div class="num">४</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; दो छोटी डंडियाँ पहले - ऊपर की, फिर नीचे की - आख़िर में खड़ी रेखा।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅕ</span><span class="cell t-trace">ㅕ</span><span class="cell t-trace">ㅕ</span><span class="cell t-trace">ㅕ</span><span class="cell t-trace">ㅕ</span><span class="cell t-trace">ㅕ</span><span class="cell t-trace">ㅕ</span><span class="cell t-trace">ㅕ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅕ</span><span class="cell t-out">ㅕ</span><span class="cell t-out">ㅕ</span><span class="cell t-out">ㅕ</span><span class="cell t-out">ㅕ</span><span class="cell t-out">ㅕ</span><span class="cell t-out">ㅕ</span><span class="cell t-out">ㅕ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅕ</span><span class="cell t-faint">ㅕ</span><span class="cell t-faint">ㅕ</span><span class="cell t-faint">ㅕ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; ४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅣ</div>
+      <div class="meta"><div class="eq">= <b>ई</b></div><div class="tr">i</div>
+        <div class="ex"><span class="ko">이름</span> &middot; नाम</div></div></div>
+    <div class="ph-r"><div class="grp">खड़ा स्वर - व्यंजन के दाईं ओर बैठता है</div><div class="num">५</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; एक रेखा, ऊपर से नीचे। सेजोङ् का 'मनुष्य' - खड़ा हुआ।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅣ</span><span class="cell t-trace">ㅣ</span><span class="cell t-trace">ㅣ</span><span class="cell t-trace">ㅣ</span><span class="cell t-trace">ㅣ</span><span class="cell t-trace">ㅣ</span><span class="cell t-trace">ㅣ</span><span class="cell t-trace">ㅣ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅣ</span><span class="cell t-out">ㅣ</span><span class="cell t-out">ㅣ</span><span class="cell t-out">ㅣ</span><span class="cell t-out">ㅣ</span><span class="cell t-out">ㅣ</span><span class="cell t-out">ㅣ</span><span class="cell t-out">ㅣ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅣ</span><span class="cell t-faint">ㅣ</span><span class="cell t-faint">ㅣ</span><span class="cell t-faint">ㅣ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; ५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅗ</div>
+      <div class="meta"><div class="eq">= <b>ओ</b></div><div class="tr">o</div>
+        <div class="ex"><span class="ko">오늘</span> &middot; आज</div></div></div>
+    <div class="ph-r"><div class="grp">लेटा स्वर - व्यंजन के नीचे बैठता है</div><div class="num">६</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; छोटी खड़ी डंडी ऊपर है, इसलिए वही पहले; फिर लंबी पड़ी रेखा बाएँ से दाएँ।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅗ</span><span class="cell t-trace">ㅗ</span><span class="cell t-trace">ㅗ</span><span class="cell t-trace">ㅗ</span><span class="cell t-trace">ㅗ</span><span class="cell t-trace">ㅗ</span><span class="cell t-trace">ㅗ</span><span class="cell t-trace">ㅗ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅗ</span><span class="cell t-out">ㅗ</span><span class="cell t-out">ㅗ</span><span class="cell t-out">ㅗ</span><span class="cell t-out">ㅗ</span><span class="cell t-out">ㅗ</span><span class="cell t-out">ㅗ</span><span class="cell t-out">ㅗ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅗ</span><span class="cell t-faint">ㅗ</span><span class="cell t-faint">ㅗ</span><span class="cell t-faint">ㅗ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; ६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅛ</div>
+      <div class="meta"><div class="eq">= <b>यो</b></div><div class="tr">yo</div>
+        <div class="ex"><span class="ko">학교</span> &middot; विद्यालय</div></div></div>
+    <div class="ph-r"><div class="grp">लेटा स्वर - व्यंजन के नीचे बैठता है</div><div class="num">७</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; दो छोटी खड़ी डंडियाँ - बाईं पहले - फिर नीचे की पड़ी रेखा।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅛ</span><span class="cell t-trace">ㅛ</span><span class="cell t-trace">ㅛ</span><span class="cell t-trace">ㅛ</span><span class="cell t-trace">ㅛ</span><span class="cell t-trace">ㅛ</span><span class="cell t-trace">ㅛ</span><span class="cell t-trace">ㅛ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅛ</span><span class="cell t-out">ㅛ</span><span class="cell t-out">ㅛ</span><span class="cell t-out">ㅛ</span><span class="cell t-out">ㅛ</span><span class="cell t-out">ㅛ</span><span class="cell t-out">ㅛ</span><span class="cell t-out">ㅛ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅛ</span><span class="cell t-faint">ㅛ</span><span class="cell t-faint">ㅛ</span><span class="cell t-faint">ㅛ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; ७</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅜ</div>
+      <div class="meta"><div class="eq">= <b>ऊ</b></div><div class="tr">u</div>
+        <div class="ex"><span class="ko">누구</span> &middot; कौन</div></div></div>
+    <div class="ph-r"><div class="grp">लेटा स्वर - व्यंजन के नीचे बैठता है</div><div class="num">८</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; लंबी पड़ी रेखा पहले (ऊपर), फिर नीचे लटकती छोटी खड़ी डंडी।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅜ</span><span class="cell t-trace">ㅜ</span><span class="cell t-trace">ㅜ</span><span class="cell t-trace">ㅜ</span><span class="cell t-trace">ㅜ</span><span class="cell t-trace">ㅜ</span><span class="cell t-trace">ㅜ</span><span class="cell t-trace">ㅜ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅜ</span><span class="cell t-out">ㅜ</span><span class="cell t-out">ㅜ</span><span class="cell t-out">ㅜ</span><span class="cell t-out">ㅜ</span><span class="cell t-out">ㅜ</span><span class="cell t-out">ㅜ</span><span class="cell t-out">ㅜ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅜ</span><span class="cell t-faint">ㅜ</span><span class="cell t-faint">ㅜ</span><span class="cell t-faint">ㅜ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; ८</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅠ</div>
+      <div class="meta"><div class="eq">= <b>यू</b></div><div class="tr">yu</div>
+        <div class="ex"><span class="ko">우유</span> &middot; दूध</div></div></div>
+    <div class="ph-r"><div class="grp">लेटा स्वर - व्यंजन के नीचे बैठता है</div><div class="num">९</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; पड़ी रेखा पहले, फिर दो छोटी खड़ी डंडियाँ - बाईं पहले।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅠ</span><span class="cell t-trace">ㅠ</span><span class="cell t-trace">ㅠ</span><span class="cell t-trace">ㅠ</span><span class="cell t-trace">ㅠ</span><span class="cell t-trace">ㅠ</span><span class="cell t-trace">ㅠ</span><span class="cell t-trace">ㅠ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅠ</span><span class="cell t-out">ㅠ</span><span class="cell t-out">ㅠ</span><span class="cell t-out">ㅠ</span><span class="cell t-out">ㅠ</span><span class="cell t-out">ㅠ</span><span class="cell t-out">ㅠ</span><span class="cell t-out">ㅠ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅠ</span><span class="cell t-faint">ㅠ</span><span class="cell t-faint">ㅠ</span><span class="cell t-faint">ㅠ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; ९</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅡ</div>
+      <div class="meta"><div class="eq">= <b>उ ⚡</b></div><div class="tr">eu</div>
+        <div class="ex"><span class="ko">스님</span> &middot; भिक्षु</div></div></div>
+    <div class="ph-r"><div class="grp">लेटा स्वर - व्यंजन के नीचे बैठता है</div><div class="num">१०</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ⚡ इकलौता सचमुच नया स्वर: होंठ 'ई' जैसे सपाट, जीभ पीछे। एक रेखा, बाएँ से दाएँ। सेजोङ् की 'धरती'।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅡ</span><span class="cell t-trace">ㅡ</span><span class="cell t-trace">ㅡ</span><span class="cell t-trace">ㅡ</span><span class="cell t-trace">ㅡ</span><span class="cell t-trace">ㅡ</span><span class="cell t-trace">ㅡ</span><span class="cell t-trace">ㅡ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅡ</span><span class="cell t-out">ㅡ</span><span class="cell t-out">ㅡ</span><span class="cell t-out">ㅡ</span><span class="cell t-out">ㅡ</span><span class="cell t-out">ㅡ</span><span class="cell t-out">ㅡ</span><span class="cell t-out">ㅡ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅡ</span><span class="cell t-faint">ㅡ</span><span class="cell t-faint">ㅡ</span><span class="cell t-faint">ㅡ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; १०</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅐ</div>
+      <div class="meta"><div class="eq">= <b>ए</b></div><div class="tr">ae</div>
+        <div class="ex"><span class="ko">배</span> &middot; पेट</div></div></div>
+    <div class="ph-r"><div class="grp">जोड़-स्वर, खड़ा - 'ए' परिवार</div><div class="num">११</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅏ फिर ㅣ - बाएँ से दाएँ तीन रेखाएँ। आज के सियोल में ㅐ और ㅔ एक जैसे सुनाई देते हैं।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅐ</span><span class="cell t-trace">ㅐ</span><span class="cell t-trace">ㅐ</span><span class="cell t-trace">ㅐ</span><span class="cell t-trace">ㅐ</span><span class="cell t-trace">ㅐ</span><span class="cell t-trace">ㅐ</span><span class="cell t-trace">ㅐ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅐ</span><span class="cell t-out">ㅐ</span><span class="cell t-out">ㅐ</span><span class="cell t-out">ㅐ</span><span class="cell t-out">ㅐ</span><span class="cell t-out">ㅐ</span><span class="cell t-out">ㅐ</span><span class="cell t-out">ㅐ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅐ</span><span class="cell t-faint">ㅐ</span><span class="cell t-faint">ㅐ</span><span class="cell t-faint">ㅐ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; ११</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅔ</div>
+      <div class="meta"><div class="eq">= <b>ए</b></div><div class="tr">e</div>
+        <div class="ex"><span class="ko">네</span> &middot; हाँ, जी</div></div></div>
+    <div class="ph-r"><div class="grp">जोड़-स्वर, खड़ा - 'ए' परिवार</div><div class="num">१२</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅓ फिर ㅣ। ㅐ से ध्वनि में फ़र्क़ नहीं, वर्तनी में है - शब्द जैसा देखा वैसा लिखिए।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅔ</span><span class="cell t-trace">ㅔ</span><span class="cell t-trace">ㅔ</span><span class="cell t-trace">ㅔ</span><span class="cell t-trace">ㅔ</span><span class="cell t-trace">ㅔ</span><span class="cell t-trace">ㅔ</span><span class="cell t-trace">ㅔ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅔ</span><span class="cell t-out">ㅔ</span><span class="cell t-out">ㅔ</span><span class="cell t-out">ㅔ</span><span class="cell t-out">ㅔ</span><span class="cell t-out">ㅔ</span><span class="cell t-out">ㅔ</span><span class="cell t-out">ㅔ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅔ</span><span class="cell t-faint">ㅔ</span><span class="cell t-faint">ㅔ</span><span class="cell t-faint">ㅔ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; १२</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅒ</div>
+      <div class="meta"><div class="eq">= <b>ये</b></div><div class="tr">yae</div>
+        <div class="ex"><span class="ko">얘</span> &middot; यह बच्चा (बोलचाल)</div></div></div>
+    <div class="ph-r"><div class="grp">जोड़-स्वर, खड़ा - 'ए' परिवार</div><div class="num">१३</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅑ फिर ㅣ। स्वर अकेला नहीं खड़ा होता, इसलिए आगे चुप ㅇ।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅒ</span><span class="cell t-trace">ㅒ</span><span class="cell t-trace">ㅒ</span><span class="cell t-trace">ㅒ</span><span class="cell t-trace">ㅒ</span><span class="cell t-trace">ㅒ</span><span class="cell t-trace">ㅒ</span><span class="cell t-trace">ㅒ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅒ</span><span class="cell t-out">ㅒ</span><span class="cell t-out">ㅒ</span><span class="cell t-out">ㅒ</span><span class="cell t-out">ㅒ</span><span class="cell t-out">ㅒ</span><span class="cell t-out">ㅒ</span><span class="cell t-out">ㅒ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅒ</span><span class="cell t-faint">ㅒ</span><span class="cell t-faint">ㅒ</span><span class="cell t-faint">ㅒ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; १३</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅖ</div>
+      <div class="meta"><div class="eq">= <b>ये</b></div><div class="tr">ye</div>
+        <div class="ex"><span class="ko">예요</span> &middot; है (स्वर के बाद)</div></div></div>
+    <div class="ph-r"><div class="grp">जोड़-स्वर, खड़ा - 'ए' परिवार</div><div class="num">१४</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅕ फिर ㅣ - दो छोटी डंडियाँ, खड़ी रेखा, आख़िर में दाईं खड़ी रेखा।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅖ</span><span class="cell t-trace">ㅖ</span><span class="cell t-trace">ㅖ</span><span class="cell t-trace">ㅖ</span><span class="cell t-trace">ㅖ</span><span class="cell t-trace">ㅖ</span><span class="cell t-trace">ㅖ</span><span class="cell t-trace">ㅖ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅖ</span><span class="cell t-out">ㅖ</span><span class="cell t-out">ㅖ</span><span class="cell t-out">ㅖ</span><span class="cell t-out">ㅖ</span><span class="cell t-out">ㅖ</span><span class="cell t-out">ㅖ</span><span class="cell t-out">ㅖ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅖ</span><span class="cell t-faint">ㅖ</span><span class="cell t-faint">ㅖ</span><span class="cell t-faint">ㅖ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; १४</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅘ</div>
+      <div class="meta"><div class="eq">= <b>वा</b></div><div class="tr">wa</div>
+        <div class="ex"><span class="ko">과일</span> &middot; फल</div></div></div>
+    <div class="ph-r"><div class="grp">व-स्वर - लेटा और खड़ा साथ</div><div class="num">१५</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅗ फिर ㅏ। लेटा हिस्सा व्यंजन के नीचे, खड़ा हिस्सा दाईं ओर - इसलिए व्यंजन ऊपर-बाएँ कोने में।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅘ</span><span class="cell t-trace">ㅘ</span><span class="cell t-trace">ㅘ</span><span class="cell t-trace">ㅘ</span><span class="cell t-trace">ㅘ</span><span class="cell t-trace">ㅘ</span><span class="cell t-trace">ㅘ</span><span class="cell t-trace">ㅘ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅘ</span><span class="cell t-out">ㅘ</span><span class="cell t-out">ㅘ</span><span class="cell t-out">ㅘ</span><span class="cell t-out">ㅘ</span><span class="cell t-out">ㅘ</span><span class="cell t-out">ㅘ</span><span class="cell t-out">ㅘ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅘ</span><span class="cell t-faint">ㅘ</span><span class="cell t-faint">ㅘ</span><span class="cell t-faint">ㅘ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; १५</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅙ</div>
+      <div class="meta"><div class="eq">= <b>वे</b></div><div class="tr">wae</div>
+        <div class="ex"><span class="ko">왜</span> &middot; क्यों</div></div></div>
+    <div class="ph-r"><div class="grp">व-स्वर - लेटा और खड़ा साथ</div><div class="num">१६</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅗ फिर ㅐ। खाने में चार टुकड़े, सब पतले।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅙ</span><span class="cell t-trace">ㅙ</span><span class="cell t-trace">ㅙ</span><span class="cell t-trace">ㅙ</span><span class="cell t-trace">ㅙ</span><span class="cell t-trace">ㅙ</span><span class="cell t-trace">ㅙ</span><span class="cell t-trace">ㅙ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅙ</span><span class="cell t-out">ㅙ</span><span class="cell t-out">ㅙ</span><span class="cell t-out">ㅙ</span><span class="cell t-out">ㅙ</span><span class="cell t-out">ㅙ</span><span class="cell t-out">ㅙ</span><span class="cell t-out">ㅙ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅙ</span><span class="cell t-faint">ㅙ</span><span class="cell t-faint">ㅙ</span><span class="cell t-faint">ㅙ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; १६</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅝ</div>
+      <div class="meta"><div class="eq">= <b>वॉ</b></div><div class="tr">wo</div>
+        <div class="ex"><span class="ko">뭐</span> &middot; क्या</div></div></div>
+    <div class="ph-r"><div class="grp">व-स्वर - लेटा और खड़ा साथ</div><div class="num">१७</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅜ फिर ㅓ। नीचे का हिस्सा पहले, दाईं ओर का बाद में।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅝ</span><span class="cell t-trace">ㅝ</span><span class="cell t-trace">ㅝ</span><span class="cell t-trace">ㅝ</span><span class="cell t-trace">ㅝ</span><span class="cell t-trace">ㅝ</span><span class="cell t-trace">ㅝ</span><span class="cell t-trace">ㅝ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅝ</span><span class="cell t-out">ㅝ</span><span class="cell t-out">ㅝ</span><span class="cell t-out">ㅝ</span><span class="cell t-out">ㅝ</span><span class="cell t-out">ㅝ</span><span class="cell t-out">ㅝ</span><span class="cell t-out">ㅝ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅝ</span><span class="cell t-faint">ㅝ</span><span class="cell t-faint">ㅝ</span><span class="cell t-faint">ㅝ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; १७</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅞ</div>
+      <div class="meta"><div class="eq">= <b>वे</b></div><div class="tr">we</div>
+        <div class="ex"><span class="ko">웨</span> &middot; (अकेला खंड - अभ्यास के लिए)</div></div></div>
+    <div class="ph-r"><div class="grp">व-स्वर - लेटा और खड़ा साथ</div><div class="num">१८</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅜ फिर ㅔ। आगे चुप ㅇ।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅞ</span><span class="cell t-trace">ㅞ</span><span class="cell t-trace">ㅞ</span><span class="cell t-trace">ㅞ</span><span class="cell t-trace">ㅞ</span><span class="cell t-trace">ㅞ</span><span class="cell t-trace">ㅞ</span><span class="cell t-trace">ㅞ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅞ</span><span class="cell t-out">ㅞ</span><span class="cell t-out">ㅞ</span><span class="cell t-out">ㅞ</span><span class="cell t-out">ㅞ</span><span class="cell t-out">ㅞ</span><span class="cell t-out">ㅞ</span><span class="cell t-out">ㅞ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅞ</span><span class="cell t-faint">ㅞ</span><span class="cell t-faint">ㅞ</span><span class="cell t-faint">ㅞ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; १८</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅚ</div>
+      <div class="meta"><div class="eq">= <b>वे</b></div><div class="tr">oe</div>
+        <div class="ex"><span class="ko">외삼촌</span> &middot; मामा</div></div></div>
+    <div class="ph-r"><div class="grp">व-स्वर - लेटा और खड़ा साथ</div><div class="num">१९</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅗ फिर ㅣ। लिखने में ओ + ई, बोलने में 'वे'।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅚ</span><span class="cell t-trace">ㅚ</span><span class="cell t-trace">ㅚ</span><span class="cell t-trace">ㅚ</span><span class="cell t-trace">ㅚ</span><span class="cell t-trace">ㅚ</span><span class="cell t-trace">ㅚ</span><span class="cell t-trace">ㅚ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅚ</span><span class="cell t-out">ㅚ</span><span class="cell t-out">ㅚ</span><span class="cell t-out">ㅚ</span><span class="cell t-out">ㅚ</span><span class="cell t-out">ㅚ</span><span class="cell t-out">ㅚ</span><span class="cell t-out">ㅚ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅚ</span><span class="cell t-faint">ㅚ</span><span class="cell t-faint">ㅚ</span><span class="cell t-faint">ㅚ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; १९</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅟ</div>
+      <div class="meta"><div class="eq">= <b>वी</b></div><div class="tr">wi</div>
+        <div class="ex"><span class="ko">귀</span> &middot; कान</div></div></div>
+    <div class="ph-r"><div class="grp">व-स्वर - लेटा और खड़ा साथ</div><div class="num">२०</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅜ फिर ㅣ। व्यंजन ऊपर-बाएँ, इसलिए बहुत चपटा।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅟ</span><span class="cell t-trace">ㅟ</span><span class="cell t-trace">ㅟ</span><span class="cell t-trace">ㅟ</span><span class="cell t-trace">ㅟ</span><span class="cell t-trace">ㅟ</span><span class="cell t-trace">ㅟ</span><span class="cell t-trace">ㅟ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅟ</span><span class="cell t-out">ㅟ</span><span class="cell t-out">ㅟ</span><span class="cell t-out">ㅟ</span><span class="cell t-out">ㅟ</span><span class="cell t-out">ㅟ</span><span class="cell t-out">ㅟ</span><span class="cell t-out">ㅟ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅟ</span><span class="cell t-faint">ㅟ</span><span class="cell t-faint">ㅟ</span><span class="cell t-faint">ㅟ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; २०</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="big">ㅢ</div>
+      <div class="meta"><div class="eq">= <b>उई</b></div><div class="tr">ui</div>
+        <div class="ex"><span class="ko">의</span> &middot; का, की, के (कण)</div></div></div>
+    <div class="ph-r"><div class="grp">व-स्वर - लेटा और खड़ा साथ</div><div class="num">२१</div></div>
+  </div>
+  <div class="note"><b>रेखाओं का क्रम - ऊपर से नीचे, बाएँ से दाएँ</b> &middot; ㅡ फिर ㅣ। एक नज़र में दो अलग रेखाएँ, पर स्वर एक।</div>
+  <div class="rowlabel"><span>धूसर के <b>ऊपर से</b> चलाइए</span><span>सात बार</span></div><div class="grid "><span class="cell t-trace">ㅢ</span><span class="cell t-trace">ㅢ</span><span class="cell t-trace">ㅢ</span><span class="cell t-trace">ㅢ</span><span class="cell t-trace">ㅢ</span><span class="cell t-trace">ㅢ</span><span class="cell t-trace">ㅢ</span><span class="cell t-trace">ㅢ</span></div>
+  <div class="rowlabel"><span>खोखले अक्षर को <b>भरिए</b></span><span>सात बार</span></div><div class="grid "><span class="cell t-out">ㅢ</span><span class="cell t-out">ㅢ</span><span class="cell t-out">ㅢ</span><span class="cell t-out">ㅢ</span><span class="cell t-out">ㅢ</span><span class="cell t-out">ㅢ</span><span class="cell t-out">ㅢ</span><span class="cell t-out">ㅢ</span></div>
+  <div class="rowlabel"><span>शुरुआत दी है - <b>बाक़ी ख़ुद</b></span><span>पंक्ति पूरी कीजिए</span></div><div class="grid "><span class="cell t-model">ㅢ</span><span class="cell t-faint">ㅢ</span><span class="cell t-faint">ㅢ</span><span class="cell t-faint">ㅢ</span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="rowlabel"><span>ख़ुद लिखिए</span><span>पंक्ति भरिए</span></div><div class="grid "><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span><span class="cell "></span></div>
+  <div class="pf"><span>कॉपी २ · स्वर</span><span>BHASHASETU &middot; हिन्दी से कोरियाई &middot; २१</span></div>
+</div>
+</body>
+</html>
