@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8"/>
+<title>വാക്യം 2 - മലയാളത്തിൽ നിന്ന് ബംഗാളി</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
+  --base:  19mm;       /* baseline - letters sit here            */
+  /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
+     (see calibrate_font.html). Fractions of the font size, from the baseline:
+       bare letter  shirorekha ....... 0.642 up
+       matras above ..................  0.925 up
+       matras below ..................  0.290 down */
+  --asc-ratio:  0.935;
+  --top-ratio:  0.039;
+  --bot-ratio:  0.353;
+
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Malayalam',serif; color:var(--ink); font-size:10pt; }
+.deva{ font-family:'Noto Serif Bengali',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+/* Headroom ONLY on sheets that open with the big header glyph (letter and matra sheets).
+   Its line-height is 0.95, so tall letters (Bengali independent i, ii and u, Devanagari ii, Gurmukhi iri) rise
+   above their line box, and as the first thing on a sheet that ink printed in the previous
+   page's bottom margin. Applying it to every sheet instead pushed the dense Gurmukhi
+   conjunct sheets onto a second page (book 4 went from 10 pages to 18). */
+.sheet.tall{ padding-top:5mm; min-height:257mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:22mm; line-height:0.95; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; color:var(--ink); }
+.ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); letter-spacing:.04em; }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm; text-align:center; }
+.step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
+.step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
+.step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
+.step .cap b{ color:var(--teal); }
+.steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
+.steps .note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
+      --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--bot-ratio) * var(--gs));
+      height: calc(var(--desc) + 1.5mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* strut: an inline-block whose bottom edge sits on the text baseline, so the
+   baseline lands on --base whatever the font's line metrics say */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; justify-content:flex-start; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
+.row.words{ --head:6.5mm; --base:14mm; }
+.row.words .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --head:5.5mm; --base:11.5mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
+.cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
+.rules{ text-align:left; max-width:150mm; margin:12mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.65; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:10mm auto 0; max-width:150mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:13mm; line-height:1.1; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+.pf .r{ letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">പുസ്തകം 8</div>
+  <h1><span class="deva">বাক্য</span>വാക്യം 2</h1>
+  <p class="sub">നീണ്ട വാക്യങ്ങൾ, ഘട്ടം 07 മുതൽ 09 വരെ: സ്വയം പരിചയം, ഒരു ദിവസം, രണ്ടുപേരുടെ സംഭാഷണം, ഒരു വീടിന്റെ ദിവസം, ചായക്കടയിലെ ബഹുമാനത്തിന്റെ തട്ട്.</p>
+  <div class="rules"><h2>കടലാസിലേക്ക് ഇറങ്ങുംമുമ്പ് അഞ്ചു കാര്യം</h2><ol><li><b>ഉടൽ ആദ്യം, മുകളിലെ വര ഒടുവിൽ.</b> മലയാളത്തിന് മുകളിലെ വരയില്ല. ബംഗാളിയിൽ അക്ഷരത്തിന്റെ ശരീരം വരച്ചുകഴിഞ്ഞ് മുകളിൽ মাত্রা ഒരു നേർവരയായി വലിക്കുന്നു; അക്ഷരം ആ വരയിൽ നിന്ന് തൂങ്ങുന്നു.</li><li><b>അടിവരയല്ല, മുകളിലെ വര.</b> മലയാള അക്ഷരം അടിവരയിൽ ഇരിക്കുന്നു. ബംഗാളി അക്ഷരം മുകളിലെ വരയിൽ തൊട്ട് താഴേക്ക് നീളുന്നു; അടിയിൽ എല്ലാം ഒരേ നിരപ്പിൽ നിൽക്കണമെന്നില്ല.</li><li><b>വളവിനു പകരം കോൺ.</b> മലയാളകൈ എല്ലാം ഉരുട്ടും. ক, ব, ত, ম എന്നിവയിൽ കോണുകൾ വ്യക്തമായി നിർത്തി വരയ്ക്കുക; ഉരുട്ടിയാൽ വേറെ അക്ഷരമായി വായിക്കപ്പെടും.</li><li><b>ഇ-ചിഹ്നം ഇടത്ത്.</b> മലയാളത്തിൽ കി-യിലെ ി വലത്താണ്. ബംഗാളിയിൽ ি അക്ഷരത്തിനു മുമ്പ് എഴുതുന്നു. ে, ো എന്നിവ മലയാളത്തിലെ െ, ൊ പോലെ തന്നെ - അവിടെ കൈ ശരിയായി പോകും.</li><li><b>പതുക്കെ, ദിവസം ഒരു പേജ്.</b> പെൻസിൽ കൊണ്ട് തുടങ്ങുക, ചാരനിറ അക്ഷരത്തിനു മുകളിൽ മൃദുവായി. ഓരോ വരിയും തീരുമ്പോൾ അക്ഷരം ഉറക്കെ പറയുക - অ എന്നത് ഒ ആയി, স എന്നത് ശ ആയി.</li></ol></div>
+  <div class="legend"><h3>ഈ പുസ്തകത്തിൽ നാലു തരം എഴുത്ത്</h3><div class="lg">
+      <div><span class="s deva t-model">ক</span>മാതൃക - നോക്കുക</div>
+      <div><span class="s deva t-trace">ক</span>ചാരനിറം - മുകളിലൂടെ എഴുതുക</div>
+      <div><span class="s deva t-out">ক</span>പൊള്ള - ഉള്ളിൽ നിറയ്ക്കുക</div>
+      <div><span class="s deva t-faint">ক</span>മങ്ങിയത് - ഏതാണ്ട് സ്വന്തമായി</div>
+      </div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">1</div></div>
+  </div>
+  <div class="rowlabel"><span><b>നമസ്കാരം. എന്റെ പേര് അനു.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>নমস্কার। আমার নাম অনু।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>নমস্কার। আমার নাম অনু।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>ഞാൻ കേരളത്തുകാരിയാണ്.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>আমি কেরলের মেয়ে।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>আমি কেরলের মেয়ে।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 1</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">2</div></div>
+  </div>
+  <div class="rowlabel"><span><b>ഇപ്പോൾ ഞാൻ കൊൽക്കത്തയിൽ താമസിക്കുന്നു.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>এখন আমি কলকাতায় থাকি।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>এখন আমি কলকাতায় থাকি।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>ഞാൻ ബംഗാളി പഠിക്കുന്നു.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>আমি বাংলা শিখছি।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>আমি বাংলা শিখছি।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 2</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">3</div></div>
+  </div>
+  <div class="rowlabel"><span><b>എന്റെ മാതൃഭാഷ മലയാളം.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>আমার মাতৃভাষা মালয়ালম।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>আমার মাতৃভাষা মালয়ালম।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>ബംഗാളി കുറച്ചു കുറച്ചു മനസ്സിലാകും.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বাংলা একটু একটু বুঝি।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>বাংলা একটু একটু বুঝি।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 3</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">4</div></div>
+  </div>
+  <div class="rowlabel"><span><b>നന്നായി പറയാൻ കഴിയില്ല.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ভালো বলতে পারি না।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ভালো বলতে পারি না।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>ഞാൻ ദിവസവും വീട്ടിൽ നിന്ന് ജോലിക്കു പോകുന്നു.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>আমি রোজ বাড়ি থেকে কাজে যাই।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>আমি রোজ বাড়ি থেকে কাজে যাই।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 4</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">5</div></div>
+  </div>
+  <div class="rowlabel"><span><b>റോഡിൽ ധാരാളം ആളുകൾ.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>রাস্তায় অনেক মানুষ।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>রাস্তায় অনেক মানুষ।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>ഞാൻ കടയിൽ നിന്ന് ചായ കുടിക്കുന്നു, പിന്നെ വീണ്ടും ജോലി.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>আমি দোকানে চা খাই, তারপর আবার কাজ।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>আমি দোকানে চা খাই, তারপর আবার কাজ।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 5</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">6</div></div>
+  </div>
+  <div class="rowlabel"><span><b>വീട്ടിൽ വന്ന് അമ്മയ്ക്ക് കത്തെഴുതുന്നു.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বাড়িতে এসে মাকে চিঠি লিখি।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>বাড়িতে এসে মাকে চিঠি লিখি।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>പിന്നെ വായിക്കുന്നു, എന്നിട്ട് ഉറങ്ങിപ്പോകുന്നു.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>তারপর বই পড়ি, আর ঘুমিয়ে পড়ি।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>তারপর বই পড়ি, আর ঘুমিয়ে পড়ি।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 6</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">7</div></div>
+  </div>
+  <div class="rowlabel"><span><b>താങ്കൾക്ക് സുഖമാണോ? സുഖമാണ്.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>আপনি কেমন আছেন? ভালো আছি।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>আপনি কেমন আছেন? ভালো আছি।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>താങ്കളുടെ പേരെന്താണ്?</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>আপনার নাম কী?</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>আপনার নাম কী?</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 7</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">8</div></div>
+  </div>
+  <div class="rowlabel"><span><b>ഞാൻ കേരളത്തിൽ നിന്നാണ് വന്നത്.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>আমি কেরল থেকে এসেছি।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>আমি কেরল থেকে এসেছি।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>താങ്കൾ ബംഗാളി സംസാരിക്കുമോ?</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>আপনি বাংলা বলেন?</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>আপনি বাংলা বলেন?</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 8</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">9</div></div>
+  </div>
+  <div class="rowlabel"><span><b>വളരെ നല്ലത്! വീണ്ടും കാണാം.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খুব ভালো! আবার দেখা হবে।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>খুব ভালো! আবার দেখা হবে।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>രാവിലെ അച്ഛൻ ചായ കുടിക്കുന്നു, അമ്മ പാലും.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>সকালে বাবা চা খান, মা দুধ খান।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>সকালে বাবা চা খান, মা দুধ খান।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 9</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">10</div></div>
+  </div>
+  <div class="rowlabel"><span><b>ഉച്ചയ്ക്ക് ഞങ്ങൾ ചോറും പരിപ്പും മീനും കഴിക്കുന്നു.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>দুপুরে আমরা ভাত, ডাল আর মাছ খাই।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>দুপুরে আমরা ভাত, ডাল আর মাছ খাই।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>ഉച്ചതിരിഞ്ഞ് ചേച്ചി നടക്കാൻ പോകുന്നു.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বিকেলে দিদি হাঁটতে যায়।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>বিকেলে দিদি হাঁটতে যায়।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 10</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">11</div></div>
+  </div>
+  <div class="rowlabel"><span><b>സന്ധ്യയ്ക്ക് അമ്മാവൻ വരുന്നു.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>সন্ধ্যায় মামা আসেন।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>সন্ধ্যায় মামা আসেন।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>നാളെ ഞങ്ങൾ അമ്മൂമ്മയുടെ വീട്ടിൽ പോകും.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কাল আমরা দিদিমার বাড়ি যাব।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>কাল আমরা দিদিমার বাড়ি যাব।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 11</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">12</div></div>
+  </div>
+  <div class="rowlabel"><span><b>ചേട്ടാ, ഒരു ചായ തരൂ.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>দাদা, একটা চা দিন।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>দাদা, একটা চা দিন।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>അതെ, കുറച്ചു പാൽ. പിന്നെ രണ്ടു പഴം.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>হ্যাঁ, একটু দুধ। আর দুটো কলা।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>হ্যাঁ, একটু দুধ। আর দুটো কলা।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 12</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">13</div></div>
+  </div>
+  <div class="rowlabel"><span><b>നന്ദി, ചേട്ടാ. വീണ്ടും വരണം.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ধন্যবাদ, দাদা। আবার আসবেন।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ধন্যবাদ, দাদা। আবার আসবেন।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>ഒന്ന് ഇരിക്കൂ.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>একটু বসুন।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>একটু বসুন।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 13</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">14</div></div>
+  </div>
+  <div class="rowlabel"><span><b>ഊണ് കഴിച്ചോ?</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ভাত খেয়েছেন?</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ভাত খেয়েছেন?</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>ക്ഷമിക്കണം, എനിക്കറിയില്ല.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>মাফ করবেন, আমি জানি না।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>মাফ করবেন, আমি জানি না।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 14</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>വാക്യം എഴുതുക</b></div>
+      <div class="ex">മുകളിലെ വര വാക്കിന്റെ ഒടുക്കം വരെ മുറിയാതെ നീളുന്നു, പിന്നെ ഒരു വിടവ്. വാക്യത്തിനൊടുവിൽ നിൽക്കുന്ന ഒരു വര.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്യം</div><div class="num">15</div></div>
+  </div>
+  <div class="rowlabel"><span><b>ഇവിടെ മൂന്നു പേരുണ്ട്.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>এখানে তিনজন মানুষ আছে।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>এখানে তিনজন মানুষ আছে।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><b>ആ പുസ്തകം അവിടെയാണ്.</b></span><span>മാതൃക &rarr; ചാരനിറം &rarr; നിങ്ങൾ</span></div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বইটা ওখানে।</span></div>
+</div><div class="rowlabel"><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>বইটা ওখানে।</span></div>
+</div><div class="rowlabel"><span>ഇനി സ്വന്തമായി എഴുതുക</span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span></span><span></span></div>
+<div class="row sent">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 8 · വാക്യം 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 15</span></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pa">
+<head>
+<meta charset="UTF-8"/>
+<title>ਚਾਰ ਸ਼ਕਲਾਂ - ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Gurmukhi:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --base: 17mm;         /* the baseline - letters SIT on this */
+  --gs:   15mm;         /* practice font size */
+  --asc-ratio:  0.714;  /* ا ل ک reach this far above the baseline */
+  --desc-ratio: 0.420;  /* م and the Nastaliq cascade reach this far below */
+  --x-ratio:    0.310;  /* x-height of ب س ر, drawn as a faint guide */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Gurmukhi',serif; color:var(--ink); font-size:10pt; direction:ltr; }
+.ur{ font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:6mm; }
+.ph .big{ font-size:24mm; line-height:1.5; }
+.ph .meta{ padding-bottom:2mm; }
+.ph .eq{ font-size:13pt; } .ph .eq b{ color:var(--sindoor); }
+.ph .nm{ font-size:11pt; color:var(--teal); }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:2mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.note{ font-size:9.5pt; line-height:1.6; color:var(--ink); margin:0 0 3mm;
+       padding:2mm 3mm; background:rgba(31,77,74,0.06); border-right:2mm solid var(--teal); }
+.note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.4mm;
+      --asc:  calc(var(--base) - var(--asc-ratio) * var(--gs));
+      --xh:   calc(var(--base) - var(--x-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--desc-ratio) * var(--gs));
+      height: calc(var(--desc) + 2mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.x{ top:var(--xh);   border-top:0.2mm dotted #dde3ea; }
+.ln.b{ top:var(--base); border-top:0.45mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* right-to-left: cells run from the right edge; the strut pins the baseline */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; flex-direction:row; justify-content:flex-start;
+             direction:rtl; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-family:'Noto Nastaliq Urdu',serif; font-size:var(--gs); line-height:0;
+         flex:0 0 auto; padding-left:7mm; text-align:center; }
+/* word and joining rows: a tighter band so eight rows fit one page */
+.row.wide{ --base:13mm; --gs:12mm; }
+.row.wide .c{ padding-left:12mm; }
+.row.sent{ --gs:11mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; padding:0; text-align:right; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.25mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.forms{ display:flex; gap:3mm; margin:0 0 3mm; direction:rtl; }
+.formbox{ border:0.3mm dashed var(--line-soft); border-radius:1mm;
+          padding:1mm 4mm 0.5mm; text-align:center; flex:1; }
+.formbox .g{ font-family:'Noto Nastaliq Urdu',serif; font-size:13mm; line-height:2; }
+.formbox .cap{ font-size:8pt; color:var(--faded); direction:ltr; }
+.formbox .cap b{ color:var(--teal); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:28pt; margin:6mm 0 2mm; line-height:1.3; }
+.cover h1 .ur{ display:block; font-size:32pt; margin-bottom:5mm; line-height:2; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:140mm; margin:0 auto; line-height:1.75; }
+.rules{ text-align:left; max-width:152mm; margin:10mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.7; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">ਕਾਪੀ ੨</div>
+  <h1><span class="ur">چار شکلیں</span>ਚਾਰ ਸ਼ਕਲਾਂ</h1>
+  <p class="sub">ਇੱਕੋ ਅੱਖਰ ਸ਼ਬਦ ਦੇ ਸ਼ੁਰੂ, ਵਿਚਕਾਰ, ਅੰਤ ਅਤੇ ਇਕੱਲਾ ਚਾਰ ਤਰ੍ਹਾਂ ਦਿਸਦਾ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰਾਂ ਨਾਲ ਹੁੰਦਾ ਹੈ; ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਨਾਲ।</p>
+  <div class="rules"><h2>ਲਿਖਣ ਤੋਂ ਪਹਿਲਾਂ ਪੰਜ ਗੱਲਾਂ</h2><ol><li><b>ਸੱਜਿਓਂ ਖੱਬੇ।</b> ਗੁਰਮੁਖੀ ਵਾਲਾ ਹੱਥ ਆਪੇ ਖੱਬੇ ਕਿਨਾਰੇ ਵੱਲ ਜਾਵੇਗਾ। ਹਰ ਸਤਰ ਤੋਂ ਪਹਿਲਾਂ ਕਲਮ ਸੱਜੇ ਕਿਨਾਰੇ ਉੱਤੇ ਰੱਖੋ। ਅੰਕ ਫਿਰ ਵੀ ਖੱਬਿਓਂ ਸੱਜੇ।</li><li><b>ਲਕੀਰ ਉੱਤੇ ਬਿਠਾਓ, ਲਟਕਾਓ ਨਹੀਂ।</b> ਗੁਰਮੁਖੀ ਅੱਖਰ ਉੱਪਰਲੀ ਲਕੀਰ ਤੋਂ ਲਟਕਦੇ ਹਨ; ਉਰਦੂ ਅੱਖਰ ਮੋਟੀ ਲਕੀਰ ਉੱਤੇ ਬੈਠਦੇ ਹਨ। ا ل ک ਉੱਪਰ ਉੱਠਦੇ ਹਨ, م ج ع ی ਦੀ ਪੂਛ ਹੇਠਾਂ ਜਾਂਦੀ ਹੈ।</li><li><b>ਇੱਕ ਅੱਖਰ, ਚਾਰ ਸ਼ਕਲਾਂ।</b> ਗੁਰਮੁਖੀ ਵਿੱਚ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰ ਸ਼ਕਲ ਬਦਲਦੇ ਹਨ; ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਥਾਂ ਮੁਤਾਬਕ ਬਦਲਦਾ ਹੈ। ਜੁੜੇ ਅੱਖਰਾਂ ਵਿਚਕਾਰ ਕਲਮ ਨਾ ਚੁੱਕੋ।</li><li><b>ਦਸ ਅੱਖਰ ਖੱਬਾ ਹੱਥ ਨਹੀਂ ਮਿਲਾਉਂਦੇ।</b> ا آ د ڈ ذ ر ڑ ز ژ و ਮਗਰੋਂ ਕਲਮ ਚੁੱਕੋ। ਸ਼ਬਦ ਦੇ ਵਿਚਕਾਰ ਰਹੀ ਖ਼ਾਲੀ ਥਾਂ ਗ਼ਲਤੀ ਨਹੀਂ, ਨਿਯਮ ਹੈ।</li><li><b>ਦੋ-ਚਸ਼ਮੀ ਹੇ ਲਿਖੋ, ਸਾਹ ਕੱਢੋ।</b> ھ ਵਾਲਾ ਹਰ ਅੱਖਰ ਲਿਖਦੇ ਵੇਲੇ ਉੱਚੀ ਬੋਲੋ: گھ ਗ ਨਾਲ ਸਾਹ ਹੈ, ਪੰਜਾਬੀ ਘ ਵਾਲੀ ਸੁਰ ਨਹੀਂ।</li></ol></div>
+  <div class="legend"><h3>ਇਸ ਕਾਪੀ ਵਿੱਚ ਚਾਰ ਤਰ੍ਹਾਂ ਦੀ ਲਿਖਾਈ</h3><div class="lg">
+      <div><span class="s ur t-model">چ</span>ਨਮੂਨਾ</div>
+      <div><span class="s ur t-trace">چ</span>ਧੁੰਦਲਾ - ਉੱਤੋਂ ਖਿੱਚੋ</div>
+      <div><span class="s ur t-out">چ</span>ਖੋਖਲਾ - ਅੰਦਰ ਭਰੋ</div>
+      <div><span class="s ur t-faint">چ</span>ਬਹੁਤ ਹਲਕਾ - ਲਗਭਗ ਆਪ</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ਚਾਰ ਸ਼ਕਲਾਂ</b></div>
+      <div class="ex">ਸੱਜਿਓਂ ਖੱਬੇ: ਸ਼ੁਰੂ ਵਿੱਚ · ਵਿਚਕਾਰ · ਅੰਤ ਵਿੱਚ · ਇਕੱਲਾ</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">ਚਾਰ ਸ਼ਕਲਾਂ</div><div class="num">੧</div></div>
+  </div>
+  <div class="note">ਇੱਕੋ ਅੱਖਰ ਸ਼ਬਦ ਵਿੱਚ ਆਪਣੀ ਥਾਂ ਮੁਤਾਬਕ ਸ਼ਕਲ ਬਦਲਦਾ ਹੈ। <b>ਗੁਰਮੁਖੀ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰਾਂ ਨਾਲ ਹੁੰਦਾ ਹੈ</b> - ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਨਾਲ, ਇਸ ਲਈ ਅਸਲ ਅਭਿਆਸ ਇਹੀ ਹੈ।</div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:12pt">ب</span> &nbsp; ਬੇ &nbsp; = &nbsp; <b>ਬ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ب‍</span><span class="c t-trace"><i class="st"></i>ب‍</span><span class="c t-model"><i class="st"></i>‍ب‍</span><span class="c t-trace"><i class="st"></i>‍ب‍</span><span class="c t-model"><i class="st"></i>‍ب</span><span class="c t-trace"><i class="st"></i>‍ب</span><span class="c t-model"><i class="st"></i>ب</span><span class="c t-trace"><i class="st"></i>ب</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">پ</span> &nbsp; ਪੇ &nbsp; = &nbsp; <b>ਪ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>پ‍</span><span class="c t-trace"><i class="st"></i>پ‍</span><span class="c t-model"><i class="st"></i>‍پ‍</span><span class="c t-trace"><i class="st"></i>‍پ‍</span><span class="c t-model"><i class="st"></i>‍پ</span><span class="c t-trace"><i class="st"></i>‍پ</span><span class="c t-model"><i class="st"></i>پ</span><span class="c t-trace"><i class="st"></i>پ</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ت</span> &nbsp; ਤੇ &nbsp; = &nbsp; <b>ਤ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ت‍</span><span class="c t-trace"><i class="st"></i>ت‍</span><span class="c t-model"><i class="st"></i>‍ت‍</span><span class="c t-trace"><i class="st"></i>‍ت‍</span><span class="c t-model"><i class="st"></i>‍ت</span><span class="c t-trace"><i class="st"></i>‍ت</span><span class="c t-model"><i class="st"></i>ت</span><span class="c t-trace"><i class="st"></i>ت</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੨ · ਚਾਰ ਸ਼ਕਲਾਂ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੧</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ਚਾਰ ਸ਼ਕਲਾਂ</b></div>
+      <div class="ex">ਸੱਜਿਓਂ ਖੱਬੇ: ਸ਼ੁਰੂ ਵਿੱਚ · ਵਿਚਕਾਰ · ਅੰਤ ਵਿੱਚ · ਇਕੱਲਾ</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">ਚਾਰ ਸ਼ਕਲਾਂ</div><div class="num">੨</div></div>
+  </div>
+  <div class="note">ਇੱਕੋ ਅੱਖਰ ਸ਼ਬਦ ਵਿੱਚ ਆਪਣੀ ਥਾਂ ਮੁਤਾਬਕ ਸ਼ਕਲ ਬਦਲਦਾ ਹੈ। <b>ਗੁਰਮੁਖੀ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰਾਂ ਨਾਲ ਹੁੰਦਾ ਹੈ</b> - ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਨਾਲ, ਇਸ ਲਈ ਅਸਲ ਅਭਿਆਸ ਇਹੀ ਹੈ।</div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:12pt">ٹ</span> &nbsp; ਟੇ &nbsp; = &nbsp; <b>ਟ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ٹ‍</span><span class="c t-trace"><i class="st"></i>ٹ‍</span><span class="c t-model"><i class="st"></i>‍ٹ‍</span><span class="c t-trace"><i class="st"></i>‍ٹ‍</span><span class="c t-model"><i class="st"></i>‍ٹ</span><span class="c t-trace"><i class="st"></i>‍ٹ</span><span class="c t-model"><i class="st"></i>ٹ</span><span class="c t-trace"><i class="st"></i>ٹ</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ث</span> &nbsp; ਸੇ &nbsp; = &nbsp; <b>ਸ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ث‍</span><span class="c t-trace"><i class="st"></i>ث‍</span><span class="c t-model"><i class="st"></i>‍ث‍</span><span class="c t-trace"><i class="st"></i>‍ث‍</span><span class="c t-model"><i class="st"></i>‍ث</span><span class="c t-trace"><i class="st"></i>‍ث</span><span class="c t-model"><i class="st"></i>ث</span><span class="c t-trace"><i class="st"></i>ث</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ج</span> &nbsp; ਜੀਮ &nbsp; = &nbsp; <b>ਜ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ج‍</span><span class="c t-trace"><i class="st"></i>ج‍</span><span class="c t-model"><i class="st"></i>‍ج‍</span><span class="c t-trace"><i class="st"></i>‍ج‍</span><span class="c t-model"><i class="st"></i>‍ج</span><span class="c t-trace"><i class="st"></i>‍ج</span><span class="c t-model"><i class="st"></i>ج</span><span class="c t-trace"><i class="st"></i>ج</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੨ · ਚਾਰ ਸ਼ਕਲਾਂ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੨</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ਚਾਰ ਸ਼ਕਲਾਂ</b></div>
+      <div class="ex">ਸੱਜਿਓਂ ਖੱਬੇ: ਸ਼ੁਰੂ ਵਿੱਚ · ਵਿਚਕਾਰ · ਅੰਤ ਵਿੱਚ · ਇਕੱਲਾ</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">ਚਾਰ ਸ਼ਕਲਾਂ</div><div class="num">੩</div></div>
+  </div>
+  <div class="note">ਇੱਕੋ ਅੱਖਰ ਸ਼ਬਦ ਵਿੱਚ ਆਪਣੀ ਥਾਂ ਮੁਤਾਬਕ ਸ਼ਕਲ ਬਦਲਦਾ ਹੈ। <b>ਗੁਰਮੁਖੀ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰਾਂ ਨਾਲ ਹੁੰਦਾ ਹੈ</b> - ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਨਾਲ, ਇਸ ਲਈ ਅਸਲ ਅਭਿਆਸ ਇਹੀ ਹੈ।</div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:12pt">چ</span> &nbsp; ਚੇ &nbsp; = &nbsp; <b>ਚ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>چ‍</span><span class="c t-trace"><i class="st"></i>چ‍</span><span class="c t-model"><i class="st"></i>‍چ‍</span><span class="c t-trace"><i class="st"></i>‍چ‍</span><span class="c t-model"><i class="st"></i>‍چ</span><span class="c t-trace"><i class="st"></i>‍چ</span><span class="c t-model"><i class="st"></i>چ</span><span class="c t-trace"><i class="st"></i>چ</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ح</span> &nbsp; ਬੜੀ ਹੇ &nbsp; = &nbsp; <b>ਹ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ح‍</span><span class="c t-trace"><i class="st"></i>ح‍</span><span class="c t-model"><i class="st"></i>‍ح‍</span><span class="c t-trace"><i class="st"></i>‍ح‍</span><span class="c t-model"><i class="st"></i>‍ح</span><span class="c t-trace"><i class="st"></i>‍ح</span><span class="c t-model"><i class="st"></i>ح</span><span class="c t-trace"><i class="st"></i>ح</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">خ</span> &nbsp; ਖ਼ੇ &nbsp; = &nbsp; <b>ਖ਼</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>خ‍</span><span class="c t-trace"><i class="st"></i>خ‍</span><span class="c t-model"><i class="st"></i>‍خ‍</span><span class="c t-trace"><i class="st"></i>‍خ‍</span><span class="c t-model"><i class="st"></i>‍خ</span><span class="c t-trace"><i class="st"></i>‍خ</span><span class="c t-model"><i class="st"></i>خ</span><span class="c t-trace"><i class="st"></i>خ</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੨ · ਚਾਰ ਸ਼ਕਲਾਂ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ਚਾਰ ਸ਼ਕਲਾਂ</b></div>
+      <div class="ex">ਸੱਜਿਓਂ ਖੱਬੇ: ਸ਼ੁਰੂ ਵਿੱਚ · ਵਿਚਕਾਰ · ਅੰਤ ਵਿੱਚ · ਇਕੱਲਾ</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">ਚਾਰ ਸ਼ਕਲਾਂ</div><div class="num">੪</div></div>
+  </div>
+  <div class="note">ਇੱਕੋ ਅੱਖਰ ਸ਼ਬਦ ਵਿੱਚ ਆਪਣੀ ਥਾਂ ਮੁਤਾਬਕ ਸ਼ਕਲ ਬਦਲਦਾ ਹੈ। <b>ਗੁਰਮੁਖੀ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰਾਂ ਨਾਲ ਹੁੰਦਾ ਹੈ</b> - ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਨਾਲ, ਇਸ ਲਈ ਅਸਲ ਅਭਿਆਸ ਇਹੀ ਹੈ।</div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:12pt">س</span> &nbsp; ਸੀਨ &nbsp; = &nbsp; <b>ਸ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>س‍</span><span class="c t-trace"><i class="st"></i>س‍</span><span class="c t-model"><i class="st"></i>‍س‍</span><span class="c t-trace"><i class="st"></i>‍س‍</span><span class="c t-model"><i class="st"></i>‍س</span><span class="c t-trace"><i class="st"></i>‍س</span><span class="c t-model"><i class="st"></i>س</span><span class="c t-trace"><i class="st"></i>س</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ش</span> &nbsp; ਸ਼ੀਨ &nbsp; = &nbsp; <b>ਸ਼</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ش‍</span><span class="c t-trace"><i class="st"></i>ش‍</span><span class="c t-model"><i class="st"></i>‍ش‍</span><span class="c t-trace"><i class="st"></i>‍ش‍</span><span class="c t-model"><i class="st"></i>‍ش</span><span class="c t-trace"><i class="st"></i>‍ش</span><span class="c t-model"><i class="st"></i>ش</span><span class="c t-trace"><i class="st"></i>ش</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ص</span> &nbsp; ਸੁਆਦ &nbsp; = &nbsp; <b>ਸ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ص‍</span><span class="c t-trace"><i class="st"></i>ص‍</span><span class="c t-model"><i class="st"></i>‍ص‍</span><span class="c t-trace"><i class="st"></i>‍ص‍</span><span class="c t-model"><i class="st"></i>‍ص</span><span class="c t-trace"><i class="st"></i>‍ص</span><span class="c t-model"><i class="st"></i>ص</span><span class="c t-trace"><i class="st"></i>ص</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੨ · ਚਾਰ ਸ਼ਕਲਾਂ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ਚਾਰ ਸ਼ਕਲਾਂ</b></div>
+      <div class="ex">ਸੱਜਿਓਂ ਖੱਬੇ: ਸ਼ੁਰੂ ਵਿੱਚ · ਵਿਚਕਾਰ · ਅੰਤ ਵਿੱਚ · ਇਕੱਲਾ</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">ਚਾਰ ਸ਼ਕਲਾਂ</div><div class="num">੫</div></div>
+  </div>
+  <div class="note">ਇੱਕੋ ਅੱਖਰ ਸ਼ਬਦ ਵਿੱਚ ਆਪਣੀ ਥਾਂ ਮੁਤਾਬਕ ਸ਼ਕਲ ਬਦਲਦਾ ਹੈ। <b>ਗੁਰਮੁਖੀ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰਾਂ ਨਾਲ ਹੁੰਦਾ ਹੈ</b> - ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਨਾਲ, ਇਸ ਲਈ ਅਸਲ ਅਭਿਆਸ ਇਹੀ ਹੈ।</div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:12pt">ض</span> &nbsp; ਜ਼ੁਆਦ &nbsp; = &nbsp; <b>ਜ਼</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ض‍</span><span class="c t-trace"><i class="st"></i>ض‍</span><span class="c t-model"><i class="st"></i>‍ض‍</span><span class="c t-trace"><i class="st"></i>‍ض‍</span><span class="c t-model"><i class="st"></i>‍ض</span><span class="c t-trace"><i class="st"></i>‍ض</span><span class="c t-model"><i class="st"></i>ض</span><span class="c t-trace"><i class="st"></i>ض</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ط</span> &nbsp; ਤੋਏ &nbsp; = &nbsp; <b>ਤ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ط‍</span><span class="c t-trace"><i class="st"></i>ط‍</span><span class="c t-model"><i class="st"></i>‍ط‍</span><span class="c t-trace"><i class="st"></i>‍ط‍</span><span class="c t-model"><i class="st"></i>‍ط</span><span class="c t-trace"><i class="st"></i>‍ط</span><span class="c t-model"><i class="st"></i>ط</span><span class="c t-trace"><i class="st"></i>ط</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ظ</span> &nbsp; ਜ਼ੋਏ &nbsp; = &nbsp; <b>ਜ਼</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ظ‍</span><span class="c t-trace"><i class="st"></i>ظ‍</span><span class="c t-model"><i class="st"></i>‍ظ‍</span><span class="c t-trace"><i class="st"></i>‍ظ‍</span><span class="c t-model"><i class="st"></i>‍ظ</span><span class="c t-trace"><i class="st"></i>‍ظ</span><span class="c t-model"><i class="st"></i>ظ</span><span class="c t-trace"><i class="st"></i>ظ</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੨ · ਚਾਰ ਸ਼ਕਲਾਂ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ਚਾਰ ਸ਼ਕਲਾਂ</b></div>
+      <div class="ex">ਸੱਜਿਓਂ ਖੱਬੇ: ਸ਼ੁਰੂ ਵਿੱਚ · ਵਿਚਕਾਰ · ਅੰਤ ਵਿੱਚ · ਇਕੱਲਾ</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">ਚਾਰ ਸ਼ਕਲਾਂ</div><div class="num">੬</div></div>
+  </div>
+  <div class="note">ਇੱਕੋ ਅੱਖਰ ਸ਼ਬਦ ਵਿੱਚ ਆਪਣੀ ਥਾਂ ਮੁਤਾਬਕ ਸ਼ਕਲ ਬਦਲਦਾ ਹੈ। <b>ਗੁਰਮੁਖੀ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰਾਂ ਨਾਲ ਹੁੰਦਾ ਹੈ</b> - ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਨਾਲ, ਇਸ ਲਈ ਅਸਲ ਅਭਿਆਸ ਇਹੀ ਹੈ।</div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:12pt">ع</span> &nbsp; ਐਨ &nbsp; = &nbsp; <b>ਸਵਰ ਦੀ ਕਿੱਲੀ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ع‍</span><span class="c t-trace"><i class="st"></i>ع‍</span><span class="c t-model"><i class="st"></i>‍ع‍</span><span class="c t-trace"><i class="st"></i>‍ع‍</span><span class="c t-model"><i class="st"></i>‍ع</span><span class="c t-trace"><i class="st"></i>‍ع</span><span class="c t-model"><i class="st"></i>ع</span><span class="c t-trace"><i class="st"></i>ع</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">غ</span> &nbsp; ਗ਼ੈਨ &nbsp; = &nbsp; <b>ਗ਼</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>غ‍</span><span class="c t-trace"><i class="st"></i>غ‍</span><span class="c t-model"><i class="st"></i>‍غ‍</span><span class="c t-trace"><i class="st"></i>‍غ‍</span><span class="c t-model"><i class="st"></i>‍غ</span><span class="c t-trace"><i class="st"></i>‍غ</span><span class="c t-model"><i class="st"></i>غ</span><span class="c t-trace"><i class="st"></i>غ</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ف</span> &nbsp; ਫ਼ੇ &nbsp; = &nbsp; <b>ਫ਼</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ف‍</span><span class="c t-trace"><i class="st"></i>ف‍</span><span class="c t-model"><i class="st"></i>‍ف‍</span><span class="c t-trace"><i class="st"></i>‍ف‍</span><span class="c t-model"><i class="st"></i>‍ف</span><span class="c t-trace"><i class="st"></i>‍ف</span><span class="c t-model"><i class="st"></i>ف</span><span class="c t-trace"><i class="st"></i>ف</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੨ · ਚਾਰ ਸ਼ਕਲਾਂ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ਚਾਰ ਸ਼ਕਲਾਂ</b></div>
+      <div class="ex">ਸੱਜਿਓਂ ਖੱਬੇ: ਸ਼ੁਰੂ ਵਿੱਚ · ਵਿਚਕਾਰ · ਅੰਤ ਵਿੱਚ · ਇਕੱਲਾ</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">ਚਾਰ ਸ਼ਕਲਾਂ</div><div class="num">੭</div></div>
+  </div>
+  <div class="note">ਇੱਕੋ ਅੱਖਰ ਸ਼ਬਦ ਵਿੱਚ ਆਪਣੀ ਥਾਂ ਮੁਤਾਬਕ ਸ਼ਕਲ ਬਦਲਦਾ ਹੈ। <b>ਗੁਰਮੁਖੀ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰਾਂ ਨਾਲ ਹੁੰਦਾ ਹੈ</b> - ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਨਾਲ, ਇਸ ਲਈ ਅਸਲ ਅਭਿਆਸ ਇਹੀ ਹੈ।</div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:12pt">ق</span> &nbsp; ਕ਼ਾਫ਼ &nbsp; = &nbsp; <b>⚡ ਕ਼</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ق‍</span><span class="c t-trace"><i class="st"></i>ق‍</span><span class="c t-model"><i class="st"></i>‍ق‍</span><span class="c t-trace"><i class="st"></i>‍ق‍</span><span class="c t-model"><i class="st"></i>‍ق</span><span class="c t-trace"><i class="st"></i>‍ق</span><span class="c t-model"><i class="st"></i>ق</span><span class="c t-trace"><i class="st"></i>ق</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ک</span> &nbsp; ਕਾਫ਼ &nbsp; = &nbsp; <b>ਕ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ک‍</span><span class="c t-trace"><i class="st"></i>ک‍</span><span class="c t-model"><i class="st"></i>‍ک‍</span><span class="c t-trace"><i class="st"></i>‍ک‍</span><span class="c t-model"><i class="st"></i>‍ک</span><span class="c t-trace"><i class="st"></i>‍ک</span><span class="c t-model"><i class="st"></i>ک</span><span class="c t-trace"><i class="st"></i>ک</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">گ</span> &nbsp; ਗਾਫ਼ &nbsp; = &nbsp; <b>ਗ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>گ‍</span><span class="c t-trace"><i class="st"></i>گ‍</span><span class="c t-model"><i class="st"></i>‍گ‍</span><span class="c t-trace"><i class="st"></i>‍گ‍</span><span class="c t-model"><i class="st"></i>‍گ</span><span class="c t-trace"><i class="st"></i>‍گ</span><span class="c t-model"><i class="st"></i>گ</span><span class="c t-trace"><i class="st"></i>گ</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੨ · ਚਾਰ ਸ਼ਕਲਾਂ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ਚਾਰ ਸ਼ਕਲਾਂ</b></div>
+      <div class="ex">ਸੱਜਿਓਂ ਖੱਬੇ: ਸ਼ੁਰੂ ਵਿੱਚ · ਵਿਚਕਾਰ · ਅੰਤ ਵਿੱਚ · ਇਕੱਲਾ</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">ਚਾਰ ਸ਼ਕਲਾਂ</div><div class="num">੮</div></div>
+  </div>
+  <div class="note">ਇੱਕੋ ਅੱਖਰ ਸ਼ਬਦ ਵਿੱਚ ਆਪਣੀ ਥਾਂ ਮੁਤਾਬਕ ਸ਼ਕਲ ਬਦਲਦਾ ਹੈ। <b>ਗੁਰਮੁਖੀ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰਾਂ ਨਾਲ ਹੁੰਦਾ ਹੈ</b> - ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਨਾਲ, ਇਸ ਲਈ ਅਸਲ ਅਭਿਆਸ ਇਹੀ ਹੈ।</div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:12pt">ل</span> &nbsp; ਲਾਮ &nbsp; = &nbsp; <b>ਲ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ل‍</span><span class="c t-trace"><i class="st"></i>ل‍</span><span class="c t-model"><i class="st"></i>‍ل‍</span><span class="c t-trace"><i class="st"></i>‍ل‍</span><span class="c t-model"><i class="st"></i>‍ل</span><span class="c t-trace"><i class="st"></i>‍ل</span><span class="c t-model"><i class="st"></i>ل</span><span class="c t-trace"><i class="st"></i>ل</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">م</span> &nbsp; ਮੀਮ &nbsp; = &nbsp; <b>ਮ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>م‍</span><span class="c t-trace"><i class="st"></i>م‍</span><span class="c t-model"><i class="st"></i>‍م‍</span><span class="c t-trace"><i class="st"></i>‍م‍</span><span class="c t-model"><i class="st"></i>‍م</span><span class="c t-trace"><i class="st"></i>‍م</span><span class="c t-model"><i class="st"></i>م</span><span class="c t-trace"><i class="st"></i>م</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ن</span> &nbsp; ਨੂਨ &nbsp; = &nbsp; <b>ਨ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ن‍</span><span class="c t-trace"><i class="st"></i>ن‍</span><span class="c t-model"><i class="st"></i>‍ن‍</span><span class="c t-trace"><i class="st"></i>‍ن‍</span><span class="c t-model"><i class="st"></i>‍ن</span><span class="c t-trace"><i class="st"></i>‍ن</span><span class="c t-model"><i class="st"></i>ن</span><span class="c t-trace"><i class="st"></i>ن</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੨ · ਚਾਰ ਸ਼ਕਲਾਂ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ਚਾਰ ਸ਼ਕਲਾਂ</b></div>
+      <div class="ex">ਸੱਜਿਓਂ ਖੱਬੇ: ਸ਼ੁਰੂ ਵਿੱਚ · ਵਿਚਕਾਰ · ਅੰਤ ਵਿੱਚ · ਇਕੱਲਾ</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">ਚਾਰ ਸ਼ਕਲਾਂ</div><div class="num">੯</div></div>
+  </div>
+  <div class="note">ਇੱਕੋ ਅੱਖਰ ਸ਼ਬਦ ਵਿੱਚ ਆਪਣੀ ਥਾਂ ਮੁਤਾਬਕ ਸ਼ਕਲ ਬਦਲਦਾ ਹੈ। <b>ਗੁਰਮੁਖੀ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰਾਂ ਨਾਲ ਹੁੰਦਾ ਹੈ</b> - ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਨਾਲ, ਇਸ ਲਈ ਅਸਲ ਅਭਿਆਸ ਇਹੀ ਹੈ।</div>
+  <div class="rowlabel"><span><span class="ur" style="font-size:12pt">ہ</span> &nbsp; ਗੋਲ ਹੇ &nbsp; = &nbsp; <b>ਹ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ہ‍</span><span class="c t-trace"><i class="st"></i>ہ‍</span><span class="c t-model"><i class="st"></i>‍ہ‍</span><span class="c t-trace"><i class="st"></i>‍ہ‍</span><span class="c t-model"><i class="st"></i>‍ہ</span><span class="c t-trace"><i class="st"></i>‍ہ</span><span class="c t-model"><i class="st"></i>ہ</span><span class="c t-trace"><i class="st"></i>ہ</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ھ</span> &nbsp; ਦੋ-ਚਸ਼ਮੀ ਹੇ &nbsp; = &nbsp; <b>ਸਾਹ ਦਾ ਨਿਸ਼ਾਨ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ھ‍</span><span class="c t-trace"><i class="st"></i>ھ‍</span><span class="c t-model"><i class="st"></i>‍ھ‍</span><span class="c t-trace"><i class="st"></i>‍ھ‍</span><span class="c t-model"><i class="st"></i>‍ھ</span><span class="c t-trace"><i class="st"></i>‍ھ</span><span class="c t-model"><i class="st"></i>ھ</span><span class="c t-trace"><i class="st"></i>ھ</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="ur" style="font-size:12pt">ی</span> &nbsp; ਛੋਟੀ ਯੇ &nbsp; = &nbsp; <b>ਯ / ਈ / ਏ</b></span><span>ਚਾਰ ਸ਼ਕਲਾਂ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>ی‍</span><span class="c t-trace"><i class="st"></i>ی‍</span><span class="c t-model"><i class="st"></i>‍ی‍</span><span class="c t-trace"><i class="st"></i>‍ی‍</span><span class="c t-model"><i class="st"></i>‍ی</span><span class="c t-trace"><i class="st"></i>‍ی</span><span class="c t-model"><i class="st"></i>ی</span><span class="c t-trace"><i class="st"></i>ی</span></div>
+</div><div class="rowlabel"><span></span><span>ਹੁਣ ਆਪ ਲਿਖੋ</span></div>
+<div class="row wide">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੨ · ਚਾਰ ਸ਼ਕਲਾਂ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੯</span></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8"/>
+<title>மெய் - தமிழிலிருந்து ஹிந்தி</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
+  --base:  19mm;       /* baseline - letters sit here            */
+  /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
+     (see calibrate_font.html). Fractions of the font size, from the baseline:
+       bare letter  shirorekha ....... 0.642 up
+       matras above ..................  0.925 up
+       matras below ..................  0.290 down */
+  --asc-ratio:  0.642;
+  --top-ratio:  0.283;
+  --bot-ratio:  0.29;
+
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Tamil',serif; color:var(--ink); font-size:10pt; }
+.deva{ font-family:'Noto Serif Devanagari',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+/* Headroom ONLY on sheets that open with the big header glyph (letter and matra sheets).
+   Its line-height is 0.95, so tall letters (Bengali independent i, ii and u, Devanagari ii, Gurmukhi iri) rise
+   above their line box, and as the first thing on a sheet that ink printed in the previous
+   page's bottom margin. Applying it to every sheet instead pushed the dense Gurmukhi
+   conjunct sheets onto a second page (book 4 went from 10 pages to 18). */
+.sheet.tall{ padding-top:5mm; min-height:257mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:22mm; line-height:0.95; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; color:var(--ink); }
+.ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); letter-spacing:.04em; }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm; text-align:center; }
+.step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
+.step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
+.step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
+.step .cap b{ color:var(--teal); }
+.steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
+.steps .note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
+      --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--bot-ratio) * var(--gs));
+      height: calc(var(--desc) + 1.5mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* strut: an inline-block whose bottom edge sits on the text baseline, so the
+   baseline lands on --base whatever the font's line metrics say */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; justify-content:flex-start; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
+.row.words{ --head:6.5mm; --base:14mm; }
+.row.words .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --head:5.5mm; --base:11.5mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
+.cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
+.rules{ text-align:left; max-width:150mm; margin:12mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.65; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:10mm auto 0; max-width:150mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:13mm; line-height:1.1; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+.pf .r{ letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">நூல் 2</div>
+  <h1><span class="deva">व्यंजन</span>மெய்</h1>
+  <p class="sub">முப்பத்து மூன்று மெய், வர்க்க வரிசையில் - தமிழ் ஒரு வர்க்கத்திற்கு ஒரே எழுத்து, ஹிந்தி ஐந்து. கடைசியில் ஏழு நுக்தா எழுத்துகள்; ड़, ढ़ தமிழில் இல்லை.</p>
+  <div class="rules"><h2>எழுதும் முன் ஐந்து விதிகள்</h2><ol><li><b>மேல் கோடு உனக்குப் புதிது.</b> தமிழ் எழுத்து கீழ்க்கோட்டில் உட்காரும்; ஹிந்திச் சொல் முழுவதும் ஒரே கோட்டிலிருந்து தொங்கும். உடல் முதலில், <b>கோடு கடைசியில்</b>.</li><li><b>எழுத்து தொங்குகிறது, உட்காரவில்லை.</b> மேலே உள்ள தடித்த கோட்டிலிருந்து <i>தொங்கும்</i>, கீழ்க்கோட்டில் கால் வைக்கும். தமிழ்க் கை கீழிருந்து தொடங்கும்; இங்கே மேலிருந்து.</li><li><b>புள்ளிக்கோடுகள் உயிர்க்குறிகளுக்கு.</b> கி, கீ, கே, கை மேலே ஏறும்; கு, கூ, க்ரி கீழே இறங்கும். அந்த இரு புள்ளிக்கோடுகளே எல்லை.</li><li><b>மெதுவாக. நாளுக்கு ஒரு பக்கம் போதும்.</b> ஒவ்வொரு வரியையும் முடித்ததும் எழுத்தைச் சத்தமாகச் சொல் - க² எழுதும்போது கையை வாய் முன் வை.</li><li><b>பென்சிலில் தொடங்கு.</b> சாம்பல் எழுத்தின் மேல் அழுத்தம் குறைவாக; வெற்று எழுத்தில் விளிம்பைத் தொட்டுக்கொண்டே இரு.</li></ol></div>
+  <div class="legend"><h3>இந்த நூலில் நான்கு வகை எழுத்து</h3><div class="lg">
+      <div><span class="s deva t-model">क</span>மாதிரி - பார்</div>
+      <div><span class="s deva t-trace">क</span>சாம்பல் - மேல் எழுது</div>
+      <div><span class="s deva t-out">क</span>வெற்று - உள்ளே நிரப்பு</div>
+      <div><span class="s deva t-faint">क</span>மங்கல் - கிட்டத்தட்ட தனியாக</div>
+      </div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">क</div>
+      <div class="meta">
+        <div class="eq">= <b>க</b></div>
+        <div class="tr">ka</div>
+        <div class="ex"><span class="deva">कमल</span> &middot; தாமரை</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">கவர்க்கம் - தொண்டை ஒலிகள்</div><div class="num">1</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">क<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">क</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span><span class="c deva t-trace"><i class="st"></i>क</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span><span class="c deva t-out"><i class="st"></i>क</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>क</span><span class="c deva t-faint"><i class="st"></i>क</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">कमल</span> (தாமரை)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>कमल</span><span class="c deva t-trace"><i class="st"></i>कमल</span><span class="c deva t-out"><i class="st"></i>कमल</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 1</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ख</div>
+      <div class="meta">
+        <div class="eq">= <b>க²</b></div>
+        <div class="tr">kha</div>
+        <div class="ex"><span class="deva">खग</span> &middot; பறவை</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">கவர்க்கம் - தொண்டை ஒலிகள்</div><div class="num">2</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ख<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ख</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span><span class="c deva t-trace"><i class="st"></i>ख</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span><span class="c deva t-out"><i class="st"></i>ख</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ख</span><span class="c deva t-faint"><i class="st"></i>ख</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">खग</span> (பறவை)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>खग</span><span class="c deva t-trace"><i class="st"></i>खग</span><span class="c deva t-out"><i class="st"></i>खग</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 2</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ग</div>
+      <div class="meta">
+        <div class="eq">= <b>க³</b></div>
+        <div class="tr">ga</div>
+        <div class="ex"><span class="deva">गगन</span> &middot; வானம்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">கவர்க்கம் - தொண்டை ஒலிகள்</div><div class="num">3</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ग<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ग</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span><span class="c deva t-trace"><i class="st"></i>ग</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span><span class="c deva t-out"><i class="st"></i>ग</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ग</span><span class="c deva t-faint"><i class="st"></i>ग</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">गगन</span> (வானம்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>गगन</span><span class="c deva t-trace"><i class="st"></i>गगन</span><span class="c deva t-out"><i class="st"></i>गगन</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 3</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">घ</div>
+      <div class="meta">
+        <div class="eq">= <b>க⁴</b></div>
+        <div class="tr">gha</div>
+        <div class="ex"><span class="deva">घर</span> &middot; வீடு</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">கவர்க்கம் - தொண்டை ஒலிகள்</div><div class="num">4</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">घ<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">घ</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>घ</span><span class="c deva t-trace"><i class="st"></i>घ</span><span class="c deva t-trace"><i class="st"></i>घ</span><span class="c deva t-trace"><i class="st"></i>घ</span><span class="c deva t-trace"><i class="st"></i>घ</span><span class="c deva t-trace"><i class="st"></i>घ</span><span class="c deva t-trace"><i class="st"></i>घ</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>घ</span><span class="c deva t-out"><i class="st"></i>घ</span><span class="c deva t-out"><i class="st"></i>घ</span><span class="c deva t-out"><i class="st"></i>घ</span><span class="c deva t-out"><i class="st"></i>घ</span><span class="c deva t-out"><i class="st"></i>घ</span><span class="c deva t-out"><i class="st"></i>घ</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>घ</span><span class="c deva t-faint"><i class="st"></i>घ</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">घर</span> (வீடு)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>घर</span><span class="c deva t-trace"><i class="st"></i>घर</span><span class="c deva t-out"><i class="st"></i>घर</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 4</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ङ</div>
+      <div class="meta">
+        <div class="eq">= <b>ங</b></div>
+        <div class="tr">ṅa</div>
+        <div class="ex"><span class="deva">रंग</span> &middot; நிறம்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">கவர்க்கம் - தொண்டை ஒலிகள்</div><div class="num">5</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ङ<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ङ</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ङ</span><span class="c deva t-trace"><i class="st"></i>ङ</span><span class="c deva t-trace"><i class="st"></i>ङ</span><span class="c deva t-trace"><i class="st"></i>ङ</span><span class="c deva t-trace"><i class="st"></i>ङ</span><span class="c deva t-trace"><i class="st"></i>ङ</span><span class="c deva t-trace"><i class="st"></i>ङ</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ङ</span><span class="c deva t-out"><i class="st"></i>ङ</span><span class="c deva t-out"><i class="st"></i>ङ</span><span class="c deva t-out"><i class="st"></i>ङ</span><span class="c deva t-out"><i class="st"></i>ङ</span><span class="c deva t-out"><i class="st"></i>ङ</span><span class="c deva t-out"><i class="st"></i>ङ</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ङ</span><span class="c deva t-faint"><i class="st"></i>ङ</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">रंग</span> (நிறம்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>रंग</span><span class="c deva t-trace"><i class="st"></i>रंग</span><span class="c deva t-out"><i class="st"></i>रंग</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 5</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">च</div>
+      <div class="meta">
+        <div class="eq">= <b>ச</b></div>
+        <div class="tr">ca</div>
+        <div class="ex"><span class="deva">चंद्र</span> &middot; சந்திரன்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">சவர்க்கம் - அண்ண ஒலிகள்</div><div class="num">6</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">च<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">च</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span><span class="c deva t-trace"><i class="st"></i>च</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span><span class="c deva t-out"><i class="st"></i>च</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>च</span><span class="c deva t-faint"><i class="st"></i>च</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">चंद्र</span> (சந்திரன்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>चंद्र</span><span class="c deva t-trace"><i class="st"></i>चंद्र</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 6</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">छ</div>
+      <div class="meta">
+        <div class="eq">= <b>ச²</b></div>
+        <div class="tr">cha</div>
+        <div class="ex"><span class="deva">छत्र</span> &middot; குடை</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">சவர்க்கம் - அண்ண ஒலிகள்</div><div class="num">7</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">छ<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">छ</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>छ</span><span class="c deva t-trace"><i class="st"></i>छ</span><span class="c deva t-trace"><i class="st"></i>छ</span><span class="c deva t-trace"><i class="st"></i>छ</span><span class="c deva t-trace"><i class="st"></i>छ</span><span class="c deva t-trace"><i class="st"></i>छ</span><span class="c deva t-trace"><i class="st"></i>छ</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>छ</span><span class="c deva t-out"><i class="st"></i>छ</span><span class="c deva t-out"><i class="st"></i>छ</span><span class="c deva t-out"><i class="st"></i>छ</span><span class="c deva t-out"><i class="st"></i>छ</span><span class="c deva t-out"><i class="st"></i>छ</span><span class="c deva t-out"><i class="st"></i>छ</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>छ</span><span class="c deva t-faint"><i class="st"></i>छ</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">छत्र</span> (குடை)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>छत्र</span><span class="c deva t-trace"><i class="st"></i>छत्र</span><span class="c deva t-out"><i class="st"></i>छत्र</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 7</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ज</div>
+      <div class="meta">
+        <div class="eq">= <b>ஜ</b></div>
+        <div class="tr">ja</div>
+        <div class="ex"><span class="deva">जल</span> &middot; நீர்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">சவர்க்கம் - அண்ண ஒலிகள்</div><div class="num">8</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ज<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ज</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span><span class="c deva t-trace"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span><span class="c deva t-out"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज</span><span class="c deva t-faint"><i class="st"></i>ज</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">जल</span> (நீர்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>जल</span><span class="c deva t-trace"><i class="st"></i>जल</span><span class="c deva t-out"><i class="st"></i>जल</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 8</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">झ</div>
+      <div class="meta">
+        <div class="eq">= <b>ஜ²</b></div>
+        <div class="tr">jha</div>
+        <div class="ex"><span class="deva">झरना</span> &middot; அருவி</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">சவர்க்கம் - அண்ண ஒலிகள்</div><div class="num">9</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">झ<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">झ</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span><span class="c deva t-trace"><i class="st"></i>झ</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span><span class="c deva t-out"><i class="st"></i>झ</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>झ</span><span class="c deva t-faint"><i class="st"></i>झ</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">झरना</span> (அருவி)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>झरना</span><span class="c deva t-trace"><i class="st"></i>झरना</span><span class="c deva t-out"><i class="st"></i>झरना</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 9</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ञ</div>
+      <div class="meta">
+        <div class="eq">= <b>ஞ</b></div>
+        <div class="tr">ña</div>
+        <div class="ex"><span class="deva">ज्ञान</span> &middot; அறிவு</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">சவர்க்கம் - அண்ண ஒலிகள்</div><div class="num">10</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ञ<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ञ</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ञ</span><span class="c deva t-trace"><i class="st"></i>ञ</span><span class="c deva t-trace"><i class="st"></i>ञ</span><span class="c deva t-trace"><i class="st"></i>ञ</span><span class="c deva t-trace"><i class="st"></i>ञ</span><span class="c deva t-trace"><i class="st"></i>ञ</span><span class="c deva t-trace"><i class="st"></i>ञ</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ञ</span><span class="c deva t-out"><i class="st"></i>ञ</span><span class="c deva t-out"><i class="st"></i>ञ</span><span class="c deva t-out"><i class="st"></i>ञ</span><span class="c deva t-out"><i class="st"></i>ञ</span><span class="c deva t-out"><i class="st"></i>ञ</span><span class="c deva t-out"><i class="st"></i>ञ</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ञ</span><span class="c deva t-faint"><i class="st"></i>ञ</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">ज्ञान</span> (அறிவு)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज्ञान</span><span class="c deva t-trace"><i class="st"></i>ज्ञान</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 10</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ट</div>
+      <div class="meta">
+        <div class="eq">= <b>ட</b></div>
+        <div class="tr">ṭa</div>
+        <div class="ex"><span class="deva">टमाटर</span> &middot; தக்காளி</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">டவர்க்கம் - மேலண்ண ஒலிகள்</div><div class="num">11</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ट<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ट</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ट</span><span class="c deva t-trace"><i class="st"></i>ट</span><span class="c deva t-trace"><i class="st"></i>ट</span><span class="c deva t-trace"><i class="st"></i>ट</span><span class="c deva t-trace"><i class="st"></i>ट</span><span class="c deva t-trace"><i class="st"></i>ट</span><span class="c deva t-trace"><i class="st"></i>ट</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ट</span><span class="c deva t-out"><i class="st"></i>ट</span><span class="c deva t-out"><i class="st"></i>ट</span><span class="c deva t-out"><i class="st"></i>ट</span><span class="c deva t-out"><i class="st"></i>ट</span><span class="c deva t-out"><i class="st"></i>ट</span><span class="c deva t-out"><i class="st"></i>ट</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ट</span><span class="c deva t-faint"><i class="st"></i>ट</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">टमाटर</span> (தக்காளி)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>टमाटर</span><span class="c deva t-trace"><i class="st"></i>टमाटर</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 11</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ठ</div>
+      <div class="meta">
+        <div class="eq">= <b>ட²</b></div>
+        <div class="tr">ṭha</div>
+        <div class="ex"><span class="deva">ठंड</span> &middot; குளிர்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">டவர்க்கம் - மேலண்ண ஒலிகள்</div><div class="num">12</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ठ<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ठ</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ठ</span><span class="c deva t-trace"><i class="st"></i>ठ</span><span class="c deva t-trace"><i class="st"></i>ठ</span><span class="c deva t-trace"><i class="st"></i>ठ</span><span class="c deva t-trace"><i class="st"></i>ठ</span><span class="c deva t-trace"><i class="st"></i>ठ</span><span class="c deva t-trace"><i class="st"></i>ठ</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ठ</span><span class="c deva t-out"><i class="st"></i>ठ</span><span class="c deva t-out"><i class="st"></i>ठ</span><span class="c deva t-out"><i class="st"></i>ठ</span><span class="c deva t-out"><i class="st"></i>ठ</span><span class="c deva t-out"><i class="st"></i>ठ</span><span class="c deva t-out"><i class="st"></i>ठ</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ठ</span><span class="c deva t-faint"><i class="st"></i>ठ</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">ठंड</span> (குளிர்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ठंड</span><span class="c deva t-trace"><i class="st"></i>ठंड</span><span class="c deva t-out"><i class="st"></i>ठंड</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 12</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ड</div>
+      <div class="meta">
+        <div class="eq">= <b>ட³</b></div>
+        <div class="tr">ḍa</div>
+        <div class="ex"><span class="deva">डंडा</span> &middot; கம்பு</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">டவர்க்கம் - மேலண்ண ஒலிகள்</div><div class="num">13</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ड<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ड</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span><span class="c deva t-trace"><i class="st"></i>ड</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span><span class="c deva t-out"><i class="st"></i>ड</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ड</span><span class="c deva t-faint"><i class="st"></i>ड</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">डंडा</span> (கம்பு)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>डंडा</span><span class="c deva t-trace"><i class="st"></i>डंडा</span><span class="c deva t-out"><i class="st"></i>डंडा</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 13</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ढ</div>
+      <div class="meta">
+        <div class="eq">= <b>ட⁴</b></div>
+        <div class="tr">ḍha</div>
+        <div class="ex"><span class="deva">ढोल</span> &middot; மேளம்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">டவர்க்கம் - மேலண்ண ஒலிகள்</div><div class="num">14</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ढ<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ढ</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span><span class="c deva t-trace"><i class="st"></i>ढ</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span><span class="c deva t-out"><i class="st"></i>ढ</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ढ</span><span class="c deva t-faint"><i class="st"></i>ढ</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">ढोल</span> (மேளம்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ढोल</span><span class="c deva t-trace"><i class="st"></i>ढोल</span><span class="c deva t-out"><i class="st"></i>ढोल</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 14</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ण</div>
+      <div class="meta">
+        <div class="eq">= <b>ண</b></div>
+        <div class="tr">ṇa</div>
+        <div class="ex"><span class="deva">प्राण</span> &middot; உயிர்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">டவர்க்கம் - மேலண்ண ஒலிகள்</div><div class="num">15</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ण<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ण</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span><span class="c deva t-trace"><i class="st"></i>ण</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span><span class="c deva t-out"><i class="st"></i>ण</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ण</span><span class="c deva t-faint"><i class="st"></i>ण</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">प्राण</span> (உயிர்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>प्राण</span><span class="c deva t-trace"><i class="st"></i>प्राण</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 15</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">त</div>
+      <div class="meta">
+        <div class="eq">= <b>த</b></div>
+        <div class="tr">ta</div>
+        <div class="ex"><span class="deva">तारा</span> &middot; நட்சத்திரம்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">தவர்க்கம் - பல் ஒலிகள்</div><div class="num">16</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">त<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">त</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>त</span><span class="c deva t-trace"><i class="st"></i>त</span><span class="c deva t-trace"><i class="st"></i>त</span><span class="c deva t-trace"><i class="st"></i>त</span><span class="c deva t-trace"><i class="st"></i>त</span><span class="c deva t-trace"><i class="st"></i>त</span><span class="c deva t-trace"><i class="st"></i>त</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>त</span><span class="c deva t-out"><i class="st"></i>त</span><span class="c deva t-out"><i class="st"></i>त</span><span class="c deva t-out"><i class="st"></i>त</span><span class="c deva t-out"><i class="st"></i>त</span><span class="c deva t-out"><i class="st"></i>त</span><span class="c deva t-out"><i class="st"></i>त</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>त</span><span class="c deva t-faint"><i class="st"></i>त</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">तारा</span> (நட்சத்திரம்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>तारा</span><span class="c deva t-trace"><i class="st"></i>तारा</span><span class="c deva t-out"><i class="st"></i>तारा</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 16</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">थ</div>
+      <div class="meta">
+        <div class="eq">= <b>த²</b></div>
+        <div class="tr">tha</div>
+        <div class="ex"><span class="deva">थाली</span> &middot; தட்டு</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">தவர்க்கம் - பல் ஒலிகள்</div><div class="num">17</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">थ<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">थ</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>थ</span><span class="c deva t-trace"><i class="st"></i>थ</span><span class="c deva t-trace"><i class="st"></i>थ</span><span class="c deva t-trace"><i class="st"></i>थ</span><span class="c deva t-trace"><i class="st"></i>थ</span><span class="c deva t-trace"><i class="st"></i>थ</span><span class="c deva t-trace"><i class="st"></i>थ</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>थ</span><span class="c deva t-out"><i class="st"></i>थ</span><span class="c deva t-out"><i class="st"></i>थ</span><span class="c deva t-out"><i class="st"></i>थ</span><span class="c deva t-out"><i class="st"></i>थ</span><span class="c deva t-out"><i class="st"></i>थ</span><span class="c deva t-out"><i class="st"></i>थ</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>थ</span><span class="c deva t-faint"><i class="st"></i>थ</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">थाली</span> (தட்டு)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>थाली</span><span class="c deva t-trace"><i class="st"></i>थाली</span><span class="c deva t-out"><i class="st"></i>थाली</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 17</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">द</div>
+      <div class="meta">
+        <div class="eq">= <b>த³</b></div>
+        <div class="tr">da</div>
+        <div class="ex"><span class="deva">दिन</span> &middot; நாள்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">தவர்க்கம் - பல் ஒலிகள்</div><div class="num">18</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">द<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">द</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>द</span><span class="c deva t-trace"><i class="st"></i>द</span><span class="c deva t-trace"><i class="st"></i>द</span><span class="c deva t-trace"><i class="st"></i>द</span><span class="c deva t-trace"><i class="st"></i>द</span><span class="c deva t-trace"><i class="st"></i>द</span><span class="c deva t-trace"><i class="st"></i>द</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>द</span><span class="c deva t-out"><i class="st"></i>द</span><span class="c deva t-out"><i class="st"></i>द</span><span class="c deva t-out"><i class="st"></i>द</span><span class="c deva t-out"><i class="st"></i>द</span><span class="c deva t-out"><i class="st"></i>द</span><span class="c deva t-out"><i class="st"></i>द</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>द</span><span class="c deva t-faint"><i class="st"></i>द</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">दिन</span> (நாள்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>दिन</span><span class="c deva t-trace"><i class="st"></i>दिन</span><span class="c deva t-out"><i class="st"></i>दिन</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 18</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ध</div>
+      <div class="meta">
+        <div class="eq">= <b>த⁴</b></div>
+        <div class="tr">dha</div>
+        <div class="ex"><span class="deva">धन</span> &middot; செல்வம்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">தவர்க்கம் - பல் ஒலிகள்</div><div class="num">19</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ध<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ध</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ध</span><span class="c deva t-trace"><i class="st"></i>ध</span><span class="c deva t-trace"><i class="st"></i>ध</span><span class="c deva t-trace"><i class="st"></i>ध</span><span class="c deva t-trace"><i class="st"></i>ध</span><span class="c deva t-trace"><i class="st"></i>ध</span><span class="c deva t-trace"><i class="st"></i>ध</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ध</span><span class="c deva t-out"><i class="st"></i>ध</span><span class="c deva t-out"><i class="st"></i>ध</span><span class="c deva t-out"><i class="st"></i>ध</span><span class="c deva t-out"><i class="st"></i>ध</span><span class="c deva t-out"><i class="st"></i>ध</span><span class="c deva t-out"><i class="st"></i>ध</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ध</span><span class="c deva t-faint"><i class="st"></i>ध</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">धन</span> (செல்வம்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>धन</span><span class="c deva t-trace"><i class="st"></i>धन</span><span class="c deva t-out"><i class="st"></i>धन</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 19</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">न</div>
+      <div class="meta">
+        <div class="eq">= <b>ந</b></div>
+        <div class="tr">na</div>
+        <div class="ex"><span class="deva">नाम</span> &middot; பெயர்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">தவர்க்கம் - பல் ஒலிகள்</div><div class="num">20</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">न<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">न</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>न</span><span class="c deva t-trace"><i class="st"></i>न</span><span class="c deva t-trace"><i class="st"></i>न</span><span class="c deva t-trace"><i class="st"></i>न</span><span class="c deva t-trace"><i class="st"></i>न</span><span class="c deva t-trace"><i class="st"></i>न</span><span class="c deva t-trace"><i class="st"></i>न</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>न</span><span class="c deva t-out"><i class="st"></i>न</span><span class="c deva t-out"><i class="st"></i>न</span><span class="c deva t-out"><i class="st"></i>न</span><span class="c deva t-out"><i class="st"></i>न</span><span class="c deva t-out"><i class="st"></i>न</span><span class="c deva t-out"><i class="st"></i>न</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>न</span><span class="c deva t-faint"><i class="st"></i>न</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">नाम</span> (பெயர்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>नाम</span><span class="c deva t-trace"><i class="st"></i>नाम</span><span class="c deva t-out"><i class="st"></i>नाम</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 20</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">प</div>
+      <div class="meta">
+        <div class="eq">= <b>ப</b></div>
+        <div class="tr">pa</div>
+        <div class="ex"><span class="deva">पुस्तक</span> &middot; புத்தகம்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">பவர்க்கம் - உதட்டு ஒலிகள்</div><div class="num">21</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">प<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">प</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>प</span><span class="c deva t-trace"><i class="st"></i>प</span><span class="c deva t-trace"><i class="st"></i>प</span><span class="c deva t-trace"><i class="st"></i>प</span><span class="c deva t-trace"><i class="st"></i>प</span><span class="c deva t-trace"><i class="st"></i>प</span><span class="c deva t-trace"><i class="st"></i>प</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>प</span><span class="c deva t-out"><i class="st"></i>प</span><span class="c deva t-out"><i class="st"></i>प</span><span class="c deva t-out"><i class="st"></i>प</span><span class="c deva t-out"><i class="st"></i>प</span><span class="c deva t-out"><i class="st"></i>प</span><span class="c deva t-out"><i class="st"></i>प</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>प</span><span class="c deva t-faint"><i class="st"></i>प</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">पुस्तक</span> (புத்தகம்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पुस्तक</span><span class="c deva t-trace"><i class="st"></i>पुस्तक</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 21</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">फ</div>
+      <div class="meta">
+        <div class="eq">= <b>ப²</b></div>
+        <div class="tr">pha</div>
+        <div class="ex"><span class="deva">फल</span> &middot; பழம்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">பவர்க்கம் - உதட்டு ஒலிகள்</div><div class="num">22</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">फ<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">फ</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span><span class="c deva t-trace"><i class="st"></i>फ</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span><span class="c deva t-out"><i class="st"></i>फ</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>फ</span><span class="c deva t-faint"><i class="st"></i>फ</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">फल</span> (பழம்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>फल</span><span class="c deva t-trace"><i class="st"></i>फल</span><span class="c deva t-out"><i class="st"></i>फल</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 22</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ब</div>
+      <div class="meta">
+        <div class="eq">= <b>ப³</b></div>
+        <div class="tr">ba</div>
+        <div class="ex"><span class="deva">बाबा</span> &middot; அப்பா</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">பவர்க்கம் - உதட்டு ஒலிகள்</div><div class="num">23</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ब<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ब</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ब</span><span class="c deva t-trace"><i class="st"></i>ब</span><span class="c deva t-trace"><i class="st"></i>ब</span><span class="c deva t-trace"><i class="st"></i>ब</span><span class="c deva t-trace"><i class="st"></i>ब</span><span class="c deva t-trace"><i class="st"></i>ब</span><span class="c deva t-trace"><i class="st"></i>ब</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ब</span><span class="c deva t-out"><i class="st"></i>ब</span><span class="c deva t-out"><i class="st"></i>ब</span><span class="c deva t-out"><i class="st"></i>ब</span><span class="c deva t-out"><i class="st"></i>ब</span><span class="c deva t-out"><i class="st"></i>ब</span><span class="c deva t-out"><i class="st"></i>ब</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ब</span><span class="c deva t-faint"><i class="st"></i>ब</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">बाबा</span> (அப்பா)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>बाबा</span><span class="c deva t-trace"><i class="st"></i>बाबा</span><span class="c deva t-out"><i class="st"></i>बाबा</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 23</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">भ</div>
+      <div class="meta">
+        <div class="eq">= <b>ப⁴</b></div>
+        <div class="tr">bha</div>
+        <div class="ex"><span class="deva">भाषा</span> &middot; மொழி</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">பவர்க்கம் - உதட்டு ஒலிகள்</div><div class="num">24</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">भ<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">भ</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>भ</span><span class="c deva t-trace"><i class="st"></i>भ</span><span class="c deva t-trace"><i class="st"></i>भ</span><span class="c deva t-trace"><i class="st"></i>भ</span><span class="c deva t-trace"><i class="st"></i>भ</span><span class="c deva t-trace"><i class="st"></i>भ</span><span class="c deva t-trace"><i class="st"></i>भ</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>भ</span><span class="c deva t-out"><i class="st"></i>भ</span><span class="c deva t-out"><i class="st"></i>भ</span><span class="c deva t-out"><i class="st"></i>भ</span><span class="c deva t-out"><i class="st"></i>भ</span><span class="c deva t-out"><i class="st"></i>भ</span><span class="c deva t-out"><i class="st"></i>भ</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>भ</span><span class="c deva t-faint"><i class="st"></i>भ</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">भाषा</span> (மொழி)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>भाषा</span><span class="c deva t-trace"><i class="st"></i>भाषा</span><span class="c deva t-out"><i class="st"></i>भाषा</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 24</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">म</div>
+      <div class="meta">
+        <div class="eq">= <b>ம</b></div>
+        <div class="tr">ma</div>
+        <div class="ex"><span class="deva">माँ</span> &middot; அம்மா</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">பவர்க்கம் - உதட்டு ஒலிகள்</div><div class="num">25</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">म<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">म</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>म</span><span class="c deva t-trace"><i class="st"></i>म</span><span class="c deva t-trace"><i class="st"></i>म</span><span class="c deva t-trace"><i class="st"></i>म</span><span class="c deva t-trace"><i class="st"></i>म</span><span class="c deva t-trace"><i class="st"></i>म</span><span class="c deva t-trace"><i class="st"></i>म</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>म</span><span class="c deva t-out"><i class="st"></i>म</span><span class="c deva t-out"><i class="st"></i>म</span><span class="c deva t-out"><i class="st"></i>म</span><span class="c deva t-out"><i class="st"></i>म</span><span class="c deva t-out"><i class="st"></i>म</span><span class="c deva t-out"><i class="st"></i>म</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>म</span><span class="c deva t-faint"><i class="st"></i>म</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">माँ</span> (அம்மா)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>माँ</span><span class="c deva t-trace"><i class="st"></i>माँ</span><span class="c deva t-out"><i class="st"></i>माँ</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 25</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">य</div>
+      <div class="meta">
+        <div class="eq">= <b>ய</b></div>
+        <div class="tr">ya</div>
+        <div class="ex"><span class="deva">यह</span> &middot; இது</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">இடையினம், ஊஷ்மம்</div><div class="num">26</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">य<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">य</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>य</span><span class="c deva t-trace"><i class="st"></i>य</span><span class="c deva t-trace"><i class="st"></i>य</span><span class="c deva t-trace"><i class="st"></i>य</span><span class="c deva t-trace"><i class="st"></i>य</span><span class="c deva t-trace"><i class="st"></i>य</span><span class="c deva t-trace"><i class="st"></i>य</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>य</span><span class="c deva t-out"><i class="st"></i>य</span><span class="c deva t-out"><i class="st"></i>य</span><span class="c deva t-out"><i class="st"></i>य</span><span class="c deva t-out"><i class="st"></i>य</span><span class="c deva t-out"><i class="st"></i>य</span><span class="c deva t-out"><i class="st"></i>य</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>य</span><span class="c deva t-faint"><i class="st"></i>य</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">यह</span> (இது)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>यह</span><span class="c deva t-trace"><i class="st"></i>यह</span><span class="c deva t-out"><i class="st"></i>यह</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 26</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">र</div>
+      <div class="meta">
+        <div class="eq">= <b>ர</b></div>
+        <div class="tr">ra</div>
+        <div class="ex"><span class="deva">राम</span> &middot; ராமன்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">இடையினம், ஊஷ்மம்</div><div class="num">27</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">र<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">र</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>र</span><span class="c deva t-trace"><i class="st"></i>र</span><span class="c deva t-trace"><i class="st"></i>र</span><span class="c deva t-trace"><i class="st"></i>र</span><span class="c deva t-trace"><i class="st"></i>र</span><span class="c deva t-trace"><i class="st"></i>र</span><span class="c deva t-trace"><i class="st"></i>र</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>र</span><span class="c deva t-out"><i class="st"></i>र</span><span class="c deva t-out"><i class="st"></i>र</span><span class="c deva t-out"><i class="st"></i>र</span><span class="c deva t-out"><i class="st"></i>र</span><span class="c deva t-out"><i class="st"></i>र</span><span class="c deva t-out"><i class="st"></i>र</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>र</span><span class="c deva t-faint"><i class="st"></i>र</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">राम</span> (ராமன்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>राम</span><span class="c deva t-trace"><i class="st"></i>राम</span><span class="c deva t-out"><i class="st"></i>राम</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 27</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ल</div>
+      <div class="meta">
+        <div class="eq">= <b>ல</b></div>
+        <div class="tr">la</div>
+        <div class="ex"><span class="deva">लाल</span> &middot; சிவப்பு</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">இடையினம், ஊஷ்மம்</div><div class="num">28</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ल<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ल</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ल</span><span class="c deva t-trace"><i class="st"></i>ल</span><span class="c deva t-trace"><i class="st"></i>ल</span><span class="c deva t-trace"><i class="st"></i>ल</span><span class="c deva t-trace"><i class="st"></i>ल</span><span class="c deva t-trace"><i class="st"></i>ल</span><span class="c deva t-trace"><i class="st"></i>ल</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ल</span><span class="c deva t-out"><i class="st"></i>ल</span><span class="c deva t-out"><i class="st"></i>ल</span><span class="c deva t-out"><i class="st"></i>ल</span><span class="c deva t-out"><i class="st"></i>ल</span><span class="c deva t-out"><i class="st"></i>ल</span><span class="c deva t-out"><i class="st"></i>ल</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ल</span><span class="c deva t-faint"><i class="st"></i>ल</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">लाल</span> (சிவப்பு)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>लाल</span><span class="c deva t-trace"><i class="st"></i>लाल</span><span class="c deva t-out"><i class="st"></i>लाल</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 28</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">व</div>
+      <div class="meta">
+        <div class="eq">= <b>வ</b></div>
+        <div class="tr">va</div>
+        <div class="ex"><span class="deva">वन</span> &middot; காடு</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">இடையினம், ஊஷ்மம்</div><div class="num">29</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">व<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">व</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>व</span><span class="c deva t-trace"><i class="st"></i>व</span><span class="c deva t-trace"><i class="st"></i>व</span><span class="c deva t-trace"><i class="st"></i>व</span><span class="c deva t-trace"><i class="st"></i>व</span><span class="c deva t-trace"><i class="st"></i>व</span><span class="c deva t-trace"><i class="st"></i>व</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>व</span><span class="c deva t-out"><i class="st"></i>व</span><span class="c deva t-out"><i class="st"></i>व</span><span class="c deva t-out"><i class="st"></i>व</span><span class="c deva t-out"><i class="st"></i>व</span><span class="c deva t-out"><i class="st"></i>व</span><span class="c deva t-out"><i class="st"></i>व</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>व</span><span class="c deva t-faint"><i class="st"></i>व</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">वन</span> (காடு)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>वन</span><span class="c deva t-trace"><i class="st"></i>वन</span><span class="c deva t-out"><i class="st"></i>वन</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 29</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">श</div>
+      <div class="meta">
+        <div class="eq">= <b>ஷ</b></div>
+        <div class="tr">śa</div>
+        <div class="ex"><span class="deva">शांति</span> &middot; அமைதி</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">இடையினம், ஊஷ்மம்</div><div class="num">30</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">श<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">श</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>श</span><span class="c deva t-trace"><i class="st"></i>श</span><span class="c deva t-trace"><i class="st"></i>श</span><span class="c deva t-trace"><i class="st"></i>श</span><span class="c deva t-trace"><i class="st"></i>श</span><span class="c deva t-trace"><i class="st"></i>श</span><span class="c deva t-trace"><i class="st"></i>श</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>श</span><span class="c deva t-out"><i class="st"></i>श</span><span class="c deva t-out"><i class="st"></i>श</span><span class="c deva t-out"><i class="st"></i>श</span><span class="c deva t-out"><i class="st"></i>श</span><span class="c deva t-out"><i class="st"></i>श</span><span class="c deva t-out"><i class="st"></i>श</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>श</span><span class="c deva t-faint"><i class="st"></i>श</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">शांति</span> (அமைதி)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>शांति</span><span class="c deva t-trace"><i class="st"></i>शांति</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 30</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ष</div>
+      <div class="meta">
+        <div class="eq">= <b>ஷ</b></div>
+        <div class="tr">ṣa</div>
+        <div class="ex"><span class="deva">षट्</span> &middot; ஆறு</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">இடையினம், ஊஷ்மம்</div><div class="num">31</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ष<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ष</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ष</span><span class="c deva t-trace"><i class="st"></i>ष</span><span class="c deva t-trace"><i class="st"></i>ष</span><span class="c deva t-trace"><i class="st"></i>ष</span><span class="c deva t-trace"><i class="st"></i>ष</span><span class="c deva t-trace"><i class="st"></i>ष</span><span class="c deva t-trace"><i class="st"></i>ष</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ष</span><span class="c deva t-out"><i class="st"></i>ष</span><span class="c deva t-out"><i class="st"></i>ष</span><span class="c deva t-out"><i class="st"></i>ष</span><span class="c deva t-out"><i class="st"></i>ष</span><span class="c deva t-out"><i class="st"></i>ष</span><span class="c deva t-out"><i class="st"></i>ष</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ष</span><span class="c deva t-faint"><i class="st"></i>ष</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">षट्</span> (ஆறு)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>षट्</span><span class="c deva t-trace"><i class="st"></i>षट्</span><span class="c deva t-out"><i class="st"></i>षट्</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 31</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">स</div>
+      <div class="meta">
+        <div class="eq">= <b>ஸ</b></div>
+        <div class="tr">sa</div>
+        <div class="ex"><span class="deva">सत्य</span> &middot; உண்மை</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">இடையினம், ஊஷ்மம்</div><div class="num">32</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">स<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">स</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>स</span><span class="c deva t-trace"><i class="st"></i>स</span><span class="c deva t-trace"><i class="st"></i>स</span><span class="c deva t-trace"><i class="st"></i>स</span><span class="c deva t-trace"><i class="st"></i>स</span><span class="c deva t-trace"><i class="st"></i>स</span><span class="c deva t-trace"><i class="st"></i>स</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>स</span><span class="c deva t-out"><i class="st"></i>स</span><span class="c deva t-out"><i class="st"></i>स</span><span class="c deva t-out"><i class="st"></i>स</span><span class="c deva t-out"><i class="st"></i>स</span><span class="c deva t-out"><i class="st"></i>स</span><span class="c deva t-out"><i class="st"></i>स</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>स</span><span class="c deva t-faint"><i class="st"></i>स</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">सत्य</span> (உண்மை)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>सत्य</span><span class="c deva t-trace"><i class="st"></i>सत्य</span><span class="c deva t-out"><i class="st"></i>सत्य</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 32</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ह</div>
+      <div class="meta">
+        <div class="eq">= <b>ஹ</b></div>
+        <div class="tr">ha</div>
+        <div class="ex"><span class="deva">हाथ</span> &middot; கை</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">இடையினம், ஊஷ்மம்</div><div class="num">33</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ह<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ह</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">முதலில் எழுத்தின் <b>உடல்</b>, கடைசியில் <b>மேல் கோடு</b> - தமிழில் இல்லாத புதிய பழக்கம். வலது இரு பெட்டிகள் அந்த வரிசை.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ह</span><span class="c deva t-trace"><i class="st"></i>ह</span><span class="c deva t-trace"><i class="st"></i>ह</span><span class="c deva t-trace"><i class="st"></i>ह</span><span class="c deva t-trace"><i class="st"></i>ह</span><span class="c deva t-trace"><i class="st"></i>ह</span><span class="c deva t-trace"><i class="st"></i>ह</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ह</span><span class="c deva t-out"><i class="st"></i>ह</span><span class="c deva t-out"><i class="st"></i>ह</span><span class="c deva t-out"><i class="st"></i>ह</span><span class="c deva t-out"><i class="st"></i>ह</span><span class="c deva t-out"><i class="st"></i>ह</span><span class="c deva t-out"><i class="st"></i>ह</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ह</span><span class="c deva t-faint"><i class="st"></i>ह</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">हाथ</span> (கை)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>हाथ</span><span class="c deva t-trace"><i class="st"></i>हाथ</span><span class="c deva t-out"><i class="st"></i>हाथ</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 33</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ड़</div>
+      <div class="meta">
+        <div class="eq">= <b>ற ⚡</b></div>
+        <div class="tr">ṛa</div>
+        <div class="ex"><span class="deva">पढ़ना</span> &middot; படித்தல்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">நுக்தா - தமிழில் இல்லாத ஒலிகள்</div><div class="num">34</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ड़<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ड़</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note"><b>இந்த ஒலி தமிழில் இல்லை.</b> "அறை"-யின் ற போல ஒரே தட்டல், நாக்கு சற்று பின்னால் - கீழ்ப் புள்ளி (<b>நுக்தா</b>) அதன் குறி. புள்ளி கடைசியில்.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ड़</span><span class="c deva t-trace"><i class="st"></i>ड़</span><span class="c deva t-trace"><i class="st"></i>ड़</span><span class="c deva t-trace"><i class="st"></i>ड़</span><span class="c deva t-trace"><i class="st"></i>ड़</span><span class="c deva t-trace"><i class="st"></i>ड़</span><span class="c deva t-trace"><i class="st"></i>ड़</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ड़</span><span class="c deva t-out"><i class="st"></i>ड़</span><span class="c deva t-out"><i class="st"></i>ड़</span><span class="c deva t-out"><i class="st"></i>ड़</span><span class="c deva t-out"><i class="st"></i>ड़</span><span class="c deva t-out"><i class="st"></i>ड़</span><span class="c deva t-out"><i class="st"></i>ड़</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ड़</span><span class="c deva t-faint"><i class="st"></i>ड़</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">पढ़ना</span> (படித்தல்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>पढ़ना</span><span class="c deva t-trace"><i class="st"></i>पढ़ना</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 34</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ढ़</div>
+      <div class="meta">
+        <div class="eq">= <b>ற⁴ ⚡</b></div>
+        <div class="tr">ṛha</div>
+        <div class="ex"><span class="deva">बूढ़ा</span> &middot; கிழவன்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">நுக்தா - தமிழில் இல்லாத ஒலிகள்</div><div class="num">35</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ढ़<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ढ़</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note"><b>இந்த ஒலி தமிழில் இல்லை.</b> "அறை"-யின் ற போல ஒரே தட்டல், நாக்கு சற்று பின்னால் - கீழ்ப் புள்ளி (<b>நுக்தா</b>) அதன் குறி. புள்ளி கடைசியில்.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ढ़</span><span class="c deva t-trace"><i class="st"></i>ढ़</span><span class="c deva t-trace"><i class="st"></i>ढ़</span><span class="c deva t-trace"><i class="st"></i>ढ़</span><span class="c deva t-trace"><i class="st"></i>ढ़</span><span class="c deva t-trace"><i class="st"></i>ढ़</span><span class="c deva t-trace"><i class="st"></i>ढ़</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ढ़</span><span class="c deva t-out"><i class="st"></i>ढ़</span><span class="c deva t-out"><i class="st"></i>ढ़</span><span class="c deva t-out"><i class="st"></i>ढ़</span><span class="c deva t-out"><i class="st"></i>ढ़</span><span class="c deva t-out"><i class="st"></i>ढ़</span><span class="c deva t-out"><i class="st"></i>ढ़</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ढ़</span><span class="c deva t-faint"><i class="st"></i>ढ़</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">बूढ़ा</span> (கிழவன்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>बूढ़ा</span><span class="c deva t-trace"><i class="st"></i>बूढ़ा</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 35</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">क़</div>
+      <div class="meta">
+        <div class="eq">= <b>க ⚡</b></div>
+        <div class="tr">qa</div>
+        <div class="ex"><span class="deva">क़ानून</span> &middot; சட்டம்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">நுக்தா - பாரசீக-அரபு ஒலிகள்</div><div class="num">36</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">क़<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">क़</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">நுக்தா = கீழே ஒரு புள்ளி. முதலில் உடல், பிறகு மேல் கோடு, <b>புள்ளி கடைசியில்</b>.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>क़</span><span class="c deva t-trace"><i class="st"></i>क़</span><span class="c deva t-trace"><i class="st"></i>क़</span><span class="c deva t-trace"><i class="st"></i>क़</span><span class="c deva t-trace"><i class="st"></i>क़</span><span class="c deva t-trace"><i class="st"></i>क़</span><span class="c deva t-trace"><i class="st"></i>क़</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>क़</span><span class="c deva t-out"><i class="st"></i>क़</span><span class="c deva t-out"><i class="st"></i>क़</span><span class="c deva t-out"><i class="st"></i>क़</span><span class="c deva t-out"><i class="st"></i>क़</span><span class="c deva t-out"><i class="st"></i>क़</span><span class="c deva t-out"><i class="st"></i>क़</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>क़</span><span class="c deva t-faint"><i class="st"></i>क़</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">क़ानून</span> (சட்டம்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>क़ानून</span><span class="c deva t-trace"><i class="st"></i>क़ानून</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 36</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ख़</div>
+      <div class="meta">
+        <div class="eq">= <b>ஃக ⚡</b></div>
+        <div class="tr">kha</div>
+        <div class="ex"><span class="deva">ख़त</span> &middot; கடிதம்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">நுக்தா - பாரசீக-அரபு ஒலிகள்</div><div class="num">37</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ख़<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ख़</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">நுக்தா = கீழே ஒரு புள்ளி. முதலில் உடல், பிறகு மேல் கோடு, <b>புள்ளி கடைசியில்</b>.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ख़</span><span class="c deva t-trace"><i class="st"></i>ख़</span><span class="c deva t-trace"><i class="st"></i>ख़</span><span class="c deva t-trace"><i class="st"></i>ख़</span><span class="c deva t-trace"><i class="st"></i>ख़</span><span class="c deva t-trace"><i class="st"></i>ख़</span><span class="c deva t-trace"><i class="st"></i>ख़</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ख़</span><span class="c deva t-out"><i class="st"></i>ख़</span><span class="c deva t-out"><i class="st"></i>ख़</span><span class="c deva t-out"><i class="st"></i>ख़</span><span class="c deva t-out"><i class="st"></i>ख़</span><span class="c deva t-out"><i class="st"></i>ख़</span><span class="c deva t-out"><i class="st"></i>ख़</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ख़</span><span class="c deva t-faint"><i class="st"></i>ख़</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">ख़त</span> (கடிதம்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ख़त</span><span class="c deva t-trace"><i class="st"></i>ख़त</span><span class="c deva t-out"><i class="st"></i>ख़त</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 37</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ग़</div>
+      <div class="meta">
+        <div class="eq">= <b>ஃக³ ⚡</b></div>
+        <div class="tr">ġa</div>
+        <div class="ex"><span class="deva">ग़ज़ल</span> &middot; கஜல்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">நுக்தா - பாரசீக-அரபு ஒலிகள்</div><div class="num">38</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ग़<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ग़</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">நுக்தா = கீழே ஒரு புள்ளி. முதலில் உடல், பிறகு மேல் கோடு, <b>புள்ளி கடைசியில்</b>.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ग़</span><span class="c deva t-trace"><i class="st"></i>ग़</span><span class="c deva t-trace"><i class="st"></i>ग़</span><span class="c deva t-trace"><i class="st"></i>ग़</span><span class="c deva t-trace"><i class="st"></i>ग़</span><span class="c deva t-trace"><i class="st"></i>ग़</span><span class="c deva t-trace"><i class="st"></i>ग़</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ग़</span><span class="c deva t-out"><i class="st"></i>ग़</span><span class="c deva t-out"><i class="st"></i>ग़</span><span class="c deva t-out"><i class="st"></i>ग़</span><span class="c deva t-out"><i class="st"></i>ग़</span><span class="c deva t-out"><i class="st"></i>ग़</span><span class="c deva t-out"><i class="st"></i>ग़</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ग़</span><span class="c deva t-faint"><i class="st"></i>ग़</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">ग़ज़ल</span> (கஜல்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ग़ज़ल</span><span class="c deva t-trace"><i class="st"></i>ग़ज़ल</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 38</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">ज़</div>
+      <div class="meta">
+        <div class="eq">= <b>ஜ ⚡</b></div>
+        <div class="tr">za</div>
+        <div class="ex"><span class="deva">ज़रूर</span> &middot; நிச்சயம்</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">நுக்தா - பாரசீக-அரபு ஒலிகள்</div><div class="num">39</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">ज़<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">ज़</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">நுக்தா = கீழே ஒரு புள்ளி. முதலில் உடல், பிறகு மேல் கோடு, <b>புள்ளி கடைசியில்</b>.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ज़</span><span class="c deva t-trace"><i class="st"></i>ज़</span><span class="c deva t-trace"><i class="st"></i>ज़</span><span class="c deva t-trace"><i class="st"></i>ज़</span><span class="c deva t-trace"><i class="st"></i>ज़</span><span class="c deva t-trace"><i class="st"></i>ज़</span><span class="c deva t-trace"><i class="st"></i>ज़</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ज़</span><span class="c deva t-out"><i class="st"></i>ज़</span><span class="c deva t-out"><i class="st"></i>ज़</span><span class="c deva t-out"><i class="st"></i>ज़</span><span class="c deva t-out"><i class="st"></i>ज़</span><span class="c deva t-out"><i class="st"></i>ज़</span><span class="c deva t-out"><i class="st"></i>ज़</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज़</span><span class="c deva t-faint"><i class="st"></i>ज़</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">ज़रूर</span> (நிச்சயம்)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ज़रूर</span><span class="c deva t-trace"><i class="st"></i>ज़रूर</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 39</span></div>
+</div>
+<div class="sheet tall">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big deva">फ़</div>
+      <div class="meta">
+        <div class="eq">= <b>ஃப</b></div>
+        <div class="tr">fa</div>
+        <div class="ex"><span class="deva">फ़ोन</span> &middot; தொலைபேசி</div>
+      </div>
+    </div>
+    <div class="ph-r"><div class="grp">நுக்தா - பாரசீக-அரபு ஒலிகள்</div><div class="num">40</div></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="g deva">फ़<span class="mask"></span></span>
+      <div class="cap"><b>1</b> உடல்</div></div>
+    <div class="step"><span class="g deva">फ़</span>
+      <div class="cap"><b>2</b> மேல் கோடு</div></div>
+    <div class="note">நுக்தா = கீழே ஒரு புள்ளி. முதலில் உடல், பிறகு மேல் கோடு, <b>புள்ளி கடைசியில்</b>.</div>
+  </div>
+  <div class="rowlabel"><span>சாம்பலின் <b>மேல் எழுது</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>फ़</span><span class="c deva t-trace"><i class="st"></i>फ़</span><span class="c deva t-trace"><i class="st"></i>फ़</span><span class="c deva t-trace"><i class="st"></i>फ़</span><span class="c deva t-trace"><i class="st"></i>फ़</span><span class="c deva t-trace"><i class="st"></i>फ़</span><span class="c deva t-trace"><i class="st"></i>फ़</span></div>
+</div>
+  <div class="rowlabel"><span>வெற்றை <b>நிரப்பு</b></span><span>ஏழு முறை</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>फ़</span><span class="c deva t-out"><i class="st"></i>फ़</span><span class="c deva t-out"><i class="st"></i>फ़</span><span class="c deva t-out"><i class="st"></i>फ़</span><span class="c deva t-out"><i class="st"></i>फ़</span><span class="c deva t-out"><i class="st"></i>फ़</span><span class="c deva t-out"><i class="st"></i>फ़</span></div>
+</div>
+  <div class="rowlabel"><span>முதலாவது தந்தோம் - <b>மீதி நீயே</b></span><span>வரிசையை முடி</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>फ़</span><span class="c deva t-faint"><i class="st"></i>फ़</span></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span>வரிசையை நிரப்பு</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>நீயே எழுது</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>சொல்லில் வை - <span class="deva">फ़ोन</span> (தொலைபேசி)</span><span>பிறகு நீயே</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>फ़ोन</span><span class="c deva t-trace"><i class="st"></i>फ़ोन</span><span class="c deva t-out"><i class="st"></i>फ़ोन</span></div>
+</div>
+  <div class="pf"><span>நூல் 2 · மெய்</span><span class="r">BHASHASETU &middot; தமிழிலிருந்து ஹிந்தி &middot; 40</span></div>
+</div>
+</body>
+</html>

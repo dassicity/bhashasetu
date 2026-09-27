@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8"/>
+<title>വാക്ക് 2 - മലയാളത്തിൽ നിന്ന് ബംഗാളി</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
+  --base:  19mm;       /* baseline - letters sit here            */
+  /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
+     (see calibrate_font.html). Fractions of the font size, from the baseline:
+       bare letter  shirorekha ....... 0.642 up
+       matras above ..................  0.925 up
+       matras below ..................  0.290 down */
+  --asc-ratio:  0.935;
+  --top-ratio:  0.039;
+  --bot-ratio:  0.353;
+
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Malayalam',serif; color:var(--ink); font-size:10pt; }
+.deva{ font-family:'Noto Serif Bengali',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+/* Headroom ONLY on sheets that open with the big header glyph (letter and matra sheets).
+   Its line-height is 0.95, so tall letters (Bengali independent i, ii and u, Devanagari ii, Gurmukhi iri) rise
+   above their line box, and as the first thing on a sheet that ink printed in the previous
+   page's bottom margin. Applying it to every sheet instead pushed the dense Gurmukhi
+   conjunct sheets onto a second page (book 4 went from 10 pages to 18). */
+.sheet.tall{ padding-top:5mm; min-height:257mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:22mm; line-height:0.95; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; color:var(--ink); }
+.ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); letter-spacing:.04em; }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm; text-align:center; }
+.step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
+.step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
+.step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
+.step .cap b{ color:var(--teal); }
+.steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
+.steps .note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
+      --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--bot-ratio) * var(--gs));
+      height: calc(var(--desc) + 1.5mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* strut: an inline-block whose bottom edge sits on the text baseline, so the
+   baseline lands on --base whatever the font's line metrics say */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; justify-content:flex-start; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
+.row.words{ --head:6.5mm; --base:14mm; }
+.row.words .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --head:5.5mm; --base:11.5mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
+.cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
+.rules{ text-align:left; max-width:150mm; margin:12mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.65; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:10mm auto 0; max-width:150mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:13mm; line-height:1.1; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+.pf .r{ letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">പുസ്തകം 6</div>
+  <h1><span class="deva">শব্দ</span>വാക്ക് 2</h1>
+  <p class="sub">കൈക്ക് കടുപ്പമുള്ള വാക്കുകൾ: ഘട്ടം 03-ലെ കൂട്ടക്ഷരമുള്ള തത്സമങ്ങൾ, ഘട്ടം 08-ലെ ബന്ധുക്കളും സമയവും ശരീരവും ഭക്ഷണവും, പിന്നെ മലയാളം പോലെ തോന്നുന്ന കെണിവാക്കുകൾ. ഓരോന്നിനും അരികിൽ ബംഗാളി അർത്ഥം, മലയാളത്തിലേതല്ല.</p>
+  <div class="rules"><h2>കടലാസിലേക്ക് ഇറങ്ങുംമുമ്പ് അഞ്ചു കാര്യം</h2><ol><li><b>ഉടൽ ആദ്യം, മുകളിലെ വര ഒടുവിൽ.</b> മലയാളത്തിന് മുകളിലെ വരയില്ല. ബംഗാളിയിൽ അക്ഷരത്തിന്റെ ശരീരം വരച്ചുകഴിഞ്ഞ് മുകളിൽ মাত্রা ഒരു നേർവരയായി വലിക്കുന്നു; അക്ഷരം ആ വരയിൽ നിന്ന് തൂങ്ങുന്നു.</li><li><b>അടിവരയല്ല, മുകളിലെ വര.</b> മലയാള അക്ഷരം അടിവരയിൽ ഇരിക്കുന്നു. ബംഗാളി അക്ഷരം മുകളിലെ വരയിൽ തൊട്ട് താഴേക്ക് നീളുന്നു; അടിയിൽ എല്ലാം ഒരേ നിരപ്പിൽ നിൽക്കണമെന്നില്ല.</li><li><b>വളവിനു പകരം കോൺ.</b> മലയാളകൈ എല്ലാം ഉരുട്ടും. ক, ব, ত, ম എന്നിവയിൽ കോണുകൾ വ്യക്തമായി നിർത്തി വരയ്ക്കുക; ഉരുട്ടിയാൽ വേറെ അക്ഷരമായി വായിക്കപ്പെടും.</li><li><b>ഇ-ചിഹ്നം ഇടത്ത്.</b> മലയാളത്തിൽ കി-യിലെ ി വലത്താണ്. ബംഗാളിയിൽ ি അക്ഷരത്തിനു മുമ്പ് എഴുതുന്നു. ে, ো എന്നിവ മലയാളത്തിലെ െ, ൊ പോലെ തന്നെ - അവിടെ കൈ ശരിയായി പോകും.</li><li><b>പതുക്കെ, ദിവസം ഒരു പേജ്.</b> പെൻസിൽ കൊണ്ട് തുടങ്ങുക, ചാരനിറ അക്ഷരത്തിനു മുകളിൽ മൃദുവായി. ഓരോ വരിയും തീരുമ്പോൾ അക്ഷരം ഉറക്കെ പറയുക - অ എന്നത് ഒ ആയി, স എന്നത് ശ ആയി.</li></ol></div>
+  <div class="legend"><h3>ഈ പുസ്തകത്തിൽ നാലു തരം എഴുത്ത്</h3><div class="lg">
+      <div><span class="s deva t-model">ক</span>മാതൃക - നോക്കുക</div>
+      <div><span class="s deva t-trace">ক</span>ചാരനിറം - മുകളിലൂടെ എഴുതുക</div>
+      <div><span class="s deva t-out">ক</span>പൊള്ള - ഉള്ളിൽ നിറയ്ക്കുക</div>
+      <div><span class="s deva t-faint">ক</span>മങ്ങിയത് - ഏതാണ്ട് സ്വന്തമായി</div>
+      </div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>കൂട്ടക്ഷരമുള്ള തത്സമങ്ങൾ</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">1</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">পুস্তক</span> &nbsp; = &nbsp; <b>പുസ്തകം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>পুস্তক</span><span class="c deva t-trace"><i class="st"></i>পুস্তক</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">উত্তর</span> &nbsp; = &nbsp; <b>ഉത്തരം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>উত্তর</span><span class="c deva t-trace"><i class="st"></i>উত্তর</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">কর্ম</span> &nbsp; = &nbsp; <b>കർമ്മം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কর্ম</span><span class="c deva t-trace"><i class="st"></i>কর্ম</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">বর্ষা</span> &nbsp; = &nbsp; <b>വർഷകാലം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বর্ষা</span><span class="c deva t-trace"><i class="st"></i>বর্ষা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 1</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>കൂട്ടക്ഷരമുള്ള തത്സമങ്ങൾ</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">2</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">গ্রাম</span> &nbsp; = &nbsp; <b>ഗ്രാമം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>গ্রাম</span><span class="c deva t-trace"><i class="st"></i>গ্রাম</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">ছাত্র</span> &nbsp; = &nbsp; <b>വിദ്യാർത്ഥി</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ছাত্র</span><span class="c deva t-trace"><i class="st"></i>ছাত্র</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">সূর্য</span> &nbsp; = &nbsp; <b>സൂര്യൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>সূর্য</span><span class="c deva t-trace"><i class="st"></i>সূর্য</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">বিদ্যা</span> &nbsp; = &nbsp; <b>വിദ്യ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বিদ্যা</span><span class="c deva t-trace"><i class="st"></i>বিদ্যা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 2</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>കൂട്ടക്ഷരമുള്ള തത്സമങ്ങൾ</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">3</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">সত্য</span> &nbsp; = &nbsp; <b>സത്യം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>সত্য</span><span class="c deva t-trace"><i class="st"></i>সত্য</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">বিশ্ব</span> &nbsp; = &nbsp; <b>വിശ്വം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বিশ্ব</span><span class="c deva t-trace"><i class="st"></i>বিশ্ব</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">স্বাধীন</span> &nbsp; = &nbsp; <b>സ്വതന്ത്രം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>স্বাধীন</span><span class="c deva t-trace"><i class="st"></i>স্বাধীন</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">ক্ষমা</span> &nbsp; = &nbsp; <b>ക്ഷമ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ক্ষমা</span><span class="c deva t-trace"><i class="st"></i>ক্ষমা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 3</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>കൂട്ടക്ഷരമുള്ള തത്സമങ്ങൾ</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">4</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">জ্ঞান</span> &nbsp; = &nbsp; <b>ജ്ഞാനം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>জ্ঞান</span><span class="c deva t-trace"><i class="st"></i>জ্ঞান</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">কৃষ্ণ</span> &nbsp; = &nbsp; <b>കൃഷ്ണൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কৃষ্ণ</span><span class="c deva t-trace"><i class="st"></i>কৃষ্ণ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">যুদ্ধ</span> &nbsp; = &nbsp; <b>യുദ്ധം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>যুদ্ধ</span><span class="c deva t-trace"><i class="st"></i>যুদ্ধ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">অন্ধ</span> &nbsp; = &nbsp; <b>അന്ധൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>অন্ধ</span><span class="c deva t-trace"><i class="st"></i>অন্ধ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 4</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>കൂട്ടക്ഷരമുള്ള തത്സമങ്ങൾ</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">5</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">চন্দ্র</span> &nbsp; = &nbsp; <b>ചന്ദ്രൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>চন্দ্র</span><span class="c deva t-trace"><i class="st"></i>চন্দ্র</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 5</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ബന്ധുക്കൾ</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">6</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">বাবা</span> &nbsp; = &nbsp; <b>അച്ഛൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বাবা</span><span class="c deva t-trace"><i class="st"></i>বাবা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">মা</span> &nbsp; = &nbsp; <b>അമ്മ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>মা</span><span class="c deva t-trace"><i class="st"></i>মা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">দাদা</span> &nbsp; = &nbsp; <b>ചേട്ടൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>দাদা</span><span class="c deva t-trace"><i class="st"></i>দাদা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">দিদি</span> &nbsp; = &nbsp; <b>ചേച്ചി</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>দিদি</span><span class="c deva t-trace"><i class="st"></i>দিদি</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 6</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ബന്ധുക്കൾ</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">7</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">ভাই</span> &nbsp; = &nbsp; <b>അനിയൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ভাই</span><span class="c deva t-trace"><i class="st"></i>ভাই</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">বোন</span> &nbsp; = &nbsp; <b>അനിയത്തി</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বোন</span><span class="c deva t-trace"><i class="st"></i>বোন</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">ছেলে</span> &nbsp; = &nbsp; <b>മകൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ছেলে</span><span class="c deva t-trace"><i class="st"></i>ছেলে</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">মামা</span> &nbsp; = &nbsp; <b>അമ്മാവൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>মামা</span><span class="c deva t-trace"><i class="st"></i>মামা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 7</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ബന്ധുക്കൾ</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">8</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">কাকা</span> &nbsp; = &nbsp; <b>ചെറിയച്ഛൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কাকা</span><span class="c deva t-trace"><i class="st"></i>কাকা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">জেঠা</span> &nbsp; = &nbsp; <b>വലിയച്ഛൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>জেঠা</span><span class="c deva t-trace"><i class="st"></i>জেঠা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">মাসি</span> &nbsp; = &nbsp; <b>അമ്മയുടെ സഹോദരി</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>মাসি</span><span class="c deva t-trace"><i class="st"></i>মাসি</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">পিসি</span> &nbsp; = &nbsp; <b>അച്ഛന്റെ സഹോദരി</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>পিসি</span><span class="c deva t-trace"><i class="st"></i>পিসি</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 8</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>ബന്ധുക്കൾ</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">9</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">স্বামী</span> &nbsp; = &nbsp; <b>ഭർത്താവ്</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>স্বামী</span><span class="c deva t-trace"><i class="st"></i>স্বামী</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">স্ত্রী</span> &nbsp; = &nbsp; <b>ഭാര്യ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>স্ত্রী</span><span class="c deva t-trace"><i class="st"></i>স্ত্রী</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 9</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>സമയം, ശരീരം, ഭക്ഷണം</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">10</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">আজ</span> &nbsp; = &nbsp; <b>ഇന്ന്</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>আজ</span><span class="c deva t-trace"><i class="st"></i>আজ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">সকাল</span> &nbsp; = &nbsp; <b>രാവിലെ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>সকাল</span><span class="c deva t-trace"><i class="st"></i>সকাল</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">দুপুর</span> &nbsp; = &nbsp; <b>ഉച്ച</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>দুপুর</span><span class="c deva t-trace"><i class="st"></i>দুপুর</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">বিকেল</span> &nbsp; = &nbsp; <b>ഉച്ചതിരിഞ്ഞ നേരം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বিকেল</span><span class="c deva t-trace"><i class="st"></i>বিকেল</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 10</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>സമയം, ശരീരം, ഭക്ഷണം</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">11</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">সন্ধ্যা</span> &nbsp; = &nbsp; <b>സന്ധ്യ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>সন্ধ্যা</span><span class="c deva t-trace"><i class="st"></i>সন্ধ্যা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">সপ্তাহ</span> &nbsp; = &nbsp; <b>ആഴ്ച</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>সপ্তাহ</span><span class="c deva t-trace"><i class="st"></i>সপ্তাহ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">বছর</span> &nbsp; = &nbsp; <b>വർഷം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বছর</span><span class="c deva t-trace"><i class="st"></i>বছর</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">মাথা</span> &nbsp; = &nbsp; <b>തല</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>মাথা</span><span class="c deva t-trace"><i class="st"></i>মাথা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 11</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>സമയം, ശരീരം, ഭക്ഷണം</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">12</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">চোখ</span> &nbsp; = &nbsp; <b>കണ്ണ്</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>চোখ</span><span class="c deva t-trace"><i class="st"></i>চোখ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">মুখ</span> &nbsp; = &nbsp; <b>മുഖം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>মুখ</span><span class="c deva t-trace"><i class="st"></i>মুখ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">দাঁত</span> &nbsp; = &nbsp; <b>പല്ല്</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>দাঁত</span><span class="c deva t-trace"><i class="st"></i>দাঁত</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">পেট</span> &nbsp; = &nbsp; <b>വയറ്</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>পেট</span><span class="c deva t-trace"><i class="st"></i>পেট</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 12</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>സമയം, ശരീരം, ഭക്ഷണം</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">13</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">ভাত</span> &nbsp; = &nbsp; <b>ചോറ്</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ভাত</span><span class="c deva t-trace"><i class="st"></i>ভাত</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">মাছ</span> &nbsp; = &nbsp; <b>മീൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>মাছ</span><span class="c deva t-trace"><i class="st"></i>মাছ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">দুধ</span> &nbsp; = &nbsp; <b>പാൽ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>দুধ</span><span class="c deva t-trace"><i class="st"></i>দুধ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">মিষ্টি</span> &nbsp; = &nbsp; <b>മധുരം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>মিষ্টি</span><span class="c deva t-trace"><i class="st"></i>মিষ্টি</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 13</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>സമയം, ശരീരം, ഭക്ഷണം</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">14</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">পায়েস</span> &nbsp; = &nbsp; <b>പായസം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>পায়েস</span><span class="c deva t-trace"><i class="st"></i>পায়েস</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 14</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>⚡ കെണിവാക്കുകൾ - ബംഗാളി അർത്ഥം</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">15</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">বন্ধু</span> &nbsp; = &nbsp; <b>സുഹൃത്ത്</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বন্ধু</span><span class="c deva t-trace"><i class="st"></i>বন্ধু</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">কল্যাণ</span> &nbsp; = &nbsp; <b>ക്ഷേമം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কল্যাণ</span><span class="c deva t-trace"><i class="st"></i>কল্যাণ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">শিক্ষা</span> &nbsp; = &nbsp; <b>വിദ്യാഭ്യാസം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>শিক্ষা</span><span class="c deva t-trace"><i class="st"></i>শিক্ষা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">রাগ</span> &nbsp; = &nbsp; <b>ദേഷ്യം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>রাগ</span><span class="c deva t-trace"><i class="st"></i>রাগ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 15</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>⚡ കെണിവാക്കുകൾ - ബംഗാളി അർത്ഥം</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">16</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">চরিত্র</span> &nbsp; = &nbsp; <b>സ്വഭാവം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>চরিত্র</span><span class="c deva t-trace"><i class="st"></i>চরিত্র</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">তলা</span> &nbsp; = &nbsp; <b>അടിഭാഗം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>তলা</span><span class="c deva t-trace"><i class="st"></i>তলা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">চোর</span> &nbsp; = &nbsp; <b>കള്ളൻ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>চোর</span><span class="c deva t-trace"><i class="st"></i>চোর</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:12pt">কাল</span> &nbsp; = &nbsp; <b>ഇന്നലെ; നാളെ</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কাল</span><span class="c deva t-trace"><i class="st"></i>কাল</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 16</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:16pt"><b>⚡ കെണിവാക്കുകൾ - ബംഗാളി അർത്ഥം</b></div>
+      <div class="ex">ആദ്യത്തെ രണ്ടെണ്ണം തന്നിട്ടുണ്ട് - മാതൃകയും ചാരനിറവും. അതിനു ശേഷമുള്ള വരി നിങ്ങളുടേത്.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">വാക്ക്</div><div class="num">17</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:12pt">কলা</span> &nbsp; = &nbsp; <b>വാഴപ്പഴം</b></span><span>ആദ്യത്തേത് തന്നിട്ടുണ്ട് - <b>ബാക്കി നിങ്ങളുടേത്</b></span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কলা</span><span class="c deva t-trace"><i class="st"></i>কলা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 6 · വാക്ക് 2</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 17</span></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8"/>
+<title>കൂട്ടക്ഷരം - മലയാളത്തിൽ നിന്ന് ബംഗാളി</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --head:  9mm;        /* SHIRO-REKHA - letters hang from here   */
+  --base:  19mm;       /* baseline - letters sit here            */
+  /* Noto Serif Devanagari metrics, measured with canvas TextMetrics
+     (see calibrate_font.html). Fractions of the font size, from the baseline:
+       bare letter  shirorekha ....... 0.642 up
+       matras above ..................  0.925 up
+       matras below ..................  0.290 down */
+  --asc-ratio:  0.935;
+  --top-ratio:  0.039;
+  --bot-ratio:  0.353;
+
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --ochre:#B8802D; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Malayalam',serif; color:var(--ink); font-size:10pt; }
+.deva{ font-family:'Noto Serif Bengali',serif; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+/* Headroom ONLY on sheets that open with the big header glyph (letter and matra sheets).
+   Its line-height is 0.95, so tall letters (Bengali independent i, ii and u, Devanagari ii, Gurmukhi iri) rise
+   above their line box, and as the first thing on a sheet that ink printed in the previous
+   page's bottom margin. Applying it to every sheet instead pushed the dense Gurmukhi
+   conjunct sheets onto a second page (book 4 went from 10 pages to 18). */
+.sheet.tall{ padding-top:5mm; min-height:257mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:5mm; }
+.ph .big{ font-size:22mm; line-height:0.95; }
+.ph .meta{ padding-bottom:1.5mm; }
+.ph .eq{ font-size:13pt; color:var(--ink); }
+.ph .eq b{ color:var(--sindoor); }
+.ph .tr{ font-family:'JetBrains Mono',monospace; font-size:9pt; color:var(--sindoor); letter-spacing:.04em; }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:1.5mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.steps{ display:flex; gap:4mm; align-items:flex-end; margin:0 0 3mm; }
+.step{ border:0.3mm dashed var(--line-soft); border-radius:1mm; padding:1.5mm 3mm 1mm; text-align:center; }
+.step .g{ font-size:16mm; line-height:1.05; position:relative; display:inline-block; }
+.step .mask{ position:absolute; left:-1mm; right:-1mm; top:0; height:2.6mm; background:#fff; }
+.step .cap{ font-size:8pt; color:var(--faded); margin-top:0.5mm; }
+.step .cap b{ color:var(--teal); }
+.steps .note{ font-size:9pt; color:var(--ink); line-height:1.5; padding-bottom:2mm; flex:1; }
+.steps .note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.2mm;
+      --gs:   calc((var(--base) - var(--head)) / var(--asc-ratio));
+      --asc:  calc(var(--head) - var(--top-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--bot-ratio) * var(--gs));
+      height: calc(var(--desc) + 1.5mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.h{ top:var(--head); border-top:0.4mm solid var(--line); }
+.ln.b{ top:var(--base); border-top:0.4mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* strut: an inline-block whose bottom edge sits on the text baseline, so the
+   baseline lands on --base whatever the font's line metrics say */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; justify-content:flex-start; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-size:var(--gs); line-height:0; flex:0 0 auto; width:24mm; text-align:center; }
+.row.words{ --head:6.5mm; --base:14mm; }
+.row.words .c{ width:auto; padding-right:10mm; text-align:left; }
+.row.sent{ --head:5.5mm; --base:11.5mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; width:auto; text-align:left; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.28mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:30pt; margin:6mm 0 2mm; line-height:1.25; }
+.cover h1 .deva{ display:block; font-size:34pt; color:var(--ink); margin-bottom:3mm; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:135mm; margin:0 auto; line-height:1.7; }
+.rules{ text-align:left; max-width:150mm; margin:12mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.65; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.legend{ margin:10mm auto 0; max-width:150mm; border:0.3mm solid var(--line-soft);
+         border-radius:1.5mm; padding:4mm 5mm; }
+.legend h3{ margin:0 0 2.5mm; font-size:10pt; color:var(--teal); }
+.legend .lg{ display:flex; gap:7mm; align-items:flex-end; }
+.legend .lg div{ text-align:center; font-size:8.5pt; color:var(--faded); }
+.legend .lg .s{ font-size:13mm; line-height:1.1; display:block; }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+.pf .r{ letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">പുസ്തകം 4</div>
+  <h1><span class="deva">যুক্তাক্ষর</span>കൂട്ടക്ഷരം</h1>
+  <p class="sub">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈക്ക് പുതിയതല്ല - ക്ക, ന്ത, ണ്ട, ക്ഷ. പക്ഷേ ബംഗാളിയുടെ കൂട്ടുകൾ ഒന്നിൽ നിന്ന് മറ്റൊന്ന് ഊഹിക്കാനാവില്ല. അതുകൊണ്ട് നാലു തട്ടായി: രണ്ടു കഷണവും കാണുന്നവ, র-യുടെ രണ്ടു മുഖം, ഉച്ചരിക്കാത്ത য-ഫലയും ব-ഫലയും, രൂപം ഓർക്കേണ്ടവ.</p>
+  <div class="rules"><h2>കടലാസിലേക്ക് ഇറങ്ങുംമുമ്പ് അഞ്ചു കാര്യം</h2><ol><li><b>നിയമം പഠിക്കുക, പട്ടികയല്ല.</b> ബംഗാളിയുടെ എല്ലാ കൂട്ടക്ഷരങ്ങളും എഴുതുക സാധ്യമല്ല, ആവശ്യവുമില്ല. ഈ പുസ്തകം അവയെ നാലു തട്ടായി തിരിക്കുന്നു.</li><li><b>ഒന്ന്: രണ്ടു കഷണവും കാണാം.</b> স্ত, ল্প, ম্ব, ষ্ট, ত্ত, ল্ল - ആദ്യത്തേത് മുകളിലോ ഇടത്തോ, രണ്ടാമത്തേത് താഴെയോ വലത്തോ. മലയാളത്തിലെ സ്ത പോലെ വായിക്കാം.</li><li><b>രണ്ട്: র-യുടെ രണ്ടു മുഖം.</b> ര മുമ്പിൽ വന്നാൽ അടുത്ത അക്ഷരത്തിന്റെ തലയിൽ ചെറിയ വര - কর্ম. പിന്നിൽ വന്നാൽ മുൻ അക്ഷരത്തിന്റെ കാലിൽ - প্রেম. മലയാളത്തിലെ ്ര ഇടത്താണ്; ഇവിടെ താഴെ.</li><li><b>മൂന്ന്: എഴുതും, ഉച്ചരിക്കില്ല.</b> য-ഫലയും ব-ഫലയും മുൻ അക്ഷരത്തെ ഇരട്ടിക്കുന്നു - বিদ্যা ബിദ്ദാ, বিশ্ব ബിശ്ശോ. വാക്കിന്റെ തുടക്കത്തിൽ ব-ഫല മിണ്ടുന്നില്ല - স্বাধীন ശാധിൻ.</li><li><b>നാല്: രൂപം ഓർക്കുക.</b> ক্ষ, জ্ঞ, ঞ্চ, ষ্ণ, হ্ম - കഷണങ്ങൾ അലിഞ്ഞുചേർന്നു, മലയാളത്തിലെ ക്ഷ, ജ്ഞ പോലെ. ഓരോ കൂട്ടും ആദ്യം അതിന്റെ വാക്കിനുള്ളിൽ എഴുതുക, പിന്നെ ഒറ്റയ്ക്ക്.</li></ol></div>
+  <div class="legend"><h3>ഈ പുസ്തകത്തിൽ നാലു തരം എഴുത്ത്</h3><div class="lg">
+      <div><span class="s deva t-model">ক</span>മാതൃക - നോക്കുക</div>
+      <div><span class="s deva t-trace">ক</span>ചാരനിറം - മുകളിലൂടെ എഴുതുക</div>
+      <div><span class="s deva t-out">ক</span>പൊള്ള - ഉള്ളിൽ നിറയ്ക്കുക</div>
+      <div><span class="s deva t-faint">ক</span>മങ്ങിയത് - ഏതാണ്ട് സ്വന്തമായി</div>
+      </div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">1</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">স্</span> + <span class="deva" style="font-size:13pt">ত</span> = <span class="deva" style="font-size:15pt"><b>স্ত</b></span> &nbsp;&middot;&nbsp; <span class="deva">বাস্তব</span> (യാഥാർത്ഥ്യം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>স্ত</span><span class="c deva t-trace"><i class="st"></i>স্ত</span><span class="c deva t-trace"><i class="st"></i>স্ত</span><span class="c deva t-trace"><i class="st"></i>স্ত</span><span class="c deva t-trace"><i class="st"></i>স্ত</span><span class="c deva t-trace"><i class="st"></i>স্ত</span><span class="c deva t-trace"><i class="st"></i>স্ত</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>স্ত</span><span class="c deva t-out"><i class="st"></i>স্ত</span><span class="c deva t-out"><i class="st"></i>স্ত</span><span class="c deva t-out"><i class="st"></i>স্ত</span><span class="c deva t-model"><i class="st"></i>স্ত</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বাস্তব</span><span class="c deva t-trace"><i class="st"></i>বাস্তব</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ল্</span> + <span class="deva" style="font-size:13pt">প</span> = <span class="deva" style="font-size:15pt"><b>ল্প</b></span> &nbsp;&middot;&nbsp; <span class="deva">অল্প</span> (അല്പം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ল্প</span><span class="c deva t-trace"><i class="st"></i>ল্প</span><span class="c deva t-trace"><i class="st"></i>ল্প</span><span class="c deva t-trace"><i class="st"></i>ল্প</span><span class="c deva t-trace"><i class="st"></i>ল্প</span><span class="c deva t-trace"><i class="st"></i>ল্প</span><span class="c deva t-trace"><i class="st"></i>ল্প</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ল্প</span><span class="c deva t-out"><i class="st"></i>ল্প</span><span class="c deva t-out"><i class="st"></i>ল্প</span><span class="c deva t-out"><i class="st"></i>ল্প</span><span class="c deva t-model"><i class="st"></i>ল্প</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>অল্প</span><span class="c deva t-trace"><i class="st"></i>অল্প</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 1</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">2</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ম্</span> + <span class="deva" style="font-size:13pt">ব</span> = <span class="deva" style="font-size:15pt"><b>ম্ব</b></span> &nbsp;&middot;&nbsp; <span class="deva">লম্বা</span> (നീളമുള്ള)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ম্ব</span><span class="c deva t-trace"><i class="st"></i>ম্ব</span><span class="c deva t-trace"><i class="st"></i>ম্ব</span><span class="c deva t-trace"><i class="st"></i>ম্ব</span><span class="c deva t-trace"><i class="st"></i>ম্ব</span><span class="c deva t-trace"><i class="st"></i>ম্ব</span><span class="c deva t-trace"><i class="st"></i>ম্ব</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ম্ব</span><span class="c deva t-out"><i class="st"></i>ম্ব</span><span class="c deva t-out"><i class="st"></i>ম্ব</span><span class="c deva t-out"><i class="st"></i>ম্ব</span><span class="c deva t-model"><i class="st"></i>ম্ব</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>লম্বা</span><span class="c deva t-trace"><i class="st"></i>লম্বা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ষ্</span> + <span class="deva" style="font-size:13pt">ট</span> = <span class="deva" style="font-size:15pt"><b>ষ্ট</b></span> &nbsp;&middot;&nbsp; <span class="deva">কষ্ট</span> (കഷ്ടം, വിഷമം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ষ্ট</span><span class="c deva t-trace"><i class="st"></i>ষ্ট</span><span class="c deva t-trace"><i class="st"></i>ষ্ট</span><span class="c deva t-trace"><i class="st"></i>ষ্ট</span><span class="c deva t-trace"><i class="st"></i>ষ্ট</span><span class="c deva t-trace"><i class="st"></i>ষ্ট</span><span class="c deva t-trace"><i class="st"></i>ষ্ট</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ষ্ট</span><span class="c deva t-out"><i class="st"></i>ষ্ট</span><span class="c deva t-out"><i class="st"></i>ষ্ট</span><span class="c deva t-out"><i class="st"></i>ষ্ট</span><span class="c deva t-model"><i class="st"></i>ষ্ট</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কষ্ট</span><span class="c deva t-trace"><i class="st"></i>কষ্ট</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 2</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">3</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ত্</span> + <span class="deva" style="font-size:13pt">ত</span> = <span class="deva" style="font-size:15pt"><b>ত্ত</b></span> &nbsp;&middot;&nbsp; <span class="deva">উত্তর</span> (ഉത്തരം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ত্ত</span><span class="c deva t-trace"><i class="st"></i>ত্ত</span><span class="c deva t-trace"><i class="st"></i>ত্ত</span><span class="c deva t-trace"><i class="st"></i>ত্ত</span><span class="c deva t-trace"><i class="st"></i>ত্ত</span><span class="c deva t-trace"><i class="st"></i>ত্ত</span><span class="c deva t-trace"><i class="st"></i>ত্ত</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ত্ত</span><span class="c deva t-out"><i class="st"></i>ত্ত</span><span class="c deva t-out"><i class="st"></i>ত্ত</span><span class="c deva t-out"><i class="st"></i>ত্ত</span><span class="c deva t-model"><i class="st"></i>ত্ত</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>উত্তর</span><span class="c deva t-trace"><i class="st"></i>উত্তর</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ল্</span> + <span class="deva" style="font-size:13pt">ল</span> = <span class="deva" style="font-size:15pt"><b>ল্ল</b></span> &nbsp;&middot;&nbsp; <span class="deva">উল্লাস</span> (ഉല്ലാസം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ল্ল</span><span class="c deva t-trace"><i class="st"></i>ল্ল</span><span class="c deva t-trace"><i class="st"></i>ল্ল</span><span class="c deva t-trace"><i class="st"></i>ল্ল</span><span class="c deva t-trace"><i class="st"></i>ল্ল</span><span class="c deva t-trace"><i class="st"></i>ল্ল</span><span class="c deva t-trace"><i class="st"></i>ল্ল</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ল্ল</span><span class="c deva t-out"><i class="st"></i>ল্ল</span><span class="c deva t-out"><i class="st"></i>ল্ল</span><span class="c deva t-out"><i class="st"></i>ল্ল</span><span class="c deva t-model"><i class="st"></i>ল্ল</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>উল্লাস</span><span class="c deva t-trace"><i class="st"></i>উল্লাস</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 3</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">4</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ক্</span> + <span class="deva" style="font-size:13pt">ষ</span> = <span class="deva" style="font-size:15pt"><b>ক্ষ</b></span> &nbsp;&middot;&nbsp; <span class="deva">ক্ষমা</span> (ക്ഷമ)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ক্ষ</span><span class="c deva t-trace"><i class="st"></i>ক্ষ</span><span class="c deva t-trace"><i class="st"></i>ক্ষ</span><span class="c deva t-trace"><i class="st"></i>ক্ষ</span><span class="c deva t-trace"><i class="st"></i>ক্ষ</span><span class="c deva t-trace"><i class="st"></i>ক্ষ</span><span class="c deva t-trace"><i class="st"></i>ক্ষ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ক্ষ</span><span class="c deva t-out"><i class="st"></i>ক্ষ</span><span class="c deva t-out"><i class="st"></i>ক্ষ</span><span class="c deva t-out"><i class="st"></i>ক্ষ</span><span class="c deva t-model"><i class="st"></i>ক্ষ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ক্ষমা</span><span class="c deva t-trace"><i class="st"></i>ক্ষমা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">জ্</span> + <span class="deva" style="font-size:13pt">ঞ</span> = <span class="deva" style="font-size:15pt"><b>জ্ঞ</b></span> &nbsp;&middot;&nbsp; <span class="deva">জ্ঞান</span> (ജ്ഞാനം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>জ্ঞ</span><span class="c deva t-trace"><i class="st"></i>জ্ঞ</span><span class="c deva t-trace"><i class="st"></i>জ্ঞ</span><span class="c deva t-trace"><i class="st"></i>জ্ঞ</span><span class="c deva t-trace"><i class="st"></i>জ্ঞ</span><span class="c deva t-trace"><i class="st"></i>জ্ঞ</span><span class="c deva t-trace"><i class="st"></i>জ্ঞ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>জ্ঞ</span><span class="c deva t-out"><i class="st"></i>জ্ঞ</span><span class="c deva t-out"><i class="st"></i>জ্ঞ</span><span class="c deva t-out"><i class="st"></i>জ্ঞ</span><span class="c deva t-model"><i class="st"></i>জ্ঞ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>জ্ঞান</span><span class="c deva t-trace"><i class="st"></i>জ্ঞান</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 4</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">5</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ঙ্</span> + <span class="deva" style="font-size:13pt">ক</span> = <span class="deva" style="font-size:15pt"><b>ঙ্ক</b></span> &nbsp;&middot;&nbsp; <span class="deva">অঙ্ক</span> (കണക്ക്, സംഖ്യ)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ঙ্ক</span><span class="c deva t-trace"><i class="st"></i>ঙ্ক</span><span class="c deva t-trace"><i class="st"></i>ঙ্ক</span><span class="c deva t-trace"><i class="st"></i>ঙ্ক</span><span class="c deva t-trace"><i class="st"></i>ঙ্ক</span><span class="c deva t-trace"><i class="st"></i>ঙ্ক</span><span class="c deva t-trace"><i class="st"></i>ঙ্ক</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ঙ্ক</span><span class="c deva t-out"><i class="st"></i>ঙ্ক</span><span class="c deva t-out"><i class="st"></i>ঙ্ক</span><span class="c deva t-out"><i class="st"></i>ঙ্ক</span><span class="c deva t-model"><i class="st"></i>ঙ্ক</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>অঙ্ক</span><span class="c deva t-trace"><i class="st"></i>অঙ্ক</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ঙ্</span> + <span class="deva" style="font-size:13pt">গ</span> = <span class="deva" style="font-size:15pt"><b>ঙ্গ</b></span> &nbsp;&middot;&nbsp; <span class="deva">গঙ্গা</span> (ഗംഗ)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ঙ্গ</span><span class="c deva t-trace"><i class="st"></i>ঙ্গ</span><span class="c deva t-trace"><i class="st"></i>ঙ্গ</span><span class="c deva t-trace"><i class="st"></i>ঙ্গ</span><span class="c deva t-trace"><i class="st"></i>ঙ্গ</span><span class="c deva t-trace"><i class="st"></i>ঙ্গ</span><span class="c deva t-trace"><i class="st"></i>ঙ্গ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ঙ্গ</span><span class="c deva t-out"><i class="st"></i>ঙ্গ</span><span class="c deva t-out"><i class="st"></i>ঙ্গ</span><span class="c deva t-out"><i class="st"></i>ঙ্গ</span><span class="c deva t-model"><i class="st"></i>ঙ্গ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>গঙ্গা</span><span class="c deva t-trace"><i class="st"></i>গঙ্গা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 5</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">6</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ঙ্</span> + <span class="deva" style="font-size:13pt">খ</span> = <span class="deva" style="font-size:15pt"><b>ঙ্খ</b></span> &nbsp;&middot;&nbsp; <span class="deva">শঙ্খ</span> (ശംഖ്)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ঙ্খ</span><span class="c deva t-trace"><i class="st"></i>ঙ্খ</span><span class="c deva t-trace"><i class="st"></i>ঙ্খ</span><span class="c deva t-trace"><i class="st"></i>ঙ্খ</span><span class="c deva t-trace"><i class="st"></i>ঙ্খ</span><span class="c deva t-trace"><i class="st"></i>ঙ্খ</span><span class="c deva t-trace"><i class="st"></i>ঙ্খ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ঙ্খ</span><span class="c deva t-out"><i class="st"></i>ঙ্খ</span><span class="c deva t-out"><i class="st"></i>ঙ্খ</span><span class="c deva t-out"><i class="st"></i>ঙ্খ</span><span class="c deva t-model"><i class="st"></i>ঙ্খ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>শঙ্খ</span><span class="c deva t-trace"><i class="st"></i>শঙ্খ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ঞ্</span> + <span class="deva" style="font-size:13pt">চ</span> = <span class="deva" style="font-size:15pt"><b>ঞ্চ</b></span> &nbsp;&middot;&nbsp; <span class="deva">পঞ্চ</span> (അഞ്ച്, പഞ്ച-)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ঞ্চ</span><span class="c deva t-trace"><i class="st"></i>ঞ্চ</span><span class="c deva t-trace"><i class="st"></i>ঞ্চ</span><span class="c deva t-trace"><i class="st"></i>ঞ্চ</span><span class="c deva t-trace"><i class="st"></i>ঞ্চ</span><span class="c deva t-trace"><i class="st"></i>ঞ্চ</span><span class="c deva t-trace"><i class="st"></i>ঞ্চ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ঞ্চ</span><span class="c deva t-out"><i class="st"></i>ঞ্চ</span><span class="c deva t-out"><i class="st"></i>ঞ্চ</span><span class="c deva t-out"><i class="st"></i>ঞ্চ</span><span class="c deva t-model"><i class="st"></i>ঞ্চ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>পঞ্চ</span><span class="c deva t-trace"><i class="st"></i>পঞ্চ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 6</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">7</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ঞ্</span> + <span class="deva" style="font-size:13pt">জ</span> = <span class="deva" style="font-size:15pt"><b>ঞ্জ</b></span> &nbsp;&middot;&nbsp; <span class="deva">গঞ্জ</span> (ചന്ത)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ঞ্জ</span><span class="c deva t-trace"><i class="st"></i>ঞ্জ</span><span class="c deva t-trace"><i class="st"></i>ঞ্জ</span><span class="c deva t-trace"><i class="st"></i>ঞ্জ</span><span class="c deva t-trace"><i class="st"></i>ঞ্জ</span><span class="c deva t-trace"><i class="st"></i>ঞ্জ</span><span class="c deva t-trace"><i class="st"></i>ঞ্জ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ঞ্জ</span><span class="c deva t-out"><i class="st"></i>ঞ্জ</span><span class="c deva t-out"><i class="st"></i>ঞ্জ</span><span class="c deva t-out"><i class="st"></i>ঞ্জ</span><span class="c deva t-model"><i class="st"></i>ঞ্জ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>গঞ্জ</span><span class="c deva t-trace"><i class="st"></i>গঞ্জ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">দ্</span> + <span class="deva" style="font-size:13pt">ধ</span> = <span class="deva" style="font-size:15pt"><b>দ্ধ</b></span> &nbsp;&middot;&nbsp; <span class="deva">যুদ্ধ</span> (യുദ്ധം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>দ্ধ</span><span class="c deva t-trace"><i class="st"></i>দ্ধ</span><span class="c deva t-trace"><i class="st"></i>দ্ধ</span><span class="c deva t-trace"><i class="st"></i>দ্ধ</span><span class="c deva t-trace"><i class="st"></i>দ্ধ</span><span class="c deva t-trace"><i class="st"></i>দ্ধ</span><span class="c deva t-trace"><i class="st"></i>দ্ধ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>দ্ধ</span><span class="c deva t-out"><i class="st"></i>দ্ধ</span><span class="c deva t-out"><i class="st"></i>দ্ধ</span><span class="c deva t-out"><i class="st"></i>দ্ধ</span><span class="c deva t-model"><i class="st"></i>দ্ধ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>যুদ্ধ</span><span class="c deva t-trace"><i class="st"></i>যুদ্ধ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 7</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">8</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ন্</span> + <span class="deva" style="font-size:13pt">ধ</span> = <span class="deva" style="font-size:15pt"><b>ন্ধ</b></span> &nbsp;&middot;&nbsp; <span class="deva">অন্ধ</span> (അന്ധൻ)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ন্ধ</span><span class="c deva t-trace"><i class="st"></i>ন্ধ</span><span class="c deva t-trace"><i class="st"></i>ন্ধ</span><span class="c deva t-trace"><i class="st"></i>ন্ধ</span><span class="c deva t-trace"><i class="st"></i>ন্ধ</span><span class="c deva t-trace"><i class="st"></i>ন্ধ</span><span class="c deva t-trace"><i class="st"></i>ন্ধ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ন্ধ</span><span class="c deva t-out"><i class="st"></i>ন্ধ</span><span class="c deva t-out"><i class="st"></i>ন্ধ</span><span class="c deva t-out"><i class="st"></i>ন্ধ</span><span class="c deva t-model"><i class="st"></i>ন্ধ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>অন্ধ</span><span class="c deva t-trace"><i class="st"></i>অন্ধ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ষ্</span> + <span class="deva" style="font-size:13pt">ণ</span> = <span class="deva" style="font-size:15pt"><b>ষ্ণ</b></span> &nbsp;&middot;&nbsp; <span class="deva">কৃষ্ণ</span> (കൃഷ്ണൻ)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ষ্ণ</span><span class="c deva t-trace"><i class="st"></i>ষ্ণ</span><span class="c deva t-trace"><i class="st"></i>ষ্ণ</span><span class="c deva t-trace"><i class="st"></i>ষ্ণ</span><span class="c deva t-trace"><i class="st"></i>ষ্ণ</span><span class="c deva t-trace"><i class="st"></i>ষ্ণ</span><span class="c deva t-trace"><i class="st"></i>ষ্ণ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ষ্ণ</span><span class="c deva t-out"><i class="st"></i>ষ্ণ</span><span class="c deva t-out"><i class="st"></i>ষ্ণ</span><span class="c deva t-out"><i class="st"></i>ষ্ণ</span><span class="c deva t-model"><i class="st"></i>ষ্ণ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কৃষ্ণ</span><span class="c deva t-trace"><i class="st"></i>কৃষ্ণ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 8</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">9</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ণ্</span> + <span class="deva" style="font-size:13pt">ড</span> = <span class="deva" style="font-size:15pt"><b>ণ্ড</b></span> &nbsp;&middot;&nbsp; <span class="deva">খণ্ড</span> (ഖണ്ഡം, കഷണം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ণ্ড</span><span class="c deva t-trace"><i class="st"></i>ণ্ড</span><span class="c deva t-trace"><i class="st"></i>ণ্ড</span><span class="c deva t-trace"><i class="st"></i>ণ্ড</span><span class="c deva t-trace"><i class="st"></i>ণ্ড</span><span class="c deva t-trace"><i class="st"></i>ণ্ড</span><span class="c deva t-trace"><i class="st"></i>ণ্ড</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ণ্ড</span><span class="c deva t-out"><i class="st"></i>ণ্ড</span><span class="c deva t-out"><i class="st"></i>ণ্ড</span><span class="c deva t-out"><i class="st"></i>ণ্ড</span><span class="c deva t-model"><i class="st"></i>ণ্ড</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>খণ্ড</span><span class="c deva t-trace"><i class="st"></i>খণ্ড</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">হ্</span> + <span class="deva" style="font-size:13pt">ন</span> = <span class="deva" style="font-size:15pt"><b>হ্ন</b></span> &nbsp;&middot;&nbsp; <span class="deva">চিহ্ন</span> (ചിഹ്നം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>হ্ন</span><span class="c deva t-trace"><i class="st"></i>হ্ন</span><span class="c deva t-trace"><i class="st"></i>হ্ন</span><span class="c deva t-trace"><i class="st"></i>হ্ন</span><span class="c deva t-trace"><i class="st"></i>হ্ন</span><span class="c deva t-trace"><i class="st"></i>হ্ন</span><span class="c deva t-trace"><i class="st"></i>হ্ন</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>হ্ন</span><span class="c deva t-out"><i class="st"></i>হ্ন</span><span class="c deva t-out"><i class="st"></i>হ্ন</span><span class="c deva t-out"><i class="st"></i>হ্ন</span><span class="c deva t-model"><i class="st"></i>হ্ন</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>চিহ্ন</span><span class="c deva t-trace"><i class="st"></i>চিহ্ন</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 9</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">10</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">হ্</span> + <span class="deva" style="font-size:13pt">ম</span> = <span class="deva" style="font-size:15pt"><b>হ্ম</b></span> &nbsp;&middot;&nbsp; <span class="deva">ব্রাহ্মণ</span> (ബ്രാഹ്മണൻ)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>হ্ম</span><span class="c deva t-trace"><i class="st"></i>হ্ম</span><span class="c deva t-trace"><i class="st"></i>হ্ম</span><span class="c deva t-trace"><i class="st"></i>হ্ম</span><span class="c deva t-trace"><i class="st"></i>হ্ম</span><span class="c deva t-trace"><i class="st"></i>হ্ম</span><span class="c deva t-trace"><i class="st"></i>হ্ম</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>হ্ম</span><span class="c deva t-out"><i class="st"></i>হ্ম</span><span class="c deva t-out"><i class="st"></i>হ্ম</span><span class="c deva t-out"><i class="st"></i>হ্ম</span><span class="c deva t-model"><i class="st"></i>হ্ম</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ব্রাহ্মণ</span><span class="c deva t-trace"><i class="st"></i>ব্রাহ্মণ</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ট্</span> + <span class="deva" style="font-size:13pt">ট</span> = <span class="deva" style="font-size:15pt"><b>ট্ট</b></span> &nbsp;&middot;&nbsp; <span class="deva">চট্টগ্রাম</span> (ചിറ്റഗോങ് നഗരം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ট্ট</span><span class="c deva t-trace"><i class="st"></i>ট্ট</span><span class="c deva t-trace"><i class="st"></i>ট্ট</span><span class="c deva t-trace"><i class="st"></i>ট্ট</span><span class="c deva t-trace"><i class="st"></i>ট্ট</span><span class="c deva t-trace"><i class="st"></i>ট্ট</span><span class="c deva t-trace"><i class="st"></i>ট্ট</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ট্ট</span><span class="c deva t-out"><i class="st"></i>ট্ট</span><span class="c deva t-out"><i class="st"></i>ট্ট</span><span class="c deva t-out"><i class="st"></i>ট্ট</span><span class="c deva t-model"><i class="st"></i>ট্ট</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>চট্টগ্রাম</span><span class="c deva t-trace"><i class="st"></i>চট্টগ্রাম</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 10</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>ഒന്ന് - രണ്ടു കഷണവും കാണാം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">11</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">স্</span> + <span class="deva" style="font-size:13pt">থ</span> = <span class="deva" style="font-size:15pt"><b>স্থ</b></span> &nbsp;&middot;&nbsp; <span class="deva">অবস্থা</span> (അവസ്ഥ)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>স্থ</span><span class="c deva t-trace"><i class="st"></i>স্থ</span><span class="c deva t-trace"><i class="st"></i>স্থ</span><span class="c deva t-trace"><i class="st"></i>স্থ</span><span class="c deva t-trace"><i class="st"></i>স্থ</span><span class="c deva t-trace"><i class="st"></i>স্থ</span><span class="c deva t-trace"><i class="st"></i>স্থ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>স্থ</span><span class="c deva t-out"><i class="st"></i>স্থ</span><span class="c deva t-out"><i class="st"></i>স্থ</span><span class="c deva t-out"><i class="st"></i>স্থ</span><span class="c deva t-model"><i class="st"></i>স্থ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>অবস্থা</span><span class="c deva t-trace"><i class="st"></i>অবস্থা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ক্</span> + <span class="deva" style="font-size:13pt">ত</span> = <span class="deva" style="font-size:15pt"><b>ক্ত</b></span> &nbsp;&middot;&nbsp; <span class="deva">ভক্ত</span> (ഭക്തൻ)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ক্ত</span><span class="c deva t-trace"><i class="st"></i>ক্ত</span><span class="c deva t-trace"><i class="st"></i>ক্ত</span><span class="c deva t-trace"><i class="st"></i>ক্ত</span><span class="c deva t-trace"><i class="st"></i>ক্ত</span><span class="c deva t-trace"><i class="st"></i>ক্ত</span><span class="c deva t-trace"><i class="st"></i>ক্ত</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ক্ত</span><span class="c deva t-out"><i class="st"></i>ক্ত</span><span class="c deva t-out"><i class="st"></i>ক্ত</span><span class="c deva t-out"><i class="st"></i>ক্ত</span><span class="c deva t-model"><i class="st"></i>ক্ত</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ভক্ত</span><span class="c deva t-trace"><i class="st"></i>ভক্ত</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 11</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>രണ്ട് - র-യുടെ രണ്ടു മുഖം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">12</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">র্</span> + <span class="deva" style="font-size:13pt">ম</span> = <span class="deva" style="font-size:15pt"><b>র্ম</b></span> &nbsp;&middot;&nbsp; <span class="deva">কর্ম</span> (കർമ്മം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>র্ম</span><span class="c deva t-trace"><i class="st"></i>র্ম</span><span class="c deva t-trace"><i class="st"></i>র্ম</span><span class="c deva t-trace"><i class="st"></i>র্ম</span><span class="c deva t-trace"><i class="st"></i>র্ম</span><span class="c deva t-trace"><i class="st"></i>র্ম</span><span class="c deva t-trace"><i class="st"></i>র্ম</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>র্ম</span><span class="c deva t-out"><i class="st"></i>র্ম</span><span class="c deva t-out"><i class="st"></i>র্ম</span><span class="c deva t-out"><i class="st"></i>র্ম</span><span class="c deva t-model"><i class="st"></i>র্ম</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>কর্ম</span><span class="c deva t-trace"><i class="st"></i>কর্ম</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">র্</span> + <span class="deva" style="font-size:13pt">ষ</span> = <span class="deva" style="font-size:15pt"><b>র্ষ</b></span> &nbsp;&middot;&nbsp; <span class="deva">বর্ষা</span> (വർഷകാലം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>র্ষ</span><span class="c deva t-trace"><i class="st"></i>র্ষ</span><span class="c deva t-trace"><i class="st"></i>র্ষ</span><span class="c deva t-trace"><i class="st"></i>র্ষ</span><span class="c deva t-trace"><i class="st"></i>র্ষ</span><span class="c deva t-trace"><i class="st"></i>র্ষ</span><span class="c deva t-trace"><i class="st"></i>র্ষ</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>র্ষ</span><span class="c deva t-out"><i class="st"></i>র্ষ</span><span class="c deva t-out"><i class="st"></i>র্ষ</span><span class="c deva t-out"><i class="st"></i>র্ষ</span><span class="c deva t-model"><i class="st"></i>র্ষ</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বর্ষা</span><span class="c deva t-trace"><i class="st"></i>বর্ষা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 12</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>രണ്ട് - র-യുടെ രണ്ടു മുഖം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">13</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">প্</span> + <span class="deva" style="font-size:13pt">র</span> = <span class="deva" style="font-size:15pt"><b>প্র</b></span> &nbsp;&middot;&nbsp; <span class="deva">প্রেম</span> (പ്രേമം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>প্র</span><span class="c deva t-trace"><i class="st"></i>প্র</span><span class="c deva t-trace"><i class="st"></i>প্র</span><span class="c deva t-trace"><i class="st"></i>প্র</span><span class="c deva t-trace"><i class="st"></i>প্র</span><span class="c deva t-trace"><i class="st"></i>প্র</span><span class="c deva t-trace"><i class="st"></i>প্র</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>প্র</span><span class="c deva t-out"><i class="st"></i>প্র</span><span class="c deva t-out"><i class="st"></i>প্র</span><span class="c deva t-out"><i class="st"></i>প্র</span><span class="c deva t-model"><i class="st"></i>প্র</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>প্রেম</span><span class="c deva t-trace"><i class="st"></i>প্রেম</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">গ্</span> + <span class="deva" style="font-size:13pt">র</span> = <span class="deva" style="font-size:15pt"><b>গ্র</b></span> &nbsp;&middot;&nbsp; <span class="deva">গ্রাম</span> (ഗ്രാമം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>গ্র</span><span class="c deva t-trace"><i class="st"></i>গ্র</span><span class="c deva t-trace"><i class="st"></i>গ্র</span><span class="c deva t-trace"><i class="st"></i>গ্র</span><span class="c deva t-trace"><i class="st"></i>গ্র</span><span class="c deva t-trace"><i class="st"></i>গ্র</span><span class="c deva t-trace"><i class="st"></i>গ্র</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>গ্র</span><span class="c deva t-out"><i class="st"></i>গ্র</span><span class="c deva t-out"><i class="st"></i>গ্র</span><span class="c deva t-out"><i class="st"></i>গ্র</span><span class="c deva t-model"><i class="st"></i>গ্র</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>গ্রাম</span><span class="c deva t-trace"><i class="st"></i>গ্রাম</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 13</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>രണ്ട് - র-യുടെ രണ്ടു മുഖം</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">14</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ত্</span> + <span class="deva" style="font-size:13pt">র</span> = <span class="deva" style="font-size:15pt"><b>ত্র</b></span> &nbsp;&middot;&nbsp; <span class="deva">ত্রিশূল</span> (ത്രിശൂലം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ত্র</span><span class="c deva t-trace"><i class="st"></i>ত্র</span><span class="c deva t-trace"><i class="st"></i>ত্র</span><span class="c deva t-trace"><i class="st"></i>ত্র</span><span class="c deva t-trace"><i class="st"></i>ত্র</span><span class="c deva t-trace"><i class="st"></i>ত্র</span><span class="c deva t-trace"><i class="st"></i>ত্র</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ত্র</span><span class="c deva t-out"><i class="st"></i>ত্র</span><span class="c deva t-out"><i class="st"></i>ত্র</span><span class="c deva t-out"><i class="st"></i>ত্র</span><span class="c deva t-model"><i class="st"></i>ত্র</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ত্রিশূল</span><span class="c deva t-trace"><i class="st"></i>ত্রিশূল</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 14</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>മൂന്ന് - য-ഫല: ശബ്ദമില്ല, ഇരട്ടിപ്പ്</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">15</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">দ্</span> + <span class="deva" style="font-size:13pt">য</span> = <span class="deva" style="font-size:15pt"><b>দ্য</b></span> &nbsp;&middot;&nbsp; <span class="deva">বিদ্যা</span> (വിദ്യ)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>দ্য</span><span class="c deva t-trace"><i class="st"></i>দ্য</span><span class="c deva t-trace"><i class="st"></i>দ্য</span><span class="c deva t-trace"><i class="st"></i>দ্য</span><span class="c deva t-trace"><i class="st"></i>দ্য</span><span class="c deva t-trace"><i class="st"></i>দ্য</span><span class="c deva t-trace"><i class="st"></i>দ্য</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>দ্য</span><span class="c deva t-out"><i class="st"></i>দ্য</span><span class="c deva t-out"><i class="st"></i>দ্য</span><span class="c deva t-out"><i class="st"></i>দ্য</span><span class="c deva t-model"><i class="st"></i>দ্য</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বিদ্যা</span><span class="c deva t-trace"><i class="st"></i>বিদ্যা</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ত্</span> + <span class="deva" style="font-size:13pt">য</span> = <span class="deva" style="font-size:15pt"><b>ত্য</b></span> &nbsp;&middot;&nbsp; <span class="deva">সত্য</span> (സത്യം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ত্য</span><span class="c deva t-trace"><i class="st"></i>ত্য</span><span class="c deva t-trace"><i class="st"></i>ত্য</span><span class="c deva t-trace"><i class="st"></i>ত্য</span><span class="c deva t-trace"><i class="st"></i>ত্য</span><span class="c deva t-trace"><i class="st"></i>ত্য</span><span class="c deva t-trace"><i class="st"></i>ত্য</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ত্য</span><span class="c deva t-out"><i class="st"></i>ত্য</span><span class="c deva t-out"><i class="st"></i>ত্য</span><span class="c deva t-out"><i class="st"></i>ত্য</span><span class="c deva t-model"><i class="st"></i>ত্য</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>সত্য</span><span class="c deva t-trace"><i class="st"></i>সত্য</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 15</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>മൂന്ന് - য-ഫല: ശബ്ദമില്ല, ഇരട്ടിപ്പ്</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">16</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">ন্</span> + <span class="deva" style="font-size:13pt">য</span> = <span class="deva" style="font-size:15pt"><b>ন্য</b></span> &nbsp;&middot;&nbsp; <span class="deva">অন্য</span> (മറ്റൊന്ന്)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ন্য</span><span class="c deva t-trace"><i class="st"></i>ন্য</span><span class="c deva t-trace"><i class="st"></i>ন্য</span><span class="c deva t-trace"><i class="st"></i>ন্য</span><span class="c deva t-trace"><i class="st"></i>ন্য</span><span class="c deva t-trace"><i class="st"></i>ন্য</span><span class="c deva t-trace"><i class="st"></i>ন্য</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ন্য</span><span class="c deva t-out"><i class="st"></i>ন্য</span><span class="c deva t-out"><i class="st"></i>ন্য</span><span class="c deva t-out"><i class="st"></i>ন্য</span><span class="c deva t-model"><i class="st"></i>ন্য</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>অন্য</span><span class="c deva t-trace"><i class="st"></i>অন্য</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">ব্</span> + <span class="deva" style="font-size:13pt">য</span> = <span class="deva" style="font-size:15pt"><b>ব্য</b></span> &nbsp;&middot;&nbsp; <span class="deva">ব্যাপার</span> (കാര്യം, സംഗതി)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>ব্য</span><span class="c deva t-trace"><i class="st"></i>ব্য</span><span class="c deva t-trace"><i class="st"></i>ব্য</span><span class="c deva t-trace"><i class="st"></i>ব্য</span><span class="c deva t-trace"><i class="st"></i>ব্য</span><span class="c deva t-trace"><i class="st"></i>ব্য</span><span class="c deva t-trace"><i class="st"></i>ব্য</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>ব্য</span><span class="c deva t-out"><i class="st"></i>ব্য</span><span class="c deva t-out"><i class="st"></i>ব্য</span><span class="c deva t-out"><i class="st"></i>ব্য</span><span class="c deva t-model"><i class="st"></i>ব্য</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>ব্যাপার</span><span class="c deva t-trace"><i class="st"></i>ব্যাপার</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 16</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>മൂന്ന് - ব-ഫല: എഴുതും, ഉച്ചരിക്കില്ല</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">17</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">স্</span> + <span class="deva" style="font-size:13pt">ব</span> = <span class="deva" style="font-size:15pt"><b>স্ব</b></span> &nbsp;&middot;&nbsp; <span class="deva">স্বাধীন</span> (സ്വതന്ത്രം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>স্ব</span><span class="c deva t-trace"><i class="st"></i>স্ব</span><span class="c deva t-trace"><i class="st"></i>স্ব</span><span class="c deva t-trace"><i class="st"></i>স্ব</span><span class="c deva t-trace"><i class="st"></i>স্ব</span><span class="c deva t-trace"><i class="st"></i>স্ব</span><span class="c deva t-trace"><i class="st"></i>স্ব</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>স্ব</span><span class="c deva t-out"><i class="st"></i>স্ব</span><span class="c deva t-out"><i class="st"></i>স্ব</span><span class="c deva t-out"><i class="st"></i>স্ব</span><span class="c deva t-model"><i class="st"></i>স্ব</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>স্বাধীন</span><span class="c deva t-trace"><i class="st"></i>স্বাধীন</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div><div class="rowlabel"><span><span class="deva" style="font-size:13pt">শ্</span> + <span class="deva" style="font-size:13pt">ব</span> = <span class="deva" style="font-size:15pt"><b>শ্ব</b></span> &nbsp;&middot;&nbsp; <span class="deva">বিশ্ব</span> (വിശ്വം)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>শ্ব</span><span class="c deva t-trace"><i class="st"></i>শ্ব</span><span class="c deva t-trace"><i class="st"></i>শ্ব</span><span class="c deva t-trace"><i class="st"></i>শ্ব</span><span class="c deva t-trace"><i class="st"></i>শ্ব</span><span class="c deva t-trace"><i class="st"></i>শ্ব</span><span class="c deva t-trace"><i class="st"></i>শ্ব</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>শ্ব</span><span class="c deva t-out"><i class="st"></i>শ্ব</span><span class="c deva t-out"><i class="st"></i>শ্ব</span><span class="c deva t-out"><i class="st"></i>শ্ব</span><span class="c deva t-model"><i class="st"></i>শ্ব</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>বিশ্ব</span><span class="c deva t-trace"><i class="st"></i>বিশ্ব</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 17</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l"><div class="meta">
+      <div class="eq" style="font-size:15pt"><b>മൂന്ന് - ব-ഫല: എഴുതും, ഉച്ചരിക്കില്ല</b></div>
+      <div class="ex">കൂട്ടിയെഴുത്ത് നിങ്ങളുടെ കൈയുടെ ശീലമാണ് - ന്ത, ക്ഷ, ജ്ഞ. ഇവിടെ പുതിയത് <b>രൂപം</b>: ബംഗാളി പലപ്പോഴും രണ്ടാമത്തെ അക്ഷരം ആദ്യത്തേതിന്റെ <b>താഴെ</b> വയ്ക്കുന്നു.</div>
+    </div></div>
+    <div class="ph-r"><div class="grp">കൂട്ടക്ഷരം</div><div class="num">18</div></div>
+  </div>
+  <div class="rowlabel"><span><span class="deva" style="font-size:13pt">দ্</span> + <span class="deva" style="font-size:13pt">ব</span> = <span class="deva" style="font-size:15pt"><b>দ্ব</b></span> &nbsp;&middot;&nbsp; <span class="deva">দ্বার</span> (ദ്വാരം, വാതിൽ)</span><span>ചാരനിറ അക്ഷരത്തിനു <b>മുകളിലൂടെ എഴുതുക</b></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-trace"><i class="st"></i>দ্ব</span><span class="c deva t-trace"><i class="st"></i>দ্ব</span><span class="c deva t-trace"><i class="st"></i>দ্ব</span><span class="c deva t-trace"><i class="st"></i>দ্ব</span><span class="c deva t-trace"><i class="st"></i>দ্ব</span><span class="c deva t-trace"><i class="st"></i>দ্ব</span><span class="c deva t-trace"><i class="st"></i>দ্ব</span></div>
+</div><div class="rowlabel"><span>പൊള്ളയായ അക്ഷരം <b>ഉള്ളിൽ നിറയ്ക്കുക</b></span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-out"><i class="st"></i>দ্ব</span><span class="c deva t-out"><i class="st"></i>দ্ব</span><span class="c deva t-out"><i class="st"></i>দ্ব</span><span class="c deva t-out"><i class="st"></i>দ্ব</span><span class="c deva t-model"><i class="st"></i>দ্ব</span></div>
+</div><div class="rowlabel"><span>വാക്കിനുള്ളിൽ വയ്ക്കുക</span><span>പിന്നെ സ്വന്തമായി</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c deva t-model"><i class="st"></i>দ্বার</span><span class="c deva t-trace"><i class="st"></i>দ্বার</span></div>
+</div><div class="rowlabel"><span></span><span>ഇനി സ്വന്തമായി എഴുതുക</span></div>
+<div class="row words">
+  <div class="ln a"></div><div class="ln h"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>പുസ്തകം 4 · കൂട്ടക്ഷരം</span><span class="r">BHASHASETU &middot; മലയാളത്തിൽ നിന്ന് ബംഗാളി &middot; 18</span></div>
+</div>
+</body>
+</html>

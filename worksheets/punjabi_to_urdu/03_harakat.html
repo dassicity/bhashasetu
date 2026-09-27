@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pa">
+<head>
+<meta charset="UTF-8"/>
+<title>ਹਰਕਾਤ - ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Gurmukhi:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --base: 17mm;         /* the baseline - letters SIT on this */
+  --gs:   15mm;         /* practice font size */
+  --asc-ratio:  0.714;  /* ا ل ک reach this far above the baseline */
+  --desc-ratio: 0.420;  /* م and the Nastaliq cascade reach this far below */
+  --x-ratio:    0.310;  /* x-height of ب س ر, drawn as a faint guide */
+  --ink:#1C1611; --faded:#6B5B48; --sindoor:#A83024; --teal:#1F4D4A;
+  --line:#9aa8b8; --line-soft:#c7d0da;
+  --trace:#c9c9c9; --outline:#bdbdbd; --faint:#e3e3e3;
+}
+@page{ size:A4; margin:11mm 10mm 12mm 10mm; }
+*{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html,body{ margin:0; padding:0; background:#fff; }
+body{ font-family:'Noto Serif Gurmukhi',serif; color:var(--ink); font-size:10pt; direction:ltr; }
+.ur{ font-family:'Noto Nastaliq Urdu',serif; direction:rtl; unicode-bidi:isolate; }
+
+.sheet{ page-break-after:always; break-after:page; position:relative; min-height:262mm; }
+.sheet:last-child{ page-break-after:auto; break-after:auto; }
+
+.ph{ display:flex; align-items:flex-end; justify-content:space-between;
+     border-bottom:0.5mm solid var(--ink); padding-bottom:2mm; margin-bottom:3mm; }
+.ph-l{ display:flex; align-items:flex-end; gap:6mm; }
+.ph .big{ font-size:24mm; line-height:1.5; }
+.ph .meta{ padding-bottom:2mm; }
+.ph .eq{ font-size:13pt; } .ph .eq b{ color:var(--sindoor); }
+.ph .nm{ font-size:11pt; color:var(--teal); }
+.ph .ex{ font-size:10pt; color:var(--faded); margin-top:1mm; }
+.ph-r{ text-align:right; padding-bottom:2mm; }
+.ph-r .grp{ font-size:9pt; color:var(--faded); }
+.ph-r .num{ font-size:9pt; color:var(--faded); letter-spacing:.14em; }
+
+.note{ font-size:9.5pt; line-height:1.6; color:var(--ink); margin:0 0 3mm;
+       padding:2mm 3mm; background:rgba(31,77,74,0.06); border-right:2mm solid var(--teal); }
+.note b{ color:var(--sindoor); }
+
+.rowlabel{ font-size:8.5pt; color:var(--faded); margin:0 0 0.8mm;
+           display:flex; justify-content:space-between; align-items:baseline; }
+.rowlabel b{ color:var(--teal); font-weight:600; }
+.row{ position:relative; margin-bottom:2.4mm;
+      --asc:  calc(var(--base) - var(--asc-ratio) * var(--gs));
+      --xh:   calc(var(--base) - var(--x-ratio) * var(--gs));
+      --desc: calc(var(--base) + var(--desc-ratio) * var(--gs));
+      height: calc(var(--desc) + 2mm); }
+.row .ln{ position:absolute; left:0; right:0; height:0; }
+.ln.a{ top:var(--asc);  border-top:0.25mm dashed var(--line-soft); }
+.ln.x{ top:var(--xh);   border-top:0.2mm dotted #dde3ea; }
+.ln.b{ top:var(--base); border-top:0.45mm solid var(--line); }
+.ln.d{ top:var(--desc); border-top:0.25mm dashed var(--line-soft); }
+/* right-to-left: cells run from the right edge; the strut pins the baseline */
+.row .cells{ position:absolute; left:0; right:0; top:0;
+             display:flex; flex-direction:row; justify-content:flex-start;
+             direction:rtl; line-height:0; }
+.st{ display:inline-block; width:0; height:var(--base); vertical-align:baseline; }
+.row .c{ font-family:'Noto Nastaliq Urdu',serif; font-size:var(--gs); line-height:0;
+         flex:0 0 auto; padding-left:7mm; text-align:center; }
+/* word and joining rows: a tighter band so eight rows fit one page */
+.row.wide{ --base:13mm; --gs:12mm; }
+.row.wide .c{ padding-left:12mm; }
+.row.sent{ --gs:11mm; }
+.row.sent .cells{ display:block; }
+.row.sent .c{ display:block; padding:0; text-align:right; }
+
+.t-model{ color:var(--ink); } .t-trace{ color:var(--trace); }
+.t-out{ color:transparent; -webkit-text-stroke:0.25mm var(--outline); }
+.t-faint{ color:var(--faint); }
+
+.forms{ display:flex; gap:3mm; margin:0 0 3mm; direction:rtl; }
+.formbox{ border:0.3mm dashed var(--line-soft); border-radius:1mm;
+          padding:1mm 4mm 0.5mm; text-align:center; flex:1; }
+.formbox .g{ font-family:'Noto Nastaliq Urdu',serif; font-size:13mm; line-height:2; }
+.formbox .cap{ font-size:8pt; color:var(--faded); direction:ltr; }
+.formbox .cap b{ color:var(--teal); }
+
+.cover{ text-align:center; padding-top:22mm; }
+.cover .kicker{ font-size:10pt; letter-spacing:.24em; color:var(--sindoor); }
+.cover h1{ font-size:28pt; margin:6mm 0 2mm; line-height:1.3; }
+.cover h1 .ur{ display:block; font-size:32pt; margin-bottom:5mm; line-height:2; }
+.cover .sub{ font-size:12pt; color:var(--faded); max-width:140mm; margin:0 auto; line-height:1.75; }
+.rules{ text-align:left; max-width:152mm; margin:10mm auto 0; }
+.rules h2{ font-size:12pt; margin:0 0 3mm; color:var(--sindoor); }
+.rules ol{ padding-left:6mm; margin:0; }
+.rules li{ margin-bottom:3mm; line-height:1.7; font-size:10.5pt; }
+.rules li b{ color:var(--teal); }
+.cover .foot{ position:absolute; bottom:6mm; left:0; right:0; text-align:center;
+              font-family:'JetBrains Mono',monospace; font-size:8pt; letter-spacing:.16em;
+              text-transform:uppercase; color:var(--sindoor); }
+.pf{ position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between;
+     border-top:0.25mm solid var(--line-soft); padding-top:1.5mm; font-size:8pt; color:var(--faded); }
+</style>
+</head>
+<body>
+<div class="sheet cover">
+  <div class="kicker">ਕਾਪੀ ੩</div>
+  <h1><span class="ur">حرکات</span>ਹਰਕਾਤ ਅਤੇ ਲੰਮੇ ਸਵਰ</h1>
+  <p class="sub">ਉਰਦੂ ਵਿੱਚ ਛੋਟੇ ਸਵਰ <b>ਨਿਸ਼ਾਨ</b> ਹਨ ਜੋ ਆਮ ਛਪਾਈ ਵਿੱਚ ਲੱਗਦੇ ਹੀ ਨਹੀਂ; ਲੰਮੇ ਸਵਰ ਪੂਰੇ <b>ਅੱਖਰ</b> ਹਨ: ا و ی ے। ਉਰਦੂ ਪੜ੍ਹਨ ਦੀ ਕੁੰਜੀ ਇਹੀ ਫ਼ਰਕ ਹੈ।</p>
+  <div class="rules"><h2>ਲਿਖਣ ਤੋਂ ਪਹਿਲਾਂ ਪੰਜ ਗੱਲਾਂ</h2><ol><li><b>ਸੱਜਿਓਂ ਖੱਬੇ।</b> ਗੁਰਮੁਖੀ ਵਾਲਾ ਹੱਥ ਆਪੇ ਖੱਬੇ ਕਿਨਾਰੇ ਵੱਲ ਜਾਵੇਗਾ। ਹਰ ਸਤਰ ਤੋਂ ਪਹਿਲਾਂ ਕਲਮ ਸੱਜੇ ਕਿਨਾਰੇ ਉੱਤੇ ਰੱਖੋ। ਅੰਕ ਫਿਰ ਵੀ ਖੱਬਿਓਂ ਸੱਜੇ।</li><li><b>ਲਕੀਰ ਉੱਤੇ ਬਿਠਾਓ, ਲਟਕਾਓ ਨਹੀਂ।</b> ਗੁਰਮੁਖੀ ਅੱਖਰ ਉੱਪਰਲੀ ਲਕੀਰ ਤੋਂ ਲਟਕਦੇ ਹਨ; ਉਰਦੂ ਅੱਖਰ ਮੋਟੀ ਲਕੀਰ ਉੱਤੇ ਬੈਠਦੇ ਹਨ। ا ل ک ਉੱਪਰ ਉੱਠਦੇ ਹਨ, م ج ع ی ਦੀ ਪੂਛ ਹੇਠਾਂ ਜਾਂਦੀ ਹੈ।</li><li><b>ਇੱਕ ਅੱਖਰ, ਚਾਰ ਸ਼ਕਲਾਂ।</b> ਗੁਰਮੁਖੀ ਵਿੱਚ ਸਿਰਫ਼ ਪੈਰੀਂ ਅੱਖਰ ਸ਼ਕਲ ਬਦਲਦੇ ਹਨ; ਉਰਦੂ ਵਿੱਚ ਹਰ ਅੱਖਰ ਥਾਂ ਮੁਤਾਬਕ ਬਦਲਦਾ ਹੈ। ਜੁੜੇ ਅੱਖਰਾਂ ਵਿਚਕਾਰ ਕਲਮ ਨਾ ਚੁੱਕੋ।</li><li><b>ਦਸ ਅੱਖਰ ਖੱਬਾ ਹੱਥ ਨਹੀਂ ਮਿਲਾਉਂਦੇ।</b> ا آ د ڈ ذ ر ڑ ز ژ و ਮਗਰੋਂ ਕਲਮ ਚੁੱਕੋ। ਸ਼ਬਦ ਦੇ ਵਿਚਕਾਰ ਰਹੀ ਖ਼ਾਲੀ ਥਾਂ ਗ਼ਲਤੀ ਨਹੀਂ, ਨਿਯਮ ਹੈ।</li><li><b>ਦੋ-ਚਸ਼ਮੀ ਹੇ ਲਿਖੋ, ਸਾਹ ਕੱਢੋ।</b> ھ ਵਾਲਾ ਹਰ ਅੱਖਰ ਲਿਖਦੇ ਵੇਲੇ ਉੱਚੀ ਬੋਲੋ: گھ ਗ ਨਾਲ ਸਾਹ ਹੈ, ਪੰਜਾਬੀ ਘ ਵਾਲੀ ਸੁਰ ਨਹੀਂ।</li></ol></div>
+  <div class="legend"><h3>ਇਸ ਕਾਪੀ ਵਿੱਚ ਚਾਰ ਤਰ੍ਹਾਂ ਦੀ ਲਿਖਾਈ</h3><div class="lg">
+      <div><span class="s ur t-model">ح</span>ਨਮੂਨਾ</div>
+      <div><span class="s ur t-trace">ح</span>ਧੁੰਦਲਾ - ਉੱਤੋਂ ਖਿੱਚੋ</div>
+      <div><span class="s ur t-out">ح</span>ਖੋਖਲਾ - ਅੰਦਰ ਭਰੋ</div>
+      <div><span class="s ur t-faint">ح</span>ਬਹੁਤ ਹਲਕਾ - ਲਗਭਗ ਆਪ</div></div></div>
+  <div class="foot">made by Nil &middot; using Claude</div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">بَ</div>
+      <div class="meta"><div class="nm">ਜ਼ਬਰ</div><div class="eq">= <b>ਬ (ਮੁਕਤਾ)</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੧</div></div>
+  </div>
+  <div class="note">ਅੱਖਰ ਉੱਤੇ ਤਿਰਛੀ ਲਕੀਰ। ਆਮ ਛਪਾਈ ਵਿੱਚ <b>ਲੱਗਦੀ ਹੀ ਨਹੀਂ</b> - ਪੜ੍ਹਨ ਵੇਲੇ ਤੁਸੀਂ ਆਪ ਭਰਦੇ ਹੋ।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بَ</span><span class="c t-trace"><i class="st"></i>بَ</span><span class="c t-trace"><i class="st"></i>بَ</span><span class="c t-trace"><i class="st"></i>بَ</span><span class="c t-trace"><i class="st"></i>بَ</span><span class="c t-trace"><i class="st"></i>بَ</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>بَ</span><span class="c t-out"><i class="st"></i>بَ</span><span class="c t-out"><i class="st"></i>بَ</span><span class="c t-out"><i class="st"></i>بَ</span><span class="c t-out"><i class="st"></i>بَ</span><span class="c t-out"><i class="st"></i>بَ</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بَ</span><span class="c t-faint"><i class="st"></i>بَ</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੧</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">بِ</div>
+      <div class="meta"><div class="nm">ਜ਼ੇਰ</div><div class="eq">= <b>ਬਿ (ਸਿਹਾਰੀ)</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੨</div></div>
+  </div>
+  <div class="note">ਹੇਠਾਂ ਤਿਰਛੀ ਲਕੀਰ: ਤੁਹਾਡੀ ਸਿਹਾਰੀ, ਪਰ ਛਪਦੀ ਨਹੀਂ। ਇਹੀ ਜ਼ੇਰ ਅੱਗੇ ਜਾ ਕੇ <b>ਇਜ਼ਾਫ਼ਤ</b> ਵੀ ਬਣਦੀ ਹੈ।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بِ</span><span class="c t-trace"><i class="st"></i>بِ</span><span class="c t-trace"><i class="st"></i>بِ</span><span class="c t-trace"><i class="st"></i>بِ</span><span class="c t-trace"><i class="st"></i>بِ</span><span class="c t-trace"><i class="st"></i>بِ</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>بِ</span><span class="c t-out"><i class="st"></i>بِ</span><span class="c t-out"><i class="st"></i>بِ</span><span class="c t-out"><i class="st"></i>بِ</span><span class="c t-out"><i class="st"></i>بِ</span><span class="c t-out"><i class="st"></i>بِ</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بِ</span><span class="c t-faint"><i class="st"></i>بِ</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੨</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">بُ</div>
+      <div class="meta"><div class="nm">ਪੇਸ਼</div><div class="eq">= <b>ਬੁ (ਔਂਕੜ)</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੩</div></div>
+  </div>
+  <div class="note">ਉੱਤੇ ਛੋਟਾ ਵਾਓ: ਤੁਹਾਡਾ ਔਂਕੜ, ਪਰ ਛਪਦਾ ਨਹੀਂ। ਛੋਟਾ ਵਾਓ ਛੋਟਾ ਉ, ਵੱਡਾ ਵਾਓ ਲੰਮਾ ਊ।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بُ</span><span class="c t-trace"><i class="st"></i>بُ</span><span class="c t-trace"><i class="st"></i>بُ</span><span class="c t-trace"><i class="st"></i>بُ</span><span class="c t-trace"><i class="st"></i>بُ</span><span class="c t-trace"><i class="st"></i>بُ</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>بُ</span><span class="c t-out"><i class="st"></i>بُ</span><span class="c t-out"><i class="st"></i>بُ</span><span class="c t-out"><i class="st"></i>بُ</span><span class="c t-out"><i class="st"></i>بُ</span><span class="c t-out"><i class="st"></i>بُ</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بُ</span><span class="c t-faint"><i class="st"></i>بُ</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੩</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">بْ</div>
+      <div class="meta"><div class="nm">ਜਜ਼ਮ</div><div class="eq">= <b>ਬ੍ (ਸਵਰ ਨਹੀਂ)</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੪</div></div>
+  </div>
+  <div class="note">ਉੱਤੇ ਛੋਟਾ ਗੋਲਾ: ਇਸ ਅੱਖਰ ਮਗਰੋਂ ਕੋਈ ਸਵਰ ਨਹੀਂ, ਗੁਰਮੁਖੀ ਦੇ ਹਲੰਤ (੍) ਵਾਂਗ।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بْ</span><span class="c t-trace"><i class="st"></i>بْ</span><span class="c t-trace"><i class="st"></i>بْ</span><span class="c t-trace"><i class="st"></i>بْ</span><span class="c t-trace"><i class="st"></i>بْ</span><span class="c t-trace"><i class="st"></i>بْ</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>بْ</span><span class="c t-out"><i class="st"></i>بْ</span><span class="c t-out"><i class="st"></i>بْ</span><span class="c t-out"><i class="st"></i>بْ</span><span class="c t-out"><i class="st"></i>بْ</span><span class="c t-out"><i class="st"></i>بْ</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بْ</span><span class="c t-faint"><i class="st"></i>بْ</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੪</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">بّ</div>
+      <div class="meta"><div class="nm">ਤਸ਼ਦੀਦ</div><div class="eq">= <b>ੱਬ (ਅੱਧਕ)</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੫</div></div>
+  </div>
+  <div class="note">ਇਹ ਤੁਹਾਡਾ <b>ਅੱਧਕ</b> ਹੈ: ਅੱਖਰ ਦੋ ਵਾਰ। ਫ਼ਰਕ ਇਹ ਕਿ ਅੱਧਕ ਪਿਛਲੇ ਅੱਖਰ ਉੱਤੇ ਬੈਠਦਾ ਹੈ, ਤਸ਼ਦੀਦ ਦੁੱਗਣੇ ਅੱਖਰ ਉੱਤੇ: اَبّا = ਅੱਬਾ।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بّ</span><span class="c t-trace"><i class="st"></i>بّ</span><span class="c t-trace"><i class="st"></i>بّ</span><span class="c t-trace"><i class="st"></i>بّ</span><span class="c t-trace"><i class="st"></i>بّ</span><span class="c t-trace"><i class="st"></i>بّ</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>بّ</span><span class="c t-out"><i class="st"></i>بّ</span><span class="c t-out"><i class="st"></i>بّ</span><span class="c t-out"><i class="st"></i>بّ</span><span class="c t-out"><i class="st"></i>بّ</span><span class="c t-out"><i class="st"></i>بّ</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بّ</span><span class="c t-faint"><i class="st"></i>بّ</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੫</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">آ</div>
+      <div class="meta"><div class="nm">ਮੱਦ</div><div class="eq">= <b>ਆ</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੬</div></div>
+  </div>
+  <div class="note">ਅਲਿਫ਼ ਦੇ ਸਿਰ ਉੱਤੇ ਲਹਿਰ। ਸ਼ਬਦ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਆ ਇਹੀ ਬਣਾਉਂਦੀ ਹੈ: آم, آپ, آج।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span><span class="c t-trace"><i class="st"></i>آ</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span><span class="c t-out"><i class="st"></i>آ</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>آ</span><span class="c t-faint"><i class="st"></i>آ</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੬</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">با</div>
+      <div class="meta"><div class="nm">ਅਲਿਫ਼ - ਲੰਮਾ ਆ</div><div class="eq">= <b>ਬਾ (ਕੰਨਾ)</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੭</div></div>
+  </div>
+  <div class="note">ਲੰਮੇ ਸਵਰ ਨਿਸ਼ਾਨ ਨਹੀਂ, <b>ਪੂਰੇ ਅੱਖਰ</b> ਹਨ: ਤੁਹਾਡਾ ਕੰਨਾ ਇੱਥੇ ਇੱਕ ਖੜ੍ਹਾ ਅਲਿਫ਼ ਹੈ। ਇਸੇ ਲਈ کتاب ਦਾ ਆ ਦਿਸਦਾ ਹੈ, ਇ ਨਹੀਂ।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>با</span><span class="c t-trace"><i class="st"></i>با</span><span class="c t-trace"><i class="st"></i>با</span><span class="c t-trace"><i class="st"></i>با</span><span class="c t-trace"><i class="st"></i>با</span><span class="c t-trace"><i class="st"></i>با</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>با</span><span class="c t-out"><i class="st"></i>با</span><span class="c t-out"><i class="st"></i>با</span><span class="c t-out"><i class="st"></i>با</span><span class="c t-out"><i class="st"></i>با</span><span class="c t-out"><i class="st"></i>با</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>با</span><span class="c t-faint"><i class="st"></i>با</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੭</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">بی</div>
+      <div class="meta"><div class="nm">ਛੋਟੀ ਯੇ - ਲੰਮੀ ਈ</div><div class="eq">= <b>ਬੀ (ਬਿਹਾਰੀ)</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੮</div></div>
+  </div>
+  <div class="note">ਬਿਹਾਰੀ = ی, ਇੱਕ ਪੂਰਾ ਅੱਖਰ। ਇਹੀ ی ਸ਼ਬਦ ਦੇ ਵਿਚਕਾਰ ਲਾਂ ਵੀ ਪੜ੍ਹੀ ਜਾਂਦੀ ਹੈ: دیکھنا।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بی</span><span class="c t-trace"><i class="st"></i>بی</span><span class="c t-trace"><i class="st"></i>بی</span><span class="c t-trace"><i class="st"></i>بی</span><span class="c t-trace"><i class="st"></i>بی</span><span class="c t-trace"><i class="st"></i>بی</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>بی</span><span class="c t-out"><i class="st"></i>بی</span><span class="c t-out"><i class="st"></i>بی</span><span class="c t-out"><i class="st"></i>بی</span><span class="c t-out"><i class="st"></i>بی</span><span class="c t-out"><i class="st"></i>بی</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بی</span><span class="c t-faint"><i class="st"></i>بی</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੮</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">بو</div>
+      <div class="meta"><div class="nm">ਵਾਓ - ਊ / ਓ / ਔ</div><div class="eq">= <b>ਬੂ / ਬੋ / ਬੌ</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੯</div></div>
+  </div>
+  <div class="note">ਦੁਲੈਂਕੜ, ਹੋੜਾ, ਕਨੌੜਾ - ਤਿੰਨੇ و ਨਾਲ: دور, دو, اور। ਅਤੇ ਉਹੀ و ਵਿਅੰਜਨ ਵ ਵੀ ਹੈ: وقت।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بو</span><span class="c t-trace"><i class="st"></i>بو</span><span class="c t-trace"><i class="st"></i>بو</span><span class="c t-trace"><i class="st"></i>بو</span><span class="c t-trace"><i class="st"></i>بو</span><span class="c t-trace"><i class="st"></i>بو</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>بو</span><span class="c t-out"><i class="st"></i>بو</span><span class="c t-out"><i class="st"></i>بو</span><span class="c t-out"><i class="st"></i>بو</span><span class="c t-out"><i class="st"></i>بو</span><span class="c t-out"><i class="st"></i>بو</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بو</span><span class="c t-faint"><i class="st"></i>بو</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੯</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">بے</div>
+      <div class="meta"><div class="nm">ਬੜੀ ਯੇ - ਏ / ਐ</div><div class="eq">= <b>ਬੇ / ਬੈ</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੧੦</div></div>
+  </div>
+  <div class="note">ਸਿਰਫ਼ ਸ਼ਬਦ ਦੇ <b>ਅੰਤ</b> ਵਿੱਚ: کے, ہے। ਵਿਚਕਾਰ ਕਦੇ ਨਹੀਂ, ਉੱਥੇ ਛੋਟੀ ਯੇ।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بے</span><span class="c t-trace"><i class="st"></i>بے</span><span class="c t-trace"><i class="st"></i>بے</span><span class="c t-trace"><i class="st"></i>بے</span><span class="c t-trace"><i class="st"></i>بے</span><span class="c t-trace"><i class="st"></i>بے</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>بے</span><span class="c t-out"><i class="st"></i>بے</span><span class="c t-out"><i class="st"></i>بے</span><span class="c t-out"><i class="st"></i>بے</span><span class="c t-out"><i class="st"></i>بے</span><span class="c t-out"><i class="st"></i>بے</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بے</span><span class="c t-faint"><i class="st"></i>بے</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੧੦</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">بں</div>
+      <div class="meta"><div class="nm">ਨੂਨ ਗ਼ੁੰਨਾ</div><div class="eq">= <b>ਬਂ</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੧੧</div></div>
+  </div>
+  <div class="note">ਬਿੰਦੀ ਤੋਂ ਬਿਨਾਂ ਨੂਨ, ਸਿਰਫ਼ ਅੰਤ ਵਿੱਚ: ਇਹ ਤੁਹਾਡੀ <b>ਬਿੰਦੀ ਜਾਂ ਟਿੱਪੀ</b> ਹੈ: ماں, ہیں।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بں</span><span class="c t-trace"><i class="st"></i>بں</span><span class="c t-trace"><i class="st"></i>بں</span><span class="c t-trace"><i class="st"></i>بں</span><span class="c t-trace"><i class="st"></i>بں</span><span class="c t-trace"><i class="st"></i>بں</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>بں</span><span class="c t-out"><i class="st"></i>بں</span><span class="c t-out"><i class="st"></i>بں</span><span class="c t-out"><i class="st"></i>بں</span><span class="c t-out"><i class="st"></i>بں</span><span class="c t-out"><i class="st"></i>بں</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بں</span><span class="c t-faint"><i class="st"></i>بں</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੧੧</span></div>
+</div>
+<div class="sheet">
+  <div class="ph">
+    <div class="ph-l">
+      <div class="big ur">بھ</div>
+      <div class="meta"><div class="nm">ਦੋ-ਚਸ਼ਮੀ ਹੇ</div><div class="eq">= <b>ਭ (ਸਾਹ ਨਾਲ)</b></div></div>
+    </div>
+    <div class="ph-r"><div class="grp">ਹਰਕਾਤ ਅਤੇ ਮੱਦ</div><div class="num">੧੨</div></div>
+  </div>
+  <div class="note">⚡ ਆਪਣੀ ਆਵਾਜ਼ ਨਹੀਂ; ਪਿਛਲੇ ਅੱਖਰ ਵਿੱਚ <b>ਸਾਹ</b> ਭਰਦੀ ਹੈ। ਪੰਜਾਬੀ ਵਾਂਗ ਸੁਰ ਨਹੀਂ: بھائی ਵਿੱਚ ਭ ਸਾਹ ਨਾਲ।</div>
+  <div class="rowlabel"><span>ਧੁੰਦਲੇ ਦੇ <b>ਉੱਤੋਂ</b> ਖਿੱਚੋ</span><span>ਸੱਜੇ ਪਾਸਿਓਂ ਸ਼ੁਰੂ →</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-trace"><i class="st"></i>بھ</span><span class="c t-trace"><i class="st"></i>بھ</span><span class="c t-trace"><i class="st"></i>بھ</span><span class="c t-trace"><i class="st"></i>بھ</span><span class="c t-trace"><i class="st"></i>بھ</span><span class="c t-trace"><i class="st"></i>بھ</span></div>
+</div>
+  <div class="rowlabel"><span>ਖੋਖਲੇ ਅੱਖਰ <b>ਭਰੋ</b></span><span>ਛੇ ਵਾਰ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-out"><i class="st"></i>بھ</span><span class="c t-out"><i class="st"></i>بھ</span><span class="c t-out"><i class="st"></i>بھ</span><span class="c t-out"><i class="st"></i>بھ</span><span class="c t-out"><i class="st"></i>بھ</span><span class="c t-out"><i class="st"></i>بھ</span></div>
+</div>
+  <div class="rowlabel"><span>ਸ਼ੁਰੂਆਤ ਦਿੱਤੀ ਹੈ</span><span>ਸਤਰ ਪੂਰੀ ਕਰੋ</span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"><span class="c t-model"><i class="st"></i>بھ</span><span class="c t-faint"><i class="st"></i>بھ</span></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="rowlabel"><span>ਹੁਣ ਆਪ ਲਿਖੋ</span><span></span></div>
+<div class="row ">
+  <div class="ln a"></div><div class="ln x"></div><div class="ln b"></div><div class="ln d"></div>
+  <div class="cells"></div>
+</div>
+  <div class="pf"><span>ਕਾਪੀ ੩ · ਹਰਕਾਤ</span><span>BHASHASETU &middot; ਪੰਜਾਬੀ ਤੋਂ ਉਰਦੂ &middot; ੧੨</span></div>
+</div>
+</body>
+</html>
